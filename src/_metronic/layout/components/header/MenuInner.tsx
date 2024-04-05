@@ -8,7 +8,29 @@ export function MenuInner() {
   return (
     <>
       <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
-      <MenuItem title='Layout Builder' to='/builder' />
+      {/* <MenuItem title='Layout Builder' to='/builder' /> */}
+     {/* order page */}
+      <MenuItem title='Order' to='/order' />
+
+        {/* Brand */}
+        <MenuInnerWithSub title='Brand' to='/Brand' menuPlacement='bottom-start' menuTrigger='click'>
+        {/* PAGES */}
+        <MenuInnerWithSub
+          title='Callaway'
+          to='/brand/callaway'
+          icon='message-text-2'
+          hasArrow={true}
+          menuPlacement='right-start'
+          menuTrigger={`{default:'click', lg: 'hover'}`}
+        >
+          <MenuItem to='/brand/callaway/apparel' title='Callaway Apparel' hasBullet={true} />
+          <MenuItem to='/brand/callaway/goods' title='Callaway Apparelt' hasBullet={true} />
+          <MenuItem to='/brand/callaway/odyssey' title='Odyssey' hasBullet={true} />
+        </MenuInnerWithSub>
+        <MenuItem icon='shield-tick' to='/brand/callaway/ogio' title='Ogio' />
+        <MenuItem icon='shield-tick' to='/brand/callaway/travis-mathew' title='Travis Mathew' />
+      </MenuInnerWithSub>
+
       <MenuInnerWithSub
         title='Crafted'
         to='/crafted'
