@@ -11,16 +11,17 @@ import {PasswordMeterComponent} from '../../../../_metronic/assets/ts/components
 import {useAuth} from '../core/Auth'
 
 const initialValues = {
-  firstname: '',
-  lastname: '',
+  username:'',
   email: '',
   password: '',
-  changepassword: '',
+  confirmPassword: '',
   acceptTerms: false,
+  changepassword:''
+
 }
 
 const registrationSchema = Yup.object().shape({
-  firstname: Yup.string()
+  username: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('First name is required'),
@@ -29,10 +30,10 @@ const registrationSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
-  lastname: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Last name is required'),
+  // lastname: Yup.string()
+  //   .min(3, 'Minimum 3 symbols')
+  //   .max(50, 'Maximum 50 symbols')
+  //   .required('Last name is required'),
   password: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
@@ -53,14 +54,13 @@ export function Registration() {
     validationSchema: registrationSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
+      const data={
+        email:values.email,
+        username:values.username,
+        password: values.password,
+      }
       try {
-        const {data: auth} = await register(
-          values.email,
-          values.firstname,
-          values.lastname,
-          values.password,
-          values.changepassword
-        )
+        const {data: auth} = await register(data)
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
         setCurrentUser(user)
@@ -152,58 +152,31 @@ export function Registration() {
 
       {/* begin::Form group Firstname */}
       <div className='fv-row mb-8'>
-        <label className='form-label fw-bolder text-gray-900 fs-6'>First name</label>
+        <label className='form-label fw-bolder text-gray-900 fs-6'>Name</label>
         <input
-          placeholder='First name'
+          placeholder='username'
           type='text'
           autoComplete='off'
-          {...formik.getFieldProps('firstname')}
+          {...formik.getFieldProps('username')}
           className={clsx(
             'form-control bg-transparent',
             {
-              'is-invalid': formik.touched.firstname && formik.errors.firstname,
+              'is-invalid': formik.touched.username && formik.errors.username,
             },
             {
-              'is-valid': formik.touched.firstname && !formik.errors.firstname,
+              'is-valid': formik.touched.username && !formik.errors.username,
             }
           )}
         />
-        {formik.touched.firstname && formik.errors.firstname && (
+        {formik.touched.username && formik.errors.username && (
           <div className='fv-plugins-message-container'>
             <div className='fv-help-block'>
-              <span role='alert'>{formik.errors.firstname}</span>
+              <span role='alert'>{formik.errors.username}</span>
             </div>
           </div>
         )}
       </div>
-      {/* end::Form group */}
-      <div className='fv-row mb-8'>
-        {/* begin::Form group Lastname */}
-        <label className='form-label fw-bolder text-gray-900 fs-6'>Last name</label>
-        <input
-          placeholder='Last name'
-          type='text'
-          autoComplete='off'
-          {...formik.getFieldProps('lastname')}
-          className={clsx(
-            'form-control bg-transparent',
-            {
-              'is-invalid': formik.touched.lastname && formik.errors.lastname,
-            },
-            {
-              'is-valid': formik.touched.lastname && !formik.errors.lastname,
-            }
-          )}
-        />
-        {formik.touched.lastname && formik.errors.lastname && (
-          <div className='fv-plugins-message-container'>
-            <div className='fv-help-block'>
-              <span role='alert'>{formik.errors.lastname}</span>
-            </div>
-          </div>
-        )}
-        {/* end::Form group */}
-      </div>
+    
 
       {/* begin::Form group Email */}
       <div className='fv-row mb-8'>

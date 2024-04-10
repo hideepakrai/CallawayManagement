@@ -4,10 +4,15 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
-import {getUserByToken, login} from '../core/_requests'
+import {getUserByToken, login,getAdminToken} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../core/Auth'
+import {  useDispatch } from 'react-redux'
 
+import {addUser, addAdminToken} from "../../../slice/UserSlice/UserSlice"
+
+import GetUserAccount from './GetUserAccount'
+import { UserModel } from '../core/_models'
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -21,8 +26,9 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: 'admin@demo.com',
-  password: 'demo',
+  email: 'ankurShriv@gmail.com',
+  password: 'Ankur1!',
+  role:'manager'
 }
 
 /*
@@ -34,17 +40,38 @@ const initialValues = {
 export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
-
+  const[userName, setUserName]= useState(null)
+  const[userId, setUserId]= useState(null)
+   const dispatch= useDispatch()
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
+     
+        const data = {
+          identifier: values.email,
+          password: values.password,
+        };
+      
       try {
-        const {data: auth} = await login(values.email, values.password)
-        saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
+        const response = await login(data)
+        saveAuth(response)
+        setUserName(response?.user?.name);
+        setUserId(response?.user?.id);
+         dispatch(addUser({
+          currentUser:response
+         }))
+         const token={
+         email: "ankurShriv@gmail.com",
+        password: "AnkurDzinly1!"
+
+         }
+      const admintoken = await getAdminToken(token)
+      dispatch(addAdminToken({
+        adminToken:admintoken
+      }))
+       // setCurrentUser(response)
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
@@ -55,7 +82,16 @@ export function Login() {
     },
   })
 
+
+  // afterGetting userId and userName search finds its roles
+const handleResetId=() => {
+  setUserId(null)
+  
+  
+}
+
   return (
+    <>
     <form
       className='form w-100'
       onSubmit={formik.handleSubmit}
@@ -135,6 +171,66 @@ export function Login() {
 
       {/* begin::Form group */}
       <div className='fv-row mb-8'>
+      <div className="form-group">
+    <label>Role</label>
+    <div className="radio-inline">
+      {/* Use Formik's getFieldProps for radio buttons */}
+      <label className="radio radio-rounded">
+      <input
+          type="radio"
+          {...formik.getFieldProps('role')}
+          name="role"
+          value="manager" // Set value for the role
+          checked={formik.values.role === 'manager'} // Check if the value matches the current role
+          onChange={(event) => {
+            // Update email and password values based on the selected role
+            formik.setFieldValue('role', event.target.value);
+            formik.setFieldValue('email', 'ankurShriv@gmail.com');
+            formik.setFieldValue('password', 'Ankur1!');
+          }}
+        />
+        <span></span>
+        Manager
+      </label>
+      <label className="radio radio-rounded">
+        <input
+          type="radio"
+          
+          {...formik.getFieldProps('role')}
+          name="role"
+          value="retailer" // Set value for the role
+          checked={formik.values.role === 'retailer'} 
+          onChange={(event) => {
+            // Update email and password values based on the selected role
+            formik.setFieldValue('role', event.target.value);
+            formik.setFieldValue('email', 'reatailer@example.com');
+            formik.setFieldValue('password', 'retailerPassword1!');
+          }}
+        />
+        <span></span>
+        Retailer
+      </label>
+      <label className="radio radio-rounded">
+        <input
+          type="radio"
+          {...formik.getFieldProps('role')}
+          name="role"
+          value="salesRepresentative" // Set value for the role
+          checked={formik.values.role === 'salesRepresentative'} 
+          onChange={(event) => {
+            // Update email and password values based on the selected role
+            formik.setFieldValue('role', event.target.value);
+            formik.setFieldValue('email', 'salesRepresentative@example.com');
+            formik.setFieldValue('password', 'salesRepresentativePassword1!');
+          }}
+        />
+        <span></span>
+        Sales Representative
+      </label>
+    </div>
+    <span className="form-text text-muted">Some help text goes here</span>
+  </div>
+
         <label className='form-label fs-6 fw-bolder text-gray-900'>Email</label>
         <input
           placeholder='Email'
@@ -223,5 +319,11 @@ export function Login() {
         </Link>
       </div>
     </form>
+   { userId!=null &&<GetUserAccount
+    userId={userId}
+    resetId={()=>handleResetId}
+    />}
+    </>
+    
   )
 }

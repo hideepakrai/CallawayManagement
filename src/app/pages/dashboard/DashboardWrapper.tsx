@@ -19,8 +19,12 @@ import {
 } from '../../../_metronic/partials/widgets'
 import { Toolbar } from '../../../_metronic/layout/components/toolbar/Toolbar'
 import { Content } from '../../../_metronic/layout/components/Content'
+import { useEffect } from 'react'
+import GetAllProduct from '../../api/allProduct/GetAllProduct';
 
 const DashboardPage = () => (
+
+  
   <>
     <Toolbar />
     <Content>
@@ -135,11 +139,16 @@ const DashboardPage = () => (
 )
 
 const DashboardWrapper = () => {
+  useEffect(()=>{},[])
   const intl = useIntl()
+
+  
+  
   return (
     <>
       <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
       <DashboardPage />
+      <GetAllProduct/>
     </>
   )
 }

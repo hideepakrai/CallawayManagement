@@ -305,7 +305,7 @@ const OrderPage = () => {
                             }}
                             onClick={() => handleEdit()}
                           >
-                            <i class="icon icon-edit"></i>
+                            <i className="icon icon-edit"></i>
                           </span>
                         </Tooltip>
                       </Space>

@@ -6,6 +6,9 @@ import axios from 'axios'
 import {Chart, registerables} from 'chart.js'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
+
+// Appolcilent
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 // Apps
 import {MetronicI18nProvider} from './_metronic/i18n/Metronici18n'
 import './_metronic/assets/sass/style.react.scss'
@@ -35,11 +38,18 @@ import {AuthProvider, setupAxios} from './app/modules/auth'
 setupAxios(axios)
 Chart.register(...registerables)
 
+const client = new ApolloClient({
+  uri: "https://aigigs.in/graphql",
+  cache: new InMemoryCache(),
+});
+
+
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
 if (container) {
   createRoot(container).render(
     <Provider store={store}>
+      <ApolloProvider client={client}>
     <QueryClientProvider client={queryClient}>
       <MetronicI18nProvider>
         <AuthProvider>
@@ -48,6 +58,7 @@ if (container) {
       </MetronicI18nProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
+    </ApolloProvider>
     </Provider>
   )
 }
