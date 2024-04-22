@@ -1,10 +1,10 @@
     import { createSlice } from "@reduxjs/toolkit";
-    import {BasicModel,BasicModelGraph, OgioModel} from "../../modules/brands/model/OgioBrandModel"
+    import {OgioBasicModel,OgioBasicModelGraph, OgioModel} from "../../modules/brands/model/ogio/OgioBrandModel"
     import Item from "antd/es/list/Item";
 
     interface ProductState {
     
-        ogio: BasicModel[],
+        ogio: OgioBasicModel[],
     
     }
 
@@ -21,7 +21,23 @@
                 const { ogioProduct, id } = action.payload;
                
                 if(ogioProduct && ogioProduct.length > 0) {
-                    ogioProduct.map((item:BasicModelGraph)=>{
+                    ogioProduct.map((item:OgioBasicModelGraph)=>{
+
+                        const att: OgioModel[] = [];
+                        if (item &&
+                            item.attributes &&
+                            item.attributes.AttributeSet &&
+                            Array.isArray(item.attributes.AttributeSet)
+                        ) { // Null check here
+                            item.attributes.AttributeSet.forEach((attrItems: OgioModel) => {
+                                att.push({
+                                    ProductType:attrItems.ProductType,
+                                    Category:attrItems.Category,
+                                    ProductModel:attrItems.ProductModel,
+                                    LifeCycle:attrItems.LifeCycle 
+                                });
+                            });
+                        }
                         state.ogio.push({
                             Name: item.attributes.Name,
                         Description: item.attributes.Description,
@@ -33,7 +49,7 @@
                         StockAvailable: item.attributes.StockAvailable,
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
-                    
+                        OgiAttributes:att
                     
                         })
                     })
@@ -47,7 +63,7 @@
 
 
     export const { addOgioProduct} = OgioSlice.actions;
-    export const getOgioProducts = (state: { Ogio: ProductState }): BasicModel[] => {
+    export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
         return state.Ogio?.ogio || [];
     };
     

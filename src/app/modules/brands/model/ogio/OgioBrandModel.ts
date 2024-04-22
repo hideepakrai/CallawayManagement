@@ -1,5 +1,5 @@
 
-export interface BasicModel {
+export interface OgioBasicModel {
 
     id?:number,
       Name?: string;
@@ -13,50 +13,27 @@ export interface BasicModel {
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
-      AttributeSet?:[],
-      OgiAttributes?:OgioModel,
-      TravisMathewAttributes?:TravisMathewModel
-      GoodsAttributes?: GoodsAttributes 
-    
-   
+      AttributeSet?:OgioModel[],
+      OgiAttributes?:OgioModel[],
+      Quantity?: number;
+      Amount?: number;
 
 }
-export interface BasicModelGraph {
+export interface OgioBasicModelGraph {
 
     id?:number,
-    attributes:BasicModel
+    attributes:OgioBasicModel
   }
  
 
 
 export interface OgioModel{
-  id:number;
-  ProductType:string | null;
-  Category:string | null;
-  ProductMode:string | null;
-  LifeCycle:string | null;
-}
-
-
-export interface TravisMathewModel{
-  StyleCode?:string | null;
-  Length?:string | null;
+  id?:number;
+  ProductType?:string | null;
   Category?:string | null;
-  Season?:string | null;
-  Line?:string | null;
-  Color?:string | null;
-  ColorCode?:string | null;
+  ProductModel?:string | null;
+  LifeCycle?:string | null;
 }
-
-
-export interface GoodsAttributes {
-              ProductType:string;
-              ProductModel:string | null;
-              Category:string | null;
-              Orientation:string | null;
-              LifeCycle:string | null;
-}
-
  
  export interface ImageType {
     data:{

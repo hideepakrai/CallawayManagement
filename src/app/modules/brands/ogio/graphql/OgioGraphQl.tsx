@@ -19,7 +19,22 @@ query allProducts {
           StockAvailable
           SetType
           ProductType
-          
+          Gallery{
+            data{
+              id
+              attributes{
+                formats
+              }
+            }
+          }
+          PrimaryImage{
+            data{
+              id
+              attributes{
+                formats
+              }
+            }
+          }
           AttributeSet{
             ... on ComponentAttributeSetOgio{
               id
