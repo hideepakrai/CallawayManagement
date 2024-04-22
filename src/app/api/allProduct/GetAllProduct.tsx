@@ -1,30 +1,76 @@
 import React ,{useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {getUserAccount} from "../../slice/UserSlice/UserSlice"
+import {getUserAccount,getAdminToken} from "../../slice/UserSlice/UserSlice"
+
+import OgioProduct from './ogio/OgioProduct'
+import TravisMethewProduct  from "../allProduct/travismethew/GetTravisMethewProduct.tsx"
+import GetCallawayGoodsProduct  from "../allProduct/callaway/goods/GetCallAWayGoods.tsx"
+
+
 
 interface UserAccount {
   attributes: {
     username: string;
+    email: string;
+    role:[],
+    provider: string;
+    Details:[]
     // Add other properties here
   }
-  // Add other properties here
+ 
 }
 
 const GetAllProduct = () => {
 
   const dispatch = useDispatch();
-  const getUserAccounts = useSelector(getUserAccount) as UserAccount[] 
-
+  const getUserAccounts = useSelector(getUserAccount) as UserAccount[];
+  const getAdminTokens=useSelector(getAdminToken)
+  const [isOgio, setIsOgio] = useState<boolean>(false)
+  const [isTravis, setIsTravis] = useState<boolean>(false)
+  const [isGoods, setIsGoods  ] = useState<boolean>(false)
   useEffect(() => {
-    if(getUserAccounts){
-      getUserAccounts.forEach(user => {
-        console.log("getUserAccounts", user.attributes.username);
-      });
+  
+    if(getUserAccounts &&
+
+      getAdminTokens
+    ){
+     console.log("userAccount ")
+    // get_allProducts(getAdminTokens)
+     setIsOgio(true)
+     setIsTravis(true)
+     setIsGoods(true)
     }
-  }, [getUserAccounts]);
+  }, [getUserAccounts,getAdminTokens]);
+
+
+  const handleOgio=()=>{
+    setIsOgio(false)
+
+  }
+
+  const handleResetTravis=()=>{
+    setIsTravis(false)
+  }
+
+  const handleResetGoods=()=>{
+    setIsGoods(false)
+  }
 
   return (
-    <div>GetAllProduct</div>
+    <div>
+
+      {isOgio &&<OgioProduct
+      resetOgio={handleOgio}
+      />}
+
+      {isTravis &&<TravisMethewProduct
+      resetTravis={handleResetTravis}
+      /> }
+
+      {isGoods && <GetCallawayGoodsProduct
+      resetGoods={handleResetGoods}
+      />}
+    </div>
   )
 }
 

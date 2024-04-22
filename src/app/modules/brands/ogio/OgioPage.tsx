@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { Table } from 'antd';
+import type { TableColumnsType } from 'antd';
+//import { OgioModel } from '../model/OgioBrandModel';
 
-const OgioPage = () => {
+import {useSelector, useDispatch} from "react-redux"
+import {getOgioProducts} from "../../../slice/allProducts/OgioSlice"
+import OgioHeader from './header/OgioHeader';
+import OgioTable from './table/OgioTable';
+
+
+
+
+  const OgioPage= () => {
+  
+
+
+
+
   return (
-    <div>OgioPage</div>
+    <>
+    <OgioHeader/>
+    <OgioTable/>
+    </>
+    
   )
 }
+
 
 export default OgioPage

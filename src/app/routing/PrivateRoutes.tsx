@@ -8,6 +8,11 @@ import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import {Order} from "../pages/order/Order.js"
+import Ogio from "../pages/brand/ogio/Ogio.js"
+
+import TravisMathew from '../pages/brand/travisMathew/TravisMathew.js'
+import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
+
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -28,6 +33,11 @@ const PrivateRoutes = () => {
         <Route path='order' element={<Order />} />
 
         
+         {/* brand routes */}
+
+         <Route path='/brand/ogio' element={<Ogio />} />
+         <Route path='/brand/travis-methew' element={<TravisMathew />} />
+         <Route path='/brand/callaway/goods' element={<CallAwayGoods />} />
         {/* Lazy Modules */}
         <Route
           path='crafted/pages/profile/*'

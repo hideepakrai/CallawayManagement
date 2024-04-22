@@ -1,8 +1,10 @@
 import React from 'react'
-
+import OgioPage from '../../../modules/brands/ogio/OgioPage'
 const Ogio = () => {
   return (
-    <div>Ogio</div>
+    <div>Ogio
+      <OgioPage />
+    </div>
   )
 }
 
