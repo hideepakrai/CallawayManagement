@@ -56,6 +56,8 @@ const GetAllProduct = () => {
     setIsGoods(false)
   }
 
+
+  // Reload
   return (
     <div>
 

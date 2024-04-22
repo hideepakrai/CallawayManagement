@@ -1,24 +1,29 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
-import { ExcelModelGoods } from "../../../../model/goods/CallawayGoodsExcel";
+import { ExcelModelTravis } from "../../../model/travis/TravisExcel";
+import {useDispatch} from "react-redux"
+import {updateNewData} from "../../../../../slice/allProducts/TravisMethewSlice"
 
 type Props = {
-  xlData: ExcelModelGoods[];
+  xlData: ExcelModelTravis[];
   resetXls: () => void;
 };
 
-const ExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
+const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
+  const dispatch= useDispatch()
+  
   useEffect(() => {
     if (xlData && xlData.length > 0) {
       console.log(xlData);
 
-      const newData: ExcelModelGoods[] = [];
-      xlData.map((item:ExcelModelGoods)=>{
+      const newData: ExcelModelTravis[] = [];
+      xlData.map((item:ExcelModelTravis)=>{
         const sdd = {
+             
               Name: item.Name,
               Description: item.Description,
               SetType: item.SetType,
-              Brand: item.Brand,
+              Brand: 4, 
               SKU: item.SKU,
               StockAvailable: item.StockAvailable,
               StockManagement: true,
@@ -26,22 +31,32 @@ const ExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
               RegularPrice: item.RegularPrice,
               AttributeSet: [
                 {
-                  "__component": "attribute-set.equipment",
-                  "ProductType":item.ProductType,
-                   "ProductModel":item.ProductModel,
-                    "Category":item.Category,
-                    "Orientation":item.Orientation,
-                    "LifeCycle":item.LifeCycle,
+                  "__component": "attribute-set.travis-mathew",
+                  StyleCode:item.StyleCode,
+                  Length:item.Length,
+                  Category:item.Category,
+                  Season:item.Season,
+                  Line:item.Line,
+                  Color:item.Color,
+                  ColorCode:item.ColorCode,
+                  Size:item.Size?.toString(),
+                  Gender:item.Gender,
+            
 
                 },
               ],
             };
+
+            //console.log("sdd",sdd)
             saveData(sdd)
+            dispatch(updateNewData({
+              travisProduct:item
+            }))
       })
     }
   }, [xlData]);
 
-  const saveData = async (products: ExcelModelGoods) => {
+  const saveData = async (products: ExcelModelTravis) => {
     const data = {
       data: products,
     };
@@ -70,4 +85,4 @@ const ExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
   return <></>;
 };
 
-export default ExcelUploadDB;
+export default TravisExcelUploadDB;

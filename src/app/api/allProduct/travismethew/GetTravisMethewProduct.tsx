@@ -20,7 +20,7 @@ const GetTravisMethewProduct = ({ resetTravis}: Props) => {
         variables: {
         
         },
-        fetchPolicy: 'network-only',
+        fetchPolicy: 'no-cache',
       });
       
 

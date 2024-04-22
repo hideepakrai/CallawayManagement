@@ -13,10 +13,11 @@ export interface BasicModelTravis {
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
-      AttributeSet?:BasicModelTravisGraph[],
+      AttributeSet?:TravisMathewAttribute[],
       TravisAttributes?: TravisMathewAttribute[] ,
       Quantity?: number;
       Amount?: number;
+      
     
    
 
@@ -28,7 +29,7 @@ export interface BasicModelTravisGraph {
   }
  
 
-  export interface TravisMathewAttribute{
+  export interface TravisMathewAttribute {
     StyleCode?:string | null;
     Length?:string | null;
     Category?:string | null;
@@ -37,6 +38,8 @@ export interface BasicModelTravisGraph {
     Color?:string | null;
     ColorCode?:string | null;
     __typename?:string | null;
+    Gender?:string | null;
+    Size?:string | null;
   }
 
  

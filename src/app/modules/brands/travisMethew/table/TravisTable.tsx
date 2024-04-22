@@ -8,16 +8,16 @@ import {useDispatch, useSelector} from "react-redux"
 import {getTravisProducts} from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 import { number } from 'yup';
-import ImportExcel from '../excel/importExcel/ImportExcel';
+import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import {ExcelModelTravis} from "../../model/travis/TravisExcel"
-import ExcelUploadDb from "../excel/importExcel/ExcelUploadDb"
+import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
 
 const TravisTable = () => {
 
-    const tableRef = useRef(null);
+   const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
-    
+   
 
 
    const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
@@ -43,7 +43,7 @@ const TravisTable = () => {
         {
           title: "SKU",
           dataIndex: "SKU",
-          width: 50,
+          width: 150,
           fixed: "left",
           // render: (value) => <span>{String(value.Name)}</span>,
         },
@@ -52,11 +52,52 @@ const TravisTable = () => {
           title: "Name",
           dataIndex: "Name",
           key: "name",
-          width: 50 ,
+          width: 70 ,
            fixed: "left",
         },
     
         
+        
+        {
+          title: "Category",
+          dataIndex: "TravisAttributes",
+          key: "Description", 
+          width: 75,
+          render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+         
+        },
+        {
+            title: "Season",
+            dataIndex: "TravisAttributes",
+            key: "Season", 
+            width: 75,
+            render: (value) => <span>{value && value[0] && value[0].Season}</span>,
+           
+          },
+        {
+          title: "StyleCode",
+          dataIndex: "TravisAttributes",
+          key: "StyleCode", 
+          width: 75,
+          render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
+         
+        },
+        {
+          title: "Color",
+          dataIndex: "TravisAttributes",
+          key: "Color", 
+          width: 75,
+          render: (value) => <span>{value && value[0] && value[0].Color}</span>,
+         
+        },
+        {
+          title: "Size",
+          dataIndex: "TravisAttributes",
+          key: "Size", 
+          width: 75,
+          render: (value) => <span>{value && value[0] && value[0].Color}</span>,
+         
+        },
         {
           title: "Description",
           dataIndex: "Description",
@@ -64,6 +105,7 @@ const TravisTable = () => {
           width: 115,
          
         },
+
         {
           title: "MRP",
           dataIndex: "RegularPrice",
@@ -105,30 +147,30 @@ const TravisTable = () => {
 
 
   const [selectedRowKeys, setSelectedRowKeys] = useState();
-//   const rowSelection = {
-//     onChange: (selectedRowKeys: React.Key[], selectedRows: BasicModelGoods[]) => {
-//       console.log(
-//         `selectedRowKeys: ${selectedRowKeys}`,
-//         "selectedRows: ",
-//         selectedRows
-//       );
-//     },
-//     onSelect: (record: BasicModelGoods, selected: boolean, selectedRows: BasicModelGoods[]) => {
-//       console.log(
-//         "record",
-//         record,
-//         "selected",
-//         selected,
-//         "selectedRows",
-//         selectedRows
-//       );
-//     },
-//     onSelectAll: (selected: boolean, selectedRows: BasicModelGoods[], changeRows: BasicModelGoods[]) => {
-//       console.log(selected, selectedRows, changeRows);
-//     },
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: BasicModelTravis[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    onSelect: (record: BasicModelTravis, selected: boolean, selectedRows: BasicModelTravis[]) => {
+      console.log(
+        "record",
+        record,
+        "selected",
+        selected,
+        "selectedRows",
+        selectedRows
+      );
+    },
+    onSelectAll: (selected: boolean, selectedRows: BasicModelTravis[], changeRows: BasicModelTravis[]) => {
+      console.log(selected, selectedRows, changeRows);
+    },
 
-//     columnWidth: 40,
-//   };
+    columnWidth: 40,
+  };
 
 
       const handleAmountChange = (value:string, record:BasicModelTravis) => {
@@ -156,17 +198,18 @@ const TravisTable = () => {
     setIsImport(false);
   };
 
-//   const [allXlxData, setAllXlxData]=useState<ExcelModelGoods[]>([])
-// const handleGoodsData=(allDatat:ExcelModelGoods[])=>{
-//   handleCloseImport()
-//   console.log("allDatat", allDatat)
-//   setAllXlxData(allDatat)
-// }
+  const [allXlxData, setAllXlxData]=useState<ExcelModelTravis[]>([])
+const handleTravisData=(allDatat:ExcelModelTravis[])=>{
+  const table = tableRef.current;
+  handleCloseImport()
+  console.log("all travis data", allDatat)
+  setAllXlxData(allDatat)
+}
 
-// reset excel datta
-// const handleResetXlData=()=>{
-//   setAllXlxData([])
-// }
+//reset excel datta
+const handleResetXlData=()=>{
+  setAllXlxData([])
+}
 
 //exportto excel
 const handleExportToExcel = () => {
@@ -183,7 +226,11 @@ const handleExportToExcel = () => {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     console.log("Workbook:", wb);
-    XLSX.writeFile(wb, "Callaway_Goods.xlsx");
+     // Generate a unique name for the file using current timestamp
+     const fileName = `TravisMathewProducts_${Date.now()}.xlsx`;
+
+     XLSX.writeFile(wb, fileName);
+
     console.log("Excel exported successfully.");
   } catch (error) {
     console.error("Error exporting to Excel:", error);
@@ -212,7 +259,7 @@ return (
         >
           <div style={{ float: "right" }}>
             <Button 
-          //  onClick={handleImport}
+            onClick={handleImport}
             >Import Products</Button>
             <Button 
             // onClick={handleExportToPDF} 
@@ -229,7 +276,7 @@ return (
             ref={tableRef}
             columns={columns}
             dataSource={getProduct?.map((item) => ({ ...item, key: item.id }))}
-            // rowSelection={rowSelection}
+            rowSelection={rowSelection}
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
@@ -238,21 +285,21 @@ return (
           />
         </Card>
 
-        {/* <SampleExcel
+        <SampleExcelTravis
          isSample={isSample}
         resetIsSample={handleResetIsSample}
-        /> */}
+        />
 
-        {/* <ImportExcel
+        <TravisImportExcel
         isImport={isImport}
         onClose={handleCloseImport}
-        allGoodsData={handleGoodsData}
-        /> */}
+        allGoodsData={handleTravisData}
+        />
 
-       {/* <ExcelUploadDB
+       <TravisExcelUploadDB
        xlData={allXlxData}
        resetXls={handleResetXlData}
-       /> */}
+       />
 
     </div>
   )

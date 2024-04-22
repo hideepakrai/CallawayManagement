@@ -1,21 +1,26 @@
+import { NumberFormat } from "xlsx";
+
 export interface ExcelModelTravis {   
-    Brand?: string;
+    Brand?: number;
      SKU?: string;
      Name?: string;
+     Category?:string | null;
+    Season?:string | null;
+    StyleCode?:string | null;
+    ColorCode?:string | null;
+    Color?:string | null;
+    Size?:string | null;
      Description?: string;
      SetType?: string;
-     StockAvailable?: number;
      RegularPrice?: number;
-     StyleCode?:string | null;
-    Length?:string | null;
-    Category?:string | null;
-    Season?:string | null;
-    Line?:string | null;
-    Color?:string | null;
-    ColorCode?:string | null;
+     StockAvailable?: number;
+     Length?:string | null;
+     Line?:string | null;
      StockManagement?: boolean;
      StockStatus?: string;
      SalePrice?: number | null;  
-     Material?: string | null;
+     Gender?:string | null;
+     ProductType?: string | null;
+    
 
 }
