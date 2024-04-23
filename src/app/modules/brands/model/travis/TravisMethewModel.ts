@@ -22,6 +22,7 @@ export interface BasicModelTravis {
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;
+       ordered?: boolean
       
     
    

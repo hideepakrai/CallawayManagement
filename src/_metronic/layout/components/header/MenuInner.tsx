@@ -167,15 +167,7 @@ export function MenuInner() {
       >
         <MegaMenu />
       </MenuInnerWithSub>
-      <Button style={{ marginTop: "16px", fontSize: "14px" }} onClick={handleCart}>
-                  <i
-                    style={{ verticalAlign: "middle" }}
-                    className="icon icon-shopping-cart "
-                  >
-                    {" "}
-                  </i>
-                  CART
-                </Button>
+      
     </>
   )
 }

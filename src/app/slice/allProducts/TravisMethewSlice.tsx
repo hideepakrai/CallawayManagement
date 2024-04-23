@@ -110,6 +110,8 @@ const TravisMethewSlice = createSlice({
           ,
 
           updateQuantity90:(state,actions) => {
+            // eslint-disable-next-line no-debugger
+            debugger;
             const {sku, qty90,RegularPrice}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(
               (travisItem) => travisItem.SKU === sku
@@ -119,13 +121,15 @@ const TravisMethewSlice = createSlice({
              
               const quantity88 = state.travisMethew[travisIndex]?.Quantity88 ?? 0;
               const quantity90 = state.travisMethew[travisIndex]?.Quantity90 ?? 0;
-              const costPrice = state.travisMethew[travisIndex]?.RegularPrice ?? 0;
-              state.travisMethew[travisIndex].TotalQty = quantity88+quantity90
-              state.travisMethew[travisIndex].RegularPrice = RegularPrice*costPrice
+              state.travisMethew[travisIndex].TotalQty = quantity88+quantity90;
+
+              
+              state.travisMethew[travisIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.travisMethew[travisIndex].ordered = true;
             }
           },
           updateQuantity88:(state,actions) => {
-            const {sku, qty88}=actions.payload;
+            const {sku, qty88,RegularPrice}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(
               (travisItem) => travisItem.SKU === sku
             );
@@ -133,8 +137,11 @@ const TravisMethewSlice = createSlice({
               state.travisMethew[travisIndex].Quantity88 = qty88;
               const quantity88 = state.travisMethew[travisIndex]?.Quantity88 ?? 0;
               const quantity90 = state.travisMethew[travisIndex]?.Quantity90 ?? 0;
-              
-              state.travisMethew[travisIndex].TotalQty = quantity88+quantity90
+              state.travisMethew[travisIndex].TotalQty = quantity88+quantity90;
+
+              //const totalQty = state.travisMethew[travisIndex]?.TotalQty ?? 0;
+              state.travisMethew[travisIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.travisMethew[travisIndex].ordered = true;
             }
           },
           

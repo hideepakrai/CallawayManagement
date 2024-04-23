@@ -9,13 +9,22 @@ import {
   Search,
   ThemeModeSwitcher,
 } from '../../../partials'
-
+import { useNavigate } from 'react-router-dom'
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
   toolbarButtonHeightClass = 'btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40p',
   toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px',
   toolbarButtonIconSizeClass = 'fs-1'
 
+
+
 const Topbar: FC = () => {
+  const navigate= useNavigate()
+  // move to cart
+
+  const handleCart=()=>{
+    navigate("/cart")
+
+  }
   return (
     <div className='d-flex align-items-stretch flex-shrink-0'>
       <div className='topbar d-flex align-items-stretch flex-shrink-0'>
@@ -46,14 +55,15 @@ const Topbar: FC = () => {
               'btn btn-icon btn-active-light-primary btn-custom',
               toolbarButtonHeightClass
             )}
-            data-kt-menu-trigger='click'
-            data-kt-menu-attach='parent'
-            data-kt-menu-placement='bottom-end'
-            data-kt-menu-flip='bottom'
+            // data-kt-menu-trigger='click'
+            // data-kt-menu-attach='parent'
+            // data-kt-menu-placement='bottom-end'
+            // data-kt-menu-flip='bottom'
+            onClick={handleCart}
           >
             <KTIcon iconName='element-plus' className={toolbarButtonIconSizeClass} />
           </div>
-          <HeaderNotificationsMenu />
+          {/* <HeaderNotificationsMenu /> */}
           {/* end::Menu wrapper */}
         </div>
 

@@ -269,6 +269,7 @@ const TravisTable = () => {
       dispatch(updateQuantity90({
         sku: record.SKU,
         qty90: 0,
+       
       }));
       record.Quantity90=0;
       
@@ -286,6 +287,7 @@ const TravisTable = () => {
       dispatch(updateQuantity88({
         sku: record.SKU,
         qty88: intValue,
+        RegularPrice: record.RegularPrice,
       }));
       record.Quantity90=intValue;
      // setQuantity88(intValue)
@@ -300,8 +302,6 @@ const TravisTable = () => {
     record.Quantity90=0;
     }
   
-    // Log the record for debugging or tracking purposes
-    console.log(record);
   };
       // sample xls
   const[isSample, setIsSample]=useState<boolean>(false)
@@ -397,7 +397,7 @@ return (
           <div style={{ float: "right" }}>
             <Button 
            // onClick={handleImport}
-            >Place order</Button>
+            >Add to cart</Button>
 
             <Button 
             onClick={handleImport}

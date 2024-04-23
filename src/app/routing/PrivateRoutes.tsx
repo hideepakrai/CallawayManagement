@@ -17,6 +17,7 @@ import SalesProfile from '../pages/profilepage/salesprofile/SalesProfile.js'
 import TravisMathew from '../pages/brand/travisMathew/TravisMathew.js'
 import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
 
+import Cart from '../pages/cart/Cart.js'
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -47,6 +48,9 @@ const PrivateRoutes = () => {
         {/* Lazy Modules */}
 
 
+      {/* cart page */}
+
+      <Route path='/cart' element={<Cart />} />
         <Route
           path='crafted/pages/profile/*'
           element={
