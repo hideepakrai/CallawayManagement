@@ -9,17 +9,33 @@ export interface BasicModelTravis {
       StockStatus?: string;
       RegularPrice?: number;
       SalePrice?: number | null;
-      StockAvailable?: number;
+      StockAvailable?:StockAvailable[] ;
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
       AttributeSet?:TravisMathewAttribute[],
       TravisAttributes?: TravisMathewAttribute[] ,
-      Quantity?: number;
+      // Quantity?: Quantity[];
       Amount?: number;
+      StockAvailable88?:number|null;
+      StockAvailable90?:number|null;
+      TotalQty?: number|null;
+      Quantity88?: number|null;
+       Quantity90?: number|null;
       
     
    
+
+}
+
+export interface StockAvailable{
+  stock88: number,
+  stock90: number
+}
+
+export interface Quantity {
+  quantity88: number;
+  quantity90: number;
 
 }
 export interface BasicModelTravisGraph {

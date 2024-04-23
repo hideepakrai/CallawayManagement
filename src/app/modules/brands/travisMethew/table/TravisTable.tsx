@@ -1,6 +1,6 @@
 import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
-import { Input, Radio, Button } from "antd";
+import { Input, Radio,InputNumber, Button } from "antd";
 import type { TableColumnsType } from 'antd';
 import {BasicModelTravis} from "../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
@@ -12,16 +12,18 @@ import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import {ExcelModelTravis} from "../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
-
+ import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice"
 const TravisTable = () => {
 
    const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
    
-
+    const dispatch= useDispatch()
 
    const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
      const[amount, setAmount]=useState<number>()
+     
+
     console.log(" travis Product",getProduct)
     const columns: TableColumnsType<BasicModelTravis>= [
         {
@@ -43,13 +45,10 @@ const TravisTable = () => {
         {
           title: "SKU",
           dataIndex: "SKU",
-<<<<<<< Updated upstream
-          width: 150,
-=======
-          width: 70,
->>>>>>> Stashed changes
+          width: 130,
           fixed: "left",
           // render: (value) => <span>{String(value.Name)}</span>,
+         
         },
     
         {
@@ -66,25 +65,44 @@ const TravisTable = () => {
           title: "Category",
           dataIndex: "TravisAttributes",
           key: "Description", 
-          width: 75,
+          width: 85,
           render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+          sorter: (a, b) => {
+            const categoryA = a.TravisAttributes?.[0]?.Category ?? "";
+            const categoryB = b.TravisAttributes?.[0]?.Category ?? "";
+
+          return categoryA.localeCompare(categoryB);
+          },
          
         },
         {
             title: "Season",
             dataIndex: "TravisAttributes",
             key: "Season", 
-            width: 75,
+            width: 85,
             render: (value) => <span>{value && value[0] && value[0].Season}</span>,
+            sorter: (a, b) => {
+              // Extract and compare Season values, handling null or undefined cases
+              const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
+              const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
+          
+              return seasonA.localeCompare(seasonB);
+            },
            
           },
         {
           title: "StyleCode",
           dataIndex: "TravisAttributes",
           key: "StyleCode", 
-          width: 75,
+          width: 85,
           render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
-         
+          sorter: (a, b) => {
+            // Extract and compare StyleCode values, handling null or undefined cases
+            const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
+            const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
+        
+            return styleCodeA.localeCompare(styleCodeB);
+          },
         },
         {
           title: "Color",
@@ -92,15 +110,27 @@ const TravisTable = () => {
           key: "Color", 
           width: 75,
           render: (value) => <span>{value && value[0] && value[0].Color}</span>,
-         
+          sorter: (a, b) => {
+            // Extract and compare StyleCode values, handling null or undefined cases
+            const styleCodeA = a.TravisAttributes?.[0]?.Color ?? "";
+            const styleCodeB = b.TravisAttributes?.[0]?.Color ?? "";
+        
+            return styleCodeA.localeCompare(styleCodeB);
+          },
         },
         {
           title: "Size",
           dataIndex: "TravisAttributes",
           key: "Size", 
           width: 75,
-          render: (value) => <span>{value && value[0] && value[0].Color}</span>,
-         
+          render: (value) => <span>{value && value[0] && value[0].Size}</span>,
+          sorter: (a, b) => {
+            // Extract and compare StyleCode values, handling null or undefined cases
+            const styleCodeA = a.TravisAttributes?.[0]?.Size ?? "";
+            const styleCodeB = b.TravisAttributes?.[0]?.Size ?? "";
+        
+            return styleCodeA.localeCompare(styleCodeB);
+          },
         },
         {
           title: "Description",
@@ -118,32 +148,74 @@ const TravisTable = () => {
          
         },
         {
-          title: "StockAvailable",
-          dataIndex: "StockAvailable",
-          key: "StockAvailable", 
-          width: 80,
+          title:"StockAvailable",
+          children:[
+           { title: "88",
+            dataIndex: "StockAvailable88",
+            key: "StockAvailable88", 
+            width: 80,
+            fixed:'right'
+          },
+            {
+              title: "90",
+            dataIndex: "StockAvailable88",
+            key: "StockAvailable88", 
+            width: 80,
+            fixed:'right'
+            }
+           
+          ],
+          
+        },
+        {
+          title:"Quantity",
+          children:[
+            {
+              title: "88",
+              dataIndex: "quantity88",
+              key: "quantity88", 
+              width: 100, 
+              fixed:'right',
+              render: (text, record) => (
+                <Input 
+                 type='number'
+                 value={record.Quantity88?.toString()}
+                  onChange={(e) => handleQuantity88(e.target.value, record)}
+                />
+              ),
+              
+            },
+            { title: "90",
+            dataIndex: "quantity90",
+            key: "quantity90", 
+            width: 100,
+            fixed:'right',
+            render: (text, record) => (
+              <Input 
+               type='number'
+               value={record.Quantity90?.toString()}
+                onChange={(e) => handleQuantity90(e.target.value, record)}
+              />
+            ),
+           }
+          ],
+         
+          
          
         },
         {
-          title: "Quantity",
-          dataIndex: "Quantity",
-          key: "Quantity", 
-          width: 50,
-         
+          title: "Total Qty",
+          dataIndex: "TotalQty",
+          key: "TotalQty", 
+          width: 100,
+          fixed:'right'
         },
         {
           title: "Amount",
           dataIndex: "Amount",
           key: "Amount", 
-          width: 50,
-          render: (text, record) => (
-            <Input 
-             type='number'
-             value={amount}
-              onChange={(e) => handleAmountChange(e.target.value, record)}
-            />
-          ),
-         
+          width: 100,
+          fixed:'right'
         },
         
       
@@ -177,11 +249,60 @@ const TravisTable = () => {
   };
 
 
-      const handleAmountChange = (value:string, record:BasicModelTravis) => {
-        // Update the record with the new amount
-        record.Amount = parseInt(value);
-        // Update the state or dispatch an action to update the data source
-    };
+  const handleQuantity90 = (value: string, record: BasicModelTravis) => {
+
+    const intValue = parseInt(value, 10);
+
+    if (record?.StockAvailable90 && record.StockAvailable90 >= intValue) {
+      // Dispatch an action to update the quantity for the SKU
+      dispatch(updateQuantity90({
+        sku: record.SKU,
+        qty90: intValue,
+        RegularPrice: record.RegularPrice,
+        
+      }));
+      record.Quantity90=intValue;
+    }
+    else{
+      alert("Quantity is not available")
+      //setQuantity90(0)
+      dispatch(updateQuantity90({
+        sku: record.SKU,
+        qty90: 0,
+      }));
+      record.Quantity90=0;
+      
+    }
+  
+    // Log the record for debugging or tracking purposes
+    console.log(record);
+  };
+  const handleQuantity88 = (value: string, record: BasicModelTravis) => {
+
+    const intValue = parseInt(value, 10);
+
+    if (record?.StockAvailable88 && record.StockAvailable88 >= intValue) {
+      // Dispatch an action to update the quantity for the SKU
+      dispatch(updateQuantity88({
+        sku: record.SKU,
+        qty88: intValue,
+      }));
+      record.Quantity90=intValue;
+     // setQuantity88(intValue)
+    }
+    else if(record?.StockAvailable88 && record.StockAvailable88 < intValue &&intValue!==0){
+      alert("Quantity is not available")
+     // setQuantity88(0)
+     dispatch(updateQuantity88({
+      sku: record.SKU,
+      qty88: 0,
+    }));
+    record.Quantity90=0;
+    }
+  
+    // Log the record for debugging or tracking purposes
+    console.log(record);
+  };
       // sample xls
   const[isSample, setIsSample]=useState<boolean>(false)
   const handleSampleExcel=()=>{
@@ -241,6 +362,11 @@ const handleExportToExcel = () => {
   }
 };
 
+//handle Show Order
+
+const handleShowOrder=()=>{
+
+}
 
 return (
     <div className='cw-container'>
@@ -261,15 +387,20 @@ return (
             </div>
           }
         >
-<<<<<<< Updated upstream
+          <div style={{ float: "left" }}>
+
+          <Button 
+            onClick={handleShowOrder}
+            >Orders</Button>
+          </div>
+
           <div style={{ float: "right" }}>
             <Button 
+           // onClick={handleImport}
+            >Place order</Button>
+
+            <Button 
             onClick={handleImport}
-=======
-          <div className="mb-5" style={{ float: "right" }}>
-            <Button  className='mx-3'
-          //  onClick={handleImport}
->>>>>>> Stashed changes
             >Import Products</Button>
             <Button  className='mx-3'
             // onClick={handleExportToPDF} 

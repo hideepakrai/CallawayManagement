@@ -16,7 +16,8 @@ query allProducts {
           StockStatus
           RegularPrice
           SalePrice
-          StockAvailable
+          StockAvailable88
+          StockAvailable90
           SetType
           ProductType
           Gallery{

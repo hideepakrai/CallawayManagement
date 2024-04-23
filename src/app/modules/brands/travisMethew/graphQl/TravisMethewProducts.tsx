@@ -18,7 +18,8 @@ query getTravisMAthewProduct {
           StockStatus
           RegularPrice
           SalePrice
-          StockAvailable
+          StockAvailable88
+          StockAvailable90
           SetType
           ProductType
          AttributeSet{
@@ -30,6 +31,8 @@ query getTravisMAthewProduct {
             Line
             Color
             ColorCode
+            Size 
+            
       
           }
         }

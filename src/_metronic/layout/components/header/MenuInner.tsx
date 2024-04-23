@@ -2,9 +2,15 @@ import {MenuItem} from './MenuItem'
 import {MenuInnerWithSub} from './MenuInnerWithSub'
 import {MegaMenu} from './MegaMenu'
 import {useIntl} from 'react-intl'
+import { Button } from 'react-bootstrap'
 
 export function MenuInner() {
   const intl = useIntl()
+
+
+  const handleCart=()=>{
+    console.log('cart')
+  }
   return (
     <>
       <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
@@ -161,6 +167,15 @@ export function MenuInner() {
       >
         <MegaMenu />
       </MenuInnerWithSub>
+      <Button style={{ marginTop: "16px", fontSize: "14px" }} onClick={handleCart}>
+                  <i
+                    style={{ verticalAlign: "middle" }}
+                    className="icon icon-shopping-cart "
+                  >
+                    {" "}
+                  </i>
+                  CART
+                </Button>
     </>
   )
 }

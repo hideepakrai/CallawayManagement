@@ -26,7 +26,7 @@ const WizardsPage = () => (
         element={
           <>
             <PageTitle breadcrumbs={wizardsBreadCrumbs}>Horizontal</PageTitle>
-            <Horizontal />
+            {/* <Horizontal /> */}
           </>
         }
       />
@@ -35,7 +35,7 @@ const WizardsPage = () => (
         element={
           <>
             <PageTitle breadcrumbs={wizardsBreadCrumbs}>Vertical</PageTitle>
-            <Vertical />
+            {/* <Vertical /> */}
           </>
         }
       />

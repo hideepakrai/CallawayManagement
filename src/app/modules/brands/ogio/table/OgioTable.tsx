@@ -196,13 +196,8 @@ const OgioTable = () => {
             <Button  className='mx-3'
             // onClick={handleExportToExcel}
             >Export to Excel</Button>
-<<<<<<< Updated upstream
             <Button
              onClick={handleSampleExcel}
-=======
-            <Button className='mx-3'
-            //  onClick={handleSampleExcel}
->>>>>>> Stashed changes
              >Sample Excel</Button>
           </div>
 

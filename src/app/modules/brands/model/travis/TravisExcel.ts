@@ -21,6 +21,12 @@ export interface ExcelModelTravis {
      SalePrice?: number | null;  
      Gender?:string | null;
      ProductType?: string | null;
+     StockAvailable88?:number|null;
+      StockAvailable90?:number|null;
+      TotalQty?: number|null;
+      Quantity88?: number;
+      Quantity90?: number;
+    
     
 
 }
