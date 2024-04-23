@@ -17,7 +17,7 @@ import View from "./View";
 import type { TableProps } from 'antd';
 import { number } from "yup";
 import { ColumnGroupType, ColumnType } from "antd/es/table";
-
+import "./OrderPage.css"
 const colors = ["blue"];
 const customColors = ["#f50", "#2db7f5", "#87d068", "#108ee9"];
 const FormItem = Form.Item;
@@ -88,7 +88,7 @@ const columns: (ColumnType<DatasType> | ColumnGroupType<DatasType>)[]  = [
     width: 120,
   },
   {
-    title: "Action",
+    title: "Action ",
     dataIndex: "action",
     key: "action",
     width: 100,
@@ -101,10 +101,11 @@ const columns: (ColumnType<DatasType> | ColumnGroupType<DatasType>)[]  = [
             <span
               style={{ paddingRight: "8px", borderRight: "1px solid #ddd" }}
             >
-              <i className="icon icon-edit"></i>
+            <i className="bi bi-pencil-fill"></i>
             </span>
           </Tooltip>
         </Space>
+
         <Space wrap>
           <Tooltip placement="bottom" title="View" 
           // color={colors} key={colors}
@@ -116,7 +117,7 @@ const columns: (ColumnType<DatasType> | ColumnGroupType<DatasType>)[]  = [
                 borderRight: "1px solid #ddd",
               }}
             >
-              <i className="icon icon-map-popup-info"></i>
+          <i className="bi bi-box-arrow-up-right"></i>
             </span>
           </Tooltip>
         </Space>
@@ -126,7 +127,7 @@ const columns: (ColumnType<DatasType> | ColumnGroupType<DatasType>)[]  = [
           // color={colors} key={colors}
           >
             <span style={{ paddingLeft: "8px" }}>
-              <i className="icon icon-copy"></i>
+              <i className="bi bi-box-arrow-up-right"></i>
             </span>
           </Tooltip>
         </Space>
@@ -260,7 +261,8 @@ const OrderPage = () => {
   };
   return (
     <>
-      <Card title="Orders Page" 
+
+      <Card  className="cw-container" title="Orders Page" 
       extra={
         <div >
         <Breadcrumb separator=">">
@@ -302,10 +304,12 @@ const OrderPage = () => {
                             style={{
                               paddingRight: "8px",
                               borderRight: "1px solid #ddd",
+                              cursor:"pointer"
                             }}
                             onClick={() => handleEdit()}
                           >
-                            <i className="icon icon-edit"></i>
+                          <i className="bi bi-pencil-fill icon-order"></i>
+
                           </span>
                         </Tooltip>
                       </Space>
@@ -316,30 +320,30 @@ const OrderPage = () => {
                           // color={colors}
                           // key={colors}
                         >
-                          <span
+                          <span 
                             style={{
                               paddingRight: "8px",
                               paddingLeft: "8px",
                               borderRight: "1px solid #ddd",
+                              cursor:"pointer"
                             }}
                           >
-                            <i
-                              className="icon icon-map-popup-info"
-                              onClick={handleView}
-                            ></i>
+                           
+                             <i className="bi bi-box-arrow-up-right icon-order" onClick={handleView}></i>
                           </span>
                         </Tooltip>
                       </Space>
 
-                      <Space wrap>
+                      <Space wrap style={{  cursor:"pointer" }}>
                         <Tooltip
                           placement="bottom"
                           title="Note"
                           // color={colors}
                           // key={colors}
                         >
-                          <span style={{ paddingLeft: "8px" }}>
-                            <i className="icon icon-copy" onClick={handleNote}></i>
+                          <span style={{ paddingLeft: "8px", cursor:"pointer",color:"#000"}}>
+                          <i className="bi bi-journal-text icon-order" onClick={handleNote}></i>
+                         
                           </span>
                         </Tooltip>
                       </Space>

@@ -1,15 +1,12 @@
 import React from 'react'
-import TravisTable from "./table/TravisTable"
-import TravisHeader from './header/TravisHeader'
-const TravisMAthewHome = () => {
-  return (
-    <div>
 
-<div className="toolbar py-5 py-lg-15" id="kt_toolbar">
+const RetailerProfile = () => {
+  return (
+ 
+      <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
         <div id="kt_toolbar_container" className="container d-flex flex-stack">
           <div className="page-title d-flex flex-column">
-            <h1 className="d-flex text-white fw-bold my-1 fs-3">
- Travis Mathew</h1>
+            <h1 className="d-flex text-white fw-bold my-1 fs-3"> Retailer</h1>
           </div>
 
           {/* <div className="d-flex align-items-center py-1">
@@ -23,11 +20,8 @@ const TravisMAthewHome = () => {
                   </div> */}
         </div>
       </div>
-
-<TravisHeader/>
- <TravisTable/>
-    </div>
+  
   )
 }
 
-export default TravisMAthewHome
+export default RetailerProfile

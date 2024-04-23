@@ -13,6 +13,7 @@ export function MenuInner() {
       <MenuItem title='Order' to='/order' />
 
         {/* Brand */}
+
         <MenuInnerWithSub title='Brand' to='/Brand' menuPlacement='bottom-start' menuTrigger='click'>
         {/* PAGES */}
         <MenuInnerWithSub
@@ -27,9 +28,23 @@ export function MenuInner() {
           <MenuItem to='/brand/callaway/goods' title='Callaway Goods' hasBullet={true} />
           <MenuItem to='/brand/callaway/odyssey' title='Odyssey' hasBullet={true} />
         </MenuInnerWithSub>
+
         <MenuItem icon='shield-tick' to='/brand/ogio' title='Ogio' />
         <MenuItem icon='shield-tick' to='/brand/travis-methew' title='Travis Mathew' />
       </MenuInnerWithSub>
+
+
+
+
+      <MenuInnerWithSub title='Profile' to='/ProfilePage' menuPlacement='bottom-start' menuTrigger='click'>
+        {/* PAGES */}
+       
+        <MenuItem icon='profile-circle' to='/profilepage/retailerprofile' title='Retailer Profile' />
+        <MenuItem icon='element-plus' to='/profilepage/managerprofile' title='Manager Profile' />
+        <MenuItem icon='shield-tick' to='/profilepage/salesprofile' title='Sales Profile' />
+      </MenuInnerWithSub>
+
+
 
       <MenuInnerWithSub
         title='Crafted'

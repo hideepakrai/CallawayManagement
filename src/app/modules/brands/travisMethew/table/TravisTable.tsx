@@ -43,7 +43,11 @@ const TravisTable = () => {
         {
           title: "SKU",
           dataIndex: "SKU",
+<<<<<<< Updated upstream
           width: 150,
+=======
+          width: 70,
+>>>>>>> Stashed changes
           fixed: "left",
           // render: (value) => <span>{String(value.Name)}</span>,
         },
@@ -239,7 +243,7 @@ const handleExportToExcel = () => {
 
 
 return (
-    <div>
+    <div className='cw-container'>
 
 <Card style={{ marginTop:'80px'}}
           title="TRAVIS METHEW"
@@ -257,17 +261,23 @@ return (
             </div>
           }
         >
+<<<<<<< Updated upstream
           <div style={{ float: "right" }}>
             <Button 
             onClick={handleImport}
+=======
+          <div className="mb-5" style={{ float: "right" }}>
+            <Button  className='mx-3'
+          //  onClick={handleImport}
+>>>>>>> Stashed changes
             >Import Products</Button>
-            <Button 
+            <Button  className='mx-3'
             // onClick={handleExportToPDF} 
             >Export to PDF</Button>
-            <Button 
+            <Button  className='mx-3'
            onClick={handleExportToExcel}
             >Export to Excel</Button>
-            <Button
+            <Button className='mx-3'
              onClick={handleSampleExcel}
              >Sample Excel</Button>
           </div>

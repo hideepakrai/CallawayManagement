@@ -169,7 +169,7 @@ const OgioTable = () => {
     }
   
   return (
-    <div>
+    <div className='cw-container'>
 <Card style={{ marginTop:'80px'}}
           title="CALLAWAY"
           extra={
@@ -186,18 +186,23 @@ const OgioTable = () => {
             </div>
           }
         >
-          <div style={{ float: "right" }}>
-            <Button 
+          <div className='mb-5' style={{ float: "right" }}>
+            <Button  className='mx-3'
             onClick={handleImport}
             >Import Products</Button>
-            <Button 
+            <Button  className='mx-3'
             // onClick={handleExportToPDF} 
             >Export to PDF</Button>
-            <Button 
+            <Button  className='mx-3'
             // onClick={handleExportToExcel}
             >Export to Excel</Button>
+<<<<<<< Updated upstream
             <Button
              onClick={handleSampleExcel}
+=======
+            <Button className='mx-3'
+            //  onClick={handleSampleExcel}
+>>>>>>> Stashed changes
              >Sample Excel</Button>
           </div>
 

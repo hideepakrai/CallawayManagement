@@ -4,16 +4,19 @@ import { Input, Radio, Button } from "antd";
 import type { TableColumnsType } from 'antd';
 import {BasicModelGoods} from "../../../model/goods/CallawayGoodsModel"
 import {useDispatch, useSelector} from "react-redux"
-
+import "./GooodsTable.css"
 import {selectCallawayGoods} from "../../../../../slice/allProducts/CallAwayGoodsSlice"
 import SampleExcel from '../excel/SampleExcel';
 import { number } from 'yup';
 import ImportExcel from '../excel/importExcel/ImportExcel';
 import {ExcelModelGoods} from "../../../model/goods/CallawayGoodsExcel"
 import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB"
+
 import * as XLSX from 'xlsx';
 
-const GooodsTable = () => {
+const 
+
+GooodsTable = () => {
 
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -43,7 +46,7 @@ const GooodsTable = () => {
         {
           title: "SKU",
           dataIndex: "SKU",
-          width: 50,
+          width: 80,
           fixed: "left",
           // render: (value) => <span>{String(value.Name)}</span>,
         },
@@ -52,7 +55,7 @@ const GooodsTable = () => {
           title: "Name",
           dataIndex: "Name",
           key: "name",
-          width: 50 ,
+          width: 100 ,
            fixed: "left",
         },
     
@@ -71,7 +74,7 @@ const GooodsTable = () => {
           title: "ProductModel",
           dataIndex: "GoodsAttributes",
           key: "ProductModel", 
-          width: 70,
+          width: 80,
           render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
          
         },
@@ -80,28 +83,28 @@ const GooodsTable = () => {
           title: "Description",
           dataIndex: "Description",
           key: "Description", 
-          width: 115,
+          width: 150,
          
         },
         {
           title: "MRP",
           dataIndex: "RegularPrice",
           key: "RegularPrice", 
-          width: 115,
+          width: 50,
          
         },
         {
           title: "StockAvailable",
           dataIndex: "StockAvailable",
           key: "StockAvailable", 
-          width: 80,
+          width: 60,
          
         },
         {
           title: "Quantity",
           dataIndex: "Quantity",
           key: "Quantity", 
-          width: 50,
+          width: 40,
          
         },
         {
@@ -211,7 +214,7 @@ const handleExportToExcel = () => {
 
 
 return (
-    <div>
+    <div className='cw-container'>
 
 <Card style={{ marginTop:'80px'}}
           title="CALLAWAY"
@@ -229,17 +232,17 @@ return (
             </div>
           }
         >
-          <div style={{ float: "right" }}>
-            <Button 
+          <div className='mb-5' style={{ float: "right" }}>
+            <Button className='mx-3'
             onClick={handleImport}
             >Import Products</Button>
-            <Button 
+            <Button className='mx-3'
             // onClick={handleExportToPDF} 
             >Export to PDF</Button>
-            <Button 
+            <Button className='mx-3'
            onClick={handleExportToExcel}
             >Export to Excel</Button>
-            <Button
+            <Button className='mx-3'
              onClick={handleSampleExcel}
              >Sample Excel</Button>
           </div>

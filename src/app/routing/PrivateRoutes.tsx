@@ -9,6 +9,10 @@ import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import {Order} from "../pages/order/Order.js"
 import Ogio from "../pages/brand/ogio/Ogio.js"
+import RetailerProfile from '../pages/profilepage/retailerprofile/RetailerProfile.js'
+import ManagerProfile from '../pages/profilepage/managerprofile.tsx/ManagerProfile.js'
+import SalesProfile from '../pages/profilepage/salesprofile/SalesProfile.js'
+
 
 import TravisMathew from '../pages/brand/travisMathew/TravisMathew.js'
 import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
@@ -32,13 +36,17 @@ const PrivateRoutes = () => {
         <Route path='menu-test' element={<MenuTestPage />} />
         <Route path='order' element={<Order />} />
 
-        
-         {/* brand routes */}
+        <Route path='/profilepage/retailerprofile' element={<RetailerProfile />} />
+        <Route path='/profilepage/managerprofile' element={<ManagerProfile />} />
+        <Route path='/profilepage/salesprofile' element={<SalesProfile />} />
 
+         {/* brand routes */}
          <Route path='/brand/ogio' element={<Ogio />} />
          <Route path='/brand/travis-methew' element={<TravisMathew />} />
          <Route path='/brand/callaway/goods' element={<CallAwayGoods />} />
         {/* Lazy Modules */}
+
+
         <Route
           path='crafted/pages/profile/*'
           element={
