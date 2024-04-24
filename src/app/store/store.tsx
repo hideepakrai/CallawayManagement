@@ -6,6 +6,8 @@ import OgioReducer from "../slice/allProducts/OgioSlice";
 import TravisMethewReducer from "../slice/allProducts/TravisMethewSlice"
 
 import CallAwayGoodsReducer from "../slice/allProducts/CallAwayGoodsSlice"
+
+import CartReducer  from "../slice/orderSlice/CartOrder"
 export default configureStore({
 
 
@@ -13,6 +15,7 @@ export default configureStore({
         user: UserSliceReducer,
         Ogio: OgioReducer,
         travisMethew: TravisMethewReducer,
-        callawayGoods:CallAwayGoodsReducer
+        callawayGoods:CallAwayGoodsReducer,
+        Order:CartReducer,
     }
 })

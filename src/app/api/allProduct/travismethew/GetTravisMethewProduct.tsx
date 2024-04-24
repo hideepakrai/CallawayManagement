@@ -25,10 +25,10 @@ const GetTravisMethewProduct = ({ resetTravis}: Props) => {
       
 
 useEffect(() => {
-    console.log("Travis data graph QL",data);
-    console.log(loading);
+    // console.log("Travis data graph QL",data);
+    // console.log(loading);
     if (data && !loading) {
-        console.log(data?.products?.data);
+        // console.log(data?.products?.data);
         
         dispatch(addTravisProduct({
             travisProduct: data?.products?.data,

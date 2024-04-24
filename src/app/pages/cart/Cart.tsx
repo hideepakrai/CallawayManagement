@@ -1,8 +1,10 @@
 import React from 'react'
-
+import CartHome from '../../modules/cartOrder/CartHome'
 const Cart = () => {
   return (
-    <div>Cart</div>
+    <div>
+        <CartHome/>
+    </div>
   )
 }
 

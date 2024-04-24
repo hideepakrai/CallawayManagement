@@ -4,9 +4,18 @@ import {Link} from 'react-router-dom'
 import {useAuth} from '../../../../app/modules/auth'
 import {Languages} from './Languages'
 import {toAbsoluteUrl} from '../../../helpers'
-
+import { useDispatch } from 'react-redux'
+import {resetTravisProduct} from "../../../../app/slice/allProducts/TravisMethewSlice"
+import {resetOrder} from "../../../../app/slice/orderSlice/CartOrder"
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth()
+  const dispatch = useDispatch()
+  const handleLogout=()=>{
+    dispatch(resetTravisProduct())
+    dispatch(resetOrder())
+    logout()
+
+  }
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-semibold py-4 fs-6 w-275px'
@@ -124,7 +133,7 @@ const HeaderUserMenu: FC = () => {
       </div>
 
       <div className='menu-item px-5'>
-        <a onClick={logout} className='menu-link px-5'>
+        <a onClick={handleLogout} className='menu-link px-5'>
           Sign Out
         </a>
       </div>

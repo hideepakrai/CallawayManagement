@@ -43,6 +43,7 @@ const TravisMethewSlice = createSlice({
                         });
                     }
                     state.travisMethew.push({
+                       brand: item.attributes.brand,
                         Name: item.attributes.Name,
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,

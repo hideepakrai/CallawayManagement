@@ -45,6 +45,8 @@ const CallawayGoodSlice = createSlice({
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
                         GoodsAttributes: att,
+                        Gallery:item.attributes.Gallery,
+                        PrimaryImage: item.attributes.PrimaryImage
                     });
                 });
             }

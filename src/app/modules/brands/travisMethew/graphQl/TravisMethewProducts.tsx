@@ -11,6 +11,13 @@ query getTravisMAthewProduct {
       data{
         id
         attributes{
+          brand{
+            data{
+              attributes{
+                Name
+              }
+            }
+          }
           Name
           Description
           SKU

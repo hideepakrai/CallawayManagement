@@ -80,6 +80,13 @@ GooodsTable = () => {
         },
         
         {
+          title: "Orientation",
+          dataIndex: "GoodsAttributes",
+          key: "Orientation", 
+          width: 150,
+          render: (value) => <span>{value && value[0] && value[0].Orientation}</span>,
+        },
+        {
           title: "Description",
           dataIndex: "Description",
           key: "Description", 

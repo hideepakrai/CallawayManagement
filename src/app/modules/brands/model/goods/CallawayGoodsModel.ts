@@ -13,6 +13,7 @@ export interface BasicModelGoods {
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
+      Gallery?:ImageType
       AttributeSet?:GoodsAttributes[],
       GoodsAttributes?: GoodsAttributes [] 
       Quantity?: number;

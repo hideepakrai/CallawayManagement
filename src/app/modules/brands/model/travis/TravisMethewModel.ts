@@ -2,6 +2,8 @@
 export interface BasicModelTravis {
 
     id?:number,
+    brand?:string,
+    Brand?:Brand[],
       Name?: string;
       Description?: string;
       SKU?: string;
@@ -87,3 +89,11 @@ export interface BasicModelTravisGraph {
     url?: string;
   }
 
+  export interface Brand {
+    data: {
+      attributes: {
+        Name?: string;
+      };
+    };
+  }
+  

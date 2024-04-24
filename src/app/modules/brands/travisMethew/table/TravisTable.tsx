@@ -13,8 +13,22 @@ import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
  import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice"
  import { Cascader,Select, Space } from 'antd';
+import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder"
+import { message } from "antd";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 
+// Extend jsPDF types
+declare module "jspdf" {
+  export interface jsPDF {
+    autoTable: (
+      columns: string[] | object[],
+      body: object[],
+      options?: object
+    ) => jsPDF;
+  }
+}
 
  const TravisTable = () => {
 
@@ -385,7 +399,9 @@ import * as XLSX from 'xlsx';
     const intValue = parseInt(value, 10);
 
     if (record?.StockAvailable90 && record.StockAvailable90 >= intValue) {
+      
       // Dispatch an action to update the quantity for the SKU
+      
       dispatch(updateQuantity90({
         sku: record.SKU,
         qty90: intValue,
@@ -393,6 +409,11 @@ import * as XLSX from 'xlsx';
         
       }));
       record.Quantity90=intValue;
+      dispatch(addTravisOrder({
+        travisOrder:record,
+        qty90: intValue,
+        qty88:record.Quantity88
+      }))
     }
     else{
       alert("Quantity is not available")
@@ -400,6 +421,7 @@ import * as XLSX from 'xlsx';
       dispatch(updateQuantity90({
         sku: record.SKU,
         qty90: 0,
+      
        
       }));
       record.Quantity90=0;
@@ -410,7 +432,7 @@ import * as XLSX from 'xlsx';
     console.log(record);
   };
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
-
+       console.log("record",record)
     const intValue = parseInt(value, 10);
 
     if (record?.StockAvailable88 && record.StockAvailable88 >= intValue) {
@@ -420,8 +442,14 @@ import * as XLSX from 'xlsx';
         qty88: intValue,
         RegularPrice: record.RegularPrice,
       }));
-      record.Quantity90=intValue;
+      record.Quantity88=intValue;
      // setQuantity88(intValue)
+     dispatch(addTravisOrder({
+      travisOrder:record,
+        qty88: intValue,
+        qty90:record.Quantity90
+        
+    }))
     }
     else if(record?.StockAvailable88 && record.StockAvailable88 < intValue &&intValue!==0){
       alert("Quantity is not available")
@@ -470,22 +498,33 @@ const handleResetXlData=()=>{
 //exportto excel
 const handleExportToExcel = () => {
   try {
-    console.log("Excel importing...");
-    const table = tableRef.current;
-    // eslint-disable-next-line no-debugger
-    debugger
+    console.log("Exporting to Excel...");
+
+    const table = tableRef.current as HTMLTableElement | null;
+
     if (!table) {
       console.error("Table element not found.");
       return;
     }
-    const ws = XLSX.utils.table_to_sheet(table);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    console.log("Workbook:", wb);
-     // Generate a unique name for the file using current timestamp
-     const fileName = `TravisMathewProducts_${Date.now()}.xlsx`;
 
-     XLSX.writeFile(wb, fileName);
+    // Get the table's outerHTML
+    const tableHtml = table.outerHTML;
+
+    // Create a Blob object representing the data as an XLSX file
+    const blob = new Blob([tableHtml], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    // Create a temporary anchor element to download the Blob
+    const anchor = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    anchor.href = url;
+    anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+    anchor.click();
+
+    // Release the object URL
+    URL.revokeObjectURL(url);
 
     console.log("Excel exported successfully.");
   } catch (error) {
@@ -493,11 +532,54 @@ const handleExportToExcel = () => {
   }
 };
 
+
+
+
+
 //handle Show Order
 
 const handleShowOrder=()=>{
 
 }
+// table into pdf
+const handleExportToPDF = () => {
+  const table = tableRef.current;
+  if (!table) {
+    message.error("Table reference not found");
+    return;
+  }
+
+  const doc = new jsPDF({
+    orientation: "landscape",
+  });
+
+  const tableColumn = [
+    { header: "Brand", dataKey: "brand" },
+    { header: "Name", dataKey: "Name" },
+    { header: "SKU", dataKey: "SKU" },
+    { header: "Category", dataKey: "Category" },
+    { header: "Style code", dataKey: "StyleCode" },
+  ];
+
+  const tableRows = getProduct.map((item: BasicModelTravis) => ({
+    brand: item.SetType || "",
+    Name: item.Name || "",
+    SKU: item.SKU || "",
+    Category: (item.TravisAttributes && item.TravisAttributes[0]?.Category) || "",
+    StyleCode: (item.TravisAttributes && item.TravisAttributes[0]?.StyleCode) || "",
+  }));
+
+  if (tableRows.length === 0) {
+    message.warning("No data available to export");
+    return;
+  }
+
+  // startY is basically margin-top
+  doc.autoTable(tableColumn, tableRows, { startY: 20 });
+  doc.save(`TravisMathew.pdf`);
+};
+
+
 
 return (
     <div className='cw-container'>
@@ -527,7 +609,7 @@ return (
             onClick={handleImport}
             >Import Products</Button>
             <Button  className='mx-3'
-            // onClick={handleExportToPDF} 
+            onClick={handleExportToPDF} 
             >Export to PDF</Button>
             <Button  className='mx-3'
            onClick={handleExportToExcel}
