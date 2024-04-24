@@ -7,12 +7,15 @@ import {toAbsoluteUrl} from '../../../helpers'
 import { useDispatch } from 'react-redux'
 import {resetTravisProduct} from "../../../../app/slice/allProducts/TravisMethewSlice"
 import {resetOrder} from "../../../../app/slice/orderSlice/CartOrder"
+
+import {resetCallayGoods} from "../../../../app/slice/allProducts/CallAwayGoodsSlice"
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth()
   const dispatch = useDispatch()
   const handleLogout=()=>{
     dispatch(resetTravisProduct())
     dispatch(resetOrder())
+    dispatch(resetCallayGoods())
     logout()
 
   }

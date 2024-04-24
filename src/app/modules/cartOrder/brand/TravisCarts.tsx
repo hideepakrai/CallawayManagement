@@ -3,12 +3,12 @@ import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio,InputNumber, Button } from "antd";
 import type { TableColumnsType } from 'antd';
-import {BasicModelTravis} from "../../../brands/model/travis/TravisMethewModel"
+import {BasicModelTravis} from "../../brands/model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
-import {getTravisOrder} from "../../../../slice/orderSlice/CartOrder"
-import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice"
-import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder"
-
+import {getTravisOrder} from "../../../slice/orderSlice/CartOrder"
+import {updateQuantity90,updateQuantity88} from "../../../slice/allProducts/TravisMethewSlice"
+import {addTravisOrder} from "../../../slice/orderSlice/CartOrder"
+import CartHeader from '../CartHeader';
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -305,11 +305,13 @@ const TravisCart = () => {
       
       };
   return (
-    <div>travis Order
+    <div>
+{getProduct && 
+getProduct.length>0 &&<CartHeader/>}
 
 {getProduct && 
-getProduct.length>0 &&
-        <Table
+getProduct.length>0 ?
+        (<Table
             ref={tableRef}
             columns={columns}
             dataSource={getProduct?.map((item) => ({ ...item, key: item.id }))}
@@ -319,7 +321,11 @@ getProduct.length>0 &&
             scroll={{ x: "100%", y: "auto" }}
             style={{ maxHeight: "1600px" }}
             pagination={{ defaultPageSize: 20 }}
-          />}
+          />):(
+            <div>
+              No order selected
+              </div>
+          )}
     </div>
   )
 }

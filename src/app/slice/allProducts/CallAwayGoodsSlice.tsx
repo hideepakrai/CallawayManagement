@@ -13,6 +13,9 @@ const CallawayGoodSlice = createSlice({
     name: "callawayGoods",
     initialState,
     reducers: {
+        resetCallayGoods: () =>{
+            return initialState;
+        },
         addCallawayGoodsProduct: (state, action: PayloadAction<{ goodsProduct: BasicModelGoodsGraph[], id: string }>) => {
             const { goodsProduct } = action.payload;
             if (goodsProduct && goodsProduct.length > 0) {
@@ -34,6 +37,7 @@ const CallawayGoodSlice = createSlice({
                         });
                     }
                     state.callawayGoods.push({
+                        brand: item.attributes.brand,
                         Name: item.attributes.Name,
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
@@ -46,15 +50,60 @@ const CallawayGoodSlice = createSlice({
                         ProductType: item.attributes.ProductType,
                         GoodsAttributes: att,
                         Gallery:item.attributes.Gallery,
-                        PrimaryImage: item.attributes.PrimaryImage
+                        PrimaryImage: item.attributes.PrimaryImage,
+                        StockAvailable88:item.attributes.StockAvailable88===null? 0:item.attributes.StockAvailable88,
+                        StockAvailable90:item.attributes.StockAvailable90===null?0:item.attributes.StockAvailable90,
+                        TotalQty: 0,
+                        Quantity88: 0,
+                        Quantity90: 0,
+                        Amount: 0
                     });
                 });
             }
         },
-    },
+        updateGoodsQuantity90:(state,action)=>{
+            const {sku, qty90,RegularPrice}=action.payload;
+            const goodsIndex = state.callawayGoods.findIndex(
+              (goodsItem) => goodsItem.SKU === sku
+            );
+            if (goodsIndex!== -1) {
+              state.callawayGoods[goodsIndex].Quantity90 = qty90;
+             
+              const quantity88 = state.callawayGoods[goodsIndex]?.Quantity88 ?? 0;
+              const quantity90 = state.callawayGoods[goodsIndex]?.Quantity90 ?? 0;
+              state.callawayGoods[goodsIndex].TotalQty = quantity88+quantity90;
+
+              
+              state.callawayGoods[goodsIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.callawayGoods[goodsIndex].ordered = true;
+            }
+
+        },
+        updateGoodsQuantity88:(state,action)=>{
+            const {sku, qty88,RegularPrice}=action.payload;
+            const goodsIndex = state.callawayGoods.findIndex(
+              (goodsItem) => goodsItem.SKU === sku
+            );
+            if (goodsIndex!== -1) {
+              state.callawayGoods[goodsIndex].Quantity88 = qty88;
+              const quantity88 = state.callawayGoods[goodsIndex]?.Quantity88 ?? 0;
+              const quantity90 = state.callawayGoods[goodsIndex]?.Quantity90 ?? 0;
+              state.callawayGoods[goodsIndex].TotalQty = quantity88+quantity90;
+              state.callawayGoods[goodsIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.callawayGoods[goodsIndex].ordered = true;
+            }
+          },
+        }
+    
 });
 
-export const { addCallawayGoodsProduct } = CallawayGoodSlice.actions;
+export const { 
+    addCallawayGoodsProduct,
+    resetCallayGoods,
+    updateGoodsQuantity90,
+    updateGoodsQuantity88
+
+ } = CallawayGoodSlice.actions;
 
 export const selectCallawayGoods = (state: { callawayGoods: ProductState }) => state.callawayGoods.callawayGoods;
 

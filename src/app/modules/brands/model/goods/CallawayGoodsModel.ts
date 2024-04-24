@@ -2,6 +2,7 @@
 export interface BasicModelGoods {
 
     id?:number,
+    brand?:Brand[],
       Name?: string;
       Description?: string;
       SKU?: string;
@@ -9,15 +10,20 @@ export interface BasicModelGoods {
       StockStatus?: string;
       RegularPrice?: number;
       SalePrice?: number | null;
-      StockAvailable?: number;
+      StockAvailable?:StockAvailable[] ;
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
       Gallery?:ImageType
       AttributeSet?:GoodsAttributes[],
       GoodsAttributes?: GoodsAttributes [] 
-      Quantity?: number;
       Amount?: number;
+      StockAvailable88?:number|null;
+      StockAvailable90?:number|null;
+      TotalQty?: number|null;
+      Quantity88?: number|null;
+       Quantity90?: number|null;
+       ordered?: boolean
     
    
 
@@ -28,14 +34,22 @@ export interface BasicModelGoodsGraph {
     attributes:BasicModelGoods
   }
  
-
+  export interface StockAvailable{
+    stock88: number,
+    stock90: number
+  }
+  export interface Quantity {
+    quantity88: number;
+    quantity90: number;
+  
+  }
 export interface GoodsAttributes {
               ProductType?:string;
               ProductModel?:string | null;
               Category?:string | null;
               Orientation?:string | null;
               LifeCycle?:string | null;
-              Material?:string | null;
+              
 }
 
  
@@ -66,3 +80,11 @@ export interface GoodsAttributes {
     url?: string;
   }
 
+  export interface Brand {
+    __typename:string,
+    data: {
+      attributes: {
+        Name?: string;
+      };
+    };
+  }

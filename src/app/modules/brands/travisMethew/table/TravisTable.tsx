@@ -62,7 +62,7 @@ declare module "jspdf" {
         {
           title: "SKU",
           dataIndex: "SKU",
-          width: 130,
+          width: 80,
           fixed: "left",
           // render: (value) => <span>{String(value.Name)}</span>,
          
@@ -72,7 +72,7 @@ declare module "jspdf" {
           title: "Name",
           dataIndex: "Name",
           key: "name",
-          width: 70 ,
+          width: 100 ,
            fixed: "left",
         },
     
@@ -81,7 +81,7 @@ declare module "jspdf" {
         {
           title: "Category",
           dataIndex: "TravisAttributes",
-          key: "Description", 
+          key: "Category", 
           width: 85,
           render: (value) => <span>{value && value[0] && value[0].Category}</span>,
           sorter: (a, b) => {

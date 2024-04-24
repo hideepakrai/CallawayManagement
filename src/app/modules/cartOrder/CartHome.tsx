@@ -4,7 +4,7 @@ import CartHeader from './CartHeader'
 const CartHome = () => {
   return (
     <div>
-        <CartHeader/>
+        
    
 <CartProduct/>
     </div>

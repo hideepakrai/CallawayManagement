@@ -13,14 +13,13 @@ import {ExcelModelGoods} from "../../../model/goods/CallawayGoodsExcel"
 import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB"
 
 import * as XLSX from 'xlsx';
-
-const 
-
-GooodsTable = () => {
+ import {updateGoodsQuantity90,updateGoodsQuantity88} from "../../../../../slice/allProducts/CallAwayGoodsSlice";
+ import {addGoodsOrder} from ".././../../../../slice/orderSlice/CartOrder"
+const GooodsTable = () => {
 
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
-    
+     const dispatch= useDispatch()
 
 
     const callawayGooodsProduct:BasicModelGoods[]=useSelector(selectCallawayGoods)
@@ -28,19 +27,23 @@ GooodsTable = () => {
     console.log("callawayGooodsProduct",callawayGooodsProduct)
     const columns: TableColumnsType<BasicModelGoods>= [
         {
-          // title: "Image",
+          title: "Image",
           dataIndex: "PrimaryImage",
-          // fixed: "left",
-          width: 25,
-        //   render: (value) => (
-        //     <span>
-        //       <img
-        //         src={master}
-        //         alt="Primary Image"
-        //         style={{ maxWidth: "30px", marginRight: "5px" }}
-        //       />
-        //     </span>
-        //   ),
+           fixed: "left",
+          width:70,
+          render: (value) => {
+            console.log("image: " + value?.data?.attributes?.formats?.thumbnail?.url)
+           return  (
+            
+            <span>
+              <img
+                 src={`https://aigigs.in${value?.data?.attributes?.formats?.thumbnail?.url}`}
+                
+                alt="Primary Image"
+                style={{ maxWidth: "30px", marginRight: "5px" }}
+              />
+            </span>
+          )}
         },
     
         {
@@ -65,7 +68,7 @@ GooodsTable = () => {
           title: "ProductType",
           dataIndex: "GoodsAttributes",
           key: "GoodsAttributes", 
-          width: 70,
+          width: 85,
           render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
          
         },
@@ -90,48 +93,144 @@ GooodsTable = () => {
           title: "Description",
           dataIndex: "Description",
           key: "Description", 
-          width: 150,
+          width: 115,
          
+        },
+        {
+          title:"Stock",
+          children:[
+           { title: "88    QTY",
+            dataIndex: "StockAvailable88",
+            key: "StockAvailable88", 
+            width: 130,
+            fixed:'right',
+            render: (text, record) => (
+              <Input addonBefore={record.StockAvailable88 === 0 ? "0" : record.StockAvailable88} 
+              type='number'
+             
+              value={record.Quantity88?.toString()}
+              onChange={(e) => handleQuantity88(e.target.value, record)}
+               />
+             
+            )
+          },
+            {
+              title: "90  QTY",
+            dataIndex: "StockAvailable88",
+            key: "StockAvailable88", 
+            width: 130,
+            fixed:'right',
+            render: (text, record) => (
+              <Input addonBefore={record.StockAvailable90 === 0 ? "0" : record.StockAvailable90} 
+              type='number'
+              
+              value={record.Quantity90?.toString()}
+             onChange={(e) => handleQuantity90(e.target.value, record)} 
+             />
+             
+            ),
+            }
+           
+          ],
+          
+        },
+        {
+          title: "Total Qty",
+          dataIndex: "TotalQty",
+          key: "TotalQty", 
+          width: 100,
+          fixed:'right'
         },
         {
           title: "MRP",
           dataIndex: "RegularPrice",
           key: "RegularPrice", 
-          width: 50,
-         
+          width: 80,
+          fixed:'right'
         },
-        {
-          title: "StockAvailable",
-          dataIndex: "StockAvailable",
-          key: "StockAvailable", 
-          width: 60,
-         
-        },
-        {
-          title: "Quantity",
-          dataIndex: "Quantity",
-          key: "Quantity", 
-          width: 40,
-         
-        },
+        
         {
           title: "Amount",
           dataIndex: "Amount",
           key: "Amount", 
-          width: 50,
-          render: (text, record) => (
-            <Input 
-             type='number'
-             value={amount}
-              onChange={(e) => handleAmountChange(e.target.value, record)}
-            />
-          ),
+          width: 100,
+          fixed:'right'
+          
          
         },
         
       
       ];
 
+
+      const handleQuantity90 = (value: string, record: BasicModelGoods) => {
+
+        const intValue = parseInt(value, 10);
+    
+        if (record?.StockAvailable90 && record.StockAvailable90 >= intValue) {
+          
+          // Dispatch an action to update the quantity for the SKU
+          
+          dispatch(updateGoodsQuantity90({
+            sku: record.SKU,
+            qty90: intValue,
+            RegularPrice: record.RegularPrice,
+            
+          }));
+          record.Quantity90=intValue;
+          dispatch(addGoodsOrder({
+            goodsOrder:record,
+            qty90: intValue,
+            qty88:record.Quantity88
+          }))
+        }
+        else{
+          alert("Quantity is not available")
+          //setQuantity90(0)
+          dispatch(updateGoodsQuantity90({
+            sku: record.SKU,
+            qty90: 0,
+          
+           
+          }));
+          record.Quantity90=0;
+          
+        }
+      
+        // Log the record for debugging or tracking purposes
+        console.log(record);
+      };
+      const handleQuantity88 = (value: string, record: BasicModelGoods) => {
+           console.log("record",record)
+        const intValue = parseInt(value, 10);
+    
+        if (record?.StockAvailable88 && record.StockAvailable88 >= intValue) {
+          // Dispatch an action to update the quantity for the SKU
+          dispatch(updateGoodsQuantity88({
+            sku: record.SKU,
+            qty88: intValue,
+            RegularPrice: record.RegularPrice,
+          }));
+          record.Quantity88=intValue;
+         // setQuantity88(intValue)
+         dispatch(addGoodsOrder({
+          goodsOrder:record,
+            qty88: intValue,
+            qty90:record.Quantity90
+            
+        }))
+        }
+        else if(record?.StockAvailable88 && record.StockAvailable88 < intValue &&intValue!==0){
+          alert("Quantity is not available")
+         // setQuantity88(0)
+         dispatch(updateGoodsQuantity88({
+          sku: record.SKU,
+          qty88: 0,
+        }));
+        record.Quantity90=0;
+        }
+      
+      };
 
   const [selectedRowKeys, setSelectedRowKeys] = useState();
   const rowSelection = {
