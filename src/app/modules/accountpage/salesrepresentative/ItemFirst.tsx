@@ -10,7 +10,7 @@ const ItemFirst = () => {
 
 
         <div className="card card-custom mx-8 mb-3 pb-7 card-user-list" style={{ border:"none" }} >
-          <div className="card-header d-inline py-7" style={{ backgroundColor: "#263654", color: "#fff", border:"none" }} >
+          <div className="card-header d-inline py-7" style={{ backgroundColor: "#038fde", color: "#fff", border:"none" }} >
             
             <h1 className=" text-center text-white pb-2" style={{fontSize:"28px"}} >Ashok Sharma</h1>
             <h4 className=" text-center text-white">Sales Representative</h4>
@@ -42,7 +42,7 @@ const ItemFirst = () => {
 
 
           <div style={{  textAlign:"center",}}>
-            <Button style={{ backgroundColor: "#263654", color: "#fff", textAlign:"center", margin:"0 auto" }} >View</Button>
+            <Button style={{ backgroundColor: "#038fde", color: "#fff", textAlign:"center", margin:"0 auto" }} >View</Button>
           </div>
         </div>
 
