@@ -12,6 +12,9 @@ import Ogio from "../pages/brand/ogio/Ogio.js"
 import RetailerProfile from '../pages/profilepage/retailerprofile/RetailerProfile.js'
 import ManagerProfile from '../pages/profilepage/managerprofile.tsx/ManagerProfile.js'
 import SalesProfile from '../pages/profilepage/salesprofile/SalesProfile.js'
+import SalesRepresentative from '../pages/accountpage/salesrepresentative/SalesRepresentative.js'
+import Retailer from '../pages/accountpage/retailer/Retailer.js'
+import Manager from '../pages/accountpage/manager/Manager.js'
 
 
 import TravisMathew from '../pages/brand/travisMathew/TravisMathew.js'
@@ -40,6 +43,12 @@ const PrivateRoutes = () => {
         <Route path='/profilepage/retailerprofile' element={<RetailerProfile />} />
         <Route path='/profilepage/managerprofile' element={<ManagerProfile />} />
         <Route path='/profilepage/salesprofile' element={<SalesProfile />} />
+
+        <Route path='/account/cway-user' element={<SalesRepresentative />} />
+        <Route path='/account/cway-manager' element={<Manager />} />
+        <Route path='/account/cway-retailer' element={<Retailer />} />
+
+
 
          {/* brand routes */}
          <Route path='/brand/ogio' element={<Ogio />} />

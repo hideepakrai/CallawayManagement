@@ -518,13 +518,6 @@ return (
             </div>
           }
         >
-          <div style={{ float: "left" }}>
-
-          <Button 
-            onClick={handleShowOrder}
-            >Orders</Button>
-          </div>
-
           <div style={{ float: "right" }}>
             <Button 
            // onClick={handleImport}

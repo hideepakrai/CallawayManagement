@@ -41,13 +41,23 @@ export function MenuInner() {
 
 
 
-
+{/* profile */}
       <MenuInnerWithSub title='Profile' to='/ProfilePage' menuPlacement='bottom-start' menuTrigger='click'>
         {/* PAGES */}
        
         <MenuItem icon='profile-circle' to='/profilepage/retailerprofile' title='Retailer Profile' />
         <MenuItem icon='element-plus' to='/profilepage/managerprofile' title='Manager Profile' />
         <MenuItem icon='shield-tick' to='/profilepage/salesprofile' title='Sales Profile' />
+      </MenuInnerWithSub>
+
+{/* profile end */}
+
+<MenuInnerWithSub title='Accounts' to='/accounts' menuPlacement='bottom-start' menuTrigger='click'>
+        {/* PAGES */}
+       
+        <MenuItem icon='profile-circle' to='/account/cway-user' title='Sales Representative' />
+        <MenuItem icon='element-plus' to='/account/cway-manager' title='Manager' />
+        <MenuItem icon='shield-tick' to='/account/cway-retailer' title='Retailer' />
       </MenuInnerWithSub>
 
 
@@ -166,6 +176,7 @@ export function MenuInner() {
         menuTrigger='click'
       >
         <MegaMenu />
+
       </MenuInnerWithSub>
       
     </>

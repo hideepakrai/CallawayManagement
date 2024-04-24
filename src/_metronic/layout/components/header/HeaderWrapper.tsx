@@ -51,13 +51,13 @@ export function HeaderWrapper() {
           <Link to='/'>
             <img
               alt='Logo'
-              src={toAbsoluteUrl('media/logos/demo2.png')}
-              className='logo-default h-25px'
+              src={toAbsoluteUrl('media/logos/logo-white.png')}
+              className='logo-default h-50px'
             />
             <img
               alt='Logo'
-              src={toAbsoluteUrl('media/logos/demo2-sticky.png')}
-              className='logo-sticky h-25px'
+              src={toAbsoluteUrl('media/logos/logo-header.png')}
+              className='logo-sticky h-40px'
             />
           </Link>
         </div>
