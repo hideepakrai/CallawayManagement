@@ -15,20 +15,21 @@ import * as XLSX from 'xlsx';
  import { Cascader,Select, Space } from 'antd';
 import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder"
 import { message } from "antd";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
+// import jsPDF from "jspdf";
+// import "jspdf-autotable";
+
 
 
 // Extend jsPDF types
-declare module "jspdf" {
-  export interface jsPDF {
-    autoTable: (
-      columns: string[] | object[],
-      body: object[],
-      options?: object
-    ) => jsPDF;
-  }
-}
+// declare module "jspdf" {
+//   export interface jsPDF {
+//     autoTable: (
+//       columns: string[] | object[],
+//       body: object[],
+//       options?: object
+//     ) => jsPDF;
+//   }
+// }
 
  const TravisTable = () => {
 
@@ -542,42 +543,42 @@ const handleShowOrder=()=>{
 
 }
 // table into pdf
-const handleExportToPDF = () => {
-  const table = tableRef.current;
-  if (!table) {
-    message.error("Table reference not found");
-    return;
-  }
+// const handleExportToPDF = () => {
+//   const table = tableRef.current;
+//   if (!table) {
+//     message.error("Table reference not found");
+//     return;
+//   }
 
-  const doc = new jsPDF({
-    orientation: "landscape",
-  });
+//   const doc = new jsPDF({
+//     orientation: "landscape",
+//   });
 
-  const tableColumn = [
-    { header: "Brand", dataKey: "brand" },
-    { header: "Name", dataKey: "Name" },
-    { header: "SKU", dataKey: "SKU" },
-    { header: "Category", dataKey: "Category" },
-    { header: "Style code", dataKey: "StyleCode" },
-  ];
+//   const tableColumn = [
+//     { header: "Brand", dataKey: "brand" },
+//     { header: "Name", dataKey: "Name" },
+//     { header: "SKU", dataKey: "SKU" },
+//     { header: "Category", dataKey: "Category" },
+//     { header: "Style code", dataKey: "StyleCode" },
+//   ];
 
-  const tableRows = getProduct.map((item: BasicModelTravis) => ({
-    brand: item.SetType || "",
-    Name: item.Name || "",
-    SKU: item.SKU || "",
-    Category: (item.TravisAttributes && item.TravisAttributes[0]?.Category) || "",
-    StyleCode: (item.TravisAttributes && item.TravisAttributes[0]?.StyleCode) || "",
-  }));
+//   const tableRows = getProduct.map((item: BasicModelTravis) => ({
+//     brand: item.SetType || "",
+//     Name: item.Name || "",
+//     SKU: item.SKU || "",
+//     Category: (item.TravisAttributes && item.TravisAttributes[0]?.Category) || "",
+//     StyleCode: (item.TravisAttributes && item.TravisAttributes[0]?.StyleCode) || "",
+//   }));
 
-  if (tableRows.length === 0) {
-    message.warning("No data available to export");
-    return;
-  }
+//   if (tableRows.length === 0) {
+//     message.warning("No data available to export");
+//     return;
+//   }
 
-  // startY is basically margin-top
-  doc.autoTable(tableColumn, tableRows, { startY: 20 });
-  doc.save(`TravisMathew.pdf`);
-};
+//   // startY is basically margin-top
+//   doc.autoTable(tableColumn, tableRows, { startY: 20 });
+//   doc.save(`TravisMathew.pdf`);
+// };
 
 
 
@@ -609,7 +610,7 @@ return (
             onClick={handleImport}
             >Import Products</Button>
             <Button  className='mx-3'
-            onClick={handleExportToPDF} 
+            // onClick={handleExportToPDF} 
             >Export to PDF</Button>
             <Button  className='mx-3'
            onClick={handleExportToExcel}

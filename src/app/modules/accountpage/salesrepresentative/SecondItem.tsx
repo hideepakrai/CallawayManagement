@@ -11,7 +11,7 @@ const SecondItem = () => {
           <div className="card-header d-inline py-7" style={{ backgroundColor: "#038fde", color: "#fff", border:"none" }} >
             
             <h1 className=" text-center text-white pb-2" style={{fontSize:"28px"}}>Ankit Kumar</h1>
-            <h4 className=" text-center text-white">Sales Representative</h4>
+            <h4 className=" text-center text-white">SALES REPRESENTATIVE</h4>
 
           </div>
 

@@ -11,7 +11,7 @@ const AuthLayout = () => {
       root.style.height = '100%'
     }
     return () => {
-      document.body.style.backgroundImage = `url(${toAbsoluteUrl('media/patterns/header-bg.jpg')})`
+      document.body.style.backgroundImage = `url(${toAbsoluteUrl('media/patterns/header-bg.png')})`
       if (root) {
         root.style.height = 'auto'
       }

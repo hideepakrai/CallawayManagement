@@ -3,15 +3,15 @@ import {Button} from "antd";
 
 
 
-const
-ThirdItem = () => {
+const SecondItem = () => {
+
     return (
- 
-        <div className="card card-custom mx-8 mb-3 pb-7 card-user-list" style={{ border:"none" }} >
+     
+        <div className="card card-custom mx-8 mb-4 pb-7 card-user-list" style={{ border:"none" }} >
           <div className="card-header d-inline py-7" style={{ backgroundColor: "#038fde", color: "#fff", border:"none" }} >
             
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"28px"}}  >Jitendra Kumar</h1>
-            <h4 className=" text-center text-white">SALES REPRESENTATIVE</h4>
+            <h1 className=" text-center text-white pb-2" style={{fontSize:"28px"}}>Ankur Shriv</h1>
+            <h4 className=" text-center text-white">MANAGER </h4>
 
           </div>
 
@@ -24,7 +24,7 @@ ThirdItem = () => {
               </li>
               <li>
                 <i className="bi bi-envelope"></i>
-                <span>hello@jitendrakumar.com</span>
+                <span>hello@ankurshriv.com</span>
               </li>
               <li>
                 <i className="bi bi-person-vcard"></i>
@@ -33,7 +33,7 @@ ThirdItem = () => {
 
               <li>
                 <i className="bi bi-calendar-event"></i>
-                <span>10-02-2024</span>
+                <span>23-01-2023</span>
               </li>
             </ul>
           </div>
@@ -44,9 +44,9 @@ ThirdItem = () => {
           </div>
         </div>
 
-
+ 
     )
   };
 
-export default ThirdItem;
+export default SecondItem;
 

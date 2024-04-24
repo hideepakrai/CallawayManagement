@@ -13,6 +13,7 @@ type data={
     id:number
 }
 
+
 const Contact = ({contactList}: Props) => {
 
   return (
