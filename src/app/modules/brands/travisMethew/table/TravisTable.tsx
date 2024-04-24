@@ -4,7 +4,6 @@ import { Input, Radio,InputNumber, Button } from "antd";
 import type { TableColumnsType } from 'antd';
 import {BasicModelTravis} from "../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
-
 import {getTravisProducts} from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 import { number } from 'yup';
@@ -13,7 +12,11 @@ import {ExcelModelTravis} from "../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
  import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice"
-const TravisTable = () => {
+ import { Cascader,Select, Space } from 'antd';
+
+
+
+ const TravisTable = () => {
 
    const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -24,7 +27,7 @@ const TravisTable = () => {
      const[amount, setAmount]=useState<number>()
      
 
-    console.log(" travis Product",getProduct)
+    //console.log(" travis Product",getProduct)
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
@@ -140,74 +143,92 @@ const TravisTable = () => {
          
         },
 
+      
         {
-          title: "MRP",
-          dataIndex: "RegularPrice",
-          key: "RegularPrice", 
-          width: 115,
-         
-        },
-        {
-          title:"StockAvailable",
+          title:"Stock",
           children:[
-           { title: "88",
+           { title: "88    QTY",
             dataIndex: "StockAvailable88",
             key: "StockAvailable88", 
-            width: 80,
-            fixed:'right'
+            width: 130,
+            fixed:'right',
+            render: (text, record) => (
+              <Input addonBefore={record.StockAvailable88} 
+              type='number'
+             
+              value={record.Quantity88?.toString()}
+              onChange={(e) => handleQuantity88(e.target.value, record)} />
+             
+            ),
           },
             {
-              title: "90",
+              title: "90  QTY",
             dataIndex: "StockAvailable88",
             key: "StockAvailable88", 
-            width: 80,
-            fixed:'right'
+            width: 130,
+            fixed:'right',
+            render: (text, record) => (
+              <Input addonBefore={record.StockAvailable90} 
+              type='number'
+              
+              value={record.Quantity90?.toString()}
+              onChange={(e) => handleQuantity90(e.target.value, record)} />
+             
+            ),
             }
            
           ],
           
         },
-        {
-          title:"Quantity",
-          children:[
-            {
-              title: "88",
-              dataIndex: "quantity88",
-              key: "quantity88", 
-              width: 100, 
-              fixed:'right',
-              render: (text, record) => (
-                <Input 
-                 type='number'
-                 value={record.Quantity88?.toString()}
-                  onChange={(e) => handleQuantity88(e.target.value, record)}
-                />
-              ),
+        // {
+        //   title:"Quantity",
+        //   children:[
+        //     {
+        //       title: "88",
+        //       dataIndex: "quantity88",
+        //       key: "quantity88", 
+        //       width: 100, 
+        //       fixed:'right',
+        //       render: (text, record) => (
+        //         <Input 
+        //          type='number'
+        //          value={record.Quantity88?.toString()}
+        //           onChange={(e) => handleQuantity88(e.target.value, record)}
+        //         />
+               
+        //       ),
               
-            },
-            { title: "90",
-            dataIndex: "quantity90",
-            key: "quantity90", 
-            width: 100,
-            fixed:'right',
-            render: (text, record) => (
-              <Input 
-               type='number'
-               value={record.Quantity90?.toString()}
-                onChange={(e) => handleQuantity90(e.target.value, record)}
-              />
-            ),
-           }
-          ],
+        //     },
+        //     { title: "90",
+        //     dataIndex: "quantity90",
+        //     key: "quantity90", 
+        //     width: 100,
+        //     fixed:'right',
+        //     render: (text, record) => (
+        //       <Input 
+        //        type='number'
+        //        value={record.Quantity90?.toString()}
+        //         onChange={(e) => handleQuantity90(e.target.value, record)}
+        //       />
+        //     ),
+        //    }
+        //   ],
          
           
          
-        },
+        // },
         {
           title: "Total Qty",
           dataIndex: "TotalQty",
           key: "TotalQty", 
           width: 100,
+          fixed:'right'
+        },
+        {
+          title: "MRP",
+          dataIndex: "RegularPrice",
+          key: "RegularPrice", 
+          width: 80,
           fixed:'right'
         },
         {
@@ -222,6 +243,116 @@ const TravisTable = () => {
       ];
 
 
+
+      const expandedRowRender = (record: BasicModelTravis) => {
+        const columns: TableColumnsType<BasicModelTravis> = [
+          {
+            title: "SKU",
+            dataIndex: "SKU",
+            key:"SKU",
+            width: 130,
+            fixed: "left",
+            
+           
+          },
+          {
+            title: "Category",
+            dataIndex: "TravisAttributes",
+            key: "Category", 
+            width: 85,
+            render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+            sorter: (a, b) => {
+              const categoryA = a.TravisAttributes?.[0]?.Category ?? "";
+              const categoryB = b.TravisAttributes?.[0]?.Category ?? "";
+  
+            return categoryA.localeCompare(categoryB);
+            },
+           
+          },
+            {
+          title: "StyleCode",
+          dataIndex: "TravisAttributes",
+          key: "StyleCode", 
+          width: 85,
+          render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
+          sorter: (a, b) => {
+            // Extract and compare StyleCode values, handling null or undefined cases
+            const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
+            const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
+        
+            return styleCodeA.localeCompare(styleCodeB);
+          },
+        },
+        {
+          title:"Stock",
+          children:[
+           { title: "88    QTY",
+            dataIndex: "StockAvailable88",
+            key: "StockAvailable88", 
+            width: 130,
+            fixed:'right',
+            render: (text, record) => (
+              <Input addonBefore={record.StockAvailable88} 
+              type='number'
+             
+              value={record.Quantity88?.toString()}
+              onChange={(e) => handleQuantity88(e.target.value, record)} />
+             
+            ),
+          },
+            {
+              title: "90  QTY",
+            dataIndex: "StockAvailable88",
+            key: "StockAvailable88", 
+            width: 130,
+            fixed:'right',
+            render: (text, record) => (
+              <Input addonBefore={record.StockAvailable90} 
+              type='number'
+              
+              value={record.Quantity90?.toString()}
+              onChange={(e) => handleQuantity90(e.target.value, record)} />
+             
+            ),
+            },
+            {
+              title: "Total Qty",
+              dataIndex: "TotalQty",
+              key: "TotalQty", 
+              width: 100,
+              fixed:'right'
+            },
+            {
+              title: "MRP",
+              dataIndex: "RegularPrice",
+              key: "RegularPrice", 
+              width: 80,
+              fixed:'right'
+            },
+            {
+              title: "Amount",
+              dataIndex: "Amount",
+              key: "Amount", 
+              width: 100,
+              fixed:'right'
+            },
+           
+          ],
+          
+        },
+
+
+        ]
+        return (
+          <Table
+            columns={columns}
+            dataSource={[record]}
+            pagination={false}
+            
+            size="middle"
+          />
+        );
+      }
   const [selectedRowKeys, setSelectedRowKeys] = useState();
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: BasicModelTravis[]) => {
@@ -418,6 +549,7 @@ return (
             columns={columns}
             dataSource={getProduct?.map((item) => ({ ...item, key: item.id }))}
             rowSelection={rowSelection}
+            expandable={{ expandedRowRender, defaultExpandedRowKeys: [] }}
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
