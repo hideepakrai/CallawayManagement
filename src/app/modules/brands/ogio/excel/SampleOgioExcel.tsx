@@ -80,8 +80,8 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
         },
         {
           title: 'MRP',
-          dataIndex: 'RegularPrice',
-          key: 'RegularPrice',
+          dataIndex: 'MRP',
+          key: 'MRP',
           width: 115,
         },
         {
@@ -108,7 +108,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           Category: 'Belts',
           ProductModel:"product model 1",
           Description: 'This is a cool belt from Travis Mathew.',
-          RegularPrice: 50,
+          MRP: 50,
           SalePrice: 40,
           StockAvailable: 100,
           
@@ -122,7 +122,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           Category: 'Belts',
           ProductModel:"product model 1",
           Description: 'This is a cool belt from Travis Mathew.',
-          RegularPrice: 50,
+          MRP: 50,
           SalePrice: 40,
           StockAvailable: 100,
         },
@@ -134,7 +134,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
             Category: 'Belts',
             ProductModel:"product model 1",
             Description: 'This is a cool belt from Travis Mathew.',
-            RegularPrice: 50,
+            MRP: 50,
             SalePrice: 40,
             StockAvailable: 100,
         },

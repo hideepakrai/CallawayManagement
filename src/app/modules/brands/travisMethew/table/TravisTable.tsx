@@ -163,12 +163,12 @@ import { message } from "antd";
           title:"Stock",
           children:[
            { title: "88    QTY",
-            dataIndex: "StockAvailable88",
-            key: "StockAvailable88", 
+            dataIndex: "Stock88",
+            key: "Stock88", 
             width: 130,
             fixed:'right',
             render: (text, record) => (
-              <Input addonBefore={record.StockAvailable88} 
+              <Input addonBefore={record.Stock88} 
               type='number'
              
               value={record.Quantity88?.toString()}
@@ -178,12 +178,12 @@ import { message } from "antd";
           },
             {
               title: "90  QTY",
-            dataIndex: "StockAvailable88",
-            key: "StockAvailable88", 
+            dataIndex: "Stock88",
+            key: "Stock88", 
             width: 130,
             fixed:'right',
             render: (text, record) => (
-              <Input addonBefore={record.StockAvailable90} 
+              <Input addonBefore={record.Stock90} 
               type='number'
               
               value={record.Quantity90?.toString()}
@@ -241,8 +241,8 @@ import { message } from "antd";
         },
         {
           title: "MRP",
-          dataIndex: "RegularPrice",
-          key: "RegularPrice", 
+          dataIndex: "MRP",
+          key: "MRP", 
           width: 80,
           fixed:'right'
         },
@@ -257,14 +257,23 @@ import { message } from "antd";
       
       ];
 
-      const [expandedRowKeys, setExpandedRowKeys] = useState<React.Key[]>([]);
 
-      const onExpand = (expanded: boolean, record: BasicModelTravis) => {
-        console.log("record expand " + record)
-        if (expanded) {
-         // setExpandedRowKeys([record]);
-        } else {
-          setExpandedRowKeys([]);
+      const subColumns: TableColumnsType<BasicModelTravis> = [
+        { title:'SKU', dataIndex: 'SKU', key: 'SKU' },
+        { title: 'StyleCode', dataIndex: 'StyleCode', key: 'StyleCode' },
+        { title: 'Size', dataIndex: 'Size', key: 'Size' },
+       
+      ];
+      const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis>();
+
+      const handleExpand = (expanded: boolean, record: BasicModelTravis) => {
+         // eslint-disable-next-line no-debugger
+         debugger
+        if (expanded && record.SKU !== undefined) {
+          // Expand only the clicked row
+          setExpandedRowKeys(record);  // Assuming SKU is a string
+        } else{
+          setExpandedRowKeys(undefined)
         }
       };
 
@@ -272,7 +281,7 @@ import { message } from "antd";
       const expandedRowRender = (record: BasicModelTravis) => {
 
         console.log("record expanded",record)
-        const columns: TableColumnsType<BasicModelTravis> = [
+        const subcolumns: TableColumnsType<BasicModelTravis> = [
           {
             title: "SKU",
             dataIndex: "SKU",
@@ -316,12 +325,12 @@ import { message } from "antd";
           title:"Stock",
           children:[
            { title: "88    QTY",
-            dataIndex: "StockAvailable88",
-            key: "StockAvailable88", 
+            dataIndex: "Stock88",
+            key: "Stock88", 
             width: 130,
             fixed:'right',
             render: (text, record) => (
-              <Input addonBefore={record.StockAvailable88} 
+              <Input addonBefore={record.Stock88} 
               type='number'
              
               value={record.Quantity88?.toString()}
@@ -331,19 +340,20 @@ import { message } from "antd";
           },
             {
               title: "90  QTY",
-            dataIndex: "StockAvailable88",
-            key: "StockAvailable88", 
+            dataIndex: "Stock88",
+            key: "Stock88", 
             width: 130,
             fixed:'right',
             render: (text, record) => (
-              <Input addonBefore={record.StockAvailable90} 
+              <Input addonBefore={record.Stock90} 
               type='number'
               
               value={record.Quantity90?.toString()}
               onChange={(e) => handleQuantity90(e.target.value, record)} />
              
             ),
-            },
+            }
+          ]},
             {
               title: "Total Qty",
               dataIndex: "TotalQty",
@@ -353,8 +363,8 @@ import { message } from "antd";
             },
             {
               title: "MRP",
-              dataIndex: "RegularPrice",
-              key: "RegularPrice", 
+              dataIndex: "MRP",
+              key: "MRP", 
               width: 80,
               fixed:'right'
             },
@@ -366,21 +376,23 @@ import { message } from "antd";
               fixed:'right'
             },
            
-          ],
-          
-        },
-
-
-        ]
-        return (
-          <Table
-            columns={columns}
-            dataSource={[record]}
-            pagination={false}
-            
-            size="middle"
-          />
-        );
+          ]
+           
+          if(expandedRowKeys &&record.SKU===expandedRowKeys.SKU){
+            return (
+              <Table
+                columns={subcolumns}
+                dataSource={[record]}
+                pagination={false}
+                
+                size="middle"
+              />
+            );
+          }
+          else
+          return null
+    
+       
       }
   const [selectedRowKeys, setSelectedRowKeys] = useState();
   const rowSelection = {
@@ -413,14 +425,14 @@ import { message } from "antd";
 
     const intValue = parseInt(value, 10);
 
-    if (record?.StockAvailable90 && record.StockAvailable90 >= intValue) {
+    if (record?.Stock90 && record.Stock90 >= intValue) {
       
       // Dispatch an action to update the quantity for the SKU
       
       dispatch(updateQuantity90({
         sku: record.SKU,
         qty90: intValue,
-        RegularPrice: record.RegularPrice,
+        MRP: record.MRP,
         
       }));
       record.Quantity90=intValue;
@@ -450,12 +462,12 @@ import { message } from "antd";
        console.log("record",record)
     const intValue = parseInt(value, 10);
 
-    if (record?.StockAvailable88 && record.StockAvailable88 >= intValue) {
+    if (record?.Stock88 && record.Stock88 >= intValue) {
       // Dispatch an action to update the quantity for the SKU
       dispatch(updateQuantity88({
         sku: record.SKU,
         qty88: intValue,
-        RegularPrice: record.RegularPrice,
+        MRP: record.MRP,
       }));
       record.Quantity88=intValue;
      // setQuantity88(intValue)
@@ -466,7 +478,7 @@ import { message } from "antd";
         
     }))
     }
-    else if(record?.StockAvailable88 && record.StockAvailable88 < intValue &&intValue!==0){
+    else if(record?.Stock88 && record.Stock88 < intValue &&intValue!==0){
       alert("Quantity is not available")
      // setQuantity88(0)
      dispatch(updateQuantity88({
@@ -594,13 +606,7 @@ const handleShowOrder=()=>{
 //   doc.save(`TravisMathew.pdf`);
 // };
 
-const rowExpandable = (record: BasicModelTravis) => {
- 
-  console.log("selected expand",record)
-  // Return true or false based on your condition
-  // For example, return true if the record has TravisAttributes
-  return !!record
-};
+
 
 return (
     <div className='cw-container'>
@@ -646,8 +652,8 @@ return (
             dataSource={getProduct?.map((item) => ({ ...item, key: item.id }))}
             rowSelection={rowSelection}
             expandable={{ expandedRowRender,
-              rowExpandable,
-             
+          
+              onExpand: (expanded, record) => handleExpand(expanded, record),
               
              }}
             bordered

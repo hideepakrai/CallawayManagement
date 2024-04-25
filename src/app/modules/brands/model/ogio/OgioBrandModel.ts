@@ -7,7 +7,7 @@ export interface OgioBasicModel {
       SKU?: string;
       StockManagement?: boolean;
       StockStatus?: string;
-      RegularPrice?: number;
+      MRP?: number;
       SalePrice?: number | null;
       StockAvailable?: number;
       SetType?: string;

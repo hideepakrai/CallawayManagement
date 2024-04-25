@@ -8,7 +8,7 @@ export interface BasicModelGoods {
       SKU?: string;
       StockManagement?: boolean;
       StockStatus?: string;
-      RegularPrice?: number;
+      MRP?: number;
       SalePrice?: number | null;
       StockAvailable?:StockAvailable[] ;
       SetType?: string;
@@ -18,8 +18,8 @@ export interface BasicModelGoods {
       AttributeSet?:GoodsAttributes[],
       GoodsAttributes?: GoodsAttributes [] 
       Amount?: number;
-      StockAvailable88?:number|null;
-      StockAvailable90?:number|null;
+      Stock88?:number|null;
+      Stock90?:number|null;
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;

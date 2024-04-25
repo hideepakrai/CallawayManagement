@@ -91,12 +91,12 @@ import CartHeader from '../CartHeader';
           title:"Stock",
           children:[
            { title: "88    QTY",
-            dataIndex: "StockAvailable88",
-            key: "StockAvailable88", 
+            dataIndex: "Stock88",
+            key: "Stock88", 
             width: 130,
             fixed:'right',
             render: (text, record) => (
-              <Input addonBefore={record.StockAvailable88 === 0 ? "0" : record.StockAvailable88} 
+              <Input addonBefore={record.Stock88 === 0 ? "0" : record.Stock88} 
               type='number'
              
               value={record.Quantity88?.toString()}
@@ -107,12 +107,12 @@ import CartHeader from '../CartHeader';
           },
             {
               title: "90  QTY",
-            dataIndex: "StockAvailable88",
-            key: "StockAvailable88", 
+            dataIndex: "Stock88",
+            key: "Stock88", 
             width: 130,
             fixed:'right',
             render: (text, record) => (
-              <Input addonBefore={record.StockAvailable90 === 0 ? "0" : record.StockAvailable90} 
+              <Input addonBefore={record.Stock90 === 0 ? "0" : record.Stock90} 
               type='number'
               
               value={record.Quantity90?.toString()}
@@ -134,8 +134,8 @@ import CartHeader from '../CartHeader';
         },
         {
           title: "MRP",
-          dataIndex: "RegularPrice",
-          key: "RegularPrice", 
+          dataIndex: "MRP",
+          key: "MRP", 
           width: 80,
           fixed:'right'
         },

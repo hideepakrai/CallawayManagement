@@ -43,7 +43,7 @@ const CallawayGoodSlice = createSlice({
                         SKU: item.attributes.SKU,
                         StockManagement: item.attributes.StockManagement,
                         StockStatus: item.attributes.StockStatus,
-                        RegularPrice: item.attributes.RegularPrice,
+                        MRP: item.attributes.MRP,
                         SalePrice: item.attributes.SalePrice,
                         StockAvailable: item.attributes.StockAvailable,
                         SetType: item.attributes.SetType,
@@ -51,8 +51,8 @@ const CallawayGoodSlice = createSlice({
                         GoodsAttributes: att,
                         Gallery:item.attributes.Gallery,
                         PrimaryImage: item.attributes.PrimaryImage,
-                        StockAvailable88:item.attributes.StockAvailable88===null? 0:item.attributes.StockAvailable88,
-                        StockAvailable90:item.attributes.StockAvailable90===null?0:item.attributes.StockAvailable90,
+                        Stock88:item.attributes.Stock88===null? 0:item.attributes.Stock88,
+                        Stock90:item.attributes.Stock90===null?0:item.attributes.Stock90,
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,
@@ -62,7 +62,7 @@ const CallawayGoodSlice = createSlice({
             }
         },
         updateGoodsQuantity90:(state,action)=>{
-            const {sku, qty90,RegularPrice}=action.payload;
+            const {sku, qty90,MRP}=action.payload;
             const goodsIndex = state.callawayGoods.findIndex(
               (goodsItem) => goodsItem.SKU === sku
             );
@@ -74,13 +74,13 @@ const CallawayGoodSlice = createSlice({
               state.callawayGoods[goodsIndex].TotalQty = quantity88+quantity90;
 
               
-              state.callawayGoods[goodsIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.callawayGoods[goodsIndex].Amount = MRP*(quantity88+quantity90)
               state.callawayGoods[goodsIndex].ordered = true;
             }
 
         },
         updateGoodsQuantity88:(state,action)=>{
-            const {sku, qty88,RegularPrice}=action.payload;
+            const {sku, qty88,MRP}=action.payload;
             const goodsIndex = state.callawayGoods.findIndex(
               (goodsItem) => goodsItem.SKU === sku
             );
@@ -89,7 +89,7 @@ const CallawayGoodSlice = createSlice({
               const quantity88 = state.callawayGoods[goodsIndex]?.Quantity88 ?? 0;
               const quantity90 = state.callawayGoods[goodsIndex]?.Quantity90 ?? 0;
               state.callawayGoods[goodsIndex].TotalQty = quantity88+quantity90;
-              state.callawayGoods[goodsIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.callawayGoods[goodsIndex].Amount = MRP*(quantity88+quantity90)
               state.callawayGoods[goodsIndex].ordered = true;
             }
           },

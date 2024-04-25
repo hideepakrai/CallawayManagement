@@ -23,7 +23,7 @@ const ExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
               StockAvailable: item.StockAvailable,
               StockManagement: true,
               StockStatus: "In Stock",
-              RegularPrice: item.RegularPrice,
+              MRP: item.MRP,
               AttributeSet: [
                 {
                   "__component": "attribute-set.equipment",

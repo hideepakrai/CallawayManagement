@@ -21,10 +21,10 @@ query callAwaYGoods {
           SKU
           StockManagement
           StockStatus
-          RegularPrice
+          MRP
           SalePrice
-          StockAvailable88
-          StockAvailable90
+          Stock88
+          Stock90
           SetType
           ProductType
           Gallery{

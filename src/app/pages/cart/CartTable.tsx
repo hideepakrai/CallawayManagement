@@ -50,7 +50,7 @@ const CartTable = () => {
         // Unit Price
         {
             title: "Unit Price",
-            dataIndex: "RegularPrice",
+            dataIndex: "MRP",
             width: "80px",
         },
 
@@ -93,7 +93,7 @@ const CartTable = () => {
             Orientation: "	Left Handed",
             LifeCycle: "	In Line",
             ProductModel: "CG IR APEX DCB",
-            RegularPrice: "₹1002",
+            MRP: "₹1002",
             OrderQty: "12",
             Amount: "₹5002",
         },
@@ -105,7 +105,7 @@ const CartTable = () => {
             Orientation: "	Left Handed",
             LifeCycle: "	In Line",
             ProductModel: "CG BB 23",
-            RegularPrice: "₹1002",
+            MRP: "₹1002",
             OrderQty: "10",
             Amount: "₹1295",
         },
@@ -117,7 +117,7 @@ const CartTable = () => {
             Orientation: "Right Handed",
             LifeCycle: "	In Line",
             ProductModel: "CG IR APEX DCB",
-            RegularPrice: "₹1002",
+            MRP: "₹1002",
             OrderQty: "12",
             Amount: "₹1256",
         },

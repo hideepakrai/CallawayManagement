@@ -44,16 +44,16 @@ const OrderSlice = createSlice({
                         SKU: travisOrder.SKU,
                         StockManagement: travisOrder.StockManagement,
                         StockStatus: travisOrder.StockStatus,
-                        RegularPrice: travisOrder.RegularPrice,
+                        MRP: travisOrder.MRP,
                         SalePrice: travisOrder.SalePrice,
-                        StockAvailable88: travisOrder.StockAvailable88,
-                        StockAvailable90: travisOrder.StockAvailable90,
+                        Stock88: travisOrder.Stock88,
+                        Stock90: travisOrder.Stock90,
                         SetType: travisOrder.SetType,
                         ProductType: travisOrder.ProductType,
                         TravisAttributes: att,
                         Quantity88:qty88,
                         Quantity90:qty90,
-                        Amount: (qty88+qty90)*travisOrder.RegularPrice,
+                        Amount: (qty88+qty90)*travisOrder.MRP,
                         TotalQty: qty88+qty90,
                       });
                    }else {
@@ -61,9 +61,9 @@ const OrderSlice = createSlice({
                     state.TravisOrder[index].Quantity88=travisOrder.Quantity88;
                     const qty88=state.TravisOrder[index].Quantity88||0;
                     const qty90=state.TravisOrder[index].Quantity90||0;
-                    const regularPrice=state.TravisOrder[index].RegularPrice||0;
+                    const MRP=state.TravisOrder[index].MRP||0;
                     state.TravisOrder[index].TotalQty=qty88+qty90
-                    state.TravisOrder[index].Amount=regularPrice*(qty88+qty90);
+                    state.TravisOrder[index].Amount=MRP*(qty88+qty90);
                     state.TravisOrder[index].ordered=true;
                    }
             }
@@ -91,16 +91,16 @@ const OrderSlice = createSlice({
                         SKU: goodsOrder.SKU,
                         StockManagement: goodsOrder.StockManagement,
                         StockStatus: goodsOrder.StockStatus,
-                        RegularPrice: goodsOrder.RegularPrice,
+                        MRP: goodsOrder.MRP,
                         SalePrice: goodsOrder.SalePrice,
-                        StockAvailable88: goodsOrder.StockAvailable88,
-                        StockAvailable90: goodsOrder.StockAvailable90,
+                        Stock88: goodsOrder.Stock88,
+                        Stock90: goodsOrder.Stock90,
                         SetType: goodsOrder.SetType,
                         ProductType: goodsOrder.ProductType,
                         GoodsAttributes: att,
                         Quantity88:qty88,
                         Quantity90:qty90,
-                        Amount: (qty88+qty90)*goodsOrder.RegularPrice,
+                        Amount: (qty88+qty90)*goodsOrder.MRP,
                         TotalQty: qty88+qty90,
                       });
                    }else {
@@ -108,9 +108,9 @@ const OrderSlice = createSlice({
                     state.Goodsorder[index].Quantity88=goodsOrder.Quantity88;
                     const qty88=state.Goodsorder[index].Quantity88||0;
                     const qty90=state.Goodsorder[index].Quantity90||0;
-                    const regularPrice=state.Goodsorder[index].RegularPrice||0;
+                    const MRP=state.Goodsorder[index].MRP||0;
                     state.Goodsorder[index].TotalQty=qty88+qty90
-                    state.Goodsorder[index].Amount=regularPrice*(qty88+qty90);
+                    state.Goodsorder[index].Amount=MRP*(qty88+qty90);
                     state.Goodsorder[index].ordered=true;
                    }
             }

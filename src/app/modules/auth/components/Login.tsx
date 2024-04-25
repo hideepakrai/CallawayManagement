@@ -62,15 +62,15 @@ export function Login() {
         dispatch(addUser({
           currentUser: response
         }))
-        const token = {
-          email: "ankurShriv@gmail.com",
-          password: "AnkurDzinly1!"
+        // const token = {
+        //   email: "ankurShriv@gmail.com",
+        //   password: "AnkurDzinly1!"
 
-        }
-        const admintoken = await getAdminToken(token)
-        dispatch(addAdminToken({
-          adminToken: admintoken
-        }))
+        // }
+        // const admintoken = await getAdminToken(token)
+        // dispatch(addAdminToken({
+        //   adminToken: admintoken
+        // }))
         // setCurrentUser(response)
       } catch (error) {
         console.error(error)

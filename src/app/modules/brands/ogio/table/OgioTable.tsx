@@ -88,8 +88,8 @@ const OgioTable = () => {
           },
           {
             title: "MRP",
-            dataIndex: "RegularPrice",
-            key: "RegularPrice", 
+            dataIndex: "MRP",
+            key: "MRP", 
             width: 115,
            
           },

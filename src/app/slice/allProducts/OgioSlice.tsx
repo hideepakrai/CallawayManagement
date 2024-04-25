@@ -44,7 +44,7 @@
                         SKU: item.attributes.SKU,
                         StockManagement: item.attributes.StockManagement,
                         StockStatus: item.attributes.StockStatus,
-                        RegularPrice: item.attributes.RegularPrice,
+                        MRP: item.attributes.MRP,
                         SalePrice: item.attributes.SalePrice,
                         StockAvailable: item.attributes.StockAvailable,
                         SetType: item.attributes.SetType,

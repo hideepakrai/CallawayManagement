@@ -30,9 +30,7 @@ const GetAllProduct = () => {
   const [isGoods, setIsGoods  ] = useState<boolean>(false)
   useEffect(() => {
   
-    if(getUserAccounts &&
-
-      getAdminTokens
+    if(getUserAccounts 
     ){
      console.log("userAccount ")
     // get_allProducts(getAdminTokens)
@@ -40,7 +38,7 @@ const GetAllProduct = () => {
      setIsTravis(true)
      setIsGoods(true)
     }
-  }, [getUserAccounts,getAdminTokens]);
+  }, [getUserAccounts]);
 
 
   const handleOgio=()=>{

@@ -25,10 +25,12 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
               SetType: item.SetType,
               Brand: 4, 
               SKU: item.SKU,
-              StockAvailable: item.StockAvailable,
+              Stock88: item.Stock88,
+              Stock90: item.Stock90,
               StockManagement: true,
               StockStatus: "In Stock",
-              RegularPrice: item.RegularPrice,
+              MRP: item.MRP,
+              SalePrice:item.MRP,
               AttributeSet: [
                 {
                   "__component": "attribute-set.travis-mathew",

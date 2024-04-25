@@ -102,14 +102,20 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
         },
         {
           title: 'MRP',
-          dataIndex: 'RegularPrice',
-          key: 'RegularPrice',
+          dataIndex: 'MRP',
+          key: 'MRP',
           width: 115,
         },
         {
-          title: 'StockAvailable',
-          dataIndex: 'StockAvailable',
-          key: 'StockAvailable',
+          title: 'Stock88',
+          dataIndex: 'Stock88',
+          key: 'Stock88',
+          width: 80,
+        },
+        {
+          title: 'Stock90',
+          dataIndex: 'Stock90',
+          key: 'Stock90',
           width: 80,
         },
         {
@@ -130,15 +136,17 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           StyleCode: '4MT044',
           Length: 'NA',
           Line: 'In_Line',
+          Gender:"Mens",
           Color: 'Heather_Purple_Velvet',
           ColorCode: '5HPR',
           Size: 'M',
           SetType: 'Travis Methew',
           Description: 'This is a cool belt from Travis Mathew.',
-          RegularPrice: 50,
+          MRP: 50,
           SalePrice: 40,
-          StockAvailable: 100,
-          Gender:"Mens"
+          Stock88: 100,
+          Stock90: 100,
+          
         },
         {
             Brand: 4,
@@ -154,10 +162,12 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           Size: 'L',
           SetType: 'Travis Methew',
           Description: 'A stylish cap from Travis Mathew.',
-          RegularPrice: 30,
+          MRP: 30,
           SalePrice: 25,
-          StockAvailable: 80,
-          Gender:"Mens"
+         
+          Gender:"Mens",
+          Stock88: 100,
+          Stock90: 100,
         },
         {
             Brand: 4,
@@ -173,10 +183,12 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           Size: 'XL',
           SetType: 'Travis Methew',
           Description: 'A classic polo shirt from Travis Mathew.',
-          RegularPrice: 70,
+          MRP: 70,
           SalePrice: 60,
-          StockAvailable: 120,
-          Gender:"Mens"
+        
+          Gender:"Mens",
+          Stock88: 100,
+          Stock90: 100,
         },
       ];
       

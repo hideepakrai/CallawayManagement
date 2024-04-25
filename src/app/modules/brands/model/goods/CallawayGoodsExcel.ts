@@ -5,7 +5,7 @@ export interface ExcelModelGoods {
       Description?: string;
       SetType?: string;
       StockAvailable?: number;
-      RegularPrice?: number;
+      MRP?: number;
       ProductType?: string | null;
       Category?:string | null;
       Orientation?:string | null;

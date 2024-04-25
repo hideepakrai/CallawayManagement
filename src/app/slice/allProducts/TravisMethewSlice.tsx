@@ -49,14 +49,14 @@ const TravisMethewSlice = createSlice({
                         SKU: item.attributes.SKU,
                         StockManagement: item.attributes.StockManagement,
                         StockStatus: item.attributes.StockStatus,
-                        RegularPrice: item.attributes.RegularPrice,
+                        MRP: item.attributes.MRP,
                         SalePrice: item.attributes.SalePrice,
                         StockAvailable: item.attributes.StockAvailable,
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
                         TravisAttributes: att,
-                        StockAvailable88:item.attributes.StockAvailable88,
-                        StockAvailable90:item.attributes.StockAvailable90,
+                        Stock88:item.attributes.Stock88,
+                        Stock90:item.attributes.Stock90,
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,
@@ -97,7 +97,7 @@ const TravisMethewSlice = createSlice({
                     SKU: travisProduct.SKU,
                     StockManagement: travisProduct.StockManagement,
                     StockStatus: travisProduct.StockStatus,
-                    RegularPrice: travisProduct.RegularPrice,
+                    MRP: travisProduct.MRP,
                     SalePrice: travisProduct.SalePrice,
                     StockAvailable: travisProduct.StockAvailable,
                     SetType: travisProduct.SetType,
@@ -113,7 +113,7 @@ const TravisMethewSlice = createSlice({
           updateQuantity90:(state,actions) => {
             // eslint-disable-next-line no-debugger
             debugger;
-            const {sku, qty90,RegularPrice}=actions.payload;
+            const {sku, qty90,MRP}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(
               (travisItem) => travisItem.SKU === sku
             );
@@ -125,12 +125,12 @@ const TravisMethewSlice = createSlice({
               state.travisMethew[travisIndex].TotalQty = quantity88+quantity90;
 
               
-              state.travisMethew[travisIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.travisMethew[travisIndex].Amount = MRP*(quantity88+quantity90)
               state.travisMethew[travisIndex].ordered = true;
             }
           },
           updateQuantity88:(state,actions) => {
-            const {sku, qty88,RegularPrice}=actions.payload;
+            const {sku, qty88,MRP}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(
               (travisItem) => travisItem.SKU === sku
             );
@@ -141,7 +141,7 @@ const TravisMethewSlice = createSlice({
               state.travisMethew[travisIndex].TotalQty = quantity88+quantity90;
 
               //const totalQty = state.travisMethew[travisIndex]?.TotalQty ?? 0;
-              state.travisMethew[travisIndex].Amount = RegularPrice*(quantity88+quantity90)
+              state.travisMethew[travisIndex].Amount = MRP*(quantity88+quantity90)
               state.travisMethew[travisIndex].ordered = true;
             }
           },
