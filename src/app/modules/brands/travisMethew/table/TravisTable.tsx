@@ -257,9 +257,21 @@ import { message } from "antd";
       
       ];
 
+      const [expandedRowKeys, setExpandedRowKeys] = useState<React.Key[]>([]);
+
+      const onExpand = (expanded: boolean, record: BasicModelTravis) => {
+        console.log("record expand " + record)
+        if (expanded) {
+         // setExpandedRowKeys([record]);
+        } else {
+          setExpandedRowKeys([]);
+        }
+      };
 
 
       const expandedRowRender = (record: BasicModelTravis) => {
+
+        console.log("record expanded",record)
         const columns: TableColumnsType<BasicModelTravis> = [
           {
             title: "SKU",
@@ -270,20 +282,8 @@ import { message } from "antd";
             
            
           },
-          {
-            title: "Category",
-            dataIndex: "TravisAttributes",
-            key: "Category", 
-            width: 85,
-            render: (value) => <span>{value && value[0] && value[0].Category}</span>,
-            sorter: (a, b) => {
-              const categoryA = a.TravisAttributes?.[0]?.Category ?? "";
-              const categoryB = b.TravisAttributes?.[0]?.Category ?? "";
-  
-            return categoryA.localeCompare(categoryB);
-            },
+          
            
-          },
             {
           title: "StyleCode",
           dataIndex: "TravisAttributes",
@@ -294,6 +294,20 @@ import { message } from "antd";
             // Extract and compare StyleCode values, handling null or undefined cases
             const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
             const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
+        
+            return styleCodeA.localeCompare(styleCodeB);
+          }
+        },
+            {
+          title: "Size",
+          dataIndex: "TravisAttributes",
+          key: "Size", 
+          width: 85,
+          render: (value) => <span>{value && value[0] && value[0].Size}</span>,
+          sorter: (a, b) => {
+            // Extract and compare StyleCode values, handling null or undefined cases
+            const styleCodeA = a.TravisAttributes?.[0]?.Size ?? "";
+            const styleCodeB = b.TravisAttributes?.[0]?.Size ?? "";
         
             return styleCodeA.localeCompare(styleCodeB);
           },
@@ -580,7 +594,13 @@ const handleShowOrder=()=>{
 //   doc.save(`TravisMathew.pdf`);
 // };
 
-
+const rowExpandable = (record: BasicModelTravis) => {
+ 
+  console.log("selected expand",record)
+  // Return true or false based on your condition
+  // For example, return true if the record has TravisAttributes
+  return !!record
+};
 
 return (
     <div className='cw-container'>
@@ -625,7 +645,11 @@ return (
             columns={columns}
             dataSource={getProduct?.map((item) => ({ ...item, key: item.id }))}
             rowSelection={rowSelection}
-            expandable={{ expandedRowRender, defaultExpandedRowKeys: [] }}
+            expandable={{ expandedRowRender,
+              rowExpandable,
+             
+              
+             }}
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}

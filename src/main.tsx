@@ -24,6 +24,8 @@ import './_metronic/assets/keenicons/solid/style.css'
 import './_metronic/assets/sass/style.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
 import {AuthProvider, setupAxios} from './app/modules/auth'
+ const graphQlUrl=import.meta.env.VITE_APP_STRAPI_URL_GraphQl
+
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -39,7 +41,7 @@ setupAxios(axios)
 Chart.register(...registerables)
 
 const client = new ApolloClient({
-  uri: "https://aigigs.in/graphql",
+  uri:graphQlUrl,
   cache: new InMemoryCache(),
 });
 
