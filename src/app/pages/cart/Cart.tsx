@@ -9,10 +9,11 @@ const Cart = () => {
     <div>
         <CartHome/>
 
-  <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
+        <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
         <div id="kt_toolbar_container" className="container d-flex flex-stack">
           <div className="page-title d-flex flex-column">
             <h1 className="d-flex text-white fw-bold my-1 fs-3"> Cart</h1>
+          
           </div>
 
           <div className="d-flex align-items-center py-1">
@@ -26,8 +27,9 @@ const Cart = () => {
         </div>
       </div>
 
-      <CartTable/>
+      {/* <CartTable/> */}
     </div>
+
   )
 }
 

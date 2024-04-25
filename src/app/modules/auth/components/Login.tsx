@@ -123,7 +123,7 @@ export function Login() {
             <div className="user-section row mb-8">
               <div className="col user-box  text-center col-3">
                
-                  <label>
+                  <div className='user-checkbox'>
                     <div className="user-img">
                     <img src="https://dzinlystrapi.s3.us-east-2.amazonaws.com/graphic_designer_5b13ac7386.png" alt="Image 1"></img>
 
@@ -134,30 +134,30 @@ export function Login() {
                       </div>
                       
                     </div>
-                  </label>
+                  </div>
               </div>
 
 
               <div className="col user-box text-center col-3">
                 
-                  <label >
+                  <div className='user-checkbox'>
                     <div className="user-img">
                     <img src=" https://dzinlystrapi.s3.us-east-2.amazonaws.com/people_bc29368361.png" alt="Image 2"></img>
                   </div>
-                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900">Retailer</h4>
+                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900 retailer">Retailer</h4>
                     <div className="tick_container">
                       <div className="tick">
                         <i className="bi bi-check2"></i>
                       </div>
                     </div>
-                  </label>
+                  </div>
               </div>
 
               <div className="col user-box text-center col-3">
                
-                  <label >
+                  <div className='user-checkbox'>
                     <div className="user-img">
-                      <img src=" https://dzinlystrapi.s3.us-east-2.amazonaws.com/setting_39b6bc686a.png" alt="Image 3"></img>
+                      <img src="https://aigigs.in/uploads/sales_representative_3_a72156386e.png" alt="Image 3"></img>
 
                       </div>
                     <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Sales Rep</h4>
@@ -166,7 +166,7 @@ export function Login() {
                         <i className="bi bi-check2"></i>
                       </div>
                     </div>
-                  </label>
+                  </div>
               </div>
             </div>
 

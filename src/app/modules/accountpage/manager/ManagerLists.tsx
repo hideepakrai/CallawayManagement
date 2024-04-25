@@ -8,8 +8,8 @@ import "./ManagerList.css"
 
 const ManagerList = () => {
   return (
-    <div className="gx-price-tables gx-pt-default">
-      <Row>
+    <div className="gx-price-tables gx-pt-default mt-20 pt-20 ">
+      <Row className="mt-6">
         <Col xl={6} lg={24} md={8} xs={24}>
           <FirstItem
             

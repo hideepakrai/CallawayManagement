@@ -45,7 +45,7 @@ const SalesRepresentative = () => {
         </div>
       </div>
 
-<Index/>
+      <Index/>
 
     </div>
   );

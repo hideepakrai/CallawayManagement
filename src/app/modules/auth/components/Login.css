@@ -3,6 +3,7 @@
     color: #071437;
     padding-top: 8px;
     font-weight: 700;
+    justify-content: center;
   }
 
   .user-detail:hover{color: #666;}
@@ -27,12 +28,13 @@
   
   .user-img {
     margin: 0 auto;
-    border: 1px solid #707070;
-    border-radius: 42px;
+    border: 1px solid #a3a3a3;
+    border-radius: 82px;
     width: 80px;
     height: 80px;
     background-color: #f8f8f8;
     cursor: pointer;
+  
   }
   
   
@@ -44,8 +46,9 @@
     object-fit: cover;
     margin: 0 auto;
   }
+
   
-  .user-box label {
+  .user-box .user-checkbox {
   
     position: relative;
   }
