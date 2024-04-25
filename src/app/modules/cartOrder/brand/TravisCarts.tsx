@@ -323,7 +323,7 @@ getProduct.length>0 ?
             pagination={{ defaultPageSize: 20 }}
           />):(
             <div>
-              No order selected
+              <h2>No order selected</h2>
               </div>
           )}
     </div>

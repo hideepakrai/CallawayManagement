@@ -3,7 +3,7 @@ import { Card, Table, Input, Button, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 const CartHeader = () => {
   return (
-    <div>CartHeader
+    <div>
 
 <div style={{ float: "right" }}>
        <span style={{ marginRight:"10px"}} >

@@ -157,7 +157,7 @@ export function Login() {
                
                   <div className='user-checkbox'>
                     <div className="user-img">
-                      <img src="https://aigigs.in/uploads/sales_representative_3_a72156386e.png" alt="Image 3"></img>
+                      <img src="/media/icons/sales-representative.png" alt="Image 3"></img>
 
                       </div>
                     <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Sales Rep</h4>

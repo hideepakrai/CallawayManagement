@@ -169,7 +169,7 @@ getGoodsOrders.length>0?
             pagination={{ defaultPageSize: 20 }}
           />):(
             <div>
-              <h1>No Data Found</h1>
+              <h2>No Data Found</h2>
             </div>
           )}
 
