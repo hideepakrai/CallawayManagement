@@ -2,19 +2,21 @@ import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio,InputNumber, Button } from "antd";
 import type { TableColumnsType } from 'antd';
-import {BasicModelTravis} from "../../model/travis/TravisMethewModel"
+import {BasicModelTravis} from "../../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
 import {getTravisProducts} from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 import { number } from 'yup';
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
-import {ExcelModelTravis} from "../../model/travis/TravisExcel"
+import {ExcelModelTravis} from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
  import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice"
  import { Cascader,Select, Space } from 'antd';
 import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder"
 import { message } from "antd";
+import { Key } from 'antd/lib/table/interface';
+import { useTable } from 'react-table';
 // import jsPDF from "jspdf";
 // import "jspdf-autotable";
 
@@ -168,7 +170,8 @@ import { message } from "antd";
             width: 130,
             fixed:'right',
             render: (text, record) => (
-              <Input addonBefore={record.Stock88} 
+              <Input 
+              addonBefore={record.Stock88} 
               type='number'
              
               value={record.Quantity88?.toString()}
@@ -267,8 +270,8 @@ import { message } from "antd";
       const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis>();
 
       const handleExpand = (expanded: boolean, record: BasicModelTravis) => {
-         // eslint-disable-next-line no-debugger
-         debugger
+         
+         
         if (expanded && record.SKU !== undefined) {
           // Expand only the clicked row
           setExpandedRowKeys(record);  // Assuming SKU is a string
@@ -394,31 +397,19 @@ import { message } from "antd";
     
        
       }
-  const [selectedRowKeys, setSelectedRowKeys] = useState();
-  const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: BasicModelTravis[]) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-    },
-    onSelect: (record: BasicModelTravis, selected: boolean, selectedRows: BasicModelTravis[]) => {
-      console.log(
-        "record",
-        record,
-        "selected",
-        selected,
-        "selectedRows",
-        selectedRows
-      );
-    },
-    onSelectAll: (selected: boolean, selectedRows: BasicModelTravis[], changeRows: BasicModelTravis[]) => {
-      console.log(selected, selectedRows, changeRows);
-    },
-
-    columnWidth: 40,
-  };
+        const [selectedRowKeys,setSelectedRowKeys]= useState<BasicModelTravis[]>([]);
+   
+        const onSelectChange = (newSelectedRowKeys: Key[], record: BasicModelTravis) => {
+          // eslint-disable-next-line no-debugger
+          debugger
+          
+          console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+          // Check if the record is selected by checking if its key is included in newSelectedRowKeys
+          //const isSelected = newSelectedRowKeys.includes(record.SKU);
+          // Update the selectedRowKeys state based on the toggle state
+         // setSelectedRowKeys(isSelected ? [record.SKU] : []);
+        };
+      
 
 
   const handleQuantity90 = (value: string, record: BasicModelTravis) => {
@@ -461,9 +452,10 @@ import { message } from "antd";
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
        console.log("record",record)
     const intValue = parseInt(value, 10);
+    
 
     if (record?.Stock88 && record.Stock88 >= intValue) {
-      // Dispatch an action to update the quantity for the SKU
+  
       dispatch(updateQuantity88({
         sku: record.SKU,
         qty88: intValue,
@@ -608,6 +600,11 @@ const handleShowOrder=()=>{
 
 
 
+const handleSelctRow=(record:BasicModelTravis)=>{
+  console.log("record",record)
+  setSelectedRowKeys([record])
+}
+
 return (
     <div className='cw-container'>
 
@@ -646,11 +643,15 @@ return (
              >Sample Excel</Button>
           </div>
 
-          <Table
+       
+        </Card>
+        <Table
             ref={tableRef}
             columns={columns}
-            dataSource={getProduct?.map((item) => ({ ...item, key: item.id }))}
-            rowSelection={rowSelection}
+            dataSource={getProduct?.map((item) => ({ ...item, key: item?.SKU }))}
+            rowSelection={{
+              onSelect:(record)=>{handleSelctRow(record)}
+            }}
             expandable={{ expandedRowRender,
           
               onExpand: (expanded, record) => handleExpand(expanded, record),
@@ -662,7 +663,6 @@ return (
             style={{ maxHeight: "1600px" }}
             pagination={{ defaultPageSize: 20 }}
           />
-        </Card>
 
         <SampleExcelTravis
          isSample={isSample}

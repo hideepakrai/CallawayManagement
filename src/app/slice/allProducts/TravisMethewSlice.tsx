@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute } from "../../modules/brands/model/travis/TravisMethewModel";
-import {ExcelModelTravis} from "../../modules/brands/model/travis/TravisExcel"
+import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute } from "../../modules/model/travis/TravisMethewModel";
+import {ExcelModelTravis} from "../../modules/model/travis/TravisExcel"
 interface ProductState {
     travisMethew: BasicModelTravis[],
     
@@ -47,11 +47,8 @@ const TravisMethewSlice = createSlice({
                         Name: item.attributes.Name,
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
-                        StockManagement: item.attributes.StockManagement,
-                        StockStatus: item.attributes.StockStatus,
                         MRP: item.attributes.MRP,
-                        SalePrice: item.attributes.SalePrice,
-                        StockAvailable: item.attributes.StockAvailable,
+              
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
                         TravisAttributes: att,
@@ -68,8 +65,8 @@ const TravisMethewSlice = createSlice({
 
         updateNewData: (state, action) => {
             const { travisProduct, id } = action.payload;
-            // eslint-disable-next-line no-debugger
-            debugger
+            
+            
             if (travisProduct) {
               
                 const travisIndex = state.travisMethew.findIndex(
@@ -77,6 +74,7 @@ const TravisMethewSlice = createSlice({
                 );
           
                 if (travisIndex===-1) {
+                
                   const att: TravisMathewAttribute[] = [
                     {
                       StyleCode: travisProduct.StyleCode,
@@ -92,17 +90,21 @@ const TravisMethewSlice = createSlice({
                   ];
           
                   state.travisMethew.push({
+                    brand: travisProduct.brand,
                     Name: travisProduct.Name,
                     Description: travisProduct.Description,
                     SKU: travisProduct.SKU,
-                    StockManagement: travisProduct.StockManagement,
-                    StockStatus: travisProduct.StockStatus,
+                    
                     MRP: travisProduct.MRP,
-                    SalePrice: travisProduct.SalePrice,
-                    StockAvailable: travisProduct.StockAvailable,
                     SetType: travisProduct.SetType,
                     ProductType: travisProduct.ProductType,
                     TravisAttributes: att,
+                    Stock88:travisProduct.Stock88,
+                    Stock90:travisProduct.Stock90,
+                        TotalQty: 0,
+                        Quantity88: 0,
+                        Quantity90: 0,
+                        Amount: 0
                   });
                 }
               
@@ -112,14 +114,15 @@ const TravisMethewSlice = createSlice({
 
           updateQuantity90:(state,actions) => {
             // eslint-disable-next-line no-debugger
-            debugger;
+            debugger
+            
             const {sku, qty90,MRP}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(
               (travisItem) => travisItem.SKU === sku
             );
             if (travisIndex!== -1) {
               state.travisMethew[travisIndex].Quantity90 = qty90;
-             
+               
               const quantity88 = state.travisMethew[travisIndex]?.Quantity88 ?? 0;
               const quantity90 = state.travisMethew[travisIndex]?.Quantity90 ?? 0;
               state.travisMethew[travisIndex].TotalQty = quantity88+quantity90;

@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import * as XLSX from "xlsx";
-import {ExcelModelGoods} from "../../../model/goods/CallawayGoodsExcel"
+import {ExcelModelGoods} from "../../../../model/goods/CallawayGoodsExcel"
 import { Space, Table, Tag } from 'antd';
 import type { ColumnProps } from 'antd/lib/table';
 type Props={

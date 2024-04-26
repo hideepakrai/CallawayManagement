@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
-import { ExcelModelGoods } from "../../../../model/goods/CallawayGoodsExcel";
+import { ExcelModelGoods } from "../../../../../model/goods/CallawayGoodsExcel";
 
 type Props = {
   xlData: ExcelModelGoods[];

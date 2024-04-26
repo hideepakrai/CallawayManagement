@@ -2,7 +2,7 @@ import React,{useState, useRef} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio, Button } from "antd";
 import type { TableColumnsType } from 'antd';
-import {OgioBasicModel,OgioBasicModelGraph,OgioModel} from "../../model/ogio/OgioBrandModel"
+import {OgioBasicModel,OgioBasicModelGraph,OgioModel} from "../../../model/ogio/OgioBrandModel"
 import {useDispatch, useSelector} from "react-redux"
 import {getOgioProducts} from "../../../../slice/allProducts/OgioSlice"
 import SampleOgioExcel from '../excel/SampleOgioExcel';

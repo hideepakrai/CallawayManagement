@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {BasicModelTravis,TravisMathewAttribute} from "../../modules/brands/model/travis/TravisMethewModel"
-import {BasicModelGoods,GoodsAttributes} from "../../modules/brands/model/goods/CallawayGoodsModel"
+import {BasicModelTravis,TravisMathewAttribute} from "../../modules/model/travis/TravisMethewModel"
+import {BasicModelGoods,GoodsAttributes} from "../../modules/model/goods/CallawayGoodsModel"
 
 interface ProductState {
     TravisOrder: BasicModelTravis[];

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BasicModelGoodsGraph, GoodsAttributes,BasicModelGoods } from "../../modules/brands/model/goods/CallawayGoodsModel";
+import { BasicModelGoodsGraph, GoodsAttributes,BasicModelGoods } from "../../modules/model/goods/CallawayGoodsModel";
 
 interface ProductState {
     callawayGoods: BasicModelGoods[];

@@ -6,7 +6,7 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
-import {ExcelModelGoods} from"../../../../model/goods/CallawayGoodsExcel"
+import {ExcelModelGoods} from"../../../../../model/goods/CallawayGoodsExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 
 const { Dragger } = Upload;
@@ -54,7 +54,7 @@ const ImportExcel = ({onClose,isImport,allGoodsData}:Props) => {
         setLoading(false);
       };
     reader.readAsBinaryString(file);
-   // debugger
+   // 
   }
 
   const handleOk = () => {

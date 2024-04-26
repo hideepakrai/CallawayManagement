@@ -2,7 +2,7 @@ import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio, Button } from "antd";
 import type { TableColumnsType } from 'antd';
-import {BasicModelGoods} from "../../../modules/brands/model/goods/CallawayGoodsModel"
+import {BasicModelGoods} from "../../model/goods/CallawayGoodsModel"
 import {useDispatch, useSelector} from "react-redux"
 
 import {selectCallawayGoods} from "../../../slice/allProducts/CallAwayGoodsSlice"

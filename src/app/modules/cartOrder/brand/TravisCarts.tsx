@@ -1,14 +1,16 @@
 
 import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
-import { Input, Radio,InputNumber, Button } from "antd";
+import { Input, Radio,InputNumber, Button,Select } from "antd";
 import type { TableColumnsType } from 'antd';
-import {BasicModelTravis} from "../../brands/model/travis/TravisMethewModel"
+import {BasicModelTravis} from "../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
 import {getTravisOrder} from "../../../slice/orderSlice/CartOrder"
 import {updateQuantity90,updateQuantity88} from "../../../slice/allProducts/TravisMethewSlice"
 import {addTravisOrder} from "../../../slice/orderSlice/CartOrder"
 import CartHeader from '../CartHeader';
+
+
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -321,6 +323,68 @@ getProduct.length>0 ?
             scroll={{ x: "100%", y: "auto" }}
             style={{ maxHeight: "1600px" }}
             pagination={{ defaultPageSize: 20 }}
+
+            footer={() => (
+              <div
+                  style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginLeft: 8,
+
+                  }}
+              >
+                  <div style={{ width: "78%" }}>
+                      <a style={{ marginRight: 10, color: "#000", }}>Discount</a>
+                      <Select
+                          showSearch
+                          placeholder="Select discount"
+                          optionFilterProp="children"
+
+
+                          options={[
+                              {
+                                  value: "₹100",
+                                  label: "",
+                              },
+                              {
+                                  value: "₹200",
+                                  label: "20%",
+                              },
+                              {
+                                  value: "₹300",
+                                  label: "30%",
+                              },
+                          ]}
+                      />
+
+
+
+                  </div>
+
+                  <div style={{ width: "261px" }}>
+
+                      <h4 style={{ borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
+                          {" "}
+                          <a style={{ color: "#000", paddingRight: "88px", paddingLeft: "10px", }}>Sub Total:</a> ₹1,300
+                      </h4>
+
+                      <h4 style={{ borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
+                          {" "}
+                          <a style={{ color: "#000", paddingRight: "94px", paddingLeft: "10px", }}>Discount:</a>
+                      </h4>
+
+
+
+
+
+
+                      <h4 style={{ padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
+                          <a style={{ color: "#000", paddingRight: "112px", paddingLeft: "10px", }}>Total : </a>₹2,356
+                      </h4>
+                  </div>
+
+              </div>
+          )}
           />):(
             <div>
               <h2>No order selected</h2>

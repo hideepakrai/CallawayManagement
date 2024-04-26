@@ -7,11 +7,7 @@ export interface BasicModelTravis {
       Name?: string;
       Description?: string;
       SKU?: string;
-      StockManagement?: boolean;
-      StockStatus?: string;
-      MRP?: number;
-      SalePrice?: number | null;
-      StockAvailable?:StockAvailable[] ;
+      MRP?:number|null;
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
@@ -36,11 +32,6 @@ export interface StockAvailable{
   stock90: number
 }
 
-export interface Quantity {
-  quantity88: number;
-  quantity90: number;
-
-}
 export interface BasicModelTravisGraph {
 
     id?:number,

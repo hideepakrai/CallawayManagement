@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import * as XLSX from "xlsx";
-import {ExcelModelTravis} from "../../model/travis/TravisExcel"
+import {ExcelModelTravis} from "../../../model/travis/TravisExcel"
 import { Space, Table, Tag } from 'antd';
 import type { ColumnProps } from 'antd/lib/table';
 type Props={

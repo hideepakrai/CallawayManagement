@@ -1,5 +1,5 @@
     import { createSlice } from "@reduxjs/toolkit";
-    import {OgioBasicModel,OgioBasicModelGraph, OgioModel} from "../../modules/brands/model/ogio/OgioBrandModel"
+    import {OgioBasicModel,OgioBasicModelGraph, OgioModel} from "../../modules/model/ogio/OgioBrandModel"
     import Item from "antd/es/list/Item";
 
     interface ProductState {

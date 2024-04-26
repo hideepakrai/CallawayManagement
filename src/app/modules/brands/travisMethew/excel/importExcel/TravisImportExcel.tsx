@@ -6,7 +6,7 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
-import {ExcelModelTravis} from"../../../model/travis/TravisExcel"
+import {ExcelModelTravis} from"../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 
 const { Dragger } = Upload;
@@ -38,12 +38,13 @@ const TravisImportExcel = ({onClose,isImport,allGoodsData}:Props) => {
     const reader = new FileReader();
     reader.onload = (e) => {
         const data = e.target?.result as string;
-
+       // eslint-disable-next-line no-debugger
+       debugger
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
-
+    console.log("json ", data)
       // Use the extracted JSON data here
       //console.log(jsonData);
       setAllXlxData(jsonData)
@@ -54,7 +55,7 @@ const TravisImportExcel = ({onClose,isImport,allGoodsData}:Props) => {
         setLoading(false);
       };
     reader.readAsBinaryString(file);
-   // debugger
+   // 
   }
 
   const handleOk = () => {

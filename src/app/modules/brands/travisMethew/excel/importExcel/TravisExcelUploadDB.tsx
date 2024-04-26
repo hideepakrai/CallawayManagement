@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
-import { ExcelModelTravis } from "../../../model/travis/TravisExcel";
+import { ExcelModelTravis } from "../../../../model/travis/TravisExcel";
 import {useDispatch} from "react-redux"
 import {updateNewData} from "../../../../../slice/allProducts/TravisMethewSlice"
-
+const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 type Props = {
   xlData: ExcelModelTravis[];
   resetXls: () => void;
@@ -17,7 +17,11 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
       console.log(xlData);
 
       const newData: ExcelModelTravis[] = [];
-      xlData.map((item:ExcelModelTravis)=>{
+      xlData.forEach((item:ExcelModelTravis)=>{
+
+    
+        
+        console.log("excel data, item")
         const sdd = {
              
               Name: item.Name,
@@ -25,12 +29,7 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
               SetType: item.SetType,
               Brand: 4, 
               SKU: item.SKU,
-              Stock88: item.Stock88,
-              Stock90: item.Stock90,
-              StockManagement: true,
-              StockStatus: "In Stock",
-              MRP: item.MRP,
-              SalePrice:item.MRP,
+               MRP: item.MRP,
               AttributeSet: [
                 {
                   "__component": "attribute-set.travis-mathew",
@@ -43,6 +42,8 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
                   ColorCode:item.ColorCode,
                   Size:item.Size?.toString(),
                   Gender:item.Gender,
+                  Stock88: item.Stock88,
+                   Stock90: item.Stock90,
             
 
                 },
@@ -65,7 +66,7 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
 
     try {
       const response = await Axios.post(
-        `https://aigigs.in/api/products`,
+        `${STRAPI_URL}/api/new-products`,
         data,
         {
           headers: {

@@ -12,7 +12,7 @@ export interface ExcelModelTravis {
     Size?:string | null;
      Description?: string;
      SetType?: string;
-     MRP?: number;
+     MRP?: number| null;
      Length?:string | null;
      Line?:string | null;
      StockManagement?: boolean;
