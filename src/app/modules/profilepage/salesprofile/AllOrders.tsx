@@ -39,10 +39,21 @@ const column = [
     title: "Action",
     dataIndex: "action",
     key: 'x',
-    render: () => <span> <span style={{paddingRight:"8px",  borderRight:"1px solid rgb(221, 221, 221)",}}>  <Tooltip   title="Edit" placement="bottom"> <i  className="icon icon-edit"></i></Tooltip></span> <span style={{paddingLeft:"4px", }}> <Tooltip title="View" placement="bottom"> <i className="icon icon-map-popup-info"></i></Tooltip></span>
-    
-    {/* <span style={{paddingLeft:"4px" }}> <Tooltip title="View" placement="bottom"> <i class="icon icon-copy"></i></Tooltip></span> */}
-    </span> ,
+    render: () => 
+      <div> 
+    <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor:"pointer" }}>  
+    <Tooltip title="Edit" placement="bottom">   
+     <i className="bi bi-pencil-fill" ></i>
+    </Tooltip>
+    </span> 
+
+    <span style={{ paddingLeft: "8px", cursor:"pointer"}}> 
+    <Tooltip title="View" placement="bottom"> 
+
+    <i className="bi bi-box-arrow-up-right" ></i>
+    </Tooltip>
+    </span>
+</div>,
     
   },
   

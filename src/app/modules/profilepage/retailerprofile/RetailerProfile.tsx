@@ -33,7 +33,7 @@ const RetailerProfile = () => {
         </div>
       </div>
 
-      <Row className='cw-container'>
+      <Row className='container'>
         <Col xl={16} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
       <AllOrders   />

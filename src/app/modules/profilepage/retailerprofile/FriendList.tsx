@@ -2,22 +2,22 @@
     export const friendList = [
         {
           id: 1,
-          image: 'https://aigigs.in/uploads/callaway_icon_bdfb859e8c.png',
+          image: '/media/icons/icon-callway.png',
           name: 'Shubham Sharma',
         },
         {
           id: 2,
-          image: 'https://aigigs.in/uploads/callaway_icon_bdfb859e8c.png',
+          image: '/media/icons/icon-callway.png',
           name: 'Tvesa Malik',
         },
         {
           id: 3,
-          image: 'https://aigigs.in/uploads/callaway_icon_bdfb859e8c.png',
+          image: '/media/icons/icon-callway.png',
           name: 'Diksha Dagar',
         },
         {
           id: 4,
-          image: 'https://aigigs.in/uploads/callaway_icon_bdfb859e8c.png',
+          image: '/media/icons/icon-callway.png',
           name: 'Avani Prashanth',
         },
       ];

@@ -1,1 +1,5 @@
 .icon-order{font-size: 14px!important;}
+.order-table .ant-table{background-color: transparent; color: var(--bs-text-gray-900) !important;
+}
+
+.order-table .ant-table-tbody .ant-table-row >.ant-table-cell-row-hover{background-color: transparent!important;}

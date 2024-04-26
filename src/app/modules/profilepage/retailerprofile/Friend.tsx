@@ -28,14 +28,14 @@ const Friends = ({friendList}: Props) => {
       <h3 className="card-title">Support</h3>
      
   </div>
-  <div className="card-body">
+  <div className="card-body py-7 px-3">
   <div className="gx-pt-2">
         <ul className="gx-fnd-list gx-mb-0 d-flex row user-image" >
           {friendList.map((user:user, index) =>
-            <li className="gx-mb-2 col-4 " key={index} >
-              <div className="">
+            <li className="gx-mb-2 col-4 pb-6" key={index} >
+              <div className="user-images">
                 <img alt="..." src={user.image}/>
-                <div className="gx-user-fnd-content">
+                <div className="cw-user-content">
                   
                   <h6>{user.name}</h6>
                 </div>

@@ -627,12 +627,12 @@ return (
             </div>
           }
         >
-          <div style={{ float: "right" }}>
-            <Button 
+          <div style={{ float: "right",marginBottom:"12px" }}>
+            <Button className='mx-3' 
            // onClick={handleImport}
             >Add to cart</Button>
 
-            <Button 
+            <Button className='mx-3'
             onClick={handleImport}
             >Import Products</Button>
             <Button  className='mx-3'

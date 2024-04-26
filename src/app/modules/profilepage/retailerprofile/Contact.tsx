@@ -26,9 +26,7 @@ const Contact = ({contactList}: Props) => {
 <div >
       {contactList.map((data:data, index) =>
         <div key={index} className="gx-media gx-align-items-center gx-flex-nowrap gx-pro-contact-list">
-          <div className="gx-mr-3">
-            <i className={`icon icon-${data.icon} gx-fs-xxl gx-text-grey`}/>
-          </div>
+        
 
           <div className="gx-media-body">
             <span className="gx-mb-0 text-muted fw-semibold fs-6">{data.title}</span>

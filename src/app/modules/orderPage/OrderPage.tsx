@@ -262,25 +262,15 @@ const OrderPage = () => {
   return (
     <>
 
-      <Card  className="cw-container" title="Orders Page" 
-      extra={
-        <div >
-        <Breadcrumb separator=">">
-        <Breadcrumb.Item>
-            <span className="gx-link">Home</span>
-          </Breadcrumb.Item>
-
-          
-          <Breadcrumb.Item>Order</Breadcrumb.Item>
-        </Breadcrumb>
-      </div>
-      }
-      >
-        <div className="components-table-demo-control-bar">
-          {/* ... (same as your original form) */}
-        </div>
-        <Table
-          className="gx-table-responsive"
+<div className="card card-custom container border-0" style={{padding:"0", width:"95%"}} >
+<div className="card-header">
+      <h3 className="card-title">Order</h3>
+     
+  </div>
+  
+  <div className="card-body">
+  <Table 
+          className="gx-table-responsive order-table text-gray-900"
           expandable={{
            // // expandedRowRender,
             defaultExpandedRowKeys: ["0"],
@@ -356,7 +346,14 @@ const OrderPage = () => {
           ]}
           dataSource={data}
         />
-      </Card>
+  </div>
+  
+</div>
+       
+        
+
+     
+      
       
       <Edit isEdit={isEdit} onClose={handleCloseEdit} />
       <Notes isNote={isNote} onCloseNote={handleCloseNote} />
