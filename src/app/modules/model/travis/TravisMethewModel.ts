@@ -8,6 +8,7 @@ export interface BasicModelTravis {
       Description?: string;
       SKU?: string;
       MRP?:number|null;
+      SalePrice?:number|null;
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
@@ -15,8 +16,7 @@ export interface BasicModelTravis {
       TravisAttributes?: TravisMathewAttribute[] ,
       // Quantity?: Quantity[];
       Amount?: number;
-      Stock88?:number|null;
-      Stock90?:number|null;
+      
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;
@@ -50,6 +50,8 @@ export interface BasicModelTravisGraph {
     __typename?:string | null;
     Gender?:string | null;
     Size?:string | null;
+    Stock88?:number|null;
+     Stock90?:number|null;
   }
 
  

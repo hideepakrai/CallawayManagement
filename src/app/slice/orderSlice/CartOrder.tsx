@@ -35,6 +35,8 @@ const OrderSlice = createSlice({
                           ColorCode: travisOrder.TravisAttributes[0].ColorCode,
                           Size: travisOrder.TravisAttributes[0].Size,
                           Gender: travisOrder.TravisAttributes[0].Gender || "", // Assuming Gender might be optional
+                          Stock88: travisOrder.TravisAttributes[0].Stock88,
+                          Stock90: travisOrder.TravisAttributes[0].Stock90,
                         },
                       ];
               
@@ -42,18 +44,16 @@ const OrderSlice = createSlice({
                         Name: travisOrder.Name,
                         Description: travisOrder.Description,
                         SKU: travisOrder.SKU,
-                        StockManagement: travisOrder.StockManagement,
-                        StockStatus: travisOrder.StockStatus,
-                        MRP: travisOrder.MRP,
+                    
                         SalePrice: travisOrder.SalePrice,
-                        Stock88: travisOrder.Stock88,
-                        Stock90: travisOrder.Stock90,
+                       
+                        
                         SetType: travisOrder.SetType,
                         ProductType: travisOrder.ProductType,
                         TravisAttributes: att,
                         Quantity88:qty88,
                         Quantity90:qty90,
-                        Amount: (qty88+qty90)*travisOrder.MRP,
+                        Amount: (qty88+qty90)*travisOrder.SalePrice,
                         TotalQty: qty88+qty90,
                       });
                    }else {
@@ -61,7 +61,7 @@ const OrderSlice = createSlice({
                     state.TravisOrder[index].Quantity88=travisOrder.Quantity88;
                     const qty88=state.TravisOrder[index].Quantity88||0;
                     const qty90=state.TravisOrder[index].Quantity90||0;
-                    const MRP=state.TravisOrder[index].MRP||0;
+                    const MRP=state.TravisOrder[index].SalePrice||0;
                     state.TravisOrder[index].TotalQty=qty88+qty90
                     state.TravisOrder[index].Amount=MRP*(qty88+qty90);
                     state.TravisOrder[index].ordered=true;

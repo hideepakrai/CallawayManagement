@@ -21,6 +21,8 @@ const TravisMethewSlice = createSlice({
 
         addTravisProduct: (state, action:PayloadAction<{ travisProduct: BasicModelTravisGraph[], id: string }>) => {
             const { travisProduct, id } = action.payload;
+            // eslint-disable-next-line no-debugger
+            debugger
             if (travisProduct && travisProduct.length > 0) {
                 travisProduct.forEach((item: BasicModelTravisGraph) => {
                     const att: TravisMathewAttribute[] = [];
@@ -38,22 +40,24 @@ const TravisMethewSlice = createSlice({
                                 Line: attrItems.Line,
                                 Color: attrItems.Color,
                                 ColorCode: attrItems.ColorCode,
-                                Size:attrItems.Size
+                                Size:attrItems.Size,
+                                Stock88:attrItems.Stock88,
+                                Stock90:attrItems.Stock90,
                             });
                         });
                     }
                     state.travisMethew.push({
+                      id:item.id,
                        brand: item.attributes.brand,
                         Name: item.attributes.Name,
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
-                        MRP: item.attributes.MRP,
-              
+                        SalePrice: item.attributes.SalePrice,
+        
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
                         TravisAttributes: att,
-                        Stock88:item.attributes.Stock88,
-                        Stock90:item.attributes.Stock90,
+                       
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,
@@ -85,7 +89,9 @@ const TravisMethewSlice = createSlice({
                       Color: travisProduct.Color,
                       ColorCode: travisProduct.ColorCode,
                       Size: travisProduct.Size,
-                      Gender: travisProduct.Gender || "", // Assuming Gender might be optional
+                      Gender: travisProduct.Gender || "", 
+                      Stock88:travisProduct.Stock88,
+                       Stock90:travisProduct.Stock90,// Assuming Gender might be optional
                     },
                   ];
           
@@ -99,8 +105,7 @@ const TravisMethewSlice = createSlice({
                     SetType: travisProduct.SetType,
                     ProductType: travisProduct.ProductType,
                     TravisAttributes: att,
-                    Stock88:travisProduct.Stock88,
-                    Stock90:travisProduct.Stock90,
+                    
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,

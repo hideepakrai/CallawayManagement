@@ -140,12 +140,12 @@ const TravisCart = () => {
           title:"Order Quantity",
           children:[
            { title: "88    QTY",
-            dataIndex: "Stock88",
+            dataIndex: "TravisAttributes",
             key: "Stock88", 
             width: 130,
             fixed:'right',
-            render: (text, record) => (
-              <Input addonBefore={record.Stock88} 
+            render: (value, record) => (
+              <Input addonBefore={value[0].Stock88} 
               type='number'
              
               value={record.Quantity88?.toString()}
@@ -156,12 +156,12 @@ const TravisCart = () => {
           },
             {
               title: "90  QTY",
-            dataIndex: "Stock88",
+            dataIndex: "TravisAttributes",
             key: "Stock88", 
             width: 130,
             fixed:'right',
-            render: (text, record) => (
-              <Input addonBefore={record.Stock90} 
+            render: (value, record) => (
+              <Input addonBefore={value[0].Stock90} 
               type='number'
               
               value={record.Quantity90?.toString()}
@@ -221,8 +221,8 @@ const TravisCart = () => {
         },
         {
           title: "MRP",
-          dataIndex: "MRP",
-          key: "MRP", 
+          dataIndex: "SalePrice",
+          key: "SalePrice", 
           width: 80,
           fixed:'right'
         },
@@ -242,14 +242,14 @@ const TravisCart = () => {
 
         const intValue = parseInt(value, 10);
     
-        if (record?.Stock90 && record.Stock90 >= intValue) {
+        if ( record?.TravisAttributes&&record?.TravisAttributes[0].Stock90 && record.TravisAttributes[0].Stock90 >= intValue) {
           
           // Dispatch an action to update the quantity for the SKU
           
           dispatch(updateQuantity90({
             sku: record.SKU,
             qty90: intValue,
-            MRP: record.MRP,
+            MRP: record.SalePrice,
             
           }));
           record.Quantity90=intValue;
@@ -279,12 +279,12 @@ const TravisCart = () => {
            console.log("record",record)
         const intValue = parseInt(value, 10);
     
-        if (record?.Stock88 && record.Stock88 >= intValue) {
+         if ( record?.TravisAttributes&&record?.TravisAttributes[0].Stock88&& record.TravisAttributes[0].Stock88 >= intValue) {
           // Dispatch an action to update the quantity for the SKU
           dispatch(updateQuantity88({
             sku: record.SKU,
             qty88: intValue,
-            MRP: record.MRP,
+            MRP: record.SalePrice,
           }));
           record.Quantity88=intValue;
          // setQuantity88(intValue)
@@ -295,7 +295,7 @@ const TravisCart = () => {
             
         }))
         }
-        else if(record?.Stock88 && record.Stock88 < intValue &&intValue!==0){
+        else if ( record?.TravisAttributes && record?.TravisAttributes[0].Stock88 && record.TravisAttributes[0].Stock88 <intValue) {
           alert("Quantity is not available")
          // setQuantity88(0)
          dispatch(updateQuantity88({

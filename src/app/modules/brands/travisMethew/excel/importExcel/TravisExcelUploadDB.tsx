@@ -66,7 +66,7 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
 
     try {
       const response = await Axios.post(
-        `${STRAPI_URL}/api/new-products`,
+        `${STRAPI_URL}/api/products`,
         data,
         {
           headers: {

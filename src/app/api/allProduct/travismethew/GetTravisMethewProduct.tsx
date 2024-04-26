@@ -25,7 +25,7 @@ const GetTravisMethewProduct = ({ resetTravis}: Props) => {
       
 
 useEffect(() => {
-    // console.log("Travis data graph QL",data);
+     console.log("Travis data graph QL",data);
     // console.log(loading);
     if (data && !loading) {
         // console.log(data?.products?.data);
