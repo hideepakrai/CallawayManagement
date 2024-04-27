@@ -306,6 +306,19 @@ const TravisCart = () => {
         }
       
       };
+   const [totalAmount, setTotalAmount]= useState<number>()
+      useEffect(()=>{
+        let tAmount:number=0;
+        if(getProduct && getProduct.length>0){
+          getProduct.map((item:BasicModelTravis)=>{
+            if(item.Amount){
+              tAmount=item.Amount+tAmount
+            }
+            
+          })
+            setTotalAmount(tAmount)
+        }
+      },[getProduct])
   return (
     <div>
 {getProduct && 
@@ -365,7 +378,7 @@ getProduct.length>0 ?
 
                       <h4 style={{ borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
                           {" "}
-                          <a style={{ color: "#000", paddingRight: "88px", paddingLeft: "10px", }}>Sub Total:</a> ₹1,300
+                          <a style={{ color: "#000", paddingRight: "88px", paddingLeft: "10px", }}>Sub Total:</a> {totalAmount}
                       </h4>
 
                       <h4 style={{ borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>

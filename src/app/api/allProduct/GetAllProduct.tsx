@@ -5,6 +5,7 @@ import {getUserAccount,getAdminToken} from "../../slice/UserSlice/UserSlice"
 import OgioProduct from './ogio/OgioProduct'
 import TravisMethewProduct  from "../allProduct/travismethew/GetTravisMethewProduct.tsx"
 import GetCallawayGoodsProduct  from "../allProduct/callaway/goods/GetCallAWayGoods.tsx"
+import {LoadingStart,LoadingStop} from "../../slice/loading/LoadingSlice.tsx"
 
 
 
@@ -48,12 +49,19 @@ const GetAllProduct = () => {
 
   const handleResetTravis=()=>{
     setIsTravis(false)
+
+    
   }
 
   const handleResetGoods=()=>{
     setIsGoods(false)
   }
 
+  useEffect(()=>{
+    if(!isOgio && !isGoods && !isTravis){
+      dispatch(LoadingStop ())
+    }
+  },[isOgio,isGoods,isTravis])
 
   // Reload
   return (

@@ -8,6 +8,8 @@ import TravisMethewReducer from "../slice/allProducts/TravisMethewSlice"
 import CallAwayGoodsReducer from "../slice/allProducts/CallAwayGoodsSlice"
 
 import CartReducer  from "../slice/orderSlice/CartOrder"
+
+import LoadingReducer from "../slice/loading/LoadingSlice"
 export default configureStore({
 
 
@@ -17,5 +19,6 @@ export default configureStore({
         travisMethew: TravisMethewReducer,
         callawayGoods:CallAwayGoodsReducer,
         Order:CartReducer,
+        loading :LoadingReducer,
     }
 })

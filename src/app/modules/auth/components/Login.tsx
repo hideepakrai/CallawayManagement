@@ -12,7 +12,9 @@ import "./Login.css"
 import { addUser, addAdminToken } from "../../../slice/UserSlice/UserSlice"
 
 import GetUserAccount from './GetUserAccount'
-import { UserModel } from '../core/_models'
+import { UserModel } from '../core/_models';
+import {LoadingStart} from "../../../slice/loading/LoadingSlice"
+
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -72,6 +74,7 @@ export function Login() {
         //   adminToken: admintoken
         // }))
         // setCurrentUser(response)
+        dispatch(LoadingStart())
       } catch (error) {
         console.error(error)
         saveAuth(undefined)

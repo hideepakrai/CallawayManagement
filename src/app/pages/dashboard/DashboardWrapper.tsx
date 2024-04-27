@@ -21,7 +21,9 @@ import { Toolbar } from '../../../_metronic/layout/components/toolbar/Toolbar'
 import { Content } from '../../../_metronic/layout/components/Content'
 import { useEffect } from 'react'
 import GetAllProduct from '../../api/allProduct/GetAllProduct';
-
+import Loading from '../../modules/loading/Loading'
+import {getLoading} from "../../slice/loading/LoadingSlice"
+import {useSelector} from "react-redux";
 const DashboardPage = () => (
 
   
@@ -142,13 +144,17 @@ const DashboardWrapper = () => {
   useEffect(()=>{},[])
   const intl = useIntl()
 
+  const getLoadings=useSelector(getLoading)
   
+
   
   return (
     <>
       <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
       <DashboardPage />
       <GetAllProduct/>
+
+     {getLoadings && <Loading/>}
     </>
   )
 }
