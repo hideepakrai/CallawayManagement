@@ -152,9 +152,15 @@ import CartHeader from '../CartHeader';
         
       
       ];
+
+      const handleCreateOrderGoods=()=>{
+        
+      }
   return (
     <div>
-<CartHeader/>
+<CartHeader
+CreateOrder={handleCreateOrderGoods}
+/>
 {getGoodsOrders  &&
 getGoodsOrders.length>0?
 (<Table

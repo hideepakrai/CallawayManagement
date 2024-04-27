@@ -1,7 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Card, Table, Input, Button, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-const CartHeader = () => {
+import {BasicModelTravis} from "../model/travis/TravisMethewModel"
+import {getRetailers} from "../../slice/retailer/RetailerSlice"
+import {RetailerModel,Retailer}  from "../../modules/model/retailer/RetailerModel"
+type Props={
+    CreateOrder: (retailerId:number)=>void
+}
+const CartHeader = ({CreateOrder}:Props) => {
+
+  const [retailerAddres, setRetailerAddress]= useState<string>()
+  const [retailerId, setRetailerId]= useState<number>(0)
+  const [retailerCity, setRetailerCity]= useState<string>()
+  const [GST, setGST]= useState<string>()
+
+    const handleSubmit=()=>{
+        if(retailerId!==0){
+            CreateOrder(retailerId)
+        }
+        else{
+            alert("Please select retailer")
+        }
+       
+    }
+
+    const getRetailer= useSelector(getRetailers);
+     const handleChange=(value:number)=>{
+        const allData:RetailerModel[]= getRetailer.retailer.filter(retailer=>retailer.id==value)
+        console.log(allData)
+        if (allData && allData.length>0)  { 
+           
+            setRetailerAddress(allData[0]?.attributes?.Address ?? ''); 
+            setRetailerCity(allData[0]?.attributes?.Location ?? '');
+            setGST(allData[0]?.attributes?.GST ?? "");
+            setRetailerId(allData[0]?.id ??0)
+        } else {
+            
+            setRetailerAddress('');
+            setRetailerCity('');
+            setGST("");
+            setRetailerId(0)
+        }
+     }
   return (
     <div>
       <div className='row'>
@@ -14,34 +54,26 @@ const CartHeader = () => {
                     showSearch
                     placeholder="Select retailer"
                     optionFilterProp="children"
-                    style={{ width: "30%", marginBottom: 10 }}
-                    options={[
-                        {
-                            value:
-                                "IGS Online Shop 31 (1st Floor) Meedo Arcade 28 Rajpur Road Dehradun 248001",
-                            label: "Meedo Arcade-DEHRADUN",
-                        },
-                        {
-                            value:
-                                "A-31 Basement Lajpat Nagar II New Delhi, Delhi 110024. India ",
-                            label: "Delhi Golf House",
-                        },
-                        {
-                            value:
-                                "Delhi Golf ClubDr. Zakir Hussain Road, New Delhi, Delhi - 110003 ",
-                            label: "Anil Kashyap Pro Shop",
-                        },
-                    ]}
-                />
+                    style={{ width: "40%", marginBottom: 10 }} 
+                    onChange={handleChange}
+                    options={getRetailer?.retailer?.map((item:RetailerModel) => (
+                        { label: item.attributes?.Name ??"",
+                             value: item.id}))}
+
+   
+                    />
+                    
+    
+                
             </div>
             <div className='col-6'>
                 <span style={{ marginRight: 10 }}>
                     {" "}
-                    <a style={{ color: "#000", }}>Address City :</a>
+                    <a style={{ color: "#000", }}>Address City : {retailerAddres} </a>
                 </span>
-                <span style={{ width: 100, marginRight: 20, borderRight: "1px solid #ddd", paddingRight: "10px", }}>sasa</span>
+                <span style={{ width: 100, marginRight: 20, borderRight: "1px solid #ddd", paddingRight: "10px", }}>{retailerCity}</span>
                 <span>
-                    <a style={{ color: "#000", }}>GSTIN NO. :</a> 22AAAAA0000A1Z5
+                    <a style={{ color: "#000", }}>GSTIN NO. :</a> {GST}
                 </span>
             </div>
 
@@ -49,7 +81,7 @@ const CartHeader = () => {
 
             <div className='col-12 mb-3'style={{textAlign:"end"}}>
                 <span className='mx-3'  >
-                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "middle", }} className="icon icon-orders"></i>Submit Order</Button>
+                    <Button  onClick={handleSubmit}> <i style={{ paddingRight: "6px", verticalAlign: "middle", }} className="icon icon-orders"></i>Submit Order</Button>
                   
                 </span>
                 <span  className='mx-3' >

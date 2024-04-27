@@ -41,6 +41,7 @@ const OrderSlice = createSlice({
                       ];
               
                       state.TravisOrder.push({
+                        id:travisOrder.id,
                         Name: travisOrder.Name,
                         Description: travisOrder.Description,
                         SKU: travisOrder.SKU,

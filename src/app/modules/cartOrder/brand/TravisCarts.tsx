@@ -9,7 +9,8 @@ import {getTravisOrder} from "../../../slice/orderSlice/CartOrder"
 import {updateQuantity90,updateQuantity88} from "../../../slice/allProducts/TravisMethewSlice"
 import {addTravisOrder} from "../../../slice/orderSlice/CartOrder"
 import CartHeader from '../CartHeader';
-
+import {CartModel,ProductDetails} from "../../model/CartOrder/CartModel.ts";
+import {CreateOrder} from "../orderApi/OrderAPi.ts"
 
 const TravisCart = () => {
     const tableRef = useRef(null);
@@ -319,10 +320,63 @@ const TravisCart = () => {
             setTotalAmount(tAmount)
         }
       },[getProduct])
+
+      // save order
+
+    const handleCreateOrder=(retailerId:number)=>{
+      if (Array.isArray(getProduct)) {
+          
+          const orderId= generateUniqueAlphanumeric();
+         
+          const ProductDetail:ProductDetails[]=[];
+          getProduct.forEach((item: BasicModelTravis) => {
+              ProductDetail.push({
+                  product: item.id,
+                  Quantity: item.TotalQty,
+                  TotalPrice: item.Amount,
+                  UnitPrice: item.SalePrice
+              });
+
+              
+          });
+
+          const data={
+              OrderId:orderId,
+              Status:"Pending",
+              ProductDetails:ProductDetail,
+              retailer:retailerId
+          }
+
+          createOrder(data)
+      }
+  }
+
+
+  const createOrder=async(data:CartModel)=>{
+      try{
+          const response=await CreateOrder(data);
+          console.log(response);
+      }
+        catch(err){
+            console.log(err);
+        }
+  }
+
+  function generateUniqueAlphanumeric(): string {
+    const timestamp = new Date().getTime().toString(36); // Convert timestamp to base 36
+    const randomChars = Math.random().toString(36).substr(2, 5); // Generate random characters
+    const uniqueId = timestamp + randomChars; // Combine timestamp and random characters
+    return uniqueId;
+}
+
+ 
   return (
     <div>
 {getProduct && 
-getProduct.length>0 &&<CartHeader/>}
+getProduct.length>0 &&
+<CartHeader
+CreateOrder={handleCreateOrder}
+/>}
 
 {getProduct && 
 getProduct.length>0 ?

@@ -7,7 +7,7 @@ import TravisMethewProduct  from "../allProduct/travismethew/GetTravisMethewProd
 import GetCallawayGoodsProduct  from "../allProduct/callaway/goods/GetCallAWayGoods.tsx"
 import {LoadingStart,LoadingStop} from "../../slice/loading/LoadingSlice.tsx"
 
-
+import GetAllRetailers from '../retailers/GetAllRetailers.tsx'
 
 interface UserAccount {
   attributes: {
@@ -29,6 +29,7 @@ const GetAllProduct = () => {
   const [isOgio, setIsOgio] = useState<boolean>(false)
   const [isTravis, setIsTravis] = useState<boolean>(false)
   const [isGoods, setIsGoods  ] = useState<boolean>(false)
+  const [isRetailers, setIsetailers  ] = useState<boolean>(false)
   useEffect(() => {
   
     if(getUserAccounts 
@@ -38,6 +39,7 @@ const GetAllProduct = () => {
      setIsOgio(true)
      setIsTravis(true)
      setIsGoods(true)
+     setIsetailers(true)
     }
   }, [getUserAccounts]);
 
@@ -57,13 +59,18 @@ const GetAllProduct = () => {
     setIsGoods(false)
   }
 
+  const handleResetRetailer=()=>{
+    setIsetailers(false)
+  }
+
   useEffect(()=>{
     if(!isOgio && !isGoods && !isTravis){
       dispatch(LoadingStop ())
     }
   },[isOgio,isGoods,isTravis])
 
-  // Reload
+  
+
   return (
     <div>
 
@@ -77,6 +84,10 @@ const GetAllProduct = () => {
 
       {isGoods && <GetCallawayGoodsProduct
       resetGoods={handleResetGoods}
+      />}
+
+      {<GetAllRetailers
+      resetRetailer={handleResetRetailer}
       />}
     </div>
   )
