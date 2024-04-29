@@ -49,8 +49,11 @@ import "./TravisTable.css"
     //console.log(" travis Product",getProduct)
     const columns: TableColumnsType<BasicModelTravis>= [
         {
-         
-
+          // title: "Image",
+          dataIndex: "PrimaryImage",
+          // fixed: "left",
+          width: 50,
+          
          render: (value) => (
             <span>
             <img
@@ -68,9 +71,27 @@ import "./TravisTable.css"
         {
           title: "SKU",
           dataIndex: "SKU",
-          width: 80,
+          width: 100,
           fixed: "left",
-          // render: (value) => <span>{String(value.Name)}</span>,
+          
+          filters: [
+           
+            {
+              
+              text: 'Joe',
+              value: 'Joe',
+            },
+          
+          ]
+      
+        
+         
+        
+      
+        
+          
+          
+
          
         },
 
@@ -78,7 +99,7 @@ import "./TravisTable.css"
           title: "Description ",
           dataIndex: "Description",
           key: "Description", 
-          width: 115,
+          width: 150,
          
         },
 
@@ -88,7 +109,7 @@ import "./TravisTable.css"
           title: "Name",
           dataIndex: "Name",
           key: "name",
-          width: 100 ,
+          width: 90 ,
            fixed: "left",
         },
     
@@ -124,7 +145,7 @@ import "./TravisTable.css"
            
           },
         {
-          title: "StyleCode",
+          title: "Style",
           dataIndex: "TravisAttributes",
           key: "StyleCode", 
           width: 85,
@@ -155,7 +176,7 @@ import "./TravisTable.css"
           title: "Size",
           dataIndex: "TravisAttributes",
           key: "Size", 
-          width: 75,
+          width: 65,
           render: (value) => <span>{value && value[0] && value[0].Size}</span>,
           sorter: (a, b) => {
             // Extract and compare StyleCode values, handling null or undefined cases
@@ -168,10 +189,10 @@ import "./TravisTable.css"
        
       
         
-           { title: "88    QTY",
+           { title: "Qty88",
             dataIndex: "TravisAttributes",
             key: "Stock88", 
-            width: 110,
+            width: 100,
             fixed:'right',
             render: (value,record) => (
               <Input 
@@ -184,10 +205,10 @@ import "./TravisTable.css"
             ),
           },
             {
-              title: "90  QTY",
+              title: "Qty90",
             dataIndex: "TravisAttributes",
             key: "Stock88", 
-            width: 110,
+            width: 100,
             fixed:'right',
             render: (value,record) => (
               <Input addonBefore={value[0]?.Stock90} 
@@ -238,10 +259,10 @@ import "./TravisTable.css"
          
         // },
         {
-          title: "Total Qty",
+          title: "Qty",
           dataIndex: "TotalQty",
           key: "TotalQty", 
-          width: 90,
+          width: 50,
           fixed:'right'
         },
         {
