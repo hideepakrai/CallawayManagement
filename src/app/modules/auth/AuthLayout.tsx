@@ -33,23 +33,7 @@ const AuthLayout = () => {
         {/* end::Form */}
 
         {/* begin::Footer */}
-        <div className='d-flex flex-center flex-wrap px-5'>
-          {/* begin::Links */}
-          <div className='d-flex fw-semibold text-primary fs-base'>
-            <a href='#' className='px-5' target='_blank'>
-              Terms
-            </a>
-
-            <a href='#' className='px-5' target='_blank'>
-              Plans
-            </a>
-
-            <a href='#' className='px-5' target='_blank'>
-              Contact Us
-            </a>
-          </div>
-          {/* end::Links */}
-        </div>
+       
         {/* end::Footer */}
       </div>
       {/* end::Body */}
@@ -57,12 +41,12 @@ const AuthLayout = () => {
       {/* begin::Aside */}
       <div
         className='d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2'
-        style={{backgroundImage: `url(${toAbsoluteUrl('media/misc/auth-bg.png')})`}}
+        style={{backgroundImage: `url(${toAbsoluteUrl('media/misc/auth-bg.jpg')})`}}
       >
         {/* begin::Content */}
         <div className='d-flex flex-column flex-center py-15 px-5 px-md-15 w-100'>
           {/* begin::Logo */}
-          <Link to='/' className='mb-12'>
+          <Link to='/' className=' mt-6'>
             <img alt='Logo' src={toAbsoluteUrl('media/logos/logo-white.png')} className='h-75px' />
           </Link>
           {/* end::Logo */}
@@ -83,16 +67,9 @@ const AuthLayout = () => {
 
           {/* begin::Text */}
           <div className='text-white fs-base text-center'>
-            In this kind of post,{' '}
-            <a href='#' className='opacity-75-hover text-warning fw-bold me-1'>
-              the blogger
-            </a>
-            introduces a person they’ve interviewed <br /> and provides some background information
-            about
-            <a href='#' className='opacity-75-hover text-warning fw-bold me-1'>
-              the interviewee
-            </a>
-            and their <br /> work following this is a transcript of the interview.
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          <br></br> Lorem Ipsum has been the industry's standard dummy text ever since
+          the  <br></br> 1500s, when an  unknown it to make a type specimen book.
           </div>
           {/* end::Text */}
         </div>

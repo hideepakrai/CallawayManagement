@@ -1,7 +1,8 @@
 
 import {FC} from 'react'
 import clsx from 'clsx'
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
+import {KTIcon,KTSVG, toAbsoluteUrl} from '../../../helpers'
+import "./Topbar.css"
 import {
   HeaderNotificationsMenu,
   HeaderUserMenu,
@@ -50,7 +51,7 @@ const Topbar: FC = () => {
         {/* NOTIFICATIONS */}
         <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
           {/* begin::Menu- wrapper */}
-          <div
+          <div 
             className={clsx(
               'btn btn-icon btn-active-light-primary btn-custom',
               toolbarButtonHeightClass
@@ -61,7 +62,12 @@ const Topbar: FC = () => {
             // data-kt-menu-flip='bottom'
             onClick={handleCart}
           >
-            <KTIcon iconName='element-plus' className={toolbarButtonIconSizeClass} />
+           
+         
+           <KTSVG  path="media/icons/duotune/ecommerce/ecm001.svg" className="svg-icon-muted svg-cart"   />
+
+
+           
           </div>
           {/* <HeaderNotificationsMenu /> */}
           {/* end::Menu wrapper */}

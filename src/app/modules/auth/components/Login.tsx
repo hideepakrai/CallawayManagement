@@ -354,7 +354,8 @@ export function Login() {
         {/* end::Form group */}
 
         {/* begin::Wrapper */}
-        <div className='d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8'>
+        <div className='d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8'> 
+        
           <div />
 
           {/* begin::Link */}
@@ -370,12 +371,12 @@ export function Login() {
           <button
             type='submit'
             id='kt_sign_in_submit'
-            className='btn btn-primary'
+            className='btn sub-btn '
             disabled={formik.isSubmitting || !formik.isValid}
           >
-            {!loading && <span className='indicator-label'>Continue</span>}
+            {!loading && <span className='indicator-label text-white'>Continue</span>}
             {loading && (
-              <span className='indicator-progress' style={{ display: 'block' }}>
+              <span className='indicator-progress' style={{ display: 'block',color:"#fff" }}>
                 Please wait...
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
               </span>
@@ -384,12 +385,7 @@ export function Login() {
         </div>
         {/* end::Action */}
 
-        <div className='text-gray-500 text-center fw-semibold fs-6'>
-          Not a Member yet?{' '}
-          <Link to='/auth/registration' className='link-primary'>
-            Sign up
-          </Link>
-        </div>
+       
       </form>
       {grpqlManager&& userId!=null &&<GetUserAccount
         userId={userId}

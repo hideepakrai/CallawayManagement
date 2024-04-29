@@ -94,6 +94,8 @@
 
 .tick i{color: #fff;}
 
+.sub-btn{background-color: #000!important; color: #fff;}
+.sub-btn:hover{background-color: #111!important; color: #fff;}
 
 /* .user-img{ overflow: hidden;}
  .user-img img:hover{

@@ -6,6 +6,7 @@ import {BasicModelTravis} from "../../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
 import {getTravisProducts} from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
+
 import { number } from 'yup';
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import {ExcelModelTravis} from "../../../model/travis/TravisExcel"
@@ -17,6 +18,7 @@ import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder"
 import { message } from "antd";
 import { Key } from 'antd/lib/table/interface';
 import { useTable } from 'react-table';
+import "./TravisTable.css"
 // import jsPDF from "jspdf";
 // import "jspdf-autotable";
 
@@ -47,20 +49,21 @@ import { useTable } from 'react-table';
     //console.log(" travis Product",getProduct)
     const columns: TableColumnsType<BasicModelTravis>= [
         {
-          // title: "Image",
-          dataIndex: "PrimaryImage",
-          // fixed: "left",
-          width: 25,
-        //   render: (value) => (
-        //     <span>
-        //       <img
-        //         src={master}
-        //         alt="Primary Image"
-        //         style={{ maxWidth: "30px", marginRight: "5px" }}
-        //       />
-        //     </span>
-        //   ),
+         
+
+         render: (value) => (
+            <span>
+            <img
+             src="/media/icons/icon-callway.png"
+             alt="Primary Image"
+           style={{ maxWidth: "30px", marginRight: "5px" }}
+            />
+           </span>
+         ),
         },
+
+       
+    
     
         {
           title: "SKU",
@@ -70,6 +73,16 @@ import { useTable } from 'react-table';
           // render: (value) => <span>{String(value.Name)}</span>,
          
         },
+
+        {
+          title: "Description ",
+          dataIndex: "Description",
+          key: "Description", 
+          width: 115,
+         
+        },
+
+        
     
         {
           title: "Name",
@@ -152,20 +165,13 @@ import { useTable } from 'react-table';
             return styleCodeA.localeCompare(styleCodeB);
           },
         },
-        {
-          title: "Description",
-          dataIndex: "Description",
-          key: "Description", 
-          width: 115,
-         
-        },
-
+       
       
         
            { title: "88    QTY",
             dataIndex: "TravisAttributes",
             key: "Stock88", 
-            width: 130,
+            width: 110,
             fixed:'right',
             render: (value,record) => (
               <Input 
@@ -181,7 +187,7 @@ import { useTable } from 'react-table';
               title: "90  QTY",
             dataIndex: "TravisAttributes",
             key: "Stock88", 
-            width: 130,
+            width: 110,
             fixed:'right',
             render: (value,record) => (
               <Input addonBefore={value[0]?.Stock90} 
@@ -235,7 +241,7 @@ import { useTable } from 'react-table';
           title: "Total Qty",
           dataIndex: "TotalQty",
           key: "TotalQty", 
-          width: 100,
+          width: 90,
           fixed:'right'
         },
         {
@@ -321,13 +327,12 @@ import { useTable } from 'react-table';
             return styleCodeA.localeCompare(styleCodeB);
           },
         },
-        {
-          title:"Stock",
-          children:[
+        
+         
            { title: "88    QTY",
             dataIndex: "TravisAttributes",
             key: "Stock88", 
-            width: 130,
+            width: 50,
             fixed:'right',
             render: (value, record:BasicModelTravis) => (
               <Input addonBefore={value[0].Stock88} 
@@ -342,7 +347,7 @@ import { useTable } from 'react-table';
               title: "90  QTY",
             dataIndex: "TravisAttributes",
             key: "Stock88", 
-            width: 130,
+            width: 50,
             fixed:'right',
             render: (value, record) => (
               <Input addonBefore={value[0].Stock90} 
@@ -353,12 +358,12 @@ import { useTable } from 'react-table';
              
             ),
             }
-          ]},
+          ,
             {
               title: "Total Qty",
               dataIndex: "TotalQty",
               key: "TotalQty", 
-              width: 100,
+              width: 90,
               fixed:'right'
             },
             {
@@ -380,7 +385,7 @@ import { useTable } from 'react-table';
            
           if(expandedRowKeys &&record.SKU===expandedRowKeys.SKU){
             return (
-              <Table
+              <Table  className='table-travis'
                 columns={subcolumns}
                 dataSource={[record]}
                 pagination={false}
@@ -549,9 +554,6 @@ const handleExportToExcel = () => {
 };
 
 
-
-
-
 //handle Show Order
 
 const handleShowOrder=()=>{
@@ -603,7 +605,7 @@ const handleSelctRow=(record:BasicModelTravis)=>{
 }
 
 return (
-    <div className='cw-container'>
+    <div className='container'>
 
 <Card style={{ marginTop:'80px'}}
           title="TRAVIS METHEW"
@@ -661,7 +663,7 @@ return (
             pagination={{ defaultPageSize: 20 }}
           />
 
-        <SampleExcelTravis
+        <SampleExcelTravis 
          isSample={isSample}
         resetIsSample={handleResetIsSample}
         />

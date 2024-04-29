@@ -4,7 +4,7 @@ import { Input, Radio, Button } from "antd";
 import type { TableColumnsType } from 'antd';
 import {BasicModelGoods} from "../../model/goods/CallawayGoodsModel"
 import {useDispatch, useSelector} from "react-redux"
-
+import "./CalawayGoodsCarts.css"
 import {selectCallawayGoods} from "../../../slice/allProducts/CallAwayGoodsSlice"
 import * as XLSX from 'xlsx';
  import {updateGoodsQuantity90,updateGoodsQuantity88} from "../../../slice/allProducts/CallAwayGoodsSlice"
@@ -174,7 +174,8 @@ getGoodsOrders.length>0?
             style={{ maxHeight: "1600px" }}
             pagination={{ defaultPageSize: 20 }}
           />):(
-            <div>
+            <div className='not-data-section'>
+              <img src="https://admin.callawayindiaoms.com/uploads/empty_eefc36e883.png"></img>
               <h2>No Data Found</h2>
             </div>
           )}

@@ -20,7 +20,7 @@ export function MenuInner() {
 
         {/* Brand */}
 
-        <MenuInnerWithSub title='Product' to='/Brand' menuPlacement='bottom-start' menuTrigger='click'>
+        <MenuInnerWithSub title='Products' to='/Brand' menuPlacement='bottom-start' menuTrigger='click'>
         {/* PAGES */}
         <MenuInnerWithSub
           title='Callaway'

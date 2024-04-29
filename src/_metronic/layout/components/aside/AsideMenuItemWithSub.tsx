@@ -42,7 +42,7 @@ const AsideMenuItemWithSub: FC<Props & WithChildren> = ({
           </span>
         )}
         {fontIcon && aside.menuIcon === 'font' && <i className={clsx('bi fs-3', fontIcon)}></i>}
-        <span className='menu-title'>{title}</span>
+        <span className='menu-title' >{title}</span>
         <span className='menu-arrow'></span>
       </span>
       <div className={clsx('menu-sub menu-sub-accordion', {'menu-active-bg': isActive})}>

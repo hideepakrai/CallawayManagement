@@ -28,7 +28,7 @@ export function AsideMenuMain() {
         fontIcon='bi-archive'
         icon='element-plus'
       >
-        <AsideMenuItemWithSub to='/crafted/pages/profile' title='Profile' hasBullet={true}>
+        <AsideMenuItemWithSub to='/crafted/pages/profile' title='Profile ' hasBullet={true}>
           <AsideMenuItem to='/crafted/pages/profile/overview' title='Overview' hasBullet={true} />
           <AsideMenuItem to='/crafted/pages/profile/projects' title='Projects' hasBullet={true} />
           <AsideMenuItem to='/crafted/pages/profile/campaigns' title='Campaigns' hasBullet={true} />

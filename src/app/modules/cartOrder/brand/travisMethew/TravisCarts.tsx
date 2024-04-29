@@ -12,6 +12,7 @@ import CartHeader from '../../CartHeader.tsx';
 import {CartModel,ProductDetails} from "../../../model/CartOrder/CartModel.ts";
 import {CreateOrder} from "../../orderApi/OrderAPi.ts"
 import UpdateOrder from "./UpdateOrder.tsx"
+import "./TravisCarts.css";
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -457,7 +458,8 @@ getProduct.length>0 ?
               </div>
           )}
           />):(
-            <div>
+            <div className='no-order-section'>
+              <i className="bi bi-cart-x"></i>
               <h2>No order selected</h2>
               </div>
           )}

@@ -263,10 +263,10 @@ const OrderPage = () => {
     <>
 
 <div className="card card-custom container border-0" style={{padding:"0", width:"95%"}} >
-<div className="card-header">
+{/* <div className="card-header">
       <h3 className="card-title">Order</h3>
      
-  </div>
+  </div> */}
   
   <div className="card-body">
   <Table 
