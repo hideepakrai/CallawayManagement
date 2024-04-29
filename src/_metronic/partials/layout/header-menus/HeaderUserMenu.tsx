@@ -23,7 +23,7 @@ const HeaderUserMenu: FC = () => {
 
   }
 // set the role
-  // const getUserAccounts= useSelector(getUserAccount) 
+  const getUserAccounts= useSelector(getUserAccount) 
   // useEffect(() => {
   //   if(getUserAccounts && 
   //     getUserAccounts?.attributes &&
@@ -72,7 +72,9 @@ const HeaderUserMenu: FC = () => {
         </Link>
       </div> */}
 
-      <div className='menu-item px-5' onClick={handleProfile}>
+      <div className='menu-item px-5' 
+      // onClick={handleProfile}
+      >
         <a href='#' className='menu-link px-5'>
           <span className='menu-text'>My Profile</span>
           {/* <span className='menu-badge'>
