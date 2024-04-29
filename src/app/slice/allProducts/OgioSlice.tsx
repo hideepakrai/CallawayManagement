@@ -55,15 +55,71 @@
                         })
                     })
                 }
+                },
+
+                updateNewData:(state,action) => {
+                    const {ogioProduct}= action.payload;
+                    if(ogioProduct){
+                const ogiIndex= state.ogio.findIndex(item=>
+                    item.SKU===ogioProduct.SKU);
+                   if(ogiIndex===-1){
+
+
+                    const att: OgioModel[] = [
+                        {
+                            ProductType:ogioProduct.ProductType,
+                            Category:ogioProduct.Category,
+                            ProductModel:ogioProduct.ProductModel,
+                            LifeCycle:ogioProduct.LifeCycle,
+                            Stock90:ogioProduct.Stock90,
+                        }
+                    ];
+
+
+                    state.ogio.push({
+                        brand: ogioProduct.brand,
+                    Name: ogioProduct.Name,
+                    Description: ogioProduct.Description,
+                    SKU: ogioProduct.SKU,
+                    Gallery: ogioProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
+                    SalePrice: ogioProduct.SalePrice,
+                    SetType: ogioProduct.SetType,
+                    ProductType: ogioProduct.ProductType,
+                    OgiAttributes: att,
+
+                        TotalQty: 0,
+                        Quantity88: 0,
+                        Quantity90: 0,
+                        Amount: 0
+
+                    }
+
+                    )
+
+                   } else if (state.ogio[ogiIndex] &&
+                    state.ogio[ogiIndex].OgiAttributes 
+                    ) {
+                    state.ogio[ogiIndex].SalePrice = ogioProduct.SalePrice;
+                     const ogatt=state.ogio[ogiIndex].OgiAttributes;
+                     if(ogatt){
+                       ogatt[0].Stock90 = ogioProduct.Stock90
+
                 }
-            }
-            
+
+                    }
+                    
+                       }
+            },
+
+  
+           
         
         }
+    }
     );
 
 
-    export const { addOgioProduct} = OgioSlice.actions;
+    export const { addOgioProduct,updateNewData} = OgioSlice.actions;
     export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
         return state.Ogio?.ogio || [];
     };

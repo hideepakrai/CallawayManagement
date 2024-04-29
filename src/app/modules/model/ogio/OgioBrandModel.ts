@@ -8,6 +8,7 @@ export interface OgioBasicModel {
       Description?: string;
       SKU?: string;
       MRP?: number;
+      Gallery?:string;
       SalePrice?: number | null;
       SetType?: string;
       ProductType?: string | null;

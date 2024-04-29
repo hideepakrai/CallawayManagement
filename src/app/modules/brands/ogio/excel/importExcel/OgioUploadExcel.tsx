@@ -1,23 +1,24 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
-import { ExcelModelTravis } from "../../../../model/travis/TravisExcel";
+import { OgioExcelModel } from "../../../../model/ogio/OgioExcelModel";
 import {useDispatch} from "react-redux"
 import {updateNewData} from "../../../../../slice/allProducts/TravisMethewSlice"
+
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 type Props = {
-  xlData: ExcelModelTravis[];
+  xlData: OgioExcelModel[];
   resetXls: () => void;
 };
 
-const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
+const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
   const dispatch= useDispatch()
   
   useEffect(() => {
     if (xlData && xlData.length > 0) {
       console.log(xlData);
 
-      const newData: ExcelModelTravis[] = [];
-      xlData.forEach((item:ExcelModelTravis)=>{
+      const newData: OgioExcelModel[] = [];
+      xlData.forEach((item:OgioExcelModel, index)=>{
 
     
         
@@ -27,22 +28,16 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
               Name: item.Name,
               Description: item.Description,
               SetType: item.SetType,
-              Brand: 2, 
+              Brand: 3, 
               SKU: item.SKU,
                SalePrice: item.SalePrice,
               AttributeSet: [
                 {
-                  "__component": "attribute-set.travis-mathew",
-                  StyleCode:item.StyleCode,
-                  Length:item.Length,
+                  "__component": "attribute-set.ogio",
+                  ProductType:item.ProductType,
                   Category:item.Category,
-                  Season:item.Season,
-                  Line:item.Line,
-                  Color:item.Color,
-                  ColorCode:item.ColorCode,
-                  Size:item.Size?.toString(),
-                  Gender:item.Gender,
-                  Stock88: item.Stock88,
+                  ProductModel:item.ProductModel,
+                  LifeCycle:item.LifeCycle,
                    Stock90: item.Stock90,
             
 
@@ -51,15 +46,16 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
             };
 
             //console.log("sdd",sdd)
-            saveData(sdd)
+            saveData(sdd, index)
             dispatch(updateNewData({
-              travisProduct:item
+              ogioProduct:item
             }))
+            
       })
     }
   }, [xlData]);
 
-  const saveData = async (products: ExcelModelTravis) => {
+  const saveData = async (products: OgioExcelModel, index:number) => {
     const data = {
       data: products,
     };
@@ -78,6 +74,10 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
         console.log(response);
         resetXls();
       }
+
+      if(index===(xlData.length-1)) {
+        alert ("Data is uploaded successfully")
+      }
     } catch (err) {
       console.log(err);
       alert("Error saving data");
@@ -88,4 +88,4 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
   return <></>;
 };
 
-export default TravisExcelUploadDB;
+export default OgioExcelUploadDB;

@@ -14,10 +14,9 @@ query allProducts {
           SKU
           StockManagement
           StockStatus
-          MRP
+          
           SalePrice
-          Stock88
-          Stock90
+         
           SetType
           ProductType
           Gallery{
@@ -43,6 +42,7 @@ query allProducts {
               Category
               ProductModel
               LifeCycle
+              Stock90
               
             }
             

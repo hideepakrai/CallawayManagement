@@ -9,8 +9,6 @@ import OgioHeader from './header/OgioHeader';
 import OgioTable from './table/OgioTable';
 
 
-
-
   const OgioPage= () => {
   
 
@@ -21,6 +19,8 @@ import OgioTable from './table/OgioTable';
     <>
     <OgioHeader/>
     <OgioTable/>
+
+    
     </>
     
   )

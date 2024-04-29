@@ -104,7 +104,7 @@ const TravisMethewSlice = createSlice({
                     Name: travisProduct.Name,
                     Description: travisProduct.Description,
                     SKU: travisProduct.SKU,
-                    
+                    Gallery: travisProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
                     SalePrice: travisProduct.SalePrice,
                     SetType: travisProduct.SetType,
                     ProductType: travisProduct.ProductType,

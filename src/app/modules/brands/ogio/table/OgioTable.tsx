@@ -2,15 +2,22 @@ import React,{useState, useRef} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio, Button } from "antd";
 import type { TableColumnsType } from 'antd';
-import {OgioBasicModel,OgioBasicModelGraph,OgioModel} from "../../../model/ogio/OgioBrandModel"
+import {OgioBasicModel,OgioBasicModelGraph,OgioModel,} from "../../../model/ogio/OgioBrandModel"
+
+import {OgioExcelModel} from "../../../model/ogio/OgioExcelModel"
 import {useDispatch, useSelector} from "react-redux"
 import {getOgioProducts} from "../../../../slice/allProducts/OgioSlice"
 import SampleOgioExcel from '../excel/SampleOgioExcel';
-
+import OgioImportExcel from "../excel/importExcel/OgioImportExcel"
+import OgioUploadExcelDB from "../excel/importExcel/OgioUploadExcel"
+import OgioUpdateExcel from "../excel/UpdateData/ImportExcel"
+import UploadDB from '../excel/UpdateData/UpdateDB';
 const OgioTable = () => {
     const tableRef = useRef(null);
     const[amount, setAmount]=useState<number>()
     const [isImport, setIsImport] = useState(false);
+
+    const [isUploadData, setUploadData] = useState()
     const handleImport = () => {
       setIsImport(true);
     };
@@ -65,7 +72,7 @@ const OgioTable = () => {
           title: "ProductType",
           dataIndex: "OgiAttributes",
           key: "ProductType",
-          width: 70,
+          width: 90,
           render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
         },
         {
@@ -86,19 +93,11 @@ const OgioTable = () => {
            
           },
          
-          {
-            title: "MRP",
-            dataIndex: "SalePrice",
-            key: "SalePrice", 
-            width: 115,
-           
-          },
-          {
-            title: "Stock",
-            children:[
+          
+          
               { title: "90    QTY",
-              dataIndex: "TravisAttributes",
-              key: "Stock88", 
+              dataIndex: "OgiAttributes",
+              key: "Stock90", 
               width: 130,
               fixed:'right',
               render: (value,record) => (
@@ -111,21 +110,21 @@ const OgioTable = () => {
                
               ),
             },
-            ]
-          } ,
-          {
-            title: "Quantity",
-            dataIndex: "Quantity",
-            key: "Quantity", 
-            width: 70,
-           
-          },
+            {
+              title: "SalePrice",
+              dataIndex: "SalePrice",
+              key: "SalePrice", 
+              width: 115,
+              fixed:'right'
+             
+            },
+         
           {
             title: "Amount",
             dataIndex: "Amount",
             key: "Amount", 
             width: 70,
-            
+            fixed:'right'
            
           },
            
@@ -180,6 +179,39 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
       setIsSample(false)
     }
   
+
+    // upload data 
+    const [allXlxData, setAllXlxData]=useState<OgioExcelModel[]>([])
+    const handleUploadExcel=(allData:OgioExcelModel[])=>{
+      setAllXlxData(allData);
+      handleCloseImport();
+  console.log("all ogio data", allData)
+
+    }
+
+    const handleReseAllXlData=()=>{
+      setAllXlxData([])
+    }
+  const [isUpdate, setIsUpdate]= useState<boolean>(false)
+
+    // handle Uppdate Excel data
+  const handleUpdateExcel=()=>{
+    setIsUpdate(true)
+  }
+
+  const handleCloseUpdate=()=>{
+    setIsUpdate(false)
+  }
+
+  const [updateXlsData, setUpdateXlsData]=useState<OgioExcelModel[]>([])
+  const handleUpdateOgioData=(updateData:OgioExcelModel[])=>{
+    setUpdateXlsData(updateData)
+    handleCloseUpdate()
+  }
+
+  const handleResetUpdateXls=()=>{
+    setUpdateXlsData([])
+  }
   return (
     <div className='cw-container'>
 <Card style={{ marginTop:'80px'}}
@@ -211,6 +243,9 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
             <Button className='mx-3'
              onClick={handleSampleExcel}
              >Sample Excel</Button>
+            <Button className='mx-3'
+             onClick={handleUpdateExcel}
+             >Update</Button>
           </div>
 
           <Table
@@ -231,6 +266,30 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
         resetIsSample={handleResetIsSample}
         />
 
+<OgioImportExcel
+isImport={isImport}
+onClose={handleCloseImport}
+allOgioData={handleUploadExcel}
+/>
+
+<OgioUploadExcelDB
+xlData={allXlxData}
+resetXls={handleReseAllXlData}
+/>
+
+
+{isUpdate &&
+<OgioUpdateExcel
+isUpdate={isUpdate}
+onClose={handleCloseUpdate}
+updateOgioData={handleUpdateOgioData}
+/>}
+
+<UploadDB
+updateXlsData={updateXlsData}
+resetUpdateXs={handleResetUpdateXls}
+
+/>
     </div>
   )
 }
