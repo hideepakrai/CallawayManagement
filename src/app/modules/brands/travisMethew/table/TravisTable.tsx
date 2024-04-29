@@ -161,9 +161,7 @@ import { useTable } from 'react-table';
         },
 
       
-        {
-          title:"Stock",
-          children:[
+        
            { title: "88    QTY",
             dataIndex: "TravisAttributes",
             key: "Stock88", 
@@ -193,11 +191,9 @@ import { useTable } from 'react-table';
               onChange={(e) => handleQuantity90(e.target.value, record)} />
              
             ),
-            }
+            },
            
-          ],
-          
-        },
+        
         // {
         //   title:"Quantity",
         //   children:[
