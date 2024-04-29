@@ -7,23 +7,39 @@ import {BasicModelTravis} from "../../../model/travis/TravisMethewModel.ts"
 import {useDispatch, useSelector} from "react-redux"
 import {getTravisOrder} from "../../../../slice/orderSlice/CartOrder.tsx"
 import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice.tsx"
-import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder.tsx"
+import {addTravisOrder,resetTravisOrder} from "../../../../slice/orderSlice/CartOrder.tsx"
 import CartHeader from '../../CartHeader.tsx';
 import {CartModel,ProductDetails} from "../../../model/CartOrder/CartModel.ts";
 import {CreateOrder} from "../../orderApi/OrderAPi.ts"
 import UpdateOrder from "./UpdateOrder.tsx"
 import "./TravisCarts.css";
+
+import {getCurrentUser} from "../../../../slice/UserSlice/UserSlice.tsx"
+import {CurentUser} from "../../../model/useAccount/CurrentUser.ts"
+import {LoadingStart,LoadingStop,getLoading} from "../../../../slice/loading/LoadingSlice.tsx"
+import Loading from '../../../loading/Loading.tsx';
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
     const [isUpdateOrder, setIsUpdateOrder] = useState(false);
     const [orderId, setOrderId] = useState();
+    const [userId, setUserId] = useState<number>();
    
     const dispatch= useDispatch()
-
+ 
+  const getCurrentUsers= useSelector(getCurrentUser) as CurentUser 
    const getProduct:BasicModelTravis[]=useSelector(getTravisOrder)
      const[amount, setAmount]=useState<number>()
      
+  console.log("userAccount",getCurrentUsers)
+     // update user Id
+     useEffect(()=>{
+      if(getCurrentUsers ){
+        
+        console.log("hello", getCurrentUsers?.user?.id);
+        setUserId(getCurrentUsers?.user?.id)
+      }
+     },[getCurrentUsers])
      const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
@@ -327,12 +343,14 @@ const TravisCart = () => {
       // save order
 
     const handleCreateOrder=(retailerId:number)=>{
+      dispatch(LoadingStart())
       if (Array.isArray(getProduct)) {
           
-          const orderId= generateUniqueAlphanumeric();
-         
+          const orderId= generateUniqueNumeric();
+           let brand;
           const ProductDetail:ProductDetails[]=[];
           getProduct.forEach((item: BasicModelTravis) => {
+          brand= item.SetType;
               ProductDetail.push({
                   product: item.id,
                   Quantity: item.TotalQty,
@@ -347,7 +365,9 @@ const TravisCart = () => {
               OrderId:orderId,
               Status:"Pending",
               ProductDetails:ProductDetail,
-              retailer:retailerId
+              retailer:retailerId,
+              users :userId,
+              brand:brand
           }
 
           createOrder(data)
@@ -358,23 +378,44 @@ const TravisCart = () => {
   const createOrder=async(data:CartModel)=>{
       try{
           const response=await CreateOrder(data);
-          console.log(response);
+          console.log("order update",response);
+            if(response?.data.id){
+              dispatch(LoadingStop())
+              alert("your order has been created")
+
+              dispatch(resetTravisOrder({
+                travis:"true"
+              }))
+            }
+         
       }
         catch(err){
             console.log(err);
         }
   }
 
-  function generateUniqueAlphanumeric(): string {
-    const timestamp = new Date().getTime().toString(36); // Convert timestamp to base 36
-    const randomChars = Math.random().toString(36).substr(2, 5); // Generate random characters
-    const uniqueId = timestamp + randomChars; // Combine timestamp and random characters
-    return uniqueId;
+//   function generateUniqueAlphanumeric(): string {
+//     const timestamp = new Date().getTime().toString(36); // Convert timestamp to base 36
+//     const randomChars = Math.random().toString(36).substr(2, 5); // Generate random characters
+//     const uniqueId = timestamp + randomChars; // Combine timestamp and random characters
+//     return uniqueId;
+// }
+  
+function generateUniqueNumeric(): string {
+  const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
+  const randomDigits = Math.floor(Math.random() * 100000); // Generate random 5-digit number
+  const paddedRandomDigits = String(randomDigits).padStart(5, '0'); // Pad random number with leading zeros if necessary
+  const uniqueId = timestamp + paddedRandomDigits; // Combine timestamp and random number
+  return uniqueId;
 }
 
+const getLoadings= useSelector(getLoading)
+console.log(getLoadings)
  
   return (
     <div>
+
+     {getLoadings && <Loading/>}
 {getProduct && 
 getProduct.length>0 &&
 <CartHeader

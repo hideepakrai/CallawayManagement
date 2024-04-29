@@ -18,6 +18,18 @@ export const GET_Manager_ACCOUNT = gql`
               }
             }
           }
+          
+          orders{
+            data{
+              id
+              attributes{
+                OrderId
+                Brand
+                Status
+                createdAt
+              }
+            }
+          }
           Details {
             ... on ComponentUsersManager {
               id

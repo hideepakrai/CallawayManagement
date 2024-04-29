@@ -68,8 +68,13 @@ const OrderSlice = createSlice({
                     state.TravisOrder[index].ordered=true;
                    }
             }
-        }
+        },
 
+
+            resetTravisOrder:(state,action)=>{
+                const{travis}= action.payload
+                state.TravisOrder=[]
+            }
         ,addGoodsOrder:(state,action)=>{
             const {goodsOrder,qty90,qty88}=action.payload;
             if(goodsOrder ) {
@@ -122,7 +127,7 @@ const OrderSlice = createSlice({
 export const {
     addTravisOrder,
     resetOrder,
-    addGoodsOrder
+    addGoodsOrder,resetTravisOrder
      
 } = OrderSlice.actions;
 
