@@ -35,6 +35,18 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           width: 70,
         },
         {
+          title: 'Description',
+          dataIndex: 'Description',
+          key: 'Description',
+          width: 115,
+        },
+        {
+          title: 'SetType',
+          dataIndex: 'SetType',
+          key: 'SetType',
+          width: 115,
+        },
+        {
             title: 'ProductType',
             dataIndex: 'ProductType',
             key: 'ProductType',
@@ -59,42 +71,19 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           key: 'LifeCycle',
           width: 115,
         },
-        
+   
+      
         {
-          title: 'Gender',
-          dataIndex: 'Gender',
-          key: 'Gender',
-          width: 115,
-        },
-        {
-          title: 'SetType',
-          dataIndex: 'SetType',
-          key: 'SetType',
-          width: 115,
-        },
-        {
-          title: 'Description',
-          dataIndex: 'Description',
-          key: 'Description',
-          width: 115,
-        },
-        {
-          title: 'MRP',
-          dataIndex: 'MRP',
-          key: 'MRP',
-          width: 115,
-        },
-        {
-          title: 'StockAvailable',
-          dataIndex: 'StockAvailable',
-          key: 'StockAvailable',
+          title: 'Stock90',
+          dataIndex: 'Stock90',
+          key: 'Stock90',
           width: 80,
         },
         {
           title: 'SalePrice',
           dataIndex: 'SalePrice',
           key: 'SalePrice',
-          width: 80,
+          width: 80
         },
       ];
       
@@ -108,9 +97,9 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           Category: 'Belts',
           ProductModel:"product model 1",
           Description: 'This is a cool belt from Travis Mathew.',
-          MRP: 50,
+      
           SalePrice: 40,
-          StockAvailable: 100,
+          Stock90: 100,
           
         },
         {
@@ -122,9 +111,9 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           Category: 'Belts',
           ProductModel:"product model 1",
           Description: 'This is a cool belt from Travis Mathew.',
-          MRP: 50,
+       
           SalePrice: 40,
-          StockAvailable: 100,
+          Stock90: 100,
         },
         { Brand:3,
             SKU: 'TM001',
@@ -134,9 +123,9 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
             Category: 'Belts',
             ProductModel:"product model 1",
             Description: 'This is a cool belt from Travis Mathew.',
-            MRP: 50,
+          
             SalePrice: 40,
-            StockAvailable: 100,
+            Stock90: 100,
         },
       ];
       

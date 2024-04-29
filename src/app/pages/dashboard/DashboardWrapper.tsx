@@ -151,10 +151,12 @@ const DashboardWrapper = () => {
   return (
     <>
       <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
+      
+      {getLoadings &&<Loading/>}
       <DashboardPage />
       <GetAllProduct/>
 
-     {getLoadings && <Loading/>}
+     
     </>
   )
 }

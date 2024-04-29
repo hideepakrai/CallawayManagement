@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 
 // Define your GraphQL query
-export const GET_USER_ACCOUNT = gql`
+export const GET_Manager_ACCOUNT = gql`
   query getUserAccount($userId: ID!) {
     usersPermissionsUsers(filters: { id: { eq: $userId } }) {
       data {

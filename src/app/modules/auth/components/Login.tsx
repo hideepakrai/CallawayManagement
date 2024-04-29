@@ -14,6 +14,7 @@ import { addUser, addAdminToken } from "../../../slice/UserSlice/UserSlice"
 import GetUserAccount from './GetUserAccount'
 import { UserModel } from '../core/_models';
 import {LoadingStart} from "../../../slice/loading/LoadingSlice"
+import GetRetailerAccount from './GetRetailerAccount'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -33,6 +34,7 @@ const initialValues = {
   role: 'manager'
 }
 
+
 /*
   Formik+YUP+Typescript:
   https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
@@ -44,6 +46,13 @@ export function Login() {
   const { saveAuth, setCurrentUser } = useAuth()
   const [userName, setUserName] = useState(null)
   const [userId, setUserId] = useState(null)
+  const [isManager, setisManager] = useState<boolean>(true)
+  const [isRetailer, setIsRetailer] =useState<boolean>(false)
+  const [isSalesRep, setIsSalesRep] = useState<boolean>(false)
+  const [grpqlManager, setGrpqlManager] = useState<boolean>(false)
+  const [grpqlRetailer, setGrpqlRetailer] =useState<boolean>(false)
+  const [grpqlSalesRep, setGrpqlSalesRep] = useState<boolean>(false)
+
   const dispatch = useDispatch()
   const formik = useFormik({
     initialValues,
@@ -64,6 +73,16 @@ export function Login() {
         dispatch(addUser({
           currentUser: response
         }))
+
+        if(values.role==='retailer'){
+          setGrpqlManager(false)
+          setGrpqlRetailer(true)
+          setGrpqlSalesRep(false)
+        } else if (values.role==='manager'){
+          setGrpqlManager(true)
+          setGrpqlRetailer(false)
+          setGrpqlSalesRep(false)
+        }
         // const token = {
         //   email: "ankurShriv@gmail.com",
         //   password: "AnkurDzinly1!"
@@ -92,6 +111,42 @@ export function Login() {
 
 
   }
+
+  const handleRetailer=()=>{
+    setisManager(false);
+    setIsRetailer(true);
+    setIsSalesRep(false)
+    formik.setValues({
+      ...formik.values,
+      email: 'testretailer@gmail.com',
+      password: 'Jaipur1!',
+      role:"retailer"
+    });
+  }
+  const handleManager=()=>{
+    setisManager(true);
+    setIsRetailer(false);
+    setIsSalesRep(false)
+    formik.setValues({
+      ...formik.values,
+      email: 'ankurShriv@gmail.com',
+      password: 'Ankur1!',
+      role:"retailer"
+    });
+  }
+  const handleSalesRep=()=>{
+    setIsSalesRep(true)
+    setisManager(false);
+    setIsRetailer(false);
+    formik.setValues({
+      ...formik.values,
+      email: 'testsalerep@gmail.com',
+      password: 'Jaipur1!',
+      role:"sales-representtaive"
+    });
+  }
+
+
 
   return (
     <>
@@ -124,7 +179,9 @@ export function Login() {
             {/* <label>Role</label> */}
 
             <div className="user-section row mb-8">
-              <div className="col user-box  text-center col-3">
+              <div className="col user-box  text-center col-3" 
+              onClick={handleManager}
+              >
                
                   <div className='user-checkbox'>
                     <div className="user-img">
@@ -132,31 +189,37 @@ export function Login() {
 
                     </div>
                     <h4 className="user-detail d-flex  fs-5 fw-bolder text-gray-900">Manager</h4><div className="tick_container">
-                      <div className="tick">
+                     { isManager && <div className="tick">
                         <i className="bi bi-check2"></i>
-                      </div>
+                      </div>}
                       
                     </div>
                   </div>
               </div>
 
 
-              <div className="col user-box text-center col-3">
+              <div className="col user-box text-center col-3"
+               onClick={handleRetailer}
+              >
                 
                   <div className='user-checkbox'>
                     <div className="user-img">
                     <img src=" https://dzinlystrapi.s3.us-east-2.amazonaws.com/people_bc29368361.png" alt="Image 2"></img>
                   </div>
-                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900 retailer">Retailer</h4>
+                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900 retailer"
+                   
+                    >Retailer</h4>
                     <div className="tick_container">
-                      <div className="tick">
+                     { isRetailer &&<div className="tick">
                         <i className="bi bi-check2"></i>
-                      </div>
+                      </div>}
                     </div>
                   </div>
               </div>
 
-              <div className="col user-box text-center col-3">
+              <div className="col user-box text-center col-3" 
+              onClick={handleSalesRep}
+              >
                
                   <div className='user-checkbox'>
                     <div className="user-img">
@@ -165,9 +228,9 @@ export function Login() {
                       </div>
                     <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Sales Rep</h4>
                     <div className="tick_container">
-                      <div className="tick">
+                     {isSalesRep &&<div className="tick">
                         <i className="bi bi-check2"></i>
-                      </div>
+                      </div>}
                     </div>
                   </div>
               </div>
@@ -328,7 +391,11 @@ export function Login() {
           </Link>
         </div>
       </form>
-      {userId != null && <GetUserAccount
+      {grpqlManager&& userId!=null &&<GetUserAccount
+        userId={userId}
+        resetId={() => handleResetId}
+      />}
+      {grpqlRetailer&& userId!=null &&<GetRetailerAccount
         userId={userId}
         resetId={() => handleResetId}
       />}

@@ -50,9 +50,15 @@ const OgioTable = () => {
           dataIndex: "Name",
           key: "name",
           width: 115,
-          //  fixed: "left",
+            fixed: "left",
         },
-    
+        {
+          title: "Description",
+          dataIndex: "Description",
+          key: "Description", 
+          width: 115,
+          fixed: "left",
+        },
         
         //product Type
         {
@@ -75,55 +81,61 @@ const OgioTable = () => {
             title: "ProductModel",
             dataIndex: "OgiAttributes",
             key: "ProductModel", 
-            width: 75,
+            width: 90,
             render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
            
           },
-          {
-            title: "Description",
-            dataIndex: "Description",
-            key: "Description", 
-            width: 115,
-           
-          },
+         
           {
             title: "MRP",
-            dataIndex: "MRP",
-            key: "MRP", 
+            dataIndex: "SalePrice",
+            key: "SalePrice", 
             width: 115,
            
           },
           {
-            title: "StockAvailable",
-            dataIndex: "StockAvailable",
-            key: "StockAvailable", 
-            width: 80,
+            title: "Stock",
+            children:[
+              { title: "90    QTY",
+              dataIndex: "TravisAttributes",
+              key: "Stock88", 
+              width: 130,
+              fixed:'right',
+              render: (value,record) => (
+                <Input 
+                addonBefore={value[0]?.Stock90} 
+                type='number'
+               
+                value={record.Quantity90?.toString()}
+                onChange={(e) => handleQuantity90(e.target.value, record)} />
+               
+              ),
+            },
+            ]
           } ,
           {
             title: "Quantity",
             dataIndex: "Quantity",
             key: "Quantity", 
-            width: 50,
+            width: 70,
            
           },
           {
             title: "Amount",
             dataIndex: "Amount",
             key: "Amount", 
-            width: 50,
-            render: (text, record) => (
-              <Input 
-               type='number'
-               value={amount}
-                onChange={(e) => handleAmountChange(e.target.value, record)}
-              />
-            ),
+            width: 70,
+            
            
           },
            
       
       ];
 
+
+const handleQuantity90=(value: string, record:OgioBasicModel)=>{
+
+}
 
       const handleAmountChange = (value:string, record:OgioBasicModel) => {
         // Update the record with the new amount

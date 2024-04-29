@@ -34,21 +34,22 @@
                                     ProductType:attrItems.ProductType,
                                     Category:attrItems.Category,
                                     ProductModel:attrItems.ProductModel,
-                                    LifeCycle:attrItems.LifeCycle 
+                                    LifeCycle:attrItems.LifeCycle,
+                                    Stock90:attrItems.Stock90,
+                                    
                                 });
                             });
                         }
                         state.ogio.push({
-                            Name: item.attributes.Name,
+                        id:item.id,
+                        brand:item.attributes.brand,
+                        Name: item.attributes.Name,
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
-                        StockManagement: item.attributes.StockManagement,
-                        StockStatus: item.attributes.StockStatus,
-                        MRP: item.attributes.MRP,
+        
                         SalePrice: item.attributes.SalePrice,
-                        StockAvailable: item.attributes.StockAvailable,
                         SetType: item.attributes.SetType,
-                        ProductType: item.attributes.ProductType,
+                       
                         OgiAttributes:att
                     
                         })

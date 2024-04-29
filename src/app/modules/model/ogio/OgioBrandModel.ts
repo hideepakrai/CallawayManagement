@@ -1,15 +1,14 @@
 
 export interface OgioBasicModel {
 
-    id?:number,
+     id?:number,
       Name?: string;
+      brand?:string,
+       Brand?:Brand[],
       Description?: string;
       SKU?: string;
-      StockManagement?: boolean;
-      StockStatus?: string;
       MRP?: number;
       SalePrice?: number | null;
-      StockAvailable?: number;
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
@@ -17,6 +16,11 @@ export interface OgioBasicModel {
       OgiAttributes?:OgioModel[],
       Quantity?: number;
       Amount?: number;
+      
+      TotalQty?: number|null;
+      Quantity88?: number|null;
+       Quantity90?: number|null;
+       ordered?: boolean
 
 }
 export interface OgioBasicModelGraph {
@@ -33,6 +37,7 @@ export interface OgioModel{
   Category?:string | null;
   ProductModel?:string | null;
   LifeCycle?:string | null;
+  Stock90?:number|null;
 }
  
  export interface ImageType {
@@ -71,4 +76,11 @@ export interface OgioModel{
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+  }
+  export interface Brand {
+    data: {
+      attributes: {
+        Name?: string;
+      };
+    };
   }

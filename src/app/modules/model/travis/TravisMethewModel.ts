@@ -22,14 +22,6 @@ export interface BasicModelTravis {
        Quantity90?: number|null;
        ordered?: boolean
       
-    
-   
-
-}
-
-export interface StockAvailable{
-  stock88: number,
-  stock90: number
 }
 
 export interface BasicModelTravisGraph {

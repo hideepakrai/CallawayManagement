@@ -3,18 +3,20 @@ import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio,InputNumber, Button,Select } from "antd";
 import type { TableColumnsType } from 'antd';
-import {BasicModelTravis} from "../../model/travis/TravisMethewModel"
+import {BasicModelTravis} from "../../../model/travis/TravisMethewModel.ts"
 import {useDispatch, useSelector} from "react-redux"
-import {getTravisOrder} from "../../../slice/orderSlice/CartOrder"
-import {updateQuantity90,updateQuantity88} from "../../../slice/allProducts/TravisMethewSlice"
-import {addTravisOrder} from "../../../slice/orderSlice/CartOrder"
-import CartHeader from '../CartHeader';
-import {CartModel,ProductDetails} from "../../model/CartOrder/CartModel.ts";
-import {CreateOrder} from "../orderApi/OrderAPi.ts"
-
+import {getTravisOrder} from "../../../../slice/orderSlice/CartOrder.tsx"
+import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice.tsx"
+import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder.tsx"
+import CartHeader from '../../CartHeader.tsx';
+import {CartModel,ProductDetails} from "../../../model/CartOrder/CartModel.ts";
+import {CreateOrder} from "../../orderApi/OrderAPi.ts"
+import UpdateOrder from "./UpdateOrder.tsx"
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
+    const [isUpdateOrder, setIsUpdateOrder] = useState(false);
+    const [orderId, setOrderId] = useState();
    
     const dispatch= useDispatch()
 
@@ -378,6 +380,8 @@ getProduct.length>0 &&
 CreateOrder={handleCreateOrder}
 />}
 
+
+
 {getProduct && 
 getProduct.length>0 ?
         (<Table
@@ -457,6 +461,8 @@ getProduct.length>0 ?
               <h2>No order selected</h2>
               </div>
           )}
+
+         { isUpdateOrder &&<UpdateOrder/>}
     </div>
   )
 }

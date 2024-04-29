@@ -5,7 +5,7 @@ import type { TableColumnsType } from 'antd';
 import {BasicModelTravis} from "../model/travis/TravisMethewModel"
 import "./CartProduct.css"
 
-import TravisCart from './brand/TravisCarts';
+import TravisCart from './brand/travisMethew/TravisCarts';
 import CalawayGoodsCarts from "./brand/CalawayGoodsCarts"
 const CartProduct = () => {
   return (

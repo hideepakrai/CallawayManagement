@@ -13,7 +13,7 @@ type Props = {
     resetId:()=>void
 }
 
-const GetUserAccount = ({ userId,resetId }: Props) => {
+const GetRetailerAccount = ({ userId,resetId }: Props) => {
 
     const {setCurrentUser} = useAuth()
     const dispatch= useDispatch()
@@ -49,4 +49,4 @@ const GetUserAccount = ({ userId,resetId }: Props) => {
     )
 }
 
-export default GetUserAccount;
+export default GetRetailerAccount;

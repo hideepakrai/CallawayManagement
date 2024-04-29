@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery,useApolloClient } from "@apollo/client";
-import {GET_USER_ACCOUNT} from "../../../grapgQl/UserAccount"
+
 import { useDispatch } from 'react-redux';
 import {GET_OGIO_Prduct} from "../../../modules/brands/ogio/graphql/OgioGraphQl"
 import {addOgioProduct} from "../../../slice/allProducts/OgioSlice"

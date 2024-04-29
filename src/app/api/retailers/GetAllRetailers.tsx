@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery,useApolloClient } from "@apollo/client";
 
 import { useDispatch } from 'react-redux';
-import {GET_All_Retailer} from "../../grapgQl/retailers"
+import {GET_All_Retailer} from "../../grapgQl/GetAllRetailers"
 import {addRetailer} from "../../slice/retailer/RetailerSlice"
 
 type Props = {

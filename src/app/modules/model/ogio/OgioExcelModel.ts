@@ -5,16 +5,17 @@ export interface OgioExcelModel {
       Name?: string;
       Description?: string;
       SKU?: string;
-      StockManagement?: boolean;
-      StockStatus?: string;
       MRP?: number;
       SalePrice?: number | null;
-      StockAvailable?: number;
+      
       SetType?: string;
       ProductType?:string | null;
       Category?:string | null;
       ProductModel?:string | null;
       LifeCycle?:string | null;
+      Stock90?:number|null;
+      TotalQty?: number|null;
+      Quantity88?: number;
      
 
 }
