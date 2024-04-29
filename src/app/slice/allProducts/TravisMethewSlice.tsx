@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute } from "../../modules/model/travis/TravisMethewModel";
+import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute ,ImageType} from "../../modules/model/travis/TravisMethewModel";
 import {ExcelModelTravis} from "../../modules/model/travis/TravisExcel"
 interface ProductState {
     travisMethew: BasicModelTravis[],
@@ -46,6 +46,8 @@ const TravisMethewSlice = createSlice({
                             });
                         });
                     }
+
+                    
                     state.travisMethew.push({
                       id:item.id,
                        brand: item.attributes.brand,
@@ -53,7 +55,7 @@ const TravisMethewSlice = createSlice({
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
                         SalePrice: item.attributes.SalePrice,
-        
+                      
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
                         TravisAttributes: att,
@@ -95,17 +97,19 @@ const TravisMethewSlice = createSlice({
                     },
                   ];
           
+
+                 
                   state.travisMethew.push({
                     brand: travisProduct.brand,
                     Name: travisProduct.Name,
                     Description: travisProduct.Description,
                     SKU: travisProduct.SKU,
                     
-                    MRP: travisProduct.MRP,
+                    SalePrice: travisProduct.SalePrice,
                     SetType: travisProduct.SetType,
                     ProductType: travisProduct.ProductType,
                     TravisAttributes: att,
-                    
+
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,

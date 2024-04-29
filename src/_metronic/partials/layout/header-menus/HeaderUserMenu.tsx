@@ -11,9 +11,12 @@ import { useSelector } from 'react-redux'
 import {resetCallayGoods} from "../../../../app/slice/allProducts/CallAwayGoodsSlice"
 import {getUserAccount} from "../../../../app/slice/UserSlice/UserSlice"
 import { UserAccountModel } from '../../../../app/modules/model/useAccount/UserAccountModel'
+import { useNavigate } from 'react-router-dom'
+
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth();
-  const [role, setRole]= useState<string>()
+  const [role, setRole]= useState<string>();
+  const navigate= useNavigate()
   const dispatch = useDispatch()
   const handleLogout=()=>{
     dispatch(resetTravisProduct())
@@ -23,20 +26,24 @@ const HeaderUserMenu: FC = () => {
 
   }
 // set the role
-  const getUserAccounts= useSelector(getUserAccount) 
-  // useEffect(() => {
-  //   if(getUserAccounts && 
-  //     getUserAccounts?.attributes &&
-  //   getUserAccounts?.attributes?.role &&
-  //   getUserAccounts?.attributes?.role?.data &&
-  //   getUserAccounts?.attributes?.role?.data?.attributes &&
-  //   getUserAccounts?.attributes?.role?.data?.attributes?.name){
-  //     setRole(getUserAccounts?.attributes?.role?.data?.attributes?.name)
-  //   }
-  // }
-  // , [getUserAccounts])
+
+  const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
+  useEffect(() => {
+    if(getUserAccounts && 
+      getUserAccounts?.attributes &&
+    getUserAccounts?.attributes.role &&
+    getUserAccounts?.attributes?.role?.data &&
+    getUserAccounts?.attributes?.role?.data?.attributes &&
+    getUserAccounts?.attributes?.role?.data?.attributes?.name){
+      setRole(getUserAccounts?.attributes?.role?.data?.attributes?.name)
+    }
+  }
+  , [getUserAccounts])
   // console.log(getUserAccounts)
   const handleProfile=()=>{
+    if(role==="manager"){
+  navigate("/profilepage/managerprofile")
+    }
 
   }
 
@@ -72,10 +79,10 @@ const HeaderUserMenu: FC = () => {
         </Link>
       </div> */}
 
-      <div className='menu-item px-5' 
-      // onClick={handleProfile}
-      >
-        <a href='#' className='menu-link px-5'>
+      <div className='menu-item px-5' >
+        <a href='#' className='menu-link px-5'
+        onClick={handleProfile}
+        >
           <span className='menu-text'>My Profile</span>
           {/* <span className='menu-badge'>
             <span className='badge badge-light-danger badge-circle fw-bold fs-7'>3</span>

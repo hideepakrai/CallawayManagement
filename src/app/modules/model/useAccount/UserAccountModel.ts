@@ -1,21 +1,28 @@
  export interface UserAccountModel {
-    email: string;
-    provider: string;
-    role: UserRole;
-    username: string;
+    email?: string|undefined|null;
+    provider?: string|undefined|null;
+    attributes?: UserRoleAttributes
+    
+    username?: string;
   }
   
-  interface UserRole {
+
+  export interface UserRoleAttributes {
+    role: UserRole;
+  }
+   export interface UserRole {
     data: UserRoleData;
   }
   
   interface UserRoleData {
-    attributes: UserRoleAttributes;
+    attributes: RoleAttributes;
   }
-  
-  interface UserRoleAttributes {
+
+  interface RoleAttributes{
     name: string;
   }
+  
+ 
   
   // Define additional interfaces as needed
   

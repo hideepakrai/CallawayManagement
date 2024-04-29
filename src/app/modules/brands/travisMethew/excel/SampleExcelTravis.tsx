@@ -100,12 +100,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           key: 'Description',
           width: 115,
         },
-        {
-          title: 'MRP',
-          dataIndex: 'MRP',
-          key: 'MRP',
-          width: 115,
-        },
+        
         {
           title: 'Stock88',
           dataIndex: 'Stock88',

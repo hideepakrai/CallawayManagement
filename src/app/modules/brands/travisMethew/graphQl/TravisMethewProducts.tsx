@@ -24,25 +24,39 @@ query getTravisMAthewProduct {
         SetType
         ProductType
         SalePrice
-       AttributeSet{
-        ... on ComponentAttributeSetTravisMathew{
-          StyleCode
-          Length
-          Category
-          Season
-          Line
-          Color
-          ColorCode
-          Size 
-          Stock88
-         Stock90
-          
-    
+        Gallery{
+          data{
+            id
+            attributes{
+              formats
+            }
+          }
         }
-      }
+        PrimaryImage{
+          data{
+            id
+            attributes{
+              formats
+            }
+          }
+        }
+        AttributeSet{
+          ... on ComponentAttributeSetTravisMathew{
+            Season
+            Category
+            Length
+            Line
+            Color
+            ColorCode
+            Size
+            Gender
+            Stock88
+            Stock90
+            StyleCode
+            
+          }
+        }
        
-        
-  
             
           }
           

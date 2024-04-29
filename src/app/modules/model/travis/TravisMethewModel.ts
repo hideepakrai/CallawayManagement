@@ -12,6 +12,7 @@ export interface BasicModelTravis {
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
+      // Gallery?:string|undefine,
       AttributeSet?:TravisMathewAttribute[],
       TravisAttributes?: TravisMathewAttribute[] ,
       // Quantity?: Quantity[];
