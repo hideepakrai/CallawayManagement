@@ -138,7 +138,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           SetType: 'Travis Methew',
           Description: 'This is a cool belt from Travis Mathew.',
           MRP: 50,
-          MRP: 40,
+       
           Stock88: 100,
           Stock90: 100,
           
@@ -158,7 +158,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           SetType: 'Travis Methew',
           Description: 'A stylish cap from Travis Mathew.',
           MRP: 30,
-          MRP: 25,
+        
          
           Gender:"Mens",
           Stock88: 100,
@@ -179,7 +179,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           SetType: 'Travis Methew',
           Description: 'A classic polo shirt from Travis Mathew.',
           MRP: 70,
-          MRP: 60,
+          
         
           Gender:"Mens",
           Stock88: 100,

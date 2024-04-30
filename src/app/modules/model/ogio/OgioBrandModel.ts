@@ -7,7 +7,7 @@ export interface OgioBasicModel {
        Brand?:Brand[],
       Description?: string;
       SKU?: string;
-      MRP?: number;
+     
       Gallery?:string;
       MRP?: number | null;
       SetType?: string;

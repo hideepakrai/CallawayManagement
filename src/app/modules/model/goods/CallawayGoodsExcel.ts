@@ -13,7 +13,7 @@ export interface ExcelModelGoods {
       ProductModel?:string | null;
       StockManagement?: boolean;
       StockStatus?: string;
-      MRP?: number | null;  
+     
       Material?: string | null;
 
 }

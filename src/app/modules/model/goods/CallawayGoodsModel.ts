@@ -9,7 +9,7 @@ export interface BasicModelGoods {
       StockManagement?: boolean;
       StockStatus?: string;
       MRP?: number;
-      MRP?: number | null;
+      
       StockAvailable?:StockAvailable[] ;
       SetType?: string;
       ProductType?: string | null;

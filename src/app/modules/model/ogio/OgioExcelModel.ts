@@ -5,7 +5,7 @@ export interface OgioExcelModel {
       Name?: string;
       Description?: string;
       SKU?: string;
-      MRP?: number;
+     
       MRP?: number | null;
       
       SetType?: string;
