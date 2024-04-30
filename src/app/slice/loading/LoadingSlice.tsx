@@ -24,8 +24,8 @@ const LoadingSlice = createSlice({
 
 
 export const {LoadingStart,LoadingStop}= LoadingSlice.actions;
-export const getLoading = (state: LoadingState): boolean => {
-    return state.isLoading;
+export const getLoading = (state: {loading:LoadingState}): boolean => {
+    return state.loading.isLoading;
 };
 
 export default LoadingSlice.reducer;

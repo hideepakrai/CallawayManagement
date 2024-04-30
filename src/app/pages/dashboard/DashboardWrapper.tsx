@@ -22,8 +22,12 @@ import { Content } from '../../../_metronic/layout/components/Content'
 import { useEffect } from 'react'
 import GetAllProduct from '../../api/allProduct/GetAllProduct';
 import Loading from '../../modules/loading/Loading'
-import {getLoading} from "../../slice/loading/LoadingSlice"
-import {useSelector} from "react-redux";
+import {getLoading,LoadingStop} from "../../slice/loading/LoadingSlice"
+import {useSelector, useDispatch} from "react-redux";
+
+import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
+import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
+
 const DashboardPage = () => (
 
   
@@ -143,9 +147,18 @@ const DashboardPage = () => (
 const DashboardWrapper = () => {
   useEffect(()=>{},[])
   const intl = useIntl()
-
+ const dispatch= useDispatch()
   const getLoadings=useSelector(getLoading)
-  
+  console.log("loading ",getLoadings)
+  const getTravisProduct= useSelector(getTravisProducts)
+  const getOgioProduct= useSelector(getOgioProducts)
+  useEffect(()=>{
+    if(getTravisProduct && getTravisProduct.length>0 &&
+      
+      getOgioProduct && getOgioProduct.length>0){
+      dispatch(LoadingStop ())
+    }
+  },[getTravisProduct,getOgioProduct])
 
   
   return (
