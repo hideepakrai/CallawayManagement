@@ -68,7 +68,7 @@ const GooodsTable = () => {
           title: "ProductType",
           dataIndex: "GoodsAttributes",
           key: "GoodsAttributes", 
-          width: 85,
+          width: 110,
           render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
          
         },
@@ -77,7 +77,7 @@ const GooodsTable = () => {
           title: "ProductModel",
           dataIndex: "GoodsAttributes",
           key: "ProductModel", 
-          width: 80,
+          width: 115,
           render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
          
         },
@@ -86,7 +86,7 @@ const GooodsTable = () => {
           title: "Orientation",
           dataIndex: "GoodsAttributes",
           key: "Orientation", 
-          width: 150,
+          width: 100,
           render: (value) => <span>{value && value[0] && value[0].Orientation}</span>,
         },
         {
@@ -96,13 +96,12 @@ const GooodsTable = () => {
           width: 115,
          
         },
-        {
-          title:"Stock",
-          children:[
-           { title: "88    QTY",
+        
+        
+           { title: "Qty88",
             dataIndex: "Stock88",
             key: "Stock88", 
-            width: 130,
+            width: 90,
             fixed:'right',
             render: (text, record) => (
               <Input addonBefore={record.Stock88 === 0 ? "0" : record.Stock88} 
@@ -115,10 +114,10 @@ const GooodsTable = () => {
             )
           },
             {
-              title: "90  QTY",
+              title: " Qty90",
             dataIndex: "Stock88",
             key: "Stock88", 
-            width: 130,
+            width: 90,
             fixed:'right',
             render: (text, record) => (
               <Input addonBefore={record.Stock90 === 0 ? "0" : record.Stock90} 
@@ -129,9 +128,9 @@ const GooodsTable = () => {
              />
              
             ),
-            }
+            
            
-          ],
+          
           
         },
         {
@@ -323,7 +322,7 @@ return (
     <div className='cw-container'>
 
 <Card style={{ marginTop:'80px'}}
-          title="CALLAWAY"
+          title="CALLAWAY GOODS"
           extra={
             <div >
               <Breadcrumb separator=">">
@@ -331,7 +330,10 @@ return (
                   <span className="gx-link">Home</span>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>   
-                  <span className="gx-link">Brands</span>
+                  <span className="gx-link">Products</span>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>   
+                  <span className="gx-link">Callaway</span>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>Callaway Goods</Breadcrumb.Item>
               </Breadcrumb>

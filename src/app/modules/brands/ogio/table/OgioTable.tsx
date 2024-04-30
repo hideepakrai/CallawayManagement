@@ -215,7 +215,7 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
   return (
     <div className='cw-container'>
 <Card style={{ marginTop:'80px'}}
-          title="CALLAWAY"
+          title="OGIO"
           extra={
             <div >
               <Breadcrumb separator=">">
@@ -223,12 +223,13 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
                   <span className="gx-link">Home</span>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>   
-                  <span className="gx-link">Brands</span>
+                  <span className="gx-link">Products</span>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>Ogio</Breadcrumb.Item>
               </Breadcrumb>
             </div>
           }
+
         >
           <div  style={{ float: "right", marginBottom:"12px"}}>
             <Button  className='mx-3'
