@@ -45,7 +45,7 @@ const CartHeader = ({CreateOrder}:Props) => {
   return (
     <div>
       <div className='row'>
-            <div className='col-6 d-flex'>
+            <div className='col-4 d-flex'>
                 <h4 className='mx-3 pt-3'>
                     <a>Select Retailer</a>
                 </h4>
@@ -66,7 +66,7 @@ const CartHeader = ({CreateOrder}:Props) => {
     
                 
             </div>
-            <div className='col-6'>
+            <div className='col-7'>
                 <span style={{ marginRight: 10 }}>
                     {" "}
                     <a style={{ color: "#000", }}>Address City : {retailerAddres} </a>

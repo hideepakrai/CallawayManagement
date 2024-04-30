@@ -406,13 +406,21 @@ import "./TravisTable.css"
            
           if(expandedRowKeys &&record.SKU===expandedRowKeys.SKU){
             return (
-              <Table  className='table-travis'
+           
+
+              // <div className="card card-custom">
+ 
+
+
+  <Table  className='table-travis'
                 columns={subcolumns}
                 dataSource={[record]}
                 pagination={false}
                 
                 size="middle"
               />
+
+
             );
           }
           else
@@ -665,7 +673,7 @@ return (
 
        
         </Card>
-        <Table
+        <Table className='card-table-travis'
             ref={tableRef}
             columns={columns}
             dataSource={getProduct?.map((item) => ({ ...item, key: item?.SKU }))}

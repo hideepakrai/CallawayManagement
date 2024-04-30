@@ -31,15 +31,31 @@ const CartProduct = () => {
 <div className="card card-custom">
 <div className="card-header">
 <ul className="nav nav-tabs nav-line-tabs border-0 mb-5 fs-6 mt-6 ">
+
+<li className="nav-item">  
+        <a className="nav-link active-tab" data-bs-toggle="tab" href="#kt_tab_pane_5">Callaway Apparel</a>
+    </li>
+
+<li className="nav-item">  
+        <a className="nav-link active-tab" data-bs-toggle="tab" href="#kt_tab_pane_5">Callaway Goods</a>
+    </li>
+
+    <li className="nav-item">  
+        <a className="nav-link active-tab" data-bs-toggle="tab" href="#kt_tab_pane_5">Odyssey</a>
+    </li>
+
+
+    <li className="nav-item">
+        <a className="nav-link active-tab" data-bs-toggle="tab" href="#kt_tab_pane_6">Ogio</a>
+    </li>
+    
     <li className="nav-item">
         <a className="nav-link active active-tab" data-bs-toggle="tab" href="#kt_tab_pane_4">Travis Methew</a>
     </li>
-    <li className="nav-item">  
-        <a className="nav-link active-tab" data-bs-toggle="tab" href="#kt_tab_pane_5">Callaway Goods</a>
-    </li>
-    <li className="nav-item">
-        <a className="nav-link active-tab" data-bs-toggle="tab" href="#kt_tab_pane_6">Link 3</a>
-    </li>
+    
+    
+
+
 </ul>
    
 </div>
