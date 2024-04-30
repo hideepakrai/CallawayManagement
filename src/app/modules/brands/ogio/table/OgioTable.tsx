@@ -32,16 +32,16 @@ const OgioTable = () => {
           // title: "Image",
           dataIndex: "PrimaryImage",
           // fixed: "left",
-          width: 25,
-        //   render: (value) => (
-        //     <span>
-        //       <img
-        //         src={master}
-        //         alt="Primary Image"
-        //         style={{ maxWidth: "30px", marginRight: "5px" }}
-        //       />
-        //     </span>
-        //   ),
+          width: 40,
+         render: (value) => (
+           <span>
+            <img
+              src="/media/icons/icon-callway.png"
+             alt="Primary Image"
+              style={{ maxWidth: "30px", marginRight: "5px" }}
+           />
+           </span>
+        ),
         },
     
         {
@@ -63,7 +63,7 @@ const OgioTable = () => {
           title: "Description",
           dataIndex: "Description",
           key: "Description", 
-          width: 115,
+          width: 160,
           fixed: "left",
         },
         
@@ -72,7 +72,7 @@ const OgioTable = () => {
           title: "ProductType",
           dataIndex: "OgiAttributes",
           key: "ProductType",
-          width: 90,
+          width: 110,
           render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
         },
         {
@@ -95,10 +95,10 @@ const OgioTable = () => {
          
           
           
-              { title: "90    QTY",
+              { title: " Qty90",
               dataIndex: "OgiAttributes",
               key: "Stock90", 
-              width: 130,
+              width: 110,
               fixed:'right',
               render: (value,record) => (
                 <Input 

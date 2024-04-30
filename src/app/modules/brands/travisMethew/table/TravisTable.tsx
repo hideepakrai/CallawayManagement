@@ -636,22 +636,11 @@ const handleSelctRow=(record:BasicModelTravis)=>{
 return (
     <div className='container'>
 
-<Card style={{ marginTop:'80px'}}
-          title="TRAVIS METHEW"
-          extra={
-            <div >
-              <Breadcrumb separator=">">
-                <Breadcrumb.Item>
-                  <span className="gx-link">Home</span>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>   
-                  <span className="gx-link">Brands</span>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>Travis Methew</Breadcrumb.Item>
-              </Breadcrumb>
-            </div>
-          }
+<Card className='travish-mat-section'  style={{ marginTop:'80px',padding:"10px",}}
+         
+         
         >
+          
           <div style={{ float: "right",marginBottom:"12px" }}>
             <Button className='mx-3' 
            // onClick={handleImport}
@@ -671,9 +660,8 @@ return (
              >Sample Excel</Button>
           </div>
 
-       
-        </Card>
-        <Table className='card-table-travis'
+
+          <Table className='card-table-travis'
             ref={tableRef}
             columns={columns}
             dataSource={getProduct?.map((item) => ({ ...item, key: item?.SKU }))}
@@ -691,6 +679,10 @@ return (
             style={{ maxHeight: "1600px" }}
             pagination={{ defaultPageSize: 20 }}
           />
+
+       
+        </Card>
+       
 
         <SampleExcelTravis 
          isSample={isSample}
