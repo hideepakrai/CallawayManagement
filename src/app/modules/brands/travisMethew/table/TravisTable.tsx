@@ -14,7 +14,7 @@ import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
  import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice"
  import { Cascader,Select, Space } from 'antd';
-import {addTravisOrder} from "../../../../slice/orderSlice/CartOrder"
+import {addTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder"
 import { message } from "antd";
 import { Key } from 'antd/lib/table/interface';
 import { useTable } from 'react-table';
@@ -392,8 +392,8 @@ import "./TravisTable.css"
         },
         {
           title: "MRP",
-          dataIndex: "SalePrice",
-          key: "SalePrice", 
+          dataIndex: "MRP",
+          key: "MRP", 
           width: 80,
           fixed:'right'
         },
@@ -514,8 +514,8 @@ import "./TravisTable.css"
             },
             {
               title: "MRP",
-              dataIndex: "SalePrice",
-              key: "SalePrice", 
+              dataIndex: "MRP",
+              key: "MRP", 
               width: 80,
               fixed:'right'
             },
@@ -556,8 +556,8 @@ import "./TravisTable.css"
         const [selectedRowKeys,setSelectedRowKeys]= useState<BasicModelTravis[]>([]);
    
         const onSelectChange = (newSelectedRowKeys: Key[], record: BasicModelTravis) => {
-          // eslint-disable-next-line no-debugger
-          debugger
+        
+          
           
           console.log("selectedRowKeys changed: ", newSelectedRowKeys);
           // Check if the record is selected by checking if its key is included in newSelectedRowKeys
@@ -579,7 +579,7 @@ import "./TravisTable.css"
         dispatch(updateQuantity90({
           sku: record.SKU,
           qty90: intValue,
-          MRP: record.SalePrice,
+          MRP: record.MRP,
           
         }));
         record.Quantity90=intValue;
@@ -613,14 +613,15 @@ import "./TravisTable.css"
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
        console.log("record",record)
     const intValue = parseInt(value, 10);
-    
+    if(intValue>=0 ){
 
     if ( record?.TravisAttributes &&record?.TravisAttributes[0].Stock88 && record.TravisAttributes[0].Stock88 >= intValue) {
   
+
       dispatch(updateQuantity88({
         sku: record.SKU,
         qty88: intValue,
-        MRP: record.SalePrice,
+        MRP: record.MRP,
       }));
       record.Quantity88=intValue;
      // setQuantity88(intValue)
@@ -640,6 +641,9 @@ import "./TravisTable.css"
     }));
     record.Quantity90=0;
     }
+  } else{
+    alert("Quantity cannot be negative")
+  }
   
   };
       // sample xls

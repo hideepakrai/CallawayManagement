@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {BasicModelTravis,TravisMathewAttribute} from "../../modules/model/travis/TravisMethewModel"
-import {BasicModelGoods,GoodsAttributes} from "../../modules/model/goods/CallawayGoodsModel"
+import {BasicModelTravis,TravisMathewAttribute} from "../../../modules/model/travis/TravisMethewModel"
+import {BasicModelGoods,GoodsAttributes} from "../../../modules/model/goods/CallawayGoodsModel"
 
 interface ProductState {
     TravisOrder: BasicModelTravis[];
@@ -46,7 +46,7 @@ const OrderSlice = createSlice({
                         Description: travisOrder.Description,
                         SKU: travisOrder.SKU,
                     
-                        SalePrice: travisOrder.SalePrice,
+                        MRP: travisOrder.MRP,
                        
                         
                         SetType: travisOrder.SetType,
@@ -54,15 +54,21 @@ const OrderSlice = createSlice({
                         TravisAttributes: att,
                         Quantity88:qty88,
                         Quantity90:qty90,
-                        Amount: (qty88+qty90)*travisOrder.SalePrice,
+                        Amount: (qty88+qty90)*travisOrder.MRP,
                         TotalQty: qty88+qty90,
+                        GST:12,
+                        LessGST:(((qty88+qty90)*travisOrder.MRP)*.12),
+                        Discount: 0,
+                        LessDiscountAmount:0,
+                        NetBillings:0,
+                        FinalBillValue:0,
                       });
                    }else {
                     state.TravisOrder[index].Quantity90=travisOrder.Quantity90;
                     state.TravisOrder[index].Quantity88=travisOrder.Quantity88;
                     const qty88=state.TravisOrder[index].Quantity88||0;
                     const qty90=state.TravisOrder[index].Quantity90||0;
-                    const MRP=state.TravisOrder[index].SalePrice||0;
+                    const MRP=state.TravisOrder[index].MRP||0;
                     state.TravisOrder[index].TotalQty=qty88+qty90
                     state.TravisOrder[index].Amount=MRP*(qty88+qty90);
                     state.TravisOrder[index].ordered=true;
@@ -71,9 +77,77 @@ const OrderSlice = createSlice({
         },
 
 
+        updateTravisOrder:(state,action)=>{
+            const{travisOrder,qtys88,qtys90}= action.payload;
+            const index=  state.TravisOrder.findIndex(item=>item.SKU===travisOrder.SKU);
+            if(index!==-1){
+                if(state.TravisOrder[index]){
+                    state.TravisOrder[index].Quantity88=qtys88;
+                    state.TravisOrder[index].Quantity90=qtys90;
+                    const qty88=state.TravisOrder[index].Quantity88||0;
+                    const qty90=state.TravisOrder[index].Quantity90||0;
+                    const MRP=state.TravisOrder[index].MRP||0;
+                    state.TravisOrder[index].TotalQty=qty88+qty90
+                    state.TravisOrder[index].Amount=MRP*(qty88+qty90);
+                    
+                }
+                
+            }
+
+        },
+
             resetTravisOrder:(state,action)=>{
                 const{travis}= action.payload
                 state.TravisOrder=[]
+            }
+            ,
+            updateInclusiveDiscount:(state,action)=>{
+                const {discount}= action.payload;
+                state.TravisOrder.forEach((item=>{
+                    item.Discount=discount;
+                    const gst= item.GST||0
+                    const salP=item.Amount ||0;
+                    const gstdiscount= (salP)-((100*salP)/(100+gst))
+                    item.LessGST=gstdiscount;
+                    item.LessDiscountAmount=(salP*discount)/100;
+                   const netbill=salP-((salP*discount)/100)-(gstdiscount);
+                   const totalNetbill=netbill+(gst*netbill/100)
+                   item.NetBillings=netbill;
+                   item.FinalBillValue=totalNetbill;
+                }))
+            },
+
+            updateExclusiveDiscount:(state,action)=>{
+                const {discount}=action.payload;
+                state.TravisOrder.forEach((item=>{
+                    item.Discount=discount;
+                    const gst= item.GST||0
+                   item.LessGST=0;
+                    const salP=item.Amount ||0;
+                    item.LessDiscountAmount=(salP*discount)/100;
+                   const netbill=salP-((salP*discount)/100);
+                   const totalNetbill=netbill+(gst*netbill/100)
+                   item.NetBillings=netbill;
+                   item.FinalBillValue=totalNetbill;
+                }))
+
+
+            },
+            updateFlatDiscount:(state,action)=>{
+                const {discount}=action.payload;
+                state.TravisOrder.forEach((item=>{
+                    item.Discount=discount;
+                   
+                   item.LessGST=0;
+                    const salP=item.Amount ||0;
+                    item.LessDiscountAmount=(salP*discount)/100;
+                   const netbill=salP-((salP*discount)/100);
+                   const totalNetbill=netbill;
+                   item.NetBillings=netbill;
+                   item.FinalBillValue=totalNetbill;
+                }))
+
+
             }
         ,addGoodsOrder:(state,action)=>{
             const {goodsOrder,qty90,qty88}=action.payload;
@@ -98,7 +172,7 @@ const OrderSlice = createSlice({
                         StockManagement: goodsOrder.StockManagement,
                         StockStatus: goodsOrder.StockStatus,
                         MRP: goodsOrder.MRP,
-                        SalePrice: goodsOrder.SalePrice,
+                    
                         Stock88: goodsOrder.Stock88,
                         Stock90: goodsOrder.Stock90,
                         SetType: goodsOrder.SetType,
@@ -127,7 +201,11 @@ const OrderSlice = createSlice({
 export const {
     addTravisOrder,
     resetOrder,
-    addGoodsOrder,resetTravisOrder
+    addGoodsOrder,
+    resetTravisOrder,
+    updateInclusiveDiscount,
+    updateExclusiveDiscount,
+    updateFlatDiscount,updateTravisOrder
      
 } = OrderSlice.actions;
 

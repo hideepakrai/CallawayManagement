@@ -14,7 +14,7 @@ import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB"
 
 import * as XLSX from 'xlsx';
  import {updateGoodsQuantity90,updateGoodsQuantity88} from "../../../../../slice/allProducts/CallAwayGoodsSlice";
- import {addGoodsOrder} from ".././../../../../slice/orderSlice/CartOrder"
+ import {addGoodsOrder} from "../../../../../slice/orderSlice/travis/CartOrder"
 const GooodsTable = () => {
 
     const tableRef = useRef(null);

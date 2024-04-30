@@ -38,8 +38,8 @@ const TravisImportExcel = ({onClose,isImport,allGoodsData}:Props) => {
     const reader = new FileReader();
     reader.onload = (e) => {
         const data = e.target?.result as string;
-       // eslint-disable-next-line no-debugger
-       debugger
+     
+       
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];

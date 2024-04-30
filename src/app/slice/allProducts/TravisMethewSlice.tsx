@@ -21,8 +21,7 @@ const TravisMethewSlice = createSlice({
 
         addTravisProduct: (state, action:PayloadAction<{ travisProduct: BasicModelTravisGraph[], id: string }>) => {
             const { travisProduct, id } = action.payload;
-            // eslint-disable-next-line no-debugger
-            debugger
+
             if (travisProduct && travisProduct.length > 0) {
                 travisProduct.forEach((item: BasicModelTravisGraph) => {
                     const att: TravisMathewAttribute[] = [];
@@ -54,7 +53,7 @@ const TravisMethewSlice = createSlice({
                         Name: item.attributes.Name,
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
-                        SalePrice: item.attributes.SalePrice,
+                        MRP: item.attributes.MRP,
                         Gallery: item.attributes?.Gallery,
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
@@ -63,7 +62,13 @@ const TravisMethewSlice = createSlice({
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,
-                        Amount: 0
+                        Amount: 0,
+                        
+
+
+
+
+
                     });
                 });
             }
@@ -105,7 +110,7 @@ const TravisMethewSlice = createSlice({
                     Description: travisProduct.Description,
                     SKU: travisProduct.SKU,
                     Gallery: travisProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
-                    SalePrice: travisProduct.SalePrice,
+                    MRP: travisProduct.MRP,
                     SetType: travisProduct.SetType,
                     ProductType: travisProduct.ProductType,
                     TravisAttributes: att,
@@ -122,8 +127,8 @@ const TravisMethewSlice = createSlice({
           ,
 
           updateQuantity90:(state,actions) => {
-            // eslint-disable-next-line no-debugger
-            debugger
+          
+            
             
             const {sku, qty90,MRP}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(

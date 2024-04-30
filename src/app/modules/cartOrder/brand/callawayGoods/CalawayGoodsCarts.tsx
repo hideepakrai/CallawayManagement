@@ -8,7 +8,7 @@ import "./CalawayGoodsCarts.css"
 import {selectCallawayGoods} from "../../../../slice/allProducts/CallAwayGoodsSlice"
 import * as XLSX from 'xlsx';
  import {updateGoodsQuantity90,updateGoodsQuantity88} from "../../../../slice/allProducts/CallAwayGoodsSlice"
-import {getGoodsOrder} from "../../../../slice/orderSlice/CartOrder"
+import {getGoodsOrder} from "../../../../slice/orderSlice/travis/CartOrder"
 import CartHeader from '../../CartHeader';
  const CalawayGoodsCarts = () => {
 

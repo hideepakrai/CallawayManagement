@@ -12,10 +12,9 @@ query allProducts {
           Name
           Description
           SKU
-          StockManagement
-          StockStatus
+         
           
-          SalePrice
+          MRP
          
           SetType
           ProductType

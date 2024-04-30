@@ -102,9 +102,9 @@ const SampleExcel = ({isSample,resetIsSample}:Props) => {
           }, 
        
         {
-          title: "SalePrice",
-          dataIndex: "SalePrice",
-          key: "SalePrice",
+          title: "MRP",
+          dataIndex: "MRP",
+          key: "MRP",
             width: 115,
         },
         {

@@ -28,9 +28,9 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
             const ogioProduct= getOgioProduct[ogioIndex];
             const id= (ogioProduct.id);
             const Stock90= item.Stock90;
-            const SalePrice= item.SalePrice;
-                if(id &&Stock90 && SalePrice){
-                    updateData(id,Stock90,SalePrice,item, index)
+            const MRP= item.MRP;
+                if(id &&Stock90 && MRP){
+                    updateData(id,Stock90,MRP,item, index)
                     dispatch(updateNewData({
                       ogioProduct:item
                     }))
@@ -47,7 +47,7 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
   }, [updateXlsData,getOgioProduct]);
 
   const updateData = async (id:number,
-    stock:number,saleprice:number,
+    stock:number,MRP:number,
      item:OgioExcelModel,index:number) => {
     const data = {
       data: {
@@ -56,7 +56,7 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
          SetType: item.SetType,
          Brand: 3, 
          SKU: item.SKU,
-        SalePrice: saleprice,
+        MRP: MRP,
         AttributeSet: [
             {
               "__component": "attribute-set.ogio",

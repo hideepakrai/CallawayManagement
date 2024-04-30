@@ -44,7 +44,7 @@ const CallawayGoodSlice = createSlice({
                         StockManagement: item.attributes.StockManagement,
                         StockStatus: item.attributes.StockStatus,
                         MRP: item.attributes.MRP,
-                        SalePrice: item.attributes.SalePrice,
+                        MRP: item.attributes.MRP,
                         StockAvailable: item.attributes.StockAvailable,
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,

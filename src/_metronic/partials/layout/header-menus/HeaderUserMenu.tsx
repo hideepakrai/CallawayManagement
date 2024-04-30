@@ -6,7 +6,7 @@ import {Languages} from './Languages'
 import {toAbsoluteUrl} from '../../../helpers'
 import { useDispatch } from 'react-redux'
 import {resetTravisProduct} from "../../../../app/slice/allProducts/TravisMethewSlice"
-import {resetOrder} from "../../../../app/slice/orderSlice/CartOrder"
+import {resetOrder} from "../../../../app/slice/orderSlice/travis/CartOrder"
 import { useSelector } from 'react-redux'
 import {resetCallayGoods} from "../../../../app/slice/allProducts/CallAwayGoodsSlice"
 import {getUserAccount} from "../../../../app/slice/UserSlice/UserSlice"

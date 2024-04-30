@@ -22,7 +22,7 @@ query callAwaYGoods {
           StockManagement
           StockStatus
           MRP
-          SalePrice
+          MRP
           Stock88
           Stock90
           SetType

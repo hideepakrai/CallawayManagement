@@ -8,7 +8,7 @@ export interface BasicModelTravis {
       Description?: string;
       SKU?: string;
       MRP?:number|null;
-      SalePrice?:number|null;
+    
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
@@ -22,7 +22,14 @@ export interface BasicModelTravis {
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;
-       ordered?: boolean
+       ordered?: boolean;
+       GST?:number;
+       LessGST?: number;
+       Discount?: number;
+       LessDiscountAmount?: number;
+       NetBillings?: number;
+       FinalBillValue?: number;
+
       
 }
 

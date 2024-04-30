@@ -7,7 +7,7 @@ import TravisMethewReducer from "../slice/allProducts/TravisMethewSlice"
 
 import CallAwayGoodsReducer from "../slice/allProducts/CallAwayGoodsSlice"
 
-import CartReducer  from "../slice/orderSlice/CartOrder"
+import CartReducer  from "../slice/orderSlice/travis/CartOrder"
 
 import LoadingReducer from "../slice/loading/LoadingSlice"
 

@@ -5,9 +5,9 @@ import { Input, Radio,InputNumber, Button,Select } from "antd";
 import type { TableColumnsType } from 'antd';
 import {BasicModelTravis} from "../../../model/travis/TravisMethewModel.ts"
 import {useDispatch, useSelector} from "react-redux"
-import {getTravisOrder} from "../../../../slice/orderSlice/CartOrder.tsx"
+import {getTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
 import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice.tsx"
-import {addTravisOrder,resetTravisOrder} from "../../../../slice/orderSlice/CartOrder.tsx"
+import {addTravisOrder,resetTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
 import CartHeader from '../../CartHeader.tsx';
 import {CartModel,ProductDetails} from "../../../model/CartOrder/CartModel.ts";
 import {CreateOrder} from "../../orderApi/OrderAPi.ts"
@@ -18,6 +18,8 @@ import {getCurrentUser} from "../../../../slice/UserSlice/UserSlice.tsx"
 import {CurentUser} from "../../../model/useAccount/CurrentUser.ts"
 import {LoadingStart,LoadingStop,getLoading} from "../../../../slice/loading/LoadingSlice.tsx"
 import Loading from '../../../loading/Loading.tsx';
+import {updateInclusiveDiscount,updateExclusiveDiscount,updateFlatDiscount,updateTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
+
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -41,227 +43,418 @@ const TravisCart = () => {
       }
      },[getCurrentUsers])
      const columns: TableColumnsType<BasicModelTravis>= [
-        {
-          // title: "Image",
-          dataIndex: "gallery",
-          // fixed: "left",
-          width: 25,
-          render: (value) => (
-            <span>
-               <img
-            src={value ? `https://admin.callawayindiaoms.com${value}` : "/media/icons/icon-callway.png"}
-             alt="Primary Image"
-           style={{ maxWidth: "30px", marginRight: "5px" }}
+      {
+        // title: "Image",
+        dataIndex: "Gallery",
+        // fixed: "left",
+        width: 50,
+        render: (value) => {
+          // Check if value and value.data[0] exist before accessing properties
+          if (value && value.data[0] && value.data[0].attributes && value.data[0].attributes.formats && value.data[0].attributes.formats.thumbnail && value.data[0].attributes.formats.thumbnail.url) {
+            console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
+            return (
+              <span>
+                <img
+                  src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.thumbnail.url}`}
+                  alt="Primary Image"
+                  style={{ maxWidth: "30px", marginRight: "5px" }}
+                />
+              </span>
+            );
+          } else {
+            return (
+              <span>
+                <img
+                  src="/media/icons/icon-callway.png"
+                  alt="Primary Image"
+                  style={{ maxWidth: "30px", marginRight: "5px" }}
+                />
+              </span>
+            ); // Return a placeholder image if thumbnail url is null or undefined
+          }
+        },
+        
+      
+      },
+
+     
+  
+  
+      {
+        title: "SKU",
+        dataIndex: "SKU",
+        width: 100,
+        fixed: "left",
+        
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8 }}>
+            <Input
+              placeholder="Search SKU"
+              value={selectedKeys[0]}
+              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              onKeyUp={(e) => {
+
+                console.log("enter", e)
+                if (e.key === 'Enter') {
+                  confirm();
+                }
+              }}
+              style={{ width: 188, marginBottom: 8, display: "block" }}
             />
-            </span>
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              // Trigger the search input to focus when the filter dropdown is opened
+            });
+          }
+        },
+        onFilter: (value, record) => {
+          const sku =
+            record &&
+            record.SKU;
+           
+          console.log("Filtering:", value, "sku:", sku);
+          return  sku=== value;
+        },
+        filterSearch: true,
+
+       
+      },
+
+      {
+        title: "Description ",
+        dataIndex: "Description",
+        key: "Description", 
+        width: 150,
+       
+      },
+
+      
+  
+      {
+        title: "Name",
+        dataIndex: "Name",
+        key: "name",
+        width: 90 ,
+         fixed: "left",
+         filterMode: 'tree',
+         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8 }}>
+            <Input
+              placeholder="Search Name"
+              value={selectedKeys[0]}
+              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              onPressEnter={() => confirm()}
+              style={{ width: 188, marginBottom: 8, display: "block" }}
+            />
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              // Trigger the search input to focus when the filter dropdown is opened
+            });
+          }
+        },
+        onFilter: (value, record) => {
+          const name =
+            record &&
+            record.Name;
+           
+          console.log("Filtering:", value, "sku:", name);
+          return  name=== value;
+        },
+        filterSearch: true,
+
+      },
+  
+      
+      
+      {
+        title: "Category",
+        dataIndex: "TravisAttributes",
+        key: "Category", 
+        width:110,
+        render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+        sorter: (a, b) => {
+          const categoryA = a.TravisAttributes?.[0]?.Category ?? "";
+          const categoryB = b.TravisAttributes?.[0]?.Category ?? "";
+
+        return categoryA.localeCompare(categoryB);
+        },
+       
+
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8 }}>
+            <Input
+              placeholder="Search Name"
+              value={selectedKeys[0]}
+              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              onPressEnter={() => confirm()}
+              style={{ width: 188, marginBottom: 8, display: "block" }}
+            />
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              // Trigger the search input to focus when the filter dropdown is opened
+            });
+          }
+        },
+        onFilter: (value, record) => {
+          const category =
+            record &&
+            record.TravisAttributes &&
+            record.TravisAttributes[0].Category ;
+            
+           
+          console.log("Filtering:", value, "category:", category);
+          return  category=== value;
+        },
+        filterSearch: true,
+      },
+      {
+          title: "Season",
+          dataIndex: "TravisAttributes",
+          key: "Season", 
+          width: 100,
+          render: (value) => <span>{value && value[0] && value[0].Season}</span>,
+          sorter: (a, b) => {
+            // Extract and compare Season values, handling null or undefined cases
+            const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
+            const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
+        
+            return seasonA.localeCompare(seasonB);
+          },
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Input
+                placeholder="Search Name"
+                value={selectedKeys[0]}
+                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                onPressEnter={() => confirm()}
+                style={{ width: 188, marginBottom: 8, display: "block" }}
+              />
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const Season =
+              record &&
+              record.TravisAttributes &&
+              record.TravisAttributes[0].Season ;
+              
+             
+            console.log("Filtering:", value, "season:", Season);
+            return  Season=== value;
+          },
+          filterSearch: true,
+         
+        },
+      {
+        title: "Style",
+        dataIndex: "TravisAttributes",
+        key: "StyleCode", 
+        width: 85,
+        render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
+        sorter: (a, b) => {
+          // Extract and compare StyleCode values, handling null or undefined cases
+          const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
+          const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
+      
+          return styleCodeA.localeCompare(styleCodeB);
+        },
+      },
+      {
+        title: "Color",
+        dataIndex: "TravisAttributes",
+        key: "Color", 
+        width: 75,
+        render: (value) => <span>{value && value[0] && value[0].Color}</span>,
+        sorter: (a, b) => {
+          // Extract and compare StyleCode values, handling null or undefined cases
+          const styleCodeA = a.TravisAttributes?.[0]?.Color ?? "";
+          const styleCodeB = b.TravisAttributes?.[0]?.Color ?? "";
+      
+          return styleCodeA.localeCompare(styleCodeB);
+        },
+      },
+      {
+        title: "Size",
+        dataIndex: "TravisAttributes",
+        key: "Size", 
+        width: 65,
+        render: (value) => <span>{value && value[0] && value[0].Size}</span>,
+        sorter: (a, b) => {
+          // Extract and compare StyleCode values, handling null or undefined cases
+          const styleCodeA = a.TravisAttributes?.[0]?.Size ?? "";
+          const styleCodeB = b.TravisAttributes?.[0]?.Size ?? "";
+      
+          return styleCodeA.localeCompare(styleCodeB);
+        },
+      },
+     
+    
+      
+         { title: "Qty88",
+          dataIndex: "TravisAttributes",
+          key: "Stock88", 
+          width: 100,
+          fixed:'right',
+          render: (value,record) => (
+            <Input 
+            addonBefore={value[0]?.Stock88} 
+            type='number'
+           
+            value={record.Quantity88?.toString()}
+            onChange={(e) => handleQuantity88(e.target.value, record)}
+            disabled={value[0]?.Stock88 === 0} 
+            />
+           
           ),
         },
-    
-        {
-          title: "SKU",
-          dataIndex: "SKU",
-          width: 130,
-          fixed: "left",
-          // render: (value) => <span>{String(value.Name)}</span>,
-         
-        },
-    
-        {
-          title: "Name",
-          dataIndex: "Name",
-          key: "name",
-          width: 70 ,
-           fixed: "left",
-        },
-    
-        
-        
-        {
-          title: "Category",
+          {
+            title: "Qty90",
           dataIndex: "TravisAttributes",
-          key: "Description", 
-          width: 85,
-          render: (value) => <span>{value && value[0] && value[0].Category}</span>,
-          sorter: (a, b) => {
-            const categoryA = a.TravisAttributes?.[0]?.Category ?? "";
-            const categoryB = b.TravisAttributes?.[0]?.Category ?? "";
-
-          return categoryA.localeCompare(categoryB);
-          },
-         
-        },
-        {
-            title: "Season",
-            dataIndex: "TravisAttributes",
-            key: "Season", 
-            width: 85,
-            render: (value) => <span>{value && value[0] && value[0].Season}</span>,
-            sorter: (a, b) => {
-              // Extract and compare Season values, handling null or undefined cases
-              const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
-              const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
-          
-              return seasonA.localeCompare(seasonB);
-            },
-           
-          },
-        {
-          title: "StyleCode",
-          dataIndex: "TravisAttributes",
-          key: "StyleCode", 
-          width: 85,
-          render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
-          sorter: (a, b) => {
-            // Extract and compare StyleCode values, handling null or undefined cases
-            const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
-            const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
-        
-            return styleCodeA.localeCompare(styleCodeB);
-          },
-        },
-        {
-          title: "Color",
-          dataIndex: "TravisAttributes",
-          key: "Color", 
-          width: 75,
-          render: (value) => <span>{value && value[0] && value[0].Color}</span>,
-          sorter: (a, b) => {
-            // Extract and compare StyleCode values, handling null or undefined cases
-            const styleCodeA = a.TravisAttributes?.[0]?.Color ?? "";
-            const styleCodeB = b.TravisAttributes?.[0]?.Color ?? "";
-        
-            return styleCodeA.localeCompare(styleCodeB);
-          },
-        },
-        {
-          title: "Size",
-          dataIndex: "TravisAttributes",
-          key: "Size", 
-          width: 75,
-          render: (value) => <span>{value && value[0] && value[0].Size}</span>,
-          sorter: (a, b) => {
-            // Extract and compare StyleCode values, handling null or undefined cases
-            const styleCodeA = a.TravisAttributes?.[0]?.Size ?? "";
-            const styleCodeB = b.TravisAttributes?.[0]?.Size ?? "";
-        
-            return styleCodeA.localeCompare(styleCodeB);
-          },
-        },
-        {
-          title: "Description",
-          dataIndex: "Description",
-          key: "Description", 
-          width: 115,
-         
-        },
-
-      
-        {
-          title:"Order Quantity",
-          children:[
-           { title: "88    QTY",
-            dataIndex: "TravisAttributes",
-            key: "Stock88", 
-            width: 130,
-            fixed:'right',
-            render: (value, record) => (
-              <Input addonBefore={value[0].Stock88} 
-              type='number'
-             
-              value={record.Quantity88?.toString()}
-              onChange={(e) => handleQuantity88(e.target.value, record)} 
-              />
-             
-            ),
-          },
-            {
-              title: "90  QTY",
-            dataIndex: "TravisAttributes",
-            key: "Stock88", 
-            width: 130,
-            fixed:'right',
-            render: (value, record) => (
-              <Input addonBefore={value[0].Stock90} 
-              type='number'
-              
-              value={record.Quantity90?.toString()}
-              
-              onChange={(e) => handleQuantity90(e.target.value, record)} 
-              />
-             
-            ),
-            }
-           
-          ],
-          
-        },
-        // {
-        //   title:"Quantity",
-        //   children:[
-        //     {
-        //       title: "88",
-        //       dataIndex: "quantity88",
-        //       key: "quantity88", 
-        //       width: 100, 
-        //       fixed:'right',
-        //       render: (text, record) => (
-        //         <Input 
-        //          type='number'
-        //          value={record.Quantity88?.toString()}
-        //           onChange={(e) => handleQuantity88(e.target.value, record)}
-        //         />
-               
-        //       ),
-              
-        //     },
-        //     { title: "90",
-        //     dataIndex: "quantity90",
-        //     key: "quantity90", 
-        //     width: 100,
-        //     fixed:'right',
-        //     render: (text, record) => (
-        //       <Input 
-        //        type='number'
-        //        value={record.Quantity90?.toString()}
-        //         onChange={(e) => handleQuantity90(e.target.value, record)}
-        //       />
-        //     ),
-        //    }
-        //   ],
-         
-          
-         
-        // },
-        {
-          title: "Total Qty",
-          dataIndex: "TotalQty",
-          key: "TotalQty", 
+          key: "Stock88", 
           width: 100,
-          fixed:'right'
-        },
-        {
-          title: "MRP",
-          dataIndex: "SalePrice",
-          key: "SalePrice", 
-          width: 80,
-          fixed:'right'
-        },
-        {
-          title: "Amount",
-          dataIndex: "Amount",
-          key: "Amount", 
-          width: 100,
-          fixed:'right'
-        },
-        
+          fixed:'right',
+          render: (value,record) => (
+            <Input addonBefore={value[0]?.Stock90||0} 
+            type='number'
+            
+            value={record.Quantity90?.toString()}
+            onChange={(e) => handleQuantity90(e.target.value, record)} 
+            disabled={value[0]?.Stock90 === 0} 
+            />
+           
+          ),
+          },
+         
       
-      ];
+      // {
+      //   title:"Quantity",
+      //   children:[
+      //     {
+      //       title: "88",
+      //       dataIndex: "quantity88",
+      //       key: "quantity88", 
+      //       width: 100, 
+      //       fixed:'right',
+      //       render: (text, record) => (
+      //         <Input 
+      //          type='number'
+      //          value={record.Quantity88?.toString()}
+      //           onChange={(e) => handleQuantity88(e.target.value, record)}
+      //         />
+             
+      //       ),
+            
+      //     },
+      //     { title: "90",
+      //     dataIndex: "quantity90",
+      //     key: "quantity90", 
+      //     width: 100,
+      //     fixed:'right',
+      //     render: (text, record) => (
+      //       <Input 
+      //        type='number'
+      //        value={record.Quantity90?.toString()}
+      //         onChange={(e) => handleQuantity90(e.target.value, record)}
+      //       />
+      //     ),
+      //    }
+      //   ],
+       
+        
+       
+      // },
+      {
+        title: "Qty",
+        dataIndex: "TotalQty",
+        key: "TotalQty", 
+        width: 50,
+        fixed:'right'
+      },
+      {
+        title: "MRP",
+        dataIndex: "MRP",
+        key: "MRP", 
+        width: 80,
+        fixed:'right'
+      },
+      {
+        title: "Amount",
+        dataIndex: "Amount",
+        key: "Amount", 
+        width: 100,
+        fixed:'right'
+      },
+      
+      {
+        title: "GST",
+        dataIndex: "GST",
+        key: "GST", 
+        width: 100,
+        fixed:'right'
+      },
+      
+      {
+        title: "LessGST",
+        dataIndex: "LessGST",
+        key: "LessGST", 
+        width: 100,
+        fixed:'right'
+      },
+      
+      {
+        title: "Discount",
+        dataIndex: "Discount",
+        key: "Discount", 
+        width: 100,
+        fixed:'right'
+      },
+      
+      {
+        title: "LessDiscountAmount",
+        dataIndex: "LessDiscountAmount",
+        key: "LessDiscountAmount", 
+        width: 100,
+        fixed:'right'
+      },
+      {
+        title: "NetBillings",
+        dataIndex: "NetBillings",
+        key: "NetBillings", 
+        width: 100,
+        fixed:'right'
+      },
+      {
+        title: "FinalBillValue",
+        dataIndex: "FinalBillValue",
+        key: "FinalBillValue", 
+        width: 100,
+        fixed:'right'
+      },
+    
+    ];
 
 
       const handleQuantity90 = (value: string, record: BasicModelTravis) => {
 
         const intValue = parseInt(value, 10);
-    
+        setDiscountType("");
+        setDiscountValue(0);
+        setIsDiscount(false)
         if ( record?.TravisAttributes&&record?.TravisAttributes[0].Stock90 && record.TravisAttributes[0].Stock90 >= intValue) {
           
           // Dispatch an action to update the quantity for the SKU
@@ -269,17 +462,19 @@ const TravisCart = () => {
           dispatch(updateQuantity90({
             sku: record.SKU,
             qty90: intValue,
-            MRP: record.SalePrice,
+            MRP: record.MRP,
             
           }));
           record.Quantity90=intValue;
-          dispatch(addTravisOrder({
+         
+          dispatch(updateTravisOrder({
             travisOrder:record,
-            qty90: intValue,
-            qty88:record.Quantity88
+            qtys90: intValue,
+            qtys88:record.Quantity88
+              
           }))
         }
-        else{
+         if(intValue<0){
           alert("Quantity is not available")
           //setQuantity90(0)
           dispatch(updateQuantity90({
@@ -298,20 +493,24 @@ const TravisCart = () => {
       const handleQuantity88 = (value: string, record: BasicModelTravis) => {
            console.log("record",record)
         const intValue = parseInt(value, 10);
+
+        setDiscountType("");
+        setDiscountValue(0);
+        setIsDiscount(false)
     
          if ( record?.TravisAttributes&&record?.TravisAttributes[0].Stock88&& record.TravisAttributes[0].Stock88 >= intValue) {
           // Dispatch an action to update the quantity for the SKU
           dispatch(updateQuantity88({
             sku: record.SKU,
             qty88: intValue,
-            MRP: record.SalePrice,
+            MRP: record.MRP,
           }));
           record.Quantity88=intValue;
          // setQuantity88(intValue)
-         dispatch(addTravisOrder({
+         dispatch(updateTravisOrder({
           travisOrder:record,
-            qty88: intValue,
-            qty90:record.Quantity90
+          qtys88: intValue,
+          qtys90:record.Quantity90
             
         }))
         }
@@ -327,16 +526,25 @@ const TravisCart = () => {
       
       };
    const [totalAmount, setTotalAmount]= useState<number>()
+   const [discountAmount, setDiscountAmount]= useState<number>()
+   const [totalNetBillAmount, setTotalNetBillAmount]= useState<number>()
       useEffect(()=>{
         let tAmount:number=0;
+        let totalBillAmount:number=0;
         if(getProduct && getProduct.length>0){
           getProduct.map((item:BasicModelTravis)=>{
             if(item.Amount){
               tAmount=item.Amount+tAmount
             }
+             if(item.FinalBillValue){
+                   
+                   totalBillAmount=totalBillAmount+item.FinalBillValue
+            }
             
           })
             setTotalAmount(tAmount)
+            setTotalNetBillAmount(totalBillAmount)
+            setDiscountAmount(tAmount-totalBillAmount)
         }
       },[getProduct])
 
@@ -355,7 +563,7 @@ const TravisCart = () => {
                   product: item.id,
                   Quantity: item.TotalQty,
                   TotalPrice: item.Amount,
-                  UnitPrice: item.SalePrice
+                  UnitPrice: item.MRP
               });
 
               
@@ -412,7 +620,57 @@ function generateUniqueNumeric(): string {
 
 const getLoadings= useSelector(getLoading)
 console.log(getLoadings)
+   const [discountType, setDiscountType]= useState<string>("")
+  const [isDiscount, setIsDiscount]= useState<boolean>(false)
+  const [discountValue, setDiscountValue]= useState<number>(0)
+/// handle discount
+const handleDiscount=(value:string)=>{
+  setIsDiscount(true)
+  if(value==="Inclusive"){
+    setDiscountType(value)
+    setDiscountValue(22)
+    dispatch(updateInclusiveDiscount({
+      discount:22
+    }))
+  }
+  if(value==="Exclusive"){
+    setDiscountValue(23)
+    setDiscountType(value)
+    dispatch(updateExclusiveDiscount({
+      discount:23
+    }))
+  }
+  if(value === "Flat"){
+    setDiscountValue(0)
+    setDiscountType(value)
+   dispatch( updateFlatDiscount({
+      discount:0
+    }))
+  }
+}
+
+
+const handleChangeDiscount=(value:string)=>{
+  const dis= parseInt(value, 10)
+  
+  setDiscountValue(dis)
+  if(discountType==="Inclusive"){
+    dispatch(updateInclusiveDiscount({
+      discount:dis
+    }))
+  }
+  if(discountType==="Exclusive"){
+    dispatch(updateExclusiveDiscount({
+      discount:dis
+    }))
+  }
+  if(discountType==="Flat"){
+    dispatch(updateFlatDiscount({
+      discount:dis
+    }))
+  }
  
+}
   return (
     <div>
 
@@ -453,25 +711,31 @@ getProduct.length>0 ?
                           showSearch
                           placeholder="Select discount"
                           optionFilterProp="children"
-
+                          onChange={handleDiscount}
 
                           options={[
                               {
-                                  value: "₹100",
-                                  label: "",
+                                  value: "Inclusive",
+                                  label: "Inclusive",
                               },
                               {
-                                  value: "₹200",
-                                  label: "20%",
+                                  value: "Exclusive",
+                                  label: "Exclusive",
                               },
                               {
-                                  value: "₹300",
-                                  label: "30%",
+                                  value: "Flat",
+                                  label: "Flat",
                               },
                           ]}
                       />
-
-
+                    {isDiscount && (
+                <Input
+                  style={{ width: '10%' }} 
+                  value={discountValue}
+                  onChange={(e)=>handleChangeDiscount(e.target.value)}
+                />
+)}
+                   
 
                   </div>
 
@@ -485,16 +749,22 @@ getProduct.length>0 ?
                       <h4 style={{ borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
                           {" "}
                           <a style={{ color: "#000", paddingRight: "94px", paddingLeft: "10px", }}>Discount:</a>
+                          {discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
                       </h4>
+                      <h4 style={{ borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
+  {" "}
+  <a style={{ color: "#000", paddingRight: "94px", paddingLeft: "10px" }}>Total Net Bill:</a>
+  {totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
+</h4>
 
 
 
 
 
 
-                      <h4 style={{ padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
+                      {/* <h4 style={{ padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
                           <a style={{ color: "#000", paddingRight: "112px", paddingLeft: "10px", }}>Total : </a>₹2,356
-                      </h4>
+                      </h4> */}
                   </div>
 
               </div>

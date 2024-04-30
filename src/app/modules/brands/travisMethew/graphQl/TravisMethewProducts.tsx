@@ -23,7 +23,7 @@ query getTravisMAthewProduct {
         SKU
         SetType
         ProductType
-        SalePrice
+        MRP
         Gallery{
           data{
             id

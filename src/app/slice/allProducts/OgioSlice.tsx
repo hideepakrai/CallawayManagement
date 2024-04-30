@@ -47,7 +47,7 @@
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
         
-                        SalePrice: item.attributes.SalePrice,
+                        MRP: item.attributes.MRP,
                         SetType: item.attributes.SetType,
                        
                         OgiAttributes:att
@@ -82,7 +82,7 @@
                     Description: ogioProduct.Description,
                     SKU: ogioProduct.SKU,
                     Gallery: ogioProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
-                    SalePrice: ogioProduct.SalePrice,
+                    MRP: ogioProduct.MRP,
                     SetType: ogioProduct.SetType,
                     ProductType: ogioProduct.ProductType,
                     OgiAttributes: att,
@@ -99,7 +99,7 @@
                    } else if (state.ogio[ogiIndex] &&
                     state.ogio[ogiIndex].OgiAttributes 
                     ) {
-                    state.ogio[ogiIndex].SalePrice = ogioProduct.SalePrice;
+                    state.ogio[ogiIndex].MRP = ogioProduct.MRP;
                      const ogatt=state.ogio[ogiIndex].OgiAttributes;
                      if(ogatt){
                        ogatt[0].Stock90 = ogioProduct.Stock90
