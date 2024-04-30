@@ -8,6 +8,11 @@ const column = [
     },
 
     {
+        title: "Brand",
+        dataIndex: "brand",
+    },
+
+    {
         title: "Retailer Name",
         dataIndex: "retailername",
     },
@@ -37,15 +42,26 @@ const column = [
         key: 'x',
         render: () => 
         <div> 
-            <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", }}>  
+
+            <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor:"pointer" }} 
+             
+            >  
             <Tooltip title="Edit" placement="bottom">   
              <i className="bi bi-pencil-fill" ></i>
             </Tooltip>
             </span> 
 
-            <span style={{ paddingLeft: "8px", }}> 
-            <Tooltip title="View" placement="bottom"> 
-        
+            <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor:"pointer" 
+                
+             }}>  
+            <Tooltip title="View" placement="bottom">   
+            <i className="bi bi-arrow-up-right-square"></i>
+            </Tooltip>
+
+            </span>
+
+            <span style={{ paddingLeft: "8px", cursor:"pointer" }}> 
+            <Tooltip title="View Prodects" placement="bottom"> 
             <i className="bi bi-box-arrow-up-right" ></i>
             </Tooltip>
             </span>
@@ -59,6 +75,7 @@ const data = [
     {
         key: "1",
         orderid: "001",
+        brand:"Callaway",
         retailername: "Manish Gupta",
         date: "10/05/2006 05:05:15 PM	",
         status: "Completed",
@@ -69,6 +86,7 @@ const data = [
     {
         key: "2",
         orderid: "002",
+        brand:"Callaway",
         retailername: "Alok Singh",
         date: "08/05/2006 03:05:15 PM",
         status: "Rejected",
@@ -79,6 +97,7 @@ const data = [
     {
         key: "3",
         orderid: "003",
+        brand:"Ogio",
         retailername: "Jitendra Gupta	",
         date: "08/05/2006 03:05:15 PM",
         status: "Approved",
@@ -88,6 +107,7 @@ const data = [
     {
         key: "4",
         orderid: "004",
+        brand: "Travis Mathew",
         retailername: "Manish Sharma",
         date: "08/05/2006 04:05:15 PM",
         status: "Under Review",

@@ -34,12 +34,12 @@ const ManagerProfile = () => {
       </div>
 
       <Row className='container'>
-        <Col xl={16} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
+        <Col xl={18} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
       <AllOrders   />
         </Col>
 
-        <Col xl={8} lg={10} md={10} sm={24} xs={24} >
+        <Col xl={6} lg={10} md={10} sm={24} xs={24} >
         <Friends friendList={friendList} />
        <Contact contactList={contactList} />
         </Col>

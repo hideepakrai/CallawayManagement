@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-import { Table } from "antd";
-import { Tooltip } from 'antd';
-import Edit from "../managerprofile.tsx/action/Edit";
-
+import { Table, Tooltip } from "antd";
+import Edit from "./Edit";
+import View from "./View"
 
 
 
@@ -16,6 +15,16 @@ const PendingOrder = () => {
         setIsEdit(false);
     };
 
+     // view
+  const [isView, setIsView] = useState(false);
+  const handleView = () => {
+    setIsView(true);
+  };
+
+  const handleCloseView = () => {
+    setIsView(false);
+  };
+
 
     const handleview = () => {
         console.log("I am here");
@@ -26,6 +35,11 @@ const PendingOrder = () => {
         {
             title: " Order Id ",
             dataIndex: "orderid",
+        },
+
+        {
+            title: "Brand",
+            dataIndex: "brand",
         },
 
         {
@@ -63,17 +77,19 @@ const PendingOrder = () => {
                         </Tooltip>
                     </span>
 
-                    <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}>
+                    <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                     onClick={() => handleView()}
+                    >
 
-                        <Tooltip title="Edit" placement="bottom">
-                            <i className="bi bi-pencil-fill" ></i>
+                        <Tooltip title="View" placement="bottom">
+                        <i className="bi bi-arrow-up-right-square"></i>
                         </Tooltip>
                     </span>
 
                     <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
-                        <Tooltip title="View" placement="bottom">
+                        <Tooltip title="View Prodects" placement="bottom">
 
-                            <i className="bi bi-box-arrow-up-right " onClick={handleview}></i>
+                            <i className="bi bi-box-arrow-up-right " ></i>
                         </Tooltip>
                     </span>
 
@@ -86,6 +102,7 @@ const PendingOrder = () => {
         {
             key: "1",
             orderid: "001",
+            brand:"Ogio",
             retailername: "Manish Gupta",
             date: "10/05/2006 05:10:15 PM",
             amount: "₹1800",
@@ -97,14 +114,12 @@ const PendingOrder = () => {
         {
             key: "2",
             orderid: "004",
+            brand:"Travis Mathew",
             retailername: "Manish Sharma",
             date: "08/05/2006 04:05:15 PM	",
             amount: "₹1200",
             status: "Under Review"
         },
-
-
-
 
     ];
 
@@ -127,6 +142,7 @@ const PendingOrder = () => {
             </div>
 
             <Edit isEdit={isEdit} onClose={handleCloseEdit} />
+            <View isView={isView} onCloseView={handleCloseView} />
         </>
     );
 };
