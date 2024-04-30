@@ -237,6 +237,7 @@ const OrderPage = () => {
   const handleEdit = () => {
     setIsEdit(true);
   };
+  
   const handleCloseEdit = () => {
     setIsEdit(false);
   };

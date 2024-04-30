@@ -5,7 +5,7 @@ const GoodsHeader = () => {
   return (
     <div>
         <div className="cway-banner">
-          <div className='cw-container'>
+          <div className='container'>
             <Carousel autoplay className='img-slider'>
               <div className="gx-slider-1 ">
                 <div className='prodect-image'>
