@@ -55,7 +55,7 @@ const TravisMethewSlice = createSlice({
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
                         SalePrice: item.attributes.SalePrice,
-                      
+                        gallery: item.attributes?.Gallery?.data[0]?.attributes?.formats?.thumbnail?.url||"",
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
                         TravisAttributes: att,

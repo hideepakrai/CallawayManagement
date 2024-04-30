@@ -50,14 +50,14 @@ import "./TravisTable.css"
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
-          dataIndex: "PrimaryImage",
+          dataIndex: "gallery",
           // fixed: "left",
           width: 50,
           
          render: (value) => (
             <span>
             <img
-             src="/media/icons/icon-callway.png"
+            src={value ? `https://admin.callawayindiaoms.com${value}` : "/media/icons/icon-callway.png"}
              alt="Primary Image"
            style={{ maxWidth: "30px", marginRight: "5px" }}
             />
@@ -74,23 +74,33 @@ import "./TravisTable.css"
           width: 100,
           fixed: "left",
           
-          filters: [
-           
-            {
-              
-              text: 'Joe',
-              value: 'Joe',
-            },
-          
-          ]
-      
-        
-         
-        
-      
-        
-          
-          
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Input
+                placeholder="Search SKU"
+                value={selectedKeys[0]}
+                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                onPressEnter={() => confirm()}
+                style={{ width: 188, marginBottom: 8, display: "block" }}
+              />
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const sku =
+              record &&
+              record.SKU;
+             
+            console.log("Filtering:", value, "sku:", sku);
+            return  sku=== value;
+          },
+          filterSearch: true,
 
          
         },
@@ -111,6 +121,35 @@ import "./TravisTable.css"
           key: "name",
           width: 90 ,
            fixed: "left",
+           filterMode: 'tree',
+           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Input
+                placeholder="Search Name"
+                value={selectedKeys[0]}
+                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                onPressEnter={() => confirm()}
+                style={{ width: 188, marginBottom: 8, display: "block" }}
+              />
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const name =
+              record &&
+              record.Name;
+             
+            console.log("Filtering:", value, "sku:", name);
+            return  name=== value;
+          },
+          filterSearch: true,
+
         },
     
         
@@ -119,7 +158,7 @@ import "./TravisTable.css"
           title: "Category",
           dataIndex: "TravisAttributes",
           key: "Category", 
-          width: 85,
+          width:110,
           render: (value) => <span>{value && value[0] && value[0].Category}</span>,
           sorter: (a, b) => {
             const categoryA = a.TravisAttributes?.[0]?.Category ?? "";
@@ -128,12 +167,42 @@ import "./TravisTable.css"
           return categoryA.localeCompare(categoryB);
           },
          
+
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Input
+                placeholder="Search Name"
+                value={selectedKeys[0]}
+                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                onPressEnter={() => confirm()}
+                style={{ width: 188, marginBottom: 8, display: "block" }}
+              />
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const category =
+              record &&
+              record.TravisAttributes &&
+              record.TravisAttributes[0].Category ;
+              
+             
+            console.log("Filtering:", value, "category:", category);
+            return  category=== value;
+          },
+          filterSearch: true,
         },
         {
             title: "Season",
             dataIndex: "TravisAttributes",
             key: "Season", 
-            width: 85,
+            width: 100,
             render: (value) => <span>{value && value[0] && value[0].Season}</span>,
             sorter: (a, b) => {
               // Extract and compare Season values, handling null or undefined cases
@@ -142,6 +211,35 @@ import "./TravisTable.css"
           
               return seasonA.localeCompare(seasonB);
             },
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+              <div style={{ padding: 8 }}>
+                <Input
+                  placeholder="Search Name"
+                  value={selectedKeys[0]}
+                  onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                  onPressEnter={() => confirm()}
+                  style={{ width: 188, marginBottom: 8, display: "block" }}
+                />
+              </div>
+            ),
+            onFilterDropdownVisibleChange: (visible) => {
+              if (visible) {
+                setTimeout(() => {
+                  // Trigger the search input to focus when the filter dropdown is opened
+                });
+              }
+            },
+            onFilter: (value, record) => {
+              const Season =
+                record &&
+                record.TravisAttributes &&
+                record.TravisAttributes[0].Season ;
+                
+               
+              console.log("Filtering:", value, "season:", Season);
+              return  Season=== value;
+            },
+            filterSearch: true,
            
           },
         {
@@ -200,7 +298,9 @@ import "./TravisTable.css"
               type='number'
              
               value={record.Quantity88?.toString()}
-              onChange={(e) => handleQuantity88(e.target.value, record)} />
+              onChange={(e) => handleQuantity88(e.target.value, record)}
+              disabled={value[0]?.Stock88 === 0} 
+              />
              
             ),
           },
@@ -211,11 +311,13 @@ import "./TravisTable.css"
             width: 100,
             fixed:'right',
             render: (value,record) => (
-              <Input addonBefore={value[0]?.Stock90} 
+              <Input addonBefore={value[0]?.Stock90||0} 
               type='number'
               
               value={record.Quantity90?.toString()}
-              onChange={(e) => handleQuantity90(e.target.value, record)} />
+              onChange={(e) => handleQuantity90(e.target.value, record)} 
+              disabled={value[0]?.Stock90 === 0} 
+              />
              
             ),
             },
