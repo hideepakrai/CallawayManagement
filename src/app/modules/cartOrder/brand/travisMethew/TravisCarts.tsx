@@ -43,18 +43,18 @@ const TravisCart = () => {
      const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
-          dataIndex: "PrimaryImage",
+          dataIndex: "gallery",
           // fixed: "left",
           width: 25,
-        //   render: (value) => (
-        //     <span>
-        //       <img
-        //         src={master}
-        //         alt="Primary Image"
-        //         style={{ maxWidth: "30px", marginRight: "5px" }}
-        //       />
-        //     </span>
-        //   ),
+          render: (value) => (
+            <span>
+               <img
+            src={value ? `https://admin.callawayindiaoms.com${value}` : "/media/icons/icon-callway.png"}
+             alt="Primary Image"
+           style={{ maxWidth: "30px", marginRight: "5px" }}
+            />
+            </span>
+          ),
         },
     
         {
@@ -367,7 +367,8 @@ const TravisCart = () => {
               ProductDetails:ProductDetail,
               retailer:retailerId,
               users :userId,
-              brand:brand
+              Brand:brand,
+              Amount:totalAmount
           }
 
           createOrder(data)

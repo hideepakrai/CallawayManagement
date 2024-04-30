@@ -80,7 +80,13 @@ import "./TravisTable.css"
                 placeholder="Search SKU"
                 value={selectedKeys[0]}
                 onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                onPressEnter={() => confirm()}
+                onKeyUp={(e) => {
+
+                  console.log("enter", e)
+                  if (e.key === 'Enter') {
+                    confirm();
+                  }
+                }}
                 style={{ width: 188, marginBottom: 8, display: "block" }}
               />
             </div>
