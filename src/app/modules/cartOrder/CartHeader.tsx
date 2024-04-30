@@ -81,10 +81,12 @@ const CartHeader = ({CreateOrder}:Props) => {
 
             <div className='col-12 mb-3'style={{textAlign:"end"}}>
                 <span className='mx-3'  >
-                    <Button  onClick={handleSubmit}> <i style={{ paddingRight: "6px", verticalAlign: "middle", }} className="icon icon-orders"></i>Submit Order</Button>
+                    <Button  > <i style={{ paddingRight: "6px", verticalAlign: "middle", }} className="icon icon-orders"></i>Submit Order</Button>
                   
                 </span>
-                <span  className='mx-3' >
+                <span  className='mx-3' 
+                onClick={handleSubmit}
+                >
                     <Button > <i style={{ paddingRight: "6px", verticalAlign: "middle", }} className="icon icon-copy"></i>Submit for Review</Button>
                 </span>
 
