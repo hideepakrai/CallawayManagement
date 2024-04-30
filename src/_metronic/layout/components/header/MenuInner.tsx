@@ -31,8 +31,8 @@ export function MenuInner() {
           menuTrigger={`{default:'click', lg: 'hover'}`}
         >
           <MenuItem to='/brand/callaway/apparel' title='Callaway Apparel' hasBullet={true} />
-          <MenuItem to='/brand/callaway/goods' title='Callaway Goods' hasBullet={true} />
-          <MenuItem to='/brand/callaway/odyssey' title='Odyssey' hasBullet={true} />
+          <MenuItem to='/brand/callaway/goods' title='Callaway Hardgoods' hasBullet={true} />
+          {/* <MenuItem to='/brand/callaway/odyssey' title='Odyssey' hasBullet={true} /> */}
         </MenuInnerWithSub>
 
         <MenuItem icon='shield-tick' to='/brand/ogio' title='Ogio' />

@@ -504,7 +504,7 @@ getProduct.length>0 ?
               <i className="bi bi-cart-x"></i>
               <h2>No order selected</h2>
               </div>
-          )}
+          )}          
 
          { isUpdateOrder &&<UpdateOrder/>}
     </div>
