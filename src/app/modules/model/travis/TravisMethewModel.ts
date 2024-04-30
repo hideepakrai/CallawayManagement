@@ -12,7 +12,8 @@ export interface BasicModelTravis {
       SetType?: string;
       ProductType?: string | null;
       PrimaryImage?: ImageType,
-       Gallery?:string,
+       Gallery?:ImageType,
+       gallery?:string,
       AttributeSet?:TravisMathewAttribute[],
       TravisAttributes?: TravisMathewAttribute[] ,
       // Quantity?: Quantity[];
@@ -49,7 +50,7 @@ export interface BasicModelTravisGraph {
 
  
  export interface ImageType {
-    data:{
+    data:[{
       id:number,
       attributes?:{
         formats?:{
@@ -59,7 +60,7 @@ export interface BasicModelTravisGraph {
           small?:ImageData
         }
       }
-    }
+    }]
   }
   
 
