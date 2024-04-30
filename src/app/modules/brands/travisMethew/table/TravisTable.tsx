@@ -54,18 +54,31 @@ import "./TravisTable.css"
           // fixed: "left",
           width: 50,
           render: (value) => {
-            console.log("image: " + value[0].attributes?.formats?.thumbnail?.url);
-            // Remove the return statement from here
-            return (
-              <span>
-                <img
-                  src={value ? `https://admin.callawayindiaoms.com${value[0].attributes?.formats?.thumbnail?.url}` : "/media/icons/icon-callway.png"}
-                  alt="Primary Image"
-                  style={{ maxWidth: "30px", marginRight: "5px" }}
-                />
-              </span>
-            );
+            // Check if value and value.data[0] exist before accessing properties
+            if (value && value.data[0] && value.data[0].attributes && value.data[0].attributes.formats && value.data[0].attributes.formats.thumbnail && value.data[0].attributes.formats.thumbnail.url) {
+              console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
+              return (
+                <span>
+                  <img
+                    src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.thumbnail.url}`}
+                    alt="Primary Image"
+                    style={{ maxWidth: "30px", marginRight: "5px" }}
+                  />
+                </span>
+              );
+            } else {
+              return (
+                <span>
+                  <img
+                    src="/media/icons/icon-callway.png"
+                    alt="Primary Image"
+                    style={{ maxWidth: "30px", marginRight: "5px" }}
+                  />
+                </span>
+              ); // Return a placeholder image if thumbnail url is null or undefined
+            }
           },
+          
         
         },
 
@@ -558,36 +571,41 @@ import "./TravisTable.css"
   const handleQuantity90 = (value: string, record: BasicModelTravis) => {
 
     const intValue = parseInt(value, 10);
-
-    if ( record?.TravisAttributes&&record?.TravisAttributes[0]?.Stock90 && record.TravisAttributes[0].Stock90 >= intValue) {
+    if(intValue>=0 ){
+      if ( record?.TravisAttributes&&record?.TravisAttributes[0]?.Stock90 && record.TravisAttributes[0].Stock90 >= intValue) {
       
-      // Dispatch an action to update the quantity for the SKU
-      
-      dispatch(updateQuantity90({
-        sku: record.SKU,
-        qty90: intValue,
-        MRP: record.SalePrice,
+        // Dispatch an action to update the quantity for the SKU
         
-      }));
-      record.Quantity90=intValue;
-      dispatch(addTravisOrder({
-        travisOrder:record,
-        qty90: intValue,
-        qty88:record.Quantity88
-      }))
+        dispatch(updateQuantity90({
+          sku: record.SKU,
+          qty90: intValue,
+          MRP: record.SalePrice,
+          
+        }));
+        record.Quantity90=intValue;
+        dispatch(addTravisOrder({
+          travisOrder:record,
+          qty90: intValue,
+          qty88:record.Quantity88
+        }))
+      }
+      else{
+        alert("Quantity is not available")
+        //setQuantity90(0)
+        dispatch(updateQuantity90({
+          sku: record.SKU,
+          qty90: 0,
+        
+         
+        }));
+        record.Quantity90=0;
+        
+      }
+    }else{
+      alert("Quantity cannot be negative")
     }
-    else{
-      alert("Quantity is not available")
-      //setQuantity90(0)
-      dispatch(updateQuantity90({
-        sku: record.SKU,
-        qty90: 0,
-      
-       
-      }));
-      record.Quantity90=0;
-      
-    }
+
+   
   
     // Log the record for debugging or tracking purposes
     console.log(record);
