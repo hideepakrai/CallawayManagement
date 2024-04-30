@@ -1,5 +1,26 @@
-import React from "react";
+import React,{useState} from "react";
 import { Table, Tooltip } from "antd";
+import Edit from "./Edit";
+import View from "./View"
+const AllOrders = () => {
+    const [isEdit, setIsEdit] = useState(false);
+    const handleEdit = () => {
+        setIsEdit(true);
+    };
+    const handleCloseEdit = () => {
+        setIsEdit(false);
+    };
+
+     // view
+  const [isView, setIsView] = useState(false);
+  const handleView = () => {
+    setIsView(true);
+  };
+
+  const handleCloseView = () => {
+    setIsView(false);
+  };
+
 const column = [
     
     {
@@ -44,7 +65,7 @@ const column = [
         <div> 
 
             <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor:"pointer" }} 
-             
+              onClick={() => handleEdit()}
             >  
             <Tooltip title="Edit" placement="bottom">   
              <i className="bi bi-pencil-fill" ></i>
@@ -55,7 +76,7 @@ const column = [
                 
              }}>  
             <Tooltip title="View" placement="bottom">   
-            <i className="bi bi-arrow-up-right-square"></i>
+            <i className="bi bi-arrow-up-right-square" onClick={handleView}></i>
             </Tooltip>
 
             </span>
@@ -117,8 +138,9 @@ const data = [
 
 ];
 
-const AllOrders = () => {
+
     return (
+        <>
         <div className="card card-custom mt-3">
             <div className="card-header">
                 <h3 className="card-title">All Orders</h3>
@@ -128,6 +150,9 @@ const AllOrders = () => {
                 <Table columns={column} dataSource={data} size="middle" />
             </div>
         </div>
+         <Edit isEdit={isEdit} onClose={handleCloseEdit} />
+         <View isView={isView} onCloseView={handleCloseView} />
+         </>
     );
 };
 
