@@ -32,7 +32,9 @@ const TravisCart = () => {
   const getCurrentUsers= useSelector(getCurrentUser) as CurentUser 
    const getProduct:BasicModelTravis[]=useSelector(getTravisOrder)
      const[amount, setAmount]=useState<number>()
-     
+     const [discountType, setDiscountType]= useState<string>("")
+  const [isDiscount, setIsDiscount]= useState<boolean>(false)
+  const [discountValue, setDiscountValue]= useState<number>(0)
   console.log("userAccount",getCurrentUsers)
      // update user Id
      useEffect(()=>{
@@ -556,19 +558,29 @@ const TravisCart = () => {
           
           const orderId= generateUniqueNumeric();
            let brand;
+           let amount;
           const ProductDetail:ProductDetails[]=[];
           getProduct.forEach((item: BasicModelTravis) => {
           brand= item.SetType;
+          amount=item.FinalBillValue;
               ProductDetail.push({
                   product: item.id,
-                  Quantity: item.TotalQty,
-                  TotalPrice: item.Amount,
-                  UnitPrice: item.MRP
+                  Qty88:item.Quantity88,
+                  Qty90:item.Quantity90,
+                  TotalPrice:item.FinalBillValue,
+                  UnitPrice:item.MRP
+                  
               });
 
               
           });
 
+
+           const comments={
+            Comment:"submit for review",
+            Type:"Event",
+            "users_permissions_user (1)":userId
+           }
           const data={
               OrderId:orderId,
               Status:"Pending",
@@ -576,7 +588,10 @@ const TravisCart = () => {
               retailer:retailerId,
               users :userId,
               Brand:brand,
-              Amount:totalAmount
+              Amount:totalNetBillAmount,
+              DiscountType:discountType,
+              DiscountPercent:discountValue,
+              Comments:[comments]
           }
 
           createOrder(data)
@@ -620,9 +635,7 @@ function generateUniqueNumeric(): string {
 
 const getLoadings= useSelector(getLoading)
 console.log(getLoadings)
-   const [discountType, setDiscountType]= useState<string>("")
-  const [isDiscount, setIsDiscount]= useState<boolean>(false)
-  const [discountValue, setDiscountValue]= useState<number>(0)
+   
 /// handle discount
 const handleDiscount=(value:string)=>{
   setIsDiscount(true)
