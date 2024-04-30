@@ -213,7 +213,7 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
     setUpdateXlsData([])
   }
   return (
-    <div className='cw-container'>
+    <div className='container'>
 <Card style={{ marginTop:'80px'}}
           title="OGIO"
           extra={

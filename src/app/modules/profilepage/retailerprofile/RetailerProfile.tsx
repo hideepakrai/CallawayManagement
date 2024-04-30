@@ -19,7 +19,7 @@ const RetailerProfile = () => {
               <img src='https://via.placeholder.com/150' alt="Profile"></img>
             </div>
             <div className='pt-5 mx-6'>
-              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">Manish Gupta</h1>
+              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">Manish Gupta </h1>
               <h2 className="d-flex text-white fw-bold my-1 fs-3"> Retailer</h2>
             </div>
           </div>

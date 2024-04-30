@@ -4,7 +4,7 @@ const OgioHeader = () => {
   return (
     <div>
         <div className="cway-banner">
-          <div className='cw-container'>
+          <div className='container'>
             <Carousel autoplay autoplaySpeed={3000}>
               <div className="gx-slider-1 ">
                 <div className='prodect-image'>

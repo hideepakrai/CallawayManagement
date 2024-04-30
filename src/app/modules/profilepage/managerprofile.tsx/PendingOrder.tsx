@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Table } from "antd";
 import { Tooltip } from 'antd';
-
+import Edit from "../managerprofile.tsx/action/Edit";
 
 
 
 
 const PendingOrder = () => {
+    const [isEdit, setIsEdit] = useState(false);
+    const handleEdit = () => {
+        setIsEdit(true);
+    };
+    const handleCloseEdit = () => {
+        setIsEdit(false);
+    };
 
 
     const handleview = () => {
@@ -46,22 +53,33 @@ const PendingOrder = () => {
             dataIndex: "action",
             key: 'x',
             render: () =>
-             <span>  
-            <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor:"pointer"}}>  
-            
-            <Tooltip title="Edit" placement="bottom"> 
-            <i className="bi bi-pencil-fill" ></i>
-            </Tooltip>
-            </span>
+                <span>
+                    <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                        onClick={() => handleEdit()}
+                    >
 
-                <span style={{ paddingLeft: "8px",cursor:"pointer" }}  >
-                     <Tooltip title="View" placement="bottom">
-                     
-                     <i className="bi bi-box-arrow-up-right "   onClick={handleview}></i>
-                </Tooltip>
-                </span>
+                        <Tooltip title="Edit" placement="bottom">
+                            <i className="bi bi-pencil-fill" ></i>
+                        </Tooltip>
+                    </span>
 
-            </span>,
+                    <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}>
+
+                        <Tooltip title="Edit" placement="bottom">
+                            <i className="bi bi-pencil-fill" ></i>
+                        </Tooltip>
+                    </span>
+
+                    <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
+                        <Tooltip title="View" placement="bottom">
+
+                            <i className="bi bi-box-arrow-up-right " onClick={handleview}></i>
+                        </Tooltip>
+                    </span>
+
+
+
+                </span>,
         },
     ];
     const data = [
@@ -91,22 +109,25 @@ const PendingOrder = () => {
     ];
 
     return (
-        <div >
-            <div className="card card-custom">
-                <div className="card-header">
-                    <h3 className="card-title">Pending Order</h3>
+        <>
+            <div >
+                <div className="card card-custom">
+                    <div className="card-header">
+                        <h3 className="card-title">Pending Order </h3>
+                    </div>
+
+                    <div className="card-body ">
+                        <Table columns={column} dataSource={data} size="middle" />
+                    </div>
+
                 </div>
 
-                <div className="card-body ">
-                    <Table columns={column} dataSource={data} size="middle"/>
-                </div>
+
 
             </div>
 
-        </div>
-
-
-
+            <Edit isEdit={isEdit} onClose={handleCloseEdit} />
+        </>
     );
 };
 

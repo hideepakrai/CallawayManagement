@@ -13,6 +13,7 @@
 .card-table-travis .ant-table-row{background-color: #fff!important;}
 .card-table-travis .ant-table-row td{background-color: #fff!important;}  
 
-.travish-mat-section .ant-card-body{padding:30px 12px!important; overflow: auto!important;}
+/* .travish-mat-section .ant-card-body{padding:30px 12px!important; overflow: auto!important;} */
 .card-table-travis .ant-table-fixed-header .ant-table-container .ant-card-body{overflow: auto!important;}
+.travish-mat-section{padding: 0!important;}
 
