@@ -2,7 +2,7 @@ import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio,InputNumber, Button } from "antd";
 import type { TableColumnsType } from 'antd';
-import {BasicModelTravis} from "../../../model/travis/TravisMethewModel"
+import {BasicModelTravis,ImageType} from "../../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
 import {getTravisProducts} from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
@@ -50,19 +50,23 @@ import "./TravisTable.css"
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
-          dataIndex: "gallery",
+          dataIndex: "Gallery",
           // fixed: "left",
           width: 50,
-          
-         render: (value) => (
-            <span>
-            <img
-            src={value ? `https://admin.callawayindiaoms.com${value}` : "/media/icons/icon-callway.png"}
-             alt="Primary Image"
-           style={{ maxWidth: "30px", marginRight: "5px" }}
-            />
-           </span>
-         ),
+          render: (value) => {
+            console.log("image: " + value[0].attributes?.formats?.thumbnail?.url);
+            // Remove the return statement from here
+            return (
+              <span>
+                <img
+                  src={value ? `https://admin.callawayindiaoms.com${value[0].attributes?.formats?.thumbnail?.url}` : "/media/icons/icon-callway.png"}
+                  alt="Primary Image"
+                  style={{ maxWidth: "30px", marginRight: "5px" }}
+                />
+              </span>
+            );
+          },
+        
         },
 
        
