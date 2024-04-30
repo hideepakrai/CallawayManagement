@@ -63,11 +63,7 @@ const GetAllProduct = () => {
     setIsetailers(false)
   }
 
-  useEffect(()=>{
-    if(!isOgio && !isGoods && !isTravis){
-      dispatch(LoadingStop ())
-    }
-  },[isOgio,isGoods,isTravis])
+
 
   
 
