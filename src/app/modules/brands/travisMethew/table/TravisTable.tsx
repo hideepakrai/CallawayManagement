@@ -24,6 +24,7 @@ import "./TravisTable.css"
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import TravisPdf from '../pdf/TravisPdf';
 import Item from 'antd/es/list/Item';
+import { useReactToPrint } from 'react-to-print';
 // import jsPDF from "jspdf";
 // import "jspdf-autotable";
 
@@ -246,64 +247,51 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           },
           filterSearch: true,
         },
-        {
-            title: "Season",
-            dataIndex: "TravisAttributes",
-            key: "Season", 
-            width: 100,
-            render: (value) => <span>{value && value[0] && value[0].Season}</span>,
-            sorter: (a, b) => {
-              // Extract and compare Season values, handling null or undefined cases
-              const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
-              const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
+        // {
+        //     title: "Season",
+        //     dataIndex: "TravisAttributes",
+        //     key: "Season", 
+        //     width: 100,
+        //     render: (value) => <span>{value && value[0] && value[0].Season}</span>,
+        //     sorter: (a, b) => {
+        //       // Extract and compare Season values, handling null or undefined cases
+        //       const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
+        //       const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
           
-              return seasonA.localeCompare(seasonB);
-            },
-            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-              <div style={{ padding: 8 }}>
-                <Input
-                  placeholder="Search Name"
-                  value={selectedKeys[0]}
-                  onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                  onPressEnter={() => confirm()}
-                  style={{ width: 188, marginBottom: 8, display: "block" }}
-                />
-              </div>
-            ),
-            onFilterDropdownVisibleChange: (visible) => {
-              if (visible) {
-                setTimeout(() => {
-                  // Trigger the search input to focus when the filter dropdown is opened
-                });
-              }
-            },
-            onFilter: (value, record) => {
-              const Season =
-                record &&
-                record.TravisAttributes &&
-                record.TravisAttributes[0].Season ;
+        //       return seasonA.localeCompare(seasonB);
+        //     },
+        //     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+        //       <div style={{ padding: 8 }}>
+        //         <Input
+        //           placeholder="Search Name"
+        //           value={selectedKeys[0]}
+        //           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+        //           onPressEnter={() => confirm()}
+        //           style={{ width: 188, marginBottom: 8, display: "block" }}
+        //         />
+        //       </div>
+        //     ),
+        //     onFilterDropdownVisibleChange: (visible) => {
+        //       if (visible) {
+        //         setTimeout(() => {
+        //           // Trigger the search input to focus when the filter dropdown is opened
+        //         });
+        //       }
+        //     },
+        //     onFilter: (value, record) => {
+        //       const Season =
+        //         record &&
+        //         record.TravisAttributes &&
+        //         record.TravisAttributes[0].Season ;
                 
                
 
-              return  Season=== value;
-            },
-            filterSearch: true,
+        //       return  Season=== value;
+        //     },
+        //     filterSearch: true,
            
-          },
-        {
-          title: "Style",
-          dataIndex: "TravisAttributes",
-          key: "StyleCode", 
-          width: 85,
-          render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
-          sorter: (a, b) => {
-            // Extract and compare StyleCode values, handling null or undefined cases
-            const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
-            const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
-            return styleCodeA.localeCompare(styleCodeB);
-        
-          },
-        },
+        //   },
+       
 
 
         {
@@ -988,10 +976,26 @@ const handleShowOrder=()=>{
 const [selectedRow, setSelectedRow]= useState<BasicModelTravis[]>([])
 const handleSelctRow = (record: BasicModelTravis) => {
   console.log("record", record);
-  setSelectedRowKeys([record]);
-  if (record) {
-    setSelectedRow(prev => [...prev, record]);
-  }
+    if(selectedRow &&selectedRow.length>0){
+      const updatedSelectedRow = [...selectedRow];
+     const index= selectedRow.findIndex(row=> row.SKU===record.SKU);
+     if(index!==-1){
+      updatedSelectedRow.splice(index,1);
+      setSelectedRow(updatedSelectedRow);
+
+     }else if(index ===-1){
+      setSelectedRowKeys([record]);
+      if (record) {
+        setSelectedRow(prev => [...prev, record]);
+      }
+     }
+    } else {
+      setSelectedRowKeys([record]);
+      if (record) {
+        setSelectedRow(prev => [...prev, record]);
+      }
+    }
+  
 };
 
 // export to pdf 
@@ -1004,8 +1008,11 @@ useEffect(()=>{
 
 const handleExportToPDF=()=>{
   setIspdf(true)
+  
 }
+
 const handleResetSelectedRow =()=>{
+  setSelectedRowKeys([]);
   setSelectedRow([])
   setIspdf(false)
 }

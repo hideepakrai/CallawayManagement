@@ -1,34 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useRef} from 'react';
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import { Row,Col,Card, Button } from 'react-bootstrap';
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import { useReactToPrint } from 'react-to-print';
 type Props = {
   selectedRow: BasicModelTravis[];
   resetSelectedRow: () => void;
 };
 
 const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
- const  handleExportToPDf=()=>{
+ 
+  const contentToPrint = useRef(null);
+  const handlePrint = useReactToPrint({
+    documentTitle: "Print This Document",
+    onBeforePrint: () => console.log("before printing..."),
+    onAfterPrint: () => resetSelectedRow(),
+    removeAfterPrint: true,
+    
+  });
+  
+  
 
-    const input = document.getElementById('catelog') as HTMLElement;
-
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      pdf.addImage(imgData, 'JPG', 0, 0, 210, 297);
-      pdf.save('travis_pdf.pdf');
-    });
-    resetSelectedRow();
-
- }
+ 
 
   return (<div>
 <div>
         <Row>
           <Col xs={24} >
-            <Card id="catelog">
+            <Card id="catelog" ref={contentToPrint}>
               <div>
                 <div>
                   <div>
@@ -40,7 +43,9 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                     >
                       <div style={{ textAlign: "left" }}>
                         <Button 
-                        onClick={handleExportToPDf}
+                        onClick={() => {
+                          handlePrint(null, () => contentToPrint.current);
+                        }}
                         >
                           Download Pdf
                         </Button>
