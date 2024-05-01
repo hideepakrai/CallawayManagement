@@ -1,10 +1,10 @@
 
 import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
-import { Input, Radio,InputNumber, Button,Select } from "antd";
+import { Input, Radio,InputNumber, Button,Select,Space } from "antd";
 import type { TableColumnsType } from 'antd';
 import {BasicModelTravis} from "../../../model/travis/TravisMethewModel.ts"
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch, useSelector,} from "react-redux"
 import {getTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
 import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice.tsx"
 import {addTravisOrder,resetTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
@@ -12,6 +12,8 @@ import CartHeader from '../../CartHeader.tsx';
 import {CartModel,ProductDetails} from "../../../model/CartOrder/CartModel.ts";
 import {CreateOrder} from "../../orderApi/OrderAPi.ts"
 import UpdateOrder from "./UpdateOrder.tsx"
+import { SettingOutlined } from '@ant-design/icons';
+
 import "./TravisCarts.css";
 
 import {getCurrentUser} from "../../../../slice/UserSlice/UserSlice.tsx"
@@ -720,7 +722,7 @@ getProduct.length>0 ?
               >
                   <div style={{ width: "78%" }}>
                       <a style={{ marginRight: 10, color: "#000", }}>Discount</a>
-                      <Select
+                      <Select className="input-dropdown"
                           showSearch
                           placeholder="Select discount"
                           optionFilterProp="children"
@@ -742,11 +744,18 @@ getProduct.length>0 ?
                           ]}
                       />
                     {isDiscount && (
-                <Input
-                  style={{ width: '10%' }} 
-                  value={discountValue}
+                  <Space className='number-input' direction="vertical">
+
+                {/* <Input
+                 
+                 
                   onChange={(e)=>handleChangeDiscount(e.target.value)}
-                />
+                /> */}
+                    <InputNumber  className='mx-3 number-input'
+                    addonAfter="%"  value={discountValue} />
+
+                  </Space>
+
 )}
                    
 

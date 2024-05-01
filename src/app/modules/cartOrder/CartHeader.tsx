@@ -74,25 +74,25 @@ const CartHeader = ({CreateOrder}:Props) => {
             <div className='col-8'>
                 <span style={{ marginRight: 10 }}>
                     {" "}
-                    <a style={{ color: "#000", }}>Address City : {retailerAddres} </a>
+                    <a style={{ color: "#000", fontSize:"14px"}}> <span style={{fontWeight:600, }}>Address City :</span> {retailerAddres} </a>
                 </span>
                 <span style={{ width: 100, marginRight: 20, borderRight: "1px solid #ddd", paddingRight: "10px", }}>{retailerCity}</span>
                 <span>
-                    <a style={{ color: "#000", }}>GSTIN NO. :</a> {GST}
+                    <a style={{ color: "#000", fontSize:"14px" }}> <span style={{fontWeight:600.}}> GSTIN NO. :</span> </a> {GST}
                 </span>
             </div>
 
 
 
             <div className='col-12 mb-3'style={{textAlign:"end"}}>
-                <span className='mx-3'  >
+                {/* <span className='mx-3'  >
                     <Button  > <i style={{ paddingRight: "6px", verticalAlign: "middle", }}  className="bi bi-bag"></i>Submit Order</Button>
                   
-                </span>
+                </span> */}
                 <span  className='mx-3' 
                 onClick={handleSubmit}
                 >
-                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "middle", }}  className="bi bi-file-earmark-text"></i>Submit for Review</Button>
+                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-file-earmark-text"></i>Submit for Review</Button>
                 </span>
 
 
@@ -101,7 +101,7 @@ const CartHeader = ({CreateOrder}:Props) => {
                 >
           
                     
-                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "middle", }}  className="bi bi-bag-check"></i>Approve Order</Button>
+                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-bag-check"></i>Approve Order</Button>
                     
               
               
@@ -111,7 +111,7 @@ const CartHeader = ({CreateOrder}:Props) => {
                  onClick={handleNote}
                 >
 
-                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "middle", }} className="bi bi-cart"></i>      Reject Order</Button>
+                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "inherit", }} className="bi bi-cart"></i>      Reject Order</Button>
                   
 
               
@@ -120,7 +120,7 @@ const CartHeader = ({CreateOrder}:Props) => {
                 <span className='mx-3'
                 onClick={handleNote}
                 >
-                    <Button > <i style={{paddingRight:"6px", verticalAlign:"middle",}} className="bi bi-pencil-square"></i>Add Note</Button>
+                    <Button > <i style={{paddingRight:"6px", verticalAlign:"inherit",}} className="bi bi-pencil-square"></i>Add Note</Button>
                 </span>
             </div>
 
