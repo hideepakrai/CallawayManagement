@@ -411,43 +411,6 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             },
            
         
-        // {
-        //   title:"Quantity",
-        //   children:[
-        //     {
-        //       title: "88",
-        //       dataIndex: "quantity88",
-        //       key: "quantity88", 
-        //       width: 100, 
-        //       fixed:'right',
-        //       render: (text, record) => (
-        //         <Input 
-        //          type='number'
-        //          value={record.Quantity88?.toString()}
-        //           onChange={(e) => handleQuantity88(e.target.value, record)}
-        //         />
-               
-        //       ),
-              
-        //     },
-        //     { title: "90",
-        //     dataIndex: "quantity90",
-        //     key: "quantity90", 
-        //     width: 100,
-        //     fixed:'right',
-        //     render: (text, record) => (
-        //       <Input 
-        //        type='number'
-        //        value={record.Quantity90?.toString()}
-        //         onChange={(e) => handleQuantity90(e.target.value, record)}
-        //       />
-        //     ),
-        //    }
-        //   ],
-         
-          
-         
-        // },
         {
           title: "Qty",
           dataIndex: "TotalQty",
@@ -455,6 +418,8 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           width: 50,
           fixed:'right'
         },
+
+
         {
           title: "MRP",
           dataIndex: "MRP",
@@ -462,6 +427,8 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           width: 80,
           fixed:'right'
         },
+
+
         {
           title: "Amount",
           dataIndex: "Amount",
@@ -787,43 +754,7 @@ const handleExportToExcel = () => {
 const handleShowOrder=()=>{
 
 }
-// table into pdf
-// const handleExportToPDF = () => {
-//   const table = tableRef.current;
-//   if (!table) {
-//     message.error("Table reference not found");
-//     return;
-//   }
 
-//   const doc = new jsPDF({
-//     orientation: "landscape",
-//   });
-
-//   const tableColumn = [
-//     { header: "Brand", dataKey: "brand" },
-//     { header: "Name", dataKey: "Name" },
-//     { header: "SKU", dataKey: "SKU" },
-//     { header: "Category", dataKey: "Category" },
-//     { header: "Style code", dataKey: "StyleCode" },
-//   ];
-
-//   const tableRows = getProduct.map((item: BasicModelTravis) => ({
-//     brand: item.SetType || "",
-//     Name: item.Name || "",
-//     SKU: item.SKU || "",
-//     Category: (item.TravisAttributes && item.TravisAttributes[0]?.Category) || "",
-//     StyleCode: (item.TravisAttributes && item.TravisAttributes[0]?.StyleCode) || "",
-//   }));
-
-//   if (tableRows.length === 0) {
-//     message.warning("No data available to export");
-//     return;
-//   }
-
-//   // startY is basically margin-top
-//   doc.autoTable(tableColumn, tableRows, { startY: 20 });
-//   doc.save(`TravisMathew.pdf`);
-// };
 
 
 
@@ -891,6 +822,8 @@ return (
             style={{ maxHeight: "1600px" }}
             pagination={{ defaultPageSize: 20 }}
           />
+
+          
 
        
         </Card>
