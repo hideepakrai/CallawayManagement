@@ -2,9 +2,9 @@ import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio,InputNumber, Button } from "antd";
 import type { TableColumnsType } from 'antd';
-import {BasicModelTravis,ImageType} from "../../../model/travis/TravisMethewModel"
+import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
-import {getTravisProducts} from "../../../../slice/allProducts/TravisMethewSlice"
+import {getTravisProducts,getOtherProducts} from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 
 import { number } from 'yup';
@@ -12,14 +12,18 @@ import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import {ExcelModelTravis} from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
- import {updateQuantity90,updateQuantity88} from "../../../../slice/allProducts/TravisMethewSlice"
+ import {updateQuantity90,updateQuantity88,
+  addOtherProduct,updateOtherQuantity90,
+  updateOtherQuantity88,removeOtherProduct} from "../../../../slice/allProducts/TravisMethewSlice"
  import { Cascader,Select, Space } from 'antd';
-import {addTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder"
+import {addTravisOrder,removeTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder"
 import { message } from "antd";
 import { Key } from 'antd/lib/table/interface';
 import { useTable } from 'react-table';
 import "./TravisTable.css"
 import type { RadioChangeEvent, SelectProps } from 'antd';
+import TravisPdf from '../pdf/TravisPdf';
+import Item from 'antd/es/list/Item';
 // import jsPDF from "jspdf";
 // import "jspdf-autotable";
 
@@ -69,7 +73,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           render: (value) => {
             // Check if value and value.data[0] exist before accessing properties
             if (value && value.data[0] && value.data[0].attributes && value.data[0].attributes.formats && value.data[0].attributes.formats.thumbnail && value.data[0].attributes.formats.thumbnail.url) {
-              console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
+              // console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
               return (
                 <span>
                   <img
@@ -112,7 +116,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
                 onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                 onKeyUp={(e) => {
 
-                  console.log("enter", e)
+                  // console.log("enter", e)
                   if (e.key === 'Enter') {
                     confirm();
                   }
@@ -133,7 +137,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
               record &&
               record.SKU;
              
-            console.log("Filtering:", value, "sku:", sku);
+           
             return  sku=== value;
           },
           filterSearch: true,
@@ -181,7 +185,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
               record &&
               record.Name;
              
-            console.log("Filtering:", value, "sku:", name);
+          
             return  name=== value;
           },
           filterSearch: true,
@@ -230,15 +234,75 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             }
           },
           onFilter: (value, record) => {
-            const category = record?.TravisAttributes?.[0]?.Category;
-        
-            console.log("Filtering:", value, "Category:", category);
-            return category === value;
+            const category =
+              record &&
+              record.TravisAttributes &&
+              record.TravisAttributes[0].Category ;
+              
+             
+           
+            return  category=== value;
           },
           filterSearch: true,
         },
-        
+        {
+            title: "Season",
+            dataIndex: "TravisAttributes",
+            key: "Season", 
+            width: 100,
+            render: (value) => <span>{value && value[0] && value[0].Season}</span>,
+            sorter: (a, b) => {
+              // Extract and compare Season values, handling null or undefined cases
+              const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
+              const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
+          
+              return seasonA.localeCompare(seasonB);
+            },
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+              <div style={{ padding: 8 }}>
+                <Input
+                  placeholder="Search Name"
+                  value={selectedKeys[0]}
+                  onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                  onPressEnter={() => confirm()}
+                  style={{ width: 188, marginBottom: 8, display: "block" }}
+                />
+              </div>
+            ),
+            onFilterDropdownVisibleChange: (visible) => {
+              if (visible) {
+                setTimeout(() => {
+                  // Trigger the search input to focus when the filter dropdown is opened
+                });
+              }
+            },
+            onFilter: (value, record) => {
+              const Season =
+                record &&
+                record.TravisAttributes &&
+                record.TravisAttributes[0].Season ;
+                
+               
 
+              return  Season=== value;
+            },
+            filterSearch: true,
+           
+          },
+        {
+          title: "Style",
+          dataIndex: "TravisAttributes",
+          key: "StyleCode", 
+          width: 85,
+          render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
+          sorter: (a, b) => {
+            // Extract and compare StyleCode values, handling null or undefined cases
+            const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
+            const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
+            return styleCodeA.localeCompare(styleCodeB);
+        
+          },
+        },
 
 
         {
@@ -441,115 +505,121 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
       ];
 
 
-      const subColumns: TableColumnsType<BasicModelTravis> = [
-        { title:'SKU', dataIndex: 'SKU', key: 'SKU' },
-        { title: 'StyleCode', dataIndex: 'StyleCode', key: 'StyleCode' },
-        { title: 'Size', dataIndex: 'Size', key: 'Size' },
-       
-      ];
-      const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis>();
+      //get other product 
+      const getOtherProduct= useSelector(getOtherProducts)
+      const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
       const handleExpand = (expanded: boolean, record: BasicModelTravis) => {
          
-         
-        if (expanded && record.SKU !== undefined) {
+          dispatch(removeOtherProduct())
+        if (record && record.products && record.products.data) {
+          // eslint-disable-next-line no-debugger
+          debugger
+          const sdd:BasicModelTravisGraph[]=record.products.data
+          const recordedData:BasicModelTravis[]=[];
+          getProduct.map((item)=>{
+            sdd.map((product:BasicModelTravisGraph)=>{
+              if(product && product.attributes){
+                if(product.attributes.SKU === item.SKU){
+                  recordedData.push(item)
+                }
+              }
+            })
+
+
+          })
           // Expand only the clicked row
-          setExpandedRowKeys(record);  // Assuming SKU is a string
+          console.log("expand  new Record",recordedData )
+          setExpandedRowKeys(recordedData);
+          dispatch(addOtherProduct(recordedData))
+         // expandedRowRender (record.products.data)  // Assuming SKU is a string
         } else{
-          setExpandedRowKeys(undefined)
+          setExpandedRowKeys([])
         }
       };
 
 
       const expandedRowRender = (record: BasicModelTravis) => {
+        console.log("expanded row render",record)
 
-        console.log("record expanded",record)
-        if (record.TravisAttributes && record.TravisAttributes.length > 0) {
+        if (record && record.products && record.products.data  &&record.products.data.length > 0) {
+         
         const subcolumns: TableColumnsType<BasicModelTravis> = [
           {
             title: "SKU",
             dataIndex: "SKU",
-            key:"SKU",
+            key: "SKU",
             width: 130,
             fixed: "left",
-            
-           
-          },
+          }
+          ,
           
            
             {
-          title: "StyleCode",
-          dataIndex: "TravisAttributes",
-          key: "StyleCode", 
-          width: 85,
-          render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
-          sorter: (a, b) => {
-            // Extract and compare StyleCode values, handling null or undefined cases
-            const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
-            const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
-        
-            return styleCodeA.localeCompare(styleCodeB);
-          }
+              title: "Style",
+              dataIndex: "TravisAttributes",
+              key: "StyleCode", 
+              width: 85,
+              render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
         },
             {
-          title: "Size",
-          dataIndex: "TravisAttributes",
-          key: "Size", 
-          width: 85,
-          render: (value) => <span>{value && value[0] && value[0].Size}</span>,
-          sorter: (a, b) => {
-            // Extract and compare StyleCode values, handling null or undefined cases
-            const styleCodeA = a.TravisAttributes?.[0]?.Size ?? "";
-            const styleCodeB = b.TravisAttributes?.[0]?.Size ?? "";
-        
-            return styleCodeA.localeCompare(styleCodeB);
-          },
+              title: "Size",
+              dataIndex: "TravisAttributes",
+              key: "Size", 
+              width: 85,
+              render: (value) => <span>{value && value[0] && value[0].Size}</span>,
         },
         
          
-           { title: "88    QTY",
-            dataIndex: "TravisAttributes",
-            key: "Stock88", 
-            width: 50,
-            fixed:'right',
-            render: (value, record:BasicModelTravis) => (
-              <Input addonBefore={value[0].Stock88} 
-              type='number'
-             
-              value={record.Quantity88?.toString()}
-              onChange={(e) => handleQuantity88(e.target.value, record)} />
-             
-            ),
-          },
-            {
-              title: "90  QTY",
-            dataIndex: "TravisAttributes",
-            key: "Stock88", 
-            width: 50,
-            fixed:'right',
-            render: (value, record) => (
-              <Input addonBefore={value[0].Stock90} 
-              type='number'
-              
-              value={record.Quantity90?.toString()}
-              onChange={(e) => handleQuantity90(e.target.value, record)} />
-             
-            ),
-            }
-          ,
-            {
-              title: "Total Qty",
-              dataIndex: "TotalQty",
-              key: "TotalQty", 
-              width: 90,
-              fixed:'right'
-            },
+        { title: "Qty88",
+        dataIndex: "TravisAttributes",
+        key: "Stock88", 
+        width: 100,
+        fixed:'right',
+        render: (value,record) => (
+          <Input 
+          addonBefore={value[0]?.Stock88} 
+          type='number'
+         
+          value={record.Quantity88?.toString()}
+          onChange={(e) => handleQuantity881(e.target.value, record)}
+          disabled={value[0]?.Stock88 === 0} 
+          />
+         
+        ),
+      },
+      {
+        title: "Qty90",
+      dataIndex: "TravisAttributes",
+      key: "Stock88", 
+      width: 100,
+      fixed:'right',
+      render: (value,record) => (
+        <Input addonBefore={value[0]?.Stock90||0} 
+        type='number'
+        
+        value={record.Quantity90?.toString()}
+        onChange={(e) => handleQuantity901(e.target.value, record)} 
+        disabled={value[0]?.Stock90 === 0} 
+        />
+       
+      ),
+      },
+      {
+        title: "Qty",
+        dataIndex: "TotalQty",
+        key: "TotalQty", 
+        width: 50,
+        fixed:'right'
+      },
+        
             {
               title: "MRP",
               dataIndex: "MRP",
               key: "MRP", 
               width: 80,
-              fixed:'right'
+              fixed:'right',
+            
             },
             {
               title: "Amount",
@@ -561,24 +631,25 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
            
           ]
            
-          if(expandedRowKeys &&record.SKU===expandedRowKeys.SKU){
-            return (
-           
+          if(expandedRowKeys && getOtherProduct){
 
-              // <div className="card card-custom">
+          
+            return (
+        
  
 
 
   <Table  className='table-travis'
                 columns={subcolumns}
-                dataSource={[record]}
+                dataSource={getOtherProduct?.map((item)=>({...item,key:item.id}))}
                 pagination={false}
                 
                 size="middle"
               />
+        //  <h1>hello</h1>
 
-
-            );
+           );
+               
           }
           else
           return null
@@ -600,10 +671,14 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
       
 
 
-  const handleQuantity90 = (value: string, record: BasicModelTravis) => {
+  const handleQuantity901 = (value: string, record: BasicModelTravis) => {
 
     const intValue = parseInt(value, 10);
-    if(intValue>=0 ){
+
+    // eslint-disable-next-line no-debugger
+    debugger
+    record.Quantity90=intValue;
+    if(intValue>0 ){
       if ( record?.TravisAttributes&&record?.TravisAttributes[0]?.Stock90 && record.TravisAttributes[0].Stock90 >= intValue) {
       
         // Dispatch an action to update the quantity for the SKU
@@ -614,7 +689,78 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           MRP: record.MRP,
           
         }));
-        record.Quantity90=intValue;
+      
+        dispatch(addTravisOrder({
+          travisOrder:record,
+          qty90: intValue,
+          qty88:record.Quantity88
+        }))
+
+        // update other product
+        dispatch(updateOtherQuantity90({
+          sku: record.SKU,
+          qty90: intValue,
+          MRP: record.MRP,
+        }))
+      
+     
+      }
+      else{
+        alert("Quantity is not available")
+        //setQuantity90(0)
+        dispatch(updateQuantity90({
+          sku: record.SKU,
+          qty90: 0,
+        
+         
+        }));
+        record.Quantity90=0;
+        
+      }
+    }else if(intValue<0){
+      
+      alert("Quantity cannot be negative")
+    }  else if(intValue===0){
+      dispatch(updateQuantity90({
+        sku: record.SKU,
+        qty90: intValue,
+        MRP: record.MRP,
+        
+      }));
+
+      dispatch(removeTravisOrder({
+        travisOrder:record,
+          qty90s: intValue,
+          qty88s:record.Quantity90
+          
+      }))
+    }
+
+    
+
+  
+    // Log the record for debugging or tracking purposes
+   
+  };
+  const handleQuantity90 = (value: string, record: BasicModelTravis) => {
+
+    const intValue = parseInt(value, 10);
+
+    // eslint-disable-next-line no-debugger
+    debugger
+    record.Quantity90=intValue;
+    if(intValue>0 ){
+      if ( record?.TravisAttributes&&record?.TravisAttributes[0]?.Stock90 && record.TravisAttributes[0].Stock90 >= intValue) {
+      
+        // Dispatch an action to update the quantity for the SKU
+        
+        dispatch(updateQuantity90({
+          sku: record.SKU,
+          qty90: intValue,
+          MRP: record.MRP,
+          
+        }));
+      
         dispatch(addTravisOrder({
           travisOrder:record,
           qty90: intValue,
@@ -633,19 +779,35 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         record.Quantity90=0;
         
       }
-    }else{
+    }else if(intValue<0){
+      
       alert("Quantity cannot be negative")
+    }  else if(intValue===0){
+      dispatch(updateQuantity90({
+        sku: record.SKU,
+        qty90: intValue,
+        MRP: record.MRP,
+        
+      }));
+
+      dispatch(removeTravisOrder({
+        travisOrder:record,
+          qty90s: intValue,
+          qty88s:record.Quantity90
+          
+      }))
     }
 
-   
+    
+
   
     // Log the record for debugging or tracking purposes
-    console.log(record);
+   
   };
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
-       console.log("record",record)
+
     const intValue = parseInt(value, 10);
-    if(intValue>=0 ){
+    if(intValue>0 ){
 
     if ( record?.TravisAttributes &&record?.TravisAttributes[0].Stock88 && record.TravisAttributes[0].Stock88 >= intValue) {
   
@@ -673,8 +835,73 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
     }));
     record.Quantity90=0;
     }
-  } else{
+  } else if(intValue<0){
     alert("Quantity cannot be negative")
+  } else if(intValue===0){
+    dispatch(updateQuantity88({
+      sku: record.SKU,
+      qty88: 0,
+    }));
+    dispatch(removeTravisOrder({
+      travisOrder:record,
+        qty88s: intValue,
+        qty90s:record.Quantity90
+        
+    }))
+    
+  }
+  
+  };
+  const handleQuantity881 = (value: string, record: BasicModelTravis) => {
+
+    const intValue = parseInt(value, 10);
+    if(intValue>0 ){
+
+    if ( record?.TravisAttributes &&record?.TravisAttributes[0].Stock88 && record.TravisAttributes[0].Stock88 >= intValue) {
+  
+
+      dispatch(updateQuantity88({
+        sku: record.SKU,
+        qty88: intValue,
+        MRP: record.MRP,
+      }));
+      record.Quantity88=intValue;
+     // setQuantity88(intValue)
+     dispatch(addTravisOrder({
+      travisOrder:record,
+        qty88: intValue,
+        qty90:record.Quantity90
+        
+    }))
+    dispatch(updateOtherQuantity88({
+      sku: record.SKU,
+      qty88: intValue,
+      MRP: record.MRP,
+    }))
+    }
+    else if( record?.TravisAttributes &&record?.TravisAttributes[0].Stock88&& record?.TravisAttributes[0].Stock88 < intValue &&intValue!==0){
+      alert("Quantity is not available")
+     // setQuantity88(0)
+     dispatch(updateQuantity88({
+      sku: record.SKU,
+      qty88: 0,
+    }));
+    record.Quantity90=0;
+    }
+  } else if(intValue<0){
+    alert("Quantity cannot be negative")
+  } else if(intValue===0){
+    dispatch(updateQuantity88({
+      sku: record.SKU,
+      qty88: 0,
+    }));
+    dispatch(removeTravisOrder({
+      travisOrder:record,
+        qty88s: intValue,
+        qty90s:record.Quantity90
+        
+    }))
+    
   }
   
   };
@@ -702,7 +929,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 const handleTravisData=(allDatat:ExcelModelTravis[])=>{
   const table = tableRef.current;
   handleCloseImport()
-  console.log("all travis data", allDatat)
+  
   setAllXlxData(allDatat)
 }
 
@@ -714,7 +941,7 @@ const handleResetXlData=()=>{
 //exportto excel
 const handleExportToExcel = () => {
   try {
-    console.log("Exporting to Excel...");
+   
 
     const table = tableRef.current as HTMLTableElement | null;
 
@@ -757,10 +984,29 @@ const handleShowOrder=()=>{
 
 
 
+const [selectedRow, setSelectedRow]= useState<BasicModelTravis[]>([])
+const handleSelctRow = (record: BasicModelTravis) => {
+  console.log("record", record);
+  setSelectedRowKeys([record]);
+  if (record) {
+    setSelectedRow(prev => [...prev, record]);
+  }
+};
 
-const handleSelctRow=(record:BasicModelTravis)=>{
-  console.log("record",record)
-  setSelectedRowKeys([record])
+// export to pdf 
+const [isPDF, setIspdf]= useState<boolean>(false)
+useEffect(()=>{
+  if(selectedRow){
+    console.log("selectedrow",selectedRow)
+  }
+},[selectedRow])
+
+const handleExportToPDF=()=>{
+  setIspdf(true)
+}
+const handleResetSelectedRow =()=>{
+  setSelectedRow([])
+  setIspdf(false)
 }
 
 return (
@@ -793,7 +1039,7 @@ return (
             onClick={handleImport}
             >Import Products</Button>
             <Button  className='mx-3'
-            // onClick={handleExportToPDF} 
+            onClick={handleExportToPDF} 
             >Export to PDF</Button>
             <Button  className='mx-3'
            onClick={handleExportToExcel}
@@ -812,8 +1058,7 @@ return (
               onSelect:(record)=>{handleSelctRow(record)}
             }}
             expandable={{ expandedRowRender,
-          
-              onExpand: (expanded, record) => handleExpand(expanded, record),
+           onExpand: (expanded, record) => handleExpand(expanded, record),
               
              }}
             bordered
@@ -845,6 +1090,10 @@ return (
        resetXls={handleResetXlData}
        />
 
+             { isPDF &&<TravisPdf
+              selectedRow={selectedRow}
+              resetSelectedRow={handleResetSelectedRow}
+              />}
     </div>
   )
 }

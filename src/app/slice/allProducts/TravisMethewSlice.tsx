@@ -3,11 +3,13 @@ import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute ,ImageTy
 import {ExcelModelTravis} from "../../modules/model/travis/TravisExcel"
 interface ProductState {
     travisMethew: BasicModelTravis[],
+    otherProduct:BasicModelTravis[],
     
 }
 
 const initialState: ProductState = {
     travisMethew: [],
+    otherProduct:[]
 
 };
 const TravisMethewSlice = createSlice({
@@ -58,7 +60,7 @@ const TravisMethewSlice = createSlice({
                         SetType: item.attributes.SetType,
                         ProductType: item.attributes.ProductType,
                         TravisAttributes: att,
-                       
+                        products:item.attributes?.products,
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,
@@ -162,6 +164,50 @@ const TravisMethewSlice = createSlice({
               state.travisMethew[travisIndex].ordered = true;
             }
           },
+          addOtherProduct:(state,action)=>{
+            state.otherProduct=action.payload;
+
+          },
+          updateOtherQuantity90:(state,actions) => {
+          
+            
+            
+            const {sku, qty90,MRP}=actions.payload;
+            const otherIndex = state.otherProduct.findIndex(
+              (other) => other.SKU === sku
+            );
+            if (otherIndex!== -1) {
+              state.otherProduct[otherIndex].Quantity90 = qty90;
+               
+              const quantity88 = state.otherProduct[otherIndex]?.Quantity88 ?? 0;
+              const quantity90 = state.otherProduct[otherIndex]?.Quantity90 ?? 0;
+              state.otherProduct[otherIndex].TotalQty = quantity88+quantity90;
+
+              
+              state.otherProduct[otherIndex].Amount = MRP*(quantity88+quantity90)
+              state.otherProduct[otherIndex].ordered = true;
+            }
+          },
+          updateOtherQuantity88:(state,actions) => {
+            const {sku, qty88,MRP}=actions.payload;
+            const otherIndex = state.otherProduct.findIndex(
+              (travisItem) => travisItem.SKU === sku
+            );
+            if (otherIndex!== -1) {
+              state.otherProduct[otherIndex].Quantity88 = qty88;
+              const quantity88 = state.otherProduct[otherIndex]?.Quantity88 ?? 0;
+              const quantity90 = state.otherProduct[otherIndex]?.Quantity90 ?? 0;
+              state.otherProduct[otherIndex].TotalQty = quantity88+quantity90;
+
+              //const totalQty = state.otherProduct.[otherIndex]?.TotalQty ?? 0;
+              state.otherProduct[otherIndex].Amount = MRP*(quantity88+quantity90)
+              state.otherProduct[otherIndex].ordered = true;
+            }
+          },
+          removeOtherProduct:(state)=>{
+             state.otherProduct=[]
+          }
+
           
 
     }
@@ -172,10 +218,17 @@ export const {
      addTravisProduct 
     ,updateNewData,
     updateQuantity90,
-    updateQuantity88
+    updateQuantity88,
+    addOtherProduct,
+    updateOtherQuantity90,
+    updateOtherQuantity88,
+    removeOtherProduct
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];
+};
+export const getOtherProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
+    return state.travisMethew?.otherProduct || [];
 };
 
 export default TravisMethewSlice.reducer;

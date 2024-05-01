@@ -24,6 +24,45 @@ query getTravisMAthewProduct {
         SetType
         ProductType
         MRP
+        products{
+          data
+          {
+            id
+            attributes{
+              Name
+              Description
+              SKU
+              SetType
+              MRP
+               Gallery{
+          data{
+            id
+            attributes{
+              formats
+            }
+          }
+        }
+              
+                 AttributeSet{
+          ... on ComponentAttributeSetTravisMathew{
+            Season
+            Category
+            Length
+            Line
+            Color
+            ColorCode
+            Size
+            Gender
+            Stock88
+            Stock90
+            StyleCode
+            
+          }
+        }
+              
+            }
+          }
+        }
         Gallery{
           data{
             id

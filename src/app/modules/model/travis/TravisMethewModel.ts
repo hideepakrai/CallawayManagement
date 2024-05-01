@@ -18,7 +18,7 @@ export interface BasicModelTravis {
       TravisAttributes?: TravisMathewAttribute[] ,
       // Quantity?: Quantity[];
       Amount?: number;
-      
+      products?:DataModel;
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;
@@ -32,7 +32,9 @@ export interface BasicModelTravis {
 
       
 }
-
+export interface DataModel{
+  data?:BasicModelTravisGraph[]
+}
 export interface BasicModelTravisGraph {
 
     id?:number,
