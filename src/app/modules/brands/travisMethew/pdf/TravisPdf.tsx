@@ -15,7 +15,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
     const input = document.getElementById('catelog') as HTMLElement;
 
     html2canvas(input).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      pdf.addImage(imgData, 'JPG', 0, 0, 210, 297);
+      pdf.save('travis_pdf.pdf');
     });
     resetSelectedRow();
 

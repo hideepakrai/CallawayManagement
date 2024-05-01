@@ -1033,7 +1033,7 @@ return (
           <div style={{ float: "right",marginBottom:"12px" }}>
             <Button className='mx-3' 
            // onClick={handleImport}
-            >View Cart</Button>
+            >Add to cart</Button>
 
             <Button className='mx-3'
             onClick={handleImport}
