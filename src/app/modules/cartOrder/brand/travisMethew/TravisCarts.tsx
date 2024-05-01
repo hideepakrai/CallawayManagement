@@ -784,7 +784,8 @@ getProduct.length>0 ?
           )}
           />):(
             <div className='no-order-section'>
-              <i className="bi bi-cart-x"></i>
+              {/* <i className="bi bi-cart-x"></i> */}
+              <i className="bi bi-bag-x"></i>
               <h2>No order selected</h2>
               </div>
           )}          

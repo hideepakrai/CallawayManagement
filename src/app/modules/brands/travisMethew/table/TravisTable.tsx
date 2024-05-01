@@ -34,6 +34,7 @@ import "./TravisTable.css"
 //     ) => jsPDF;
 //   }
 // }
+const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
 
  const TravisTable = () => {
 
@@ -46,6 +47,10 @@ import "./TravisTable.css"
      const[amount, setAmount]=useState<number>()
      
 
+     const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+     const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
+     
     //console.log(" travis Product",getProduct)
     const columns: TableColumnsType<BasicModelTravis>= [
         {
@@ -181,25 +186,31 @@ import "./TravisTable.css"
           title: "Category",
           dataIndex: "TravisAttributes",
           key: "Category", 
-          width:110,
+          width: 110,
           render: (value) => <span>{value && value[0] && value[0].Category}</span>,
           sorter: (a, b) => {
             const categoryA = a.TravisAttributes?.[0]?.Category ?? "";
             const categoryB = b.TravisAttributes?.[0]?.Category ?? "";
-
-          return categoryA.localeCompare(categoryB);
+        
+            return categoryA.localeCompare(categoryB);
           },
-         
-
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
             <div style={{ padding: 8 }}>
-              <Input
-                placeholder="Search Name"
-                value={selectedKeys[0]}
-                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                onPressEnter={() => confirm()}
-                style={{ width: 188, marginBottom: 8, display: "block" }}
-              />
+              <Select
+                mode="multiple"
+                placeholder="Select Category"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+              >
+                {/* Render options based on available categories */}
+                {filteredOptions.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
+           
             </div>
           ),
           onFilterDropdownVisibleChange: (visible) => {
@@ -210,75 +221,118 @@ import "./TravisTable.css"
             }
           },
           onFilter: (value, record) => {
-            const category =
-              record &&
-              record.TravisAttributes &&
-              record.TravisAttributes[0].Category ;
-              
-             
-            console.log("Filtering:", value, "category:", category);
-            return  category=== value;
+            const category = record?.TravisAttributes?.[0]?.Category;
+        
+            console.log("Filtering:", value, "Category:", category);
+            return category === value;
           },
           filterSearch: true,
         },
-        {
-            title: "Season",
-            dataIndex: "TravisAttributes",
-            key: "Season", 
-            width: 100,
-            render: (value) => <span>{value && value[0] && value[0].Season}</span>,
-            sorter: (a, b) => {
-              // Extract and compare Season values, handling null or undefined cases
-              const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
-              const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
-          
-              return seasonA.localeCompare(seasonB);
-            },
-            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-              <div style={{ padding: 8 }}>
-                <Input
-                  placeholder="Search Name"
-                  value={selectedKeys[0]}
-                  onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                  onPressEnter={() => confirm()}
-                  style={{ width: 188, marginBottom: 8, display: "block" }}
-                />
-              </div>
-            ),
-            onFilterDropdownVisibleChange: (visible) => {
-              if (visible) {
-                setTimeout(() => {
-                  // Trigger the search input to focus when the filter dropdown is opened
-                });
-              }
-            },
-            onFilter: (value, record) => {
-              const Season =
-                record &&
-                record.TravisAttributes &&
-                record.TravisAttributes[0].Season ;
-                
-               
-              console.log("Filtering:", value, "season:", Season);
-              return  Season=== value;
-            },
-            filterSearch: true,
-           
-          },
-        {
-          title: "Style",
-          dataIndex: "TravisAttributes",
-          key: "StyleCode", 
-          width: 85,
-          render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
-          sorter: (a, b) => {
-            // Extract and compare StyleCode values, handling null or undefined cases
-            const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
-            const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
         
-            return styleCodeA.localeCompare(styleCodeB);
+
+
+
+        {
+          title: "Season",
+          dataIndex: "TravisAttributes",
+          key: "Season", 
+          width: 100,
+          render: (value) => <span>{value && value[0] && value[0].Season}</span>,
+          sorter: (a, b) => {
+            // Extract and compare Season values, handling null or undefined cases
+            const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
+            const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
+          
+            return seasonA.localeCompare(seasonB);
           },
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Select
+                mode="multiple"
+                placeholder="Select Season"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+              >
+                {/* Render options based on available seasons */}
+                {filteredOptions.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
+           
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const Season = record?.TravisAttributes?.[0]?.Season;
+        
+            console.log("Filtering:", value, "season:", Season);
+            return Season === value;
+          },
+          filterSearch: true,
         },
+
+
+
+      {
+        title: "Style",
+        dataIndex: "TravisAttributes",
+        key: "StyleCode", 
+        width: 85,
+        render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
+        sorter: (a, b) => {
+          // Extract and compare StyleCode values, handling null or undefined cases
+          const styleCodeA = a.TravisAttributes?.[0]?.StyleCode ?? "";
+          const styleCodeB = b.TravisAttributes?.[0]?.StyleCode ?? "";
+      
+          return styleCodeA.localeCompare(styleCodeB);
+        },
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8 }}>
+            <Select
+              mode="multiple"
+              placeholder="Select Style"
+              value={selectedKeys}
+              onChange={setSelectedKeys}
+              style={{ width: '100%' }}
+            >
+              {/* Render options based on available style codes */}
+              {filteredOptions.map((item) => (
+                <Select.Option key={item} value={item}>
+                  {item}
+                </Select.Option>
+              ))}
+            </Select>
+           
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              // Trigger the search input to focus when the filter dropdown is opened
+            });
+          }
+        },
+        onFilter: (value, record) => {
+          const StyleCode = record?.TravisAttributes?.[0]?.StyleCode;
+      
+          console.log("Filtering:", value, "Style Code:", StyleCode);
+          return StyleCode === value;
+        },
+        filterSearch: true,
+      },
+      
+
+
+
         {
           title: "Color",
           dataIndex: "TravisAttributes",

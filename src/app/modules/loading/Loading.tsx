@@ -1,13 +1,15 @@
 import React from 'react'
-
+import { Alert, Flex, Spin } from 'antd';
+import "./Loading.css"
 const Loading = () => {
   return (
-    <div>
-        <div className="text-center">
-  <div className="spinner-border" role="status">
-    <span className="sr-only">Loading...</span>
-  </div>
-</div>
+    <div className='spin-loading'>
+      
+
+<Spin tip="Loading" size="large">
+        <div className="content" />
+      </Spin>
+
     </div>
   )
 }
