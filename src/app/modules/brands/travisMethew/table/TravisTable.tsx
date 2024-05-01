@@ -109,7 +109,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           fixed: "left",
           
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div  style={{ padding: 8, position: "absolute", top: -90, backgroundColor: "white", zIndex: 1 }}>
               <Input
                 ref={searchInput}
 
@@ -117,7 +117,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
                 value={selectedKeys[0]}
                 onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                 onKeyUp={(e) => {
-                  confirm();
+                  confirm({ closeDropdown: false });
                   
                 }}
                 style={{ width: 188, marginBottom: 8, display: "block" }}
@@ -125,17 +125,18 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             </div>
           ),
           onFilterDropdownVisibleChange: (visible) => {
-            // if (visible) {
-            //   setTimeout(() => {
-            //     setTimeout(() => searchInput.current?.select(), 1000);
-            //   });
-            // }
+            if (visible) {
+              setTimeout(() => {
+                setTimeout(() => searchInput.current?.select(), 1000);
+              });
+            }
           },
           onFilter: (value, record) => {
               console.log("filter",record)
               let check: boolean= false
+            const val:string=value.toString().toUpperCase()
               if(record && record.SKU){
-                 check= record.SKU?.startsWith(value.toString())
+                 check= record.SKU?.startsWith(val)
               }
            
             return  check;
