@@ -22,7 +22,7 @@ export function MenuInner() {
 
         <MenuInnerWithSub title='Products' to='/Brand' menuPlacement='bottom-start' menuTrigger='click'>
         {/* PAGES */}
-        <MenuInnerWithSub
+        {/* <MenuInnerWithSub
           title='Callaway'
           to='/brand/callaway'
           icon='message-text-2'
@@ -32,12 +32,17 @@ export function MenuInner() {
         >
           <MenuItem to='/brand/callaway/apparel' title='Callaway Apparel' hasBullet={true} />
           <MenuItem to='/brand/callaway/goods' title='Callaway Hardgoods' hasBullet={true} />
-          {/* <MenuItem to='/brand/callaway/odyssey' title='Odyssey' hasBullet={true} /> */}
-        </MenuInnerWithSub>
 
-        <MenuItem icon='shield-tick' to='/brand/ogio' title='Ogio' />
+          <MenuItem to='/brand/callaway/odyssey' title='Odyssey' hasBullet={true} />
+        </MenuInnerWithSub> */}
+      
+        <MenuItem icon='message-text-2' to='/brand/callaway/apparel' title='Callaway Apparel' />
+
+          <MenuItem icon='shield-tick' to='/brand/callaway/goods' title='Callaway Hardgoods' />
+        <MenuItem icon='message-text-2' to='/brand/ogio' title='Ogio' />
         <MenuItem icon='shield-tick' to='/brand/travis-methew' title='Travis Mathew' />
       </MenuInnerWithSub>
+
 
 
 

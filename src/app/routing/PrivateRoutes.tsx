@@ -15,7 +15,7 @@ import SalesProfile from '../pages/profilepage/salesprofile/SalesProfile.js'
 import SalesRepresentative from '../pages/accountpage/salesrepresentative/SalesRepresentative.js'
 import Retailer from '../pages/accountpage/retailer/Retailer.js'
 import Manager from '../pages/accountpage/manager/Manager.js'
-
+import CallawayApparel from '../pages/brand/callaway/CallawayApparel.js'
 
 import TravisMathew from '../pages/brand/travisMathew/TravisMathew.js'
 import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
@@ -53,7 +53,8 @@ const PrivateRoutes = () => {
          {/* brand routes */}
          <Route path='/brand/ogio' element={<Ogio />} />
          <Route path='/brand/travis-methew' element={<TravisMathew />} />
-         <Route path='/brand/callaway/goods' element={<CallAwayGoods />} />
+         <Route path='/brand/callaway/goods' element={<CallAwayGoods />} /> 
+         <Route path='/brand/callaway/apparel' element={<CallawayApparel />} /> 
         {/* Lazy Modules */}
 
 

@@ -1,5 +1,5 @@
 import React,{useState, useRef, useEffect} from 'react'
-import { Card, Table, Carousel, Breadcrumb } from "antd";
+import { Card, Table, Carousel, Breadcrumb, Select } from "antd";
 import { Input, Radio, Button } from "antd";
 import type { TableColumnsType } from 'antd';
 import {BasicModelGoods} from "../../../../model/goods/CallawayGoodsModel"
@@ -14,9 +14,17 @@ import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB"
 
 import * as XLSX from 'xlsx';
  import {updateGoodsQuantity90,updateGoodsQuantity88} from "../../../../../slice/allProducts/CallAwayGoodsSlice";
- import {addGoodsOrder} from "../../../../../slice/orderSlice/travis/CartOrder"
-const GooodsTable = () => {
+ import { addGoodsOrder } from '../../../../../slice/orderSlice/travis/CartOrder';
 
+ import type { RadioChangeEvent, SelectProps } from 'antd';
+type SelectCommonPlacement = SelectProps['placement'];
+
+const OPTIONS = ['Accessory',];
+const OPTIONS1 = ['Accessory',];
+const OPTIONS2 = ['Accessory',];
+
+const GooodsTable = () => {
+  const placement: SelectCommonPlacement = 'topLeft'; 
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
      const dispatch= useDispatch()
@@ -25,7 +33,14 @@ const GooodsTable = () => {
     const callawayGooodsProduct:BasicModelGoods[]=useSelector(selectCallawayGoods)
      const[amount, setAmount]=useState<number>()
     console.log("callawayGooodsProduct",callawayGooodsProduct)
+
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
+    const filteredOptions1 = OPTIONS.filter((o) => !selectedItems.includes(o));
+    const filteredOptions2 = OPTIONS.filter((o) => !selectedItems.includes(o));
+
     const columns: TableColumnsType<BasicModelGoods>= [
+
         {
           title: "Image",
           dataIndex: "PrimaryImage",
@@ -68,19 +83,162 @@ const GooodsTable = () => {
           title: "ProductType",
           dataIndex: "GoodsAttributes",
           key: "GoodsAttributes", 
-          width: 110,
+          width: 150,
           render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
+
+          sorter: (a, b) => {
+            const categoryA = a.GoodsAttributes?.[0]?.Category ?? "";
+            const categoryB = b.GoodsAttributes?.[0]?.Category ?? "";
+        
+            return categoryA.localeCompare(categoryB);
+          },
+
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Select
+                mode="multiple"
+                placeholder="Select ProductType"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+                placement={placement} 
+              >
+                {/* Render options based on available categories */}
+                {filteredOptions.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
+           
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const category = record?.GoodsAttributes?.[0]?.Category;
+        
+            console.log("Filtering:", value, "Category:", category);
+            return category === value;
+          },
+          filterSearch: true,
          
         },
+
+
+
+        {
+          title: "Category",
+          dataIndex: "GoodsAttributes",
+          key: "Category", 
+          width: 120,
+          render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+          sorter: (a, b) => {
+            const categoryA = a.GoodsAttributes?.[0]?.Category ?? "";
+            const categoryB = b.GoodsAttributes?.[0]?.Category ?? "";
+        
+            return categoryA.localeCompare(categoryB);
+          },
+
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Select
+                mode="multiple"
+                placeholder="Select Category"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+                placement={placement} 
+              >
+                {/* Render options based on available categories */}
+                {filteredOptions1.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
+           
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const category = record?.GoodsAttributes?.[0]?.Category;
+        
+            console.log("Filtering:", value, "Category:", category);
+            return category === value;
+          },
+          filterSearch: true,
+         
+        },
+
+
+
+
         // product model
         {
           title: "ProductModel",
           dataIndex: "GoodsAttributes",
           key: "ProductModel", 
-          width: 115,
+          width: 150,
           render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
+          sorter: (a, b) => {
+            const categoryA = a.GoodsAttributes?.[0]?.Category ?? "";
+            const categoryB = b.GoodsAttributes?.[0]?.Category ?? "";
+        
+            return categoryA.localeCompare(categoryB);
+          },
+
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Select
+                mode="multiple"
+                placeholder="Select ProductModel"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+                placement={placement} 
+              >
+                {/* Render options based on available categories */}
+                {filteredOptions2.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
+           
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const category = record?.GoodsAttributes?.[0]?.Category;
+        
+            console.log("Filtering:", value, "Category:", category);
+            return category === value;
+          },
+          filterSearch: true,
          
         },
+
+
+
+
         
         {
           title: "Orientation",
@@ -322,7 +480,7 @@ return (
     <div className='container'>
 
 <Card style={{ marginTop:'80px'}}
-          title="CALLAWAY GOODS"
+          title="CALLAWAY HARDGOODS"
           extra={
             <div >
               <Breadcrumb separator=">">
@@ -332,10 +490,8 @@ return (
                 <Breadcrumb.Item>   
                   <span className="gx-link">Products</span>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>   
-                  <span className="gx-link">Callaway</span>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>Callaway Goods</Breadcrumb.Item>
+              
+                <Breadcrumb.Item>Callaway HardGoods</Breadcrumb.Item>
               </Breadcrumb>
             </div>
           }

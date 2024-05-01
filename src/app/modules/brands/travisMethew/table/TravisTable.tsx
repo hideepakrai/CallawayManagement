@@ -19,6 +19,7 @@ import { message } from "antd";
 import { Key } from 'antd/lib/table/interface';
 import { useTable } from 'react-table';
 import "./TravisTable.css"
+import type { RadioChangeEvent, SelectProps } from 'antd';
 // import jsPDF from "jspdf";
 // import "jspdf-autotable";
 
@@ -34,10 +35,14 @@ import "./TravisTable.css"
 //     ) => jsPDF;
 //   }
 // }
-const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
+type SelectCommonPlacement = SelectProps['placement'];
+const OPTIONS = ['Denim',];
+const OPTIONS1 = ['SS19','SS20	' ];
+const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
+
 
  const TravisTable = () => {
-
+  const placement: SelectCommonPlacement = 'topLeft'; 
    const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
    
@@ -50,6 +55,9 @@ const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
      const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
      const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
+
+     const filteredOptionsOne = OPTIONS1.filter((o) => !selectedItems.includes(o));
+     const filteredOptionsTwo = OPTIONS2.filter((o) => !selectedItems.includes(o));
      
     //console.log(" travis Product",getProduct)
     const columns: TableColumnsType<BasicModelTravis>= [
@@ -202,6 +210,7 @@ const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
                 value={selectedKeys}
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
+                placement={placement} 
               >
                 {/* Render options based on available categories */}
                 {filteredOptions.map((item) => (
@@ -253,9 +262,10 @@ const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
                 value={selectedKeys}
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
+                placement={placement} 
               >
                 {/* Render options based on available seasons */}
-                {filteredOptions.map((item) => (
+                {filteredOptionsOne.map((item) => (
                   <Select.Option key={item} value={item}>
                     {item}
                   </Select.Option>
@@ -303,9 +313,10 @@ const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
               value={selectedKeys}
               onChange={setSelectedKeys}
               style={{ width: '100%' }}
+              placement={placement} 
             >
               {/* Render options based on available style codes */}
-              {filteredOptions.map((item) => (
+              {filteredOptionsTwo.map((item) => (
                 <Select.Option key={item} value={item}>
                   {item}
                 </Select.Option>

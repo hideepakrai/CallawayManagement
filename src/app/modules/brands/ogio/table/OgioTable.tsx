@@ -1,5 +1,5 @@
 import React,{useState, useRef} from 'react'
-import { Card, Table, Carousel, Breadcrumb } from "antd";
+import { Card, Table, Carousel, Breadcrumb, Select } from "antd";
 import { Input, Radio, Button } from "antd";
 import type { TableColumnsType } from 'antd';
 import {OgioBasicModel,OgioBasicModelGraph,OgioModel,} from "../../../model/ogio/OgioBrandModel"
@@ -12,7 +12,14 @@ import OgioImportExcel from "../excel/importExcel/OgioImportExcel"
 import OgioUploadExcelDB from "../excel/importExcel/OgioUploadExcel"
 import OgioUpdateExcel from "../excel/UpdateData/ImportExcel"
 import UploadDB from '../excel/UpdateData/UpdateDB';
+import type { RadioChangeEvent, SelectProps } from 'antd';
+type SelectCommonPlacement = SelectProps['placement'];
+const OPTIONS = ['Accessory',];
+const OPTIONS1 = ['Moto', 'Lifestyle', ];
+const OPTIONS2 = ['Og Rise', 'Og Pace Pro', 'Og Max', 'Og Al Convoy	'] ;
+
 const OgioTable = () => {
+  const placement: SelectCommonPlacement = 'topLeft'; 
     const tableRef = useRef(null);
     const[amount, setAmount]=useState<number>()
     const [isImport, setIsImport] = useState(false);
@@ -24,6 +31,14 @@ const OgioTable = () => {
     const handleCloseImport = () => {
       setIsImport(false);
     };
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+    const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
+    const filteredOptions1 = OPTIONS1.filter((o) => !selectedItems.includes(o));
+    const filteredOptions2= OPTIONS2.filter((o) => !selectedItems.includes(o));
+
+
+
 
      const ogioProducts: OgioBasicModel[]= useSelector(getOgioProducts)
        console.log("Ogio Products", ogioProducts);
@@ -47,7 +62,7 @@ const OgioTable = () => {
         {
           title: "SKU",
           dataIndex: "SKU",
-          width: 80,
+          width: 100,
           fixed: "left",
           // render: (value) => <span>{String(value.Name)}</span>,
         },
@@ -74,23 +89,152 @@ const OgioTable = () => {
           key: "ProductType",
           width: 110,
           render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
+
+          sorter: (a, b) => {
+            const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
+            const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+        
+            return categoryA.localeCompare(categoryB);
+          },
+
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Select
+                mode="multiple"
+                placeholder="Select Category"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+                placement={placement} 
+              >
+                {/* Render options based on available categories */}
+                {filteredOptions.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
+           
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const category = record?.OgiAttributes?.[0]?.Category;
+        
+            console.log("Filtering:", value, "Category:", category);
+            return category === value;
+          },
+          filterSearch: true,
+
         },
+
+
         {
           title: "Category",
           dataIndex: "OgiAttributes",
           key: "Category",
-          width: 70,
+          width: 120,
           render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+          sorter: (a, b) => {
+            const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
+            const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+        
+            return categoryA.localeCompare(categoryB);
+          },
+
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Select
+                mode="multiple"
+                placeholder="Select Category"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+                placement={placement} 
+              >
+                {/* Render options based on available categories */}
+                {filteredOptions1.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
+           
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const category = record?.OgiAttributes?.[0]?.Category;
+        
+            console.log("Filtering:", value, "Category:", category);
+            return category === value;
+          },
+          filterSearch: true,
          
         },
+
+
+
           // product model
           {
             title: "ProductModel",
             dataIndex: "OgiAttributes",
             key: "ProductModel", 
-            width: 90,
+            width: 150,
             render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
+           sorter: (a, b) => {
+            const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
+            const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+        
+            return categoryA.localeCompare(categoryB);
+          },
+
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div style={{ padding: 8 }}>
+              <Select
+                mode="multiple"
+                placeholder="Select Category"
+                value={selectedKeys}
+                onChange={setSelectedKeys}
+                style={{ width: '100%' }}
+                placement={placement} 
+              >
+                {/* Render options based on available categories */}
+                {filteredOptions2.map((item) => (
+                  <Select.Option key={item} value={item}>
+                    {item}
+                  </Select.Option>
+                ))}
+              </Select>
            
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                // Trigger the search input to focus when the filter dropdown is opened
+              });
+            }
+          },
+          onFilter: (value, record) => {
+            const category = record?.OgiAttributes?.[0]?.Category;
+        
+            console.log("Filtering:", value, "Category:", category);
+            return category === value;
+          },
+          filterSearch: true,
           },
          
           
@@ -98,7 +242,7 @@ const OgioTable = () => {
               { title: " Qty90",
               dataIndex: "OgiAttributes",
               key: "Stock90", 
-              width: 110,
+              width: 90,
               fixed:'right',
               render: (value,record) => (
                 <Input 
@@ -114,7 +258,7 @@ const OgioTable = () => {
               title: "MRP",
               dataIndex: "MRP",
               key: "MRP", 
-              width: 115,
+              width: 100,
               fixed:'right'
              
             },

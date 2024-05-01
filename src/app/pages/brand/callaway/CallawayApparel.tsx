@@ -1,8 +1,10 @@
 import React from 'react'
-
+import CallAwayApprelProducts from '../../../modules/brands/callAway/apparel/CallAwayApprelProducts'
 const CallawayApparel = () => {
   return (
-    <div>CallawayApparel</div>
+    <div>
+      <CallAwayApprelProducts/>
+    </div>
   )
 }
 
