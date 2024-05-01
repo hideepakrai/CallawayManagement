@@ -96,6 +96,35 @@ const OrderSlice = createSlice({
 
         },
 
+        removeTravisOrder:(state,action)=>{
+            const{travisOrder,qty88s,qty90s}= action.payload;
+               // eslint-disable-next-line no-debugger
+               debugger
+            if(qty88s===0 && qty90s===0){
+                const index=  state.TravisOrder.findIndex(item=>item.SKU===travisOrder.SKU);
+                if(index!==-1){
+                    state.TravisOrder.splice(index,1);
+                }
+            }
+            else{
+                const index=  state.TravisOrder.findIndex(item=>item.SKU===travisOrder.SKU);
+                if(index!==-1){
+                    if(state.TravisOrder[index]){
+                        state.TravisOrder[index].Quantity88=qty88s;
+                        state.TravisOrder[index].Quantity90=qty90s;
+                        const qty88=state.TravisOrder[index].Quantity88||0;
+                        const qty90=state.TravisOrder[index].Quantity90||0;
+                        const MRP=state.TravisOrder[index].MRP||0;
+                        state.TravisOrder[index].TotalQty=qty88+qty90
+                        state.TravisOrder[index].Amount=MRP*(qty88+qty90);
+                        
+                    }
+                    
+                }
+            }
+       
+        },
+
             resetTravisOrder:(state,action)=>{
                 const{travis}= action.payload
                 state.TravisOrder=[]
@@ -205,7 +234,8 @@ export const {
     resetTravisOrder,
     updateInclusiveDiscount,
     updateExclusiveDiscount,
-    updateFlatDiscount,updateTravisOrder
+    updateFlatDiscount,updateTravisOrder,
+    removeTravisOrder
      
 } = OrderSlice.actions;
 

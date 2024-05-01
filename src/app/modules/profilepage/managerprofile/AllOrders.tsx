@@ -1,7 +1,10 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Table, Tooltip } from "antd";
 import Edit from "./Edit";
 import View from "./View"
+import {getUserAccount} from "../../../slice/UserSlice/UserSlice"
+import { useSelector, useDispatch } from "react-redux";
+import {UserAccountModel,AllOrderss} from "../../model/useAccount/UserAccountModel"
 const AllOrders = () => {
     const [isEdit, setIsEdit] = useState(false);
     const handleEdit = () => {
@@ -21,6 +24,23 @@ const AllOrders = () => {
     setIsView(false);
   };
 
+
+const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
+const [allOrders, setAllOrders]= useState<AllOrderss[]>([])  
+
+console.log(getUserAccounts)
+
+  useEffect(()=>{
+    if(getUserAccounts &&
+        getUserAccounts?.attributes &&
+        getUserAccounts?.attributes.orders &&
+        getUserAccounts?.attributes.orders
+        
+
+    ){
+        setAllOrders([getUserAccounts?.attributes.orders])
+    }
+  },[getUserAccounts])
 const column = [
     
     {

@@ -4,25 +4,41 @@
     attributes?: UserRoleAttributes
     
     username?: string;
+
   }
   
 
   export interface UserRoleAttributes {
-    role: UserRole;
+    role?: UserRole;
+    orders?:AllOrderss;
   }
    export interface UserRole {
-    data: UserRoleData;
+    data?: UserRoleData;
   }
   
-  interface UserRoleData {
-    attributes: RoleAttributes;
+  export interface UserRoleData {
+    attributes?: RoleAttributes;
   }
 
-  interface RoleAttributes{
-    name: string;
+  export interface RoleAttributes{
+    name?: string;
   }
   
+  export interface AllOrderss{
+    data?:OrderData[]
+      
+   
+  }
  
+  export interface OrderData{
+    attributes?: {
+      Brand?: string;
+      OrderId?:number;
+      Status?:string;
+      createdAt?:string;
+    }
+
+  }
   
   // Define additional interfaces as needed
   
