@@ -1,7 +1,7 @@
 import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import { Input, Radio,InputNumber, Button } from "antd";
-import type { TableColumnsType } from 'antd';
+import type { InputRef, TableColumnsType } from 'antd';
 import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../model/travis/TravisMethewModel"
 import {useDispatch, useSelector} from "react-redux"
 import {getTravisProducts,getOtherProducts} from "../../../../slice/allProducts/TravisMethewSlice"
@@ -51,7 +51,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
     const [isImport, setIsImport] = useState(false);
    
     const dispatch= useDispatch()
-
+    const searchInput = useRef<InputRef>(null);
    const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
      const[amount, setAmount]=useState<number>()
      
@@ -111,34 +111,34 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
             <div style={{ padding: 8 }}>
               <Input
+                ref={searchInput}
+
                 placeholder="Search SKU"
                 value={selectedKeys[0]}
                 onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                 onKeyUp={(e) => {
-
-                  // console.log("enter", e)
-                  if (e.key === 'Enter') {
-                    confirm();
-                  }
+                  confirm();
+                  
                 }}
                 style={{ width: 188, marginBottom: 8, display: "block" }}
               />
             </div>
           ),
           onFilterDropdownVisibleChange: (visible) => {
-            if (visible) {
-              setTimeout(() => {
-                // Trigger the search input to focus when the filter dropdown is opened
-              });
-            }
+            // if (visible) {
+            //   setTimeout(() => {
+            //     setTimeout(() => searchInput.current?.select(), 1000);
+            //   });
+            // }
           },
           onFilter: (value, record) => {
-            const sku =
-              record &&
-              record.SKU;
-             
+              console.log("filter",record)
+              let check: boolean= false
+              if(record && record.SKU){
+                 check= record.SKU?.startsWith(value.toString())
+              }
            
-            return  sku=== value;
+            return  check;
           },
           filterSearch: true,
 
