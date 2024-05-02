@@ -19,7 +19,7 @@ import CallawayApparel from '../pages/brand/callaway/CallawayApparel.js'
 
 import TravisMathew from '../pages/brand/travisMathew/TravisMathew.js'
 import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
-
+ import TravisPdf from '../modules/brands/travisMethew/pdf/TravisPdf.js'
 import Cart from '../pages/cart/Cart.js'
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -48,7 +48,7 @@ const PrivateRoutes = () => {
         <Route path='/account/cway-manager' element={<Manager />} />
         <Route path='/account/cway-retailer' element={<Retailer />} />
 
-
+   
 
          {/* brand routes */}
          <Route path='/brand/ogio' element={<Ogio />} />
@@ -56,6 +56,9 @@ const PrivateRoutes = () => {
          <Route path='/brand/callaway/goods' element={<CallAwayGoods />} /> 
          <Route path='/brand/callaway/apparel' element={<CallawayApparel />} /> 
         {/* Lazy Modules */}
+
+       {/* pdf */}
+       
 
 
       {/* cart page */}

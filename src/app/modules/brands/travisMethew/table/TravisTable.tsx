@@ -48,7 +48,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
      const filteredOptionsOne = OPTIONS1.filter((o) => !selectedItems.includes(o));
      const filteredOptionsTwo = OPTIONS2.filter((o) => !selectedItems.includes(o));
-     
+       const [isCard, setIsCard]= useState<boolean>(true)
     //console.log(" travis Product",getProduct)
     const columns: TableColumnsType<BasicModelTravis>= [
         {
@@ -968,6 +968,7 @@ useEffect(()=>{
 
 const handleExportToPDF=()=>{
   setIspdf(true)
+  setIsCard(false)
   
 }
 
@@ -975,6 +976,7 @@ const handleResetSelectedRow =()=>{
   setSelectedRowKeys([]);
   setSelectedRow([])
   setIspdf(false)
+  setIsCard(true)
 }
 
 
@@ -985,7 +987,7 @@ const handleViewCard =()=>{
 return (
     <div className='container'>
 
-<Card className='travish-mat-section'  style={{ marginTop:'80px',padding:"10px",}}
+{isCard &&<Card className='travish-mat-section'  style={{ marginTop:'80px',padding:"10px",}}
            title="TRAVIS MATHEW"
            extra={
              <div >
@@ -1044,7 +1046,7 @@ return (
           
 
        
-        </Card>
+        </Card>}
        
 
         <SampleExcelTravis 

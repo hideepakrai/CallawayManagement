@@ -37,7 +37,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                   <div>
                     <div
                       style={{
-                        paddingBottom: "140px",
+                         paddingBottom: "600px",
                         textAlign: "center",
                       }}
                     >
@@ -99,7 +99,8 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                       <div
                         style={{
                           borderBottom: "1px solid #ddd",
-                          paddingTop: "50px",
+                          paddingTop: "10px",
+                          paddingLeft: "50px",
                         }}
                       >
                         <div
@@ -129,7 +130,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                 style={{
                                   border: "1px solid #ddd",
                                   width: "500px",
-                                  marginTop: "30px",
+                                  marginTop: "10px",
                                 }}
                               >
                                 <tr
@@ -250,10 +251,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                       paddingLeft: "10px",
                                     }}
                                   >
-                                    Orientation
+                                    Color
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {/* {callout?.TravisAttributes[0]?.Orientation} */}
+                                  {callout.TravisAttributes &&callout?.TravisAttributes[0]?.Color}
                                   </td>
                                 </tr>
                               </table>
@@ -266,8 +267,9 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                               style={{
                                 backgroundColor: "#eee",
                                 borderRadius: "10px",
+                                width:"240px"
                               }}
-                            //   src={`https://aigigs.in${callout?.PrimaryImage?.url}`}
+                              src={`https://admin.callawayindiaoms.com/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
                             />
                           </div>
                         </div>
