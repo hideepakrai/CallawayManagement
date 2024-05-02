@@ -9,6 +9,7 @@ import {LoadingStart,LoadingStop} from "../../slice/loading/LoadingSlice.tsx"
 
 import GetAllRetailers from '../retailers/GetAllRetailers.tsx'
 
+import GetAllBrands from '../brands/GetAllBrands.tsx'
 interface UserAccount {
   attributes: {
     username: string;
@@ -30,6 +31,7 @@ const GetAllProduct = () => {
   const [isTravis, setIsTravis] = useState<boolean>(false)
   const [isGoods, setIsGoods  ] = useState<boolean>(false)
   const [isRetailers, setIsetailers  ] = useState<boolean>(false)
+  const [isBrands, setIsBrands  ] = useState<boolean>(false)
   useEffect(() => {
   
     
@@ -39,6 +41,7 @@ const GetAllProduct = () => {
      setIsTravis(true)
      setIsGoods(true)
      setIsetailers(true)
+     setIsBrands(true)
     
   }, []);
 
@@ -63,6 +66,9 @@ const GetAllProduct = () => {
   }
 
 
+  const handleResetBrands=()=>{
+    setIsBrands(false)
+  }
 
   
 
@@ -84,6 +90,11 @@ const GetAllProduct = () => {
       {<GetAllRetailers
       resetRetailer={handleResetRetailer}
       />}
+
+
+     { isBrands &&<GetAllBrands
+     resetBrands={handleResetBrands}
+     />}
     </div>
   )
 }

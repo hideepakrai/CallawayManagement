@@ -15,6 +15,7 @@ query getTravisMAthewProduct {
           data{
             attributes{
               Name
+              Description
             }
           }
         }

@@ -11,7 +11,9 @@ import CartReducer  from "../slice/orderSlice/travis/CartOrder"
 
 import LoadingReducer from "../slice/loading/LoadingSlice"
 
-import RetailerReducer from "../slice/retailer/RetailerSlice"
+import RetailerReducer from "../slice/retailer/RetailerSlice";
+
+import BrandReducer  from "../slice/brand/BrandSlice"
 export default configureStore({
 
 
@@ -23,5 +25,6 @@ export default configureStore({
         Order:CartReducer,
         loading :LoadingReducer,
         retailer:RetailerReducer,
+        brands:BrandReducer,
     }
 })

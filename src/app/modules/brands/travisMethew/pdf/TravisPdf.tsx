@@ -7,6 +7,10 @@ import { Row,Col,Card, Button } from 'react-bootstrap';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { useReactToPrint } from 'react-to-print';
+import { useSelector } from 'react-redux';
+import {BrandModel} from "../../../model/brand/AllBrands"
+import {getAllBrands} from "../../../../slice/brand/BrandSlice";
+import { Link } from 'react-router-dom';
 type Props = {
   selectedRow: BasicModelTravis[];
   resetSelectedRow: () => void;
@@ -14,6 +18,7 @@ type Props = {
 
 const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
  
+  const getAllBrand = useSelector(getAllBrands) as BrandModel[];
   const contentToPrint = useRef(null);
   const handlePrint = useReactToPrint({
     documentTitle: "Print This Document",
@@ -55,34 +60,37 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                           Download PPT
                         </Button>
                       </div>
-
-                      <div>
-                        <img
-                          style={{ width: "300px", paddingTop: "80px" }}
-                          src="https://callaway-f6bd2.web.app/images/logo.png"
-                        ></img>
-                      </div>
-                      <div>
-                        <h2
-                          style={{
-                            paddingTop: "50px",
-                           // fontweight: "400px",
-                            fontSize: "36px",
-                          }}
-                        >
-                          CALLAWAY
-                        </h2>
-                        <p style={{ fontSize: "18px" }}>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book. It has
-                          survived not only five centuries, but also the leap
-                          into electronic typesetting, remaining essentially
-                          unchanged.
-                        </p>
-                      </div>
+                      {getAllBrand &&
+  getAllBrand.length > 0 &&
+  getAllBrand.map((item: BrandModel) => {
+    if (item && item.attributes && item.attributes.Name === "Travis Mathew") {
+      return (
+        <div key={item.id}>
+          <div>
+            <img
+              style={{ width: "300px", paddingTop: "80px" }}
+              src={`https://admin.callawayindiaoms.com${item.attributes.Logo?.data?.attributes?.formats?.thumbnail?.url}`}
+              alt="Callaway Logo"
+            />
+          </div>
+          <div>
+            <h2 style={{ paddingTop: "50px", fontSize: "36px" }}>{item.attributes.Name}</h2>
+            <p style={{ fontSize: "18px" ,
+                        paddingLeft:"20px",
+                        paddingRight:"20px",
+                        
+            }}>
+              {item?.attributes?.Description}
+            </p>
+          </div>
+         
+          
+        </div>
+      );
+    }
+  })
+}
+                     
                     </div>
                   
                   </div>
@@ -99,7 +107,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                       <div
                         style={{
                           borderBottom: "1px solid #ddd",
-                          paddingTop: "10px",
+                          paddingTop: "50px",
                           paddingLeft: "50px",
                         }}
                       >

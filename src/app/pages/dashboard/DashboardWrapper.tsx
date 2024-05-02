@@ -27,7 +27,8 @@ import {useSelector, useDispatch} from "react-redux";
 
 import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
 import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
-
+import {getAllBrands} from "../../slice/brand/BrandSlice.tsx"
+import {BrandModel} from "../../modules/model/brand/AllBrands.ts"
 const DashboardPage = () => (
 
   
@@ -152,13 +153,17 @@ const DashboardWrapper = () => {
   console.log("loading ",getLoadings)
   const getTravisProduct= useSelector(getTravisProducts)
   const getOgioProduct= useSelector(getOgioProducts)
+  const getAllBrand = useSelector(getAllBrands) as BrandModel[];
+
   useEffect(()=>{
     if(getTravisProduct && getTravisProduct.length>0 &&
       
-      getOgioProduct && getOgioProduct.length>0){
+      getOgioProduct && getOgioProduct.length>0  &&
+       getAllBrand && getAllBrand.length>0
+    ){
       dispatch(LoadingStop ())
     }
-  },[getTravisProduct,getOgioProduct])
+  },[getTravisProduct,getOgioProduct,getAllBrand])
 
   
   return (
