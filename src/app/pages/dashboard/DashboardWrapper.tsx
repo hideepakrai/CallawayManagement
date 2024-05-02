@@ -167,7 +167,7 @@ const DashboardWrapper = () => {
       
       {getLoadings &&<Loading/>}
       <DashboardPage />
-      <GetAllProduct/>
+      {/* <GetAllProduct/> */}
 
      
     </>

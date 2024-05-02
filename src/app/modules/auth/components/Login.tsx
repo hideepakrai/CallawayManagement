@@ -15,7 +15,7 @@ import GetUserAccount from './GetUserAccount'
 import { UserModel } from '../core/_models';
 import {LoadingStart} from "../../../slice/loading/LoadingSlice"
 import GetRetailerAccount from './GetRetailerAccount'
-
+import GetAllProduct from '../../../api/allProduct/GetAllProduct';
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -395,6 +395,8 @@ export function Login() {
         userId={userId}
         resetId={() => handleResetId}
       />}
+
+      <GetAllProduct/>
     </>
 
   )

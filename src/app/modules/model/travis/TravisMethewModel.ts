@@ -59,19 +59,22 @@ export interface BasicModelTravisGraph {
 
  
  export interface ImageType {
-    data:[{
-      id:number,
-      attributes?:{
-        formats?:{
-          thumbnail:ImageData,
-          large?:ImageData,
-          medium?:ImageData,
-          small?:ImageData
-        }
-      }
-    }]
+    data:DataImageData[]
   }
   
+  
+
+  export interface DataImageData{
+    id:number|null,
+    attributes?:{
+      formats?:{
+        thumbnail:ImageData,
+        large?:ImageData,
+        medium?:ImageData,
+        small?:ImageData
+      }
+    }
+  }
 
   export interface ImageData{
     name?: string;

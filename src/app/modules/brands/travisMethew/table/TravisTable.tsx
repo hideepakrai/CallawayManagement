@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {getTravisProducts,getOtherProducts} from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 
-import { number } from 'yup';
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import {ExcelModelTravis} from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
@@ -19,27 +18,13 @@ import * as XLSX from 'xlsx';
 import {addTravisOrder,removeTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder"
 import { message } from "antd";
 import { Key } from 'antd/lib/table/interface';
-import { useTable } from 'react-table';
+
 import "./TravisTable.css"
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import TravisPdf from '../pdf/TravisPdf';
-import Item from 'antd/es/list/Item';
-import { useReactToPrint } from 'react-to-print';
-// import jsPDF from "jspdf";
-// import "jspdf-autotable";
-
-
-
-// Extend jsPDF types
-// declare module "jspdf" {
-//   export interface jsPDF {
-//     autoTable: (
-//       columns: string[] | object[],
-//       body: object[],
-//       options?: object
-//     ) => jsPDF;
-//   }
-// }
+import { useNavigate } from 'react-router-dom';
+import { Image } from 'antd';
+import ImageRenderer from "./column/gallery"
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19','SS20	' ];
@@ -50,7 +35,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
   const placement: SelectCommonPlacement = 'topLeft'; 
    const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
-   
+     const navigate = useNavigate()
     const dispatch= useDispatch()
     const searchInput = useRef<InputRef>(null);
    const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
@@ -71,33 +56,8 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           dataIndex: "Gallery",
           // fixed: "left",
           width: 50,
-          render: (value) => {
-            // Check if value and value.data[0] exist before accessing properties
-            if (value && value.data[0] && value.data[0].attributes && value.data[0].attributes.formats && value.data[0].attributes.formats.thumbnail && value.data[0].attributes.formats.thumbnail.url) {
-              // console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
-              return (
-                <span>
-                  <img
-                    src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.thumbnail.url}`}
-                    alt="Primary Image"
-                    style={{ maxWidth: "30px", marginRight: "5px" }}
-                  />
-                </span>
-              );
-            } else {
-              return (
-                <span>
-                  <img
-                    src="/media/icons/icon-callway.png"
-                    alt="Primary Image"
-                    style={{ maxWidth: "30px", marginRight: "5px" }}
-                  />
-                </span>
-              ); // Return a placeholder image if thumbnail url is null or undefined
-            }
-          },
-          
-        
+          render: (value) => <ImageRenderer value={value} />,
+
         },
 
        
@@ -1017,6 +977,11 @@ const handleResetSelectedRow =()=>{
   setIspdf(false)
 }
 
+
+// view cart
+const handleViewCard =()=>{
+  navigate("/cart")
+}
 return (
     <div className='container'>
 
@@ -1040,8 +1005,8 @@ return (
           
           <div style={{ float: "right",marginBottom:"12px" }}>
             <Button className='mx-3' 
-           // onClick={handleImport}
-            >Add to cart</Button>
+           onClick={handleViewCard}
+            >View cart</Button>
 
             <Button className='mx-3'
             onClick={handleImport}
