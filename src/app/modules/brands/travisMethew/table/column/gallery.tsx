@@ -16,16 +16,16 @@ const ImageRenderer = ({ value }:Props) => {
   if (value && value.data &&
     value?.data[0]?.attributes &&
     value?.data[0]?.attributes?.formats &&
-    value?.data[0]?.attributes?.formats?.thumbnail &&
-    value?.data[0]?.attributes?.formats?.thumbnail?.url
+    value?.data[0]?.attributes?.formats?.medium &&
+    value?.data[0]?.attributes?.formats?.medium?.url
     
 ) {
-    const thumbnailUrls = [
-        value?.data[0]?.attributes?.formats?.thumbnail?.url,
-        value?.data[1]?.attributes?.formats?.thumbnail?.url,
-        value?.data[2]?.attributes?.formats?.thumbnail?.url
+    const mediumUrls = [
+        value?.data[0]?.attributes?.formats?.medium?.url,
+        value?.data[1]?.attributes?.formats?.medium?.url,
+        value?.data[2]?.attributes?.formats?.medium?.url
       ].filter(Boolean);
-      const previewItems = thumbnailUrls.map((url) => `https://admin.callawayindiaoms.com${url}`);
+      const previewItems = mediumUrls.map((url) => `https://admin.callawayindiaoms.com${url}`);
     return (
         <span>
           <Image.PreviewGroup
@@ -35,12 +35,12 @@ const ImageRenderer = ({ value }:Props) => {
            value?.data[0]&&
            value?.data[0]?.attributes &&
            value?.data[0]?.attributes?.formats &&
-           value?.data[0]?.attributes?.formats?.thumbnail &&
-           value?.data[0]?.attributes?.formats?.thumbnail?.url &&
+           value?.data[0]?.attributes?.formats?.medium &&
+           value?.data[0]?.attributes?.formats?.medium?.url &&
             <Image
-              src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.thumbnail.url}`}
+              src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.medium.url}`}
               alt="Primary Image"
-              style={{ maxWidth: "30px", marginRight: "5px" }}
+              style={{ maxWidth: "50px", marginRight: "5px" }}
               width={30}
             />}
           </Image.PreviewGroup>
