@@ -5,15 +5,26 @@ import {BasicModelTravis} from "../model/travis/TravisMethewModel"
 import {getRetailers} from "../../slice/retailer/RetailerSlice"
 import {RetailerModel,Retailer}  from "../../modules/model/retailer/RetailerModel"
 type Props={
-    CreateOrder: (retailerId:number)=>void
+    CreateOrder: (
+        retailerId:number, 
+
+    )=>void,
+    sendRetailerData:(
+        retailerAddres:string,
+        retailerCity:string,
+        retailerName:string
+    )=>void,
+   
+    
 }
-const CartHeader = ({CreateOrder}:Props) => {
+const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
 
     const [isNote, setIsNote] = useState(false);
     const handleNote = () => {
       setIsNote(true);
     };
 
+  const [retailerName, setRetailerName]= useState<string>()
   const [retailerAddres, setRetailerAddress]= useState<string>()
   const [retailerId, setRetailerId]= useState<number>(0)
   const [retailerCity, setRetailerCity]= useState<string>()
@@ -39,13 +50,17 @@ const CartHeader = ({CreateOrder}:Props) => {
             setRetailerCity(allData[0]?.attributes?.Location ?? '');
             setGST(allData[0]?.attributes?.GST ?? "");
             setRetailerId(allData[0]?.id ??0)
+            setRetailerName(allData[0]?.attributes?.Name ??"")
         } else {
             
             setRetailerAddress('');
             setRetailerCity('');
             setGST("");
             setRetailerId(0)
+            setRetailerName("")
         }
+        if(retailerAddres&&retailerCity &&retailerName)
+        sendRetailerData(retailerAddres,retailerCity, retailerName)
      }
   return (
     <div>
@@ -78,7 +93,7 @@ const CartHeader = ({CreateOrder}:Props) => {
                 </span>
                 <span style={{ width: 100, marginRight: 20, borderRight: "1px solid #ddd", paddingRight: "10px", }}>{retailerCity}</span>
                 <span>
-                    <a style={{ color: "#000", fontSize:"14px" }}> <span style={{fontWeight:600.}}> GSTIN NO. :</span> </a> {GST}
+                    <a style={{ color: "#000", fontSize:"14px" }}> <span style={{fontWeight:600}}> GSTIN NO. :</span> </a> {GST}
                 </span>
             </div>
 

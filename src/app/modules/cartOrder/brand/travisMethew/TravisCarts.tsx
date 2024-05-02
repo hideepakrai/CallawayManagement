@@ -21,7 +21,7 @@ import {CurentUser} from "../../../model/useAccount/CurrentUser.ts"
 import {LoadingStart,LoadingStop,getLoading} from "../../../../slice/loading/LoadingSlice.tsx"
 import Loading from '../../../loading/Loading.tsx';
 import {updateInclusiveDiscount,updateExclusiveDiscount,updateFlatDiscount,updateTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
-
+import OrderPdf from './OrderPdf.tsx';
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -343,45 +343,8 @@ const TravisCart = () => {
            
           ),
           },
-         
-      
-      // {
-      //   title:"Quantity",
-      //   children:[
-      //     {
-      //       title: "88",
-      //       dataIndex: "quantity88",
-      //       key: "quantity88", 
-      //       width: 100, 
-      //       fixed:'right',
-      //       render: (text, record) => (
-      //         <Input 
-      //          type='number'
-      //          value={record.Quantity88?.toString()}
-      //           onChange={(e) => handleQuantity88(e.target.value, record)}
-      //         />
-             
-      //       ),
-            
-      //     },
-      //     { title: "90",
-      //     dataIndex: "quantity90",
-      //     key: "quantity90", 
-      //     width: 100,
-      //     fixed:'right',
-      //     render: (text, record) => (
-      //       <Input 
-      //        type='number'
-      //        value={record.Quantity90?.toString()}
-      //         onChange={(e) => handleQuantity90(e.target.value, record)}
-      //       />
-      //     ),
-      //    }
-      //   ],
-       
-        
-       
-      // },
+ 
+    
       {
         title: "Qty",
         dataIndex: "TotalQty",
@@ -554,7 +517,7 @@ const TravisCart = () => {
 
       // save order
 
-    const handleCreateOrder=(retailerId:number)=>{
+    const handleCreateOrder=(retailerId:number, retailerAddres:string, retailerCity:string, retailerName:string)=>{
       dispatch(LoadingStart())
       if (Array.isArray(getProduct)) {
           
@@ -686,14 +649,26 @@ const handleChangeDiscount=(value:string)=>{
   }
  
 }
-  return (
+
+const [retailerName, setRetailerName]= useState<string>()
+const [retailerAddres, setRetailerAddress]= useState<string>()
+
+const [retailerCity, setRetailerCity]= useState<string>()
+const handleRetailerDetail=(retailerId:number, retailerAddres:string, retailerCity:string, retailerName:string)=>{
+ 
+  setRetailerName(retailerName)
+  setRetailerAddress(retailerAddres)
+  setRetailerCity(retailerCity)
+ } 
+ return (
     <div>
 
      {getLoadings && <Loading/>}
 {getProduct && 
 getProduct.length>0 &&
 <CartHeader
-CreateOrder={handleCreateOrder}
+CreateOrder={()=>handleCreateOrder}
+sendRetailerData={()=>handleRetailerDetail}
 />}
 
 
@@ -800,6 +775,23 @@ getProduct.length>0 ?
           )}          
 
          { isUpdateOrder &&<UpdateOrder/>}
+
+         {totalAmount &&
+         discountAmount &&
+         totalNetBillAmount &&
+         retailerAddres &&
+         retailerName &&
+         retailerCity &&
+         <OrderPdf
+         totalAmount={totalAmount}
+         discountAmount={discountAmount}
+         totalNetBillAmount={totalNetBillAmount}
+         retailerName={retailerName}
+         retailerAddres={retailerAddres}
+         retailerCity={retailerCity}
+
+         
+         />}
     </div>
   )
 }

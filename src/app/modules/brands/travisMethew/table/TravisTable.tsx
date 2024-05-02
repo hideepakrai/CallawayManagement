@@ -968,7 +968,7 @@ useEffect(()=>{
 
 const handleExportToPDF=()=>{
   setIspdf(true)
-  setIsCard(false)
+  //setIsCard(false)
   
 }
 
@@ -976,7 +976,7 @@ const handleResetSelectedRow =()=>{
   setSelectedRowKeys([]);
   setSelectedRow([])
   setIspdf(false)
-  setIsCard(true)
+ // setIsCard(true)
 }
 
 

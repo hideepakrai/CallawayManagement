@@ -21,7 +21,13 @@ export interface OgioBasicModel {
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;
-       ordered?: boolean
+       ordered?: boolean, 
+       GST?:number,
+       LessGST?:number,
+       Discount?:number,
+       LessDiscountAmount:number,
+       NetBillings:number,
+       FinalBillValue:number,
 
 }
 export interface OgioBasicModelGraph {

@@ -14,6 +14,7 @@ import LoadingReducer from "../slice/loading/LoadingSlice"
 import RetailerReducer from "../slice/retailer/RetailerSlice";
 
 import BrandReducer  from "../slice/brand/BrandSlice"
+import OgioOrderReducer from "../slice/orderSlice/ogio/OgioCartOrderSlice"
 export default configureStore({
 
 
@@ -26,5 +27,6 @@ export default configureStore({
         loading :LoadingReducer,
         retailer:RetailerReducer,
         brands:BrandReducer,
+        OgioOrder:OgioOrderReducer,
     }
 })
