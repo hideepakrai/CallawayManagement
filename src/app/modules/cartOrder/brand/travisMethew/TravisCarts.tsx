@@ -294,17 +294,24 @@ const TravisCart = () => {
          { title: "Qty88",
           dataIndex: "TravisAttributes",
           key: "Stock88", 
-          width: 100,
+          width: 150,
           fixed:'right',
           render: (value,record) => (
-            <Input 
-            addonBefore={value[0]?.Stock88} 
-            type='number'
-           
-            value={record.Quantity88?.toString()}
-            onChange={(e) => handleQuantity88(e.target.value, record)}
-            disabled={value[0]?.Stock88 === 0} 
-            />
+         
+            <InputNumber
+                  className='mx-3 number-input'
+                  addonBefore={value[0]?.Stock88} 
+                  value={record.Quantity88?.toString()}
+                  style={{ width: 100 }}
+                  onChange={(value) => {
+                    if (value !== null) {
+                      handleQuantity88(value, record)
+                    }
+
+                  }}
+                   
+                  disabled={value[0]?.Stock90 === 0} 
+                />
            
           ),
         },
@@ -312,17 +319,24 @@ const TravisCart = () => {
             title: "Qty90",
           dataIndex: "TravisAttributes",
           key: "Stock88", 
-          width: 100,
+          width: 130,
           fixed:'right',
           render: (value,record) => (
-            <Input addonBefore={value[0]?.Stock90||0} 
-            type='number'
-            
-            value={record.Quantity90?.toString()}
-            onChange={(e) => handleQuantity90(e.target.value, record)} 
-            disabled={value[0]?.Stock90 === 0} 
-            />
-           
+        
+           <InputNumber
+                  className='mx-5 number-input'
+                  addonBefore={value[0]?.Stock90||0} 
+                  value={record.Quantity90?.toString()}
+                  onChange={(value) => {
+                    if (value !== null) {
+                      handleQuantity90(value, record)
+                    }
+
+                  }}
+                   
+                  disabled={value[0]?.Stock90 === 0} 
+                  style={{ width: 100 }}
+                />
           ),
           },
  
