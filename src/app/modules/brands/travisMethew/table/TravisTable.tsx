@@ -11,6 +11,7 @@ import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import {ExcelModelTravis} from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import * as XLSX from 'xlsx';
+
  import {updateQuantity90,updateQuantity88,
   addOtherProduct,updateOtherQuantity90,
   updateOtherQuantity88,removeOtherProduct} from "../../../../slice/allProducts/TravisMethewSlice"
