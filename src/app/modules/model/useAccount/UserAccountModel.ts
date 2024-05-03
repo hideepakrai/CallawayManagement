@@ -31,13 +31,29 @@
   }
  
   export interface OrderData{
+    id?:number,
     attributes?: {
+      
       Brand?: string;
       OrderId?:number;
+      Amount?:number;
       Status?:string;
+      DiscountType?:string;
+      DiscountPercent?:string;
       createdAt?:string;
+      retailer?:RetailerData;
     }
 
+  }
+
+  export interface RetailerData{
+    data?:{
+      id?:number;
+      attributes?:{
+        Name?:string;
+        Address?:string;
+      }
+    }
   }
   
   // Define additional interfaces as needed

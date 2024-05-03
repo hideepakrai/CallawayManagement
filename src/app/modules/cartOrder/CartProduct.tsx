@@ -52,7 +52,7 @@ const CartProduct = () => {
              getTravisOrders.length>0 &&
              <li className="nav-item">
               <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} href="#kt_tab_pane_Travis" onClick={() => setActiveTab('travis')}>
-                Travis Methew
+                Travis Mathew
               </a>
             </li>}
           </ul>

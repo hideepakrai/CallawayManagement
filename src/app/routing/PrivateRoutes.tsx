@@ -21,6 +21,7 @@ import TravisMathew from '../pages/brand/travisMathew/TravisMathew.js'
 import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
  import TravisPdf from '../modules/brands/travisMethew/pdf/TravisPdf.js'
 import Cart from '../pages/cart/Cart.js'
+import OrderPdf from '../modules/cartOrder/brand/travisMethew/OrderPdf.js'
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -57,6 +58,7 @@ const PrivateRoutes = () => {
          <Route path='/brand/callaway/apparel' element={<CallawayApparel />} /> 
         {/* Lazy Modules */}
 
+      
        {/* pdf */}
        
 
