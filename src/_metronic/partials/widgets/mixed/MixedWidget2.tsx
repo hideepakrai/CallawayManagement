@@ -45,24 +45,20 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
-      <div className={`card-header border-0 py-5 bg-${chartColor}`}>
-        <h3 className='card-title fw-bold text-white'>Callaway Apparel</h3>
 
-        <div className='card-toolbar'>
-          {/* begin::Menu */}
-          <button
-            type='button'
-            className='btn btn-sm btn-icon btn-color-white btn-active-white btn-active-color- border-0 me-n3'
-            data-kt-menu-trigger='click'
-            data-kt-menu-placement='bottom-end'
-            data-kt-menu-flip='top-end'
-          >
-            <KTIcon iconName='category' className='fs-2' />
-          </button>
-          <Dropdown1 />
-          {/* end::Menu */}
+      <div className={`card-header row m-0 border-0 py-5 bg-${chartColor}`}>
+        <div className='col-6'>
+        <h3 className='card-title fw-bold text-white pt-4'>Callaway Apparel </h3>
         </div>
+
+        <div className='card-toolbar col-6 justify-content-end'>                
+       <img width="100" src='http://localhost:5173/media/logos/logo-white.png'></img>
+             
+        </div>
+
       </div>
+
+
       {/* end::Header */}
       {/* begin::Body */}
       <div className='card-body p-0'>
@@ -77,16 +73,16 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-warning px-4 py-8 rounded-2 me-7 mb-7'>
-              <KTIcon iconName='chart-simple' className='fs-3x text-warning d-block my-2' />
-              <a href='#' className='text-warning fw-semibold fs-6'>
-              1234 Total Products
+            <div className='col bg-light-warning px-4 pt-7 rounded-2 me-7 mb-7'>
+              {/* <KTIcon iconName='chart-simple' className='fs-3x text-warning d-block my-2' /> */}
+              <a href='#' className='text-warning fw-semibold fs-6 '>
+              <span className='fs-1 fw-bold' style={{lineHeight:"35px"}}>1234 </span> <br></br> Total Products     
               </a>
             </div>
             {/* end::Col */}
             {/* begin::Col */}
-            <div className='col bg-light-primary px-4 py-8 rounded-2 mb-7'>
-              <KTIcon iconName='plus' className='fs-3x text-primary d-block my-2' />
+            <div className='col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7'>
+              <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
               <a href='#' className='text-primary fw-semibold fs-6'>
               Create Order
               </a>
@@ -97,18 +93,20 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-danger px-6 py-8 rounded-2 me-7'>
-              <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' />
+            <div className='col bg-light-danger px-4 py-8 rounded-2 me-7'>
+              {/* <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' /> */}
               <a href='#' className='text-danger fw-semibold fs-6 mt-2'>
-                Item Orders
+               
+              <span className='fs-1 fw-bold '>233 </span> <br></br> Complete Orders  
               </a>
             </div>
             {/* end::Col */}
             {/* begin::Col */}
             <div className='col bg-light-success px-6 py-8 rounded-2'>
-              <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' />
+              {/* <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' /> */}
               <a href='#' className='text-success fw-semibold fs-6 mt-2'>
-                Bug Reports
+               
+              <span className='fs-1 fw-bold '>12 </span> <br></br> Pending Orders  
               </a>
             </div>
             {/* end::Col */}

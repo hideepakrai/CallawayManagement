@@ -41,15 +41,15 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
   return (
     <div className={`card ${className}`}>
       {/* begin::Beader */}
-      <div className='card-header border-0 py-5'>
+      <div className='card-header border-bottom py-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Trends</span>
+          <span className='card-label fw-bold fs-3 mb-1'>Products</span>
 
-          <span className='text-muted fw-semibold fs-7'>Latest trends</span>
+          <span className='text-muted fw-semibold fs-7'>All Products</span>
         </h3>
 
-        <div className='card-toolbar'>
-          {/* begin::Menu */}
+        {/* <div className='card-toolbar'>
+       
           <button
             type='button'
             className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
@@ -60,8 +60,8 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
             <KTIcon iconName='category' className='fs-2' />
           </button>
           <Dropdown1 />
-          {/* end::Menu */}
-        </div>
+         
+        </div> */}
       </div>
       {/* end::Header */}
 
@@ -81,7 +81,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('media/svg/brand-logos/plurk.svg')}
+                    src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
                     alt=''
                     className='h-50'
                   />
@@ -91,17 +91,17 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
 
               {/* begin::Title */}
               <div>
-                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
-                  Top Authors
+                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold pt-6'>
+                Callaway Apparel
                 </a>
-                <div className='fs-7 text-muted fw-semibold mt-1'>Ricky Hunt, Sandra Trepp</div>
+                <div className='fs-7 text-muted fw-semibold mt-1'>Lorem Ipsum </div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>82</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -114,27 +114,28 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('media/svg/brand-logos/figma-1.svg')}
+                    src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
                     alt=''
                     className='h-50'
                   />
                 </div>
               </div>
+
               {/* end::Symbol */}
 
               {/* begin::Title */}
               <div>
                 <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
-                  Top Sales
+                Callaway Hardgoods
                 </a>
-                <div className='fs-7 text-muted fw-semibold mt-1'>PitStop Emails</div>
+                <div className='fs-7 text-muted fw-semibold mt-1'>Lorem Ipsum</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>280</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -147,7 +148,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('media/svg/brand-logos/vimeo.svg')}
+                    src="https://admin.callawayindiaoms.com/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png"
                     alt=''
                     className='h-50'
                   />
@@ -158,19 +159,56 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               {/* begin::Title */}
               <div className='py-1'>
                 <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
-                  Top Engagement
+                Ogio
                 </a>
 
-                <div className='fs-7 text-muted fw-semibold mt-1'>KT.com</div>
+                <div className='fs-7 text-muted fw-bold mt-1'>Lorem Ipsum</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>500</div>
             {/* end::Label */}
           </div>
+
+
+          <div className='d-flex flex-stack mt-5' >
+            {/* begin::Section */}
+            <div className='d-flex align-items-center me-2'>
+              {/* begin::Symbol */}
+              <div className='symbol symbol-50px me-3'>
+                <div className='symbol-label bg-light'>
+                  <img
+                    src="https://admin.callawayindiaoms.com/uploads/tm_thum_23fdeb8c29.png"
+                    alt=''
+                    className='h-50'
+                  />
+                </div>
+              </div>
+              {/* end::Symbol */}
+
+              {/* begin::Title */}
+              <div className='py-1'>
+                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>               
+Travis Mathew
+                </a>
+
+                <div className='fs-7 text-muted fw-semibold mt-1'>Lorem Ipsum</div>
+              </div>
+              {/* end::Title */}
+            </div>
+            {/* end::Section */}
+
+            {/* begin::Label */}
+            <div className='badge badge-light fw-bold py-4 px-3'>450</div>
+            {/* end::Label */}
+          </div>
+
+
+
+
           {/* end::Item */}
         </div>
         {/* end::Items */}

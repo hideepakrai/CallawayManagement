@@ -14,26 +14,14 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
       {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold text-gray-900'>Trends</span>
-          <span className='text-muted mt-1 fw-semibold fs-7'>Latest tech trends</span>
+          <span className='card-label fw-bold text-gray-900'>Products</span>
+          <span className='text-muted mt-1 fw-semibold fs-7'>All Products</span>
         </h3>
-        <div className='card-toolbar'>
-          {/* begin::Menu */}
-          <button
-            type='button'
-            className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
-            data-kt-menu-trigger='click'
-            data-kt-menu-placement='bottom-end'
-            data-kt-menu-flip='top-end'
-          >
-            <KTIcon iconName='category' className='fs-2' />
-          </button>
-          <Dropdown1 />
-          {/* end::Menu */}
-        </div>
+       
       </div>
       {/* end::Header */}
       {/* begin::Body */}
+
       <div className='card-body pt-5'>
         {/* begin::Item */}
         <div className='d-flex align-items-sm-center mb-7'>
@@ -41,7 +29,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/plurk.svg')}
+                src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -49,15 +37,18 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           </div>
           {/* end::Symbol */}
           {/* begin::Section */}
+
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
-                Top Authors
+               Callaway Apparel
               </a>
               <span className='text-muted fw-semibold d-block fs-7'>Mark, Rowling, Esther</span>
             </div>
-            <span className='badge badge-light fw-bold my-2'>+82$</span>
+            <span className='badge badge-light fw-bold my-2'>82</span>
           </div>
+
+
           {/* end::Section */}
         </div>
         {/* end::Item */}
@@ -67,7 +58,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/telegram.svg')}
+                src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -78,11 +69,11 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
-                Popular Authors
+              Callaway Hardgoods
               </a>
               <span className='text-muted fw-semibold d-block fs-7'>Randy, Steve, Mike</span>
             </div>
-            <span className='badge badge-light fw-bold my-2'>+280$</span>
+            <span className='badge badge-light fw-bold my-2'>280</span>
           </div>
           {/* end::Section */}
         </div>
@@ -93,7 +84,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/vimeo.svg')}
+                src="https://admin.callawayindiaoms.com/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png"
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -104,11 +95,11 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
-                New Users
+              Ogio
               </a>
               <span className='text-muted fw-semibold d-block fs-7'>John, Pat, Jimmy</span>
             </div>
-            <span className='badge badge-light fw-bold my-2'>+4500$</span>
+            <span className='badge badge-light fw-bold my-2'>500</span>
           </div>
           {/* end::Section */}
         </div>
@@ -119,7 +110,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/bebo.svg')}
+                src="https://admin.callawayindiaoms.com/uploads/tm_thum_23fdeb8c29.png"
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -130,71 +121,17 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
-                Active Customers
+              Travis Mathew
               </a>
               <span className='text-muted fw-semibold d-block fs-7'>Mark, Rowling, Esther</span>
             </div>
-            <span className='badge badge-light fw-bold my-2'>+4500$</span>
+            <span className='badge badge-light fw-bold fs my-2'>450</span>
           </div>
           {/* end::Section */}
         </div>
         {/* end::Item */}
 
-        {items > 4 && (
-          <div className='d-flex align-items-sm-center mb-7'>
-            {/* begin::Symbol */}
-            <div className='symbol symbol-50px me-5'>
-              <span className='symbol-label'>
-                <img
-                  src={toAbsoluteUrl('media/svg/brand-logos/kickstarter.svg')}
-                  className='h-50 align-self-center'
-                  alt=''
-                />
-              </span>
-            </div>
-            {/* end::Symbol */}
-            {/* begin::Section */}
-            <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
-              <div className='flex-grow-1 me-2'>
-                <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
-                  Bestseller Theme
-                </a>
-                <span className='text-muted fw-semibold d-block fs-7'>Disco, Retro, Sports</span>
-              </div>
-              <span className='badge badge-light fw-bold my-2'>+4500$</span>
-            </div>
-            {/* end::Section */}
-          </div>
-        )}
-
-        {items > 5 && (
-          <div className='d-flex align-items-sm-center'>
-            {/* begin::Symbol */}
-            <div className='symbol symbol-50px me-5'>
-              <span className='symbol-label'>
-                <img
-                  src={toAbsoluteUrl('media/svg/brand-logos/fox-hub.svg')}
-                  className='h-50 align-self-center'
-                  alt=''
-                />
-              </span>
-            </div>
-            {/* end::Symbol */}
-            {/* begin::Section */}
-            <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
-              <div className='flex-grow-1 me-2'>
-                <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
-                  Fox Broker App
-                </a>
-                <span className='text-muted fw-semibold d-block fs-7'>
-                  Finance, Corporate, Apps
-                </span>
-              </div>
-              <span className='badge badge-light fw-bold my-2'>+4500$</span>
-            </div>
-            {/* end::Section */}
-          </div>
-        )}
+       
       </div>
       {/* end::Body */}
     </div>
