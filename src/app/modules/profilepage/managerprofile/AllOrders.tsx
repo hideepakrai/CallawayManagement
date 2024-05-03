@@ -63,7 +63,7 @@ const AllOrder = () => {
             
 <Card>
 <div className="table-responsive">
-<label>Pending Order</label>
+<label>All Order</label>
 	<table className="table table-striped gy-7 gs-7">
       
 		<thead>
@@ -83,7 +83,7 @@ const AllOrder = () => {
  getUserAccounts?.attributes.orders.data&& 
  getUserAccounts?.attributes.orders.data.length>0 &&
  getUserAccounts?.attributes.orders.data.map((item)=>{
-    if(item && item.attributes && item.attributes.Status==="Pending"){
+    if(item && item.attributes && item.attributes.Status!=="Pending"){
 
         return(
             <tr>

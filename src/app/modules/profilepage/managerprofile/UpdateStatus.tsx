@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useDispatch, useSelector}from "react-redux"
     import { from } from '@apollo/client';
 import {LoadingStop,LoadingStart} from "../../../slice/loading/LoadingSlice"
-
+import {updateOrderStatus} from "../../../slice/UserSlice/UserSlice"
     const STRAPI_URL = import.meta.env.VITE_APP_STRAPI_URL;
 
 type Props = {
@@ -31,6 +31,11 @@ const UpdateStatus = ({ orderId, status }: Props) => {
             console.log(response);
             if(response.status===200){
                 dispatch(LoadingStop ())
+
+                dispatch(updateOrderStatus({
+                    orderId: orderId,
+                    status: status,
+                }))
                 alert("Order updated successfully")
             }
             

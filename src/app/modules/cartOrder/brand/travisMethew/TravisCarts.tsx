@@ -24,6 +24,9 @@ import {updateInclusiveDiscount,updateExclusiveDiscount,updateFlatDiscount,updat
 import OrderPdf from './OrderPdf.tsx';
 import {addTravisOrderDetails} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 import {addPendingOrder} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
+import GetUserAccount from '../../../auth/components/GetUserAccount.tsx';
+import { boolean } from 'yup';
+
 
 const TravisCart = () => {
     const tableRef = useRef(null);
@@ -568,32 +571,38 @@ const TravisCart = () => {
       }
   }
 
-
+  const [reLoadUserAccount, setReloadUserAccount]= useState(false)
   const createOrder=async(data:CartModel)=>{
       try{
           const response=await CreateOrder(data);
           console.log("order update",response);
             if(response?.data.id){
-              dispatch(LoadingStop())
-              alert("your order has been created")
-
-              dispatch(resetTravisOrder({
-                travis:"true"
-              }))
+            
+             
+              setReloadUserAccount(true)
             }
+           
          
       }
         catch(err){
             console.log(err);
+            dispatch(LoadingStop())
+            setReloadUserAccount(false);
         }
   }
 
-//   function generateUniqueAlphanumeric(): string {
-//     const timestamp = new Date().getTime().toString(36); // Convert timestamp to base 36
-//     const randomChars = Math.random().toString(36).substr(2, 5); // Generate random characters
-//     const uniqueId = timestamp + randomChars; // Combine timestamp and random characters
-//     return uniqueId;
-// }
+
+  // reset userlaoding boolean
+  const handleResetId=()=>{
+    alert("your order has been created")
+    setReloadUserAccount(false);
+    dispatch(resetTravisOrder({
+      travis:"true"
+    }))
+    dispatch(LoadingStop())
+  }
+
+
   
 function generateUniqueNumeric(): string {
   const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
@@ -796,9 +805,13 @@ getProduct.length>0 ?
               </div>
           )}          
 
-         { isUpdateOrder &&<UpdateOrder/>}
+        
 
-         
+         {/* update order in redux */}
+         {reLoadUserAccount&& userId!=null &&<GetUserAccount
+        userId={userId}
+        resetId={handleResetId}
+      />}
      <OrderPdf />
     </div>
   )

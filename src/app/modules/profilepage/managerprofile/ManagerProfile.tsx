@@ -3,7 +3,7 @@ import { Row, Col } from 'antd'; // Import Row and Col components from Ant Desig
 
 import "./ManagerProfile.css";
 import PendingOrder from './PendingOrder';
-import AllOrders from './AllOrders';
+import AllOrder from './AllOrders';
 import { friendList } from "./FriendList";
 import Friends from './Friend';
 import { contactList } from './ContactsList';
@@ -46,7 +46,7 @@ const ManagerProfile = () => {
       <Row className='container'>
         <Col xl={18} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
-      {/* <AllOrders   /> */}
+      <AllOrder   />
         </Col>
 
         <Col xl={6} lg={10} md={10} sm={24} xs={24} >
