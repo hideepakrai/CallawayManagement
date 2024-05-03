@@ -7,24 +7,39 @@ import {getUserAccount} from "../../../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from "react-redux";
 import {UserAccountModel,AllOrderss} from "../../model/useAccount/UserAccountModel"
 import { Card } from "react-bootstrap";
-
-
+import {ProductDetails,CartModel,AccountOrder} from "../../model/CartOrder/CartModel.ts"
+import {addPendingOrder} from "../../../slice/orderSlice/travis/Orderdetails.tsx"
+import UpdateStatus from "./UpdateStatus.tsx";
 
 const PendingOrder = () => {
-    const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
 
+    const dispatch= useDispatch()
+    const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
+  const [orderId, setOrderId]= useState<number>()
     const [isEdit, setIsEdit] = useState(false);
-    const handleEdit = () => {
-        setIsEdit(true);
+    const handleEdit = (id: number | undefined) => {
+        if (id !== undefined) {
+            setIsEdit(true);
+            setOrderId(id)
+        }
     };
     const handleCloseEdit = () => {
         setIsEdit(false);
     };
 
      // view
+
+     const [allProducts, setAllProducts]= useState<AccountOrder>()
   const [isView, setIsView] = useState(false);
-  const handleView = () => {
+  const handleView = (allProduct:unknown) => {
     setIsView(true);
+  console.log(allProduct)
+  //setAllProducts(allProduct);
+
+  dispatch(addPendingOrder({
+    pendingOrders:allProduct
+  }))
+   
   };
 
   const handleCloseView = () => {
@@ -37,6 +52,11 @@ const PendingOrder = () => {
 
     };
 
+  const[status, setStatus]= useState<string>("")
+    const handleUpdateStatus=(status:string) => {
+        console.log(status)
+        setStatus(status)
+    }
     
     return (
         <>
@@ -75,7 +95,7 @@ const PendingOrder = () => {
 				<td>
                 <span>
                    <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                      onClick={() => handleEdit()}
+                      onClick={() => handleEdit(item.id)}
                     >
 
                         <Tooltip title="Edit" placement="bottom">
@@ -84,7 +104,8 @@ const PendingOrder = () => {
                     </span>
 
                     <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                     onClick={() => handleView()}
+                    onClick={() => handleView(item)}
+
                     >
 
                         <Tooltip title="View" placement="bottom">
@@ -120,8 +141,24 @@ const PendingOrder = () => {
 
 </Card>
 
-<View isView={isView} onCloseView={handleCloseView} /> 
-<Edit isEdit={isEdit} onClose={handleCloseEdit} />
+<View 
+isView={isView}
+
+ onCloseView={handleCloseView} 
+ /> 
+<Edit 
+isEdit={isEdit} 
+
+onClose={handleCloseEdit} 
+changeStatus={handleUpdateStatus}
+/>
+
+
+{status!=null && orderId &&
+<UpdateStatus
+status={status} 
+orderId={orderId}
+/>}
         </>
     );
 };
