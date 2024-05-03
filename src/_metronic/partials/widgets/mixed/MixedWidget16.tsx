@@ -13,7 +13,10 @@ type Props = {
   chartHeight: string
 }
 
-const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColor}) => {
+
+
+
+const MixedWidget16: FC<Props> = ({className, chartColor, chartHeight, strokeColor}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
   const refreshChart = () => {
@@ -46,8 +49,8 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className={`card-header border-0 py-5 bg-${chartColor}`}>
-        <h3 className='card-title fw-bold text-white'>Callaway Apparel</h3>
-
+        <h3 className='card-title fw-bold text-white'>Callaway Hardgoods</h3>
+        
         <div className='card-toolbar'>
           {/* begin::Menu */}
           <button
@@ -257,4 +260,4 @@ const chartOptions = (
   }
 }
 
-export {MixedWidget2}
+export {MixedWidget16}

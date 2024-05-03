@@ -3,6 +3,7 @@ import CartHome from '../../modules/cartOrder/CartHome'
 import { useState,  } from 'react';
 import { Input } from 'antd';
 import CartTable from './CartTable';
+import { NoProdect } from './NoProdect';
 const Cart = () => {
   
   return (
@@ -16,6 +17,9 @@ const Cart = () => {
           
           </div>
 
+
+
+
           {/* <div className="d-flex align-items-center py-1">
             <div className="me-4">
               <a href="#" className="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-white" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
@@ -26,6 +30,9 @@ const Cart = () => {
 
         </div>
       </div>
+
+
+      
       
       <CartHome/>
       {/* <CartTable/> */}

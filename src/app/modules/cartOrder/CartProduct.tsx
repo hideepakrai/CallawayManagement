@@ -8,6 +8,7 @@ import "./CartProduct.css"
 import {getTravisOrder} from "../../slice/orderSlice/travis/CartOrder"
 import { useSelector } from 'react-redux';
  import {getOgioOrder} from "../../slice/orderSlice/ogio/OgioCartOrderSlice"
+ import { NoProdect } from '../../pages/cart/NoProdect';
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState('apparel'); // Default to 'apparel' tab
 
@@ -75,6 +76,8 @@ const CartProduct = () => {
           </div>
         </div>
       </div>
+
+      <CartProduct/>
     </div>
   );
 }

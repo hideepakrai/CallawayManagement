@@ -13,7 +13,7 @@ type Props = {
   chartHeight: string
 }
 
-const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColor}) => {
+const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeColor}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
   const refreshChart = () => {
@@ -46,8 +46,8 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className={`card-header border-0 py-5 bg-${chartColor}`}>
-        <h3 className='card-title fw-bold text-white'>Callaway Apparel</h3>
-
+        <h3 className='card-title fw-bold text-white'>Travis Mathew </h3>
+        
         <div className='card-toolbar'>
           {/* begin::Menu */}
           <button
@@ -97,10 +97,10 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-danger px-6 py-8 rounded-2 me-7'>
+            <div className='col bg-light-danger px-4 py-8 rounded-2 me-7'>
               <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' />
               <a href='#' className='text-danger fw-semibold fs-6 mt-2'>
-                Item Orders
+              233 Complete Orders
               </a>
             </div>
             {/* end::Col */}
@@ -108,7 +108,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
             <div className='col bg-light-success px-6 py-8 rounded-2'>
               <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' />
               <a href='#' className='text-success fw-semibold fs-6 mt-2'>
-                Bug Reports
+              12 Pending Orders
               </a>
             </div>
             {/* end::Col */}
@@ -257,4 +257,4 @@ const chartOptions = (
   }
 }
 
-export {MixedWidget2}
+export {MixedWidget18}

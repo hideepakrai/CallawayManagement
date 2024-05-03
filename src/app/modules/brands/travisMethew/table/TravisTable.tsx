@@ -51,6 +51,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
      const filteredOptionsTwo = OPTIONS2.filter((o) => !selectedItems.includes(o));
        const [isCard, setIsCard]= useState<boolean>(true)
     //console.log(" travis Product",getProduct)
+
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
@@ -495,6 +496,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         if (record && record.products && record.products.data  &&record.products.data.length > 0) {
          
         const subcolumns: TableColumnsType<BasicModelTravis> = [
+
           {
             title: "SKU",
             dataIndex: "SKU",
@@ -589,14 +591,18 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
  
 
 
-  <Table  className='table-travis'
+      <Table  className='table-travis'
                 columns={subcolumns}
                 dataSource={getOtherProduct?.map((item)=>({...item,key:item.id}))}
                 pagination={false}
                 
                 size="middle"
+                
+                rowSelection={{
+                  onSelect:(record)=>{handleSelctRow(record)}
+                }}
               />
-        //  <h1>hello</h1>
+       
 
            );
                

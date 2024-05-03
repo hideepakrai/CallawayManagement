@@ -37,17 +37,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
     <div className='pdf-info'>
       <Row >
         <Col xs={24} >
-          <Card id="catelog" ref={contentToPrint}>
-            <div>
-              <div>
-                <div>
-                  <div
-                    style={{
-                      paddingBottom: "100px",
-                      textAlign: "center",
-                    }}
-                  >
-                    <div style={{ textAlign: "left", marginTop: "30px" }}>
+        <div style={{ textAlign: "left", marginTop: "40px", marginBottom:"6px" }}>
                       {/* <Button 
                         onClick={() => {
                           handlePrint(null, () => contentToPrint.current);
@@ -69,6 +59,22 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                       <button type="button" className="ant-btn css-dev-only-do-not-override-11xg00t ant-btn-default mx-3 "><span>Download PPT</span></button>
 
                     </div>
+
+          <Card id="catelog" ref={contentToPrint}>
+            <div>
+              <div>
+                <div>
+
+               
+
+                  <div
+                    style={{
+                      paddingBottom: "100px",
+                      textAlign: "center",
+                    }}
+                  >
+                  
+
                     {getAllBrand &&
                       getAllBrand.length > 0 &&
                       getAllBrand.map((item: BrandModel) => {

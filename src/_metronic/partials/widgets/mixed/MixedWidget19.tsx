@@ -13,7 +13,7 @@ type Props = {
   chartHeight: string
 }
 
-const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColor}) => {
+const MixedWidget19: FC<Props> = ({className, chartColor, chartHeight, strokeColor}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
   const refreshChart = () => {
@@ -46,8 +46,8 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className={`card-header border-0 py-5 bg-${chartColor}`}>
-        <h3 className='card-title fw-bold text-white'>Callaway Apparel</h3>
-
+        <h3 className='card-title fw-bold text-white'>Sales Statistics</h3>
+        
         <div className='card-toolbar'>
           {/* begin::Menu */}
           <button
@@ -77,18 +77,18 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-warning px-4 py-8 rounded-2 me-7 mb-7'>
+            <div className='col bg-light-warning px-6 py-8 rounded-2 me-7 mb-7'>
               <KTIcon iconName='chart-simple' className='fs-3x text-warning d-block my-2' />
               <a href='#' className='text-warning fw-semibold fs-6'>
-              1234 Total Products
+                Weekly Sales
               </a>
             </div>
             {/* end::Col */}
             {/* begin::Col */}
-            <div className='col bg-light-primary px-4 py-8 rounded-2 mb-7'>
+            <div className='col bg-light-primary px-6 py-8 rounded-2 mb-7'>
               <KTIcon iconName='plus' className='fs-3x text-primary d-block my-2' />
               <a href='#' className='text-primary fw-semibold fs-6'>
-              Create Order
+                New Users
               </a>
             </div>
             {/* end::Col */}
@@ -257,4 +257,4 @@ const chartOptions = (
   }
 }
 
-export {MixedWidget2}
+export {MixedWidget19}

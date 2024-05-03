@@ -9,6 +9,7 @@ import {
   MixedWidget10,
   MixedWidget11,
   MixedWidget2,
+
   MixedWidget8,
   TablesWidget10,
   TilesWidget1,
@@ -17,6 +18,10 @@ import {
   TilesWidget4,
   TilesWidget5,
 } from '../../../_metronic/partials/widgets'
+
+import { MixedWidget16 } from '../../../_metronic/partials/widgets/mixed/MixedWidget16.tsx'
+import { MixedWidget17 } from '../../../_metronic/partials/widgets/mixed/MixedWidget17.tsx'
+import { MixedWidget18 } from '../../../_metronic/partials/widgets/mixed/MixedWidget18.tsx'
 import { Toolbar } from '../../../_metronic/layout/components/toolbar/Toolbar'
 import { Content } from '../../../_metronic/layout/components/Content'
 import { useEffect } from 'react'
@@ -45,14 +50,14 @@ const DashboardPage = () => (
         </div>
 
         <div className='col-xl-8'>
-          <div className='row gx-5 gx-xl-8 mb-5 mb-xl-8'>
+          {/* <div className='row gx-5 gx-xl-8 mb-5 mb-xl-8'>
             <div className='col-xl-3'>
               <TilesWidget1 className='card-xl-stretch' />
             </div>
             <div className='col-xl-9'>
               <TilesWidget4 className='card-xl-stretch' />
             </div>
-          </div>
+          </div> */}
 
           <div className='row gx-5 gx-xl-8 mb-5 mb-xl-8'>
             <div className='col-xl-6'>
@@ -83,11 +88,14 @@ const DashboardPage = () => (
               </div>
             </div>
             <div className='col-xl-6'>
-              <TilesWidget3 className='card-xl-stretch mb-5 mb-xl-8' />
+              {/* <TilesWidget3 className='card-xl-stretch mb-5 mb-xl-8' /> */}
+              <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-8' items={5} />
             </div>
           </div>
         </div>
       </div>
+
+   
 
       {/* begin::Row */}
       <div className='row gy-5 g-xl-8'>
@@ -99,7 +107,25 @@ const DashboardPage = () => (
             strokeColor='#cb1e46'
           />
         </div>
+
         <div className='col-xxl-4'>
+          <MixedWidget16
+            className='card-xl-stretch mb-xl-8'
+            chartColor='danger'
+            chartHeight='200px'
+            strokeColor='#cb1e46'
+          />
+        </div>
+        <div className='col-xxl-4'>
+          <MixedWidget17
+            className='card-xl-stretch mb-xl-8'
+            chartColor='danger'
+            chartHeight='200px'
+            strokeColor='#cb1e46'
+          />
+        </div>
+
+        {/* <div className='col-xxl-4'>
           <ListsWidget5 className='card-xxl-stretch' />
         </div>
         <div className='col-xxl-4'>
@@ -113,17 +139,26 @@ const DashboardPage = () => (
             chartColor='primary'
             chartHeight='175px'
           />
-        </div>
+        </div> */}
+
       </div>
       {/* end::Row */}
 
       {/* begin::Row */}
       <div className='row gy-5 gx-xl-8'>
         <div className='col-xxl-4'>
-          <ListsWidget3 className='card-xxl-stretch mb-xl-3' />
+        <MixedWidget18
+            className='card-xl-stretch mb-xl-8'
+            chartColor='danger'
+            chartHeight='200px'
+            strokeColor='#cb1e46'
+          />
+          
+           {/* <ListsWidget3 className='card-xxl-stretch mb-xl-3' />  */}
         </div>
         <div className='col-xl-8'>
-          <TablesWidget10 className='card-xxl-stretch mb-5 mb-xl-8' />
+          
+           <TablesWidget10 className='card-xxl-stretch mb-5 mb-xl-8' /> 
         </div>
       </div>
       {/* end::Row */}
@@ -131,14 +166,17 @@ const DashboardPage = () => (
       {/* begin::Row */}
       <div className='row gy-5 g-xl-8'>
         <div className='col-xl-4'>
-          <ListsWidget2 className='card-xl-stretch mb-xl-8' />
+        <ListsWidget5 className='card-xxl-stretch' />
+      
         </div>
         <div className='col-xl-4'>
-          <ListsWidget6 className='card-xl-stretch mb-xl-8' />
+        <ListsWidget2 className='card-xl-stretch mb-xl-8' />
+         
         </div>
-        <div className='col-xl-4'>
-          <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-8' items={5} />
-        </div>
+         <div className='col-xl-4'>
+         <ListsWidget6 className='card-xl-stretch mb-xl-8' /> 
+          {/* <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-8' items={5} /> */}
+        </div> 
       </div>
       {/* end::Row */}
     </Content>
