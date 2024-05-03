@@ -6,18 +6,28 @@ import { Select } from "antd";
 type Props={
     isEdit:boolean
     onClose:() => void,
+    changeStatus:(status:string) => void
+    
 }
-const Edit = ({ isEdit, onClose }:Props) => {
+const Edit = ({ isEdit, onClose,changeStatus}:Props) => {
   const handleOk = () => {
     //setIsModalOpen(false);
+    if(status!==""){
+      changeStatus(status)
+    }else{
+      alert("Please select status")
+      return
+    }
+    setStatus("")
     onClose();
   };
   const handleCancel = () => {
     // setIsModalOpen(false);
     onClose();
   };
-
-  const onChange = (value:unknown) => {
+ const [status, setStatus]= useState<string>("")
+  const handleOnChange = (value:string) => {
+       setStatus(value)
     // console.log(`selected ${value}`);
   };
   return (
@@ -35,7 +45,7 @@ const Edit = ({ isEdit, onClose }:Props) => {
           showSearch
           placeholder="Update status"
           optionFilterProp="children"
-          onChange={onChange}
+          onChange={handleOnChange}
           // onSearch={onSearch}
           //filterOption={filterOption}
           options={[

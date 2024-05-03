@@ -23,6 +23,8 @@ import Loading from '../../../loading/Loading.tsx';
 import {updateInclusiveDiscount,updateExclusiveDiscount,updateFlatDiscount,updateTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
 import OrderPdf from './OrderPdf.tsx';
 import {addTravisOrderDetails} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
+import {addPendingOrder} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
+
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -519,8 +521,7 @@ const TravisCart = () => {
       // save order
 
     const handleCreateOrder=(retailerId:number )=>{
-      // eslint-disable-next-line no-debugger
-      debugger
+      
       
       dispatch(LoadingStart())
       if (Array.isArray(getProduct)) {

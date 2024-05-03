@@ -1,9 +1,9 @@
  export interface UserAccountModel {
+  id?:number|undefined|null
     email?: string|undefined|null;
     provider?: string|undefined|null;
     attributes?: UserRoleAttributes
-    
-    username?: string;
+   // username?: string;
 
   }
   
@@ -11,6 +11,7 @@
   export interface UserRoleAttributes {
     role?: UserRole;
     orders?:AllOrderss;
+    username?: string;
   }
    export interface UserRole {
     data?: UserRoleData;
@@ -18,6 +19,7 @@
   
   export interface UserRoleData {
     attributes?: RoleAttributes;
+    
   }
 
   export interface RoleAttributes{

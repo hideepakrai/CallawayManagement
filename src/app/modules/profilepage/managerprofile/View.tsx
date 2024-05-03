@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip } from "antd";
 import { Flex, Input, Table } from "antd";
-const { TextArea } = Input;
+
+import {ProductDetails,AccountOrder} from "../../model/CartOrder/CartModel.ts"
+import {getPendingOrder} from "../../../slice/orderSlice/travis/Orderdetails.tsx"
+import {useSelector, useDispatch} from "react-redux"
 type Props={
     isView:boolean,
-    onCloseView:() => void
+    onCloseView:() => void,
+    
 }
 
 const View = ({ isView, onCloseView }:Props) => {
+
+
+  const getPendingOrders= useSelector(getPendingOrder) as AccountOrder
+   console.log("AccountOrder",getPendingOrders)
+  
   const handleOk = () => {
     //setIsModalOpen(false);
     onCloseView();
@@ -17,105 +26,7 @@ const View = ({ isView, onCloseView }:Props) => {
     onCloseView();
   };
 
-  const columns = [
-    {
-      title: "SKU",
-      dataIndex: "sku",
-      key: "sku",
-    },
-    {
-      title: "Description ",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
-      title: "Name ",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Style",
-      dataIndex: "style",
-      key: "style",
-    },
-    {
-      title: "Color",
-      dataIndex: "color",
-      key: "color",
-    },
-    {
-      title: "Size",
-      dataIndex: "size",
-      key: "size",
-    },
-    {
-      title: "Qty",
-      dataIndex: "qty",
-      key: "qty",
-    },
-
-    {
-      title: "MRP",
-      dataIndex: "mrp",
-      key: "mrp",
-    },
-
-    {
-      title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
-    },
-  ];
-
-  const data = [
-    {
-   
-      dataIndex: "sku",
-   
-    },
-    {
-      title: "Description ",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
-      title: "Name ",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Style",
-      dataIndex: "style",
-      key: "style",
-    },
-    {
-      title: "Color",
-      dataIndex: "color",
-      key: "color",
-    },
-    {
-      title: "Size",
-      dataIndex: "size",
-      key: "size",
-    },
-    {
-      title: "Qty",
-      dataIndex: "qty",
-      key: "qty",
-    },
-
-    {
-      title: "MRP",
-      dataIndex: "mrp",
-      key: "mrp",
-    },
-
-    {
-      title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
-    },
-  ];
+ 
   
   return (
     <div>
@@ -126,8 +37,53 @@ const View = ({ isView, onCloseView }:Props) => {
         onCancel={handleCancel}
         width={800}
       >
-        <h3>Order Id</h3>
-        <Table columns={columns} dataSource={data} pagination={false} />;
+        <h3>Order Id:{getPendingOrders?.attributes?.OrderId}</h3>
+        <table className="table table-striped gy-7 gs-7">
+      
+		<thead>
+			<tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+				<th>Name</th>
+				<th>SKU</th>
+				<th>Description</th>
+				<th>Unit Price</th>
+				<th>QTY 90</th>
+				<th>QTY 88</th>
+				<th>TotalPrice</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+         {getPendingOrders &&
+ getPendingOrders?.attributes &&
+ getPendingOrders?.attributes.ProductDetails &&
+ getPendingOrders?.attributes.ProductDetails.length>0 &&
+ getPendingOrders?.attributes.ProductDetails.map((item)=>{
+    if(item && item.product && item.product.data && item.product.data.attributes){
+
+        return(
+            <tr>
+				<td>{item.product.data.attributes.Name}</td>
+				<td>{item.product.data.attributes.SKU}</td>
+				<td>{item.product.data.attributes.Description}</td>
+				<td>{item.UnitPrice}</td>
+				<td>{item.Qty90}</td>
+				<td>{item.Qty88}</td>
+				<td>{item.TotalPrice}</td>
+				
+			</tr>
+  
+        )
+    }
+ })
+
+
+
+}  
+			
+			
+		</tbody>
+	</table>
+        
       </Modal>
     </div>
   );

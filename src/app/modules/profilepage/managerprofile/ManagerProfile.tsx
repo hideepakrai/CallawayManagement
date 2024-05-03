@@ -8,8 +8,16 @@ import { friendList } from "./FriendList";
 import Friends from './Friend';
 import { contactList } from './ContactsList';
 import Contact from './Contact';
+import {getUserAccount} from "../../../slice/UserSlice/UserSlice";
+
+import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
+import { useSelector } from 'react-redux';
 
 const ManagerProfile = () => {
+
+
+  const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
+  console.log("getUserAccount",getUserAccount)
   return (
     <div>
       <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
@@ -19,14 +27,14 @@ const ManagerProfile = () => {
               <img src='https://via.placeholder.com/150' alt="Profile"></img>
             </div>
             <div className='pt-5 mx-6'>
-              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">Manish Gupta </h1>
-              <h2 className="d-flex text-white fw-bold my-1 fs-3"> Retailer</h2>
+              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">{getUserAccountDetails?.attributes?.username} </h1>
+              <h2 className="d-flex text-white fw-bold my-1 fs-3"> {getUserAccountDetails?.attributes?.role?.data?.attributes?.name}</h2>
             </div>
           </div>
           <div className="d-flex align-items-center py-1">
             <div className="me-4">
               <a href="#" className="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-white" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
-                <i className="bi bi-pencil-fill icon-order"></i>Edit
+                
               </a>
             </div>
           </div>
@@ -36,7 +44,7 @@ const ManagerProfile = () => {
       <Row className='container'>
         <Col xl={18} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
-      <AllOrders   />
+      {/* <AllOrders   /> */}
         </Col>
 
         <Col xl={6} lg={10} md={10} sm={24} xs={24} >
