@@ -2,13 +2,13 @@
 export interface OgioBasicModel {
 
      id?:number,
-      Name?: string;
-      brand?:string,
-       Brand?:Brand[],
-      Description?: string;
-      SKU?: string;
-     
-      Gallery?:string;
+      Name?: string|undefined;
+      brand?:string |undefined,
+       Brand?:Brand,
+      Description?: string |undefined;
+      SKU?: string |undefined;
+      
+      Gallery?:string |undefined;
       MRP?: number | null;
       SetType?: string;
       ProductType?: string | null;
@@ -25,9 +25,9 @@ export interface OgioBasicModel {
        GST?:number,
        LessGST?:number,
        Discount?:number,
-       LessDiscountAmount:number,
-       NetBillings:number,
-       FinalBillValue:number,
+       LessDiscountAmount?:number,
+       NetBillings?:number,
+       FinalBillValue?:number,
 
 }
 export interface OgioBasicModelGraph {
@@ -84,9 +84,9 @@ export interface OgioModel{
     updatedAt: string;
     publishedAt: string;
   }
-  export interface Brand {
-    data: {
-      attributes: {
+  export interface Brand{
+    data?: {
+      attributes?: {
         Name?: string;
       };
     };

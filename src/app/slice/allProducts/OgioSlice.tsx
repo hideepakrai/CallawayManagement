@@ -42,7 +42,7 @@
                         }
                         state.ogio.push({
                         id:item.id,
-                        brand:item.attributes.brand,
+                        //brand:item.attributes.brand,
                         Name: item.attributes.Name,
                         Description: item.attributes.Description,
                         SKU: item.attributes.SKU,
