@@ -24,6 +24,9 @@ import {updateInclusiveDiscount,updateExclusiveDiscount,updateFlatDiscount,updat
 import OrderPdf from './OrderPdf.tsx';
 import {addTravisOrderDetails} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 import {addPendingOrder} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
+import GetUserAccount from '../../../auth/components/GetUserAccount.tsx';
+import { boolean } from 'yup';
+import ImageRenderer from "../../../brands/travisMethew/table/column/gallery.tsx"
 
 const TravisCart = () => {
     const tableRef = useRef(null);
@@ -55,31 +58,7 @@ const TravisCart = () => {
         dataIndex: "Gallery",
         // fixed: "left",
         width: 50,
-        render: (value) => {
-          // Check if value and value.data[0] exist before accessing properties
-          if (value && value.data[0] && value.data[0].attributes && value.data[0].attributes.formats && value.data[0].attributes.formats.thumbnail && value.data[0].attributes.formats.thumbnail.url) {
-            console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
-            return (
-              <span>
-                <img
-                  src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.thumbnail.url}`}
-                  alt="Primary Image"
-                  style={{ maxWidth: "30px", marginRight: "5px" }}
-                />
-              </span>
-            );
-          } else {
-            return (
-              <span>
-                <img
-                  src="/media/icons/icon-callway.png"
-                  alt="Primary Image"
-                  style={{ maxWidth: "30px", marginRight: "5px" }}
-                />
-              </span>
-            ); // Return a placeholder image if thumbnail url is null or undefined
-          }
-        },
+        render: (value) => <ImageRenderer value={value} />,
         
       
       },
@@ -315,17 +294,24 @@ const TravisCart = () => {
          { title: "Qty88",
           dataIndex: "TravisAttributes",
           key: "Stock88", 
-          width: 100,
+          width: 150,
           fixed:'right',
           render: (value,record) => (
-            <Input 
-            addonBefore={value[0]?.Stock88} 
-            type='number'
-           
-            value={record.Quantity88?.toString()}
-            onChange={(e) => handleQuantity88(e.target.value, record)}
-            disabled={value[0]?.Stock88 === 0} 
-            />
+         
+            <InputNumber
+                  className='mx-3 number-input'
+                  addonBefore={value[0]?.Stock88} 
+                  value={record.Quantity88?.toString()}
+                  style={{ width: 100 }}
+                  onChange={(value) => {
+                    if (value !== null) {
+                      handleQuantity88(value, record)
+                    }
+
+                  }}
+                   
+                  disabled={value[0]?.Stock90 === 0} 
+                />
            
           ),
         },
@@ -333,17 +319,24 @@ const TravisCart = () => {
             title: "Qty90",
           dataIndex: "TravisAttributes",
           key: "Stock88", 
-          width: 100,
+          width: 130,
           fixed:'right',
           render: (value,record) => (
-            <Input addonBefore={value[0]?.Stock90||0} 
-            type='number'
-            
-            value={record.Quantity90?.toString()}
-            onChange={(e) => handleQuantity90(e.target.value, record)} 
-            disabled={value[0]?.Stock90 === 0} 
-            />
-           
+        
+           <InputNumber
+                  className='mx-5 number-input'
+                  addonBefore={value[0]?.Stock90||0} 
+                  value={record.Quantity90?.toString()}
+                  onChange={(value) => {
+                    if (value !== null) {
+                      handleQuantity90(value, record)
+                    }
+
+                  }}
+                   
+                  disabled={value[0]?.Stock90 === 0} 
+                  style={{ width: 100 }}
+                />
           ),
           },
  
@@ -568,32 +561,38 @@ const TravisCart = () => {
       }
   }
 
-
+  const [reLoadUserAccount, setReloadUserAccount]= useState(false)
   const createOrder=async(data:CartModel)=>{
       try{
           const response=await CreateOrder(data);
           console.log("order update",response);
             if(response?.data.id){
-              dispatch(LoadingStop())
-              alert("your order has been created")
-
-              dispatch(resetTravisOrder({
-                travis:"true"
-              }))
+            
+             
+              setReloadUserAccount(true)
             }
+           
          
       }
         catch(err){
             console.log(err);
+            dispatch(LoadingStop())
+            setReloadUserAccount(false);
         }
   }
 
-//   function generateUniqueAlphanumeric(): string {
-//     const timestamp = new Date().getTime().toString(36); // Convert timestamp to base 36
-//     const randomChars = Math.random().toString(36).substr(2, 5); // Generate random characters
-//     const uniqueId = timestamp + randomChars; // Combine timestamp and random characters
-//     return uniqueId;
-// }
+
+  // reset userlaoding boolean
+  const handleResetId=()=>{
+    alert("your order has been created")
+    setReloadUserAccount(false);
+    dispatch(resetTravisOrder({
+      travis:"true"
+    }))
+    dispatch(LoadingStop())
+  }
+
+
   
 function generateUniqueNumeric(): string {
   const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
@@ -633,9 +632,9 @@ const handleDiscount=(value:string)=>{
 }
 
 
-const handleChangeDiscount=(value:string)=>{
-  const dis= parseInt(value, 10)
-  
+const handleChangeDiscount=(value:number)=>{
+  const dis=value;
+  console.log(dis);
   setDiscountValue(dis)
   if(discountType==="Inclusive"){
     dispatch(updateInclusiveDiscount({
@@ -748,8 +747,16 @@ getProduct.length>0 ?
                  
                   onChange={(e)=>handleChangeDiscount(e.target.value)}
                 /> */}
-                    <InputNumber  className='mx-3 number-input'
-                    addonAfter="%"  value={discountValue} />
+<InputNumber
+  className='mx-3 number-input'
+  addonAfter="%"
+  value={discountValue}
+  onChange={(value) => {
+    if (value !== null) {
+      handleChangeDiscount(value);
+    }
+  }}
+/>
 
                   </Space>
 
@@ -796,9 +803,13 @@ getProduct.length>0 ?
               </div>
           )}          
 
-         { isUpdateOrder &&<UpdateOrder/>}
+        
 
-         
+         {/* update order in redux */}
+         {reLoadUserAccount&& userId!=null &&<GetUserAccount
+        userId={userId}
+        resetId={handleResetId}
+      />}
      <OrderPdf />
     </div>
   )

@@ -3,7 +3,7 @@ import { Row, Col } from 'antd'; // Import Row and Col components from Ant Desig
 
 import "./ManagerProfile.css";
 import PendingOrder from './PendingOrder';
-import AllOrders from './AllOrders';
+import AllOrder from './AllOrders';
 import { friendList } from "./FriendList";
 import Friends from './Friend';
 import { contactList } from './ContactsList';
@@ -12,10 +12,11 @@ import {getUserAccount} from "../../../slice/UserSlice/UserSlice";
 
 import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
 import { useSelector } from 'react-redux';
-
+import Loading from '../../../modules/loading/Loading'
+import {getLoading,LoadingStop} from "../../../slice/loading/LoadingSlice"
 const ManagerProfile = () => {
 
-
+  const getLoadings=useSelector(getLoading)
   const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
   console.log("getUserAccount",getUserAccount)
   return (
@@ -40,11 +41,12 @@ const ManagerProfile = () => {
           </div>
         </div>
       </div>
+      {getLoadings &&<Loading/>}
 
       <Row className='container'>
         <Col xl={18} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
-      {/* <AllOrders   /> */}
+      <AllOrder   />
         </Col>
 
         <Col xl={6} lg={10} md={10} sm={24} xs={24} >

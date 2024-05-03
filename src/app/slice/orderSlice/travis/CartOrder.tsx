@@ -58,10 +58,10 @@ const OrderSlice = createSlice({
                         TotalQty: qty88+qty90,
                         GST:12,
                         LessGST:(((qty88+qty90)*travisOrder.MRP)*.12),
-                        Discount: 0,
-                        LessDiscountAmount:0,
-                        NetBillings:0,
-                        FinalBillValue:0,
+                        Discount:22,
+                        LessDiscountAmount:((qty88+qty90)*travisOrder.MRP)*.22,
+                        NetBillings:(((qty88+qty90)*travisOrder.MRP)*.22)-(((qty88+qty90)*travisOrder.MRP)*.12),
+                        FinalBillValue:(((qty88+qty90)*travisOrder.MRP)*.22)-(((qty88+qty90)*travisOrder.MRP)*.12)+((((qty88+qty90)*travisOrder.MRP)*.22)-(((qty88+qty90)*travisOrder.MRP)*.12)*.12),
                       });
                    }else {
                     state.TravisOrder[index].Quantity90=travisOrder.Quantity90;
