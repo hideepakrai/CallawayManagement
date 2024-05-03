@@ -12,10 +12,11 @@ import {getUserAccount} from "../../../slice/UserSlice/UserSlice";
 
 import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
 import { useSelector } from 'react-redux';
-
+import Loading from '../../../modules/loading/Loading'
+import {getLoading,LoadingStop} from "../../../slice/loading/LoadingSlice"
 const ManagerProfile = () => {
 
-
+  const getLoadings=useSelector(getLoading)
   const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
   console.log("getUserAccount",getUserAccount)
   return (
@@ -40,6 +41,7 @@ const ManagerProfile = () => {
           </div>
         </div>
       </div>
+      {getLoadings &&<Loading/>}
 
       <Row className='container'>
         <Col xl={18} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
