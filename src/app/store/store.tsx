@@ -15,6 +15,9 @@ import RetailerReducer from "../slice/retailer/RetailerSlice";
 
 import BrandReducer  from "../slice/brand/BrandSlice"
 import OgioOrderReducer from "../slice/orderSlice/ogio/OgioCartOrderSlice"
+
+import TravisOrderDetailReducer from "../slice/orderSlice/travis/Orderdetails"
+
 export default configureStore({
 
 
@@ -28,5 +31,6 @@ export default configureStore({
         retailer:RetailerReducer,
         brands:BrandReducer,
         OgioOrder:OgioOrderReducer,
+        travisOrderDetail:TravisOrderDetailReducer
     }
 })

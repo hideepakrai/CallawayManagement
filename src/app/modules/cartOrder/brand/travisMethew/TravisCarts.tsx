@@ -22,6 +22,7 @@ import {LoadingStart,LoadingStop,getLoading} from "../../../../slice/loading/Loa
 import Loading from '../../../loading/Loading.tsx';
 import {updateInclusiveDiscount,updateExclusiveDiscount,updateFlatDiscount,updateTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
 import OrderPdf from './OrderPdf.tsx';
+import {addTravisOrderDetails} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 const TravisCart = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -380,7 +381,7 @@ const TravisCart = () => {
         dataIndex: "LessGST",
         key: "LessGST", 
         width: 100,
-        fixed:'right'
+        // fixed:'right'
       },
       
       {
@@ -388,7 +389,7 @@ const TravisCart = () => {
         dataIndex: "Discount",
         key: "Discount", 
         width: 100,
-        fixed:'right'
+        // fixed:'right'
       },
       
       {
@@ -396,21 +397,21 @@ const TravisCart = () => {
         dataIndex: "LessDiscountAmount",
         key: "LessDiscountAmount", 
         width: 100,
-        fixed:'right'
+        // fixed:'right'
       },
       {
         title: "NetBillings",
         dataIndex: "NetBillings",
         key: "NetBillings", 
         width: 100,
-        fixed:'right'
+        // fixed:'right'
       },
       {
         title: "FinalBillValue",
         dataIndex: "FinalBillValue",
         key: "FinalBillValue", 
         width: 100,
-        fixed:'right'
+        // fixed:'right'
       },
     
     ];
@@ -517,7 +518,10 @@ const TravisCart = () => {
 
       // save order
 
-    const handleCreateOrder=(retailerId:number, retailerAddres:string, retailerCity:string, retailerName:string)=>{
+    const handleCreateOrder=(retailerId:number )=>{
+      // eslint-disable-next-line no-debugger
+      debugger
+      
       dispatch(LoadingStart())
       if (Array.isArray(getProduct)) {
           
@@ -659,7 +663,23 @@ const handleRetailerDetail=(retailerId:number, retailerAddres:string, retailerCi
   setRetailerName(retailerName)
   setRetailerAddress(retailerAddres)
   setRetailerCity(retailerCity)
+  dispatch(addTravisOrderDetails({
+    
+    retailerAddres:retailerAddres,
+    retailerCity:retailerCity,
+    retailerName:retailerName
+  }))
  } 
+
+ //haandle viewPdf 
+ const [isOrderPdf, setIdOrderPdf]= useState<boolean>(false);
+ const handleViewPdf=()=>{
+  setIdOrderPdf(true)
+ }
+
+ const handleClaoseViewPdf=()=>{
+  setIdOrderPdf(false)
+ }
  return (
     <div>
 
@@ -667,8 +687,9 @@ const handleRetailerDetail=(retailerId:number, retailerAddres:string, retailerCi
 {getProduct && 
 getProduct.length>0 &&
 <CartHeader
-CreateOrder={()=>handleCreateOrder}
+CreateOrder={handleCreateOrder}
 sendRetailerData={()=>handleRetailerDetail}
+
 />}
 
 
@@ -776,22 +797,8 @@ getProduct.length>0 ?
 
          { isUpdateOrder &&<UpdateOrder/>}
 
-         {totalAmount &&
-         discountAmount &&
-         totalNetBillAmount &&
-         retailerAddres &&
-         retailerName &&
-         retailerCity &&
-         <OrderPdf
-         totalAmount={totalAmount}
-         discountAmount={discountAmount}
-         totalNetBillAmount={totalNetBillAmount}
-         retailerName={retailerName}
-         retailerAddres={retailerAddres}
-         retailerCity={retailerCity}
-
          
-         />}
+     <OrderPdf />
     </div>
   )
 }

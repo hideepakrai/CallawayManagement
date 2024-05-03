@@ -15,6 +15,7 @@ export const GET_Manager_ACCOUNT = gql`
               id
               attributes {
                 name
+                
               }
             }
           }
@@ -25,6 +26,44 @@ export const GET_Manager_ACCOUNT = gql`
               attributes{
                 OrderId
                 Brand
+                Amount
+                DiscountType
+                DiscountPercent
+                ProductDetails{
+                  product{
+                    data{
+                      id
+                      attributes{
+                        Name
+                        SKU
+                        Description
+                        AttributeSet{
+                          ... on ComponentAttributeSetTravisMathew{
+                            Category
+                            Season
+                          }
+                        }
+                        
+                      
+                      }
+                    }
+                  }
+                  UnitPrice
+                  Qty88
+                  Qty90
+                  TotalPrice
+                  
+                }
+                retailer{
+                  data{
+                    id
+                    attributes{
+                      Name
+                      Address
+                    
+                    }
+                  }
+                }
                 Status
                 createdAt
               }

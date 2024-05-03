@@ -31,7 +31,7 @@ const GetUserAccount = ({ userId,resetId }: Props) => {
 
       useEffect(()=>{
 
-        console.log(data)
+        console.log("manager Account",data)
         console.log(loading )
         if(data &&!loading){
             console.log(data?.usersPermissionsUsers?.data[0]);

@@ -5,18 +5,25 @@ import {BasicModelTravis} from "../../../model/travis/TravisMethewModel.ts"
 import {useDispatch, useSelector,} from "react-redux"
 import {getTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
 import { useReactToPrint } from 'react-to-print';
+import {getTravisOrderDetails} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
+
 type Props={
-  totalAmount:number,
-  discountAmount:number,
-  totalNetBillAmount:number,
-  retailerName:string,
-  retailerAddres:string,
-  retailerCity:string,
-  
+  // totalAmount:number,
+  // discountAmount:number,
+  // totalNetBillAmount:number,
+  // retailerName:string,
+  // retailerAddres:string,
+  // retailerCity:string,
+ 
 }
 
-const OrderPdf = ({totalAmount,discountAmount,totalNetBillAmount,retailerName,retailerAddres,retailerCity}:Props) => {
-      const getAllTravisOrder= useSelector(getTravisOrder)
+const OrderPdf = () => {
+      
+const getTravisOrderDetailss= useSelector(getTravisOrderDetails)
+
+
+  
+  const getAllTravisOrder= useSelector(getTravisOrder)
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
@@ -221,6 +228,7 @@ const OrderPdf = ({totalAmount,discountAmount,totalNetBillAmount,retailerName,re
         }}
         
         >Download PDF</Button>
+       
       <div className=" ant-card ant-card-bordered gx-card" style={{marginTop:"40px"}} ref={contentToPrint}>
         <div className="ant-card-body"> 
        <div><img width={150} src="https://aigigs.in/uploads/callaway_logo_da080f1136.png"></img></div>
@@ -233,8 +241,8 @@ const OrderPdf = ({totalAmount,discountAmount,totalNetBillAmount,retailerName,re
 
        <div style={{width:"81%"}}>
          <h4>Retailer Details:</h4>
-         <h1>{retailerName}</h1>
-         <p>{retailerAddres} {retailerCity}</p>
+         <h1>{getTravisOrderDetailss?.retailerName}</h1>
+         <p>{getTravisOrderDetailss?.retailerAddres} {getTravisOrderDetailss?.retailerCity}</p>
          <p>+123-456-789</p>
        </div>
        <div style={{float:"left"}}>
@@ -259,12 +267,12 @@ const OrderPdf = ({totalAmount,discountAmount,totalNetBillAmount,retailerName,re
             
             <h4 style={{ color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px",fontSize:"14px"}}>
                 {" "}
-                <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{totalAmount}
+                <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{getTravisOrderDetailss?.totalAmount}
               </h4>
               {/* ₹ */}
               <h4 style={{ color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px", fontSize:"14px"}}>
                 {" "}
-                <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{discountAmount}
+                <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{getTravisOrderDetailss?.discountAmount}
               </h4>
               
              
@@ -277,7 +285,7 @@ const OrderPdf = ({totalAmount,discountAmount,totalNetBillAmount,retailerName,re
              
 
               <h4 style={{color:"#545454", padding:"8px 0px", backgroundColor:"#ddd",fontSize:"14px"}}>
-                <a style={{ color:"#545454", paddingRight:"109px", paddingLeft:"10px",}}>Total : </a>{totalNetBillAmount}
+                <a style={{ color:"#545454", paddingRight:"109px", paddingLeft:"10px",}}>Total : </a>{getTravisOrderDetailss?.totalNetBillAmount}
               </h4>
             </div>
             </div>

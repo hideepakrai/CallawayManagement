@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../../model/travis/TravisMethewModel"
 import { Image } from 'antd';
-
-
-
+import {getAllBrands} from "../../../../../slice/brand/BrandSlice"
+import { useSelector } from 'react-redux';
+import {BrandModel} from "../../../../model/brand/AllBrands"
 type Props = {
     value:ImageType
 }
@@ -11,8 +11,20 @@ type Props = {
 
 const ImageRenderer = ({ value }:Props) => {
 
-   
-
+   const getAllBrand = useSelector(getAllBrands) as BrandModel[]
+  const[imagePath, setImagePath]= useState<string |undefined>("")
+   useEffect(()=>{
+    if(getAllBrand &&
+      getAllBrand.length>0
+    ){
+     
+      const image:BrandModel[]=getAllBrand.filter(brand => brand.attributes?.Name==="Travis Mathew");
+     if(image && image.length>0)
+      setImagePath(image[0].attributes?.Logo?.data.attributes?.formats?.thumbnail?.url)
+     //  console.log("image: " + image[0].attributes?.Logo?.data.attributes?.formats?.thumbnail?.url);
+    }
+   },[getAllBrand])
+   console.log("getAllBrand",getAllBrand)
   if (value && value.data &&
     value?.data[0]?.attributes &&
     value?.data[0]?.attributes?.formats &&
@@ -47,16 +59,22 @@ const ImageRenderer = ({ value }:Props) => {
         </span>
       );
   } else {
-    return (
-      <span>
-        <img
-          src="/media/icons/icon-callway.png"
-          alt="Primary Image"
-          style={{ maxWidth: "30px", marginRight: "5px" }}
-        />
-      </span>
-    );
+    
+     
+          return(
+            <span>
+           {imagePath &&   <img
+                src={`https://admin.callawayindiaoms.com${imagePath}`}
+                alt="Primary Image"
+                style={{ maxWidth: "30px", marginRight: "5px" }}
+                width={30}
+              />}
+            </span>
+          )
+      
+    }
+    
   }
-};
+
 
 export default ImageRenderer;

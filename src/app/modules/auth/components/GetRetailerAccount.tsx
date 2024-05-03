@@ -31,7 +31,7 @@ const GetRetailerAccount = ({ userId,resetId }: Props) => {
 
       useEffect(()=>{
 
-        console.log(data)
+        console.log("userAccount",data)
         console.log(loading )
         if(data &&!loading){
             console.log(data?.usersPermissionsUsers?.data[0]);

@@ -31,6 +31,8 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
   const [GST, setGST]= useState<string>()
 
     const handleSubmit=()=>{
+        // eslint-disable-next-line no-debugger
+        debugger
         if(retailerId!==0){
             CreateOrder(retailerId)
         }
@@ -100,10 +102,10 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
 
 
             <div className='col-12 mb-3'style={{textAlign:"end"}}>
-                {/* <span className='mx-3'  >
-                    <Button  > <i style={{ paddingRight: "6px", verticalAlign: "middle", }}  className="bi bi-bag"></i>Submit Order</Button>
+                <span className='mx-3'  >
+                    <Button  > <i style={{ paddingRight: "6px", verticalAlign: "middle", }}  className="bi bi-bag"></i>View Pdf</Button>
                   
-                </span> */}
+                </span>
                 <span  className='mx-3' 
                 onClick={handleSubmit}
                 >
