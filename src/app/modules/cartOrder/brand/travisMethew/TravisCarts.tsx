@@ -26,7 +26,7 @@ import {addTravisOrderDetails} from "../../../../slice/orderSlice/travis/Orderde
 import {addPendingOrder} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 import GetUserAccount from '../../../auth/components/GetUserAccount.tsx';
 import { boolean } from 'yup';
-
+import ImageRenderer from "../../../brands/travisMethew/table/column/gallery.tsx"
 
 const TravisCart = () => {
     const tableRef = useRef(null);
@@ -58,31 +58,7 @@ const TravisCart = () => {
         dataIndex: "Gallery",
         // fixed: "left",
         width: 50,
-        render: (value) => {
-          // Check if value and value.data[0] exist before accessing properties
-          if (value && value.data[0] && value.data[0].attributes && value.data[0].attributes.formats && value.data[0].attributes.formats.thumbnail && value.data[0].attributes.formats.thumbnail.url) {
-            console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
-            return (
-              <span>
-                <img
-                  src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.thumbnail.url}`}
-                  alt="Primary Image"
-                  style={{ maxWidth: "30px", marginRight: "5px" }}
-                />
-              </span>
-            );
-          } else {
-            return (
-              <span>
-                <img
-                  src="/media/icons/icon-callway.png"
-                  alt="Primary Image"
-                  style={{ maxWidth: "30px", marginRight: "5px" }}
-                />
-              </span>
-            ); // Return a placeholder image if thumbnail url is null or undefined
-          }
-        },
+        render: (value) => <ImageRenderer value={value} />,
         
       
       },
@@ -642,9 +618,9 @@ const handleDiscount=(value:string)=>{
 }
 
 
-const handleChangeDiscount=(value:string)=>{
-  const dis= parseInt(value, 10)
-  
+const handleChangeDiscount=(value:number)=>{
+  const dis=value;
+  console.log(dis);
   setDiscountValue(dis)
   if(discountType==="Inclusive"){
     dispatch(updateInclusiveDiscount({
@@ -757,8 +733,16 @@ getProduct.length>0 ?
                  
                   onChange={(e)=>handleChangeDiscount(e.target.value)}
                 /> */}
-                    <InputNumber  className='mx-3 number-input'
-                    addonAfter="%"  value={discountValue} />
+<InputNumber
+  className='mx-3 number-input'
+  addonAfter="%"
+  value={discountValue}
+  onChange={(value) => {
+    if (value !== null) {
+      handleChangeDiscount(value);
+    }
+  }}
+/>
 
                   </Space>
 
