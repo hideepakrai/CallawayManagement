@@ -8,7 +8,7 @@ import "./CartProduct.css"
 import {getTravisOrder} from "../../slice/orderSlice/travis/CartOrder"
 import { useSelector } from 'react-redux';
  import {getOgioOrder} from "../../slice/orderSlice/ogio/OgioCartOrderSlice"
- import { NoProdect } from '../../pages/cart/NoProdect';
+ import { NoProdect } from './NoProdect'
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState('apparel'); // Default to 'apparel' tab
 
@@ -22,6 +22,13 @@ const CartProduct = () => {
   const getOgioOrders= useSelector(getOgioOrder)
 
   return (
+    <>
+   {getTravisOrders&&
+   
+   getTravisOrders.length==0 &&
+   getOgioOrders &&
+      getOgioOrders.length==0 ?
+   (<NoProdect/>):(
     <div className='mt-14 container'>
       <div className="card card-custom">
         <div className="card-header">
@@ -79,6 +86,10 @@ const CartProduct = () => {
 
       
     </div>
+   )
+   }
+    </>
+    
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import CartProduct from './CartProduct'
 import CartHeader from './CartHeader'
-import { NoProdect } from '../../pages/cart/NoProdect'
+import { NoProdect } from './NoProdect'
 const CartHome = () => {
   return (
     <div>

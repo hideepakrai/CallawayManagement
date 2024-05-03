@@ -3,7 +3,7 @@ import CartHome from '../../modules/cartOrder/CartHome'
 import { useState,  } from 'react';
 import { Input } from 'antd';
 import CartTable from './CartTable';
-import { NoProdect } from './NoProdect';
+import { NoProdect } from '../../modules/cartOrder/NoProdect';
 const Cart = () => {
   
   return (
