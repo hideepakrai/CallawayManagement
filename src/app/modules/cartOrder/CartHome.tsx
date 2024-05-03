@@ -5,8 +5,9 @@ import { NoProdect } from '../../pages/cart/NoProdect'
 const CartHome = () => {
   return (
     <div>
+        <CartProduct/>
         
-        <NoProdect></NoProdect>
+      
 
     </div>
   )

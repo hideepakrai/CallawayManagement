@@ -77,7 +77,7 @@ const CartProduct = () => {
         </div>
       </div>
 
-      <CartProduct/>
+      
     </div>
   );
 }
