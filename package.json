@@ -52,6 +52,7 @@
     "react-to-print": "^2.15.1",
     "react-topbar-progress-indicator": "4.1.1",
     "socicon": "3.0.5",
+    "strapi-sdk-javascript": "^0.3.3",
     "xlsx": "^0.18.5",
     "yup": "^1.0.0"
   },

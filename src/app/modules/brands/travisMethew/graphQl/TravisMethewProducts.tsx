@@ -7,7 +7,7 @@ import { useQuery, gql } from '@apollo/client';
 // Define your GraphQL query
 export const GET_TRAVISMETHEW_Prduct = gql`
 query getTravisMAthewProduct {
-  products(filters:{ SetType: { eq: "Travis Methew" } }){
+  products(filters:{ SetType: { eq: "Travis Mathew" } }){
     data{
       id
       attributes{

@@ -209,50 +209,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           },
           filterSearch: true,
         },
-        // {
-        //     title: "Season",
-        //     dataIndex: "TravisAttributes",
-        //     key: "Season", 
-        //     width: 100,
-        //     render: (value) => <span>{value && value[0] && value[0].Season}</span>,
-        //     sorter: (a, b) => {
-        //       // Extract and compare Season values, handling null or undefined cases
-        //       const seasonA = a.TravisAttributes?.[0]?.Season ?? "";
-        //       const seasonB = b.TravisAttributes?.[0]?.Season ?? "";
-          
-        //       return seasonA.localeCompare(seasonB);
-        //     },
-        //     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        //       <div style={{ padding: 8 }}>
-        //         <Input
-        //           placeholder="Search Name"
-        //           value={selectedKeys[0]}
-        //           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-        //           onPressEnter={() => confirm()}
-        //           style={{ width: 188, marginBottom: 8, display: "block" }}
-        //         />
-        //       </div>
-        //     ),
-        //     onFilterDropdownVisibleChange: (visible) => {
-        //       if (visible) {
-        //         setTimeout(() => {
-        //           // Trigger the search input to focus when the filter dropdown is opened
-        //         });
-        //       }
-        //     },
-        //     onFilter: (value, record) => {
-        //       const Season =
-        //         record &&
-        //         record.TravisAttributes &&
-        //         record.TravisAttributes[0].Season ;
-                
-               
-
-        //       return  Season=== value;
-        //     },
-        //     filterSearch: true,
-           
-        //   },
+     
        
 
 
