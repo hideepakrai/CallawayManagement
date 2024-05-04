@@ -1,7 +1,7 @@
 
 import clsx from 'clsx'
 import { toAbsoluteUrl } from '../../../_metronic/helpers'
-import "./NoProdect.css"
+
 type Props = {
   className?: string
   bgColor?: string
@@ -22,7 +22,7 @@ const NoProdect = ({
         backgroundPosition: 'right',
         backgroundImage: `url("${toAbsoluteUrl('media/svg/misc/taieri.svg')}")`,
       }}
-    >
+    >auth-screens
       <div className='card-body d-flex flex-column  ' style={{justifyContent:'space-around'}}>
         <h2 className='text-white fw-light mb-5 pt-6'>
           No Prodect Selected

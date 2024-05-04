@@ -46,15 +46,15 @@ const AuthLayout = () => {
         {/* begin::Content */}
         <div className='d-flex flex-column flex-center py-15 px-5 px-md-15 w-100'>
           {/* begin::Logo */}
-          <Link to='/' className=' mt-6'>
+          <Link to='/' className=' mt-6 mb-6'>
             <img alt='Logo' src={toAbsoluteUrl('media/logos/logo-white.png')} className='h-75px' />
           </Link>
           {/* end::Logo */}
 
           {/* begin::Image */}
           <img
-            className='mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20'
-            src={toAbsoluteUrl('media/misc/auth-screens.png')}
+            className='mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-10'
+            src={toAbsoluteUrl('media/misc/banner-2.png')}
             alt=''
           />
           {/* end::Image */}
