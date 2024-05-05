@@ -22,9 +22,9 @@ const NoProdect = ({
         backgroundPosition: 'right',
         backgroundImage: `url("${toAbsoluteUrl('media/svg/misc/taieri.svg')}")`,
       }}
-    >auth-screens
+    >
       <div className='card-body d-flex flex-column  ' style={{justifyContent:'space-around'}}>
-        <h2 className='text-white fw-light mb-5 pt-6'>
+        <h2 className='text-white fw-light mb-20 pt-6'>
           No Prodect Selected
         </h2>
 
