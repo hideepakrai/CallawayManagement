@@ -6,9 +6,6 @@ const CartHome = () => {
   return (
     <div>
         <CartProduct/>
-        
-      
-
     </div>
   )
 }

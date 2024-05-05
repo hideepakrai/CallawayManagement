@@ -43,7 +43,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
                Callaway Apparel
               </a>
-              <span className='text-muted fw-semibold d-block fs-7'>Mark, Rowling, Esther</span>
+              <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold my-2'>82</span>
           </div>
@@ -71,7 +71,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
               Callaway Hardgoods
               </a>
-              <span className='text-muted fw-semibold d-block fs-7'>Randy, Steve, Mike</span>
+              <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold my-2'>280</span>
           </div>
@@ -97,7 +97,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
               Ogio
               </a>
-              <span className='text-muted fw-semibold d-block fs-7'>John, Pat, Jimmy</span>
+              <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold my-2'>500</span>
           </div>
@@ -123,7 +123,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
               <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
               Travis Mathew
               </a>
-              <span className='text-muted fw-semibold d-block fs-7'>Mark, Rowling, Esther</span>
+              <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold fs my-2'>450</span>
           </div>

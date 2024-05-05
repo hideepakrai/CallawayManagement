@@ -6,6 +6,7 @@ import {getRetailers} from "../../slice/retailer/RetailerSlice"
 import {RetailerModel,Retailer}  from "../../modules/model/retailer/RetailerModel"
 import {getUserAccount} from "../.../../../slice/UserSlice/UserSlice"
 
+import "./CartHeader.css"
 type Props={
     CreateOrder: (
         retailerId:number, 
@@ -110,13 +111,13 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
 
             <div className='col-12 mb-3'style={{textAlign:"end"}}>
                 <span className='mx-3'  >
-                    <Button  > <i style={{ paddingRight: "6px", verticalAlign: "middle", }}  className="bi bi-bag"></i>View Pdf</Button>
+                    <Button  className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit",}}  className="bi bi-bag travis-icon"></i>View Pdf</Button>
                   
                 </span>
                 <span  className='mx-3' 
                 onClick={handleSubmit}
                 >
-                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-file-earmark-text"></i>Submit for Review</Button>
+                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-file-earmark-text travis-icon"></i>Submit for Review</Button>
                 </span>
 
 
@@ -125,7 +126,7 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
                 >
           
                     
-                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-bag-check"></i>Approve Order</Button>
+                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-bag-check travis-icon"></i>Approve Order</Button>
                     
               
               
@@ -135,7 +136,7 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
                  onClick={handleNote}
                 >
 
-                    <Button > <i style={{ paddingRight: "6px", verticalAlign: "inherit", }} className="bi bi-cart"></i>      Reject Order</Button>
+                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }} className="bi bi-cart travis-icon"></i>      Reject Order</Button>
                   
 
               
@@ -144,7 +145,7 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
                 <span className='mx-3'
                 onClick={handleNote}
                 >
-                    <Button > <i style={{paddingRight:"6px", verticalAlign:"inherit",}} className="bi bi-pencil-square"></i>Add Note</Button>
+                    <Button className="select-btn"> <i style={{paddingRight:"6px", verticalAlign:"inherit",}} className="bi bi-pencil-square travis-icon"></i>Add Note</Button>
                 </span>
             </div>
 
