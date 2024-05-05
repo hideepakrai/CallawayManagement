@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import { getUserByToken, login, getAdminToken } from '../core/_requests'
 import { toAbsoluteUrl } from '../../../../_metronic/helpers'
 import { useAuth } from '../core/Auth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import "./Login.css"
 import { addUser, addAdminToken } from "../../../slice/UserSlice/UserSlice"
 
@@ -16,6 +16,9 @@ import { UserModel } from '../core/_models';
 import {LoadingStart} from "../../../slice/loading/LoadingSlice"
 import GetRetailerAccount from './GetRetailerAccount'
 import GetAllProduct from '../../../api/allProduct/GetAllProduct';
+import {getUserAccount} from "../../../slice/UserSlice/UserSlice"
+import Manager from "../../../api/manager/Manager"
+import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -46,9 +49,11 @@ export function Login() {
   const { saveAuth, setCurrentUser } = useAuth()
   const [userName, setUserName] = useState(null)
   const [userId, setUserId] = useState(null)
+  const [userRoleId, setUserRoleId] = useState<number|null>(null)
   const [isManager, setisManager] = useState<boolean>(true)
   const [isRetailer, setIsRetailer] =useState<boolean>(false)
   const [isSalesRep, setIsSalesRep] = useState<boolean>(false)
+  const [grpqlUser, setGrpqlUser] = useState<boolean>(false)
   const [grpqlManager, setGrpqlManager] = useState<boolean>(false)
   const [grpqlRetailer, setGrpqlRetailer] =useState<boolean>(false)
   const [grpqlSalesRep, setGrpqlSalesRep] = useState<boolean>(false)
@@ -69,20 +74,22 @@ export function Login() {
         const response = await login(data)
         saveAuth(response)
         setUserName(response?.user?.name);
-        setUserId(response?.user?.id);
+        
+       setUserId(response?.user?.id);
+       setGrpqlUser(true)
         dispatch(addUser({
           currentUser: response
         }))
 
-        if(values.role==='retailer'){
-          setGrpqlManager(false)
-          setGrpqlRetailer(true)
-          setGrpqlSalesRep(false)
-        } else if (values.role==='manager'){
-          setGrpqlManager(true)
-          setGrpqlRetailer(false)
-          setGrpqlSalesRep(false)
-        }
+        // if(values.role==='retailer'){
+        //   setGrpqlManager(false)
+        //   setGrpqlRetailer(true)
+        //   setGrpqlSalesRep(false)
+        // } else if (values.role==='manager'){
+        //   setGrpqlManager(true)
+        //   setGrpqlRetailer(false)
+        //   setGrpqlSalesRep(false)
+        // }
         // const token = {
         //   email: "ankurShriv@gmail.com",
         //   password: "AnkurDzinly1!"
@@ -105,9 +112,47 @@ export function Login() {
   })
 
 
+  const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
+  console.log(getUserAccounts)
+  //get user Sale and retailer associated with 
+  useEffect(()=>{
+
+    if(getUserAccounts &&
+      getUserAccounts.attributes &&
+      getUserAccounts.attributes.role &&
+      getUserAccounts.attributes.role.data &&
+      getUserAccounts.attributes.role.data.attributes  &&
+      getUserAccounts.attributes.role.data.attributes.name
+
+    ){
+      const userRole:string= getUserAccounts.attributes.role.data.attributes.name
+      if(userRole==="manager"){
+       
+        const id=getUserAccounts?.attributes?.manager?.data?.id
+        if (id ) {
+         
+          setUserRoleId(id);
+          setGrpqlManager(true)
+          setGrpqlRetailer(false)
+          setGrpqlSalesRep(false)
+        }
+      }
+      
+    }
+  },[getUserAccounts]) 
+
+
+
+  const handleResetRoleId=() => {
+    setUserRoleId(null)
+    setGrpqlManager(false)
+    setGrpqlRetailer(false)
+    setGrpqlSalesRep(false)
+  }
   // afterGetting userId and userName search finds its roles
   const handleResetId = () => {
     setUserId(null)
+    setGrpqlUser(false)
 
 
   }
@@ -387,9 +432,15 @@ export function Login() {
 
        
       </form>
-      {grpqlManager&& userId!=null &&<GetUserAccount
+      {grpqlUser&& userId!=null &&<GetUserAccount
         userId={userId}
         resetId={() => handleResetId}
+      />}
+
+      {grpqlManager && userRoleId!=null && 
+      <Manager
+      userRoleId={userRoleId}
+      resetmanagerid={handleResetRoleId}
       />}
       {grpqlRetailer&& userId!=null &&<GetRetailerAccount
         userId={userId}

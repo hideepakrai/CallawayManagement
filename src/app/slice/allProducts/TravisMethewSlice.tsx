@@ -4,12 +4,18 @@ import {ExcelModelTravis} from "../../modules/model/travis/TravisExcel"
 interface ProductState {
     travisMethew: BasicModelTravis[],
     otherProduct:BasicModelTravis[],
+    uniqueCategories: string[]; 
+    uniqueStyleCode: string[]; 
+    uniqueSeason: string[]; 
     
 }
 
 const initialState: ProductState = {
     travisMethew: [],
-    otherProduct:[]
+    otherProduct:[],
+    uniqueCategories:[],
+    uniqueStyleCode:[],
+    uniqueSeason:[]
 
 };
 const TravisMethewSlice = createSlice({
@@ -23,7 +29,9 @@ const TravisMethewSlice = createSlice({
 
         addTravisProduct: (state, action:PayloadAction<{ travisProduct: BasicModelTravisGraph[], id: string }>) => {
             const { travisProduct, id } = action.payload;
-
+            const categoriesSet = new Set<string>();
+            const seasonSet = new Set<string>();
+            const styleCodesSet = new Set<string>();
             if (travisProduct && travisProduct.length > 0) {
                 travisProduct.forEach((item: BasicModelTravisGraph) => {
                     const att: TravisMathewAttribute[] = [];
@@ -32,7 +40,14 @@ const TravisMethewSlice = createSlice({
                         item.attributes.AttributeSet &&
                         Array.isArray(item.attributes.AttributeSet)
                     ) { // Null check here
+
+                   
                         item.attributes.AttributeSet.forEach((attrItems: TravisMathewAttribute) => {
+                          if (attrItems.Category && attrItems.Season && attrItems.StyleCode) {
+                            categoriesSet.add(attrItems.Category);
+                            seasonSet.add(attrItems.Season);
+                            styleCodesSet.add(attrItems.StyleCode);
+                        }
                             att.push({
                                 StyleCode: attrItems.StyleCode,
                                 Length: attrItems.Length,
@@ -48,7 +63,7 @@ const TravisMethewSlice = createSlice({
                         });
                     }
 
-                    
+                 
                     state.travisMethew.push({
                       id:item.id,
                        brand: item.attributes.brand,
@@ -72,6 +87,10 @@ const TravisMethewSlice = createSlice({
 
 
                     });
+
+                    state.uniqueCategories = Array.from(categoriesSet);
+                    state.uniqueSeason = Array.from(seasonSet);
+                    state.uniqueStyleCode = Array.from(styleCodesSet);
                 });
             }
         },
@@ -230,5 +249,13 @@ export const getTravisProducts = (state: { travisMethew: ProductState }): BasicM
 export const getOtherProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.otherProduct || [];
 };
+export const getCategory = (state: { travisMethew: ProductState }): string[] => {
+    return state.travisMethew?.uniqueCategories || [];
+};
+export const getStyleCode = (state: { travisMethew: ProductState }): string[] => {
+    return state.travisMethew?.uniqueStyleCode || [];
+};
+
+
 
 export default TravisMethewSlice.reducer;

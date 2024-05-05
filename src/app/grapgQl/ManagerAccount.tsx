@@ -3,97 +3,39 @@ import { useQuery, gql } from '@apollo/client';
 
 // Define your GraphQL query
 export const GET_Manager_ACCOUNT = gql`
-  query getUserAccount($userId: ID!) {
-    usersPermissionsUsers(filters: { id: { eq: $userId } }) {
-      data {
-        attributes {
-          username
-          email
-          provider
-          role {
-            data {
-              id
-              attributes {
-                name
-                
-              }
-            }
+query getManagerAccount($userId: ID!) {
+managers(filters: { id: { eq: $userId } }) {
+  data{
+    id
+    attributes{
+      Name
+      Email
+      retailers{
+        data{
+          id
+          attributes{
+            Name
+            Email
+            Address
+            Location
+            GST
           }
-          
-          orders{
-            data{
-              id
-              attributes{
-                OrderId
-                Brand
-                Amount
-                DiscountType
-                DiscountPercent
-                ProductDetails{
-                  product{
-                    data{
-                      id
-                      attributes{
-                        Name
-                        SKU
-                        Description
-                        AttributeSet{
-                          ... on ComponentAttributeSetTravisMathew{
-                            Category
-                            Season
-                          }
-                        }
-                        
-                      
-                      }
-                    }
-                  }
-                  UnitPrice
-                  Qty88
-                  Qty90
-                  TotalPrice
-                  
-                }
-                retailer{
-                  data{
-                    id
-                    attributes{
-                      Name
-                      Address
-                    
-                    }
-                  }
-                }
-                Status
-                createdAt
-              }
-            }
-          }
-          Details {
-            ... on ComponentUsersManager {
-              id
-              Sales {
-                data {
-                  id
-                  attributes {
-                    username
-                    email
-                  }
-                }
-              }
-              Retailers {
-                data {
-                  id
-                  attributes {
-                    username
-                    email
-                  }
-                }
-              }
-            }
+        }
+      }
+      sales_representatives{
+        data{
+          id
+          attributes{
+            Name
+            Email
+            Address
+            
+            
           }
         }
       }
     }
   }
+}
+}
 `;

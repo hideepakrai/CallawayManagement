@@ -8,7 +8,7 @@ import GetCallawayGoodsProduct  from "../allProduct/callaway/goods/GetCallAWayGo
 import {LoadingStart,LoadingStop} from "../../slice/loading/LoadingSlice.tsx"
 
 import GetAllRetailers from '../retailers/GetAllRetailers.tsx'
-
+import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
 import GetAllBrands from '../brands/GetAllBrands.tsx'
 interface UserAccount {
   attributes: {
@@ -32,10 +32,21 @@ const GetAllProduct = () => {
   const [isGoods, setIsGoods  ] = useState<boolean>(false)
   const [isRetailers, setIsetailers  ] = useState<boolean>(false)
   const [isBrands, setIsBrands  ] = useState<boolean>(false)
-  useEffect(() => {
   
-    
- 
+  
+  // reload travis mathew
+  const getTravisProduct= useSelector(getTravisProducts)
+  
+  
+  useEffect(()=>{
+if(getTravisProduct && getTravisProduct.length === 0)
+{
+  setIsTravis(true)
+}else{
+  setIsTravis(false)
+}
+  },[getTravisProduct])
+  useEffect(() => {
     // get_allProducts(getAdminTokens)
      setIsOgio(true)
      setIsTravis(true)

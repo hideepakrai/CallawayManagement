@@ -3,15 +3,35 @@
     email?: string|undefined|null;
     provider?: string|undefined|null;
     attributes?: UserRoleAttributes
+    
    // username?: string;
 
   }
   
 
+  export interface DetailData{
+
+  }
+
   export interface UserRoleAttributes {
     role?: UserRole;
     orders?:AllOrderss;
     username?: string;
+    manager?:managerData;
+  }
+
+  export interface managerData{
+    data?:{
+      id?:number,
+      attributes?:{
+        
+            username?:string,
+            email?:string,
+            
+          }
+       
+    }
+    
   }
    export interface UserRole {
     data?: UserRoleData;

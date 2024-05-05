@@ -1,9 +1,34 @@
 export interface RetailerModel{
     id?:number,
-    attributes?:Retailer;
+    attributes?:Retailer,
+
 }
 
 
+export interface Details{
+    Name?: string | null;
+    Address?: string | null|undefined;
+    Retailers?:Retailers;
+
+}
+
+export interface Retailers{
+  data?: [
+    {
+        id?:number,
+        attributes?:{
+            Details?:[
+                {
+                    username?:string,
+                    email?:string,
+                    
+                }
+            ]
+        }
+        __typename?:string;
+    }
+  ]
+}
 export interface Retailer {
     Name?: string | null;
     Address?: string | null|undefined;

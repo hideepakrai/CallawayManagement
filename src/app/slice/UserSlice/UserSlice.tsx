@@ -4,6 +4,7 @@ import {UserAccountModel,OrderData} from "../../modules/model/useAccount/UserAcc
 interface UserState {
     currentUser: unknown[],
     UserAccount: UserAccountModel[],
+    UserInfo:unknown[]
     adminToken: null | string,
 }
 
@@ -13,6 +14,7 @@ const UserSlice = createSlice({
     initialState: {
         currentUser: [],
         UserAccount: [],
+        UserInfo:[],
         adminToken: null,
     } as UserState, 
     reducers: {
@@ -21,6 +23,9 @@ const UserSlice = createSlice({
         },
         addUserAccount: (state, action) => {
             state.UserAccount = action.payload.UserAccount;
+        },
+        addUserInfo: (state, action) => {
+            state.UserInfo = action.payload.UserInfo;
         },
         addAdminToken: (state, action) => {
             state.adminToken = action.payload.adminToken;
@@ -42,7 +47,7 @@ const UserSlice = createSlice({
 });
 
 
-export const { addUser, addUserAccount, addAdminToken ,updateOrderStatus} = UserSlice.actions;
+export const { addUser, addUserAccount,addUserInfo, addAdminToken ,updateOrderStatus} = UserSlice.actions;
 
 
 export const getCurrentUser = (state: { user: UserState }) => state.user.currentUser;

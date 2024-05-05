@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {BasicModelTravis} from "../model/travis/TravisMethewModel"
 import {getRetailers} from "../../slice/retailer/RetailerSlice"
 import {RetailerModel,Retailer}  from "../../modules/model/retailer/RetailerModel"
+import {getUserAccount} from "../.../../../slice/UserSlice/UserSlice"
+
 type Props={
     CreateOrder: (
         retailerId:number, 
@@ -43,6 +45,9 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
     }
 
     const getRetailer= useSelector(getRetailers);
+
+    const getUserAccounts= useSelector(getUserAccount) 
+    console.log("getUserAccount",getUserAccounts)
      const handleChange=(value:number)=>{
         const allData:RetailerModel[]= getRetailer.retailer.filter(retailer=>retailer.id==value)
         console.log(allData)
@@ -81,6 +86,8 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
                     options={getRetailer?.retailer?.map((item:RetailerModel) => (
                         { label: item.attributes?.Name ??"",
                              value: item.id}))}
+
+                  
 
    
                     />

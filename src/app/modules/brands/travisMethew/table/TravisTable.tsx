@@ -25,7 +25,9 @@ import type { RadioChangeEvent, SelectProps } from 'antd';
 import TravisPdf from '../pdf/TravisPdf';
 import { useNavigate } from 'react-router-dom';
 import { Image } from 'antd';
-import ImageRenderer from "./column/gallery"
+import ImageRenderer from "./column/gallery";
+import {getCategory,getStyleCode} from "../../../../slice/allProducts/TravisMethewSlice"
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19','SS20	' ];
@@ -45,13 +47,18 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
      const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-     const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
+    
 
      const filteredOptionsOne = OPTIONS1.filter((o) => !selectedItems.includes(o));
-     const filteredOptionsTwo = OPTIONS2.filter((o) => !selectedItems.includes(o));
+     
        const [isCard, setIsCard]= useState<boolean>(true)
     //console.log(" travis Product",getProduct)
 
+ 
+   const getStyleCodes= useSelector(getStyleCode)
+    const getCategorys= useSelector(getCategory);
+    const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
+    const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
