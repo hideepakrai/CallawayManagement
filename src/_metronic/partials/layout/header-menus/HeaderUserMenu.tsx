@@ -25,8 +25,21 @@ const HeaderUserMenu: FC = () => {
   
 
     dispatch(resetUserAccount())
+    deleteLocalStorage()
     logout()
 
+  }
+
+
+  const deleteLocalStorage=()=>{
+    localStorage.removeItem('getCurrentUsers')
+    localStorage.removeItem('getUserAccounts')
+    localStorage.removeItem('getOtherProduct')
+    localStorage.removeItem('getTravisProduct')
+    localStorage.removeItem('getOgioProduct')
+    localStorage.removeItem('getCategorys')
+  
+    localStorage.removeItem('getStyleCodes')
   }
 // set the role
 

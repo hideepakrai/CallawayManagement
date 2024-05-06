@@ -36,7 +36,7 @@ const Reload = () => {
             localStorage.setItem('getCurrentUsers',JSON.stringify(getCurrentUsers))
             localStorage.setItem('getAdminTokens',JSON.stringify(getAdminTokens))
             localStorage.setItem('getUserAccounts',JSON.stringify(getUserAccounts))
-            localStorage.setItem('getUserInfos',JSON.stringify(getUserInfos))
+           
             localStorage.setItem('getOtherProduct',JSON.stringify(getOtherProduct))
             localStorage.setItem('getTravisProduct',JSON.stringify(getTravisProduct))
             localStorage.setItem('getOgioProduct', JSON.stringify(getOgioProduct))
@@ -52,23 +52,7 @@ const Reload = () => {
       getTravisProduct,
       getOgioProduct]);
 
-      useEffect(()=>{
-        // eslint-disable-next-line no-debugger
-        debugger
-        if(getCurrentUsers && getCurrentUsers.length===0){
-           dispatch(addUser({
-            currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string)
-           }))
-           saveAuth(JSON.parse(localStorage.getItem('getCurrentUsers') as string))
-        }
-        if(getUserAccounts && getUserAccounts.length===0){
-           dispatch(addUserAccount({
-            UserAccount:JSON.parse(localStorage.getItem('getUserAccounts') as string)
-           }))
-           setCurrentUser(JSON.parse(localStorage.getItem('getUserAccounts') as string))
-        }
-      },
-      [])
+   
   return (
     <div></div>
   )
