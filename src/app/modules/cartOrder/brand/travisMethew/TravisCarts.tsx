@@ -659,18 +659,18 @@ const TravisCart = () => {
   const [retailerAddres, setRetailerAddress] = useState<string>()
 
   const [retailerCity, setRetailerCity] = useState<string>()
-  const handleRetailerDetail = (retailerId: number, retailerAddres: string, retailerCity: string, retailerName: string) => {
+  // const handleRetailerDetail = () => {
 
-    setRetailerName(retailerName)
-    setRetailerAddress(retailerAddres)
-    setRetailerCity(retailerCity)
-    dispatch(addTravisOrderDetails({
+  //   setRetailerName(retailerName)
+  //   setRetailerAddress(retailerAddres)
+  //   setRetailerCity(retailerCity)
+  //   dispatch(addTravisOrderDetails({
 
-      retailerAddres: retailerAddres,
-      retailerCity: retailerCity,
-      retailerName: retailerName
-    }))
-  }
+  //     retailerAddres: retailerAddres,
+  //     retailerCity: retailerCity,
+  //     retailerName: retailerName
+  //   }))
+  // }
 
   //haandle viewPdf 
   const [isOrderPdf, setIdOrderPdf] = useState<boolean>(false);
@@ -689,7 +689,7 @@ const TravisCart = () => {
         getProduct.length > 0 &&
         <CartHeader
           CreateOrder={handleCreateOrder}
-          sendRetailerData={() => handleRetailerDetail}
+          // sendRetailerData={() => handleRetailerDetail}
 
         />}
 

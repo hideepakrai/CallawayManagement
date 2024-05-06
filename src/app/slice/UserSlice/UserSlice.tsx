@@ -6,6 +6,7 @@ interface UserState {
     UserAccount: UserAccountModel[],
     UserInfo:unknown[]
     adminToken: null | string,
+    userOrders: unknown[],
 }
 
 
@@ -16,6 +17,7 @@ const UserSlice = createSlice({
         UserAccount: [],
         UserInfo:[],
         adminToken: null,
+        userOrders:[]
     } as UserState, 
     reducers: {
         addUser: (state, action) => {
@@ -30,6 +32,9 @@ const UserSlice = createSlice({
         addAdminToken: (state, action) => {
             state.adminToken = action.payload.adminToken;
         }, 
+        addUserOrders:(state,action)=>{
+            state.userOrders = action.payload.userOrders
+        },
         updateOrderStatus: (state, action) => {
             const { orderId, status } = action.payload;
             state.UserAccount.forEach((userAccount) => {
@@ -47,11 +52,15 @@ const UserSlice = createSlice({
 });
 
 
-export const { addUser, addUserAccount,addUserInfo, addAdminToken ,updateOrderStatus} = UserSlice.actions;
+export const { addUser, addUserAccount,
+    addUserInfo, addAdminToken ,
+    addUserOrders,updateOrderStatus} = UserSlice.actions;
 
 
 export const getCurrentUser = (state: { user: UserState }) => state.user.currentUser;
 export const getAdminToken = (state: { user: UserState }) => state.user.adminToken;
 export const getUserAccount = (state: { user: UserState }) => state.user.UserAccount
+export const getUserInfo = (state: { user: UserState }) => state.user.UserInfo
+export const getUserOrders = (state: { user: UserState }) => state.user.userOrders
 // Export reducer
 export default UserSlice.reducer;

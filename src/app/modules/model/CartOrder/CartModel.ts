@@ -54,11 +54,13 @@ export interface AttributesData{
   ProductDetails?:ProductDetail[]
   OrderId?:string ;
     Status?:string;
-  retailer?:number,
+  retailer?:Retailer,
     users?:number,
     Brand?:string,
     Amount?:number,
-    Comments?:Comments[]
+    Comments?:Comments[],
+    createdAt?:string
+    
 }
 
 export interface ProductDetail{
@@ -69,3 +71,14 @@ export interface ProductDetail{
    product?:ProductData
 }
 
+
+export interface Retailer{
+  data?:{
+    id?:number,
+    attributes?:{
+      Name?:string,
+      Address?:string,
+      
+    }
+  }
+}

@@ -4,24 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import {BasicModelTravis} from "../model/travis/TravisMethewModel"
 import {getRetailers} from "../../slice/retailer/RetailerSlice"
 import {RetailerModel,Retailer}  from "../../modules/model/retailer/RetailerModel"
-import {getUserAccount} from "../.../../../slice/UserSlice/UserSlice"
-
+import {getUserAccount,getUserInfo} from "../.../../../slice/UserSlice/UserSlice"
+import {RetailerData,UserAccountModel,RetailerModels,retailerData } from "../../modules/model/useAccount/UserAccountModel"
 import "./CartHeader.css"
+
+import {addTravisOrderDetails} from "../../slice/orderSlice/travis/Orderdetails"
 type Props={
     CreateOrder: (
         retailerId:number, 
 
     )=>void,
-    sendRetailerData:(
-        retailerAddres:string,
-        retailerCity:string,
-        retailerName:string
-    )=>void,
+    
    
     
 }
-const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
-
+const CartHeader = ({CreateOrder}:Props) => {
+    const dispatch= useDispatch()
     const [isNote, setIsNote] = useState(false);
     const handleNote = () => {
       setIsNote(true);
@@ -46,11 +44,12 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
     }
 
     const getRetailer= useSelector(getRetailers);
-
+    const getUserInfos= useSelector(getUserInfo) as RetailerData;
+     console.log("getUserInfo",getUserInfos)
     const getUserAccounts= useSelector(getUserAccount) 
     console.log("getUserAccount",getUserAccounts)
      const handleChange=(value:number)=>{
-        const allData:RetailerModel[]= getRetailer.retailer.filter(retailer=>retailer.id==value)
+        const allData= getUserInfos?.retailers?.data?.filter(retailer=>retailer.id==value)
         console.log(allData)
         if (allData && allData.length>0)  { 
            
@@ -59,6 +58,12 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
             setGST(allData[0]?.attributes?.GST ?? "");
             setRetailerId(allData[0]?.id ??0)
             setRetailerName(allData[0]?.attributes?.Name ??"")
+            dispatch(addTravisOrderDetails({
+
+                retailerAddres: allData[0]?.attributes?.Address,
+                retailerCity: allData[0]?.attributes?.Location,
+                retailerName: allData[0]?.attributes?.Name ??""
+              }))
         } else {
             
             setRetailerAddress('');
@@ -67,9 +72,12 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
             setRetailerId(0)
             setRetailerName("")
         }
-        if(retailerAddres&&retailerCity &&retailerName)
-        sendRetailerData(retailerAddres,retailerCity, retailerName)
+
+       
+       // sendRetailerData()
      }
+
+     
   return (
     <div>
       <div className='row'>
@@ -84,7 +92,7 @@ const CartHeader = ({CreateOrder,sendRetailerData}:Props) => {
                     optionFilterProp="children"
                     style={{ width: "40%", marginBottom: 10 }} 
                     onChange={handleChange}
-                    options={getRetailer?.retailer?.map((item:RetailerModel) => (
+                    options={getUserInfos?.retailers?.data?.map((item:RetailerModel) => (
                         { label: item.attributes?.Name ??"",
                              value: item.id}))}
 

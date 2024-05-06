@@ -18,6 +18,7 @@
     orders?:AllOrderss;
     username?: string;
     manager?:managerData;
+    retailers?:RetailerData;
   }
 
   export interface managerData{
@@ -68,14 +69,33 @@
 
   }
 
+
+
   export interface RetailerData{
-    data?:{
-      id?:number;
-      attributes?:{
-        Name?:string;
+    retailers?:retailerData
+       
+
+    
+  
+  }
+
+  export interface retailerData{
+    data?:RetailerModels[]
+      
+
+  }
+
+  export interface RetailerModels{
+    id?:number;
+    attributes?:{
+      Name?:string;
         Address?:string;
-      }
+        Phone?:string;
+        Phone2?:string;
+        GST?:string;
+        Location?:string;
     }
+    
   }
   
   // Define additional interfaces as needed

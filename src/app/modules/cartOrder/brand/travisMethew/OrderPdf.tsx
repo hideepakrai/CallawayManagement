@@ -21,9 +21,31 @@ const OrderPdf = () => {
       
 const getTravisOrderDetailss= useSelector(getTravisOrderDetails)
 
-
+const [retailerName, setRetailerName]= useState<string>()
+const [retailerAddres, setRetailerAddress]= useState<string>()
+const [retailerId, setRetailerId]= useState<number>(0)
+const [retailerCty, setRetailerCity]= useState<string>()
   
+
+
   const getAllTravisOrder= useSelector(getTravisOrder)
+
+  useEffect(()=>{
+    if(getTravisOrderDetailss.retailerName &&
+      getTravisOrderDetailss.retailerAddres &&
+      getTravisOrderDetailss.retailerCity
+      
+    ){
+      setRetailerName(getTravisOrderDetailss.retailerName)
+      setRetailerAddress(getTravisOrderDetailss.retailerAddres)
+      setRetailerCity(getTravisOrderDetailss.retailerCity)
+     
+    }
+  }
+  
+  ,[
+    getTravisOrderDetailss
+  ])
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
@@ -241,8 +263,8 @@ const getTravisOrderDetailss= useSelector(getTravisOrderDetails)
 
        <div style={{width:"81%"}}>
          <h4>Retailer Details:</h4>
-         <h1>{getTravisOrderDetailss?.retailerName}</h1>
-         <p>{getTravisOrderDetailss?.retailerAddres} {getTravisOrderDetailss?.retailerCity}</p>
+         <h1>{retailerName}</h1>
+         <p>{retailerAddres}</p>
          <p>+123-456-789</p>
        </div>
        <div style={{float:"left"}}>

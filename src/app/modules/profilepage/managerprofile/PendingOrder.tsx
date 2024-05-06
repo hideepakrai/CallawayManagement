@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Table, Tooltip } from "antd";
 import Edit from "./Edit";
 import View from "./View"
-import {getUserAccount} from "../../../slice/UserSlice/UserSlice"
+import {getUserOrders} from "../../../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from "react-redux";
 import {UserAccountModel,AllOrderss} from "../../model/useAccount/UserAccountModel"
 import { Card } from "react-bootstrap";
@@ -14,7 +14,7 @@ import UpdateStatus from "./UpdateStatus.tsx";
 const PendingOrder = () => {
     
     const dispatch= useDispatch()
-    const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
+    const getUserOrder= useSelector(getUserOrders) as AccountOrder[] 
   const [orderId, setOrderId]= useState<number>()
     const [isEdit, setIsEdit] = useState(false);
     const handleEdit = (id: number | undefined) => {
@@ -77,12 +77,9 @@ const PendingOrder = () => {
 			</tr>
 		</thead>
 		<tbody>
-        {getUserAccounts &&
- getUserAccounts?.attributes &&
- getUserAccounts?.attributes.orders &&
- getUserAccounts?.attributes.orders.data&& 
- getUserAccounts?.attributes.orders.data.length>0 &&
- getUserAccounts?.attributes.orders.data.map((item)=>{
+        {getUserOrder &&
+ getUserOrder?.length>0 &&
+ getUserOrder?.map((item)=>{
     if(item && item.attributes && item.attributes.Status==="Pending"){
 
         return(

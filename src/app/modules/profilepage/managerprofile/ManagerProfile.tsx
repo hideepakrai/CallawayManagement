@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
 
 import "./ManagerProfile.css";
@@ -13,12 +13,36 @@ import {getUserAccount} from "../../../slice/UserSlice/UserSlice";
 import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
 import { useSelector } from 'react-redux';
 import Loading from '../../../modules/loading/Loading'
-import {getLoading,LoadingStop} from "../../../slice/loading/LoadingSlice"
+import {getLoading,LoadingStop,LoadingStart} from "../../../slice/loading/LoadingSlice"
+import GetAllOrder from '../../../api/manager/GetAllOrders';
+import { useDispatch } from 'react-redux';
 const ManagerProfile = () => {
-
+  const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
   const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
-  console.log("getUserAccount",getUserAccount)
+  console.log("getUserAccount",getUserAccountDetails)
+
+  useEffect(()=>{
+    if(getUserAccountDetails &&
+      getUserAccountDetails.id
+    ){
+      setUserId(getUserAccountDetails.id)
+      setUseRoleId(getUserAccountDetails.id)
+      dispatch(LoadingStart())
+    }
+  },[getUserAccountDetails])
+
+
+  const [userRoleId, setUseRoleId]= useState<number|null>(null)
+  const [userid, setUserId]= useState<number|null>(null)
+
+  const handleResetId=()=>{
+    setUseRoleId(null)
+    dispatch(LoadingStop())
+  }
+
+  // first time get all order
+  
   return (
     <div>
       <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
@@ -56,6 +80,12 @@ const ManagerProfile = () => {
       </Row>
 
       
+
+     { userRoleId !=null &&
+     <GetAllOrder
+      userRoleId={userRoleId}
+      resetmanagerid={handleResetId}
+      />}
       
     </div>
   );
