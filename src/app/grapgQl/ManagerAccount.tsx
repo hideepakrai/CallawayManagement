@@ -19,6 +19,14 @@ managers(filters: { id: { eq: $userId } }) {
             Address
             Location
             GST
+            users_permissions_user{
+              data{
+                id
+                attributes{
+                  username
+                }
+              }
+            }
           }
         }
       }

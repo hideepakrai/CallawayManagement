@@ -21,6 +21,8 @@ const ManagerProfile = () => {
   const getLoadings=useSelector(getLoading)
   const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
   console.log("getUserAccount",getUserAccountDetails)
+  const [userRoleId, setUseRoleId]= useState<number|null>(null)
+  const [userid, setUserId]= useState<number|null>(null)
 
   useEffect(()=>{
     if(getUserAccountDetails &&
@@ -33,9 +35,7 @@ const ManagerProfile = () => {
   },[getUserAccountDetails])
 
 
-  const [userRoleId, setUseRoleId]= useState<number|null>(null)
-  const [userid, setUserId]= useState<number|null>(null)
-
+ 
   const handleResetId=()=>{
     setUseRoleId(null)
     dispatch(LoadingStop())

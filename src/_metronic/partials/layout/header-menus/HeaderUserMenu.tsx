@@ -9,7 +9,7 @@ import {resetTravisProduct} from "../../../../app/slice/allProducts/TravisMethew
 import {resetOrder} from "../../../../app/slice/orderSlice/travis/CartOrder"
 import { useSelector } from 'react-redux'
 import {resetCallayGoods} from "../../../../app/slice/allProducts/CallAwayGoodsSlice"
-import {getUserAccount} from "../../../../app/slice/UserSlice/UserSlice"
+import {getUserAccount,resetUserAccount} from "../../../../app/slice/UserSlice/UserSlice"
 import { UserAccountModel } from '../../../../app/modules/model/useAccount/UserAccountModel'
 import { useNavigate } from 'react-router-dom'
 
@@ -22,6 +22,9 @@ const HeaderUserMenu: FC = () => {
     dispatch(resetTravisProduct())
     dispatch(resetOrder())
     dispatch(resetCallayGoods())
+  
+
+    dispatch(resetUserAccount())
     logout()
 
   }

@@ -12,8 +12,10 @@ import {addTravisOrderDetails} from "../../slice/orderSlice/travis/Orderdetails"
 type Props={
     CreateOrder: (
         retailerId:number, 
+        retailerUserId:number
 
     )=>void,
+   
     
    
     
@@ -29,13 +31,14 @@ const CartHeader = ({CreateOrder}:Props) => {
   const [retailerAddres, setRetailerAddress]= useState<string>()
   const [retailerId, setRetailerId]= useState<number>(0)
   const [retailerCity, setRetailerCity]= useState<string>()
+  const [retailerUserId, setRetailerUserId]= useState<number>(0)
   const [GST, setGST]= useState<string>()
 
     const handleSubmit=()=>{
         // eslint-disable-next-line no-debugger
         debugger
-        if(retailerId!==0){
-            CreateOrder(retailerId)
+        if(retailerId!==0 && retailerUserId!==0){
+            CreateOrder(retailerId,retailerUserId)
         }
         else{
             alert("Please select retailer")
@@ -64,6 +67,9 @@ const CartHeader = ({CreateOrder}:Props) => {
                 retailerCity: allData[0]?.attributes?.Location,
                 retailerName: allData[0]?.attributes?.Name ??""
               }))
+
+              if(allData[0]?.attributes?.users_permissions_user?.data?.id)
+                setRetailerUserId(allData[0]?.attributes?.users_permissions_user?.data?.id)
         } else {
             
             setRetailerAddress('');
@@ -72,9 +78,10 @@ const CartHeader = ({CreateOrder}:Props) => {
             setRetailerId(0)
             setRetailerName("")
         }
-
        
-       // sendRetailerData()
+        // if( allData.length>0 &&allData[0]?.attributes?.users_permissions_user?.data?.id)
+        //  sendRetailerData(allData[0]?.attributes?.users_permissions_user?.data?.id
+        // )
      }
 
      

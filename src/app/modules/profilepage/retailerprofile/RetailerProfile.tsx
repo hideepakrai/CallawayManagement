@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
 
 import "./RetailerProfile.css";
@@ -8,8 +8,35 @@ import { friendList } from "./FriendList";
 import Friends from './Friend';
 import { contactList } from './ContactList';
 import Contact from './Contact';
-
+import {getUserAccount} from "../../../slice/UserSlice/UserSlice";
+import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
+import { useDispatch , useSelector} from 'react-redux';
+import Loading from '../../../modules/loading/Loading';
+import {getLoading,LoadingStop,LoadingStart} from "../../../slice/loading/LoadingSlice"
+import GetAllOrdersRetailer from '../../../api/retailers/GetAllOrdersRetlr';
 const RetailerProfile = () => {
+
+  const dispatch = useDispatch();
+  const getLoadings=useSelector(getLoading)
+  const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
+  console.log("getUserAccount",getUserAccountDetails)
+  const [userRoleId, setUseRoleId]= useState<number|null>(null)
+  const [userid, setUserId]= useState<number|null>(null)
+
+  useEffect(()=>{
+    if(getUserAccountDetails &&
+      getUserAccountDetails.id
+    ){
+      setUserId(getUserAccountDetails.id)
+      setUseRoleId(getUserAccountDetails.id)
+      dispatch(LoadingStart())
+    }
+  },[getUserAccountDetails])
+
+  const handleResetId=()=>{
+    setUseRoleId(null)
+    dispatch(LoadingStop())
+  }
   return (
     <div>
       <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
@@ -33,6 +60,9 @@ const RetailerProfile = () => {
         </div>
       </div>
 
+      {getLoadings &&<Loading/>}
+
+      
       <Row className='container'>
         <Col xl={16} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
@@ -45,8 +75,11 @@ const RetailerProfile = () => {
         </Col>
       </Row>
 
-      
-      
+      { userRoleId !=null &&
+      <GetAllOrdersRetailer
+      userRoleId={userRoleId}
+      resetmanagerid={handleResetId}
+      />}
     </div>
   );
 };

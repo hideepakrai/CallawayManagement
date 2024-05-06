@@ -1,16 +1,29 @@
 export interface CartModel{
   orderId?:string ;
+  OrderId?:string ;
     Status?:string;
     ProductDetails?:ProductDetails[],
     productDetails?:ProductCard[]
     retailer?:number,
-    users?:number,
+    users?:{
+      connect?:ConnectData[]
+    },
     Brand?:string,
     Amount?:number,
     Comments?:Comments[]
-    createdAt?:string
+    createdAt?:string,
+    DiscountType?:string,
+    DiscountPercent?:number,
 
 }
+ export interface ConnectData{
+  
+    id?:number |undefined,
+    position?:{
+      end?:boolean
+    }
+  }
+ 
 
 export interface ProductCard{
   product:ProductData,

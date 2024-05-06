@@ -11,7 +11,7 @@ import { addTravisOrder, resetTravisOrder } from "../../../../slice/orderSlice/t
 import CartHeader from '../../CartHeader.tsx';
 import { CartModel, ProductDetails } from "../../../model/CartOrder/CartModel.ts";
 import { CreateOrder } from "../../orderApi/OrderAPi.ts"
-import UpdateOrder from "./UpdateOrder.tsx"
+import UpdateOrderToRetailer from "../updateOrderToRetailer/UpdateOrderToRetailer.tsx"
 import { SettingOutlined } from '@ant-design/icons';
 
 import "./TravisCarts.css";
@@ -27,12 +27,12 @@ import { addPendingOrder } from "../../../../slice/orderSlice/travis/Orderdetail
 import GetUserAccount from '../../../auth/components/GetUserAccount.tsx';
 import { boolean } from 'yup';
 import ImageRenderer from "../../../brands/travisMethew/table/column/gallery.tsx"
-
+import UpdateOrder from '../updateOrderToRetailer/UpdateOrderToRetailer.tsx';
 const TravisCart = () => {
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
   const [isUpdateOrder, setIsUpdateOrder] = useState(false);
-  const [orderId, setOrderId] = useState();
+
   const [userId, setUserId] = useState<number>();
 
   const dispatch = useDispatch()
@@ -513,10 +513,13 @@ const TravisCart = () => {
   }, [getProduct])
 
   // save order
+  const [retailerId, setRetailerId] = useState<number>(0)
+ 
+  
 
-  const handleCreateOrder = (retailerId: number) => {
+  const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
 
-
+  // setRetailerId(retailerUserId)
     dispatch(LoadingStart())
     if (Array.isArray(getProduct)) {
 
@@ -545,30 +548,53 @@ const TravisCart = () => {
         Type: "Event",
         "users_permissions_user (1)": userId
       }
-      const data = {
-        OrderId: orderId,
-        Status: "Pending",
-        ProductDetails: ProductDetail,
-        retailer: retailerId,
-        users: userId,
-        Brand: brand,
-        Amount: totalNetBillAmount,
-        DiscountType: discountType,
-        DiscountPercent: discountValue,
-        Comments: [comments]
-      }
+         if(userId &&retailerId &&orderId){
+        
+           const data:CartModel = {
+            OrderId: orderId,
+            Status: "Pending",
+            ProductDetails: ProductDetail,
+            retailer: retailerId,
+            users: {
+              connect: [
+                {
+                  id: retailerUserId,
+                  position: {
+                    end: true
+                  }
+                },
+                {
+                id: userId,
+                position: {
+                  end: true
+                }
+              }, 
+             
+            ]
+            },
+            Brand: brand,
+            Amount: totalNetBillAmount,
+            DiscountType: discountType,
+            DiscountPercent: discountValue,
+            Comments: [comments]
+          }
 
-      createOrder(data)
+          createOrder(data)
+         }
+      
+      
+
+     
     }
   }
-
+  const [orderId, setOrderId]= useState<number>(0)
   const [reLoadUserAccount, setReloadUserAccount] = useState(false)
   const createOrder = async (data: CartModel) => {
     try {
       const response = await CreateOrder(data);
-      console.log("order update", response);
+      console.log("order created", response);
       if (response?.data.id) {
-
+        setOrderId(response?.data.id)
 
         setReloadUserAccount(true)
       }
@@ -654,23 +680,7 @@ const TravisCart = () => {
     }
 
   }
-
-  const [retailerName, setRetailerName] = useState<string>()
-  const [retailerAddres, setRetailerAddress] = useState<string>()
-
-  const [retailerCity, setRetailerCity] = useState<string>()
-  // const handleRetailerDetail = () => {
-
-  //   setRetailerName(retailerName)
-  //   setRetailerAddress(retailerAddres)
-  //   setRetailerCity(retailerCity)
-  //   dispatch(addTravisOrderDetails({
-
-  //     retailerAddres: retailerAddres,
-  //     retailerCity: retailerCity,
-  //     retailerName: retailerName
-  //   }))
-  // }
+ 
 
   //haandle viewPdf 
   const [isOrderPdf, setIdOrderPdf] = useState<boolean>(false);
@@ -688,9 +698,8 @@ const TravisCart = () => {
       {getProduct &&
         getProduct.length > 0 &&
         <CartHeader
-          CreateOrder={handleCreateOrder}
-          // sendRetailerData={() => handleRetailerDetail}
-
+          
+           CreateOrder={handleCreateOrder}
         />}
 
 
@@ -813,6 +822,13 @@ const TravisCart = () => {
         resetId={handleResetId}
       />}
       <OrderPdf />
+
+    {retailerId!==0 && orderId!=0 &&
+      <UpdateOrderToRetailer
+    retailerId={retailerId}
+    orderId={orderId}
+
+      />}
     </div>
   )
 }

@@ -7,7 +7,7 @@ import TravisMethewProduct  from "../allProduct/travismethew/GetTravisMethewProd
 import GetCallawayGoodsProduct  from "../allProduct/callaway/goods/GetCallAWayGoods.tsx"
 import {LoadingStart,LoadingStop} from "../../slice/loading/LoadingSlice.tsx"
 
-import GetAllRetailers from '../retailers/GetAllRetailers.tsx'
+import GetAllRetailers from '../retailers/GetRetailerInfo.tsx'
 import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
 import GetAllBrands from '../brands/GetAllBrands.tsx'
 interface UserAccount {
@@ -98,9 +98,7 @@ if(getTravisProduct && getTravisProduct.length === 0)
       resetGoods={handleResetGoods}
       />}
 
-      {<GetAllRetailers
-      resetRetailer={handleResetRetailer}
-      />}
+    
 
 
      { isBrands &&<GetAllBrands

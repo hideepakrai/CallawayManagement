@@ -19,6 +19,9 @@ import GetAllProduct from '../../../api/allProduct/GetAllProduct';
 import {getUserAccount} from "../../../slice/UserSlice/UserSlice"
 import Manager from "../../../api/manager/Manager"
 import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
+import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
+
+
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -137,6 +140,16 @@ export function Login() {
           setGrpqlSalesRep(false)
         }
       }
+      else if(userRole==="retailer"){
+        const id=getUserAccounts?.attributes?.retailer?.data?.id
+        if (id ) {
+          setUserRoleId(id);
+          setGrpqlManager(false)
+          setGrpqlRetailer(true)
+          setGrpqlSalesRep(false)
+        }
+       
+      }
       
     }
   },[getUserAccounts]) 
@@ -156,6 +169,12 @@ export function Login() {
 
 
   }
+  const handleResetRetailer = () => {
+    setUserRoleId(null)
+    setGrpqlRetailer(false)
+
+
+  }
 
   const handleRetailer=()=>{
     setisManager(false);
@@ -163,7 +182,7 @@ export function Login() {
     setIsSalesRep(false)
     formik.setValues({
       ...formik.values,
-      email: 'testretailer@gmail.com',
+      email: 'delhi_golf_house@gmail.com',
       password: 'Jaipur1!',
       role:"retailer"
     });
@@ -442,9 +461,9 @@ export function Login() {
       userRoleId={userRoleId}
       resetmanagerid={handleResetRoleId}
       />}
-      {grpqlRetailer&& userId!=null &&<GetRetailerAccount
-        userId={userId}
-        resetId={() => handleResetId}
+      {grpqlRetailer&& userRoleId!=null &&<GetRetailerInfo
+        userRoleId={userRoleId}
+        resetRetailer={() => handleResetRetailer}
       />}
 
       <GetAllProduct/>

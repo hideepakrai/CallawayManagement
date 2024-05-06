@@ -21,6 +21,13 @@ const UserSlice = createSlice({
         userOrders:[]
     } as UserState, 
     reducers: {
+        resetUserAccount:(state)=>{
+        state.currentUser=[];
+        state.UserAccount=[];
+        state.UserInfo=[];
+        state.adminToken=null;
+            state.userOrders=[];
+        },
         addUser: (state, action) => {
             state.currentUser = action.payload.currentUser;
         },
@@ -55,7 +62,7 @@ const UserSlice = createSlice({
 
 export const { addUser, addUserAccount,
     addUserInfo, addAdminToken ,
-    addUserOrders,updateOrderStatus} = UserSlice.actions;
+    addUserOrders,updateOrderStatus,resetUserAccount} = UserSlice.actions;
 
 
 export const getCurrentUser = (state: { user: UserState }) => state.user.currentUser;

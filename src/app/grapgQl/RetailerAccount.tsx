@@ -3,22 +3,52 @@ import { useQuery, gql } from '@apollo/client';
 
 // Define your GraphQL query
 export const GET_Retailer_ACCOUNT = gql`
-  query getUserAccount($userId: ID!) {
-    usersPermissionsUsers(filters: { id: { eq: $userId } }) {
-      data {
-        attributes {
-          username
-          email
-          provider
-          role {
-            data {
+  query gerRetailAccount($userId: ID!) {
+    retailers(filters: { id: { eq:$userId} }) {
+      data{
+        id
+        attributes{
+          Name
+          Email
+          managers{
+            data{
               id
-              attributes {
-                name
+              attributes{
+                Name
+                Email
+                Address
+                users_permissions_user{
+                  data{
+                    id
+                    attributes{
+                      username
+                      email
+                    }
+                  }
+                }
               }
             }
           }
-          
+          sales_representatives{
+            data{
+              id
+              attributes{
+                Name
+                Email
+                Address
+                
+                 users_permissions_user{
+                  data{
+                    id
+                    attributes{
+                      username
+                    }
+                  }
+                }
+                
+              }
+            }
+          }
         }
       }
     }
