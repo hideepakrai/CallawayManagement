@@ -66,9 +66,9 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
      dispatch(addUser({
       currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string)
      }))
-     dispatch(reloadTravisProduct({
-      reloadTravis:JSON.parse(localStorage.getItem('getTravisProduct')as string)
-     }))
+    //  dispatch(reloadTravisProduct({
+    //   reloadTravis:JSON.parse(localStorage.getItem('getTravisProduct')as string)
+    //  }))
 
      dispatch(reloadCategory({
       reloadCategory:JSON.parse(localStorage.getItem('getCategorys')as string) 
