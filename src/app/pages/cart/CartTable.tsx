@@ -64,7 +64,7 @@ const CartTable = () => {
 
             fixed: "right",
             render: () => (
-                console.log(),
+              
                 (
                     <>
                         <Input

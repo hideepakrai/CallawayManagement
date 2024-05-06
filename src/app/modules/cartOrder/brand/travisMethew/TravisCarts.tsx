@@ -43,12 +43,12 @@ const TravisCart = () => {
   const [discountType, setDiscountType] = useState<string>("")
   const [isDiscount, setIsDiscount] = useState<boolean>(false)
   const [discountValue, setDiscountValue] = useState<number>(0)
-  console.log("userAccount", getCurrentUsers)
+
   // update user Id
   useEffect(() => {
     if (getCurrentUsers) {
 
-      console.log("hello", getCurrentUsers?.user?.id);
+     
       setUserId(getCurrentUsers?.user?.id)
     }
   }, [getCurrentUsers])
@@ -80,7 +80,7 @@ const TravisCart = () => {
             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
             onKeyUp={(e) => {
 
-              console.log("enter", e)
+            
               if (e.key === 'Enter') {
                 confirm();
               }
@@ -101,7 +101,7 @@ const TravisCart = () => {
           record &&
           record.SKU;
 
-        console.log("Filtering:", value, "sku:", sku);
+       
         return sku === value;
       },
       filterSearch: true,
@@ -149,7 +149,7 @@ const TravisCart = () => {
           record &&
           record.Name;
 
-        console.log("Filtering:", value, "sku:", name);
+
         return name === value;
       },
       filterSearch: true,
@@ -197,7 +197,7 @@ const TravisCart = () => {
           record.TravisAttributes[0].Category;
 
 
-        console.log("Filtering:", value, "category:", category);
+       
         return category === value;
       },
       filterSearch: true,
@@ -240,7 +240,7 @@ const TravisCart = () => {
           record.TravisAttributes[0].Season;
 
 
-        console.log("Filtering:", value, "season:", Season);
+        
         return Season === value;
       },
       filterSearch: true,
@@ -451,11 +451,10 @@ const TravisCart = () => {
 
     }
 
-    // Log the record for debugging or tracking purposes
-    console.log(record);
+    
   };
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
-    console.log("record", record)
+   
     const intValue = parseInt(value, 10);
 
     setDiscountType("");
@@ -592,7 +591,7 @@ const TravisCart = () => {
   const createOrder = async (data: CartModel) => {
     try {
       const response = await CreateOrder(data);
-      console.log("order created", response);
+   
       if (response?.data.id) {
         setOrderId(response?.data.id)
 
@@ -630,7 +629,7 @@ const TravisCart = () => {
   }
 
   const getLoadings = useSelector(getLoading)
-  console.log(getLoadings)
+ 
 
   /// handle discount
   const handleDiscount = (value: string) => {

@@ -102,7 +102,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             }
           },
           onFilter: (value, record) => {
-              console.log("filter",record)
+             
               let check: boolean= false
             const val:string=value.toString().toUpperCase()
               if(record && record.SKU){
@@ -263,7 +263,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           onFilter: (value, record) => {
             const Season = record?.TravisAttributes?.[0]?.Season;
         
-            console.log("Filtering:", value, "season:", Season);
+
             return Season === value;
           },
           filterSearch: true,
@@ -318,7 +318,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         onFilter: (value, record) => {
           const StyleCode = record?.TravisAttributes?.[0]?.StyleCode;
       
-          console.log("Filtering:", value, "Style Code:", StyleCode);
+
           return StyleCode === value;
         },
         filterSearch: true,
@@ -476,7 +476,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
           })
           // Expand only the clicked row
-          console.log("expand  new Record",recordedData )
+          
           setExpandedRowKeys(recordedData);
           dispatch(addOtherProduct(recordedData))
          // expandedRowRender (record.products.data)  // Assuming SKU is a string
@@ -487,7 +487,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
 
       const expandedRowRender = (record: BasicModelTravis) => {
-        console.log("expanded row render",record)
+       
 
         if (record && record.products && record.products.data  &&record.products.data.length > 0) {
          
@@ -921,7 +921,7 @@ const handleExportToExcel = () => {
     // Release the object URL
     URL.revokeObjectURL(url);
 
-    console.log("Excel exported successfully.");
+  
   } catch (error) {
     console.error("Error exporting to Excel:", error);
   }

@@ -38,6 +38,8 @@ import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
 import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
 import {getAllBrands} from "../../slice/brand/BrandSlice.tsx"
 import {BrandModel} from "../../modules/model/brand/AllBrands.ts"
+import Reload from '../../reload/Reload.tsx'
+
 const DashboardPage = () => (
 
   
@@ -229,7 +231,7 @@ const DashboardWrapper = () => {
       <DashboardPage />
       {/* <GetAllProduct/> */}
 
-     
+     <Reload/>
     </>
   )
 }

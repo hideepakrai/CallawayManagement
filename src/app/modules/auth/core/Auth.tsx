@@ -5,6 +5,13 @@ import {AuthModel, UserModel} from './_models'
 import * as authHelper from './AuthHelpers'
 import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
+import { useSelector, useDispatch } from 'react-redux'
+import {getCurrentUser,getAdminToken,
+  getUserAccount,getUserInfo,
+  getUserOrders,addUser,
+  addUserAccount} from "../../../slice/UserSlice/UserSlice";
+  import {reloadTravisProduct,reloadCategory,reloadStyleCode} from "../../../slice/allProducts/TravisMethewSlice";
+import {getOgioProducts} from "../../../slice/allProducts/OgioSlice"
 
 type AuthContextProps = {
   auth: AuthModel | undefined
@@ -44,6 +51,29 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
     saveAuth(undefined)
     setCurrentUser(undefined)
   }
+   const dispatch= useDispatch()
+
+  useEffect(() => {
+    // Load authentication state from local storage
+    saveAuth(JSON.parse(localStorage.getItem('getCurrentUsers') as string))
+    setCurrentUser(JSON.parse(localStorage.getItem('getUserAccounts') as string))
+    dispatch(addUserAccount({
+      UserAccount:JSON.parse(localStorage.getItem('getUserAccounts') as string)
+     }))
+     dispatch(addUser({
+      currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string)
+     }))
+     dispatch(reloadTravisProduct({
+      reloadTravis:JSON.parse(localStorage.getItem('getTravisProduct')as string)
+     }))
+
+     dispatch(reloadCategory({
+      reloadCategory:JSON.parse(localStorage.getItem('getCategorys')as string) 
+     }))
+     dispatch(reloadStyleCode({
+      reloadStyleCode:JSON.parse(localStorage.getItem('getStyleCodes')as string) 
+     }))
+  }, []);
 
   return (
     <AuthContext.Provider value={{auth, saveAuth, currentUser, setCurrentUser, logout}}>

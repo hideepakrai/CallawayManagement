@@ -6,8 +6,8 @@ const getAuth = (): AuthModel | undefined => {
   if (!localStorage) {
     return
   }
-
-  const lsValue: string | null = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
+  
+  const lsValue: string | null = localStorage.getItem('getCurrentUsers')
   if (!lsValue) {
     return
   }

@@ -10,7 +10,7 @@ export function CreateOrder(data: CartModel) {
 
     return axios.post(`${STRAPI_URL}/api/orders`, payload)
         .then(response => {
-            console.log("Order created:", response.data);
+           
             return response.data;
         })
         .catch(err => {

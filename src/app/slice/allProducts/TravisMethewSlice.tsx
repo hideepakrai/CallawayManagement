@@ -26,7 +26,10 @@ const TravisMethewSlice = createSlice({
         return initialState;
        }
        ,
-
+       reloadTravisProduct:(state, action)=>{
+        state.travisMethew=action.payload.reloadTravis
+       
+       },
         addTravisProduct: (state, action:PayloadAction<{ travisProduct: BasicModelTravisGraph[], id: string }>) => {
             const { travisProduct, id } = action.payload;
             const categoriesSet = new Set<string>();
@@ -94,6 +97,13 @@ const TravisMethewSlice = createSlice({
                 });
             }
         },
+           reloadCategory:(state,action)=>{
+            state.uniqueCategories=action.payload.reloadCategory
+
+           },
+           reloadStyleCode:(state,action)=>{
+            state.uniqueStyleCode=action.payload.reloadStyleCode
+           },
 
         updateNewData: (state, action) => {
             const { travisProduct, id } = action.payload;
@@ -241,7 +251,10 @@ export const {
     addOtherProduct,
     updateOtherQuantity90,
     updateOtherQuantity88,
-    removeOtherProduct
+    removeOtherProduct,
+    reloadTravisProduct,
+    reloadCategory,
+    reloadStyleCode
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];

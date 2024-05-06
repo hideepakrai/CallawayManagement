@@ -19,7 +19,7 @@ const updateOrderToRetailer=async()=>{
       retailerId,
       orderId
     })
-    console.log(res.data)
+   
   }catch(err) {
     console.log(err)
   }
