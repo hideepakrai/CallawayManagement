@@ -51,15 +51,19 @@ export interface AccountOrder{
   attributes?:AttributesData;
 }
 export interface AttributesData{
-  ProductDetails?:ProductDetail[]
+  
   OrderId?:string ;
+  Brand?:string,
+    Amount?:number,
     Status?:string;
+    DiscountType?:string,
+    DiscountPercent?:number
   retailer?:Retailer,
     users?:number,
-    Brand?:string,
-    Amount?:number,
+    
     Comments?:Comments[],
-    createdAt?:string
+    createdAt?:string,
+    ProductDetails?:ProductDetail[]
     
 }
 

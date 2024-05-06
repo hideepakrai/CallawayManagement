@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {UserAccountModel,OrderData} from "../../modules/model/useAccount/UserAccountModel"
+import {UserAccountModel,OrderData} from "../../modules/model/useAccount/UserAccountModel";
+import {AccountOrder} from "../../modules/model/CartOrder/CartModel"
 // Define interface for Redux state
 interface UserState {
     currentUser: unknown[],
     UserAccount: UserAccountModel[],
     UserInfo:unknown[]
     adminToken: null | string,
-    userOrders: unknown[],
+    userOrders: AccountOrder[],
 }
 
 
@@ -37,15 +38,15 @@ const UserSlice = createSlice({
         },
         updateOrderStatus: (state, action) => {
             const { orderId, status } = action.payload;
-            state.UserAccount.forEach((userAccount) => {
-                if (userAccount.attributes && userAccount.attributes.orders && userAccount.attributes.orders.data) {
-                    userAccount.attributes.orders.data.forEach((order: OrderData) => {
-                        if (order.id === orderId) {
-                            order.attributes!.Status = status;
-                        }
-                    });
-                }
-            });
+              const index = state.userOrders.findIndex(
+                (order) => order.id=== orderId
+              );
+              if (index !== -1 && state.userOrders[index]?.attributes) {
+                state.userOrders[index].attributes = {
+                    ...state.userOrders[index].attributes,
+                    Status: status
+                };
+            }
         },
     
     }

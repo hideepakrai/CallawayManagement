@@ -71,6 +71,7 @@ const AllOrder = () => {
 				<th>Order Id</th>
 				<th>Brand</th>
 				<th>Retailer Name</th>
+				<th>Status</th>
 				<th>Date</th>
 				<th>Amount</th>
 				<th>Action</th>
@@ -87,6 +88,7 @@ const AllOrder = () => {
 				<td>{item.attributes.OrderId}</td>
 				<td>{item.attributes.Brand}</td>
 				<td>{item.attributes?.retailer?.data?.attributes?.Name}</td>
+				<td>{item.attributes.Status}</td>
 				<td>{item.attributes.createdAt}</td>
 				<td>{item.attributes?.Amount}</td>
 				<td>
