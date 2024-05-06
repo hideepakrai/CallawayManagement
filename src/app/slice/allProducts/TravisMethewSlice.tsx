@@ -45,23 +45,23 @@ const TravisMethewSlice = createSlice({
                     ) { // Null check here
 
                    
-                        item.attributes.AttributeSet.forEach((attrItems: TravisMathewAttribute) => {
-                          if (attrItems.Category && attrItems.Season && attrItems.StyleCode) {
-                            categoriesSet.add(attrItems.Category);
-                            seasonSet.add(attrItems.Season);
-                            styleCodesSet.add(attrItems.StyleCode);
+                        item?.attributes?.AttributeSet?.forEach((attrItems: TravisMathewAttribute) => {
+                          if (attrItems?.Category && attrItems?.Season && attrItems?.StyleCode) {
+                            categoriesSet.add(attrItems?.Category);
+                            seasonSet.add(attrItems?.Season);
+                            styleCodesSet.add(attrItems?.StyleCode);
                         }
                             att.push({
-                                StyleCode: attrItems.StyleCode,
-                                Length: attrItems.Length,
-                                Category: attrItems.Category,
-                                Season: attrItems.Season,
-                                Line: attrItems.Line,
-                                Color: attrItems.Color,
-                                ColorCode: attrItems.ColorCode,
-                                Size:attrItems.Size,
-                                Stock88:attrItems.Stock88,
-                                Stock90:attrItems.Stock90,
+                                StyleCode: attrItems?.StyleCode,
+                                Length: attrItems?.Length,
+                                Category: attrItems?.Category,
+                                Season: attrItems?.Season,
+                                Line: attrItems?.Line,
+                                Color: attrItems?.Color,
+                                ColorCode: attrItems?.ColorCode,
+                                Size:attrItems?.Size,
+                                Stock88:attrItems?.Stock88,
+                                Stock90:attrItems?.Stock90,
                             });
                         });
                     }

@@ -55,6 +55,9 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
 
   useEffect(() => {
     // Load authentication state from local storage
+
+    const getCurrentUser=JSON.parse(localStorage.getItem('getCurrentUsers') as string)
+    console.log("getCurrentUser",getCurrentUser)
     saveAuth(JSON.parse(localStorage.getItem('getCurrentUsers') as string))
     setCurrentUser(JSON.parse(localStorage.getItem('getUserAccounts') as string))
     dispatch(addUserAccount({
