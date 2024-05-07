@@ -7,7 +7,7 @@ export interface OgioExcelModel {
       SKU?: string;
      
       MRP?: number | null;
-      GST?:number|null;
+      GST?:number;
       SetType?: string;
       ProductType?:string | null;
       Category?:string | null;

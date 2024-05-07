@@ -36,6 +36,7 @@
                                     ProductModel:attrItems.ProductModel,
                                     LifeCycle:attrItems.LifeCycle,
                                     Stock90:attrItems.Stock90,
+                                   
                                     
                                 });
                             });
@@ -49,7 +50,7 @@
         
                         MRP: item.attributes.MRP,
                         SetType: item.attributes.SetType,
-                       
+                       GST: item.attributes.GST,
                         OgiAttributes:att
                     
                         })
@@ -99,10 +100,17 @@
                    } else if (state.ogio[ogiIndex] &&
                     state.ogio[ogiIndex].OgiAttributes 
                     ) {
-                    state.ogio[ogiIndex].MRP = ogioProduct.MRP;
+                    state.ogio[ogiIndex].Name = ogioProduct.Name !=null? ogioProduct.Name : state.ogio[ogiIndex].Name;
+                    state.ogio[ogiIndex].Description =  ogioProduct.Description !=null? ogioProduct.Description : state.ogio[ogiIndex].Description;
+                    state.ogio[ogiIndex].MRP =  ogioProduct.MRP !=null? ogioProduct.MRP : state.ogio[ogiIndex].MRP;
+                    state.ogio[ogiIndex].GST =  ogioProduct.GST !=null? ogioProduct.GST : state.ogio[ogiIndex].GST;
                      const ogatt=state.ogio[ogiIndex].OgiAttributes;
                      if(ogatt){
-                       ogatt[0].Stock90 = ogioProduct.Stock90
+                       ogatt[0].Stock90 = ogioProduct.Stock90!=null? ogioProduct.Stock90 : ogatt[0]?.Stock90
+                       ogatt[0].ProductType = ogioProduct.ProductType!=null? ogioProduct.ProductType : ogatt[0]?.ProductType
+                       ogatt[0].Category = ogioProduct.Category!=null? ogioProduct.Category : ogatt[0]?.Category
+                       ogatt[0].ProductModel = ogioProduct.ProductModel!=null? ogioProduct.ProductModel : ogatt[0]?.ProductModel
+                       ogatt[0].LifeCycle = ogioProduct.LifeCycle!=null? ogioProduct.LifeCycle : ogatt[0]?.LifeCycle
 
                 }
 

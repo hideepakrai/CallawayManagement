@@ -135,7 +135,9 @@ const TravisMethewSlice = createSlice({
                       Size: travisProduct.Size,
                       Gender: travisProduct.Gender || "", 
                       Stock88:travisProduct.Stock88,
-                       Stock90:travisProduct.Stock90,// Assuming Gender might be optional
+                       Stock90:travisProduct.Stock90,
+                      
+                       // Assuming Gender might be optional
                     },
                   ];
           
@@ -150,6 +152,7 @@ const TravisMethewSlice = createSlice({
                     MRP: travisProduct.MRP,
                     SetType: travisProduct.SetType,
                     ProductType: travisProduct.ProductType,
+                    GST: travisProduct.GST,
                     TravisAttributes: att,
 
                         TotalQty: 0,

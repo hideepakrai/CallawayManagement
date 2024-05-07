@@ -36,7 +36,7 @@ const id:number= travispr?.id??0;
         Description: item.Description!=null?item.Description:travispr.Description,
         SetType: item.SetType!==null?item.SetType:travispr.SetType,
       
-        SKU: item.SKU,
+       
          MRP: item.MRP!==null?item.MRP:travispr.MRP,
          GST:item.GST!=null?item.GST:travispr.GST ,
         AttributeSet: [

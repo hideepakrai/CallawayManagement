@@ -45,7 +45,7 @@ const OrderSlice = createSlice({
                         Name: travisOrder.Name,
                         Description: travisOrder.Description,
                         SKU: travisOrder.SKU,
-                    
+                         GST:travisOrder.GST,
                         MRP: travisOrder.MRP,
                        
                         
@@ -56,7 +56,7 @@ const OrderSlice = createSlice({
                         Quantity90:qty90,
                         Amount: (qty88+qty90)*travisOrder.MRP,
                         TotalQty: qty88+qty90,
-                        GST:12,
+                        
                         LessGST:(((qty88+qty90)*travisOrder.MRP)*.12),
                         Discount:22,
                         LessDiscountAmount:((qty88+qty90)*travisOrder.MRP)*.22,

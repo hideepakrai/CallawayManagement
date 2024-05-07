@@ -4,7 +4,7 @@ export interface OgioBasicModel {
      id?:number,
       Name?: string|undefined;
       brand?:string |undefined,
-       Brand?:Brand,
+       Brand?:number,
       Description?: string |undefined;
       SKU?: string |undefined;
       
@@ -36,6 +36,9 @@ export interface OgioBasicModelGraph {
     attributes:OgioBasicModel
   }
  
+  export interface OgioUploadDataModel{
+    data?:OgioBasicModel
+  }
 
 
 export interface OgioModel{
