@@ -234,9 +234,7 @@ const DashboardWrapper = () => {
     ){
       dispatch(LoadingStop ())
     } else if(getTravisProduct && getTravisProduct.length===0){
-        dispatch(startTravisLoading({
-          isStartLoading:true
-        }))
+        dispatch(startTravisLoading())
     }
   },[getTravisProduct,getOgioProduct,getAllBrand])
 

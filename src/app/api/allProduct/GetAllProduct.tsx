@@ -9,6 +9,8 @@ import {LoadingStart,LoadingStop} from "../../slice/loading/LoadingSlice.tsx"
 
 import GetAllRetailers from '../retailers/GetRetailerInfo.tsx'
 import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
+
+import {getTravisStartLoading,stopTravisLoading} from "../../slice/allProducts/TravisMethewSlice.tsx"
 import GetAllBrands from '../brands/GetAllBrands.tsx'
 interface UserAccount {
   attributes: {
@@ -56,7 +58,13 @@ if(getTravisProduct && getTravisProduct.length === 0)
     
   }, []);
 
-
+/// if the travis array is empty start query
+const getTravisStartLoadings= useSelector(getTravisStartLoading);
+useEffect(()=>{
+  if(getTravisStartLoadings){
+    setIsTravis(true)
+  }
+},[getTravisStartLoadings])
   const handleOgio=()=>{
     setIsOgio(false)
 
@@ -64,6 +72,7 @@ if(getTravisProduct && getTravisProduct.length === 0)
 
   const handleResetTravis=()=>{
     setIsTravis(false)
+    dispatch(stopTravisLoading())
 
     
   }

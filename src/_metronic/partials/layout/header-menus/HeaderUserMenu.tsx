@@ -19,7 +19,7 @@ const HeaderUserMenu: FC = () => {
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const handleLogout=()=>{
-    dispatch(resetTravisProduct())
+    
     dispatch(resetOrder())
     dispatch(resetCallayGoods())
   

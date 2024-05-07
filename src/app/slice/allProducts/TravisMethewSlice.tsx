@@ -28,10 +28,13 @@ const TravisMethewSlice = createSlice({
        resetTravisProduct: () => {
         return initialState;
        },
-       startTravisLoading:(state,sction)=>{
+       startTravisLoading:(state)=>{
         state.isStartLoading = true
-       }
-       ,
+       },
+       stopTravisLoading:(state)=>{
+         state.isStartLoading = false
+       },
+       
        reloadTravisProduct:(state, action)=>{
         state.travisMethew=action.payload.reloadTravis
        
@@ -287,7 +290,7 @@ export const {
     removeOtherProduct,
     reloadTravisProduct,
     reloadCategory,
-    reloadStyleCode,startTravisLoading
+    reloadStyleCode,startTravisLoading,stopTravisLoading
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];
