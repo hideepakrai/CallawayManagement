@@ -151,6 +151,30 @@ const TravisMethewSlice = createSlice({
                         Quantity90: 0,
                         Amount: 0
                   });
+                } else{
+                  state.travisMethew[travisIndex].Name=travisProduct.Name!=null ? travisProduct.name:state.travisMethew[travisIndex].Name;
+                  state.travisMethew[travisIndex].Description=travisProduct.Description!=null ? travisProduct.Description:state.travisMethew[travisIndex].Description;
+                  state.travisMethew[travisIndex].MRP=travisProduct.MRP!=null ? travisProduct.MRP:state.travisMethew[travisIndex].MRP;
+                  state.travisMethew[travisIndex].GST=travisProduct.GST!=null ? travisProduct.GST:state.travisMethew[travisIndex].GST;
+                      const trs=state.travisMethew[travisIndex]?.TravisAttributes
+
+                    if( trs){
+                      trs[0].StyleCode=travisProduct.StyleCode!=null ? travisProduct.StyleCode:trs[0].StyleCode;
+                      trs[0].Length=travisProduct.Length!=null ? travisProduct.Length:trs[0].Length;
+                      trs[0].Category=travisProduct.Category!=null ? travisProduct.Category:trs[0].Category;
+                      trs[0].Season=travisProduct.Season!=null ? travisProduct.Season:trs[0].Season;
+                      trs[0].Line=travisProduct.Line!=null ? travisProduct.Line:trs[0].Line;
+                      trs[0].Color=travisProduct.Color!=null ? travisProduct.Color:trs[0].Color;
+                      trs[0].ColorCode=travisProduct.ColorCode!=null ? travisProduct.ColorCode:trs[0].ColorCode;
+                      trs[0].Gender=travisProduct.Gender!=null ? travisProduct.Gender:trs[0].Gender;
+                      trs[0].Stock88=travisProduct.Stock88!=null ? travisProduct.Stock88:trs[0].Stock88;
+                      trs[0].Stock90=travisProduct.Stock90!=null ? travisProduct.Stock90:trs[0].Stock90;
+                      trs[0].Size=travisProduct.Size!=null ? travisProduct.Size:trs[0].Size;
+                      
+                    }
+                  
+
+
                 }
               
             }

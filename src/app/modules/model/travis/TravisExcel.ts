@@ -17,7 +17,7 @@ export interface ExcelModelTravis {
      Line?:string | null;
      StockManagement?: boolean;
      StockStatus?: string;
-    
+     GST?:number;
      Gender?:string | null;
      ProductType?: string | null;
      Stock88?:number|null;

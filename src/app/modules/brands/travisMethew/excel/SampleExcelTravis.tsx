@@ -35,6 +35,12 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           width: 70,
         },
         {
+          title: 'Description',
+          dataIndex: 'Description',
+          key: 'Description',
+          width: 115,
+        },
+        {
           title: 'Category',
           dataIndex: 'Category',
           key: 'Category',
@@ -94,12 +100,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           key: 'SetType',
           width: 115,
         },
-        {
-          title: 'Description',
-          dataIndex: 'Description',
-          key: 'Description',
-          width: 115,
-        },
+        
         
         {
           title: 'Stock88',
@@ -117,6 +118,12 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           title: 'MRP',
           dataIndex: 'MRP',
           key: 'MRP',
+          width: 80,
+        },
+        {
+          title: 'GST',
+          dataIndex: 'GST',
+          key: 'GST',
           width: 80,
         },
       ];
