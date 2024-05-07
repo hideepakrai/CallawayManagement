@@ -11,7 +11,9 @@ import GetAllRetailers from '../retailers/GetRetailerInfo.tsx'
 import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
 
 import {getTravisStartLoading,stopTravisLoading} from "../../slice/allProducts/TravisMethewSlice.tsx"
-import GetAllBrands from '../brands/GetAllBrands.tsx'
+import GetAllBrands from '../brands/GetAllBrands.tsx';
+import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
+
 interface UserAccount {
   attributes: {
     username: string;
@@ -48,6 +50,19 @@ if(getTravisProduct && getTravisProduct.length === 0)
   setIsTravis(false)
 }
   },[getTravisProduct])
+
+
+  // reload ogio Product
+  const getOgioProduct= useSelector(getOgioProducts)
+
+   useEffect(()=>{
+    if(getOgioProduct && getOgioProduct.length===0){
+      setIsOgio(true)
+    } else{
+      setIsOgio(false)
+    }
+   },[getOgioProduct])
+
   useEffect(() => {
     // get_allProducts(getAdminTokens)
      setIsOgio(true)

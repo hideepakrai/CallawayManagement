@@ -5,6 +5,7 @@
     interface ProductState {
     
         ogio: OgioBasicModel[],
+        isLoadingStart: boolean
     
     }
 
@@ -13,10 +14,22 @@
         name: "Ogio",
         initialState: {
         
-            ogio:[]
+            ogio:[],
+            isLoadingStart:false
         } as ProductState, 
         reducers: {
+           resetOgio:(state)=>{
+                state.ogio=[];
+                state.isLoadingStart=false;      
+           },
+           startOgioLoading:(state)=>{
+            state.isLoadingStart=true;
+           },
+           stopOgioLoading:(state)=>{
+            state.isLoadingStart=false;
+           },
            
+
             addOgioProduct: (state, action) => {
                 const { ogioProduct, id } = action.payload;
                
@@ -144,9 +157,13 @@
     );
 
 
-    export const { addOgioProduct,updateNewData,updateQuantity90} = OgioSlice.actions;
+    export const { addOgioProduct,updateNewData,
+        updateQuantity90,stopOgioLoading,startOgioLoading,resetOgio} = OgioSlice.actions;
     export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
         return state.Ogio?.ogio || [];
+    };
+    export const getOgioReload = (state: { Ogio: ProductState }): boolean => {
+        return state.Ogio?.isLoadingStart;
     };
     
 
