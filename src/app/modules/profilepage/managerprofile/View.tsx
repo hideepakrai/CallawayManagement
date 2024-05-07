@@ -73,6 +73,8 @@ const View = ({ isView, onCloseView }:Props) => {
 				<td>{item.TotalPrice}</td>
 				
 			</tr>
+
+      
   
         )
     }
