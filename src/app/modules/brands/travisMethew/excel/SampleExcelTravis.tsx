@@ -148,6 +148,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
        
           Stock88: 100,
           Stock90: 100,
+          GST:12,
           
         },
         {
@@ -170,6 +171,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           Gender:"Mens",
           Stock88: 100,
           Stock90: 100,
+          GST:12,
         },
         {
             Brand: 4,
@@ -191,6 +193,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           Gender:"Mens",
           Stock88: 100,
           Stock90: 100,
+          GST:12,
         },
       ];
       

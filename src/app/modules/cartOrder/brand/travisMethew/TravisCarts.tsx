@@ -28,6 +28,8 @@ import GetUserAccount from '../../../auth/components/GetUserAccount.tsx';
 import { boolean } from 'yup';
 import ImageRenderer from "../../../brands/travisMethew/table/column/gallery.tsx"
 import UpdateOrder from '../updateOrderToRetailer/UpdateOrderToRetailer.tsx';
+import {UpdateTravisProduct} from "../../../brands/travisMethew/api/UpdateProductData.ts"
+
 const TravisCart = () => {
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
@@ -537,7 +539,15 @@ const TravisCart = () => {
           UnitPrice: item.MRP
 
         });
+      // const trsvisdata=item.TravisAttributes
+      //   if(trsvisdata && travisdata[0]?.Stock88 &&travisdata?[0].Stock90){
 
+      //   let stk88=travisdata[0]?.Stock88- item.Quantity88
+      //   let stk90=travisdata[0]?.Stock90- item.Quantity90
+      //   updateQty(item?.id, stk88, stk90)
+
+      //   }
+        
 
       });
 
@@ -690,6 +700,36 @@ const TravisCart = () => {
   const handleClaoseViewPdf = () => {
     setIdOrderPdf(false)
   }
+
+
+
+  const updateQty=async (id:number, chQt88:number,chQty90:number) => {
+    
+
+    const updatedata={
+      AttributeSet: [
+        {
+          "__component": "attribute-set.travis-mathew",
+          Stock88:chQt88,
+          Stock90:chQty90
+
+        }]
+
+
+    }
+
+    const data={
+      data:updatedata
+    }
+
+    try{
+      const response= await UpdateTravisProduct(data,id);
+      console.log("upadte quantity", response)
+    }
+    catch(er){
+      console.log("error", er)
+  }
+}
   return (
     <div>
 
