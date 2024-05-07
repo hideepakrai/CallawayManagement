@@ -35,12 +35,14 @@ const View = ({ isView, onCloseView }:Props) => {
         open={isView}
         onOk={handleOk}
         onCancel={handleCancel}
-        width={800}
+        width={850}
       >
-        <h3>Order Id:{getPendingOrders?.attributes?.OrderId}</h3>
+
+        <h3 className="pb-4">Order Id:{getPendingOrders?.attributes?.OrderId}</h3>
+        
         <table className="table table-striped gy-7 gs-7">
       
-		<thead>
+		<thead className="bg-light-dark">
 			<tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
 				<th>Name</th>
 				<th>SKU</th>
@@ -64,7 +66,7 @@ const View = ({ isView, onCloseView }:Props) => {
             <tr>
 				<td>{item.product.data.attributes.Name}</td>
 				<td>{item.product.data.attributes.SKU}</td>
-				<td>{item.product.data.attributes.Description}</td>
+				<td className="w-150px">{item.product.data.attributes.Description}</td>
 				<td>{item.UnitPrice}</td>
 				<td>{item.Qty90}</td>
 				<td>{item.Qty88}</td>

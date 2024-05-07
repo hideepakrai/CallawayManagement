@@ -151,10 +151,10 @@ const RetailsTable = () => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
-                      Garry Sobars 
+                     Deepak Rai
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                      garry.sobars@example.com
+                      deepakrai@example.com
                       </span>
                     </div>
                   </div>
@@ -216,10 +216,10 @@ const RetailsTable = () => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
-                      Alex Dolgove
+                      Manish Gupta
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                      alex.dolgove@example.com
+                      manishgupta@example.com
                       </span>
                     </div>
                   </div>
@@ -287,10 +287,10 @@ const RetailsTable = () => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
-                      Domnic Brown 
+                      Mukesh
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                      domnic.brown@example.com
+                      Mukesh@example.com
                       </span>
                     </div>
                   </div>
@@ -354,10 +354,10 @@ const RetailsTable = () => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
-                      Kadir M
+                      Sonu Gupta
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                      kadir.m@example.com
+                      sonugupta@example.com
                       </span>
                     </div>
                   </div>
@@ -422,10 +422,10 @@ const RetailsTable = () => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
-                      John Smith
+                      Manish Sharma
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                      Djohn.smith@example.com
+                     ManishSharma@example.com
                       </span>
                     </div>
                   </div>

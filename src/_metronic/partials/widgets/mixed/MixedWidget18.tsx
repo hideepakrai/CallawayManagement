@@ -74,15 +74,15 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
             {/* begin::Col */}
             <div className='col bg-light-warning px-4 pt-7 rounded-2 me-7 mb-7'>
               {/* <KTIcon iconName='chart-simple' className='fs-3x text-warning d-block my-2' /> */}
-              <a href='#' className='text-warning fw-semibold fs-6 '>
-              <span className='fs-1 fw-bold' style={{lineHeight:"35px"}}>1234 </span> <br></br> Total Products     
+              <a href='#' className=' fw-semibold fs-6' style={{color:"#141414"}} >
+              <span className='fs-1 fw-bold text-warning' style={{lineHeight:"35px",}}>1234 </span> <br></br> Total Products     
               </a>
             </div>
             {/* end::Col */}
             {/* begin::Col */}
             <div className='col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7'>
               <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
-              <a href='#' className='text-primary fw-semibold fs-6'>
+              <a href='#' className=' fw-semibold fs-6'style={{color:"#141414"}}  >
               Create Order
               </a>
             </div>
@@ -94,18 +94,18 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
             {/* begin::Col */}
             <div className='col bg-light-danger px-4 py-8 rounded-2 me-7'>
               {/* <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' /> */}
-              <a href='#' className='text-danger fw-semibold fs-6 mt-2'>
+              <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold '>233 </span> <br></br> Complete Orders  
+              <span className='fs-1 fw-bold text-danger'>233 </span> <br></br> Complete Orders  
               </a>
             </div>
             {/* end::Col */}
             {/* begin::Col */}
             <div className='col bg-light-success px-6 py-8 rounded-2'>
               {/* <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' /> */}
-              <a href='#' className='text-success fw-semibold fs-6 mt-2'>
+              <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold '>12 </span> <br></br> Pending Orders  
+              <span className='fs-1 fw-bold text-success'>12 </span> <br></br> Pending Orders  
               </a>
             </div>
             {/* end::Col */}

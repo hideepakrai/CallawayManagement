@@ -61,12 +61,13 @@ const AllOrder = () => {
     return (
         <>
             
-<Card>
-<div className="table-responsive">
-<label>All Order</label>
-	<table className="table table-striped gy-7 gs-7">
+<Card className="mt-6">
+<div className="table-responsive mb-6">
+<label><h3 className="mx-6 my-7">All Order</h3></label>
+
+	<table className="table table-striped gy-7 gs-7" style={{width:"96%", margin:"0 auto", }}>
       
-		<thead>
+		<thead style={{backgroundColor:"#f5f5f5"}} >
 			<tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
 				<th>Order Id</th>
 				<th>Brand</th>

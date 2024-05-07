@@ -3,19 +3,19 @@ import React, { useState } from "react";
 import { Table, Tooltip } from "antd";
 import Edit from "./Edit";
 import View from "./View"
-import {getUserOrders} from "../../../slice/UserSlice/UserSlice"
+import { getUserOrders } from "../../../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from "react-redux";
-import {UserAccountModel,AllOrderss} from "../../model/useAccount/UserAccountModel"
+import { UserAccountModel, AllOrderss } from "../../model/useAccount/UserAccountModel"
 import { Card } from "react-bootstrap";
-import {ProductDetails,CartModel,AccountOrder} from "../../model/CartOrder/CartModel.ts"
-import {addPendingOrder} from "../../../slice/orderSlice/travis/Orderdetails.tsx"
+import { ProductDetails, CartModel, AccountOrder } from "../../model/CartOrder/CartModel.ts"
+import { addPendingOrder } from "../../../slice/orderSlice/travis/Orderdetails.tsx"
 import UpdateStatus from "./UpdateStatus.tsx";
-
+import "./PendingOrder.css"
 const PendingOrder = () => {
-    
-    const dispatch= useDispatch()
-    const getUserOrder= useSelector(getUserOrders) as AccountOrder[] 
-  const [orderId, setOrderId]= useState<number>()
+
+    const dispatch = useDispatch()
+    const getUserOrder = useSelector(getUserOrders) as AccountOrder[]
+    const [orderId, setOrderId] = useState<number>()
     const [isEdit, setIsEdit] = useState(false);
     const handleEdit = (id: number | undefined) => {
         if (id !== undefined) {
@@ -27,24 +27,24 @@ const PendingOrder = () => {
         setIsEdit(false);
     };
 
-     // view
+    // view
 
-     const [allProducts, setAllProducts]= useState<AccountOrder>()
-  const [isView, setIsView] = useState(false);
-  const handleView = (allProduct:unknown) => {
-    setIsView(true);
-  console.log(allProduct)
-  //setAllProducts(allProduct);
+    const [allProducts, setAllProducts] = useState<AccountOrder>()
+    const [isView, setIsView] = useState(false);
+    const handleView = (allProduct: unknown) => {
+        setIsView(true);
+        console.log(allProduct)
+        //setAllProducts(allProduct);
 
-  dispatch(addPendingOrder({
-    pendingOrders:allProduct
-  }))
-   
-  };
+        dispatch(addPendingOrder({
+            pendingOrders: allProduct
+        }))
 
-  const handleCloseView = () => {
-    setIsView(false);
-  };
+    };
+
+    const handleCloseView = () => {
+        setIsView(false);
+    };
 
 
     const handleview = () => {
@@ -52,110 +52,114 @@ const PendingOrder = () => {
 
     };
 
-  const[status, setStatus]= useState<string>("")
-    const handleUpdateStatus=(status:string) => {
+    const [status, setStatus] = useState<string>("")
+    const handleUpdateStatus = (status: string) => {
         console.log(status)
         setStatus(status)
     }
-    
+
     return (
         <>
-            
-<Card>
-<div className="table-responsive">
-<label>Pending Order</label>
-	<table className="table table-striped gy-7 gs-7">
-      
-		<thead>
-			<tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-				<th>Order Id</th>
-				<th>Brand</th>
-				<th>Retailer Name</th>
-				<th>Date</th>
-				<th>Amount</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-        {getUserOrder &&
- getUserOrder?.length>0 &&
- getUserOrder?.map((item)=>{
-    if(item && item.attributes && item.attributes.Status==="Pending"){
 
-        return(
-            <tr>
-				<td>{item.attributes.OrderId}</td>
-				<td>{item.attributes.Brand}</td>
-				<td>{item.attributes?.retailer?.data?.attributes?.Name}</td>
-				<td>{item.attributes.createdAt}</td>
-				<td>{item.attributes?.Amount}</td>
-				<td>
-                <span>
-                   <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                      onClick={() => handleEdit(item.id)}
-                    >
-
-                        <Tooltip title="Edit" placement="bottom">
-                            <i className="bi bi-pencil-fill" ></i>
-                        </Tooltip>
-                    </span>
-
-                    <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                    onClick={() => handleView(item)}
-
-                    >
-
-                        <Tooltip title="View" placement="bottom">
-                        <i className="bi bi-arrow-up-right-square"></i>
-                        </Tooltip>
-                    </span>
-
-                    <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
-                        <Tooltip title="View Prodects" placement="bottom">
-
-                            <i className="bi bi-box-arrow-up-right " ></i>
-                       </Tooltip>
-                   </span>
+            <Card>
 
 
+                <div className="table-responsive mb-6">
+                    <label><h3 className="mx-6 my-7">Pending Order</h3></label>
 
-               </span>,
-                </td>
-			</tr>
-  
-        )
-    }
- })
+
+                    <table className="table table-striped gy-7 gs-7 table-order"  >
+
+                        <thead className="table-head-order" >
+                            <tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                <th>Order Id</th>
+                                <th>Brand</th>
+                                <th>Retailer Name</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {getUserOrder &&
+                                getUserOrder?.length > 0 &&
+                                getUserOrder?.map((item) => {
+                                    if (item && item.attributes && item.attributes.Status === "Pending") {
+
+                                        return (
+                                            <tr>
+                                                <td>{item.attributes.OrderId}</td>
+                                                <td>{item.attributes.Brand}</td>
+                                                <td>{item.attributes?.retailer?.data?.attributes?.Name}</td>
+                                                <td>{item.attributes.createdAt}</td>
+                                                <td>{item.attributes?.Amount}</td>
+                                                <td>
+                                                    <span>
+                                                        <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                                            onClick={() => handleEdit(item.id)}
+                                                        >
+
+                                                            <Tooltip title="Edit" placement="bottom">
+                                                                <i className="bi bi-pencil-fill" ></i>
+                                                            </Tooltip>
+                                                        </span>
+
+                                                        <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                                            onClick={() => handleView(item)}
+
+                                                        >
+
+                                                            <Tooltip title="View" placement="bottom">
+                                                                <i className="bi bi-arrow-up-right-square"></i>
+                                                            </Tooltip>
+                                                        </span>
+
+                                                        <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
+                                                            <Tooltip title="View Prodects" placement="bottom">
+
+                                                                <i className="bi bi-box-arrow-up-right " ></i>
+                                                            </Tooltip>
+                                                        </span>
 
 
 
-}
-			
-			
-		</tbody>
-	</table>
-</div>
+                                                    </span>,
+                                                </td>
+                                            </tr>
 
-</Card>
-
-<View 
-isView={isView}
-
- onCloseView={handleCloseView} 
- /> 
-<Edit 
-isEdit={isEdit} 
-
-onClose={handleCloseEdit} 
-changeStatus={handleUpdateStatus}
-/>
+                                        )
+                                    }
+                                })
 
 
-{status!=null && orderId &&
-<UpdateStatus
-status={status} 
-orderId={orderId}
-/>}
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </Card>
+
+            <View
+                isView={isView}
+
+                onCloseView={handleCloseView}
+            />
+            <Edit
+                isEdit={isEdit}
+
+                onClose={handleCloseEdit}
+                changeStatus={handleUpdateStatus}
+            />
+
+
+            {status != null && orderId &&
+                <UpdateStatus
+                    status={status}
+                    orderId={orderId}
+                />}
 
 
         </>

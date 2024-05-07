@@ -53,6 +53,7 @@ const MenuItem: React.FC<Props> = ({
 
         {hasArrow && <span className='menu-arrow'></span>}
       </Link>
+      
     </div>
   )
 }

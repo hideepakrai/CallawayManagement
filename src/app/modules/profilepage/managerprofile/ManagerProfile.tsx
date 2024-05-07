@@ -16,6 +16,7 @@ import Loading from '../../../modules/loading/Loading'
 import {getLoading,LoadingStop,LoadingStart} from "../../../slice/loading/LoadingSlice"
 import GetAllOrder from '../../../api/manager/GetAllOrders';
 import { useDispatch } from 'react-redux';
+import ManagerSlider from './ManagerSlider';
 const ManagerProfile = () => {
   const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
@@ -45,7 +46,13 @@ const ManagerProfile = () => {
   
   return (
     <div>
-      <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
+   
+
+
+<ManagerSlider/>
+
+<div className='content-pro'>
+      <div className="toolbar  pb-20 mb-3 " id="kt_toolbar">
         <div id="kt_toolbar_container" className="container d-flex flex-stack">
           <div className="d-flex ">
             <div className='profile-page'>
@@ -69,8 +76,9 @@ const ManagerProfile = () => {
 
       <Row className='container'>
         <Col xl={18} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
+
         <PendingOrder />
-      <AllOrder   />
+       <AllOrder   />
         </Col>
 
         <Col xl={6} lg={10} md={10} sm={24} xs={24} >
@@ -79,14 +87,16 @@ const ManagerProfile = () => {
         </Col>
       </Row>
 
-      
+ 
 
      { userRoleId !=null &&
      <GetAllOrder
       userRoleId={userRoleId}
       resetmanagerid={handleResetId}
       />}
-      
+          </div>  
+
+
     </div>
   );
 };
