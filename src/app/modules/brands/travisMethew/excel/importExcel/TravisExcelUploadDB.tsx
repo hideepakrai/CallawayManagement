@@ -4,6 +4,8 @@ import { ExcelModelTravis } from "../../../../model/travis/TravisExcel";
 import {useDispatch, useSelector} from "react-redux"
 import {updateNewData} from "../../../../../slice/allProducts/TravisMethewSlice"
 import {getTravisProducts} from "../../../../../slice/allProducts/TravisMethewSlice"
+import {UpdateTravisProduct,AddNewProduct} from "../../api/UpdateProductData"
+import {BasicModelTravis,UpdateTravisModel} from "../../../../model/travis/TravisMethewModel"
 
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 type Props = {
@@ -33,7 +35,7 @@ const id:number= travispr?.id??0;
         Name: item.Name!==null?item.Name:travispr.Name,
         Description: item.Description!=null?item.Description:travispr.Description,
         SetType: item.SetType!==null?item.SetType:travispr.SetType,
-        Brand: 2, 
+      
         SKU: item.SKU,
          MRP: item.MRP!==null?item.MRP:travispr.MRP,
          GST:item.GST!=null?item.GST:travispr.GST ,
@@ -50,8 +52,8 @@ const id:number= travispr?.id??0;
             // Size:item.Size?.toString(),
             Size:item.Size!==null? item.Size?.toString():(travispr?.TravisAttributes  && travispr?.TravisAttributes[0].Size? travispr?.TravisAttributes[0]?.Size:""),
             Gender:item.Gender!==null? item.Gender:(travispr?.TravisAttributes  && travispr?.TravisAttributes[0].Gender? travispr?.TravisAttributes[0]?.Gender:""),
-            Stock88: item.Stock88!==null? item.Stock88:(travispr?.TravisAttributes  && travispr?.TravisAttributes[0].Stock88? travispr?.TravisAttributes[0]?.Stock88:""),
-             Stock90: item.Stock90!==null? item.Stock90:(travispr?.TravisAttributes  && travispr?.TravisAttributes[0].Stock90? travispr?.TravisAttributes[0]?.Stock90:""),
+            Stock88: item.Stock88!==null? item.Stock88:(travispr?.TravisAttributes  && travispr?.TravisAttributes[0].Stock88? travispr?.TravisAttributes[0]?.Stock88:0),
+             Stock90: item.Stock90!==null? item.Stock90:(travispr?.TravisAttributes  && travispr?.TravisAttributes[0].Stock90? travispr?.TravisAttributes[0]?.Stock90:0),
       
 
           },
@@ -108,21 +110,13 @@ const id:number= travispr?.id??0;
     }
   }, [xlData]);
 
-  const saveData = async (products: ExcelModelTravis) => {
+  const saveData = async (products: BasicModelTravis) => {
     const data = {
       data: products,
     };
 
     try {
-      const response = await Axios.post(
-        `${STRAPI_URL}/api/products`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await AddNewProduct( data);
       if (response.status === 200) {
         console.log("newly upload",response);
         resetXls();
@@ -133,21 +127,13 @@ const id:number= travispr?.id??0;
       resetXls();
     }
   };
-  const updateData = async (products: ExcelModelTravis, id:number) => {
+  const updateData = async (products:BasicModelTravis , id:number) => {
     const data = {
       data: products,
     };
 
     try {
-      const response = await Axios.put(
-        `${STRAPI_URL}/api/products/${id}`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await UpdateTravisProduct( data, id);
       if (response.status === 200) {
         console.log(`update ${id}`,response);
         resetXls();

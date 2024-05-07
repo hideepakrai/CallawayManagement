@@ -1,9 +1,9 @@
 
 export interface BasicModelTravis {
-
+    
     id?:number,
     brand?:string,
-    Brand?:Brand[],
+    Brand?:number,
       Name?: string;
       Description?: string;
       SKU?: string;
@@ -31,6 +31,10 @@ export interface BasicModelTravis {
        FinalBillValue?: number;
 
       
+}
+
+export interface UpdateTravisModel{
+  data?:BasicModelTravis
 }
 export interface DataModel{
   data?:BasicModelTravisGraph[]
