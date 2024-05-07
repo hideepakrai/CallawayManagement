@@ -23,7 +23,7 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
       console.log(xlData);
 
       const newData: ExcelModelTravis[] = [];
-      xlData.forEach((item:ExcelModelTravis)=>{
+      xlData.forEach((item:ExcelModelTravis, index)=>{
        
         const travisIndex= getTravisProduct.findIndex(travis=>travis.SKU===item.SKU);
     
@@ -61,7 +61,7 @@ const id:number= travispr?.id??0;
       
       
     }
-    updateData(update,id)
+    updateData(update,id,index)
     dispatch(updateNewData({
       travisProduct:item
     }))
@@ -99,7 +99,7 @@ const id:number= travispr?.id??0;
               };
   
               //console.log("sdd",sdd)
-              saveData(sdd)
+              saveData(sdd,index)
               dispatch(updateNewData({
                 travisProduct:item
               }))
@@ -110,7 +110,7 @@ const id:number= travispr?.id??0;
     }
   }, [xlData]);
 
-  const saveData = async (products: BasicModelTravis) => {
+  const saveData = async (products: BasicModelTravis,index:number) => {
     const data = {
       data: products,
     };
@@ -121,13 +121,18 @@ const id:number= travispr?.id??0;
         console.log("newly upload",response);
         resetXls();
       }
+
+      if(index===xlData.length-1){
+        alert ("Data is uploaded successfully")
+      
+      }
     } catch (err) {
       console.log(err);
       alert("Error saving data");
       resetXls();
     }
   };
-  const updateData = async (products:BasicModelTravis , id:number) => {
+  const updateData = async (products:BasicModelTravis , id:number, index:number) => {
     const data = {
       data: products,
     };
@@ -137,6 +142,11 @@ const id:number= travispr?.id??0;
       if (response.status === 200) {
         console.log(`update ${id}`,response);
         resetXls();
+      }
+
+      if(index===xlData.length-1){
+        alert ("Data is uploaded successfully")
+      
       }
     } catch (err) {
       console.log(err);
