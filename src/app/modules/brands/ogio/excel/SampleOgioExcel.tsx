@@ -91,7 +91,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
       
       const excelData: OgioExcelModel[] = [
         {
-          Brand: 3,
+          Brand: "Ogio",
           SKU: 'TM001',
           Name: 'Cool Belt',
           SetType: 'OgioExcelModel',
@@ -99,13 +99,13 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           Category: 'Belts',
           ProductModel:"product model 1",
           Description: 'This is a cool belt from Travis Mathew.',
-      
           MRP: 40,
           Stock90: 100,
+          GST:12
           
         },
         {
-            Brand: 3,
+          Brand: "Ogio",
           SKU: 'TM001',
           Name: 'Cool Belt',
           SetType: 'OgioExcelModel',
@@ -116,8 +116,9 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
        
           MRP: 40,
           Stock90: 100,
+          GST:12
         },
-        { Brand:3,
+        {  Brand: "Ogio",
             SKU: 'TM001',
             Name: 'Cool Belt',
             SetType: 'OgioExcelModel',
@@ -128,6 +129,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           
             MRP: 40,
             Stock90: 100,
+            GST:12
         },
       ];
       
