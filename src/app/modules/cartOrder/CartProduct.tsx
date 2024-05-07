@@ -22,7 +22,7 @@ const CartProduct = () => {
   const getOgioOrders= useSelector(getOgioOrder)
 
   return (
-    <>
+    < div className='container'>
    {getTravisOrders&&
    
    getTravisOrders.length==0 &&
@@ -88,7 +88,7 @@ const CartProduct = () => {
     </div>
    )
    }
-    </>
+    </div>
     
   );
 }

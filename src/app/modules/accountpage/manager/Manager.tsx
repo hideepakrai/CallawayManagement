@@ -1,9 +1,13 @@
 import React from 'react'
 import ManagerList from './ManagerLists'
-
+import Slider from '../../model/slider/Slider'
 const Manager = () => {
   return (
     <div>
+
+<Slider/>
+
+<div className='content-pro'>
       <div className="toolbar py-5 mt-12 py-lg-15" id="kt_toolbar">
         <div id="kt_toolbar_container" className="container d-flex flex-stack">
           <div className="page-title d-flex flex-column">
@@ -30,7 +34,7 @@ const Manager = () => {
       </div>
 
       <ManagerList />
-
+      </div>
     </div>
   )
 }

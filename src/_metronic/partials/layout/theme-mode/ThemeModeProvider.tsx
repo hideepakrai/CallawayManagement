@@ -3,6 +3,7 @@
 import {createContext, useContext, useEffect, useState} from 'react'
 import {ThemeModeComponent} from '../../../assets/ts/layout'
 import {toAbsoluteUrl} from '../../../helpers'
+import { Carousel } from 'react-bootstrap'
 
 export type ThemeModeType = 'dark' | 'light' | 'system'
 export const themeModelSKey = 'kt_theme_mode_value'
@@ -17,12 +18,34 @@ type ThemeModeContextType = {
   updateMenuMode: (_mode: ThemeModeType) => void
 }
 
+// const themeModeSwitchHelper = (_mode: ThemeModeType) => {
+
+//   const mode = _mode !== 'system' ? _mode : systemMode
+//   const imageUrl = 'media/patterns/header-bg' + (mode === 'light' ? '.png' : '-dark.jpg')
+//   document.body.style.backgroundImage = `url("${toAbsoluteUrl(imageUrl)}")`
+// }
+
 const themeModeSwitchHelper = (_mode: ThemeModeType) => {
-  // change background image url
-  const mode = _mode !== 'system' ? _mode : systemMode
-  const imageUrl = 'media/patterns/header-bg' + (mode === 'light' ? '.png' : '-dark.jpg')
-  document.body.style.backgroundImage = `url("${toAbsoluteUrl(imageUrl)}")`
+  // You can remove this function as it's not needed anymore
 }
+
+<div className="cway-banner">
+  <Carousel >
+  {/* autoplay autoplaySpeed={3000} */}
+    <div className="gx-slider-1 ">
+      <div className='prodect-image'>
+        <img src="https://admin.callawayindiaoms.com/uploads/image_3_2_3d5fa0ef7f.png" alt="Banner One"></img>
+      </div>
+    </div>
+    <div className='prodect-image'>
+      <img src="https://admin.callawayindiaoms.com/uploads/2024_01_03_CG_Paradym_Ai_Smoke_Driver_Intro_Banner_2560x1000_1_9a9c1b0fdc.png" alt="Banner Two"></img>
+    </div>
+    <div className='prodect-image'>
+      <img src="https://admin.callawayindiaoms.com/uploads/callaway_img1_1_3_bd66b91a82.png" alt="Banner Three"></img>
+    </div>
+  </Carousel>
+</div>
+
 
 const getThemeModeFromLocalStorage = (lsKey: string): ThemeModeType => {
   if (!localStorage) {
@@ -92,6 +115,11 @@ const ThemeModeProvider = ({children}: {children: React.ReactNode}) => {
   }, [])
 
   return (
+   
+    
+
+
+    
     <ThemeModeContext.Provider value={{mode, menuMode, updateMode, updateMenuMode}}>
       {children}
     </ThemeModeContext.Provider>

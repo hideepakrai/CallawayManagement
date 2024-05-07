@@ -7,6 +7,7 @@ import {useLayout} from '../../core'
 import {Header} from './Header'
 import {DefaultTitle} from './page-title/DefaultTitle'
 import {Topbar} from './Topbar'
+import "./HeaderWrapper.css"
 
 export function HeaderWrapper() {
   const {config, classes, attributes} = useLayout()
@@ -15,7 +16,7 @@ export function HeaderWrapper() {
   return (
     <div
       id='kt_header'
-      className={clsx('header', classes.header.join(' '), 'align-items-stretch')}
+      className={clsx('header header-callaway', classes.header.join(' '), 'align-items-stretch')}
       data-kt-sticky='true'
       data-kt-sticky-name='header'
       data-kt-sticky-offset="{default: '200px', lg: '300px'}"

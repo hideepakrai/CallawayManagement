@@ -89,7 +89,7 @@ const CartHeader = ({CreateOrder}:Props) => {
     <div>
       <div className='row'>
             <div className='col-3 d-flex'>
-                <h4 className='mx-3 pt-3'>
+                <h4 className='mx-3 pt-3 fs-6'>
                     <a>Select Retailer</a>
                 </h4>
 
@@ -97,7 +97,7 @@ const CartHeader = ({CreateOrder}:Props) => {
                     showSearch
                     placeholder="Select retailer"
                     optionFilterProp="children"
-                    style={{ width: "40%", marginBottom: 10 }} 
+                    style={{ width: "70%", marginBottom: 10 }} 
                     onChange={handleChange}
                     options={getUserInfos?.retailers?.data?.map((item:RetailerModel) => (
                         { label: item.attributes?.Name ??"",
@@ -111,7 +111,7 @@ const CartHeader = ({CreateOrder}:Props) => {
     
                 
             </div>
-            <div className='col-8'>
+            <div className='col-9'>
                 <span style={{ marginRight: 10 }}>
                     {" "}
                     <a style={{ color: "#000", fontSize:"14px"}}> <span style={{fontWeight:600, }}>Address City :</span> {retailerAddres} </a>

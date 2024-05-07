@@ -39,12 +39,23 @@ import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
 import {getAllBrands} from "../../slice/brand/BrandSlice.tsx"
 import {BrandModel} from "../../modules/model/brand/AllBrands.ts"
 import Reload from '../../reload/Reload.tsx'
-
+import Slider from '../../modules/model/slider/Slider.tsx'
+import "./DashboardWrapper.css";
+import { Card, Table, Carousel, Breadcrumb } from "antd";
 const DashboardPage = () => (
 
   
   <>
+
+
+
+<Slider/>
+
+
+<div className='content-dashboard'>
+
     <Toolbar />
+ 
     <Content>
       <div className='row g-5 g-xl-8'>
 
@@ -199,6 +210,8 @@ const DashboardPage = () => (
       </div>
       {/* end::Row */}
     </Content>
+    </div>
+
   </>
 )
 
