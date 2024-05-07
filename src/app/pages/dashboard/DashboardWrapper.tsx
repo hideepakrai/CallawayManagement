@@ -39,9 +39,13 @@ import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
 import {getAllBrands} from "../../slice/brand/BrandSlice.tsx"
 import {BrandModel} from "../../modules/model/brand/AllBrands.ts"
 import Reload from '../../reload/Reload.tsx'
+<<<<<<< Updated upstream
 import Slider from '../../modules/model/slider/Slider.tsx'
 import "./DashboardWrapper.css";
 import { Card, Table, Carousel, Breadcrumb } from "antd";
+=======
+import {startTravisLoading} from "../../slice/allProducts/TravisMethewSlice.tsx"
+>>>>>>> Stashed changes
 const DashboardPage = () => (
 
   
@@ -232,6 +236,10 @@ const DashboardWrapper = () => {
        getAllBrand && getAllBrand.length>0
     ){
       dispatch(LoadingStop ())
+    } else if(getTravisProduct && getTravisProduct.length===0){
+        dispatch(startTravisLoading({
+          isStartLoading:true
+        }))
     }
   },[getTravisProduct,getOgioProduct,getAllBrand])
 
@@ -242,7 +250,7 @@ const DashboardWrapper = () => {
       
       {getLoadings &&<Loading/>}
       <DashboardPage />
-      {/* <GetAllProduct/> */}
+      <GetAllProduct/>
 
      <Reload/>
     </>

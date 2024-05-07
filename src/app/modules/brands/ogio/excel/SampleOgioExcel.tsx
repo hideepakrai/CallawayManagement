@@ -46,12 +46,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           key: 'SetType',
           width: 115,
         },
-        {
-            title: 'ProductType',
-            dataIndex: 'ProductType',
-            key: 'ProductType',
-            width: 115,
-          },
+        
           {
             title: 'ProductModel',
             dataIndex: 'ProductModel',
@@ -80,11 +75,18 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           width: 80,
         },
         {
+          title: 'GST',
+          dataIndex: 'GST',
+          key: 'GST',
+          width: 80,
+        },
+        {
           title: 'MRP',
           dataIndex: 'MRP',
           key: 'MRP',
           width: 80
         },
+        
       ];
       
       const excelData: OgioExcelModel[] = [

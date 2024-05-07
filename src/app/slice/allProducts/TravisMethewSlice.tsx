@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute ,ImageType} from "../../modules/model/travis/TravisMethewModel";
 import {ExcelModelTravis} from "../../modules/model/travis/TravisExcel"
+import { start } from "repl";
 interface ProductState {
     travisMethew: BasicModelTravis[],
     otherProduct:BasicModelTravis[],
     uniqueCategories: string[]; 
     uniqueStyleCode: string[]; 
     uniqueSeason: string[]; 
+    isStartLoading : boolean;
     
 }
 
@@ -15,7 +17,8 @@ const initialState: ProductState = {
     otherProduct:[],
     uniqueCategories:[],
     uniqueStyleCode:[],
-    uniqueSeason:[]
+    uniqueSeason:[],
+    isStartLoading:false
 
 };
 const TravisMethewSlice = createSlice({
@@ -24,6 +27,9 @@ const TravisMethewSlice = createSlice({
     reducers: {
        resetTravisProduct: () => {
         return initialState;
+       },
+       startTravisLoading:(state,sction)=>{
+        state.isStartLoading = true
        }
        ,
        reloadTravisProduct:(state, action)=>{
@@ -278,7 +284,7 @@ export const {
     removeOtherProduct,
     reloadTravisProduct,
     reloadCategory,
-    reloadStyleCode
+    reloadStyleCode,startTravisLoading
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];
@@ -291,6 +297,9 @@ export const getCategory = (state: { travisMethew: ProductState }): string[] => 
 };
 export const getStyleCode = (state: { travisMethew: ProductState }): string[] => {
     return state.travisMethew?.uniqueStyleCode || [];
+};
+export const getTravisStartLoading = (state: { travisMethew: ProductState }): boolean => {
+    return state.travisMethew?.isStartLoading;
 };
 
 

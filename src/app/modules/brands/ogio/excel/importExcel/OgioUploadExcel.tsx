@@ -31,6 +31,7 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
               Brand: 3, 
               SKU: item.SKU,
                MRP: item.MRP,
+               GST:item.GST,
               AttributeSet: [
                 {
                   "__component": "attribute-set.ogio",

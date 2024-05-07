@@ -17,7 +17,7 @@ export interface OgioBasicModel {
       OgiAttributes?:OgioModel[],
       Quantity?: number;
       Amount?: number;
-      
+  
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;

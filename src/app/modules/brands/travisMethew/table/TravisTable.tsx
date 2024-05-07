@@ -186,6 +186,10 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
                 placement={placement} 
+                onClick={(e) => {
+                  confirm({ closeDropdown: false });
+                  
+                }}
               >
                 {/* Render options based on available categories */}
                 {filteredOptions.map((item) => (
@@ -242,6 +246,10 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
                 placement={placement} 
+                onClick={(e) => {
+                  confirm({ closeDropdown: false });
+                  
+                }}
               >
                 {/* Render options based on available seasons */}
                 {filteredOptionsOne.map((item) => (
