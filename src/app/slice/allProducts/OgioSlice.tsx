@@ -118,6 +118,23 @@
                     
                        }
             },
+            updateQuantity90:(state,actions) => {
+
+                const {sku, qty90,MRP}=actions.payload;
+                const ogioIndex = state.ogio.findIndex(
+                  (ogioItem) => ogioItem.SKU === sku
+                );
+                if (ogioIndex!== -1) {
+                  state.ogio[ogioIndex].Quantity90 = qty90;
+                
+                  const quantity90 = state.ogio[ogioIndex]?.Quantity90 ?? 0;
+                  state.ogio[ogioIndex].TotalQty =quantity90;
+    
+                  
+                  state.ogio[ogioIndex].Amount = MRP*(quantity90)
+                  state.ogio[ogioIndex].ordered = true;
+                }
+              },
 
   
            
@@ -127,7 +144,7 @@
     );
 
 
-    export const { addOgioProduct,updateNewData} = OgioSlice.actions;
+    export const { addOgioProduct,updateNewData,updateQuantity90} = OgioSlice.actions;
     export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
         return state.Ogio?.ogio || [];
     };

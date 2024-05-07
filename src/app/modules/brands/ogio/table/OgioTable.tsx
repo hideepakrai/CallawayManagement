@@ -1,29 +1,33 @@
 import React,{useState, useRef} from 'react'
-import { Card, Table, Carousel, Breadcrumb, Select } from "antd";
+import { Card, Table, Carousel, Breadcrumb, Select, Tooltip, InputNumber } from "antd";
 import { Input, Radio, Button } from "antd";
-import type { TableColumnsType } from 'antd';
+import type { InputRef, TableColumnsType } from 'antd';
 import {OgioBasicModel,OgioBasicModelGraph,OgioModel,} from "../../../model/ogio/OgioBrandModel"
 
 import {OgioExcelModel} from "../../../model/ogio/OgioExcelModel"
 import {useDispatch, useSelector} from "react-redux"
-import {getOgioProducts} from "../../../../slice/allProducts/OgioSlice"
+import {getOgioProducts,updateQuantity90} from "../../../../slice/allProducts/OgioSlice"
 import SampleOgioExcel from '../excel/SampleOgioExcel';
 import OgioImportExcel from "../excel/importExcel/OgioImportExcel"
 import OgioUploadExcelDB from "../excel/importExcel/OgioUploadExcel"
 import OgioUpdateExcel from "../excel/UpdateData/ImportExcel"
 import UploadDB from '../excel/UpdateData/UpdateDB';
 import type { RadioChangeEvent, SelectProps } from 'antd';
+import OgioGallery from"./column/OgioGallery"
+import {addOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
 const OPTIONS2 = ['Og Rise', 'Og Pace Pro', 'Og Max', 'Og Al Convoy	'] ;
 
 const OgioTable = () => {
+  const searchInput = useRef<InputRef>(null);
   const placement: SelectCommonPlacement = 'topLeft'; 
     const tableRef = useRef(null);
     const[amount, setAmount]=useState<number>()
     const [isImport, setIsImport] = useState(false);
-
+    const dispatch= useDispatch()
     const [isUploadData, setUploadData] = useState()
     const handleImport = () => {
       setIsImport(true);
@@ -47,16 +51,8 @@ const OgioTable = () => {
           // title: "Image",
           dataIndex: "PrimaryImage",
           // fixed: "left",
-          width: 40,
-         render: (value) => (
-           <span>
-            <img
-              src="/media/icons/icon-callway.png"
-             alt="Primary Image"
-              style={{ maxWidth: "30px", marginRight: "5px" }}
-           />
-           </span>
-        ),
+          width: 50,
+          render: (value) => <OgioGallery value={value} />,
         },
     
         {
@@ -64,22 +60,86 @@ const OgioTable = () => {
           dataIndex: "SKU",
           width: 100,
           fixed: "left",
-          // render: (value) => <span>{String(value.Name)}</span>,
+          
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <div  style={{ padding: 8, position: "absolute", top: -90, backgroundColor: "white", zIndex: 1 }}>
+              <Input
+                ref={searchInput}
+
+                placeholder="Search SKU"
+                value={selectedKeys[0]}
+                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                onKeyUp={(e) => {
+                  confirm({ closeDropdown: false });
+                  
+                }}
+                style={{ width: 188, marginBottom: 8, display: "block" }}
+              />
+            </div>
+          ),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                setTimeout(() => searchInput.current?.select(), 1000);
+              });
+            }
+          },
+          onFilter: (value, record) => {
+             
+              let check: boolean= false
+            const val:string=value.toString().toUpperCase()
+              if(record && record.SKU){
+                 check= record.SKU?.startsWith(val)
+              }
+           
+            return  check;
+          },
+          filterSearch: true,
+
+         
         },
     
         {
           title: "Name",
           dataIndex: "Name",
           key: "name",
-          width: 115,
+          width: 150,
             fixed: "left",
+            filterMode: 'tree',
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+             <div style={{ padding: 8 }}>
+               <Input
+                 placeholder="Search Name"
+                 value={selectedKeys[0]}
+                 onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                 onPressEnter={() => confirm()}
+                 style={{ width: 188, marginBottom: 8, display: "block" }}
+               />
+             </div>
+           ),
+           onFilterDropdownVisibleChange: (visible) => {
+             if (visible) {
+               setTimeout(() => {
+                 // Trigger the search input to focus when the filter dropdown is opened
+               });
+             }
+           },
+           onFilter: (value, record) => {
+             const name =
+               record &&
+               record.Name;
+              
+           
+             return  name=== value;
+           },
+           filterSearch: true,
         },
         {
           title: "Description",
           dataIndex: "Description",
           key: "Description", 
-          width: 160,
-          fixed: "left",
+          width: 150,
+          
         },
         
         //product Type
@@ -87,7 +147,7 @@ const OgioTable = () => {
           title: "ProductType",
           dataIndex: "OgiAttributes",
           key: "ProductType",
-          width: 110,
+          width: 150,
           render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
 
           sorter: (a, b) => {
@@ -242,15 +302,36 @@ const OgioTable = () => {
               { title: " Qty90",
               dataIndex: "OgiAttributes",
               key: "Stock90", 
-              width: 90,
+              width: 150,
               fixed:'right',
-              render: (value,record) => (
-                <Input 
-                addonBefore={value[0]?.Stock90} 
-                type='number'
+              // render: (value,record) => (
+              //   <Input 
+              //   addonBefore={value[0]?.Stock90} 
+              //   type='number'
                
+              //   value={record.Quantity90?.toString()}
+              //   onChange={(e) => handleQuantity90(e.target.value, record)} />
+               
+              // ),
+              render: (value,record) => (
+                <Tooltip  open={record.SKU=== qty90ToolSKU ?isQty90ToolTip:false} title={record.SKU=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+                <InputNumber
+                
+                className='mx-3 number-input'
+                addonBefore={value[0]?.Stock90} 
                 value={record.Quantity90?.toString()}
-                onChange={(e) => handleQuantity90(e.target.value, record)} />
+                style={{ width: 100 }}
+                onChange={(value) => {
+                  if (value !== null) {
+                    handleQuantity90(value, record)
+                  }
+  
+                }}
+               
+                 
+                disabled={value[0]?.Stock90 === 0} 
+              />
+              </Tooltip>
                
               ),
             },
@@ -274,10 +355,75 @@ const OgioTable = () => {
            
       
       ];
-
+      const [qty90ToolMesage, setQty90Message]= useState<string>("")
+      const [qty90ToolSKU, setQty90SKU]= useState<string|undefined>("")
+     const [isQty90ToolTip, setIsQty90ToolTip]= useState<boolean>(false)
 
 const handleQuantity90=(value: string, record:OgioBasicModel)=>{
+  
+  const intValue = parseInt(value, 10);
+  setQty90Message("");
+  setIsQty90ToolTip(false);
+  setQty90SKU("")
+  record.Quantity90=intValue;
+  if(intValue>0 ){
+    if ( record?.OgiAttributes&&record?.OgiAttributes[0]?.Stock90 && record.OgiAttributes[0].Stock90 >= intValue) {
+    
+      // Dispatch an action to update the quantity for the SKU
+      
+      dispatch(updateQuantity90({
+        sku: record.SKU,
+        qty90: intValue,
+        MRP: record.MRP,
+        
+      }));
+    
+      dispatch(addOgioOrder({
+        travisOrder:record,
+        qty90: intValue,
+        qty88:record.Quantity88
+      }))
+    }
+    else{
+      // alert("Quantity is not available")
+      const st90=(record?.OgiAttributes&&record?.OgiAttributes[0]?.Stock90 )? record.OgiAttributes[0].Stock90:0;
+      setQty90Message("The quantity should not exceed the available stock")
+      setIsQty90ToolTip(true)
+      setQty90SKU(record.SKU)
+      //setQuantity90(0)
+      dispatch(updateQuantity90({
+        sku: record.SKU,
+        qty90: st90,
+      
+       
+      }));
+      
+  
+      
+    }
+  }else if(intValue<0){
+    
+    // alert("Quantity cannot be negative")
+    setQty90Message("Quantity cannot be negative")
+  setIsQty90ToolTip(true)
+  setQty90SKU(record.SKU)
+  console.log("Quantity cannot be negative")
+  } 
+   else if(intValue===0){
+    dispatch(updateQuantity90({
+      sku: record.SKU,
+      qty90: intValue,
+      MRP: record.MRP,
+      
+    }));
 
+    // dispatch(removeTravisOrder({
+    //   travisOrder:record,
+    //     qty90s: intValue,
+    //     qty88s:record.Quantity90
+        
+    // }))
+}
 }
 
       const handleAmountChange = (value:string, record:OgioBasicModel) => {

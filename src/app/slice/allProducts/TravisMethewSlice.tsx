@@ -48,8 +48,8 @@ const TravisMethewSlice = createSlice({
                 travisProduct.forEach((item: BasicModelTravisGraph) => {
                     const att: TravisMathewAttribute[] = [];
                     if (item &&
-                        item.attributes &&
-                        item.attributes.AttributeSet &&
+                        item?.attributes &&
+                        item?.attributes?.AttributeSet &&
                         Array.isArray(item.attributes.AttributeSet)
                     ) { // Null check here
 
@@ -61,16 +61,16 @@ const TravisMethewSlice = createSlice({
                             styleCodesSet.add(attrItems?.StyleCode);
                         }
                             att.push({
-                                StyleCode: attrItems?.StyleCode,
-                                Length: attrItems?.Length,
-                                Category: attrItems?.Category,
-                                Season: attrItems?.Season,
-                                Line: attrItems?.Line,
-                                Color: attrItems?.Color,
-                                ColorCode: attrItems?.ColorCode,
-                                Size:attrItems?.Size,
-                                Stock88:attrItems?.Stock88,
-                                Stock90:attrItems?.Stock90,
+                                StyleCode: attrItems?.StyleCode || "",
+                                Length: attrItems?.Length || "",
+                                Category: attrItems?.Category || "",
+                                Season: attrItems?.Season || "",
+                                Line: attrItems?.Line || "",
+                                Color: attrItems?.Color || "",
+                                ColorCode: attrItems?.ColorCode || "",
+                                Size:attrItems?.Size || "",
+                                Stock88:attrItems?.Stock88 || 0,
+                                Stock90:attrItems?.Stock90 || 0,
                             });
                         });
                     }
@@ -78,16 +78,17 @@ const TravisMethewSlice = createSlice({
                  
                     state.travisMethew.push({
                       id:item.id,
-                       brand: item.attributes.brand,
-                        Name: item.attributes.Name,
-                        Description: item.attributes.Description,
-                        SKU: item.attributes.SKU,
-                        MRP: item.attributes.MRP,
+                       brand: item.attributes.brand || "",
+                        Name: item.attributes.Name || "",
+                        Description: item.attributes.Description || "",
+                        SKU: item.attributes.SKU || "",
+                        MRP: item.attributes.MRP || 0,
+                        GST: item.attributes.GST ||0,
                         Gallery: item.attributes?.Gallery,
-                        SetType: item.attributes.SetType,
-                        ProductType: item.attributes.ProductType,
-                        TravisAttributes: att,
-                        products:item.attributes?.products,
+                        SetType: item.attributes.SetType || "",
+                        ProductType: item.attributes.ProductType || "",
+                        TravisAttributes: att ,
+                        products:item.attributes?.products ,
                         TotalQty: 0,
                         Quantity88: 0,
                         Quantity90: 0,
