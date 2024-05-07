@@ -4,6 +4,8 @@ import { OgioExcelModel } from "../../../../model/ogio/OgioExcelModel";
 import {useDispatch, useSelector} from "react-redux"
 import {updateNewData} from "../../../../../slice/allProducts/OgioSlice"
 import {getOgioProducts} from "../../../../../slice/allProducts/OgioSlice"
+  import {LoadingStart,LoadingStop} from "../../../../../slice/loading/LoadingSlice"
+
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 type Props = {
     updateXlsData: OgioExcelModel[];
@@ -15,15 +17,17 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
    const getOgioProduct= useSelector(getOgioProducts)
   useEffect(() => {
     if (updateXlsData && updateXlsData.length > 0 &&
-
+      
         getOgioProduct && getOgioProduct.length > 0
     ) {
       console.log(updateXlsData);
+      dispatch(LoadingStart())
 
       const newData: OgioExcelModel[] = [];
       updateXlsData.forEach((item:OgioExcelModel, index)=>{
 
          const ogioIndex= getOgioProduct.findIndex(ogio=>ogio.SKU===item.SKU);
+         console.log(ogioIndex)
          if(ogioIndex!=-1){
             const ogioProduct= getOgioProduct[ogioIndex];
             const id= (ogioProduct.id);
@@ -82,11 +86,12 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
       );
       if (response.status === 200) {
         console.log(response);
-        resetUpdateXs();
+        
       }
 
       if(index===(updateXlsData.length-1)) {
         alert ("Data is upData successfully")
+        dispatch(LoadingStop())
         resetUpdateXs();
       }
     } catch (err) {

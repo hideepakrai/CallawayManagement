@@ -15,7 +15,7 @@ import UploadDB from '../excel/UpdateData/UpdateDB';
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import OgioGallery from"./column/OgioGallery"
 import {addOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
-
+import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -581,6 +581,8 @@ updateXlsData={updateXlsData}
 resetUpdateXs={handleResetUpdateXls}
 
 />
+
+<GetAllProduct/>
     </div>
   )
 }

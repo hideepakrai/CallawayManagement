@@ -27,7 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import { Image } from 'antd';
 import ImageRenderer from "./column/gallery";
 import {getCategory,getStyleCode} from "../../../../slice/allProducts/TravisMethewSlice"
-
+import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19','SS20	' ];

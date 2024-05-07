@@ -8,13 +8,14 @@ import {getOgioProducts} from "../../../slice/allProducts/OgioSlice"
 import OgioHeader from './header/OgioHeader';
 import OgioTable from './table/OgioTable';
 import Slider from '../../model/slider/Slider';
-
+import { LoadingStart, LoadingStop, getLoading } from "../../../slice/loading/LoadingSlice.tsx"
+import Loading from '../../loading/Loading.tsx';
   const OgioPage= () => {
   
 
 
 
-
+    const getLoadings = useSelector(getLoading)
   return (
     <>
 
@@ -34,6 +35,7 @@ import Slider from '../../model/slider/Slider';
       </div>
 
     {/* <OgioHeader/> */}
+    {getLoadings && <Loading />}
     <OgioTable/>
   </div>
     

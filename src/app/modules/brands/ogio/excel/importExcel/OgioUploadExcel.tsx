@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
-import { OgioExcelModel } from "../../../../model/ogio/OgioExcelModel";
+import { OgioExcelModel ,UploadOgioExcel} from "../../../../model/ogio/OgioExcelModel";
 import {useDispatch} from "react-redux"
 import {updateNewData} from "../../../../../slice/allProducts/TravisMethewSlice"
 import {getOgioProducts} from "../../../../../slice/allProducts/OgioSlice"
@@ -26,7 +26,7 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
 
         const ogioIndex= getOgioProduct.findIndex(ogio=>ogio.SKU===item.SKU);
           
-        console.log("excel data, item")
+        console.log("excel data, item",ogioIndex)
         if(ogioIndex!=-1){
           const ogioProduct= getOgioProduct[ogioIndex];
          
@@ -57,7 +57,7 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
           }))
           }
           
-       }  else{
+       }  else if(ogioIndex==-1){
         const sdd = {
              
           Name: item.Name,
@@ -94,7 +94,7 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
     }
   }, [xlData]);
 
-  const saveData = async (products: OgioExcelModel, index:number) => {
+  const saveData = async (products: UploadOgioExcel, index:number) => {
     const data = {
       data: products,
     };
