@@ -47,7 +47,8 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
       {/* begin::Header */}
 
 
-      <div className={`card-header row m-0 border-0 py-5 bg-${chartColor}`}>
+      <div  style={{backgroundColor:"#000"}} className={`card-header row m-0 border-0 py-5` } 
+      >
         <div className='col-6'>
         <h3 className='card-title fw-bold text-white pt-4'>Ogio </h3>
         </div>
@@ -66,7 +67,8 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
         {/* begin::Chart */}
         <div
           ref={chartRef}
-          className={`mixed-widget-2-chart card-rounded-bottom bg-${chartColor}`}
+          className={`mixed-widget-2-chart card-rounded-bottom`}
+          style={{backgroundColor:"#000"}}
         ></div>
         {/* end::Chart */}
         {/* begin::Stats */}

@@ -129,7 +129,7 @@ const CartTable = () => {
 
 <div className='row'>
             <div className='col-6 d-flex'>
-                <h4 className='mx-3 pt-3'>
+                <h4 className='mx-3 pt-3' style={{width:"36%"}}>
                     <a>Select Retailer </a>
                 </h4>
 

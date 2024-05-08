@@ -46,7 +46,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
     <div className={`card ${className}`}>
       {/* begin::Header */}
 
-      <div className={`card-header row m-0 border-0 py-5 bg-${chartColor}`}>
+      <div className={`card-header row m-0 border-0 py-5`}  style={{backgroundColor:"#000"}}>
         <div className='col-6'>
         <h3 className='card-title fw-bold text-white pt-4'>Callaway Apparel </h3>
         </div>
@@ -65,7 +65,8 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
         {/* begin::Chart */}
         <div
           ref={chartRef}
-          className={`mixed-widget-2-chart card-rounded-bottom bg-${chartColor}`}
+          className={`mixed-widget-2-chart card-rounded-bottom ` }
+          style={{backgroundColor:"#000"}}
         ></div>
         {/* end::Chart */}
         {/* begin::Stats */}
@@ -83,7 +84,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
             {/* begin::Col */}
             <div className='col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7'>
               <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
-              <a href='#' className=' fw-semibold fs-6'style={{color:"#141414"}}  >
+              <a href='#' className='text-primary fw-semibold fs-6'style={{color:"#141414"}}  >
               Create Order
               </a>
             </div>

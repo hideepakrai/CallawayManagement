@@ -121,7 +121,7 @@ const DashboardPage = () => (
             className='card-xl-stretch mb-xl-8'
             chartColor='danger'
             chartHeight='200px'
-            strokeColor='#cb1e46'
+            strokeColor='#fff'
           />
         </div>
 
@@ -131,7 +131,7 @@ const DashboardPage = () => (
             className='card-xl-stretch mb-xl-8'
             chartColor='danger'
             chartHeight='200px'
-            strokeColor='#cb1e46'
+            strokeColor='#fff'
           />
         </div>
 
@@ -152,7 +152,7 @@ const DashboardPage = () => (
             className='card-xl-stretch mb-xl-8'
             chartColor='danger'
             chartHeight='200px'
-            strokeColor='#cb1e46'
+            strokeColor='#fff'
           />
         </div>
 
@@ -161,7 +161,7 @@ const DashboardPage = () => (
             className='card-xl-stretch mb-xl-8'
             chartColor='danger'
             chartHeight='200px'
-            strokeColor='#cb1e46'
+            strokeColor='#fff'
           />
         </div>
 
