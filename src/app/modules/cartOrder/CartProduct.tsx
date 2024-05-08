@@ -9,25 +9,38 @@ import {getTravisOrder} from "../../slice/orderSlice/travis/CartOrder"
 import { useSelector } from 'react-redux';
  import {getOgioOrder} from "../../slice/orderSlice/ogio/OgioCartOrderSlice"
  import { NoProdect } from './NoProdect'
+import { getOgioProducts } from '../../slice/allProducts/OgioSlice';
 const CartProduct = () => {
-  const [activeTab, setActiveTab] = useState('apparel'); // Default to 'apparel' tab
+  const [activeTab, setActiveTab] = useState(''); // Default to 'apparel' tab
 
   useEffect(() => {
     // Set the default active tab when the component mounts
-    setActiveTab('apparel');
+    setActiveTab('');
   }, []);
 
   //get travis order
   const getTravisOrders= useSelector(getTravisOrder)
-  const getOgioOrders= useSelector(getOgioOrder)
-  console.log("getOgioOrders",getOgioOrders)
+  // const getOgioOrders= useSelector(getOgioOrder)
+  const getOgioProduct= useSelector(getOgioProducts)
+  // console.log("getOgioOrders",getOgioOrders)
+
+  useEffect(() => {
+    if (getTravisOrders && getTravisOrders.length > 0) {
+      setActiveTab('travis');
+    } else if (getOgioProduct && getOgioProduct.length > 0) {
+      getOgioProduct.map(item=>{
+        if(item.ordered){
+          setActiveTab('ogio');
+        }
+      })
+      setActiveTab('ogio');
+    } else {
+      setActiveTab('apparel'); // Default to 'apparel' tab if no orders found
+    }
+  }, [getTravisOrders, getOgioProduct]);
   return (
     < div className='container'>
-   {getTravisOrders&&
-   
-   getTravisOrders.length==0 &&
-   getOgioOrders &&
-      getOgioOrders.length==0 ?
+   {activeTab===""?
    (<NoProdect/>):(
     <div className='mt-14 container'>
       <div className="card card-custom">
@@ -47,22 +60,20 @@ const CartProduct = () => {
             </li> */}
 
 
-           {getOgioOrders &&
-           getOgioOrders.length>0 &&
+          
            <li className="nav-item">
               <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} href="#kt_tab_pane_Ogio" onClick={() => setActiveTab('ogio')}>
                 Ogio
               </a>
-            </li>}
+            </li>
 
 
-            {getTravisOrders &&
-             getTravisOrders.length>0 &&
+         
              <li className="nav-item">
               <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} href="#kt_tab_pane_Travis" onClick={() => setActiveTab('travis')}>
                 Travis Mathew
               </a>
-            </li>}
+            </li>
           </ul>
         </div>
         <div className="card-body">

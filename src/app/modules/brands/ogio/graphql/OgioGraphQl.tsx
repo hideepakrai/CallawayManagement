@@ -15,7 +15,7 @@ query allProducts {
           Name
           Description
           SKU
-         
+          GST
           
           MRP
          

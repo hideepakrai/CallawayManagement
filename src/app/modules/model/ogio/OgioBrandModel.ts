@@ -28,6 +28,8 @@ export interface OgioBasicModel {
        LessDiscountAmount?:number,
        NetBillings?:number,
        FinalBillValue?:number,
+       error?:string,
+       order?:boolean
 
 }
 export interface OgioBasicModelGraph {

@@ -32,43 +32,113 @@
 
             addOgioProduct: (state, action) => {
                 const { ogioProduct, id } = action.payload;
-               
-                if(ogioProduct && ogioProduct.length > 0) {
-                    ogioProduct.map((item:OgioBasicModelGraph)=>{
-
-                        const att: OgioModel[] = [];
-                        if (item &&
-                            item.attributes &&
-                            item.attributes.AttributeSet &&
-                            Array.isArray(item.attributes.AttributeSet)
-                        ) { // Null check here
-                            item.attributes.AttributeSet.forEach((attrItems: OgioModel) => {
-                                att.push({
-                                    ProductType:attrItems.ProductType,
-                                    Category:attrItems.Category,
-                                    ProductModel:attrItems.ProductModel,
-                                    LifeCycle:attrItems.LifeCycle,
-                                    Stock90:attrItems.Stock90,
-                                   
-                                    
+               const ogiolength= state.ogio.length;
+                if(ogiolength===0){
+                    if(ogioProduct && ogioProduct.length > 0) {
+                        ogioProduct.map((item:OgioBasicModelGraph)=>{
+    
+                            const att: OgioModel[] = [];
+                            if (item &&
+                                item.attributes &&
+                                item.attributes.AttributeSet &&
+                                Array.isArray(item.attributes.AttributeSet)
+                            ) { // Null check here
+                                item.attributes.AttributeSet.forEach((attrItems: OgioModel) => {
+                                    att.push({
+                                        ProductType:attrItems.ProductType,
+                                        Category:attrItems.Category,
+                                        ProductModel:attrItems.ProductModel,
+                                        LifeCycle:attrItems.LifeCycle,
+                                        Stock90:attrItems.Stock90,
+                                       
+                                        
+                                    });
                                 });
-                            });
-                        }
-                        state.ogio.push({
-                        id:item.id,
-                        //brand:item.attributes.brand,
-                        Name: item.attributes.Name,
-                        Description: item.attributes.Description,
-                        SKU: item.attributes.SKU,
-        
-                        MRP: item.attributes.MRP,
-                        SetType: item.attributes.SetType,
-                       GST: item.attributes.GST,
-                        OgiAttributes:att
-                    
+                            }
+                            state.ogio.push({
+                            id:item.id,
+                            //brand:item.attributes.brand,
+                            Name: item.attributes.Name,
+                            Description: item.attributes.Description,
+                            SKU: item.attributes.SKU,
+            
+                            MRP: item.attributes.MRP,
+                            SetType: item.attributes.SetType,
+                           GST: item.attributes.GST,
+                           error:"",
+                           ordered:false,
+
+                            OgiAttributes:att
+                        
+                            })
                         })
-                    })
+                    }  
                 }
+                else if(ogiolength>0){
+                    if(ogioProduct && ogioProduct.length > 0) {
+                        ogioProduct.map((item:OgioBasicModelGraph)=>{
+                            const ogioIndex= state.ogio.findIndex(prod=>prod.SKU===item.attributes.SKU);
+                            if(ogioIndex!==-1) {
+                                const stt=state.ogio[ogioIndex].OgiAttributes;
+                                const lystt=item?.attributes?.AttributeSet
+                                    if(stt &&lystt){
+                                        const prdstock90=stt[0].Stock90
+                                        const ltstock90= lystt[0].Stock90
+                                        if(prdstock90!==ltstock90){
+                                            stt[0].Stock90=ltstock90
+                                        }
+                                    }
+                               
+                            }
+                            else if(ogioIndex===-1){
+                                if(ogioProduct && ogioProduct.length > 0) {
+                                    ogioProduct.map((item:OgioBasicModelGraph)=>{
+                
+                                        const att: OgioModel[] = [];
+                                        if (item &&
+                                            item.attributes &&
+                                            item.attributes.AttributeSet &&
+                                            Array.isArray(item.attributes.AttributeSet)
+                                        ) { // Null check here
+                                            item.attributes.AttributeSet.forEach((attrItems: OgioModel) => {
+                                                att.push({
+                                                    ProductType:attrItems.ProductType,
+                                                    Category:attrItems.Category,
+                                                    ProductModel:attrItems.ProductModel,
+                                                    LifeCycle:attrItems.LifeCycle,
+                                                    Stock90:attrItems.Stock90,
+                                                   
+                                                    
+                                                });
+                                            });
+                                        }
+                                        state.ogio.push({
+                                        id:item.id,
+                                        //brand:item.attributes.brand,
+                                        Name: item.attributes.Name,
+                                        Description: item.attributes.Description,
+                                        SKU: item.attributes.SKU,
+                        
+                                        MRP: item.attributes.MRP,
+                                        SetType: item.attributes.SetType,
+                                       GST: item.attributes.GST,
+                                       error:"",
+                                       ordered:false,
+                                        OgiAttributes:att
+                                    
+                                        })
+                                    })
+                                } 
+                            }
+
+
+
+                        })
+                    }
+
+                }
+                
+                
                 },
 
                 updateNewData:(state,action) => {
@@ -140,7 +210,7 @@
                 const ogioIndex = state.ogio.findIndex(
                   (ogioItem) => ogioItem.SKU === sku
                 );
-                if (ogioIndex!== -1) {
+                if (ogioIndex!== -1 &&qty90!==0) {
                   state.ogio[ogioIndex].Quantity90 = qty90;
                 
                   const quantity90 = state.ogio[ogioIndex]?.Quantity90 ?? 0;
@@ -149,6 +219,19 @@
                   
                   state.ogio[ogioIndex].Amount = MRP*(quantity90)
                   state.ogio[ogioIndex].ordered = true;
+                   const gst=state.ogio[ogioIndex].GST;
+                   const mrp=state.ogio[ogioIndex].MRP;
+                   const amount=state.ogio[ogioIndex].Amount;
+                   
+                    if(mrp &&gst && amount){
+                        const gstdiscount= (amount)-((100*amount)/(100+gst))
+                        const netbill=amount-((amount*22)/100)-(gstdiscount);
+                        state.ogio[ogioIndex].LessGST=gstdiscount
+                        state.ogio[ogioIndex].LessDiscountAmount=(amount*22)/100;
+                        state.ogio[ogioIndex].NetBillings=amount-(qty90*gst*mrp/100);
+                        state.ogio[ogioIndex].FinalBillValue=netbill+(gst*netbill/100)
+                    }
+                    
                 }
               },
 

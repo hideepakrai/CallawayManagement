@@ -49,7 +49,7 @@ const OgioTable = () => {
 
 
      const ogioProducts: OgioBasicModel[]= useSelector(getOgioProducts)
-       console.log("Ogio Products", ogioProducts);
+     
     const columns: TableColumnsType<OgioBasicModel>= [
         {
           // title: "Image",
@@ -382,11 +382,11 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
         
       }));
     
-      dispatch(addOgioOrder({
-        OgioOrder:record,
-        qty90: intValue,
-        qty88:record.Quantity88
-      }))
+      // dispatch(addOgioOrder({
+      //   OgioOrder:record,
+      //   qty90: intValue,
+      //   qty88:record.Quantity88
+      // }))
     }
     else{
       // alert("Quantity is not available")
@@ -421,12 +421,12 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
       
     }));
 
-    dispatch(removeOgioOrder({
-      travisOrder:record,
-        qty90s: intValue,
-        qty88s:record.Quantity90
+    // dispatch(removeOgioOrder({
+    //   travisOrder:record,
+    //     qty90s: intValue,
+    //     qty88s:record.Quantity90
         
-    }))
+    // }))
 }
 }
 

@@ -24,7 +24,7 @@ const OgioGallery = ({ value }:Props) => {
      //  console.log("image: " + image[0].attributes?.Logo?.data.attributes?.formats?.thumbnail?.url);
     }
    },[getAllBrand])
-   console.log("getAllBrand",getAllBrand)
+  
   if (value && value.data &&
     value?.data[0]?.attributes &&
     value?.data[0]?.attributes?.formats &&

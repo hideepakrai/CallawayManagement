@@ -4,6 +4,9 @@ import { useQuery,useApolloClient } from "@apollo/client";
 import { useDispatch } from 'react-redux';
 import {GET_OGIO_Prduct} from "../../../modules/brands/ogio/graphql/OgioGraphQl"
 import {addOgioProduct} from "../../../slice/allProducts/OgioSlice"
+import axios from 'axios';
+import {GetOgioProduct} from "../ogio/OgioAPI"
+
 type Props = {
   
     resetOgio:()=>void
@@ -20,9 +23,12 @@ const OgioProduct = ({ resetOgio}: Props) => {
         variables: {
         
         },
-        fetchPolicy: 'network-only',
+        pollInterval: 500,
+        fetchPolicy: 'no-cache',
       });
       
+
+     
 
 useEffect(() => {
     console.log(data);
@@ -37,6 +43,7 @@ useEffect(() => {
         resetOgio();
     }
 }, [data, loading]);
+
 
 
     return (

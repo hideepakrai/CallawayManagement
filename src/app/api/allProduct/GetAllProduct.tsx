@@ -110,7 +110,7 @@ useEffect(()=>{
   return (
     <div>
 
-      {isOgio &&<OgioProduct
+      {<OgioProduct
       resetOgio={handleOgio}
       />}
 

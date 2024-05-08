@@ -61,13 +61,13 @@ const [retailerCty, setRetailerCity]= useState<string>()
     }
   },[getOgioOrders]);
   const columns: TableColumnsType<OgioBasicModel>= [
-    {
-      // title: "Image",
-      dataIndex: "PrimaryImage",
-      // fixed: "left",
-      width: 50,
-      render: (value) => <OgioGallery value={value} />,
-    },
+    // {
+    //   // title: "Image",
+    //   dataIndex: "PrimaryImage",
+    //   // fixed: "left",
+    //   width: 50,
+    //   render: (value) => <OgioGallery value={value} />,
+    // },
 
     {
       title: "SKU",
@@ -118,8 +118,6 @@ const [retailerCty, setRetailerCity]= useState<string>()
     },
 
 
-
-      // product model
       {
         title: "ProductModel",
         dataIndex: "OgiAttributes",
@@ -132,32 +130,32 @@ const [retailerCty, setRetailerCity]= useState<string>()
       
       
           { title: " Qty90",
-          dataIndex: "OgiAttributes",
-          key: "Stock90", 
+          dataIndex: "Quantity90",
+          key: "Quantity90", 
           width: 150,
           fixed:'right',
-       
-          render: (value,record) => (
-            <Tooltip  placement="top">
-            <InputNumber
+          
+        //   render: (value,record) => (
+        //     <Tooltip  placement="top">
+        //     <InputNumber
             
-            className='mx-3 number-input'
-            addonBefore={value[0]?.Stock90} 
-            value={record.Quantity90?.toString()}
-            style={{ width: 100 }}
-            onChange={(value) => {
-              if (value !== null) {
-               // handleQuantity90(value, record)
-              }
+        //     className='mx-3 number-input'
+        //     addonBefore={value[0]?.Stock90} 
+        //     value={record.Quantity90?.toString()}
+        //     style={{ width: 100 }}
+        //     onChange={(value) => {
+        //       if (value !== null) {
+        //        // handleQuantity90(value, record)
+        //       }
 
-            }}
+        //     }}
            
              
-            disabled={value[0]?.Stock90 === 0} 
-          />
-          </Tooltip>
+        //     disabled={value[0]?.Stock90 === 0} 
+        //   />
+        //   </Tooltip>
            
-          ),
+        //   ),
         },
         {
           title: "MRP",

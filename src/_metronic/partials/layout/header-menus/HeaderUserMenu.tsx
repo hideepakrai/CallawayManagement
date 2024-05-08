@@ -12,6 +12,8 @@ import {resetCallayGoods} from "../../../../app/slice/allProducts/CallAwayGoodsS
 import {getUserAccount,resetUserAccount} from "../../../../app/slice/UserSlice/UserSlice"
 import { UserAccountModel } from '../../../../app/modules/model/useAccount/UserAccountModel'
 import { useNavigate } from 'react-router-dom'
+import { resetOgio } from '../../../../app/slice/allProducts/OgioSlice'
+import { resetOgioOrder } from '../../../../app/slice/orderSlice/ogio/OgioCartOrderSlice'
 
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth();
@@ -22,8 +24,8 @@ const HeaderUserMenu: FC = () => {
     
     dispatch(resetOrder())
     dispatch(resetCallayGoods())
-  
-
+      dispatch(resetOgioOrder())
+  dispatch(resetOgio())
     dispatch(resetUserAccount())
     deleteLocalStorage()
     logout()

@@ -2,16 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import {getOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import {OgioBasicModel} from "../../../model/ogio/OgioBrandModel"
-import { Input, InputNumber, InputRef, Select, SelectProps, Table, TableColumnsType, Tooltip } from 'antd';
+import { Input, InputNumber, InputRef, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
 import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
-import {addOgioOrder,removeOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
+import {addOgioOrder,removeOgioOrder,updateOgioInclusiveDiscount,updateOgioExclusiveDiscount,updateOgioFlatDiscount} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
 import {getOgioProducts,updateQuantity90} from "../../../../slice/allProducts/OgioSlice"
 import Loading from '../../../loading/Loading';
 
-import {getLoading} from "../../../../slice/loading/LoadingSlice"
+import {LoadingStart, LoadingStop, getLoading} from "../../../../slice/loading/LoadingSlice"
 import CartHeader from '../../CartHeader';
 import OgioCartPdf from './OgioCartPdf';
-
+import SubmitHomePage from '../../../submitReview/SubmitHomePage';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -22,7 +22,10 @@ const OgioCart = () => {
   const tableRef = useRef(null);
   const dispatch = useDispatch();
   const searchInput = useRef<InputRef>(null);
-  const getOgioOrders=useSelector(getOgioOrder);
+  // const getOgioOrders=useSelector(getOgioOrder);
+  const getOgioProduct=useSelector(getOgioProducts);
+
+  console.log("getOgioProduct",getOgioProduct)
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
@@ -288,15 +291,7 @@ const OgioCart = () => {
           key: "Stock90", 
           width: 150,
           fixed:'right',
-          // render: (value,record) => (
-          //   <Input 
-          //   addonBefore={value[0]?.Stock90} 
-          //   type='number'
-           
-          //   value={record.Quantity90?.toString()}
-          //   onChange={(e) => handleQuantity90(e.target.value, record)} />
-           
-          // ),
+          
           render: (value,record) => (
             <Tooltip  open={record.SKU=== qty90ToolSKU ?isQty90ToolTip:false} title={record.SKU=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
             <InputNumber
@@ -336,16 +331,66 @@ const OgioCart = () => {
         fixed:'right'
        
       },
+      {
+        title: "GST",
+        dataIndex: "GST",
+        key: "GST",
+        width: 100,
+        fixed: 'right'
+      },
+      {
+        title: "LessGST",
+        dataIndex: "LessGST",
+        key: "LessGST",
+        width: 100,
+        // fixed:'right'
+      },
+      {
+        title: "Discount",
+        dataIndex: "Discount",
+        key: "Discount",
+        width: 100,
+        // fixed:'right'
+      },
+      {
+        title: "LessDiscountAmount",
+        dataIndex: "LessDiscountAmount",
+        key: "LessDiscountAmount",
+        width: 100,
+        // fixed:'right'
+      },
+      {
+        title: "NetBillings",
+        dataIndex: "NetBillings",
+        key: "NetBillings",
+        width: 100,
+        // fixed:'right'
+      },
+      {
+        title: "FinalBillValue",
+        dataIndex: "FinalBillValue",
+        key: "FinalBillValue",
+        width: 100,
+        // fixed:'right'
+      },
+  
        
   
   ];
 
   useEffect(()=>{
-    if(getOgioOrders){
-      //console.log("Ogio order",getOgioOrders)
-      setGetAllOgioOrders(getOgioOrders)
+    const ogio:OgioBasicModel[]=[];
+    if(getOgioProduct &&getOgioProduct.length>0){
+      getOgioProduct.map((item)=>{
+        if(item.ordered){
+          ogio.push(item)
+        }
+      })
+      console.log("Ogio order",getOgioProduct)
+
+       setGetAllOgioOrders(ogio)
     }
-  },[getOgioOrders]);
+  },[getOgioProduct]);
 
   const [qty90ToolMesage, setQty90Message]= useState<string>("")
   const [qty90ToolSKU, setQty90SKU]= useState<string|undefined>("")
@@ -410,7 +455,7 @@ dispatch(updateQuantity90({
 }));
 
 dispatch(removeOgioOrder({
-  travisOrder:record,
+  ogioOrder:record,
     qty90s: intValue,
     qty88s:record.Quantity90
     
@@ -418,6 +463,35 @@ dispatch(removeOgioOrder({
 }
 }
 const getLoadings = useSelector(getLoading)
+const[isLoadingStart, setIsLoadingStart]= useState<boolean>(false)
+useEffect(()=>{
+  if(getLoadings){
+    setIsLoadingStart(true)
+  } else if(!getLoadings){
+    setIsLoadingStart(false)
+  }
+},[getLoadings])
+
+
+useEffect(() => {
+  let tAmount: number = 0;
+  let totalBillAmount: number = 0;
+  if (allOgioOrders && allOgioOrders.length > 0) {
+    allOgioOrders.map((item: OgioBasicModel) => {
+      if (item.Amount) {
+        tAmount = item.Amount + tAmount
+      }
+      if (item.FinalBillValue) {
+
+        totalBillAmount = totalBillAmount + item.FinalBillValue
+      }
+
+    })
+    setTotalAmount(tAmount)
+    setTotalNetBillAmount(totalBillAmount)
+    setDiscountAmount(tAmount - totalBillAmount)
+  }
+}, [allOgioOrders])
 
 // csubmit fro review
 const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
@@ -498,15 +572,88 @@ const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
      
     // }
   }
+
+  // handle disount
+  const [totalAmount, setTotalAmount] = useState<number>()
+  const [discountAmount, setDiscountAmount] = useState<number>()
+  const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+  const [discountType, setDiscountType] = useState<string>("")
+  const [isDiscount, setIsDiscount] = useState<boolean>(false)
+  const [discountValue, setDiscountValue] = useState<number>(0)
+
+   const handleDiscount = (value: string) => {
+    setIsDiscount(true)
+    if (value === "Inclusive") {
+      setDiscountType(value)
+      setDiscountValue(22)
+      dispatch(updateOgioInclusiveDiscount({
+        discount: 22
+      }))
+    }
+    if (value === "Exclusive") {
+      setDiscountValue(23)
+      setDiscountType(value)
+      dispatch(updateOgioExclusiveDiscount({
+        discount: 23
+      }))
+    }
+    if (value === "Flat") {
+      setDiscountValue(0)
+      setDiscountType(value)
+      dispatch(updateOgioFlatDiscount({
+        discount: 0
+      }))
+    }
+  }
+
+  // handle change discount 
+  const handleChangeDiscount = (value: number) => {
+    const dis = value;
+    console.log(dis);
+    setDiscountValue(dis)
+    if (discountType === "Inclusive") {
+      dispatch(updateOgioInclusiveDiscount({
+        discount: dis
+      }))
+    }
+    if (discountType === "Exclusive") {
+      dispatch(updateOgioExclusiveDiscount({
+        discount: dis
+      }))
+    }
+    if (discountType === "Flat") {
+      dispatch(updateOgioFlatDiscount({
+        discount: dis
+      }))
+    }
+
+  }
+
+  // check start submit for Review
+  const [startReviewBrand, setStartReviewBrand]=useState<string|null>(null)
+  const handleSubmitReview=() => {
+    setStartReviewBrand("Ogio")
+      dispatch(LoadingStart())
+  
+  }
+
+
+  const handleCloseSubMit=(val:number)=>{
+    if(val>0){
+      alert("Error in Quantity")
+    }
+     dispatch(LoadingStop())
+     console.log("vale", val)
+  }
   return (
     <div>
 
-{getLoadings && <Loading />}
+{isLoadingStart && <Loading />}
       {allOgioOrders &&
         allOgioOrders.length > 0 &&
         <CartHeader
           
-           CreateOrder={handleCreateOrder}
+           CreateOrder={handleSubmitReview}
         />}
        <Table
             ref={tableRef}
@@ -518,9 +665,103 @@ const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
             scroll={{ x: "100%", y: "auto" }}
             style={{ maxHeight: "1600px" }}
             pagination={{ defaultPageSize: 20 }}
+            footer={() => (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginLeft: 8,
+  
+                }}
+              >
+                <div style={{ width: "78%" }}>
+                  <a style={{ marginRight: 10, color: "#000", }}>Discount</a>
+                  <Select className="input-dropdown"
+                    showSearch
+                    placeholder="Select discount"
+                    optionFilterProp="children"
+                    onChange={handleDiscount}
+  
+                    options={[
+                      {
+                        value: "Inclusive",
+                        label: "Inclusive",
+                      },
+                      {
+                        value: "Exclusive",
+                        label: "Exclusive",
+                      },
+                      {
+                        value: "Flat",
+                        label: "Flat",
+                      },
+                    ]}
+                  />
+                  {isDiscount && (
+                    <Space className='number-input' direction="vertical">
+  
+                      {/* <Input
+                   
+                   
+                    onChange={(e)=>handleChangeDiscount(e.target.value)}
+                  /> */}
+                      <InputNumber
+                        className='mx-3 number-input'
+                        addonAfter="%"
+                        value={discountValue}
+                        onChange={(value) => {
+                          if (value !== null) {
+                            handleChangeDiscount(value);
+                          }
+                        }}
+                      />
+  
+                    </Space>
+  
+                  )}
+  
+  
+                </div>
+  
+                <div style={{ width: "261px" }}>
+  
+                  <h4 style={{ borderBottom: "1px solid #ddd", fontSize: "14px",  paddingBottom:"10px" ,paddingTop:"2px" }}>
+                    {" "}
+                    <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> {totalAmount}
+                  </h4>
+  
+                  <h4 style={{ borderBottom: "1px solid #ddd",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"2px", margin:"0" }}>
+                    {" "}
+                    <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount:</a>
+                    {discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
+                  </h4>
+  
+                  <h4 style={{ borderBottom: "1px solid #ddd",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"10px", background:"#f1f1f1"  }}>
+                    {" "}
+                    <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
+                    {totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
+                  </h4>
+  
+  
+  
+  
+  
+  
+                  {/* <h4 style={{ padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
+                            <a style={{ color: "#000", paddingRight: "112px", paddingLeft: "10px", }}>Total : </a>₹2,356
+                        </h4> */}
+                </div>
+  
+              </div>
+            )}
           />
         
         <OgioCartPdf/>
+
+      { startReviewBrand!=null && <SubmitHomePage
+      startReviewBrand={startReviewBrand}
+      closeCompare={handleCloseSubMit}
+      />}
     </div>
   )
 }

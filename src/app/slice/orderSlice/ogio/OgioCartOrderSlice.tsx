@@ -97,6 +97,65 @@ const OgioOrderSlice = createSlice({
             }
        
         },
+        updateOgioInclusiveDiscount:(state,action)=>{
+            const {discount}= action.payload;
+            state.OgioOrder.forEach((item=>{
+                item.Discount=discount;
+                const gst= item.GST||0
+                const salP=item.Amount ||0;
+                const gstdiscount= (salP)-((100*salP)/(100+gst))
+                item.LessGST=gstdiscount;
+                item.LessDiscountAmount=(salP*discount)/100;
+               const netbill=salP-((salP*discount)/100)-(gstdiscount);
+               const totalNetbill=netbill+(gst*netbill/100)
+               item.NetBillings=netbill;
+               item.FinalBillValue=totalNetbill;
+            }))
+        },
+        updateOgioExclusiveDiscount:(state,action)=>{
+            const {discount}=action.payload;
+            state.OgioOrder.forEach((item=>{
+                item.Discount=discount;
+                const gst= item.GST||0
+               item.LessGST=0;
+                const salP=item.Amount ||0;
+                item.LessDiscountAmount=(salP*discount)/100;
+               const netbill=salP-((salP*discount)/100);
+               const totalNetbill=netbill+(gst*netbill/100)
+               item.NetBillings=netbill;
+               item.FinalBillValue=totalNetbill;
+            }))
+
+
+        },
+        updateOgioFlatDiscount:(state,action)=>{
+            const {discount}=action.payload;
+            state.OgioOrder.forEach((item=>{
+                item.Discount=discount;
+               
+               item.LessGST=0;
+                const salP=item.Amount ||0;
+                item.LessDiscountAmount=(salP*discount)/100;
+               const netbill=salP-((salP*discount)/100);
+               const totalNetbill=netbill;
+               item.NetBillings=netbill;
+               item.FinalBillValue=totalNetbill;
+            }))
+
+
+        },
+        updateError:(state,action)=>{
+            const {orderdata,stock90}= action.payload;
+        const dataIndex= state.OgioOrder.findIndex(order => order.SKU===orderdata.SKU);
+        if(dataIndex!=-1){
+            state.OgioOrder[dataIndex].error="orderQuantityis more Then Stock "
+            const stt= state.OgioOrder[dataIndex].OgiAttributes
+            if(stt){
+                stt[0].Stock90=stock90
+            }
+        }
+
+        }
 
         
 
@@ -107,7 +166,11 @@ const OgioOrderSlice = createSlice({
 export const {
     addOgioOrder,
     resetOgioOrder,
-    removeOgioOrder
+    removeOgioOrder,
+    updateOgioFlatDiscount,
+    updateOgioExclusiveDiscount,
+    updateOgioInclusiveDiscount,
+    updateError
     
      
 } = OgioOrderSlice.actions;
