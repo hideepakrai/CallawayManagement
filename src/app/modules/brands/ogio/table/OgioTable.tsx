@@ -14,14 +14,18 @@ import OgioUpdateExcel from "../excel/UpdateData/ImportExcel"
 import UploadDB from '../excel/UpdateData/UpdateDB';
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import OgioGallery from"./column/OgioGallery"
-import {addOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
+import {addOgioOrder,removeOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
 import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
+import { useNavigate } from 'react-router-dom';
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
 const OPTIONS2 = ['Og Rise', 'Og Pace Pro', 'Og Max', 'Og Al Convoy	'] ;
 
 const OgioTable = () => {
+
+  const navigate= useNavigate()
   const searchInput = useRef<InputRef>(null);
   const placement: SelectCommonPlacement = 'topLeft'; 
     const tableRef = useRef(null);
@@ -379,7 +383,7 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
       }));
     
       dispatch(addOgioOrder({
-        travisOrder:record,
+        OgioOrder:record,
         qty90: intValue,
         qty88:record.Quantity88
       }))
@@ -417,12 +421,12 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
       
     }));
 
-    // dispatch(removeTravisOrder({
-    //   travisOrder:record,
-    //     qty90s: intValue,
-    //     qty88s:record.Quantity90
+    dispatch(removeOgioOrder({
+      travisOrder:record,
+        qty90s: intValue,
+        qty88s:record.Quantity90
         
-    // }))
+    }))
 }
 }
 
@@ -502,6 +506,10 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
   const handleResetUpdateXls=()=>{
     setUpdateXlsData([])
   }
+
+  const handleViewCart=()=>{
+    navigate("/cart")
+  }
   return (
     <div className='container'>
 <Card style={{ marginTop:'80px'}}
@@ -522,6 +530,9 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
 
         >
           <div  style={{ float: "right", marginBottom:"12px"}}>
+            <Button  className='mx-3'
+            onClick={handleViewCart}
+            >View Cart</Button>
             <Button  className='mx-3'
             onClick={handleImport}
             >Import Products</Button>

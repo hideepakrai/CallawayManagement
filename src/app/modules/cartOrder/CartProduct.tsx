@@ -20,7 +20,7 @@ const CartProduct = () => {
   //get travis order
   const getTravisOrders= useSelector(getTravisOrder)
   const getOgioOrders= useSelector(getOgioOrder)
-
+  console.log("getOgioOrders",getOgioOrders)
   return (
     < div className='container'>
    {getTravisOrders&&

@@ -18,7 +18,7 @@ const OgioOrderSlice = createSlice({
             return initialState;
         },
         addOgioOrder:(state,action)=>{
-            const {OgioOrder,qty90,qty88}=action.payload;
+            const {OgioOrder,qty90}=action.payload;
             if(OgioOrder ) {
                const index=  state.OgioOrder.findIndex(item=>item.SKU===OgioOrder.SKU);
                    if(index===-1){
@@ -40,17 +40,17 @@ const OgioOrderSlice = createSlice({
                         SKU: OgioOrder.SKU,
                     
                         MRP: OgioOrder.MRP,
-                       
+                        GST:OgioOrder.GST,
                         
                         SetType: OgioOrder.SetType,
                         ProductType: OgioOrder.ProductType,
                         OgiAttributes: att,
-                        Quantity88:qty88,
+                        
                         Quantity90:qty90,
-                        Amount: (qty88+qty90)*OgioOrder.MRP,
-                        TotalQty: qty88+qty90,
-                        GST:12,
-                        LessGST:(((qty88+qty90)*OgioOrder.MRP)*.12),
+                        Amount: (qty90)*OgioOrder.MRP,
+                        TotalQty:qty90,
+                      
+                        LessGST:(((qty90)*OgioOrder.MRP)*.12),
                         Discount: 0,
                         LessDiscountAmount:0,
                         NetBillings:0,
@@ -69,6 +69,34 @@ const OgioOrderSlice = createSlice({
             }
         },
 
+        removeOgioOrder:(state,action)=>{
+            const{ogioOrder,qty90s}= action.payload;
+               // eslint-disable-next-line no-debugger
+               debugger
+            if(qty90s===0){
+                const index=  state.OgioOrder.findIndex(item=>item.SKU===ogioOrder.SKU);
+                if(index!==-1){
+                    state.OgioOrder.splice(index,1);
+                }
+            }
+            else{
+                const index=  state.OgioOrder.findIndex(item=>item.SKU===ogioOrder.SKU);
+                if(index!==-1){
+                    if(state.OgioOrder[index]){
+                        
+                        state.OgioOrder[index].Quantity90=qty90s;
+                        
+                        const qty90=state.OgioOrder[index].Quantity90||0;
+                        const MRP=state.OgioOrder[index].MRP||0;
+                        state.OgioOrder[index].TotalQty=qty90
+                        state.OgioOrder[index].Amount=MRP*(qty90);
+                        
+                    }
+                    
+                }
+            }
+       
+        },
 
         
 
@@ -78,13 +106,15 @@ const OgioOrderSlice = createSlice({
 
 export const {
     addOgioOrder,
-    resetOgioOrder
+    resetOgioOrder,
+    removeOgioOrder
+    
      
 } = OgioOrderSlice.actions;
 
 
-export const getOgioOrder = (state: { ogioOrder: OgioState }): OgioBasicModel[] => {
-    return state.ogioOrder?.OgioOrder || [];
+export const getOgioOrder = (state: { OgioOrder: OgioState }): OgioBasicModel[] => {
+    return state.OgioOrder?.OgioOrder || [];
 };
 
 export default OgioOrderSlice.reducer;
