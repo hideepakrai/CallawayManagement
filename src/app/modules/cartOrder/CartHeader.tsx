@@ -3,7 +3,7 @@ import { Card, Table, Input, Button, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {BasicModelTravis} from "../model/travis/TravisMethewModel"
 import {getRetailers} from "../../slice/retailer/RetailerSlice"
-import {RetailerModel,Retailer}  from "../../modules/model/retailer/RetailerModel"
+import {RetailerModel,Retailer}  from "../model/AccountType/retailer/RetailerModel"
 import {getUserAccount,getUserInfo} from "../.../../../slice/UserSlice/UserSlice"
 import {RetailerData,UserAccountModel,RetailerModels,retailerData } from "../../modules/model/useAccount/UserAccountModel"
 import "./CartHeader.css"

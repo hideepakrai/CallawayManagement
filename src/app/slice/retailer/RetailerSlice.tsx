@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {RetailerModel,Retailer,sales_representatives,salesRepresentatives,managers,manager} from "../../modules/model/retailer/RetailerModel"
+import {RetailerModel,Retailer,sales_representatives,salesRepresentatives,managers,manager} from "../../modules/model/AccountType/retailer/RetailerModel"
 // Define interface for Redux state
 interface RetailerState {
     retailer:RetailerModel[]
@@ -23,6 +23,6 @@ const RetailerSlice = createSlice({
 export const { addRetailer } = RetailerSlice.actions;
 
 
-export const getRetailers = (state: { retailer: RetailerState }) => state.retailer;
+export const getRetailers = (state: { retailer: RetailerState }) => state.retailer.retailer;
 
 export default RetailerSlice.reducer;

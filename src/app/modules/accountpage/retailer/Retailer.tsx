@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import RetailsTable from './RetailsTable'
 import Slider from '../../model/slider/Slider'
+import GetAllRetailer from "./GetAllRetailers"
+import { boolean } from 'yup'
 const Retailer = () => {
+
+  const [isRetailers, setIsRetailer]= useState<boolean>(false)
+
+useEffect(()=>{
+  setIsRetailer(true)
+},[])
+
+  const handleCloseQuery=()=>{
+    setIsRetailer(false)
+  }
   return (
     <div>
       <Slider/>
@@ -35,6 +47,10 @@ const Retailer = () => {
       </div>
       
       <RetailsTable/>
+
+      {isRetailers &&<GetAllRetailer
+      resetRetailers={handleCloseQuery}
+      />}
       </div>
     </div>
   )

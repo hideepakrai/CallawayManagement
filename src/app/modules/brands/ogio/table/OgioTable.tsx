@@ -534,9 +534,7 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
             <Button className='mx-3'
              onClick={handleSampleExcel}
              >Sample Excel</Button>
-            <Button className='mx-3'
-             onClick={handleUpdateExcel}
-             >Update</Button>
+            
           </div>
 
           <Table

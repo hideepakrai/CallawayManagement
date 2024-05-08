@@ -25,11 +25,11 @@ const OgioOrderSlice = createSlice({
                     const att: OgioModel[] = [
                         {
                          
-                          ProductType: OgioOrder.TravisAttributes[0].ProductType,
-                          Category: OgioOrder.TravisAttributes[0].Category,
-                          ProductModel: OgioOrder.TravisAttributes[0].ProductModel || "", // Assuming Gender might be optional
-                          LifeCycle: OgioOrder.TravisAttributes[0].LifeCycle,
-                          Stock90: OgioOrder.TravisAttributes[0].Stock90,
+                          ProductType: OgioOrder.OgiAttributes[0].ProductType,
+                          Category: OgioOrder.OgiAttributes[0].Category,
+                          ProductModel: OgioOrder.OgiAttributes[0].ProductModel || "", // Assuming Gender might be optional
+                          LifeCycle: OgioOrder.OgiAttributes[0].LifeCycle,
+                          Stock90: OgioOrder.OgiAttributes[0].Stock90,
                         },
                       ];
               
