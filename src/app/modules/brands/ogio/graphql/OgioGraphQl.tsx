@@ -5,7 +5,10 @@ import { useQuery, gql } from '@apollo/client';
 // Define your GraphQL query
 export const GET_OGIO_Prduct = gql`
 query allProducts {
-    products(filters: { SetType: { eq: "Ogio" } }){
+    products(filters: { SetType: { eq: "Ogio" } }
+    pagination:{limit:-1}
+
+    ){
       data{
         id
         attributes{
