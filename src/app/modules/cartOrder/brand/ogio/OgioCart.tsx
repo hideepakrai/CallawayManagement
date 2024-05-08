@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {OgioBasicModel} from "../../../model/ogio/OgioBrandModel"
 import { Input, InputNumber, InputRef, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
 import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
-import {addOgioOrder,removeOgioOrder,updateOgioInclusiveDiscount,updateOgioExclusiveDiscount,updateOgioFlatDiscount} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
+import {updateOgioInclusiveDiscount,updateOgioExclusiveDiscount,updateOgioFlatDiscount, resetOgioOrder} from "../../../../slice/allProducts/OgioSlice"
 import {getOgioProducts,updateQuantity90} from "../../../../slice/allProducts/OgioSlice"
 import Loading from '../../../loading/Loading';
 
@@ -12,6 +12,12 @@ import {LoadingStart, LoadingStop, getLoading} from "../../../../slice/loading/L
 import CartHeader from '../../CartHeader';
 import OgioCartPdf from './OgioCartPdf';
 import SubmitHomePage from '../../../submitReview/SubmitHomePage';
+import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
+import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
+import { CurentUser } from '../../../model/useAccount/CurrentUser';
+import { CreateOrder } from '../../orderApi/OrderAPi';
+import GetUserAccount from '../../../auth/components/GetUserAccount';
+import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -32,7 +38,17 @@ const OgioCart = () => {
   const filteredOptions1 = OPTIONS1.filter((o) => !selectedItems.includes(o));
   const filteredOptions2= OPTIONS2.filter((o) => !selectedItems.includes(o));
   const [ allOgioOrders, setGetAllOgioOrders]= useState<OgioBasicModel[]>([])
- 
+  const [userId, setUserId] = useState<number>();
+
+   // update user Id
+   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
+   useEffect(() => {
+    if (getCurrentUsers) {
+
+     
+      setUserId(getCurrentUsers?.user?.id)
+    }
+  }, [getCurrentUsers])
   const columns: TableColumnsType<OgioBasicModel>= [
     {
       // title: "Image",
@@ -415,11 +431,11 @@ if ( record?.OgiAttributes&&record?.OgiAttributes[0]?.Stock90 && record.OgiAttri
     
   }));
 
-  dispatch(addOgioOrder({
-    OgioOrder:record,
-    qty90: intValue,
-    qty88:record.Quantity88
-  }))
+  // dispatch(addOgioOrder({
+  //   OgioOrder:record,
+  //   qty90: intValue,
+  //   qty88:record.Quantity88
+  // }))
 }
 else{
   // alert("Quantity is not available")
@@ -454,12 +470,12 @@ dispatch(updateQuantity90({
   
 }));
 
-dispatch(removeOgioOrder({
-  ogioOrder:record,
-    qty90s: intValue,
-    qty88s:record.Quantity90
+// dispatch(removeOgioOrder({
+//   ogioOrder:record,
+//     qty90s: intValue,
+//     qty88s:record.Quantity90
     
-}))
+// }))
 }
 }
 const getLoadings = useSelector(getLoading)
@@ -472,12 +488,14 @@ useEffect(()=>{
   }
 },[getLoadings])
 
-
+const [totalAmount, setTotalAmount] = useState<number>()
+const [discountAmount, setDiscountAmount] = useState<number>()
+const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
 useEffect(() => {
   let tAmount: number = 0;
   let totalBillAmount: number = 0;
-  if (allOgioOrders && allOgioOrders.length > 0) {
-    allOgioOrders.map((item: OgioBasicModel) => {
+  if (getOgioProduct && getOgioProduct.length > 0) {
+    getOgioProduct.map((item: OgioBasicModel) => {
       if (item.Amount) {
         tAmount = item.Amount + tAmount
       }
@@ -491,92 +509,12 @@ useEffect(() => {
     setTotalNetBillAmount(totalBillAmount)
     setDiscountAmount(tAmount - totalBillAmount)
   }
-}, [allOgioOrders])
-
-// csubmit fro review
-const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
-
-  // setRetailerId(retailerUserId)
-    // dispatch(LoadingStart())
-    // if (Array.isArray(getProduct)) {
-
-    //   const orderId = generateUniqueNumeric();
-    //   let brand;
-    //   let amount;
-    //   const ProductDetail: ProductDetails[] = [];
-    //   getProduct.forEach((item: BasicModelTravis) => {
-    //     brand = item.SetType;
-    //     amount = item.FinalBillValue;
-    //     ProductDetail.push({
-    //       product: item.id,
-    //       Qty88: item.Quantity88,
-    //       Qty90: item.Quantity90,
-    //       TotalPrice: item.FinalBillValue,
-    //       UnitPrice: item.MRP
-
-    //     });
-    //   // const trsvisdata=item.TravisAttributes
-    //   //   if(trsvisdata && travisdata[0]?.Stock88 &&travisdata?[0].Stock90){
-
-    //   //   let stk88=travisdata[0]?.Stock88- item.Quantity88
-    //   //   let stk90=travisdata[0]?.Stock90- item.Quantity90
-    //   //   updateQty(item?.id, stk88, stk90)
-
-    //   //   }
-        
-
-    //   });
+}, [getOgioProduct])
 
 
-    //   const comments = {
-    //     Comment: "submit for review",
-    //     Type: "Event",
-    //     "users_permissions_user (1)": userId
-    //   }
-    //      if(userId &&retailerId &&orderId){
-        
-    //        const data:CartModel = {
-    //         OrderId: orderId,
-    //         Status: "Pending",
-    //         ProductDetails: ProductDetail,
-    //         retailer: retailerId,
-    //         users: {
-    //           connect: [
-    //             {
-    //               id: retailerUserId,
-    //               position: {
-    //                 end: true
-    //               }
-    //             },
-    //             {
-    //             id: userId,
-    //             position: {
-    //               end: true
-    //             }
-    //           }, 
-             
-    //         ]
-    //         },
-    //         Brand: brand,
-    //         Amount: totalNetBillAmount,
-    //         DiscountType: discountType,
-    //         DiscountPercent: discountValue,
-    //         Comments: [comments]
-    //       }
-
-    //       createOrder(data)
-    //      }
-      
-      
-
-     
-    // }
-  }
 
   // handle disount
-  const [totalAmount, setTotalAmount] = useState<number>()
-  const [discountAmount, setDiscountAmount] = useState<number>()
-  const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+  
   const [discountType, setDiscountType] = useState<string>("")
   const [isDiscount, setIsDiscount] = useState<boolean>(false)
   const [discountValue, setDiscountValue] = useState<number>(0)
@@ -630,21 +568,126 @@ const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
   }
 
   // check start submit for Review
-  const [startReviewBrand, setStartReviewBrand]=useState<string|null>(null)
-  const handleSubmitReview=() => {
-    setStartReviewBrand("Ogio")
-      dispatch(LoadingStart())
-  
+// csubmit fro review
+const [retailerId, setRetailerId] = useState<number>(0);
+ 
+const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
+
+  setRetailerId(retailerUserId)
+    dispatch(LoadingStart())
+    if (Array.isArray(allOgioOrders)) {
+
+      const orderId = generateUniqueNumeric();
+      let brand;
+      let amount;
+      const ProductDetail: ProductDetails[] = [];
+      allOgioOrders.forEach((item: OgioBasicModel) => {
+        brand = item.SetType;
+        amount = item.FinalBillValue;
+        ProductDetail.push({
+          product: item.id,
+          Qty88: item.Quantity88,
+          Qty90: item.Quantity90,
+          TotalPrice: item.FinalBillValue,
+          UnitPrice: item.MRP
+
+        });
+      const ogiodata=item.OgiAttributes
+      const st90=item.Quantity90
+        if(ogiodata && ogiodata[0]?.Stock90  &&st90){
+
+        const  stk90=ogiodata[0]?.Stock90- st90
+        //updateQty(item?.id, stk88, stk90)
+
+        }
+        
+
+      });
+
+
+      const comments = {
+        Comment: "submit for review",
+        Type: "Event",
+        "users_permissions_user (1)": userId
+      }
+         if(userId &&retailerId &&orderId){
+        
+           const data:CartModel = {
+            OrderId: orderId,
+            Status: "Pending",
+            ProductDetails: ProductDetail,
+            retailer: retailerId,
+            users: {
+              connect: [
+                {
+                  id: retailerUserId,
+                  position: {
+                    end: true
+                  }
+                },
+                {
+                id: userId,
+                position: {
+                  end: true
+                }
+              }, 
+             
+            ]
+            },
+            Brand: brand,
+            Amount: totalNetBillAmount,
+            DiscountType: discountType,
+            DiscountPercent: discountValue,
+            Comments: [comments]
+          }
+
+         createOrder(data)
+         }
+      
+      
+
+     
+     }
+  }
+
+  function generateUniqueNumeric(): string {
+    const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
+    const randomDigits = Math.floor(Math.random() * 100000); // Generate random 5-digit number
+    const paddedRandomDigits = String(randomDigits).padStart(5, '0'); // Pad random number with leading zeros if necessary
+    const uniqueId = timestamp + paddedRandomDigits; // Combine timestamp and random number
+    return uniqueId;
   }
 
 
-  const handleCloseSubMit=(val:number)=>{
-    if(val>0){
-      alert("Error in Quantity")
+  const [orderId, setOrderId]= useState<number>(0)
+  const [reLoadUserAccount, setReloadUserAccount] = useState(false)
+  const createOrder = async (data: CartModel) => {
+    try {
+      const response = await CreateOrder(data);
+   
+      if (response?.data.id) {
+        setOrderId(response?.data.id)
+
+        setReloadUserAccount(true)
+      }
+
+
     }
-     dispatch(LoadingStop())
-     console.log("vale", val)
+    catch (err) {
+      console.log(err);
+      dispatch(LoadingStop())
+      setReloadUserAccount(false);
+    }
   }
+
+
+// reset userlaoding boolean
+const handleResetId = () => {
+  alert("your order has been created")
+  setReloadUserAccount(false);
+  dispatch(resetOgioOrder())
+  dispatch(LoadingStop())
+}
   return (
     <div>
 
@@ -653,7 +696,7 @@ const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
         allOgioOrders.length > 0 &&
         <CartHeader
           
-           CreateOrder={handleSubmitReview}
+           CreateOrder={handleCreateOrder}
         />}
        <Table
             ref={tableRef}
@@ -758,10 +801,13 @@ const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
         
         <OgioCartPdf/>
 
-      { startReviewBrand!=null && <SubmitHomePage
-      startReviewBrand={startReviewBrand}
-      closeCompare={handleCloseSubMit}
+        {reLoadUserAccount && userId != null && <GetUserAccount
+        userId={userId}
+        resetId={handleResetId}
       />}
+  <GetAllProduct/>
+      
+      
     </div>
   )
 }

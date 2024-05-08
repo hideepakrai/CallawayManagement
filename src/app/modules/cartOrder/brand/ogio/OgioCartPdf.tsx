@@ -51,15 +51,36 @@ const [retailerCty, setRetailerCity]= useState<string>()
     getTravisOrderDetailss
   ])
 
-  const getOgioOrders: OgioBasicModel[]= useSelector(getOgioOrder)
+  const getOgioProduct: OgioBasicModel[]= useSelector(getOgioProducts)
   const [ allOgioOrders, setGetAllOgioOrders]= useState<OgioBasicModel[]>([])
- 
+  const [totalAmount, setTotalAmount] = useState<number>()
+  const [discountAmount, setDiscountAmount] = useState<number>()
+  const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
   useEffect(()=>{
-    if(getOgioOrders){
-      //console.log("Ogio order",getOgioOrders)
-      setGetAllOgioOrders(getOgioOrders)
+    let tAmount: number = 0;
+  let totalBillAmount: number = 0;
+    const ogio:OgioBasicModel[]=[];
+    if(getOgioProduct &&getOgioProduct.length>0){
+      getOgioProduct.map((item)=>{
+        if(item.ordered){
+          ogio.push(item)
+        }
+        if (item.Amount) {
+          tAmount = item.Amount + tAmount
+        }
+        if (item.FinalBillValue) {
+  
+          totalBillAmount = totalBillAmount + item.FinalBillValue
+        }
+      })
+      console.log("Ogio order",getOgioProduct)
+
+       setGetAllOgioOrders(ogio)
+       setTotalAmount(tAmount)
+    setTotalNetBillAmount(totalBillAmount)
+    setDiscountAmount(tAmount - totalBillAmount)
     }
-  },[getOgioOrders]);
+  },[getOgioProduct]);
   const columns: TableColumnsType<OgioBasicModel>= [
     // {
     //   // title: "Image",
@@ -234,12 +255,12 @@ const [retailerCty, setRetailerCity]= useState<string>()
             
             <h4 style={{ color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px",fontSize:"14px"}}>
                 {" "}
-                <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{getTravisOrderDetailss?.totalAmount}
+                <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{totalAmount}
               </h4>
               {/* ₹ */}
               <h4 style={{ color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px", fontSize:"14px"}}>
                 {" "}
-                <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{getTravisOrderDetailss?.discountAmount}
+                <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{discountAmount}
               </h4>
               
              
@@ -252,7 +273,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
              
 
               <h4 style={{color:"#545454", padding:"8px 0px", backgroundColor:"#ddd",fontSize:"14px"}}>
-                <a style={{ color:"#545454", paddingRight:"109px", paddingLeft:"10px",}}>Total : </a>{getTravisOrderDetailss?.totalNetBillAmount}
+                <a style={{ color:"#545454", paddingRight:"109px", paddingLeft:"10px",}}>Total : </a>{totalNetBillAmount}
               </h4>
             </div>
             </div>

@@ -232,8 +232,74 @@
                         state.ogio[ogioIndex].FinalBillValue=netbill+(gst*netbill/100)
                     }
                     
+                } else if(ogioIndex!== -1 &&qty90==0) {
+                    state.ogio[ogioIndex].Quantity90 = 0;
+                    state.ogio[ogioIndex].Amount = 0;
+                    state.ogio[ogioIndex].ordered = false;
+
                 }
               },
+              updateOgioInclusiveDiscount:(state,action)=>{
+                const {discount}= action.payload;
+                state.ogio.forEach((item=>{
+                    item.Discount=discount;
+                    const gst= item.GST||0
+                    const salP=item.Amount ||0;
+                    const gstdiscount= (salP)-((100*salP)/(100+gst))
+                    item.LessGST=gstdiscount;
+                    item.LessDiscountAmount=(salP*discount)/100;
+                   const netbill=salP-((salP*discount)/100)-(gstdiscount);
+                   const totalNetbill=netbill+(gst*netbill/100)
+                   item.NetBillings=netbill;
+                   item.FinalBillValue=totalNetbill;
+                }))
+            },
+            updateOgioExclusiveDiscount:(state,action)=>{
+                const {discount}=action.payload;
+                state.ogio.forEach((item=>{
+                    item.Discount=discount;
+                    const gst= item.GST||0
+                   item.LessGST=0;
+                    const salP=item.Amount ||0;
+                    item.LessDiscountAmount=(salP*discount)/100;
+                   const netbill=salP-((salP*discount)/100);
+                   const totalNetbill=netbill+(gst*netbill/100)
+                   item.NetBillings=netbill;
+                   item.FinalBillValue=totalNetbill;
+                }))
+    
+    
+            },
+            updateOgioFlatDiscount:(state,action)=>{
+                const {discount}=action.payload;
+                state.ogio.forEach((item=>{
+                    item.Discount=discount;
+                   
+                   item.LessGST=0;
+                    const salP=item.Amount ||0;
+                    item.LessDiscountAmount=(salP*discount)/100;
+                   const netbill=salP-((salP*discount)/100);
+                   const totalNetbill=netbill;
+                   item.NetBillings=netbill;
+                   item.FinalBillValue=totalNetbill;
+                }))
+    
+    
+            },
+            resetOgioOrder:(state)=>{
+                
+                state.ogio.map(item=>{
+                    item.Quantity90=0;
+                    item.TotalQty=0;
+                    item.Amount=0;
+                    item.LessGST=0;
+                    item.LessDiscountAmount=0;
+                    item.NetBillings=0;
+                    item.FinalBillValue=0;
+                    item.Discount=0;
+                    item.ordered=false;
+                })
+            }
 
   
            
@@ -244,7 +310,13 @@
 
 
     export const { addOgioProduct,updateNewData,
-        updateQuantity90,stopOgioLoading,startOgioLoading,resetOgio} = OgioSlice.actions;
+        updateQuantity90,stopOgioLoading,
+        startOgioLoading,resetOgio,
+        updateOgioFlatDiscount,
+        updateOgioExclusiveDiscount,
+        updateOgioInclusiveDiscount,
+        resetOgioOrder
+    } = OgioSlice.actions;
     export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
         return state.Ogio?.ogio || [];
     };
