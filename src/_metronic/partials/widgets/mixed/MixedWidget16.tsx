@@ -49,7 +49,7 @@ const MixedWidget16: FC<Props> = ({className, chartColor, chartHeight, strokeCol
     <div className={`card ${className}`}>
       {/* begin::Header */}
 
-  <div className={`card-header row m-0 border-0 py-5 bg-${chartColor}`}>
+  <div className={`card-header row m-0 border-0 py-5`} style={{backgroundColor:"#000"}}>
         <div className='col-7'>
         <h3 className='card-title fw-bold text-white pt-4' >Callaway Hardgoods</h3>
         </div>
@@ -68,7 +68,8 @@ const MixedWidget16: FC<Props> = ({className, chartColor, chartHeight, strokeCol
         {/* begin::Chart */}
         <div
           ref={chartRef}
-          className={`mixed-widget-2-chart card-rounded-bottom bg-${chartColor}`}
+          className={`mixed-widget-2-chart card-rounded-bottom ` }
+          style={{backgroundColor:"#000"}}
         ></div>
         {/* end::Chart */}
         {/* begin::Stats */}

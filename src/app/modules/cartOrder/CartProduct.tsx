@@ -29,7 +29,7 @@ const CartProduct = () => {
    getOgioOrders &&
       getOgioOrders.length==0 ?
    (<NoProdect/>):(
-    <div className='mt-14 container'>
+    <div className='mt-14 '>
       <div className="card card-custom">
         <div className="card-header">
           <ul className="nav nav-tabs nav-line-tabs border-0 mb-5 fs-6 mt-6 ">
