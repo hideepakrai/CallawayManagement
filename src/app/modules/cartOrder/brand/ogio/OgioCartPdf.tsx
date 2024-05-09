@@ -73,7 +73,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
           totalBillAmount = totalBillAmount + item.FinalBillValue
         }
       })
-      console.log("Ogio order",getOgioProduct)
+     
 
        setGetAllOgioOrders(ogio)
        setTotalAmount(tAmount)

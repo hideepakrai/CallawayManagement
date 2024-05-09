@@ -82,8 +82,8 @@
                                 const stt=state.ogio[ogioIndex].OgiAttributes;
                                 const lystt=item?.attributes?.AttributeSet
                                     if(stt &&lystt){
-                                        const prdstock90=stt[0].Stock90 // redux
-                                        const ltstock90= lystt[0].Stock90 //latest
+                                        const prdstock90=stt[0]?.Stock90 // redux
+                                        const ltstock90= lystt[0]?.Stock90 //latest
                                         const rdxqty90=state.ogio[ogioIndex].Quantity90
                                         if(prdstock90!==ltstock90){
                                             stt[0].Stock90=ltstock90;
@@ -208,17 +208,17 @@
                     if (state.ogio[ogiIndex] &&
                         state.ogio[ogiIndex].OgiAttributes 
                         ) {
-                        state.ogio[ogiIndex].Name = ogioProduct.Name !=null? ogioProduct.Name : state.ogio[ogiIndex].Name;
-                        state.ogio[ogiIndex].Description =  ogioProduct.Description !=null? ogioProduct.Description : state.ogio[ogiIndex].Description;
-                        state.ogio[ogiIndex].MRP =  ogioProduct.MRP !=null? ogioProduct.MRP : state.ogio[ogiIndex].MRP;
-                        state.ogio[ogiIndex].GST =  ogioProduct.GST !=null? ogioProduct.GST : state.ogio[ogiIndex].GST;
+                        state.ogio[ogiIndex].Name = ogioProduct.Name !=undefined? ogioProduct.Name : state.ogio[ogiIndex].Name;
+                        state.ogio[ogiIndex].Description =  ogioProduct.Description !=undefined? ogioProduct.Description : state.ogio[ogiIndex].Description;
+                        state.ogio[ogiIndex].MRP =  ogioProduct.MRP !=undefined? ogioProduct.MRP : state.ogio[ogiIndex].MRP;
+                        state.ogio[ogiIndex].GST =  ogioProduct.GST !=undefined? ogioProduct.GST : state.ogio[ogiIndex].GST;
                          const ogatt=state.ogio[ogiIndex].OgiAttributes;
                          if(ogatt){
-                           ogatt[0].Stock90 = ogioProduct.Stock90!=null? ogioProduct.Stock90 : ogatt[0]?.Stock90
-                           ogatt[0].ProductType = ogioProduct.ProductType!=null? ogioProduct.ProductType : ogatt[0]?.ProductType
-                           ogatt[0].Category = ogioProduct.Category!=null? ogioProduct.Category : ogatt[0]?.Category
-                           ogatt[0].ProductModel = ogioProduct.ProductModel!=null? ogioProduct.ProductModel : ogatt[0]?.ProductModel
-                           ogatt[0].LifeCycle = ogioProduct.LifeCycle!=null? ogioProduct.LifeCycle : ogatt[0]?.LifeCycle
+                           ogatt[0].Stock90 = ogioProduct.Stock90!=undefined? ogioProduct.Stock90 : ogatt[0]?.Stock90
+                           ogatt[0].ProductType = ogioProduct.ProductType!=undefined? ogioProduct.ProductType : ogatt[0]?.ProductType
+                           ogatt[0].Category = ogioProduct.Category!=undefined? ogioProduct.Category : ogatt[0]?.Category
+                           ogatt[0].ProductModel = ogioProduct.ProductModel!=undefined? ogioProduct.ProductModel : ogatt[0]?.ProductModel
+                           ogatt[0].LifeCycle = ogioProduct.LifeCycle!=undefined? ogioProduct.LifeCycle : ogatt[0]?.LifeCycle
     
                     }
     
@@ -325,6 +325,23 @@
                     item.error="",
                     item.ordered=false
                 })
+            },
+            updateQunatityAfterOrder:(state,action)=>{
+                const {ogioProduct}= action.payload;
+                const index= state.ogio.findIndex(item=>item.SKU===ogioProduct.SKU);
+                if(index!==-1){
+                    const stt= state.ogio[index].OgiAttributes;
+                    const qty= state.ogio[index].Quantity90;
+                    const currentQty=ogioProduct.Quantity90
+                    if(stt &&currentQty){
+                        const rdxStock=stt[0].Stock90
+                        if(rdxStock){
+                            stt[0].Stock90=rdxStock-currentQty
+                        }
+                       
+                    }
+                }
+
             }
 
   
@@ -341,7 +358,8 @@
         updateOgioFlatDiscount,
         updateOgioExclusiveDiscount,
         updateOgioInclusiveDiscount,
-        resetOgioOrder
+        resetOgioOrder,
+        updateQunatityAfterOrder
     } = OgioSlice.actions;
     export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
         return state.Ogio?.ogio || [];

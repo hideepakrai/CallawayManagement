@@ -31,23 +31,23 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
           const ogioProduct= getOgioProduct[ogioIndex];
          
           if(ogioProduct){
-            const id:number= ogioProduct.id??0
+            const id= ogioProduct.id?? 0
             const   updatedata={
-              Name: item.Name!==null?item.Name:ogioProduct.Name,
-              Description:item.Description!==null?item.Description:ogioProduct.Description,
-              SetType: item.SetType!==null?item.SetType:ogioProduct.SetType,
+              Name: item.Name!==undefined?item.Name:ogioProduct.Name,
+              Description:item.Description!==undefined?item.Description:ogioProduct.Description,
+              SetType: item.SetType!==undefined?item.SetType:ogioProduct.SetType,
               Brand: 3, 
            
-             MRP:item.MRP!==null?item.MRP:ogioProduct.MRP,
-             GST:item.GST!==null?item.GST:ogioProduct.GST,
+             MRP:item.MRP!==undefined?item.MRP:ogioProduct.MRP,
+             GST:item.GST!==undefined?item.GST:ogioProduct.GST,
              AttributeSet: [
                  {
                    "__component": "attribute-set.ogio",
-                   Stock90:item.Stock90!==null? item.Stock90:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].Stock90 )? ogioProduct?.OgiAttributes[0].Stock90:0),
-                   ProductType:item.ProductType!==null? item.ProductType:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].ProductType )? ogioProduct?.OgiAttributes[0].ProductType:""),
-                     Category:item.Category!==null? item.Category:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].Category )? ogioProduct?.OgiAttributes[0].Category:""),
-                  ProductModel:item.ProductModel!==null? item.ProductModel:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].ProductModel )? ogioProduct?.OgiAttributes[0].ProductModel:""),
-                   LifeCycle:item.LifeCycle!==null? item.LifeCycle:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].LifeCycle )? ogioProduct?.OgiAttributes[0].LifeCycle:""),
+                   Stock90:item.Stock90!==undefined? item.Stock90:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].Stock90 )? ogioProduct?.OgiAttributes[0].Stock90:0),
+                   ProductType:item.ProductType!==undefined? item.ProductType:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].ProductType )? ogioProduct?.OgiAttributes[0].ProductType:""),
+                     Category:item.Category!==undefined? item.Category:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].Category )? ogioProduct?.OgiAttributes[0].Category:""),
+                  ProductModel:item.ProductModel!==undefined? item.ProductModel:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].ProductModel )? ogioProduct?.OgiAttributes[0].ProductModel:""),
+                   LifeCycle:item.LifeCycle!==undefined? item.LifeCycle:((ogioProduct?.OgiAttributes  && ogioProduct?.OgiAttributes[0].LifeCycle )? ogioProduct?.OgiAttributes[0].LifeCycle:""),
                  }]
              
            }
@@ -55,6 +55,9 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
           dispatch(updateNewData({
             ogioProduct:item
           }))
+
+          console.log("updatedata",updatedata)
+          console.log("updatedata id",id)
           }
           
        }  else if(ogioIndex==-1){
@@ -81,7 +84,7 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
           ],
         };
 
-        //console.log("sdd",sdd)
+        console.log("sdd",sdd)
         saveData(sdd, index)
         dispatch(updateNewData({
           ogioProduct:item

@@ -20,7 +20,8 @@ import GetUserAccount from '../../../auth/components/GetUserAccount';
 import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 import OgioProduct from '../../../../api/allProduct/ogio/OgioProduct';
 import OgioSubmitOrder from './OgioSubmitOrder';
-
+import UpDateDB from './UpDateDB';
+import UpdateRedux from "./UpdateRedux"
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -34,7 +35,7 @@ const OgioCart = () => {
   // const getOgioOrders=useSelector(getOgioOrder);
   const getOgioProduct=useSelector(getOgioProducts);
 
-  console.log("getOgioProduct",getOgioProduct)
+
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
@@ -405,7 +406,7 @@ const OgioCart = () => {
           ogio.push(item)
         }
       })
-      console.log("Ogio order",getOgioProduct)
+      
 
        setGetAllOgioOrders(ogio)
     }
@@ -499,10 +500,10 @@ useEffect(() => {
   let totalBillAmount: number = 0;
   if (getOgioProduct && getOgioProduct.length > 0) {
     getOgioProduct.map((item: OgioBasicModel) => {
-      if (item.Amount) {
+      if (item.Amount && item.ordered && item.error==="") {
         tAmount = item.Amount + tAmount
       }
-      if (item.FinalBillValue) {
+      if (item.FinalBillValue && item.ordered && item.error==="") {
 
         totalBillAmount = totalBillAmount + item.FinalBillValue
       }
@@ -593,23 +594,42 @@ const [retailerId, setRetailerId] = useState<number>(0);
  
 
 // submite order
+const[isUpdateRedux, setIsUpdateRedux]= useState(false)
+const[isUpdateStrapi, setIsUpdateStrapi]= useState(false)
 const[isSubmitOrder, setIsSubmitOrder]= useState(false)
 const[reLoadUserAccount, setReLoadUserAccount]= useState(false)
 const hanldeSubmitOrder = () => {
+  console.log("submit buuton")
   setIsSubmitOrder(true)
 }
 
-const handleResetSubmitOrder=()=>{
+const handleResetSubmitOrder=(orderId:number)=>{
   setIsSubmitOrder(false)
-  setReLoadUserAccount(true)
-  dispatch(resetOgioOrder())
-  dispatch(LoadingStop())
+  if(orderId!=0){
+    setReLoadUserAccount(true)
+   
+   // dispatch(LoadingStop())
+    setIsUpdateStrapi(true)
+  }
+
   
 }
 
 const handleResetUSerAccount=()=>{
   setReLoadUserAccount(false)
  
+}
+
+const handleUpdateStrapi=()=>{
+  setIsUpdateStrapi(false)
+  setIsUpdateRedux(true)
+}
+
+const handleUpdateRedux=()=>{
+  console.log("finally finished all task")
+  setIsUpdateRedux(false)
+   dispatch(resetOgioOrder())
+    dispatch(LoadingStop())
 }
   return (
     <div>
@@ -751,8 +771,13 @@ const handleResetUSerAccount=()=>{
        resetSubmitOrder={handleResetSubmitOrder}
        />}
 
+    {isUpdateStrapi &&  <UpDateDB
+    resetUPdateDB={handleUpdateStrapi}
+   />}
       
-      
+   { isUpdateRedux &&  <UpdateRedux
+         resetUpdateRedux={handleUpdateRedux}
+   />}
     </div>
   )
 }

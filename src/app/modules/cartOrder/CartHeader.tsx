@@ -48,12 +48,12 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
 
     const getRetailer= useSelector(getRetailers);
     const getUserInfos= useSelector(getUserInfo) as RetailerData;
-     console.log("getUserInfo",getUserInfos)
+    
     const getUserAccounts= useSelector(getUserAccount) 
     console.log("getUserAccount",getUserAccounts)
      const handleChange=(value:number)=>{
         const allData= getUserInfos?.retailers?.data?.filter(retailer=>retailer.id==value)
-        console.log(allData)
+    
         if (allData && allData.length>0)  { 
            
             setRetailerAddress(allData[0]?.attributes?.Address ?? ''); 
@@ -87,6 +87,7 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
      }
 
     const handleSubmit = () => {
+       
         submitOrder()
     }
 

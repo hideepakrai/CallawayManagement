@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getOgioProducts } from '../../../../slice/allProducts/OgioSlice'
+import { getOgioProducts, updateQunatityAfterOrder } from '../../../../slice/allProducts/OgioSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
@@ -8,6 +8,8 @@ import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 import {getRetailerDetails} from "../../../../slice/orderSlice/travis/Orderdetails"
 import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
 import { CreateOrder } from '../../orderApi/OrderAPi';
+import { OgioExcelModel } from '../../../model/ogio/OgioExcelModel';
+import { UpdateOgioProduct } from '../../../brands/ogio/api/OgioAPI';
 
 
 type Props={
@@ -42,9 +44,12 @@ const OgioSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSub
       getOgioProduct.map((item)=>{
         if(item.ordered && item.error===""){
           ogio.push(item)
+          // updateQuantity(item); // update in strapi
+          // dispatch(updateQunatityAfterOrder({
+          //   ogioProduct:item})) // update in redux
         }
       })
-      console.log("Ogio order",getOgioProduct)
+     
 
        setGetAllOgioOrders(ogio)
     }
@@ -93,8 +98,8 @@ if(getRetailerDetail &&
           if(ogiodata && ogiodata[0]?.Stock90  &&st90){
   
           const  stk90=ogiodata[0]?.Stock90- st90
-          //updateQty(item?.id, stk88, stk90)
-  
+          
+          
           }
           
   
@@ -140,6 +145,7 @@ if(getRetailerDetail &&
             }
   
            createOrder(data)
+           
            }
         
         
@@ -174,14 +180,57 @@ if(getRetailerDetail &&
       console.log(err);
       dispatch(LoadingStop())
       alert("Error on creating order")
+      resetSubmitOrder(0)
       
     }
   }
 
+  const updateQuantity= async (data:OgioBasicModel) => {
+    console.log("updating ")
 
+    // eslint-disable-next-line no-debugger
+    debugger
+    
+  const rdx= data.OgiAttributes;
+  const id=data.id
+    if(rdx && rdx[0]&&rdx[0].Stock90 && data.Quantity90 &&id){
+      const   updatedata={
+        AttributeSet: [
+            {
+              "__component": "attribute-set.ogio",
+              Stock90:rdx[0].Stock90-data.Quantity90,
+              ProductType:rdx[0].ProductType,
+              Category:rdx[0].Category,
+              ProductModel:rdx[0].ProductModel,
+              LifeCycle:rdx[0].LifeCycle,
+            
+            }]
+        
+      }
+
+      const updateDb={
+        data:updatedata
+      }
+
+   try{
+    const response= await UpdateOgioProduct(updateDb,id)
+    if(response.state===200)
+    console.log("update quantity",response)
+    if(response){
+      dispatch(LoadingStop())
+    }
+    }
+    catch(err){
+      console.log("error on updateing quantity")
+      alert("Error updating quantity")
+    }
+    }
+
+    }
+   
   
   return (
-    <div>OgioSubmitOrder</div>
+    <div></div>
   )
 }
 
