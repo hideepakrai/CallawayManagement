@@ -10,23 +10,21 @@ import "./CartHeader.css"
 
 import {addTravisOrderDetails} from "../../slice/orderSlice/travis/Orderdetails"
 type Props={
-    CreateOrder: (
-        retailerId:number, 
-        retailerUserId:number
-
-    )=>void,
+    reviewOrder: ()=>void,
+    submitOrder:()=>void
    
     
    
     
 }
-const CartHeader = ({CreateOrder}:Props) => {
+const CartHeader = ({reviewOrder,submitOrder}:Props) => {
     const dispatch= useDispatch()
     const [isNote, setIsNote] = useState(false);
     const handleNote = () => {
       setIsNote(true);
     };
-
+ const [isAvailable, setIsAvailable] =useState(false)
+ const [isSubmit, setIsSubmit] =useState(true)
   const [retailerName, setRetailerName]= useState<string>()
   const [retailerAddres, setRetailerAddress]= useState<string>()
   const [retailerId, setRetailerId]= useState<number>(0)
@@ -34,14 +32,16 @@ const CartHeader = ({CreateOrder}:Props) => {
   const [retailerUserId, setRetailerUserId]= useState<number>(0)
   const [GST, setGST]= useState<string>()
 
-    const handleSubmit=()=>{
+    const handleReview=()=>{
         // eslint-disable-next-line no-debugger
         debugger
         if(retailerId!==0 && retailerUserId!==0){
-            CreateOrder(retailerId,retailerUserId)
+            reviewOrder()
+            setIsAvailable(true)
         }
         else{
             alert("Please select retailer")
+            setIsAvailable(false)
         }
        
     }
@@ -65,7 +65,9 @@ const CartHeader = ({CreateOrder}:Props) => {
 
                 retailerAddres: allData[0]?.attributes?.Address,
                 retailerCity: allData[0]?.attributes?.Location,
-                retailerName: allData[0]?.attributes?.Name ??""
+                retailerName: allData[0]?.attributes?.Name ??"",
+                retailerId:allData[0]?.id,
+                retailerUserId :allData[0]?.attributes?.users_permissions_user?.data?.id
               }))
 
               if(allData[0]?.attributes?.users_permissions_user?.data?.id)
@@ -83,6 +85,10 @@ const CartHeader = ({CreateOrder}:Props) => {
         //  sendRetailerData(allData[0]?.attributes?.users_permissions_user?.data?.id
         // )
      }
+
+    const handleSubmit = () => {
+        submitOrder()
+    }
 
      
   return (
@@ -127,14 +133,24 @@ const CartHeader = ({CreateOrder}:Props) => {
 
             <div className='col-12 mb-3'style={{textAlign:"end"}}>
                 <span className='mx-3'  >
-                    <Button  className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit",}}  className="bi bi-bag travis-icon"></i>View Pdf</Button>
+                    <Button  className="select-btn"> 
+                    <i style={{ paddingRight: "6px", verticalAlign: "inherit",}} 
+                     className="bi bi-bag travis-icon"></i>View Pdf</Button>
                   
                 </span>
                 <span  className='mx-3' 
-                onClick={handleSubmit}
+                onClick={handleReview}
                 >
-                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-file-earmark-text travis-icon"></i>Submit for Review</Button>
+                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  
+                    className="bi bi-file-earmark-text travis-icon"></i>Checking for availability</Button>
                 </span>
+                
+              {  isAvailable &&<span  className='mx-3' 
+                onClick={handleSubmit}
+                > 
+                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  
+                    className="bi bi-file-earmark-text travis-icon"></i>Submit for Review</Button>
+                </span>}
 
 
                 <span className='mx-3' 

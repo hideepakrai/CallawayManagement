@@ -9,10 +9,11 @@ import {GetOgioProduct} from "../ogio/OgioAPI"
 
 type Props = {
   
-    resetOgio:()=>void
+    resetOgio:()=>void,
+    isRefetch:boolean
 }
 
-const OgioProduct = ({ resetOgio}: Props) => {
+const OgioProduct = ({ resetOgio,isRefetch}: Props) => {
 
    
     const dispatch= useDispatch()
@@ -23,18 +24,22 @@ const OgioProduct = ({ resetOgio}: Props) => {
         variables: {
         
         },
-        pollInterval: 500,
+        pollInterval: 10000,
         fetchPolicy: 'no-cache',
       });
       
-
+  useEffect(()=>{
+    if(isRefetch){
+        refetch()
+    }
+  },[isRefetch])
      
 
 useEffect(() => {
     console.log(data);
     console.log(loading);
     if (data && !loading) {
-        console.log(data?.products?.data);
+        // console.log(data?.products?.data);
         
         dispatch(addOgioProduct({
             ogioProduct: data?.products?.data,

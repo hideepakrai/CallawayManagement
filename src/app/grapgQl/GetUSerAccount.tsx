@@ -5,7 +5,9 @@ import { useQuery, gql } from '@apollo/client';
 // Define your GraphQL query
 export const GET_User_ACCOUNT = gql`
   query getUserAccount($userId: ID!) {
-    usersPermissionsUsers(filters: { id: { eq: $userId } }) {
+    usersPermissionsUsers(filters: { id: { eq: $userId } }
+      pagination:{limit:-1}
+    ) {
 data{
     id
     attributes{

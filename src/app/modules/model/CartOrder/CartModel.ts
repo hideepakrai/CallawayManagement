@@ -54,7 +54,8 @@ export interface ProductData{
     attributes?:{
       Name?:string,
       SKU?:string,
-      Description?:string
+      Description?:string,
+      
     }
   }
 }

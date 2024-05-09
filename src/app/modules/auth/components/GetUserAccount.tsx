@@ -10,16 +10,21 @@ import {useAuth} from '../core/Auth'
 
 type Props = {
     userId: number,
-    resetId:()=>void
+    resetId:()=>void,
+    reLoadUserAccount:boolean
 }
 
-const GetUserAccount = ({ userId,resetId }: Props) => {
+const GetUserAccount = ({ userId,resetId,reLoadUserAccount }: Props) => {
 
    
     const dispatch= useDispatch()
     const[user_Id, setUser_id]=useState<number>()
    
-
+  useEffect(()=>{
+    if(reLoadUserAccount){
+        refetch()
+    }
+  },[reLoadUserAccount])
     const { loading, error,data,refetch } = useQuery(GET_User_ACCOUNT, {
         variables: {
             userId: userId,
@@ -45,7 +50,7 @@ const GetUserAccount = ({ userId,resetId }: Props) => {
       },[data, loading])
 
     return (
-        <div>GetRole</div>
+        <div></div>
     )
 }
 

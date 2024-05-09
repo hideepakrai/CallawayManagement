@@ -82,10 +82,34 @@
                                 const stt=state.ogio[ogioIndex].OgiAttributes;
                                 const lystt=item?.attributes?.AttributeSet
                                     if(stt &&lystt){
-                                        const prdstock90=stt[0].Stock90
-                                        const ltstock90= lystt[0].Stock90
+                                        const prdstock90=stt[0].Stock90 // redux
+                                        const ltstock90= lystt[0].Stock90 //latest
+                                        const rdxqty90=state.ogio[ogioIndex].Quantity90
                                         if(prdstock90!==ltstock90){
-                                            stt[0].Stock90=ltstock90
+                                            stt[0].Stock90=ltstock90;
+                                          // eslint-disable-next-line no-debugger
+                                          debugger
+                                            if(rdxqty90&&ltstock90&&rdxqty90>ltstock90){
+                                                state.ogio[ogioIndex].error="quantity is more than Stock";
+                                                state.ogio[ogioIndex].Amount=0;
+                                                state.ogio[ogioIndex].Discount=0
+                                                state.ogio[ogioIndex].NetBillings=0
+                                                state.ogio[ogioIndex].FinalBillValue=0
+                                                state.ogio[ogioIndex].LessDiscountAmount=0
+                                                state.ogio[ogioIndex].LessGST=0
+
+                                            }else
+                                            if(ltstock90===0){
+                                                state.ogio[ogioIndex].error="quantity is more than Stock";
+                                                state.ogio[ogioIndex].Amount=0;
+                                                state.ogio[ogioIndex].Discount=0
+                                                state.ogio[ogioIndex].NetBillings=0
+                                                state.ogio[ogioIndex].FinalBillValue=0
+                                                state.ogio[ogioIndex].LessDiscountAmount=0
+                                                state.ogio[ogioIndex].LessGST=0
+                                            }
+                                          
+                                           
                                         }
                                     }
                                
@@ -298,6 +322,8 @@
                     item.FinalBillValue=0;
                     item.Discount=0;
                     item.ordered=false;
+                    item.error="",
+                    item.ordered=false
                 })
             }
 

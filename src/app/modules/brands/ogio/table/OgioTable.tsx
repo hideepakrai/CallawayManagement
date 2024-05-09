@@ -591,7 +591,7 @@ resetUpdateXs={handleResetUpdateXls}
 
 />
 
-<GetAllProduct/>
+
     </div>
   )
 }

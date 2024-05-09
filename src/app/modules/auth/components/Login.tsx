@@ -454,6 +454,7 @@ export function Login() {
       {grpqlUser&& userId!=null &&<GetUserAccount
         userId={userId}
         resetId={() => handleResetId}
+        reLoadUserAccount={grpqlUser}
       />}
 
       {grpqlManager && userRoleId!=null && 

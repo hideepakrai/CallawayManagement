@@ -10,12 +10,34 @@ import OgioTable from './table/OgioTable';
 import Slider from '../../model/slider/Slider';
 import { LoadingStart, LoadingStop, getLoading } from "../../../slice/loading/LoadingSlice.tsx"
 import Loading from '../../loading/Loading.tsx';
-  const OgioPage= () => {
+import OgioProduct  from "../../../api/allProduct/ogio/OgioProduct.tsx"
+import { useLocation } from 'react-router-dom';
   
+const OgioPage= () => {
+  const location = useLocation();
+
+  // const currentUrl = window.location.href;
+  // console.log(currentUrl);
+  console.log(location.pathname); 
+  const [ogioPath, setOgioPAth]= useState<boolean>(false)
+  useEffect(()=>{
+    if(location && location.pathname && location.pathname==="/brand/ogio"){
+
+      setOgioPAth(true)
+    }else{
+      setOgioPAth(false)
+    }
+      
+    
+  },[location])
 
 
 
     const getLoadings = useSelector(getLoading)
+
+    const handleCloseGrapql=()=>{
+
+    }
   return (
     <>
 
@@ -37,6 +59,9 @@ import Loading from '../../loading/Loading.tsx';
     {/* <OgioHeader/> */}
     {getLoadings && <Loading />}
     <OgioTable/>
+
+   {/* { ogioPath &&<OgioProduct
+    resetOgio={handleCloseGrapql}/>} */}
   </div>
     
     </>

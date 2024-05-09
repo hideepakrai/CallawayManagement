@@ -18,6 +18,9 @@ import { CurentUser } from '../../../model/useAccount/CurrentUser';
 import { CreateOrder } from '../../orderApi/OrderAPi';
 import GetUserAccount from '../../../auth/components/GetUserAccount';
 import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
+import OgioProduct from '../../../../api/allProduct/ogio/OgioProduct';
+import OgioSubmitOrder from './OgioSubmitOrder';
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -311,7 +314,7 @@ const OgioCart = () => {
           render: (value,record) => (
             <Tooltip  open={record.SKU=== qty90ToolSKU ?isQty90ToolTip:false} title={record.SKU=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
             <InputNumber
-            
+              status={record.error !== "" ? "error" : ""}
             className='mx-3 number-input'
             addonBefore={value[0]?.Stock90} 
             value={record.Quantity90?.toString()}
@@ -550,16 +553,22 @@ useEffect(() => {
     console.log(dis);
     setDiscountValue(dis)
     if (discountType === "Inclusive") {
+      setDiscountType("Inclusive")
+      setDiscountValue(dis)
       dispatch(updateOgioInclusiveDiscount({
         discount: dis
       }))
     }
     if (discountType === "Exclusive") {
+      setDiscountType("Exclusive")
+      setDiscountValue(dis)
       dispatch(updateOgioExclusiveDiscount({
         discount: dis
       }))
     }
     if (discountType === "Flat") {
+      setDiscountValue(dis)
+      setDiscountType("Flat")
       dispatch(updateOgioFlatDiscount({
         discount: dis
       }))
@@ -569,124 +578,38 @@ useEffect(() => {
 
   // check start submit for Review
 // csubmit fro review
+const [ isRefetch, setIsRefetch]= useState<boolean>(false)
+const handleRefetch=()=>{
+  setIsRefetch(true)
+  dispatch(LoadingStart())
+}
+
+const handleResetRefetch=()=>{
+  setIsRefetch(false)
+  dispatch(LoadingStop())
+}
+
 const [retailerId, setRetailerId] = useState<number>(0);
  
-const handleCreateOrder = (retailerId: number,retailerUserId:number) => {
 
-  setRetailerId(retailerUserId)
-    dispatch(LoadingStart())
-    if (Array.isArray(allOgioOrders)) {
+// submite order
+const[isSubmitOrder, setIsSubmitOrder]= useState(false)
+const[reLoadUserAccount, setReLoadUserAccount]= useState(false)
+const hanldeSubmitOrder = () => {
+  setIsSubmitOrder(true)
+}
 
-      const orderId = generateUniqueNumeric();
-      let brand;
-      let amount;
-      const ProductDetail: ProductDetails[] = [];
-      allOgioOrders.forEach((item: OgioBasicModel) => {
-        brand = item.SetType;
-        amount = item.FinalBillValue;
-        ProductDetail.push({
-          product: item.id,
-          Qty88: item.Quantity88,
-          Qty90: item.Quantity90,
-          TotalPrice: item.FinalBillValue,
-          UnitPrice: item.MRP
-
-        });
-      const ogiodata=item.OgiAttributes
-      const st90=item.Quantity90
-        if(ogiodata && ogiodata[0]?.Stock90  &&st90){
-
-        const  stk90=ogiodata[0]?.Stock90- st90
-        //updateQty(item?.id, stk88, stk90)
-
-        }
-        
-
-      });
-
-
-      const comments = {
-        Comment: "submit for review",
-        Type: "Event",
-        "users_permissions_user (1)": userId
-      }
-         if(userId &&retailerId &&orderId){
-        
-           const data:CartModel = {
-            OrderId: orderId,
-            Status: "Pending",
-            ProductDetails: ProductDetail,
-            retailer: retailerId,
-            users: {
-              connect: [
-                {
-                  id: retailerUserId,
-                  position: {
-                    end: true
-                  }
-                },
-                {
-                id: userId,
-                position: {
-                  end: true
-                }
-              }, 
-             
-            ]
-            },
-            Brand: brand,
-            Amount: totalNetBillAmount,
-            DiscountType: discountType,
-            DiscountPercent: discountValue,
-            Comments: [comments]
-          }
-
-         createOrder(data)
-         }
-      
-      
-
-     
-     }
-  }
-
-  function generateUniqueNumeric(): string {
-    const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
-    const randomDigits = Math.floor(Math.random() * 100000); // Generate random 5-digit number
-    const paddedRandomDigits = String(randomDigits).padStart(5, '0'); // Pad random number with leading zeros if necessary
-    const uniqueId = timestamp + paddedRandomDigits; // Combine timestamp and random number
-    return uniqueId;
-  }
-
-
-  const [orderId, setOrderId]= useState<number>(0)
-  const [reLoadUserAccount, setReloadUserAccount] = useState(false)
-  const createOrder = async (data: CartModel) => {
-    try {
-      const response = await CreateOrder(data);
-   
-      if (response?.data.id) {
-        setOrderId(response?.data.id)
-
-        setReloadUserAccount(true)
-      }
-
-
-    }
-    catch (err) {
-      console.log(err);
-      dispatch(LoadingStop())
-      setReloadUserAccount(false);
-    }
-  }
-
-
-// reset userlaoding boolean
-const handleResetId = () => {
-  alert("your order has been created")
-  setReloadUserAccount(false);
+const handleResetSubmitOrder=()=>{
+  setIsSubmitOrder(false)
+  setReLoadUserAccount(true)
   dispatch(resetOgioOrder())
   dispatch(LoadingStop())
+  
+}
+
+const handleResetUSerAccount=()=>{
+  setReLoadUserAccount(false)
+ 
 }
   return (
     <div>
@@ -696,7 +619,8 @@ const handleResetId = () => {
         allOgioOrders.length > 0 &&
         <CartHeader
           
-           CreateOrder={handleCreateOrder}
+        reviewOrder={handleRefetch}
+        submitOrder={hanldeSubmitOrder}
         />}
        <Table
             ref={tableRef}
@@ -749,6 +673,7 @@ const handleResetId = () => {
                     onChange={(e)=>handleChangeDiscount(e.target.value)}
                   /> */}
                       <InputNumber
+                      
                         className='mx-3 number-input'
                         addonAfter="%"
                         value={discountValue}
@@ -801,11 +726,31 @@ const handleResetId = () => {
         
         <OgioCartPdf/>
 
+{/* update the order from user 
+ */}
         {reLoadUserAccount && userId != null && <GetUserAccount
         userId={userId}
-        resetId={handleResetId}
+        resetId={handleResetUSerAccount}
+        reLoadUserAccount={reLoadUserAccount}
       />}
-  <GetAllProduct/>
+
+
+
+{isRefetch && <OgioProduct
+       resetOgio={handleResetRefetch}
+       isRefetch={isRefetch}
+       
+       />}
+
+      { totalNetBillAmount &&
+      isSubmitOrder&&
+      <OgioSubmitOrder
+       totalNetBillAmount={totalNetBillAmount}
+       discountType={discountType}
+       discountValue={discountValue}
+       resetSubmitOrder={handleResetSubmitOrder}
+       />}
+
       
       
     </div>

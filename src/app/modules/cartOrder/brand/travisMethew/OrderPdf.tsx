@@ -5,7 +5,7 @@ import {BasicModelTravis} from "../../../model/travis/TravisMethewModel.ts"
 import {useDispatch, useSelector,} from "react-redux"
 import {getTravisOrder} from "../../../../slice/orderSlice/travis/CartOrder.tsx"
 import { useReactToPrint } from 'react-to-print';
-import {getTravisOrderDetails} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
+import {getRetailerDetails} from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 
 type Props={
   // totalAmount:number,
@@ -19,7 +19,7 @@ type Props={
 
 const OrderPdf = () => {
       
-const getTravisOrderDetailss= useSelector(getTravisOrderDetails)
+const getTravisOrderDetailss= useSelector(getRetailerDetails)
 
 const [retailerName, setRetailerName]= useState<string>()
 const [retailerAddres, setRetailerAddress]= useState<string>()

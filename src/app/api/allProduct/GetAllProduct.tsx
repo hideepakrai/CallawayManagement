@@ -32,6 +32,7 @@ const GetAllProduct = () => {
   const getUserAccounts = useSelector(getUserAccount) as UserAccount[];
   const getAdminTokens=useSelector(getAdminToken)
   const [isOgio, setIsOgio] = useState<boolean>(false)
+  const [isRefetch, setIsRetech] = useState<boolean>(false)
   const [isTravis, setIsTravis] = useState<boolean>(false)
   const [isGoods, setIsGoods  ] = useState<boolean>(false)
   const [isRetailers, setIsetailers  ] = useState<boolean>(false)
@@ -58,8 +59,10 @@ if(getTravisProduct && getTravisProduct.length === 0)
    useEffect(()=>{
     if(getOgioProduct && getOgioProduct.length===0){
       setIsOgio(true)
+      setIsRetech(false)
     } else{
       setIsOgio(false)
+     
     }
    },[getOgioProduct])
 
@@ -112,6 +115,7 @@ useEffect(()=>{
 
       {<OgioProduct
       resetOgio={handleOgio}
+      isRefetch={isRefetch}
       />}
 
       {isTravis &&<TravisMethewProduct
