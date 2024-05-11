@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux"
 import {updateNewData} from "../../../../../slice/allProducts/OgioSlice"
 import {getOgioProducts} from "../../../../../slice/allProducts/OgioSlice"
   import {LoadingStart,LoadingStop} from "../../../../../slice/loading/LoadingSlice"
+import { OgioBasicModel } from "../../../../model/ogio/OgioBrandModel";
+import { UpdateOgioProduct } from "../../api/OgioAPI";
 
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 type Props = {
@@ -26,23 +28,22 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
       const newData: OgioExcelModel[] = [];
       updateXlsData.forEach((item:OgioExcelModel, index)=>{
 
-         const ogioIndex= getOgioProduct.findIndex(ogio=>ogio.SKU===item.SKU);
-         console.log(ogioIndex)
-         if(ogioIndex!=-1){
-            const ogioProduct= getOgioProduct[ogioIndex];
-            const id= (ogioProduct.id);
-            const Stock90= item.Stock90;
-            const MRP= item.MRP;
-                if(id &&Stock90 && MRP){
-                    updateData(id,Stock90,MRP,item, index)
-                    dispatch(updateNewData({
-                      ogioProduct:item
-                    }))
-                }
-            
-         }
-        
-        console.log("excel data, item")
+       const data={
+        sku:item.SKU,
+        brand_id:4,
+        name:item.Name,
+        description: item.Description,
+        mrp: item.MRP,
+        gst:item.GST,
+        primary_image_url:"",
+        gallery_images_url:"",
+        product_type:item.ProductType,
+        variation_sku:"",
+        stock_90:item.Stock90,
+        category:item.Category,
+        product_model:item.ProductType
+
+       }
        
        
             
@@ -50,40 +51,12 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
     }
   }, [updateXlsData,getOgioProduct]);
 
-  const updateData = async (id:number,
-    stock:number,MRP:number,
-     item:OgioExcelModel,index:number) => {
-    const data = {
-      data: {
-         Name: item.Name,
-         Description: item.Description,
-         SetType: item.SetType,
-         Brand: 3, 
-         SKU: item.SKU,
-        MRP: MRP,
-        AttributeSet: [
-            {
-              "__component": "attribute-set.ogio",
-              Stock90:stock,
-              ProductType:item.ProductType,
-                Category:item.Category,
-             ProductModel:item.ProductModel,
-              LifeCycle:item.LifeCycle,
-            }]
-        
-      }
-    };
+  const updateData = async (data:OgioBasicModel,index:number) => {
+   
 
     try {
-      const response = await Axios.put(
-        `${STRAPI_URL}/api/products/${id}`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await UpdateOgioProduct(data)
+      
       if (response.status === 200) {
         console.log(response);
         

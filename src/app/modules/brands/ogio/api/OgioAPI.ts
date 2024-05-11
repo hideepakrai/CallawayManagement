@@ -1,13 +1,13 @@
 import axios from "axios";
-
+export const serverUrl= import.meta.env.VITE_APP_MY_SERVER_URL;
 import {ExcelModelTravis} from "../../../model/travis/TravisExcel";
 import {OgioBasicModel,OgioUploadDataModel} from "../../../model/ogio/OgioBrandModel";
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 
 // get USer Role 
-export function UpdateOgioProduct(data:OgioUploadDataModel, id:number){
+export function UpdateOgioProduct(data:OgioBasicModel){
 
-    return axios.put(`${STRAPI_URL}/api/products/${id}`,data,
+    return axios.put(`${serverUrl}/add-ogio`,data,
     {
         headers: {
           "Content-Type": "application/json",
