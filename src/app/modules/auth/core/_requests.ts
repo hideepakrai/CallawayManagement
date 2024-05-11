@@ -7,7 +7,7 @@ export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
 export const LOGIN_URL = `${API_URL}/login`;
 export const REGISTER_URL = `${API_URL}/register`;
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`;
-
+  export const serverUrl= import.meta.env.VITE_APP_MY_SERVER_URL;
 // Server should return AuthModel
 export function login(data:{
   // identifier: string,
@@ -17,7 +17,7 @@ export function login(data:{
 
   const token = 'YOUR_JWT_TOKEN';
  // return axios.post(`${STRAPI_URL}/api/auth/local`, data
-  return axios.post(`http://localhost:3000/login`, data,
+  return axios.post(`${serverUrl}/login`, data,
   
   ).then(response=>{
     console.log("login",response)

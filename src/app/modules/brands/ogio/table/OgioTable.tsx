@@ -1,4 +1,4 @@
-import React,{useState, useRef} from 'react'
+import React,{useState, useRef, useEffect} from 'react'
 import { Card, Table, Carousel, Breadcrumb, Select, Tooltip, InputNumber } from "antd";
 import { Input, Radio, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
@@ -65,7 +65,7 @@ const OgioTable = () => {
     
         {
           title: "SKU",
-          dataIndex: "SKU",
+          dataIndex: "sku",
           width: 100,
           fixed: "left",
           
@@ -74,7 +74,7 @@ const OgioTable = () => {
               <Input
                 ref={searchInput}
 
-                placeholder="Search SKU"
+                placeholder="Search sku"
                 value={selectedKeys[0]}
                 onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                 onKeyUp={(e) => {
@@ -96,8 +96,8 @@ const OgioTable = () => {
              
               let check: boolean= false
             const val:string=value.toString().toUpperCase()
-              if(record && record.SKU){
-                 check= record.SKU?.startsWith(val)
+              if(record && record.sku){
+                 check= record.sku?.startsWith(val)
               }
            
             return  check;
@@ -109,7 +109,7 @@ const OgioTable = () => {
     
         {
           title: "Name",
-          dataIndex: "Name",
+          dataIndex: "name",
           key: "name",
           width: 150,
             fixed: "left",
@@ -135,7 +135,7 @@ const OgioTable = () => {
            onFilter: (value, record) => {
              const name =
                record &&
-               record.Name;
+               record.name;
               
            
              return  name=== value;
@@ -144,8 +144,8 @@ const OgioTable = () => {
         },
         {
           title: "Description",
-          dataIndex: "Description",
-          key: "Description", 
+          dataIndex: "description",
+          key: "description", 
           width: 150,
           
         },
@@ -153,14 +153,13 @@ const OgioTable = () => {
         //product Type
         {
           title: "ProductType",
-          dataIndex: "OgiAttributes",
-          key: "ProductType",
+          dataIndex: "product_type",
+          key: "product_type",
           width: 150,
-          render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
-
+        
           sorter: (a, b) => {
-            const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
-            const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+            const categoryA = a.product_type?? "";
+            const categoryB = b.product_type?? "";
         
             return categoryA.localeCompare(categoryB);
           },
@@ -193,7 +192,7 @@ const OgioTable = () => {
             }
           },
           onFilter: (value, record) => {
-            const category = record?.OgiAttributes?.[0]?.Category;
+            const category = record?.product_type;
         
             console.log("Filtering:", value, "Category:", category);
             return category === value;
@@ -205,13 +204,13 @@ const OgioTable = () => {
 
         {
           title: "Category",
-          dataIndex: "OgiAttributes",
-          key: "Category",
+          dataIndex: "category",
+          key: "category",
           width: 120,
-          render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+
           sorter: (a, b) => {
-            const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
-            const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+            const categoryA = a.category ?? "";
+            const categoryB = b.category ?? "";
         
             return categoryA.localeCompare(categoryB);
           },
@@ -244,7 +243,7 @@ const OgioTable = () => {
             }
           },
           onFilter: (value, record) => {
-            const category = record?.OgiAttributes?.[0]?.Category;
+            const category = record?.category;
         
             console.log("Filtering:", value, "Category:", category);
             return category === value;
@@ -258,13 +257,13 @@ const OgioTable = () => {
           // product model
           {
             title: "ProductModel",
-            dataIndex: "OgiAttributes",
-            key: "ProductModel", 
+            dataIndex: "product_model",
+            key: "product_model", 
             width: 150,
-            render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
+           
            sorter: (a, b) => {
-            const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
-            const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+            const categoryA = a.product_model?? "";
+            const categoryB = b.product_model?? "";
         
             return categoryA.localeCompare(categoryB);
           },
@@ -297,7 +296,7 @@ const OgioTable = () => {
             }
           },
           onFilter: (value, record) => {
-            const category = record?.OgiAttributes?.[0]?.Category;
+            const category = record?.product_model;
         
             console.log("Filtering:", value, "Category:", category);
             return category === value;
@@ -308,8 +307,8 @@ const OgioTable = () => {
           
           
               { title: " Qty90",
-              dataIndex: "OgiAttributes",
-              key: "Stock90", 
+              dataIndex: "stock_90",
+              key: "stock_90", 
               width: 150,
               fixed:'right',
               // render: (value,record) => (
@@ -322,11 +321,11 @@ const OgioTable = () => {
                
               // ),
               render: (value,record) => (
-                <Tooltip  open={record.SKU=== qty90ToolSKU ?isQty90ToolTip:false} title={record.SKU=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+                <Tooltip  open={record.sku=== qty90ToolSKU ?isQty90ToolTip:false} title={record.sku=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
                 <InputNumber
-                
+                  status={record.sku=== qty90ToolSKU &&qty90ToolMesage!=""?"error":""}
                 className='mx-3 number-input'
-                addonBefore={value[0]?.Stock90} 
+                addonBefore={record?.stock_90} 
                 value={record.Quantity90?.toString()}
                 style={{ width: 100 }}
                 onChange={(value) => {
@@ -337,7 +336,7 @@ const OgioTable = () => {
                 }}
                
                  
-                disabled={value[0]?.Stock90 === 0} 
+                disabled={value.stock_90 === 0} 
               />
               </Tooltip>
                
@@ -345,8 +344,8 @@ const OgioTable = () => {
             },
             {
               title: "MRP",
-              dataIndex: "MRP",
-              key: "MRP", 
+              dataIndex: "mrp",
+              key: "mrp", 
               width: 100,
               fixed:'right'
              
@@ -367,6 +366,19 @@ const OgioTable = () => {
       const [qty90ToolSKU, setQty90SKU]= useState<string|undefined>("")
      const [isQty90ToolTip, setIsQty90ToolTip]= useState<boolean>(false)
 
+ useEffect(()=>{
+  if(qty90ToolMesage){
+    console.log("qty90ToolMesage",qty90ToolMesage)
+    const timeout = setTimeout(() => {
+      setQty90Message("");
+      //setQty90SKU("");
+      setIsQty90ToolTip(false)
+    }, 3000); // 3 seconds
+
+    return () => clearTimeout(timeout);
+  }
+ },[qty90ToolMesage])
+
 const handleQuantity90=(value: string, record:OgioBasicModel)=>{
   
   const intValue = parseInt(value, 10);
@@ -375,33 +387,30 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
   setQty90SKU("")
   record.Quantity90=intValue;
   if(intValue>0 ){
-    if ( record?.OgiAttributes&&record?.OgiAttributes[0]?.Stock90 && record.OgiAttributes[0].Stock90 >= intValue) {
+    if ( record&& record.stock_90 &&record.stock_90 >= intValue) {
     
       // Dispatch an action to update the quantity for the SKU
       
       dispatch(updateQuantity90({
-        sku: record.SKU,
+        sku: record.sku,
         qty90: intValue,
-        MRP: record.MRP,
+        MRP: record.mrp,
         
       }));
     
-      // dispatch(addOgioOrder({
-      //   OgioOrder:record,
-      //   qty90: intValue,
-      //   qty88:record.Quantity88
-      // }))
+     
     }
-    else{
+    else {
       // alert("Quantity is not available")
-      const st90=(record?.OgiAttributes&&record?.OgiAttributes[0]?.Stock90 )? record.OgiAttributes[0].Stock90:0;
+      const st90=(record&& record.stock_90 )? record.stock_90:0;
       setQty90Message("The quantity should not exceed the available stock")
       setIsQty90ToolTip(true)
-      setQty90SKU(record.SKU)
+      setQty90SKU(record.sku)
       //setQuantity90(0)
       dispatch(updateQuantity90({
-        sku: record.SKU,
+        sku: record.sku,
         qty90: st90,
+        MRP:record.mrp
       
        
       }));
@@ -411,26 +420,21 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
     }
   }else if(intValue<0){
     
-    // alert("Quantity cannot be negative")
+    //alert("Quantity cannot be negative")
     setQty90Message("Quantity cannot be negative")
   setIsQty90ToolTip(true)
-  setQty90SKU(record.SKU)
+  setQty90SKU(record.sku)
   console.log("Quantity cannot be negative")
   } 
    else if(intValue===0){
     dispatch(updateQuantity90({
-      sku: record.SKU,
+      sku: record.sku,
       qty90: intValue,
-      MRP: record.MRP,
+      MRP: record.mrp,
       
     }));
 
-    // dispatch(removeOgioOrder({
-    //   travisOrder:record,
-    //     qty90s: intValue,
-    //     qty88s:record.Quantity90
-        
-    // }))
+   
 }
 }
 
@@ -555,7 +559,7 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
           <Table
             ref={tableRef}
             columns={columns}
-            dataSource={ogioProducts?.map((item) => ({ ...item, key: item.id }))}
+            dataSource={ogioProducts?.map((item) => ({ ...item, key: item.sku }))}
             rowSelection={rowSelection}
             bordered
             size="middle"

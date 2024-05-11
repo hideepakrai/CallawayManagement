@@ -77,15 +77,19 @@ export function Login() {
       try {
         const response = await login(data)
           console.log("userLof=gin ",response)
-       // saveAuth(response)
+       saveAuth(response?.token)
+       setCurrentUser(response)
        // setUserName(response?.user?.name);
         
       // setUserId(response?.user?.id);
       // setGrpqlUser(true)
         dispatch(addUser({
-          currentUser: response
+          currentUser: response.user,
+          UserAccount:response.acountType,
+          adminToken:response.token,
         }))
 
+        setLoading(false)
         // if(values.role==='retailer'){
         //   setGrpqlManager(false)
         //   setGrpqlRetailer(true)
@@ -105,7 +109,7 @@ export function Login() {
         //   adminToken: admintoken
         // }))
         // setCurrentUser(response)
-        dispatch(LoadingStart())
+        
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
@@ -120,41 +124,41 @@ export function Login() {
   const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
   console.log(getUserAccounts)
   //get user Sale and retailer associated with 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    if(getUserAccounts &&
-      getUserAccounts.attributes &&
-      getUserAccounts.attributes.role &&
-      getUserAccounts.attributes.role.data &&
-      getUserAccounts.attributes.role.data.attributes  &&
-      getUserAccounts.attributes.role.data.attributes.name
+  //   if(getUserAccounts &&
+  //     getUserAccounts.attributes &&
+  //     getUserAccounts.attributes.role &&
+  //     getUserAccounts.attributes.role.data &&
+  //     getUserAccounts.attributes.role.data.attributes  &&
+  //     getUserAccounts.attributes.role.data.attributes.name
 
-    ){
-      const userRole:string= getUserAccounts.attributes.role.data.attributes.name
-      if(userRole==="manager"){
+  //   ){
+  //     const userRole:string= getUserAccounts.attributes.role.data.attributes.name
+  //     if(userRole==="manager"){
        
-        const id=getUserAccounts?.attributes?.manager?.data?.id
-        if (id ) {
+  //       const id=getUserAccounts?.attributes?.manager?.data?.id
+  //       if (id ) {
          
-          setUserRoleId(id);
-          setGrpqlManager(true)
-          setGrpqlRetailer(false)
-          setGrpqlSalesRep(false)
-        }
-      }
-      else if(userRole==="retailer"){
-        const id=getUserAccounts?.attributes?.retailer?.data?.id
-        if (id ) {
-          setUserRoleId(id);
-          setGrpqlManager(false)
-          setGrpqlRetailer(true)
-          setGrpqlSalesRep(false)
-        }
+  //         setUserRoleId(id);
+  //         setGrpqlManager(true)
+  //         setGrpqlRetailer(false)
+  //         setGrpqlSalesRep(false)
+  //       }
+  //     }
+  //     else if(userRole==="retailer"){
+  //       const id=getUserAccounts?.attributes?.retailer?.data?.id
+  //       if (id ) {
+  //         setUserRoleId(id);
+  //         setGrpqlManager(false)
+  //         setGrpqlRetailer(true)
+  //         setGrpqlSalesRep(false)
+  //       }
        
-      }
+  //     }
       
-    }
-  },[getUserAccounts]) 
+  //   }
+  // },[getUserAccounts]) 
 
 
 
@@ -452,24 +456,12 @@ export function Login() {
         {/* end::Action */}
 
        
-      </form>
-      {grpqlUser&& userId!=null &&<GetUserAccount
-        userId={userId}
-        resetId={() => handleResetId}
-        reLoadUserAccount={grpqlUser}
-      />}
+      </form>    
+     
 
-      {grpqlManager && userRoleId!=null && 
-      <Manager
-      userRoleId={userRoleId}
-      resetmanagerid={handleResetRoleId}
-      />}
-      {grpqlRetailer&& userRoleId!=null &&<GetRetailerInfo
-        userRoleId={userRoleId}
-        resetRetailer={() => handleResetRetailer}
-      />}
+      
+     
 
-      <GetAllProduct/>
     </>
 
   )

@@ -1,38 +1,40 @@
 
 export interface OgioBasicModel {
 
-   
-      SKU?: string|undefined;
-      brand_id?:number|null;
-      name?:string|undefined;
-      description?: string |undefined;
-      mrp?: number | null;
-      gst?:number,
-      primary_image_url?:string;
-      gallery_images_url?:string |undefined;
+  sku?: string|undefined;
+  brand_id?:number|null;
+  name?:string|undefined;
+  description?: string |undefined;
+  mrp?: number | null;
+  gst?:number,
+  primary_image_url?:string;
+  gallery_images_url?:string |undefined;
+  product_type?:string;
+  variation_sku?:string;
+  stock_88?:number;
+  stock_90?:number;
+  category?:string;
+  product_model?:string;
+
+
+
+  SKU?: string|undefined;
+      
      
-      SetType?: string;
-      ProductType?: string | null;
-      PrimaryImage?: ImageType,
-      AttributeSet?:OgioModel[],
-      OgiAttributes?:OgioModel[],
-      Quantity?: number;
-      Amount?: number;
-  
+      
+      Amount?: number
       TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;
        ordered?: boolean, 
-       
        LessGST?:number,
        Discount?:number,
        LessDiscountAmount?:number,
        NetBillings?:number,
        FinalBillValue?:number,
        error?:string,
-       order?:boolean
-
 }
+
 export interface OgioBasicModelGraph {
 
     id?:number,

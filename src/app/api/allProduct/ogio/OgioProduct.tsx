@@ -16,38 +16,43 @@ type Props = {
 const OgioProduct = ({ resetOgio,isRefetch}: Props) => {
 
    
-    const dispatch= useDispatch()
-    const[user_Id, setUser_id]=useState<number>()
-   
+    const dispatch= useDispatch()  ;
+    useEffect(()=>{
+        getAllOgioProduct()
+    },[])
 
-    const { loading, error,data,refetch } = useQuery(GET_OGIO_Prduct, {
-        variables: {
+    const getAllOgioProduct =async()=>{
+  console.log("Getting")
+ try{
+       const response= await GetOgioProduct ();
+       console.log("ogio product",response)
+       dispatch(addOgioProduct({
+                    ogioProduct: response
+                }));
+                resetOgio();
+       
+
+ } catch(err){
+    alert("Error in getting ogio product")
+ }
         
-        },
-        pollInterval: 10000,
-        fetchPolicy: 'no-cache',
-      });
-      
-  useEffect(()=>{
-    if(isRefetch){
-        refetch()
     }
-  },[isRefetch])
+   
      
 
-useEffect(() => {
-    console.log(data);
-    console.log(loading);
-    if (data && !loading) {
-        // console.log(data?.products?.data);
+// useEffect(() => {
+//     console.log(data);
+//     console.log(loading);
+//     if (data && !loading) {
+//         // console.log(data?.products?.data);
         
-        dispatch(addOgioProduct({
-            ogioProduct: data?.products?.data,
-            id: data?.products?.data.id
-        }));
-        resetOgio();
-    }
-}, [data, loading]);
+//         dispatch(addOgioProduct({
+//             ogioProduct: data?.products?.data,
+//             id: data?.products?.data.id
+//         }));
+//         resetOgio();
+//     }
+// }, [data, loading]);
 
 
 
