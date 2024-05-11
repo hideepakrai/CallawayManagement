@@ -64,7 +64,7 @@ const OgioCart = () => {
 
     {
       title: "SKU",
-      dataIndex: "SKU",
+      dataIndex: "sku",
       width: 100,
       fixed: "left",
       
@@ -95,8 +95,8 @@ const OgioCart = () => {
          
           let check: boolean= false
         const val:string=value.toString().toUpperCase()
-          if(record && record.SKU){
-             check= record.SKU?.startsWith(val)
+          if(record && record.sku){
+             check= record.sku?.startsWith(val)
           }
        
         return  check;
@@ -108,7 +108,7 @@ const OgioCart = () => {
 
     {
       title: "Name",
-      dataIndex: "Name",
+      dataIndex: "name",
       key: "name",
       width: 150,
         fixed: "left",
@@ -134,7 +134,7 @@ const OgioCart = () => {
        onFilter: (value, record) => {
          const name =
            record &&
-           record.Name;
+           record.name;
           
        
          return  name=== value;
@@ -143,8 +143,8 @@ const OgioCart = () => {
     },
     {
       title: "Description",
-      dataIndex: "Description",
-      key: "Description", 
+      dataIndex: "description",
+      key: "description", 
       width: 150,
       
     },
@@ -152,14 +152,14 @@ const OgioCart = () => {
     //product Type
     {
       title: "ProductType",
-      dataIndex: "OgiAttributes",
-      key: "ProductType",
+      dataIndex: "product_type",
+      key: "product_type",
       width: 150,
-      render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
+      
 
       sorter: (a, b) => {
-        const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
-        const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+        const categoryA = a.product_type ?? "";
+        const categoryB = b.product_type ?? "";
     
         return categoryA.localeCompare(categoryB);
       },
@@ -192,7 +192,7 @@ const OgioCart = () => {
         }
       },
       onFilter: (value, record) => {
-        const category = record?.OgiAttributes?.[0]?.Category;
+        const category = record?.product_type;
     
         console.log("Filtering:", value, "Category:", category);
         return category === value;
@@ -204,13 +204,13 @@ const OgioCart = () => {
 
     {
       title: "Category",
-      dataIndex: "OgiAttributes",
-      key: "Category",
+      dataIndex: "category",
+      key: "category",
       width: 120,
-      render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+      
       sorter: (a, b) => {
-        const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
-        const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+        const categoryA = a.category ?? "";
+        const categoryB = b.category ?? "";
     
         return categoryA.localeCompare(categoryB);
       },
@@ -243,7 +243,7 @@ const OgioCart = () => {
         }
       },
       onFilter: (value, record) => {
-        const category = record?.OgiAttributes?.[0]?.Category;
+        const category = record?.category;
     
         console.log("Filtering:", value, "Category:", category);
         return category === value;
@@ -257,13 +257,13 @@ const OgioCart = () => {
       // product model
       {
         title: "ProductModel",
-        dataIndex: "OgiAttributes",
-        key: "ProductModel", 
+        dataIndex: "product_model",
+        key: "product_model", 
         width: 150,
-        render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
+       
        sorter: (a, b) => {
-        const categoryA = a.OgiAttributes?.[0]?.Category ?? "";
-        const categoryB = b.OgiAttributes?.[0]?.Category ?? "";
+        const categoryA = a.product_model ?? "";
+        const categoryB = b.product_model ?? "";
     
         return categoryA.localeCompare(categoryB);
       },
@@ -296,10 +296,10 @@ const OgioCart = () => {
         }
       },
       onFilter: (value, record) => {
-        const category = record?.OgiAttributes?.[0]?.Category;
+        const product_mode = record?.product_model;
     
-        console.log("Filtering:", value, "Category:", category);
-        return category === value;
+        console.log("Filtering:", value, "product_mode:", product_mode);
+        return product_mode === value;
       },
       filterSearch: true,
       },
@@ -307,17 +307,17 @@ const OgioCart = () => {
       
       
           { title: " Qty90",
-          dataIndex: "OgiAttributes",
-          key: "Stock90", 
+          dataIndex: "stock_90",
+          key: "stock_90", 
           width: 150,
           fixed:'right',
           
           render: (value,record) => (
-            <Tooltip  open={record.SKU=== qty90ToolSKU ?isQty90ToolTip:false} title={record.SKU=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+            <Tooltip  open={record.sku=== qty90ToolSKU ?isQty90ToolTip:false} title={record.sku=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
             <InputNumber
               status={record.error !== "" ? "error" : ""}
             className='mx-3 number-input'
-            addonBefore={value[0]?.Stock90} 
+            addonBefore={record.stock_90} 
             value={record.Quantity90?.toString()}
             style={{ width: 100 }}
             onChange={(value) => {
@@ -336,8 +336,8 @@ const OgioCart = () => {
         },
         {
           title: "MRP",
-          dataIndex: "MRP",
-          key: "MRP", 
+          dataIndex: "mrp",
+          key: "mrp", 
           width: 100,
           fixed:'right'
          
@@ -353,8 +353,8 @@ const OgioCart = () => {
       },
       {
         title: "GST",
-        dataIndex: "GST",
-        key: "GST",
+        dataIndex: "gst",
+        key: "gst",
         width: 100,
         fixed: 'right'
       },
@@ -416,70 +416,62 @@ const OgioCart = () => {
   const [qty90ToolSKU, setQty90SKU]= useState<string|undefined>("")
  const [isQty90ToolTip, setIsQty90ToolTip]= useState<boolean>(false)
 
-const handleQuantity90=(value: string, record:OgioBasicModel)=>{
-
-const intValue = parseInt(value, 10);
-setQty90Message("");
-setIsQty90ToolTip(false);
-setQty90SKU("")
-record.Quantity90=intValue;
-if(intValue>0 ){
-if ( record?.OgiAttributes&&record?.OgiAttributes[0]?.Stock90 && record.OgiAttributes[0].Stock90 >= intValue) {
-
-  // Dispatch an action to update the quantity for the SKU
+ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
   
-  dispatch(updateQuantity90({
-    sku: record.SKU,
-    qty90: intValue,
-    MRP: record.MRP,
+  const intValue = parseInt(value, 10);
+  setQty90Message("");
+  setIsQty90ToolTip(false);
+  setQty90SKU("")
+  record.Quantity90=intValue;
+  if(intValue>0 ){
+    if ( record&& record.stock_90 &&record.stock_90 >= intValue) {
     
-  }));
-
-  // dispatch(addOgioOrder({
-  //   OgioOrder:record,
-  //   qty90: intValue,
-  //   qty88:record.Quantity88
-  // }))
-}
-else{
-  // alert("Quantity is not available")
-  const st90=(record?.OgiAttributes&&record?.OgiAttributes[0]?.Stock90 )? record.OgiAttributes[0].Stock90:0;
-  setQty90Message("The quantity should not exceed the available stock")
+      // Dispatch an action to update the quantity for the SKU
+      
+      dispatch(updateQuantity90({
+        sku: record.sku,
+        qty90: intValue,
+        MRP: record.mrp,
+        
+      }));
+    
+     
+    }
+    else {
+      // alert("Quantity is not available")
+      const st90=(record&& record.stock_90 )? record.stock_90:0;
+      setQty90Message("The quantity should not exceed the available stock")
+      setIsQty90ToolTip(true)
+      setQty90SKU(record.sku)
+      //setQuantity90(0)
+      dispatch(updateQuantity90({
+        sku: record.sku,
+        qty90: st90,
+        MRP:record.mrp
+      
+       
+      }));
+      
+  
+      
+    }
+  }else if(intValue<0){
+    
+    //alert("Quantity cannot be negative")
+    setQty90Message("Quantity cannot be negative")
   setIsQty90ToolTip(true)
-  setQty90SKU(record.SKU)
-  //setQuantity90(0)
-  dispatch(updateQuantity90({
-    sku: record.SKU,
-    qty90: st90,
-  
+  setQty90SKU(record.sku)
+  console.log("Quantity cannot be negative")
+  } 
+   else if(intValue===0){
+    dispatch(updateQuantity90({
+      sku: record.sku,
+      qty90: intValue,
+      MRP: record.mrp,
+      
+    }));
+
    
-  }));
-  
-
-  
-}
-}else if(intValue<0){
-
-// alert("Quantity cannot be negative")
-setQty90Message("Quantity cannot be negative")
-setIsQty90ToolTip(true)
-setQty90SKU(record.SKU)
-console.log("Quantity cannot be negative")
-} 
-else if(intValue===0){
-dispatch(updateQuantity90({
-  sku: record.SKU,
-  qty90: intValue,
-  MRP: record.MRP,
-  
-}));
-
-// dispatch(removeOgioOrder({
-//   ogioOrder:record,
-//     qty90s: intValue,
-//     qty88s:record.Quantity90
-    
-// }))
 }
 }
 const getLoadings = useSelector(getLoading)
@@ -645,7 +637,7 @@ const handleUpdateRedux=()=>{
        <Table
             ref={tableRef}
             columns={columns}
-            dataSource={allOgioOrders?.map((item) => ({ ...item, key: item.id }))}
+            dataSource={allOgioOrders?.map((item) => ({ ...item, key: item.sku }))}
           //  rowSelection={rowSelection}
             bordered
             size="middle"
