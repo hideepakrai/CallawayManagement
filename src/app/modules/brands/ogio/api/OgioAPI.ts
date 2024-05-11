@@ -5,9 +5,9 @@ import {OgioBasicModel,OgioUploadDataModel} from "../../../model/ogio/OgioBrandM
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 
 // get USer Role 
-export function UpdateOgioProduct(data:OgioBasicModel){
-
-    return axios.put(`${serverUrl}/add-ogio`,data,
+export function AddOgioProduct(data:OgioBasicModel){
+    const newData=[data]
+    return axios.put(`${serverUrl}/add-ogio`,newData,
     {
         headers: {
           "Content-Type": "application/json",
@@ -25,8 +25,9 @@ export function UpdateOgioProduct(data:OgioBasicModel){
   }
 
 
-  export function AddnewOgioProduct(data: OgioUploadDataModel){
-    return axios.post(`${STRAPI_URL}/api/products`,data,
+  export function UpdateOgioProduct(data: OgioBasicModel){
+    const addData=[data]
+    return axios.post(`${STRAPI_URL}/update-ogio`,addData,
     {
         headers: {
           "Content-Type": "application/json",

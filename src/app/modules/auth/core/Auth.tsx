@@ -7,7 +7,7 @@ import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
 import { useSelector, useDispatch } from 'react-redux'
 import {getCurrentUser,getAdminToken,
-  getUserAccount,getUserInfo,
+  getUserAccount,
   getUserOrders,addUser,
   addUserAccount} from "../../../slice/UserSlice/UserSlice";
   import {reloadTravisProduct,reloadCategory,reloadStyleCode} from "../../../slice/allProducts/TravisMethewSlice";

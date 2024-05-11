@@ -6,7 +6,7 @@ import {updateNewData} from "../../../../../slice/allProducts/OgioSlice"
 import {getOgioProducts} from "../../../../../slice/allProducts/OgioSlice"
   import {LoadingStart,LoadingStop} from "../../../../../slice/loading/LoadingSlice"
 import { OgioBasicModel } from "../../../../model/ogio/OgioBrandModel";
-import { UpdateOgioProduct } from "../../api/OgioAPI";
+import { AddOgioProduct, UpdateOgioProduct } from "../../api/OgioAPI";
 
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 type Props = {
@@ -26,24 +26,53 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
       dispatch(LoadingStart())
 
       const newData: OgioExcelModel[] = [];
-      updateXlsData.forEach((item:OgioExcelModel, index)=>{
+      updateXlsData.forEach((item:OgioBasicModel, index)=>{
+        const ogioIndex= getOgioProduct.findIndex(ogio=>ogio.sku===item.sku);
+        console.log(ogioIndex)
+        if(ogioIndex!=-1){
+          const ogioProduct= getOgioProduct[ogioIndex];
+          const id= (ogioProduct.sku);
+          const Stock90= item.stock_90;
+          const MRP= item.mrp;
+          const data={
+            sku:item.sku,
+            brand_id:4,
+            name:item.name,
+            description: item.description,
+            mrp: item.mrp,
+            gst:item.gst,
+            primary_image_url:"",
+            gallery_images_url:"",
+            product_type:item.product_type,
+            variation_sku:"",
+            stock_90:item.stock_90,
+            category:item.category,
+            product_model:item.product_model
+    
+           }
+           updateNewData(data,index)
+        }else if(ogioIndex==-1){
+          const data={
+            sku:item.sku,
+            brand_id:4,
+            name:item.name,
+            description: item.description,
+            mrp: item.mrp,
+            gst:item.gst,
+            primary_image_url:"",
+            gallery_images_url:"",
+            product_type:item.product_type,
+            variation_sku:"",
+            stock_90:item.stock_90,
+            category:item.category,
+            product_model:item.product_model
+    
+           }
+           addOgioData(data, index)
+        }
+ 
 
-       const data={
-        sku:item.SKU,
-        brand_id:4,
-        name:item.Name,
-        description: item.Description,
-        mrp: item.MRP,
-        gst:item.GST,
-        primary_image_url:"",
-        gallery_images_url:"",
-        product_type:item.ProductType,
-        variation_sku:"",
-        stock_90:item.Stock90,
-        category:item.Category,
-        product_model:item.ProductType
-
-       }
+      
        
        
             
@@ -51,11 +80,33 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
     }
   }, [updateXlsData,getOgioProduct]);
 
-  const updateData = async (data:OgioBasicModel,index:number) => {
+  const updateNewData = async (data:OgioBasicModel,index:number) => {
    
 
     try {
       const response = await UpdateOgioProduct(data)
+      
+      if (response.status === 200) {
+        console.log(response);
+        
+      }
+
+      if(index===(updateXlsData.length-1)) {
+        alert ("Data is upData successfully")
+        dispatch(LoadingStop())
+        resetUpdateXs();
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Error saving data");
+      resetUpdateXs();
+    }
+  };
+  const addOgioData = async (data:OgioBasicModel,index:number) => {
+   
+
+    try {
+      const response = await AddOgioProduct(data)
       
       if (response.status === 200) {
         console.log(response);

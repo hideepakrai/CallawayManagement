@@ -5,7 +5,7 @@ import {AccountOrder} from "../../modules/model/CartOrder/CartModel"
 interface UserState {
     currentUser: unknown[],
     UserAccount: UserAccountModel[],
-    UserInfo:unknown[]
+    UserRetailer:unknown[]
     adminToken: null | string,
     userOrders: AccountOrder[],
 }
@@ -16,7 +16,7 @@ const UserSlice = createSlice({
     initialState: {
         currentUser: [],
         UserAccount: [],
-        UserInfo:[],
+        UserRetailer:[],
         adminToken: null,
         userOrders:[]
     } as UserState, 
@@ -24,19 +24,23 @@ const UserSlice = createSlice({
         resetUserAccount:(state)=>{
         state.currentUser=[];
         state.UserAccount=[];
-        state.UserInfo=[];
+        state.UserRetailer=[];
         state.adminToken=null;
             state.userOrders=[];
         },
         addUser: (state, action) => {
             state.currentUser = action.payload.currentUser;
+            state.UserAccount=action.payload.UserAccount;
+            state.adminToken=action.payload.adminToken;
+            state.UserRetailer=action.payload.UserRetailer;
+
         },
         addUserAccount: (state, action) => {
             state.UserAccount = action.payload.UserAccount;
         },
-        addUserInfo: (state, action) => {
-            state.UserInfo = action.payload.UserInfo;
-        },
+        // addUserInfo: (state, action) => {
+        //     state.UserInfo = action.payload.UserInfo;
+        // },
         addAdminToken: (state, action) => {
             state.adminToken = action.payload.adminToken;
         }, 
@@ -61,14 +65,14 @@ const UserSlice = createSlice({
 
 
 export const { addUser, addUserAccount,
-    addUserInfo, addAdminToken ,
+    addAdminToken ,
     addUserOrders,updateOrderStatus,resetUserAccount} = UserSlice.actions;
 
 
 export const getCurrentUser = (state: { user: UserState }) => state.user.currentUser;
 export const getAdminToken = (state: { user: UserState }) => state.user.adminToken;
 export const getUserAccount = (state: { user: UserState }) => state.user.UserAccount
-export const getUserInfo = (state: { user: UserState }) => state.user.UserInfo
+export const getUserRetailer = (state: { user: UserState }) => state.user.UserRetailer
 export const getUserOrders = (state: { user: UserState }) => state.user.userOrders
 // Export reducer
 export default UserSlice.reducer;

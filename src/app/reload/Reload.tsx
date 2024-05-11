@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 import {getCurrentUser,getAdminToken,
-  getUserAccount,getUserInfo,
+  getUserAccount,
   getUserOrders,addUser,
   addUserAccount} from "../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from 'react-redux'
@@ -17,7 +17,7 @@ const Reload = () => {
     const getCurrentUsers= useSelector(getCurrentUser);
     const getAdminTokens= useSelector(getAdminToken);
     const getUserAccounts= useSelector(getUserAccount);
-    const getUserInfos= useSelector(getUserInfo);
+    // const getUserInfos= useSelector(getUserInfo);
     const getUserOrder= useSelector(getUserOrders);
     const getTravisProduct= useSelector(getTravisProducts)
    const getOgioProduct = useSelector(getOgioProducts)
@@ -29,7 +29,7 @@ const Reload = () => {
       debugger
      if(getCurrentUsers &&
          getUserAccounts&&
-         getUserInfos &&
+         
          getTravisProduct
        
         ){
@@ -47,7 +47,7 @@ const Reload = () => {
     },[getCurrentUsers,
       getAdminTokens,
       getUserAccounts,
-      getUserInfos,
+      
       getUserOrder,
       getTravisProduct,
       getOgioProduct]);

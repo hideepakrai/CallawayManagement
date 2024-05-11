@@ -87,6 +87,7 @@ export function Login() {
           currentUser: response.user,
           UserAccount:response.acountType,
           adminToken:response.token,
+          UserRetailer:response.retailer
         }))
 
         setLoading(false)
