@@ -8,13 +8,14 @@ import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
 import {OgioExcelModel} from"../../../../model/ogio/OgioExcelModel";
 import type { UploadChangeParam } from "antd/lib/upload";
+import { OgioBasicModel } from "../../../../model/ogio/OgioBrandModel";
 
 const { Dragger } = Upload;
 
 type Props={
     onClose: () =>void;
     isImport:boolean;
-    allOgioData:(allData:OgioExcelModel[])=>void
+    allOgioData:(allData:OgioBasicModel[])=>void
 }
 
 const props: UploadProps = {
@@ -23,7 +24,7 @@ const props: UploadProps = {
     
   };
 const OgioImportExcel = ({onClose,isImport,allOgioData}:Props) => {
-    const [allXlxData, setAllXlxData]=useState<OgioExcelModel[]>([])
+    const [allXlxData, setAllXlxData]=useState<OgioBasicModel[]>([])
     const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -43,7 +44,7 @@ const OgioImportExcel = ({onClose,isImport,allOgioData}:Props) => {
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json<OgioExcelModel>(worksheet) as OgioExcelModel[];
+      const jsonData = XLSX.utils.sheet_to_json<OgioBasicModel>(worksheet) as OgioBasicModel[];
     console.log("json ", data)
       // Use the extracted JSON data here
       //console.log(jsonData);

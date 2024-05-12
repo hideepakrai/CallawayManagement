@@ -160,68 +160,68 @@ const OgioSlice = createSlice({
             
             },
 
-            updateNewData:(state,action) => {
-            //     const {ogioProduct}= action.payload;
-            //     if(ogioProduct){
-            // const ogiIndex= state.ogio.findIndex(item=>
-            //     item.SKU===ogioProduct.SKU);
-            //    if(ogiIndex===-1){
+            updateData:(state,action) => {
+                const {ogioProduct}= action.payload;
+              if(ogioProduct && ogioProduct.length > 0) {
+                    ogioProduct.map((item:OgioBasicModel)=>{
+                 
+                    const ogioIndex= state.ogio.findIndex(rdx=>rdx.sku===item.sku);
+                    if(ogioIndex==-1){
+                        state.ogio.push({
+                            sku: item.sku,
+                            name: item.name,
+                            description: item.description,
+                            mrp: item.mrp,
+                            category: item.category,
+                            product_type: item.product_type,
+                            product_model: item.product_model,
+                            gst: item.gst,
+                            brand_id: item.brand_id,
+                            primary_image_url: item.primary_image_url,
+                            gallery_images_url: item.gallery_images_url,
+                            variation_sku: item.variation_sku,
+                            stock_90:item.stock_90,
+                            Quantity90:0,
+                            Amount:0,
+                            TotalQty:0,
+                            LessGST:0,
+                            LessDiscountAmount:0,
+                            Discount:0,
+                            NetBillings:0,
+                            FinalBillValue:0,
+                            error:""
+                           
 
 
-            //     const att: OgioModel[] = [
-            //         {
-            //             ProductType:ogioProduct.ProductType,
-            //             Category:ogioProduct.Category,
-            //             ProductModel:ogioProduct.ProductModel,
-            //             LifeCycle:ogioProduct.LifeCycle,
-            //             Stock90:ogioProduct.Stock90,
-            //         }
-            //     ];
+                        })
+                    } else if(ogioIndex!=-1){
+                        const stt=state.ogio[ogioIndex];
+                        state.ogio[ogioIndex].name=item.name!=undefined ?item.name:stt.name;
+                        state.ogio[ogioIndex].description=item.description!=undefined ?item.description:stt.description;
+                        state.ogio[ogioIndex].mrp=item.mrp!=undefined ?item.mrp:stt.mrp;
+                        state.ogio[ogioIndex].category=item.category!=undefined ?item.category:stt.category;
+                        state.ogio[ogioIndex].product_type=item.product_type!=undefined ?item.product_type:stt.product_type;
+                        state.ogio[ogioIndex].product_model=item.product_model!=undefined ?item.product_model:stt.product_model;
+                        state.ogio[ogioIndex].gst=item.gst!=undefined ?item.gst:stt.gst;
+                        state.ogio[ogioIndex].brand_id=item.brand_id!=undefined ?item.brand_id:stt.brand_id;
+                        state.ogio[ogioIndex].primary_image_url=item.primary_image_url!=undefined ?item.primary_image_url:stt.primary_image_url;
+                        state.ogio[ogioIndex].gallery_images_url=item.gallery_images_url!=undefined ?item.gallery_images_url:stt.gallery_images_url;
+                        state.ogio[ogioIndex].variation_sku=item.variation_sku!=undefined ?item.variation_sku:stt.variation_sku;
+                        state.ogio[ogioIndex].stock_90=item.stock_90!=undefined ?item.stock_90:stt.stock_90;
+                        state.ogio[ogioIndex].Quantity90=0;
+                        state.ogio[ogioIndex].Amount=0;
+                        state.ogio[ogioIndex].TotalQty=0;
+                        state.ogio[ogioIndex].LessGST=0;
+                        state.ogio[ogioIndex].LessDiscountAmount=0;
+                        state.ogio[ogioIndex].Discount=0;
+                        state.ogio[ogioIndex].FinalBillValue=0;
+                        state.ogio[ogioIndex].error="";
+                        state.ogio[ogioIndex].NetBillings=0
 
-
-            //     state.ogio.push({
-            //         brand: ogioProduct.brand,
-            //     Name: ogioProduct.Name,
-            //     Description: ogioProduct.Description,
-            //     SKU: ogioProduct.SKU,
-            //     Gallery: ogioProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
-            //     MRP: ogioProduct.MRP,
-            //     SetType: ogioProduct.SetType,
-            //     ProductType: ogioProduct.ProductType,
-            //     OgiAttributes: att,
-
-            //         TotalQty: 0,
-            //         Quantity88: 0,
-            //         Quantity90: 0,
-            //         Amount: 0
-
-            //     }
-
-            //     )
-
-            //    } else if(ogiIndex!=-1){
-            //     if (state.ogio[ogiIndex] &&
-            //         state.ogio[ogiIndex].OgiAttributes 
-            //         ) {
-            //         state.ogio[ogiIndex].Name = ogioProduct.Name !=undefined? ogioProduct.Name : state.ogio[ogiIndex].Name;
-            //         state.ogio[ogiIndex].Description =  ogioProduct.Description !=undefined? ogioProduct.Description : state.ogio[ogiIndex].Description;
-            //         state.ogio[ogiIndex].MRP =  ogioProduct.MRP !=undefined? ogioProduct.MRP : state.ogio[ogiIndex].MRP;
-            //         state.ogio[ogiIndex].GST =  ogioProduct.GST !=undefined? ogioProduct.GST : state.ogio[ogiIndex].GST;
-            //          const ogatt=state.ogio[ogiIndex].OgiAttributes;
-            //          if(ogatt){
-            //            ogatt[0].Stock90 = ogioProduct.Stock90!=undefined? ogioProduct.Stock90 : ogatt[0]?.Stock90
-            //            ogatt[0].ProductType = ogioProduct.ProductType!=undefined? ogioProduct.ProductType : ogatt[0]?.ProductType
-            //            ogatt[0].Category = ogioProduct.Category!=undefined? ogioProduct.Category : ogatt[0]?.Category
-            //            ogatt[0].ProductModel = ogioProduct.ProductModel!=undefined? ogioProduct.ProductModel : ogatt[0]?.ProductModel
-            //            ogatt[0].LifeCycle = ogioProduct.LifeCycle!=undefined? ogioProduct.LifeCycle : ogatt[0]?.LifeCycle
-
-            //     }
-
-            //         }
-            //    }
-              
-                
-            //        }
+                    }
+                 })
+              }
+                 
         },
         updateQuantity90:(state,actions) => {
 
@@ -348,7 +348,7 @@ const OgioSlice = createSlice({
 
 
 export const { addOgioProduct,
-    updateNewData,
+    updateData,
     updateQuantity90,stopOgioLoading,
     startOgioLoading,resetOgio,
     updateOgioFlatDiscount,

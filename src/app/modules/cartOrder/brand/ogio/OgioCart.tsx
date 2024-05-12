@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import {getOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import {OgioBasicModel} from "../../../model/ogio/OgioBrandModel"
-import { Input, InputNumber, InputRef, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
+import { Input, InputNumber, InputRef, Popconfirm, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
 import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
 import {updateOgioInclusiveDiscount,updateOgioExclusiveDiscount,updateOgioFlatDiscount, resetOgioOrder} from "../../../../slice/allProducts/OgioSlice"
 import {getOgioProducts,updateQuantity90} from "../../../../slice/allProducts/OgioSlice"
@@ -22,6 +22,7 @@ import OgioProduct from '../../../../api/allProduct/ogio/OgioProduct';
 import OgioSubmitOrder from './OgioSubmitOrder';
 import UpDateDB from './UpDateDB';
 import UpdateRedux from "./UpdateRedux"
+import { InfoCircleOutlined } from '@ant-design/icons';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -43,6 +44,14 @@ const OgioCart = () => {
   const filteredOptions2= OPTIONS2.filter((o) => !selectedItems.includes(o));
   const [ allOgioOrders, setGetAllOgioOrders]= useState<OgioBasicModel[]>([])
   const [userId, setUserId] = useState<number>();
+
+   const handleconfirm=()=>{
+
+   }
+
+   const handlecancel=()=>{
+
+   }
 
    // update user Id
    const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
@@ -313,7 +322,24 @@ const OgioCart = () => {
           fixed:'right',
           
           render: (value,record) => (
+            <>
+               {value === 0 && ( // Conditionally render Popconfirm when intValue is 0
+            <Popconfirm
+              title="Delete the task"
+              description="Are you sure to delete this task?"
+              onConfirm={handleconfirm}
+              onCancel={handlecancel}
+              okText="Yes"
+              cancelText="No"
+              placement="top" // Set the placement to top
+            >
+              <Tooltip title="Enter quantity" placement="top">
+                <InfoCircleOutlined className="icon" />
+              </Tooltip>
+            </Popconfirm>
+          )}
             <Tooltip  open={record.sku=== qty90ToolSKU ?isQty90ToolTip:false} title={record.sku=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+           
             <InputNumber
               status={record.error !== "" ? "error" : ""}
             className='mx-3 number-input'
@@ -331,6 +357,8 @@ const OgioCart = () => {
             disabled={value[0]?.Stock90 === 0} 
           />
           </Tooltip>
+            </>
+         
            
           ),
         },
@@ -464,12 +492,14 @@ const OgioCart = () => {
   console.log("Quantity cannot be negative")
   } 
    else if(intValue===0){
-    dispatch(updateQuantity90({
-      sku: record.sku,
-      qty90: intValue,
-      MRP: record.mrp,
-      
-    }));
+    const confirmed = window.confirm("Do you want to remove the product?");
+    if (confirmed) {
+        dispatch(updateQuantity90({
+            sku: record.sku,
+            qty90: intValue,
+            MRP: record.mrp,
+        }));
+    }
 
    
 }

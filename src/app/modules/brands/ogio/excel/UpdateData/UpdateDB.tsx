@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Axios from "axios";
 import { OgioExcelModel } from "../../../../model/ogio/OgioExcelModel";
 import {useDispatch, useSelector} from "react-redux"
-import {updateNewData} from "../../../../../slice/allProducts/OgioSlice"
+
 import {getOgioProducts} from "../../../../../slice/allProducts/OgioSlice"
   import {LoadingStart,LoadingStop} from "../../../../../slice/loading/LoadingSlice"
 import { OgioBasicModel } from "../../../../model/ogio/OgioBrandModel";
@@ -24,16 +24,14 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
     ) {
       console.log(updateXlsData);
       dispatch(LoadingStart())
-
+       // eslint-disable-next-line no-debugger
+       debugger
       const newData: OgioExcelModel[] = [];
       updateXlsData.forEach((item:OgioBasicModel, index)=>{
         const ogioIndex= getOgioProduct.findIndex(ogio=>ogio.sku===item.sku);
         console.log(ogioIndex)
         if(ogioIndex!=-1){
-          const ogioProduct= getOgioProduct[ogioIndex];
-          const id= (ogioProduct.sku);
-          const Stock90= item.stock_90;
-          const MRP= item.mrp;
+          
           const data={
             sku:item.sku,
             brand_id:4,

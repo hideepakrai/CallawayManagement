@@ -7,12 +7,8 @@ const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 // get USer Role 
 export function AddOgioProduct(data:OgioBasicModel){
     const newData=[data]
-    return axios.put(`${serverUrl}/add-ogio`,newData,
-    {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    return axios.post(`${serverUrl}/add-ogio`,newData,
+    
     )
     .then(response=>{
       console.log(response)

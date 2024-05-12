@@ -85,7 +85,7 @@ export function Login() {
       // setGrpqlUser(true)
         dispatch(addUser({
           currentUser: response.user,
-          UserAccount:response.acountType,
+          UserAccount:response.accountType,
           adminToken:response.token,
           UserRetailer:response.retailer
         }))

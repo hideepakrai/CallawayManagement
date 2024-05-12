@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {BasicModelTravis} from "../model/travis/TravisMethewModel"
 import {getRetailers} from "../../slice/retailer/RetailerSlice"
 import {RetailerModel,Retailer}  from "../model/AccountType/retailer/RetailerModel"
-import {getUserAccount} from "../.../../../slice/UserSlice/UserSlice"
+import {getUserAccount, getUserRetailer} from "../.../../../slice/UserSlice/UserSlice"
 import {RetailerData,UserAccountModel,RetailerModels,retailerData } from "../../modules/model/useAccount/UserAccountModel"
 import "./CartHeader.css"
 
@@ -46,40 +46,41 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
        
     }
 
-    const getRetailer= useSelector(getRetailers);
+    const getUserRetailers= useSelector(getUserRetailer);
+    console.log("getUserRetailer",getUserRetailers)
     // const getUserInfos= useSelector(getUserInfo) as RetailerData;
     
     const getUserAccounts= useSelector(getUserAccount) 
     console.log("getUserAccount",getUserAccounts)
      const handleChange=(value:number)=>{
-       // const allData= getUserInfos?.retailers?.data?.filter(retailer=>retailer.id==value)
-    
-        // if (allData && allData.length>0)  { 
+       const allData= getUserRetailers?.filter(retailer=>retailer.user_id==value)
+        console.log("allData",allData)
+        if (allData && allData.length>0)  { 
            
-        //     setRetailerAddress(allData[0]?.attributes?.Address ?? ''); 
-        //     setRetailerCity(allData[0]?.attributes?.Location ?? '');
-        //     setGST(allData[0]?.attributes?.GST ?? "");
-        //     setRetailerId(allData[0]?.id ??0)
-        //     setRetailerName(allData[0]?.attributes?.Name ??"")
-        //     dispatch(addTravisOrderDetails({
+            setRetailerAddress(allData[0].address); 
+            // setRetailerCity(allData[0]?.attributes?.Location ?? '');
+            // setGST(allData[0]?.gst);
+            // setRetailerId(allData[0]?.user_id)
+            // setRetailerName(allData[0]?.name)
+            // dispatch(addTravisOrderDetails({
 
-        //         retailerAddres: allData[0]?.attributes?.Address,
-        //         retailerCity: allData[0]?.attributes?.Location,
-        //         retailerName: allData[0]?.attributes?.Name ??"",
-        //         retailerId:allData[0]?.id,
-        //         retailerUserId :allData[0]?.attributes?.users_permissions_user?.data?.id
-        //       }))
+            //     retailerAddres: allData[0]?.attributes?.Address,
+            //     retailerCity: allData[0]?.attributes?.Location,
+            //     retailerName: allData[0]?.attributes?.Name ??"",
+            //     retailerId:allData[0]?.id,
+            //     retailerUserId :allData[0]?.attributes?.users_permissions_user?.data?.id
+            //   }))
 
-        //       if(allData[0]?.attributes?.users_permissions_user?.data?.id)
-        //         setRetailerUserId(allData[0]?.attributes?.users_permissions_user?.data?.id)
-        // } else {
+            //   if(allData[0]?.attributes?.users_permissions_user?.data?.id)
+            //     setRetailerUserId(allData[0]?.attributes?.users_permissions_user?.data?.id)
+        } else {
             
-        //     setRetailerAddress('');
-        //     setRetailerCity('');
-        //     setGST("");
-        //     setRetailerId(0)
-        //     setRetailerName("")
-        // }
+            setRetailerAddress('');
+            setRetailerCity('');
+            setGST("");
+            setRetailerId(0)
+            setRetailerName("")
+        }
        
         // if( allData.length>0 &&allData[0]?.attributes?.users_permissions_user?.data?.id)
         //  sendRetailerData(allData[0]?.attributes?.users_permissions_user?.data?.id
@@ -107,9 +108,9 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
                     className="select-toogle"
                     style={{ width: "70%", marginBottom: 10 }} 
                     onChange={handleChange}
-                    // options={getUserInfos?.retailers?.data?.map((item:RetailerModel) => (
-                    //     { label: item.attributes?.Name ??"",
-                    //          value: item.id}))}
+                    options={getUserRetailers?.map((item:RetailerModel) => (
+                        { label: item.name??"",
+                             value: item.user_id}))}
 
                   
 

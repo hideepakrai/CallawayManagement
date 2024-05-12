@@ -1,7 +1,17 @@
 export interface RetailerModel{
     id?:number,
-    attributes?:Retailer,
-
+   user_id?:number,
+   name?:string,
+   address?:string,
+   gstin?:string,
+   code?:string,
+   email?:string,
+   secondary_email?:string,
+   manager_id?:number,
+   type?:string,
+   photo_url?:string,
+   thumbnail_url?:string,
+   
 }
 
 

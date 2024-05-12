@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {UserAccountModel,OrderData} from "../../modules/model/useAccount/UserAccountModel";
 import {AccountOrder} from "../../modules/model/CartOrder/CartModel"
+import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
 // Define interface for Redux state
 interface UserState {
     currentUser: unknown[],
     UserAccount: UserAccountModel[],
-    UserRetailer:unknown[]
+    UserRetailer:RetailerModel[]
     adminToken: null | string,
     userOrders: AccountOrder[],
 }
