@@ -55,21 +55,26 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
      const handleChange=(value:number)=>{
        const allData= getUserRetailers?.filter(retailer=>retailer.user_id==value)
         console.log("allData",allData)
-        if (allData && allData.length>0)  { 
+        if (allData && 
+            allData.length>0 &&
+            allData[0]?.gstin &&
+            allData[0]?.user_id&&
+            allData[0]?.id)  { 
            
             setRetailerAddress(allData[0].address); 
             // setRetailerCity(allData[0]?.attributes?.Location ?? '');
-            // setGST(allData[0]?.gst);
-            // setRetailerId(allData[0]?.user_id)
-            // setRetailerName(allData[0]?.name)
-            // dispatch(addTravisOrderDetails({
+            setGST(allData[0]?.gstin);
+            setRetailerId(allData[0]?.id)
+            setRetailerName(allData[0]?.name)
+            setRetailerUserId(allData[0]?.user_id)
+            dispatch(addTravisOrderDetails({
 
-            //     retailerAddres: allData[0]?.attributes?.Address,
-            //     retailerCity: allData[0]?.attributes?.Location,
-            //     retailerName: allData[0]?.attributes?.Name ??"",
-            //     retailerId:allData[0]?.id,
-            //     retailerUserId :allData[0]?.attributes?.users_permissions_user?.data?.id
-            //   }))
+                retailerAddres: allData[0]?.address,
+              
+                retailerName: allData[0]?.name ??"",
+                retailerId:allData[0]?.id,
+                retailerUserId:allData[0].user_id
+              }))
 
             //   if(allData[0]?.attributes?.users_permissions_user?.data?.id)
             //     setRetailerUserId(allData[0]?.attributes?.users_permissions_user?.data?.id)

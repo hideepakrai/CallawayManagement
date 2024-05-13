@@ -1,26 +1,16 @@
 export interface CartModel{
-  id?:number ;
-  order_id?:number ;
-  sku?:string ;
- 
-
-
-  OrderId?:string ;
-    Status?:string;
-    ProductDetails?:ProductDetails[],
-    productDetails?:ProductCard[]
-    retailer?:number,
-    users?:{
-      connect?:ConnectData[]
-    },
-    Brand?:string,
-    Amount?:number,
-    Comments?:Comments[]
-    createdAt?:string,
-    DiscountType?:string,
-    DiscountPercent?:number,
-
-}
+  order_date?:string,
+items?:string,
+discount_type?:string,
+ discount_percent?:number,
+total_value?:number,
+status?:string,
+ manager_id?:number|null,
+ retailer_id?:number,
+salesrep_id?:number
+  
+    }
+    
  export interface ConnectData{
   
     id?:number |undefined,

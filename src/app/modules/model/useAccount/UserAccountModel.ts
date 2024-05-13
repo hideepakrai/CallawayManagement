@@ -1,10 +1,13 @@
  export interface UserAccountModel {
   id?:number|undefined|null
     email?: string|undefined|null;
-    provider?: string|undefined|null;
-    attributes?: UserRoleAttributes
-    
-   // username?: string;
+    designation?:string|undefined|null;
+    name?:string|undefined|null;
+    phone?:string|undefined|null;
+    reporting_manager_id?:string|undefined|null;
+    role?:string|undefined|null;
+    user_id?:number;
+    photo_url?:string;
 
   }
   

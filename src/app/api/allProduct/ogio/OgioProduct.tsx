@@ -19,7 +19,7 @@ const OgioProduct = ({ resetOgio,isRefetch}: Props) => {
     const dispatch= useDispatch()  ;
     useEffect(()=>{
         getAllOgioProduct()
-    },[])
+    },[isRefetch])
 
     const getAllOgioProduct =async()=>{
   console.log("Getting")
@@ -38,21 +38,7 @@ const OgioProduct = ({ resetOgio,isRefetch}: Props) => {
         
     }
    
-     
 
-// useEffect(() => {
-//     console.log(data);
-//     console.log(loading);
-//     if (data && !loading) {
-//         // console.log(data?.products?.data);
-        
-//         dispatch(addOgioProduct({
-//             ogioProduct: data?.products?.data,
-//             id: data?.products?.data.id
-//         }));
-//         resetOgio();
-//     }
-// }, [data, loading]);
 
 
 

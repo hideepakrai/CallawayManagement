@@ -5,7 +5,7 @@ import { RetailerModel } from "../../modules/model/AccountType/retailer/Retailer
 // Define interface for Redux state
 interface UserState {
     currentUser: unknown[],
-    UserAccount: UserAccountModel[],
+    UserAccount: UserAccountModel,
     UserRetailer:RetailerModel[]
     adminToken: null | string,
     userOrders: AccountOrder[],
@@ -24,7 +24,7 @@ const UserSlice = createSlice({
     reducers: {
         resetUserAccount:(state)=>{
         state.currentUser=[];
-        state.UserAccount=[];
+        state.UserAccount;
         state.UserRetailer=[];
         state.adminToken=null;
             state.userOrders=[];
