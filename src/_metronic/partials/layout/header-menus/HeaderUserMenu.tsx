@@ -48,12 +48,9 @@ const HeaderUserMenu: FC = () => {
   const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
   useEffect(() => {
     if(getUserAccounts && 
-      getUserAccounts?.attributes &&
-    getUserAccounts?.attributes.role &&
-    getUserAccounts?.attributes?.role?.data &&
-    getUserAccounts?.attributes?.role?.data?.attributes &&
-    getUserAccounts?.attributes?.role?.data?.attributes?.name){
-      setRole(getUserAccounts?.attributes?.role?.data?.attributes?.name)
+      getUserAccounts&&
+    getUserAccounts?.role ){
+      setRole(getUserAccounts?.role)
     }
   }
   , [getUserAccounts])

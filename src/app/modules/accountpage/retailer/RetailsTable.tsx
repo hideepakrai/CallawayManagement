@@ -3,7 +3,7 @@ import { KTIcon } from '../../../../_metronic/helpers'
 import ImportRetailerModal from "./importRetailer/ImportRetailerModal";
 import {useSelector, useDispatch} from "react-redux"
 import Retailerheader from './Retailerheader';
-import {getRetailers} from "../../../slice/retailer/RetailerSlice"
+//import {getRetailers} from "../../../slice/retailer/RetailerSlice"
 import {RetailerModel} from "../../model/AccountType/retailer/RetailerModel"
 
 type Props = {
@@ -14,15 +14,15 @@ type Props = {
 const RetailsTable = () => {
 
   const dispatch = useDispatch();
-  const getRetailer= useSelector(getRetailers)
+  //const getRetailer= useSelector(getRetailers)
   const [allRetailers, setRetailers] = useState<RetailerModel[]>([])
     
-  useEffect(()=>{
- if(getRetailer){
-      console.log("Retailer",getRetailer)
-      setRetailers(getRetailer)
-    }
-  },[getRetailer])
+//   useEffect(()=>{
+//  if(getRetailer){
+//       console.log("Retailer",getRetailer)
+//       setRetailers(getRetailer)
+//     }
+//   },[getRetailer])
 
   return (
     <>
@@ -64,7 +64,7 @@ const RetailsTable = () => {
 
 
             <tbody>
-            {allRetailers &&
+            {/* {allRetailers &&
             allRetailers.length>0&&
             allRetailers.map((item:RetailerModel)=>{
 
@@ -112,13 +112,7 @@ const RetailsTable = () => {
                     <div className='d-flex flex-stack mb-2'>
                       <span className='text-muted me-2 fs-7 fw-semibold'> {item.attributes?.GST}</span>
                     </div>
-                    {/* <div className='progress h-6px w-100'>
-                      <div
-                        className='progress-bar bg-primary'
-                        role='progressbar'
-                        style={{width: '50%'}}
-                      ></div>
-                    </div> */}
+                   
                   </div>
                 </td>
                 <td>
@@ -140,7 +134,7 @@ const RetailsTable = () => {
                 </td>
               </tr>
               )
-            })  }
+            })  } */}
 
 
              

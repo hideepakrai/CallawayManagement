@@ -75,7 +75,7 @@ if(getRetailerDetail &&
     discountType  &&
     managerUserId
 ){
-        //handleCreateOrder()
+        handleCreateOrder()
     }
 
   },[allOgioOrders,getRetailerDetail,userId,totalNetBillAmount,discountType,discountValue,managerUserId])
@@ -118,7 +118,7 @@ if(getRetailerDetail &&
   const createOrder = async (data: CartModel) => {
     try {
       const response = await CreateOrder(data);
-   
+       console.log("order created ", response)
       if (response?.data.id) {
         setOrderId(response?.data.id)
          resetSubmitOrder(response?.data.id)

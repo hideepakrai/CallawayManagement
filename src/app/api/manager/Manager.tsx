@@ -3,7 +3,7 @@ import { useQuery,useApolloClient } from "@apollo/client";
 
 import { useDispatch } from 'react-redux';
 import {GET_Manager_ACCOUNT} from "../../grapgQl/ManagerAccount"
-import {addUserInfo} from "../../slice/UserSlice/UserSlice"
+//import {addUserInfo} from "../../slice/UserSlice/UserSlice"
 import {useAuth} from '../../modules/auth/core/Auth'
 type Props = {
     userRoleId:number
@@ -26,21 +26,21 @@ const Manager = ({userRoleId,resetmanagerid}:Props) => {
       });
       
 
-useEffect(() => {
-     console.log("manager account",data);
-    // console.log(loading);
-    if (data && !loading) {
+// useEffect(() => {
+//      console.log("manager account",data);
+//     // console.log(loading);
+//     if (data && !loading) {
 
        
-        dispatch(addUserInfo({
-            UserInfo:data?.managers.data[0]?.attributes
-        }))
-        resetmanagerid()
-         setCurrentUser(data)
+//         dispatch(addUserInfo({
+//             UserInfo:data?.managers.data[0]?.attributes
+//         }))
+//         resetmanagerid()
+//          setCurrentUser(data)
      
-   // resetRetailer();
-    }
-}, [data, loading]);
+//    // resetRetailer();
+//     }
+// }, [data, loading]);
 
 
     return (
