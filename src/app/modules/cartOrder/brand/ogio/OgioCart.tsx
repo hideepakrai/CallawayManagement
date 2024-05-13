@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {OgioBasicModel} from "../../../model/ogio/OgioBrandModel"
 import { Input, InputNumber, InputRef, Popconfirm, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
 import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
-import {updateOgioInclusiveDiscount,updateOgioExclusiveDiscount,updateOgioFlatDiscount, resetOgioOrder} from "../../../../slice/allProducts/OgioSlice"
+import {updateOgioInclusiveDiscount,updateOgioExclusiveDiscount,updateOgioFlatDiscount} from "../../../../slice/allProducts/OgioSlice"
 import {getOgioProducts,updateQuantity90} from "../../../../slice/allProducts/OgioSlice"
 import Loading from '../../../loading/Loading';
 
@@ -20,9 +20,10 @@ import GetUserAccount from '../../../auth/components/GetUserAccount';
 import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 import OgioProduct from '../../../../api/allProduct/ogio/OgioProduct';
 import OgioSubmitOrder from './OgioSubmitOrder';
-import UpDateDB from './UpDateDB';
-import UpdateRedux from "./UpdateRedux"
+import UpdateOrderToDB from "./updateOrderToDB"
 import { InfoCircleOutlined } from '@ant-design/icons';
+import UpdateReduxOgio  from "./UpdateReduxOgio"
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -541,9 +542,9 @@ useEffect(() => {
 
   // handle disount
   
-  const [discountType, setDiscountType] = useState<string>("")
+  const [discountType, setDiscountType] = useState<string>("Inclusive")
   const [isDiscount, setIsDiscount] = useState<boolean>(false)
-  const [discountValue, setDiscountValue] = useState<number>(0)
+  const [discountValue, setDiscountValue] = useState<number>(22)
 
    const handleDiscount = (value: string) => {
     setIsDiscount(true)
@@ -625,14 +626,9 @@ const hanldeSubmitOrder = () => {
   setIsSubmitOrder(true)
 }
 
-const handleResetSubmitOrder=(orderId:number)=>{
+const handleResetSubmitOrder=()=>{
   setIsSubmitOrder(false)
-  if(orderId!=0){
-    setReLoadUserAccount(true)
-   
-   // dispatch(LoadingStop())
-    setIsUpdateStrapi(true)
-  }
+  
 
   
 }
@@ -649,8 +645,9 @@ const handleUpdateStrapi=()=>{
 
 const handleUpdateRedux=()=>{
   console.log("finally finished all task")
+  alert("Your order has been plcaed successfully")
   setIsUpdateRedux(false)
-   dispatch(resetOgioOrder())
+  
     dispatch(LoadingStop())
 }
   return (
@@ -793,13 +790,14 @@ const handleUpdateRedux=()=>{
        resetSubmitOrder={handleResetSubmitOrder}
        />}
 
-    {/* {isUpdateStrapi &&  <UpDateDB
-    resetUPdateDB={handleUpdateStrapi}
-   />}
+  {isUpdateStrapi &&  <UpdateOrderToDB
+    resetUpdateOrder={handleUpdateStrapi}
+   />} 
       
-   { isUpdateRedux &&  <UpdateRedux
-         resetUpdateRedux={handleUpdateRedux}
-   />} */}
+   { isUpdateRedux &&  <UpdateReduxOgio
+
+resetReducOgio={handleUpdateRedux}
+   />} 
     </div>
   )
 }

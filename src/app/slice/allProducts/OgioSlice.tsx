@@ -323,19 +323,26 @@ const OgioSlice = createSlice({
         },
         updateQunatityAfterOrder:(state,action)=>{
             const {ogioProduct}= action.payload;
-            // const index= state.ogio.findIndex(item=>item.SKU===ogioProduct.SKU);
-            // if(index!==-1){
-            //     const stt= state.ogio[index].OgiAttributes;
-            //     const qty= state.ogio[index].Quantity90;
-            //     const currentQty=ogioProduct.Quantity90
-            //     if(stt &&currentQty){
-            //         const rdxStock=stt[0].Stock90
-            //         if(rdxStock){
-            //             stt[0].Stock90=rdxStock-currentQty
-            //         }
+            const index= state.ogio.findIndex(item=>item.SKU===ogioProduct.SKU);
+            if(index!==-1){
+                const stt= state.ogio[index].stock_90;
+                const qty= state.ogio[index].Quantity90;
+                const currentQty=ogioProduct.Quantity90
+                if(stt &&currentQty){
+                   state.ogio[index].stock_90=stt-currentQty;
+                   state.ogio[index].Quantity90=0;
+                   state.ogio[index].TotalQty=0;
+                   state.ogio[index].Amount=0;
+                   state.ogio[index].LessGST=0;
+                   state.ogio[index].LessDiscountAmount=0;
+                   state.ogio[index].NetBillings=0;
+                   state.ogio[index].FinalBillValue=0;
+                   state.ogio[index].Discount=0;
+                   state.ogio[index].ordered=false;
+                   state.ogio[index].error="";
                    
-            //     }
-            // }
+                }
+            }
 
         }
 

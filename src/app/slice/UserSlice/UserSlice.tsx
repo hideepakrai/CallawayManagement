@@ -8,7 +8,7 @@ interface UserState {
     UserAccount: UserAccountModel,
     UserRetailer:RetailerModel[]
     adminToken: null | string,
-    userOrders: AccountOrder[],
+    userOrders: unknown[],
 }
 
 
@@ -50,15 +50,7 @@ const UserSlice = createSlice({
         },
         updateOrderStatus: (state, action) => {
             const { orderId, status } = action.payload;
-              const index = state.userOrders.findIndex(
-                (order) => order.id=== orderId
-              );
-              if (index !== -1 && state.userOrders[index]?.attributes) {
-                state.userOrders[index].attributes = {
-                    ...state.userOrders[index].attributes,
-                    Status: status
-                };
-            }
+              
         },
     
     }

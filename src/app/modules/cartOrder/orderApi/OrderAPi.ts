@@ -8,7 +8,7 @@ export function CreateOrder(data: CartModel) {
         data: data // Include the 'data' field with the order information
     };
 
-    return axios.post(`${serverUrl}/add-orders`, payload)
+    return axios.post(`${serverUrl}/add-order`, payload)
         .then(response => {
            
             return response.data;

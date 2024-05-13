@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Table, Tooltip } from "antd";
 import Edit from "./Edit";
 import View from "./View"
-import {getUserOrders} from "../../../slice/UserSlice/UserSlice"
+import {getUserAccount, getUserOrders} from "../../../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from "react-redux";
 import {UserAccountModel,AllOrderss} from "../../model/useAccount/UserAccountModel"
 import { Card } from "react-bootstrap";
 import {ProductDetails,CartModel,AccountOrder} from "../../model/CartOrder/CartModel.ts"
 import {addPendingOrder} from "../../../slice/orderSlice/travis/Orderdetails.tsx"
 import UpdateStatus from "./UpdateStatus.tsx";
-
+import GetAllorder from "../../orderPage/GetAllorder.tsx"
 const AllOrder = () => {
-    
+     
+    const getUserAccounts= useSelector(getUserAccount)
     const dispatch= useDispatch()
     const getUserOrder= useSelector(getUserOrders) as AccountOrder[];
   const [orderId, setOrderId]= useState<number>()
+
     const [isEdit, setIsEdit] = useState(false);
+     
+   
+    
+    
     const handleEdit = (id: number | undefined) => {
         if (id !== undefined) {
             setIsEdit(true);
@@ -152,7 +158,6 @@ isEdit={isEdit}
 onClose={handleCloseEdit} 
 changeStatus={handleUpdateStatus}
 />
-
 
 
 

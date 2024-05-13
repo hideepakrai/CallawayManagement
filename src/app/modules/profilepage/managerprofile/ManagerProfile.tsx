@@ -17,32 +17,31 @@ import {getLoading,LoadingStop,LoadingStart} from "../../../slice/loading/Loadin
 import GetAllOrder from '../../../api/manager/GetAllOrders';
 import { useDispatch } from 'react-redux';
 import ManagerSlider from './ManagerSlider';
+import GetAllorder from '../../orderPage/GetAllorder';
 const ManagerProfile = () => {
   const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
-  const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
-  console.log("getUserAccount",getUserAccountDetails)
-  const [userRoleId, setUseRoleId]= useState<number|null>(null)
-  const [userid, setUserId]= useState<number|null>(null)
+  const getUserAccounts= useSelector(getUserAccount) 
 
+  const [userRoleId, setUseRoleId]= useState<number|null>(null)
+ 
+  const [isOrder, setIsOrder]= useState(false);
+  const [acountype, setAcountype]= useState<string>("")
+  const [UserId, setUserId]= useState<number>()
   useEffect(()=>{
-    if(getUserAccountDetails &&
-      getUserAccountDetails.id
-    ){
-      setUserId(getUserAccountDetails.id)
-      setUseRoleId(getUserAccountDetails.id)
-      dispatch(LoadingStart())
+    if(getUserAccounts && getUserAccounts.user_id && getUserAccounts.role){
+        setAcountype(getUserAccounts.role);
+        setUserId(getUserAccounts.user_id);
+        setIsOrder(true)
     }
-  },[getUserAccountDetails])
+},[getUserAccounts])
 
 
  
-  const handleResetId=()=>{
-    setUseRoleId(null)
-    dispatch(LoadingStop())
-  }
+const handleResetOrder=() => {
+  setIsOrder(false)
 
-  // first time get all order
+}
   
   return (
     <div>
@@ -89,11 +88,18 @@ const ManagerProfile = () => {
 
  
 
-     { userRoleId !=null &&
+     {/* { userRoleId !=null &&
      <GetAllOrder
       userRoleId={userRoleId}
       resetmanagerid={handleResetId}
-      />}
+      />} */}
+
+{isOrder && UserId!=null &&
+    <GetAllorder
+    userId={UserId}
+    acountype={acountype}
+    resetOrder={handleResetOrder}
+    />}
           </div>  
 
 

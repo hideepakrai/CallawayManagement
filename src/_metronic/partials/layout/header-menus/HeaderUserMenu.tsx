@@ -56,7 +56,7 @@ const HeaderUserMenu: FC = () => {
   , [getUserAccounts])
   // console.log(getUserAccounts)
   const handleProfile=()=>{
-    if(role==="manager"){
+    if(role==="Manager"){
   navigate("/profilepage/managerprofile")
     } else if (role==="retailer"){
       navigate("/profilepage/retailerprofile")

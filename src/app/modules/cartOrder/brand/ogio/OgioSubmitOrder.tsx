@@ -8,15 +8,14 @@ import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 import {getRetailerDetails} from "../../../../slice/orderSlice/travis/Orderdetails"
 import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
 import { CreateOrder } from '../../orderApi/OrderAPi';
-import { OgioExcelModel } from '../../../model/ogio/OgioExcelModel';
-import { UpdateOgioProduct } from '../../../brands/ogio/api/OgioAPI';
 
+import GetAllorder from '../../../orderPage/GetAllorder';
 
 type Props={
     totalNetBillAmount:number;
     discountType:string;
     discountValue:number;
-    resetSubmitOrder:(orderId:number)=>void
+    resetSubmitOrder:()=>void
 }
 
 const OgioSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSubmitOrder}:Props) => {
@@ -25,21 +24,25 @@ const OgioSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSub
   const [ typeOfAccount, settypeOfAccount]= useState<string>("")
   const [ managerUserId, setManagerUserId]= useState<number|null>()
   const [userId, setUserId] = useState<number>();
+  const [isOrder, setIsOrder]= useState(false);
   const dispatch= useDispatch()
 
    // update user Id
    const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
-  useEffect(() => {
+     console.log("getCurrentUsers",getCurrentUsers)
+   useEffect(() => {
+    
     if (getUserAccounts &&
       getUserAccounts.role &&
       getUserAccounts.user_id) {
-
-        if(getUserAccounts.role==="manager"){
+ 
+        if(getUserAccounts.role==="Manager"){
           settypeOfAccount(getUserAccounts.role)
           setManagerUserId(getUserAccounts.user_id)
+          setUserId(getUserAccounts.user_id)
         }
         console.log("getUserAccounts,",getUserAccounts)
-      setUserId(getCurrentUsers?.user?.id)
+     
     }
   }, [getUserAccounts])
   
@@ -66,10 +69,12 @@ const OgioSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSub
   //getAlll retailer detail 
   const getRetailerDetail= useSelector(getRetailerDetails)
   useEffect(()=>{
+   
+    
 if(getRetailerDetail && 
     getRetailerDetail.retailerUserId &&
     getRetailerDetail.retailerId&&
-    userId &&
+   
     totalNetBillAmount&&
     discountValue&&
     discountType  &&
@@ -78,18 +83,19 @@ if(getRetailerDetail &&
         handleCreateOrder()
     }
 
-  },[allOgioOrders,getRetailerDetail,userId,totalNetBillAmount,discountType,discountValue,managerUserId])
+  },[allOgioOrders,getRetailerDetail,totalNetBillAmount,discountType,discountValue,managerUserId])
     
 
   const handleCreateOrder = () => {
-
+      // eslint-disable-next-line no-debugger
+      debugger
       dispatch(LoadingStart());
       const orderId = generateUniqueNumeric();
       const now = new Date();
       if (Array.isArray(allOgioOrders) &&orderId) {
         const data={
-          order_date:now.toString(),
-          items:allOgioOrders.toString(),
+          order_date:"",
+          items:JSON.stringify(allOgioOrders),
           discount_type:discountType,
           discount_percent:discountValue,
           total_value:totalNetBillAmount,
@@ -119,9 +125,9 @@ if(getRetailerDetail &&
     try {
       const response = await CreateOrder(data);
        console.log("order created ", response)
-      if (response?.data.id) {
-        setOrderId(response?.data.id)
-         resetSubmitOrder(response?.data.id)
+      if (response==="order created successfully") {
+        setReloadUserAccount(true)
+        setIsOrder(true)
       }
 
 
@@ -130,57 +136,31 @@ if(getRetailerDetail &&
       console.log(err);
       dispatch(LoadingStop())
       alert("Error on creating order")
-      resetSubmitOrder(0)
+      resetSubmitOrder()
       
     }
   }
 
-  // const updateQuantity= async (data:OgioBasicModel) => {
-  //   console.log("updating ")
-
-  //   // eslint-disable-next-line no-debugger
-  //   debugger
-    
-  // const rdx= data.OgiAttributes;
-  // const id=data.id
-  //   if(rdx && rdx[0]&&rdx[0].Stock90 && data.Quantity90 &&id){
-  //     const   updatedata={
-  //       AttributeSet: [
-  //           {
-  //             "__component": "attribute-set.ogio",
-  //             Stock90:rdx[0].Stock90-data.Quantity90,
-  //             ProductType:rdx[0].ProductType,
-  //             Category:rdx[0].Category,
-  //             ProductModel:rdx[0].ProductModel,
-  //             LifeCycle:rdx[0].LifeCycle,
-            
-  //           }]
-        
-  //     }
-
-  //     const updateDb={
-  //       data:updatedata
-  //     }
-
-  //  try{
-  //   const response= await UpdateOgioProduct(updateDb,id)
-  //   if(response.state===200)
-  //   console.log("update quantity",response)
-  //   if(response){
-  //     dispatch(LoadingStop())
-  //   }
-  //   }
-  //   catch(err){
-  //     console.log("error on updateing quantity")
-  //     alert("Error updating quantity")
-  //   }
-  //   }
-
-  //   }
+ 
+  // reset order Id
+  const handleResetOrder=() => {
+    setIsOrder(false);
+    setManagerUserId(null);
+    settypeOfAccount("")
+    resetSubmitOrder()
+  }
    
   
   return (
-    <div></div>
+    <div>
+
+{isOrder && userId &&
+    <GetAllorder
+    userId={userId}
+    acountype={typeOfAccount}
+    resetOrder={handleResetOrder}
+    />}
+    </div>
   )
 }
 

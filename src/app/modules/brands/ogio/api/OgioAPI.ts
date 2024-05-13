@@ -38,3 +38,21 @@ export function AddOgioProduct(data:OgioBasicModel){
   });
 
   }
+
+  export function UpdateStockQuantity (allData:OgioBasicModel[]){
+   
+    return axios.post(`${STRAPI_URL}//ogio/update-stock`,allData,
+    {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then(response=>{
+      console.log(response)
+      return response.data
+  }).catch(error=>{
+      throw error;
+  });
+
+  }
