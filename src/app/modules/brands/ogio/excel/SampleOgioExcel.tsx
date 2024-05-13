@@ -2,9 +2,10 @@
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import * as XLSX from "xlsx";
-import {OgioExcelModel} from "../../../model/ogio/OgioExcelModel"
+
 import { Space, Table, Tag } from 'antd';
 import type { ColumnProps } from 'antd/lib/table';
+import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel";
 type Props={
     isSample: boolean;
     resetIsSample:()=>void
@@ -15,7 +16,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
     const tableRef = useRef(null);
 
    
-    const columns: ColumnProps<OgioExcelModel>[] = [
+    const columns: ColumnProps<OgioBasicModel>[] = [
         {
           title: 'Brand',
           dataIndex: 'Brand',
@@ -23,114 +24,108 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           width: 150,
         },
         {
-          title: 'SKU',
-          dataIndex: 'SKU',
-          key: 'SKU',
+          title: 'sku',
+          dataIndex: 'sku',
+          key: 'sku',
           width: 150,
         },
         {
-          title: 'Name',
-          dataIndex: 'Name',
-          key: 'Name',
+          title: 'name',
+          dataIndex: 'name',
+          key: 'name',
           width: 70,
         },
         {
-          title: 'Description',
-          dataIndex: 'Description',
-          key: 'Description',
+          title: 'description',
+          dataIndex: 'description',
+          key: 'description',
           width: 115,
         },
-        {
-          title: 'SetType',
-          dataIndex: 'SetType',
-          key: 'SetType',
-          width: 115,
-        },
+     
         
           {
-            title: 'ProductModel',
-            dataIndex: 'ProductModel',
-            key: 'ProductModel',
+            title: 'product_model',
+            dataIndex: 'product_model',
+            key: 'product_model',
             width: 115,
           },
         {
-          title: 'Category',
-          dataIndex: 'Category',
-          key: 'Category',
+          title: 'category',
+          dataIndex: 'category',
+          key: 'category',
           width: 115,
         },
-        
-        {
-          title: 'LifeCycle',
-          dataIndex: 'LifeCycle',
-          key: 'LifeCycle',
-          width: 115,
-        },
+      
    
       
         {
-          title: 'Stock90',
-          dataIndex: 'Stock90',
-          key: 'Stock90',
+          title: 'stock_90',
+          dataIndex: 'stock_90',
+          key: 'stock_90',
           width: 80,
         },
         {
-          title: 'GST',
-          dataIndex: 'GST',
-          key: 'GST',
+          title: 'gst',
+          dataIndex: 'gst',
+          key: 'gst',
           width: 80,
         },
         {
-          title: 'MRP',
-          dataIndex: 'MRP',
-          key: 'MRP',
+          title: 'mrp',
+          dataIndex: 'mrp',
+          key: 'mrp',
           width: 80
         },
         
       ];
       
-      const excelData: OgioExcelModel[] = [
+      const excelData: OgioBasicModel[] = [
         {
           Brand: "Ogio",
-          SKU: 'TM001',
-          Name: 'Cool Belt',
-          SetType: 'OgioExcelModel',
-          ProductType:"Product Type 1",
-          Category: 'Belts',
-          ProductModel:"product model 1",
-          Description: 'This is a cool belt from Travis Mathew.',
-          MRP: 40,
-          Stock90: 100,
-          GST:12
+          sku: 'TM001',
+          name: 'Cool Belt',
+          product_type:"Product Type 1",
+          category: 'Belts',
+          product_model:"product model 1",
+          description: 'This is a cool belt from ogio.',
+          mrp: 40,
+          stock_90:100,
+          gst:12,
+          
+          
           
         },
         {
           Brand: "Ogio",
-          SKU: 'TM001',
-          Name: 'Cool Belt',
-          SetType: 'OgioExcelModel',
-          ProductType:"Product Type 1",
-          Category: 'Belts',
-          ProductModel:"product model 1",
-          Description: 'This is a cool belt from Travis Mathew.',
-       
-          MRP: 40,
-          Stock90: 100,
-          GST:12
-        },
-        {  Brand: "Ogio",
-            SKU: 'TM001',
-            Name: 'Cool Belt',
-            SetType: 'OgioExcelModel',
-            ProductType:"Product Type 1",
-            Category: 'Belts',
-            ProductModel:"product model 1",
-            Description: 'This is a cool belt from Travis Mathew.',
+          sku: 'TM002',
+          name: 'Cool Belt2',
+          product_type:"Product Type 1",
+          category: 'Belts',
+          product_model:"product model 2",
+          description: 'This is a cool belt from  ogio.',
+          mrp: 40,
+          stock_90:100,
+          gst:12,
+
           
-            MRP: 40,
-            Stock90: 100,
-            GST:12
+          
         },
+        {
+          Brand: "Ogio",
+          sku: 'TM003',
+          name: 'Cool Belt3',
+          product_type:"Product Type 3",
+          category: 'Belts',
+          product_model:"product model 3",
+          description: 'This is a cool belt from  ogio.',
+          mrp: 40,
+          stock_90:100,
+          gst:12,
+
+          
+          
+        },
+        
       ];
       
 

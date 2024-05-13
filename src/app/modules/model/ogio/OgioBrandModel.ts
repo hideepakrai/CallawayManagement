@@ -15,6 +15,7 @@ export interface OgioBasicModel {
   stock_90?:number;
   category?:string;
   product_model?:string;
+  Brand?:string|undefined
 
 
 
