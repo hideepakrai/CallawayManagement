@@ -161,7 +161,7 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
             const tr = document.createElement("tr");
             columns.forEach((column) => {
               const td = document.createElement("td");
-              td.innerText = String(rowData[column.dataIndex as keyof OgioExcelModel]) ;
+              td.innerText = String(rowData[column.dataIndex as keyof OgioBasicModel]) ;
               tr.appendChild(td);
             });
             tbody.appendChild(tr);

@@ -92,7 +92,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
 
     {
       title: "SKU",
-      dataIndex: "SKU",
+      dataIndex: "sku",
       width: 100,
       fixed: "left",
 
@@ -101,7 +101,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
 
     {
       title: "Name",
-      dataIndex: "Name",
+      dataIndex: "name",
       key: "name",
       width: 150,
         fixed: "left",
@@ -109,8 +109,8 @@ const [retailerCty, setRetailerCity]= useState<string>()
     },
     {
       title: "Description",
-      dataIndex: "Description",
-      key: "Description", 
+      dataIndex: "description",
+      key: "description", 
       width: 150,
       
     },
@@ -118,10 +118,10 @@ const [retailerCty, setRetailerCity]= useState<string>()
     //product Type
     {
       title: "ProductType",
-      dataIndex: "OgiAttributes",
-      key: "ProductType",
+      dataIndex: "product_type",
+      key: "product_type",
       width: 150,
-      render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
+      
 
     
 
@@ -130,10 +130,10 @@ const [retailerCty, setRetailerCity]= useState<string>()
 
     {
       title: "Category",
-      dataIndex: "OgiAttributes",
-      key: "Category",
+      dataIndex: "category",
+      key: "category",
       width: 120,
-      render: (value) => <span>{value && value[0] && value[0].Category}</span>,
+      
       
      
     },
@@ -141,11 +141,10 @@ const [retailerCty, setRetailerCity]= useState<string>()
 
       {
         title: "ProductModel",
-        dataIndex: "OgiAttributes",
-        key: "ProductModel", 
+        dataIndex: "product_model",
+        key: "product_model", 
         width: 150,
-        render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
-    
+        
       },
      
       
@@ -156,32 +155,15 @@ const [retailerCty, setRetailerCity]= useState<string>()
           width: 150,
           fixed:'right',
           
-        //   render: (value,record) => (
-        //     <Tooltip  placement="top">
-        //     <InputNumber
-            
-        //     className='mx-3 number-input'
-        //     addonBefore={value[0]?.Stock90} 
-        //     value={record.Quantity90?.toString()}
-        //     style={{ width: 100 }}
-        //     onChange={(value) => {
-        //       if (value !== null) {
-        //        // handleQuantity90(value, record)
-        //       }
-
-        //     }}
+       
            
              
-        //     disabled={value[0]?.Stock90 === 0} 
-        //   />
-        //   </Tooltip>
-           
-        //   ),
+      
         },
         {
           title: "MRP",
-          dataIndex: "MRP",
-          key: "MRP", 
+          dataIndex: "mrp",
+          key: "mrp", 
           width: 100,
           fixed:'right'
          
@@ -244,7 +226,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
 
        <Table  
        columns={columns} 
-       dataSource={allOgioOrders?.map((item) => ({ ...item, key: item.id }))}
+       dataSource={allOgioOrders?.map((item) => ({ ...item, key: item.sku }))}
           
        size="middle" 
        pagination={false} />

@@ -793,13 +793,13 @@ const handleUpdateRedux=()=>{
        resetSubmitOrder={handleResetSubmitOrder}
        />}
 
-    {isUpdateStrapi &&  <UpDateDB
+    {/* {isUpdateStrapi &&  <UpDateDB
     resetUPdateDB={handleUpdateStrapi}
    />}
       
    { isUpdateRedux &&  <UpdateRedux
          resetUpdateRedux={handleUpdateRedux}
-   />}
+   />} */}
     </div>
   )
 }
