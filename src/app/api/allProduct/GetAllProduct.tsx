@@ -90,7 +90,7 @@ useEffect(()=>{
 
   const handleResetTravis=()=>{
     setIsTravis(false)
-    dispatch(stopTravisLoading())
+    // dispatch(stopTravisLoading())
 
     
   }
@@ -120,6 +120,7 @@ useEffect(()=>{
 
       {isTravis &&<TravisMethewProduct
       resetTravis={handleResetTravis}
+      
       /> }
 
       {isGoods && <GetCallawayGoodsProduct

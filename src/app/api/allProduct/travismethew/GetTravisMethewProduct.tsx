@@ -4,6 +4,7 @@ import { useQuery,useApolloClient } from "@apollo/client";
 import { useDispatch } from 'react-redux';
 import {GET_TRAVISMETHEW_Prduct} from "../../../modules/brands/travisMethew/graphQl/TravisMethewProducts"
 import {addTravisProduct} from "../../../slice/../slice/allProducts/TravisMethewSlice"
+import { GetTravisProduct } from './TravisProduct';
 type Props = {
   
     resetTravis:()=>void
@@ -12,31 +13,29 @@ type Props = {
 const GetTravisMethewProduct = ({ resetTravis}: Props) => {
 
    
-    const dispatch= useDispatch()
-    const[user_Id, setUser_id]=useState<number>()
+    const dispatch= useDispatch()  ;
+    useEffect(()=>{
+        getAllTravisProduct()
+    },[])
+
+    const getAllTravisProduct =async()=>{
+  console.log("Getting")
+ try{
+       const response= await GetTravisProduct ();
+       console.log("Travis product",response)
+    //    dispatch(addOgioProduct({
+    //                 ogioProduct: response
+    //             }));
+                resetTravis();
+       
+
+ } catch(err){
+    alert("Error in getting ogio product")
+ }
+        
+    }
    
 
-    const { loading, error,data,refetch } = useQuery(GET_TRAVISMETHEW_Prduct, {
-        variables: {
-        
-        },
-        fetchPolicy: 'no-cache',
-      });
-      
-
-useEffect(() => {
-     console.log("Travis data graph QL",data);
-    // console.log(loading);
-    if (data && !loading) {
-        // console.log(data?.products?.data);
-        
-        dispatch(addTravisProduct({
-            travisProduct: data?.products?.data,
-            id: data?.products?.data.id
-        }));
-        resetTravis();
-    }
-}, [data, loading]);
 
 
     return (

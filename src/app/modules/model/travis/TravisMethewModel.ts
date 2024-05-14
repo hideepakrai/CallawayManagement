@@ -1,25 +1,29 @@
 
 export interface BasicModelTravis {
     
-    id?:number,
-    brand?:string,
-    Brand?:number,
-      Name?: string;
-      Description?: string;
-      SKU?: string;
-      MRP?:number|null;
-    
-      SetType?: string;
-      ProductType?: string | null;
-      PrimaryImage?: ImageType,
-       Gallery?:ImageType,
-       gallery?:ImageType,
-      AttributeSet?:TravisMathewAttribute[],
-      TravisAttributes?: TravisMathewAttribute[] ,
-      // Quantity?: Quantity[];
-      Amount?: number;
-      products?:DataModel;
-      TotalQty?: number|null;
+    sku?:string;
+    brand_id?:number|null;
+    variation_sku?:string;
+    name?:string;
+    description?:string;
+    mrp?:number;
+    gst?:number;
+    length?:string|null;
+      color_code?:string
+      size?:string,
+        stock_88?:string,
+        stock_90?:string,
+        primary_image_url?:string,
+        gallery_images_url?:string,
+       category?:string,
+       gender?:string
+       season?:string
+       color?:string,
+        line?:string,
+          style_code?:string,
+          size_type?:string
+          Amount?: number;
+          TotalQty?: number|null;
       Quantity88?: number|null;
        Quantity90?: number|null;
        ordered?: boolean;
@@ -32,6 +36,27 @@ export interface BasicModelTravis {
        error88?:string;
        error90?:string;
 
+
+
+      // Quantity?: Quantity[];
+      
+      products?:DataModel;
+      
+       id?:number,
+       brand?:string,
+       Brand?:number,
+         Name?: string;
+         Description?: string;
+         SKU?: string;
+         MRP?:number|null;
+       
+         SetType?: string;
+         ProductType?: string | null;
+         PrimaryImage?: ImageType,
+          Gallery?:ImageType,
+          gallery?:ImageType,
+         AttributeSet?:TravisMathewAttribute[],
+         TravisAttributes?: TravisMathewAttribute[] ,
       
 }
 

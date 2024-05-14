@@ -47,58 +47,48 @@ const TravisMethewSlice = createSlice({
             const tarvisLength= state.travisMethew.length;
             if(tarvisLength===0){
               if (travisProduct && travisProduct.length > 0) {
-                travisProduct.forEach((item: BasicModelTravisGraph) => {
-                    const att: TravisMathewAttribute[] = [];
-                    if (item &&
-                        item?.attributes &&
-                        item?.attributes?.AttributeSet &&
-                        Array.isArray(item.attributes.AttributeSet)
-                    ) { // Null check here
-
+                travisProduct.forEach((item: BasicModelTravis) => {
                    
-                        item?.attributes?.AttributeSet?.forEach((attrItems: TravisMathewAttribute) => {
-                          if (attrItems?.Category && attrItems?.Season && attrItems?.StyleCode) {
-                            categoriesSet.add(attrItems?.Category);
-                            seasonSet.add(attrItems?.Season);
-                            styleCodesSet.add(attrItems?.StyleCode);
-                        }
-                            att.push({
-                                StyleCode: attrItems?.StyleCode || "",
-                                Length: attrItems?.Length || "",
-                                Category: attrItems?.Category || "",
-                                Season: attrItems?.Season || "",
-                                Line: attrItems?.Line || "",
-                                Color: attrItems?.Color || "",
-                                ColorCode: attrItems?.ColorCode || "",
-                                Size:attrItems?.Size || "",
-                                Stock88:attrItems?.Stock88 || 0,
-                                Stock90:attrItems?.Stock90 || 0,
-                                
-                                
-                            });
-                        });
+                    if (item &&
+                        item?.category &&
+                        item?.season &&
+                         item?.style_code)
+                     { 
+
+                            categoriesSet.add(item.category);
+                            seasonSet.add(item.season);
+                            styleCodesSet.add(item.style_code);
+                        
+                         
+                        
                     }
 
                  
                     state.travisMethew.push({
-                      id:item.id,
-                       brand: item.attributes.brand || "",
-                        Name: item.attributes.Name || "",
-                        Description: item.attributes.Description || "",
-                        SKU: item.attributes.SKU || "",
-                        MRP: item.attributes.MRP || 0,
-                        GST: item.attributes.GST ||0,
-                        Gallery: item.attributes?.Gallery,
-                        SetType: item.attributes.SetType || "",
-                        ProductType: item.attributes.ProductType || "",
-                        TravisAttributes: att ,
-                        products:item.attributes?.products ,
-                        TotalQty: 0,
-                        Quantity88: 0,
-                        Quantity90: 0,
-                        Amount: 0,
-                        error88:"",
-                        error90:"",
+                      sku: item.sku,
+                            name: item.name,
+                            description: item.description,
+                            mrp: item.mrp,
+                            category: item.category,
+                            gst: item.gst,
+                            brand_id: item.brand_id,
+                            primary_image_url: item.primary_image_url,
+                            gallery_images_url: item.gallery_images_url,
+                            variation_sku: item.variation_sku,
+                            stock_90:item.stock_90,
+                            stock_88:item.stock_88,
+                            Quantity90:0,
+                            Quantity88:0,
+                            Amount:0,
+                            TotalQty:0,
+                            LessGST:0,
+                            LessDiscountAmount:0,
+                            Discount:0,
+                            NetBillings:0,
+                            FinalBillValue:0,
+                            error88:"",
+                            error90:"",
+                            
                         
                         
 
@@ -110,88 +100,88 @@ const TravisMethewSlice = createSlice({
                 });
             }
             }
-            else if(tarvisLength>0){
-              if(travisProduct && travisProduct.length > 0) {
-                travisProduct.forEach((item: BasicModelTravisGraph) => {
-                  const travisIndex = state.travisMethew.findIndex(
-                    (travisItem) => travisItem.SKU === item.attributes.SKU
-                  );
-                  if(travisIndex!==-1){
-                    const trvsRedux=state.travisMethew[travisIndex];
-                     const trvs= state.travisMethew[travisIndex].TravisAttributes
-                      const cusrrent=item.attributes.AttributeSet;
-                      if(trvs&& cusrrent &&trvsRedux){
-                        const rdxStock88=trvs[0].Stock88;
-                        const rdxStock90=trvs[0].Stock90;
-                        const cusrrentStock88=cusrrent[0].Stock88;
-                        const cusrrentStock90=cusrrent[0].Stock90;
-                        if(rdxStock88&& rdxStock90 &&cusrrentStock88 &&cusrrentStock90){
-                          if(rdxStock88!=cusrrentStock88){
+            // else if(tarvisLength>0){
+            //   if(travisProduct && travisProduct.length > 0) {
+            //     travisProduct.forEach((item: BasicModelTravisGraph) => {
+            //       const travisIndex = state.travisMethew.findIndex(
+            //         (travisItem) => travisItem.SKU === item.attributes.SKU
+            //       );
+            //       if(travisIndex!==-1){
+            //         const trvsRedux=state.travisMethew[travisIndex];
+            //          const trvs= state.travisMethew[travisIndex].TravisAttributes
+            //           const cusrrent=item.attributes.AttributeSet;
+            //           if(trvs&& cusrrent &&trvsRedux){
+            //             const rdxStock88=trvs[0].Stock88;
+            //             const rdxStock90=trvs[0].Stock90;
+            //             const cusrrentStock88=cusrrent[0].Stock88;
+            //             const cusrrentStock90=cusrrent[0].Stock90;
+            //             if(rdxStock88&& rdxStock90 &&cusrrentStock88 &&cusrrentStock90){
+            //               if(rdxStock88!=cusrrentStock88){
                            
-                            trvs[0].Stock88=cusrrentStock88;
-                          } if(rdxStock90!=cusrrentStock90){
+            //                 trvs[0].Stock88=cusrrentStock88;
+            //               } if(rdxStock90!=cusrrentStock90){
                            
-                            trvs[0].Stock90=cusrrentStock90;
-                          }
-                          if( trvsRedux.Quantity88&&trvsRedux.Quantity88>cusrrentStock88){
-                            trvsRedux.error88="Quantity is more than Stock"
-                          }
-                          if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
-                            trvsRedux.error90="Quantity is more than Stock"
-                          }
+            //                 trvs[0].Stock90=cusrrentStock90;
+            //               }
+            //               if( trvsRedux.Quantity88&&trvsRedux.Quantity88>cusrrentStock88){
+            //                 trvsRedux.error88="Quantity is more than Stock"
+            //               }
+            //               if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
+            //                 trvsRedux.error90="Quantity is more than Stock"
+            //               }
                         
 
-                        }
-                      }
-                  } else if(travisIndex===-1){
+            //             }
+            //           }
+            //       } else if(travisIndex===-1){
                     
-                    // const att: TravisMathewAttribute[] = [
-                    //   {
-                    //     StyleCode: travisProduct.StyleCode,
-                    //     Length: travisProduct.Length,
-                    //     Category: travisProduct.Category,
-                    //     Season: travisProduct.Season,
-                    //     Line: travisProduct.Line,
-                    //     Color: travisProduct.Color,
-                    //     ColorCode: travisProduct.ColorCode,
-                    //     Size: travisProduct.Size,
-                    //     Gender: travisProduct.Gender || "", 
-                    //     Stock88:travisProduct.Stock88,
-                    //      Stock90:travisProduct.Stock90,
+            //         // const att: TravisMathewAttribute[] = [
+            //         //   {
+            //         //     StyleCode: travisProduct.StyleCode,
+            //         //     Length: travisProduct.Length,
+            //         //     Category: travisProduct.Category,
+            //         //     Season: travisProduct.Season,
+            //         //     Line: travisProduct.Line,
+            //         //     Color: travisProduct.Color,
+            //         //     ColorCode: travisProduct.ColorCode,
+            //         //     Size: travisProduct.Size,
+            //         //     Gender: travisProduct.Gender || "", 
+            //         //     Stock88:travisProduct.Stock88,
+            //         //      Stock90:travisProduct.Stock90,
                         
-                    //      // Assuming Gender might be optional
-                    //   },
-                    // ];
+            //         //      // Assuming Gender might be optional
+            //         //   },
+            //         // ];
             
       
                    
-                    // state.travisMethew.push({
-                    //   brand: travisProduct.brand,
-                    //   Name: travisProduct.Name,
-                    //   Description: travisProduct.Description,
-                    //   SKU: travisProduct.SKU,
-                    //   Gallery: travisProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
-                    //   MRP: travisProduct.MRP,
-                    //   SetType: travisProduct.SetType,
-                    //   ProductType: travisProduct.ProductType,
-                    //   GST: travisProduct.GST,
-                    //   TravisAttributes: att,
+            //         // state.travisMethew.push({
+            //         //   brand: travisProduct.brand,
+            //         //   Name: travisProduct.Name,
+            //         //   Description: travisProduct.Description,
+            //         //   SKU: travisProduct.SKU,
+            //         //   Gallery: travisProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
+            //         //   MRP: travisProduct.MRP,
+            //         //   SetType: travisProduct.SetType,
+            //         //   ProductType: travisProduct.ProductType,
+            //         //   GST: travisProduct.GST,
+            //         //   TravisAttributes: att,
       
-                    //       TotalQty: 0,
-                    //       Quantity88: 0,
-                    //       Quantity90: 0,
-                    //       Amount: 0
-                    // });
-                  }
+            //         //       TotalQty: 0,
+            //         //       Quantity88: 0,
+            //         //       Quantity90: 0,
+            //         //       Amount: 0
+            //         // });
+            //       }
 
-                })
+            //     })
                 
-              }
+            //   }
               
 
                
            
-            }
+            // }
             
         },
            reloadCategory:(state,action)=>{
@@ -209,73 +199,41 @@ const TravisMethewSlice = createSlice({
             if (travisProduct) {
               
                 const travisIndex = state.travisMethew.findIndex(
-                  (travisItem) => travisItem.SKU === travisProduct.SKU
+                  (travisItem) => travisItem.sku === travisProduct.sku
                 );
           
                 if (travisIndex===-1) {
+                  state.travisMethew.push({
+                    sku: travisProduct.sku,
+                          name: travisProduct.name,
+                          description: travisProduct.description,
+                          mrp: travisProduct.mrp,
+                          category: travisProduct.category,
+                          gst: travisProduct.gst,
+                          brand_id: travisProduct.brand_id,
+                          primary_image_url: travisProduct.primary_image_url,
+                          gallery_images_url: travisProduct.gallery_images_url,
+                          variation_sku: travisProduct.variation_sku,
+                          stock_90:travisProduct.stock_90,
+                          stock_88:travisProduct.stock_88,
+                          Quantity90:0,
+                          Quantity88:0,
+                          Amount:0,
+                          TotalQty:0,
+                          LessGST:0,
+                          LessDiscountAmount:0,
+                          Discount:0,
+                          NetBillings:0,
+                          FinalBillValue:0,
+                          error88:"",
+                          error90:"",
+                          
+                  })
                 
-                  const att: TravisMathewAttribute[] = [
-                    {
-                      StyleCode: travisProduct.StyleCode,
-                      Length: travisProduct.Length,
-                      Category: travisProduct.Category,
-                      Season: travisProduct.Season,
-                      Line: travisProduct.Line,
-                      Color: travisProduct.Color,
-                      ColorCode: travisProduct.ColorCode,
-                      Size: travisProduct.Size,
-                      Gender: travisProduct.Gender || "", 
-                      Stock88:travisProduct.Stock88,
-                       Stock90:travisProduct.Stock90,
-                      
-                       // Assuming Gender might be optional
-                    },
-                  ];
-          
 
                  
-                  state.travisMethew.push({
-                    brand: travisProduct.brand,
-                    Name: travisProduct.Name,
-                    Description: travisProduct.Description,
-                    SKU: travisProduct.SKU,
-                    Gallery: travisProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
-                    MRP: travisProduct.MRP,
-                    SetType: travisProduct.SetType,
-                    ProductType: travisProduct.ProductType,
-                    GST: travisProduct.GST,
-                    TravisAttributes: att,
-
-                        TotalQty: 0,
-                        Quantity88: 0,
-                        Quantity90: 0,
-                        Amount: 0
-                  });
-                } else{
-                  state.travisMethew[travisIndex].Name=travisProduct.Name!=null ? travisProduct.name:state.travisMethew[travisIndex].Name;
-                  state.travisMethew[travisIndex].Description=travisProduct.Description!=null ? travisProduct.Description:state.travisMethew[travisIndex].Description;
-                  state.travisMethew[travisIndex].MRP=travisProduct.MRP!=null ? travisProduct.MRP:state.travisMethew[travisIndex].MRP;
-                  state.travisMethew[travisIndex].GST=travisProduct.GST!=null ? travisProduct.GST:state.travisMethew[travisIndex].GST;
-                      const trs=state.travisMethew[travisIndex]?.TravisAttributes
-
-                    if( trs){
-                      trs[0].StyleCode=travisProduct.StyleCode!=null ? travisProduct.StyleCode:trs[0].StyleCode;
-                      trs[0].Length=travisProduct.Length!=null ? travisProduct.Length:trs[0].Length;
-                      trs[0].Category=travisProduct.Category!=null ? travisProduct.Category:trs[0].Category;
-                      trs[0].Season=travisProduct.Season!=null ? travisProduct.Season:trs[0].Season;
-                      trs[0].Line=travisProduct.Line!=null ? travisProduct.Line:trs[0].Line;
-                      trs[0].Color=travisProduct.Color!=null ? travisProduct.Color:trs[0].Color;
-                      trs[0].ColorCode=travisProduct.ColorCode!=null ? travisProduct.ColorCode:trs[0].ColorCode;
-                      trs[0].Gender=travisProduct.Gender!=null ? travisProduct.Gender:trs[0].Gender;
-                      trs[0].Stock88=travisProduct.Stock88!=null ? travisProduct.Stock88:trs[0].Stock88;
-                      trs[0].Stock90=travisProduct.Stock90!=null ? travisProduct.Stock90:trs[0].Stock90;
-                      trs[0].Size=travisProduct.Size!=null ? travisProduct.Size:trs[0].Size;
-                      
-                    }
-                  
-
-
-                }
+              
+                } 
               
             }
           }
