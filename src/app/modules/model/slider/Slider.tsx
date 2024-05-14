@@ -15,11 +15,11 @@ const Slider = () => {
               <div className='prodect-image'>
         
               
-                <img src="https://admin.callawayindiaoms.com/uploads/24_8d8dd65fde.png"></img>
+                <img style={{height:"427px"}} src="https://admin.callawayindiaoms.com/uploads/24_8d8dd65fde.png"></img>
               </div>
               <div className='prodect-image'>
               
-                <img src="https://admin.callawayindiaoms.com/uploads/18_b3b08ebc11.png"></img>
+                <img style={{height:"427px"}} src="https://admin.callawayindiaoms.com/uploads/18_b3b08ebc11.png"></img>
               </div>
             </Carousel>
 
