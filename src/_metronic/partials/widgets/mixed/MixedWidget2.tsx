@@ -1,7 +1,7 @@
 
 import {useEffect, useRef, FC} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
-import {KTIcon} from '../../../helpers'
+import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import {getCSSVariableValue} from '../../../assets/ts/_utils'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
@@ -52,7 +52,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
         </div>
 
         <div className='card-toolbar col-6 justify-content-end'>                
-       <img width="100" src='http://localhost:5173/media/logos/logo-white.png'></img>
+       <img width="100" src={toAbsoluteUrl('media/logos/logo-white.png')}></img>
              
         </div>
 
