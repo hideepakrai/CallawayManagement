@@ -46,18 +46,7 @@ const CartProduct = () => {
       <div className="card card-custom">
         <div className="card-header">
           <ul className="nav nav-tabs nav-line-tabs border-0 mb-5 fs-6 mt-6 ">
-            {/* <li className="nav-item">  
-              <a className={`nav-link active-tab ${activeTab === 'apparel' ? 'active' : ''} `} href="#kt_tab_pane_Apperal" onClick={() => setActiveTab('apparel')}>
-                Callaway Apparel
-              </a>
-            </li> */}
-
-
-            {/* <li className="nav-item">  
-              <a className={`nav-link active-tab ${activeTab === 'goods' ? 'active' : ''}`} href="#kt_tab_pane_Goods" onClick={() => setActiveTab('goods')}>
-                Callaway Goods
-              </a>
-            </li> */}
+          
 
 
           
