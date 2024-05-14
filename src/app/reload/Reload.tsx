@@ -8,7 +8,7 @@ import {getCurrentUser,getAdminToken,
 import { useSelector, useDispatch } from 'react-redux'
 
 import {getTravisProducts,getCategory,getStyleCode,getOtherProducts} from "../slice/allProducts/TravisMethewSlice";
-import {getOgioProducts} from "../slice/allProducts/OgioSlice"
+import {addOgioProduct, getOgioProducts} from "../slice/allProducts/OgioSlice"
 
 import { useAuth } from '../modules/auth/core/Auth'
 import { parse } from 'path';
@@ -37,14 +37,29 @@ const Reload = () => {
             localStorage.setItem('getCurrentUsers',JSON.stringify(getCurrentUsers))
             localStorage.setItem('getAdminTokens',JSON.stringify(getAdminTokens))
             localStorage.setItem('getUserAccounts',JSON.stringify(getUserAccounts))
-          
+            localStorage.setItem('getOgioProduct',JSON.stringify(getOgioProduct))
            
-     } 
+     }  else if(getCurrentUsers && 
+      getCurrentUsers.length === 0 &&
+      getUserAccounts &&
+      getOgioProduct &&getOgioProduct.length === 0) {
+9
+        
+         dispatch(addUser({
+          currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
+          UserAccount:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
+          adminToken: JSON.parse(localStorage.getItem('getAdminTokens') as string)
+         }))
+        dispatch(addOgioProduct({
+          ogioProduct:JSON.parse(localStorage.getItem('getOgioProduct') as string)
+        }))
+  
+     }
      
 
     },[getCurrentUsers,
       getAdminTokens,
-      getUserAccounts
+      getUserAccounts,getOgioProduct
       ]);
 
 

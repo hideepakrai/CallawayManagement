@@ -17,6 +17,7 @@ import OgioGallery from"./column/OgioGallery"
 import {addOgioOrder,removeOgioOrder} from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
 import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 import { useNavigate } from 'react-router-dom';
+import { checkIsActive } from '../../../../../_metronic/helpers';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -68,6 +69,7 @@ const OgioTable = () => {
           dataIndex: "sku",
           width: 100,
           fixed: "left",
+          key:'sku',
           
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
             <div  style={{ padding: 8, position: "absolute", top: -90, backgroundColor: "white", zIndex: 1 }}>
@@ -93,11 +95,13 @@ const OgioTable = () => {
             }
           },
           onFilter: (value, record) => {
-             
+                console.log("filter Record",record)
               let check: boolean= false
             const val:string=value.toString().toUpperCase()
+              console.log("value",val)
               if(record && record.sku){
                  check= record.sku?.startsWith(val)
+                 console.log("check",check)
               }
            
             return  check;
@@ -120,7 +124,7 @@ const OgioTable = () => {
                  placeholder="Search Name"
                  value={selectedKeys[0]}
                  onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                 onPressEnter={() => confirm()}
+                 onKeyUp={() => confirm()}
                  style={{ width: 188, marginBottom: 8, display: "block" }}
                />
              </div>
@@ -171,6 +175,8 @@ const OgioTable = () => {
                 placeholder="Select Category"
                 value={selectedKeys}
                 onChange={setSelectedKeys}
+                onSelect={() => { confirm(); }}
+                onDeselect={() => { confirm(); }}
                 style={{ width: '100%' }}
                 placement={placement} 
               >
@@ -222,6 +228,8 @@ const OgioTable = () => {
                 placeholder="Select Category"
                 value={selectedKeys}
                 onChange={setSelectedKeys}
+                onSelect={() => { confirm(); }}
+                onDeselect={() => { confirm(); }}
                 style={{ width: '100%' }}
                 placement={placement} 
               >
@@ -277,6 +285,8 @@ const OgioTable = () => {
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
                 placement={placement} 
+                onSelect={() => { confirm(); }}
+                onDeselect={() => { confirm(); }}
               >
                 {/* Render options based on available categories */}
                 {filteredOptions2.map((item) => (

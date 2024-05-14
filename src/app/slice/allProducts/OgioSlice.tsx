@@ -47,6 +47,12 @@ const OgioSlice = createSlice({
             if(ogiolength===0){
                 if(ogioProduct && ogioProduct.length > 0) {
                     ogioProduct.map((item:OgioBasicModel)=>{
+
+                        if(item.category && item.product_model&&item.product_type){
+                            categoriesSet.add(item.category);
+                            productTypeSet.add(item.product_type);
+                            prodctModelSet.add(item.product_model);
+                          }
                         state.ogio.push({
                             sku: item.sku,
                             name: item.name,
@@ -70,11 +76,17 @@ const OgioSlice = createSlice({
                             NetBillings:0,
                             FinalBillValue:0,
                             error:""
-                           
-
-
+          
                         })
+                         // Add unique values to the sets
+                         
+            
                     })
+                    state.uniqueCategories=(Array.from(categoriesSet));
+                    state.uniqueProductType=(Array.from(productTypeSet));
+                    state.uniqueProductModel=(Array.from(prodctModelSet));
+
+
                 }  
             }
             else if(ogiolength>0){
