@@ -243,12 +243,22 @@ const OgioSlice = createSlice({
                const amount=state.ogio[ogioIndex].Amount;
                
                 if(mrp &&gst && amount){
-                    const gstdiscount= (amount)-((100*amount)/(100+gst))
-                    const netbill=amount-((amount*22)/100)-(gstdiscount);
-                    state.ogio[ogioIndex].LessGST=gstdiscount
-                    state.ogio[ogioIndex].LessDiscountAmount=(amount*22)/100;
-                    state.ogio[ogioIndex].NetBillings=amount-(qty90*gst*mrp/100);
-                    state.ogio[ogioIndex].FinalBillValue=netbill+(gst*netbill/100)
+                    const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
+    
+  
+    const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
+   
+    const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
+    
+  
+    const netBillings = parseFloat((amount - (qty90 * gst * mrp / 100)).toFixed(2));
+   
+    const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+
+    state.ogio[ogioIndex].LessGST = gstdiscount;
+    state.ogio[ogioIndex].LessDiscountAmount = lessDiscountAmount;
+    state.ogio[ogioIndex].NetBillings = netBillings;
+    state.ogio[ogioIndex].FinalBillValue = finalBillValue;
                 }
                 
             } else if(ogioIndex!== -1 &&qty90==0) {
@@ -260,48 +270,67 @@ const OgioSlice = createSlice({
           },
           updateOgioInclusiveDiscount:(state,action)=>{
             const {discount}= action.payload;
-            state.ogio.forEach((item=>{
-                item.Discount=discount;
-                const gst= item.gst||0
-                const salP=item.Amount ||0;
-                const gstdiscount= (salP)-((100*salP)/(100+gst))
-                item.LessGST=gstdiscount;
-                item.LessDiscountAmount=(salP*discount)/100;
-               const netbill=salP-((salP*discount)/100)-(gstdiscount);
-               const totalNetbill=netbill+(gst*netbill/100)
-               item.NetBillings=netbill;
-               item.FinalBillValue=totalNetbill;
-            }))
+            state.ogio.forEach((item) => {
+                item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+            
+                const gst = item.gst||0; // Parse gst to float or default to 0
+                const salP = item.Amount || 0; // Parse Amount to float or default to 0
+            
+                const gstdiscount = parseFloat((salP - ((100 * salP) / (100 + gst))).toFixed(2));
+                item.LessGST = gstdiscount;
+            
+                const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+
+                item.LessDiscountAmount = lessDiscountAmount;
+            
+                const netbill = parseFloat((salP - ((salP * discount) / 100) - gstdiscount).toFixed(2));
+                item.NetBillings = netbill;
+            
+                const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+                item.FinalBillValue = totalNetbill;
+            });
         },
         updateOgioExclusiveDiscount:(state,action)=>{
             const {discount}=action.payload;
-            state.ogio.forEach((item=>{
-                item.Discount=discount;
-                const gst= item.gst||0
-               item.LessGST=0;
-                const salP=item.Amount ||0;
-                item.LessDiscountAmount=(salP*discount)/100;
-               const netbill=salP-((salP*discount)/100);
-               const totalNetbill=netbill+(gst*netbill/100)
-               item.NetBillings=netbill;
-               item.FinalBillValue=totalNetbill;
-            }))
+            state.ogio.forEach((item) => {
+                item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+            
+                const gst = item.gst || 0; // Parse gst to float or default to 0
+                const salP = item.Amount || 0; // Parse Amount to float or default to 0
+            
+                item.LessGST = 0; // Initialize LessGST to 0
+            
+                const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+                item.LessDiscountAmount = lessDiscountAmount;
+            
+                const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+                item.NetBillings = netbill;
+            
+                const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+                item.FinalBillValue = totalNetbill;
+            });
 
 
         },
         updateOgioFlatDiscount:(state,action)=>{
             const {discount}=action.payload;
-            state.ogio.forEach((item=>{
-                item.Discount=discount;
-               
-               item.LessGST=0;
-                const salP=item.Amount ||0;
-                item.LessDiscountAmount=(salP*discount)/100;
-               const netbill=salP-((salP*discount)/100);
-               const totalNetbill=netbill;
-               item.NetBillings=netbill;
-               item.FinalBillValue=totalNetbill;
-            }))
+            state.ogio.forEach((item) => {
+                item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+            
+                item.LessGST = 0; // Initialize LessGST to 0
+            
+                const salP =item.Amount || 0; // Parse Amount to float or default to 0
+            
+                const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+                item.LessDiscountAmount = lessDiscountAmount;
+            
+                const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+                item.NetBillings = netbill;
+            
+                const totalNetbill = parseFloat(netbill.toFixed(2));
+                item.FinalBillValue = totalNetbill;
+            });
+            
 
 
         },

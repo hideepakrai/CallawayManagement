@@ -54,28 +54,19 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
    const dispatch= useDispatch()
 
   useEffect(() => {
-    // Load authentication state from local storage
 
-    const getCurrentUser=JSON.parse(localStorage.getItem('getCurrentUsers') as string)
-    console.log("getCurrentUser",getCurrentUser)
+    // eslint-disable-next-line no-debugger
+    debugger
+    // Load authentication state from local storage
     saveAuth(JSON.parse(localStorage.getItem('getCurrentUsers') as string))
     setCurrentUser(JSON.parse(localStorage.getItem('getUserAccounts') as string))
     dispatch(addUserAccount({
-      UserAccount:JSON.parse(localStorage.getItem('getUserAccounts') as string)
-     }))
-     dispatch(addUser({
-      currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string)
-     }))
-    //  dispatch(reloadTravisProduct({
-    //   reloadTravis:JSON.parse(localStorage.getItem('getTravisProduct')as string)
-    //  }))
-
-    //  dispatch(reloadCategory({
-    //   reloadCategory:JSON.parse(localStorage.getItem('getCategorys')as string) 
-    //  }))
-    //  dispatch(reloadStyleCode({
-    //   reloadStyleCode:JSON.parse(localStorage.getItem('getStyleCodes')as string) 
-    //  }))
+      UserAccount:JSON.parse(localStorage.getItem('getUserAccounts') as string),
+      currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
+      adminToken: JSON.parse(localStorage.getItem('getAdminTokens') as string)
+    }))
+    
+  
   }, []);
 
   return (

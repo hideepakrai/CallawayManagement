@@ -23,7 +23,7 @@ export function AddOgioProduct(data:OgioBasicModel){
 
   export function UpdateOgioProduct(data: OgioBasicModel){
     const addData=[data]
-    return axios.post(`${STRAPI_URL}/update-ogio`,addData,
+    return axios.post(`${serverUrl}/update-ogio`,addData,
     {
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export function AddOgioProduct(data:OgioBasicModel){
 
   export function UpdateStockQuantity (allData:OgioBasicModel[]){
    
-    return axios.post(`${STRAPI_URL}//ogio/update-stock`,allData,
+    return axios.post(`${serverUrl}//ogio/update-stock`,allData,
     {
         headers: {
           "Content-Type": "application/json",

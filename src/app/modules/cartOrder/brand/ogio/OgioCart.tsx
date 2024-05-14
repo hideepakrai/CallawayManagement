@@ -641,7 +641,7 @@ const handleResetUSerAccount=()=>{
 const handleUpdateStrapi=()=>{
   setIsUpdateStrapi(false)
   setIsUpdateRedux(true)
-}
+}  
 
 const handleUpdateRedux=()=>{
   console.log("finally finished all task")

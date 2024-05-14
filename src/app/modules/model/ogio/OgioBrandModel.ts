@@ -28,11 +28,11 @@ export interface OgioBasicModel {
       Quantity88?: number|null;
        Quantity90?: number|null;
        ordered?: boolean, 
-       LessGST?:number,
-       Discount?:number,
+       LessGST?:number|null,
+       Discount?:number|null,
        LessDiscountAmount?:number,
-       NetBillings?:number,
-       FinalBillValue?:number,
+       NetBillings?:number|null,
+       FinalBillValue?:number|null,
        error?:string,
 }
 

@@ -11,7 +11,12 @@ export function GetUserOrder(userId:number, type:string){
         type:type
     }
    
-    return axios.post(`${serverUrl}/get-user-orders`,data
+    return axios.post(`${serverUrl}/get-user-orders`,data,
+    {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     
     )
     .then(response=>{

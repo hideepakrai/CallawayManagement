@@ -11,6 +11,7 @@ import {getTravisProducts,getCategory,getStyleCode,getOtherProducts} from "../sl
 import {getOgioProducts} from "../slice/allProducts/OgioSlice"
 
 import { useAuth } from '../modules/auth/core/Auth'
+import { parse } from 'path';
 const Reload = () => {
     const dispatch = useDispatch();
     const { saveAuth, setCurrentUser } = useAuth()
@@ -29,28 +30,24 @@ const Reload = () => {
       debugger
      if(getCurrentUsers &&
          getUserAccounts&&
-         
-         getTravisProduct
-       
+         getAdminTokens &&
+         getOgioProduct
+
         ){
             localStorage.setItem('getCurrentUsers',JSON.stringify(getCurrentUsers))
             localStorage.setItem('getAdminTokens',JSON.stringify(getAdminTokens))
             localStorage.setItem('getUserAccounts',JSON.stringify(getUserAccounts))
+          
            
-            localStorage.setItem('getOtherProduct',JSON.stringify(getOtherProduct))
-            localStorage.setItem('getTravisProduct',JSON.stringify(getTravisProduct))
-            localStorage.setItem('getOgioProduct', JSON.stringify(getOgioProduct))
-            localStorage.setItem('getCategorys', JSON.stringify(getCategorys))
-            localStorage.setItem('getStyleCodes', JSON.stringify(getStyleCodes))
-     }
+     } 
+     
 
     },[getCurrentUsers,
       getAdminTokens,
-      getUserAccounts,
-      
-      getUserOrder,
-      getTravisProduct,
-      getOgioProduct]);
+      getUserAccounts
+      ]);
+
+
 
    
   return (

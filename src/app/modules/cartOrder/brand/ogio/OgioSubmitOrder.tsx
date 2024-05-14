@@ -87,8 +87,7 @@ if(getRetailerDetail &&
     
 
   const handleCreateOrder = () => {
-      // eslint-disable-next-line no-debugger
-      debugger
+    
       dispatch(LoadingStart());
       const orderId = generateUniqueNumeric();
       const now = new Date();
