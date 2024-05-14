@@ -55,7 +55,7 @@ const MixedWidget16: FC<Props> = ({className, chartColor, chartHeight, strokeCol
         </div>
 
         <div className='card-toolbar col-5 justify-content-end'>                
-       <img width="100" src={toAbsoluteUrl('media/logos/logo-white.png')}></img>
+       <img width="100" src='/public/media/logos/logo-white.png'></img>
              
         </div>
 

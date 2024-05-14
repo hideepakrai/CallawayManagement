@@ -243,7 +243,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
       });
   return (
     <div>
-      <Card style={{marginLeft:"20px", marginRight:"20px", paddingLeft:"30px"}}>
+      <Card style={{marginLeft:"20px",  marginRight:"20px", paddingLeft:"30px"}}>
         <Button 
         onClick={() => {
           handlePrint(null, () => contentToPrint.current);

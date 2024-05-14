@@ -175,10 +175,11 @@ const OgioCart = () => {
       },
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Category"
+           
             value={selectedKeys}
             onChange={setSelectedKeys}
             style={{ width: '100%' }}
@@ -226,10 +227,11 @@ const OgioCart = () => {
       },
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Category"
+        
             value={selectedKeys}
             onChange={setSelectedKeys}
             style={{ width: '100%' }}
@@ -279,10 +281,11 @@ const OgioCart = () => {
       },
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Category"
+           
             value={selectedKeys}
             onChange={setSelectedKeys}
             style={{ width: '100%' }}
@@ -670,7 +673,12 @@ const handleUpdateRedux=()=>{
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
             style={{ maxHeight: "1600px" }}
-            pagination={{ defaultPageSize: 20 }}
+           
+            pagination={{
+              position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+              defaultPageSize: 20
+            }}
+            
             footer={() => (
               <div
                 style={{

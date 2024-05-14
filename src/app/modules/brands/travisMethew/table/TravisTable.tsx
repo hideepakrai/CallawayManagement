@@ -79,7 +79,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           fixed: "left",
           
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div  style={{ padding: 8, position: "absolute", top: -90, backgroundColor: "white", zIndex: 1 }}>
+            <div  style={{ padding: 8, width:"300px", position: "absolute", top: -90,  zIndex: 1 }}>
               <Input
                 ref={searchInput}
 
@@ -134,7 +134,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
            fixed: "left",
            filterMode: 'tree',
            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Input
                 placeholder="Search Name"
                 value={selectedKeys[0]}
@@ -178,10 +178,11 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             return categoryA.localeCompare(categoryB);
           },
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
                 placeholder="Select Category"
+             
                 value={selectedKeys}
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
@@ -238,7 +239,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             return seasonA.localeCompare(seasonB);
           },
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
                 placeholder="Select Season"
@@ -293,7 +294,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           return styleCodeA.localeCompare(styleCodeB);
         },
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-          <div style={{ padding: 8 }}>
+          <div style={{ padding: 8,width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
             <Select
               mode="multiple"
               placeholder="Select Style"
@@ -1091,22 +1092,22 @@ return (
         >
           
           <div style={{ float: "right",marginBottom:"12px" }}>
-            <Button className='mx-3' 
+            <Button className='mx-3 select-btn-detail' 
            onClick={handleViewCard}
-            >View cart</Button>
+            > <i className="bi bi-bag-check"></i> View cart</Button>
 
-            <Button className='mx-3'
+            <Button className='mx-3 select-btn-detail'
             onClick={handleImport}
-            >Import Products</Button>
-            <Button  className='mx-3'
+            >  <i className="bi bi-file-earmark-arrow-up"></i> Import Products</Button>
+            <Button  className='mx-3 select-btn-detail'
             onClick={handleExportToPDF} 
-            >Export to PDF</Button>
-            <Button  className='mx-3'
+            ><i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button>
+            <Button  className='mx-3 select-btn-detail'
            onClick={handleExportToExcel}
-            >Export to Excel</Button>
-            <Button className='mx-3'
+            > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
+            <Button className='mx-3 select-btn-detail'
              onClick={handleSampleExcel}
-             >Sample Excel</Button>
+             ><i className="bi bi-file-spreadsheet"></i> Sample Excel</Button>
           </div>
 
 
@@ -1124,8 +1125,11 @@ return (
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
-            style={{ maxHeight: "1600px" }}
-            pagination={{ defaultPageSize: 20 }}
+          
+            pagination={{
+              position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+              defaultPageSize: 20
+            }}
           />
 
           
