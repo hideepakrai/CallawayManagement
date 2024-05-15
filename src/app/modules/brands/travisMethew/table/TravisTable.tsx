@@ -451,7 +451,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             render: (value,record) => (
               <Tooltip  open={record.sku=== qty88ToolSKU ?isQty88ToolTip:false} title={record.sku=== qty88ToolSKU ? qty88ToolMesage : ""} placement="top">
               <InputNumber
-              
+               status={record.sku=== qty88ToolSKU &&qty88ToolMesage!=""?"error":""}
               className='mx-3 number-input'
               addonBefore={record.stock_88} 
               value={record.Quantity88?.toString()}
@@ -480,6 +480,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
               
               <Tooltip  open={record.sku=== qty90ToolSKU ?isQty90ToolTip:false} title={record.sku=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
               <InputNumber
+               status={record.sku=== qty90ToolSKU &&qty90ToolMesage!=""?"error":""}
               className='mx-5 number-input'
               addonBefore={record.stock_90||0} 
               value={record.Quantity90?.toString()}
@@ -612,7 +613,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           disabled={value[0]?.Stock88 === 0} 
           /> */}
            <InputNumber
-              
+               status={record.sku=== qty88ToolSKU &&qty88ToolMesage!=""?"error":""}
               className='mx-3 number-input'
               addonBefore={value[0]?.Stock88} 
               value={record.Quantity88?.toString()}
@@ -647,6 +648,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         /> */}
 
 <InputNumber
+ status={record.sku=== qty90ToolSKU &&qty90ToolMesage!=""?"error":""}
               className='mx-5 number-input'
               addonBefore={value[0]?.Stock90||0} 
               value={record.Quantity90?.toString()}
@@ -803,6 +805,20 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
   const [qty90ToolMesage, setQty90Message]= useState<string>("")
    const [qty90ToolSKU, setQty90SKU]= useState<string|undefined>("")
   const [isQty90ToolTip, setIsQty90ToolTip]= useState<boolean>(false)
+  
+  useEffect(()=>{
+    if(qty90ToolMesage){
+      console.log("qty90ToolMesage",qty90ToolMesage)
+      const timeout = setTimeout(() => {
+        setQty90Message("");
+        //setQty90SKU("");
+        setIsQty90ToolTip(false)
+      }, 3000); // 3 seconds
+  
+      return () => clearTimeout(timeout);
+    }
+   },[qty90ToolMesage])
+  
   const handleQuantity90 = (value: string, record: BasicModelTravis) => {
 
     const intValue = parseInt(value, 10);
@@ -867,6 +883,21 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
    const [qty88ToolMesage, setQty88Message]= useState<string>("")
    const [qty88ToolSKU, setQty88SKU]= useState<string|undefined>("")
   const [isQty88ToolTip, setIsQty88ToolTip]= useState<boolean>(false)
+  
+  
+  useEffect(()=>{
+    if(qty88ToolMesage){
+      console.log("qty90ToolMesage",qty88ToolMesage)
+      const timeout = setTimeout(() => {
+        setQty88Message("");
+        //setQty90SKU("");
+        setIsQty88ToolTip(false)
+      }, 3000); // 3 seconds
+  
+      return () => clearTimeout(timeout);
+    }
+   },[qty88ToolMesage])
+  
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
 
     const intValue = parseInt(value, 10);
@@ -879,9 +910,9 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
       
 
       dispatch(updateQuantity88({
-        sku: record.SKU,
+        sku: record.sku,
         qty88: intValue,
-        MRP: record.MRP,
+        MRP: record.mrp,
       }));
     
     }
@@ -892,7 +923,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
       setQty88SKU(record.sku)
       const st88=(record&& record.stock_88)? record.stock_88:0;
      dispatch(updateQuantity88({
-      sku: record.SKU,
+      sku: record.sku,
       qty88:st88 ,
       MRP: record.mrp
     }));
@@ -903,13 +934,13 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
     // alert("Quantity cannot be negative")
     setQty88Message("Quantity cannot be negative")
     setIsQty88ToolTip(true)
-    setQty88SKU(record.SKU)
+    setQty88SKU(record.sku)
     console.log("Quantity cannot be negative")
   } else if(intValue===0){
     dispatch(updateQuantity88({
-      sku: record.SKU,
+      sku: record.sku,
       qty88: intValue,
-      MRP: record.MRP,
+      MRP: record.mrp,
     }));
   
     
@@ -920,6 +951,13 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
   const [qty881ToolMesage, setQty881Message]= useState<string>("")
    const [qty881ToolSKU, setQty881SKU]= useState<string|undefined>("")
   const [isQty881ToolTip, setIsQty881ToolTip]= useState<boolean>(false)
+  
+  
+  
+
+
+
+   
   const handleQuantity881 = (value: string, record: BasicModelTravis) => {
     setQty881Message("");
     setIsQty881ToolTip(false);
