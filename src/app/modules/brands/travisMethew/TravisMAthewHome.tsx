@@ -3,6 +3,7 @@ import TravisTable from "./table/TravisTable"
 import TravisHeader from './header/TravisHeader'
 import Slider from '../../model/slider/Slider'
 import "./TravisMAthewHome.css";
+import Reload from "../../../reload/Reload"
 const TravisMAthewHome = () => {
   return (
     <div>
@@ -23,6 +24,7 @@ const TravisMAthewHome = () => {
 {/* 
 <TravisHeader/> */}
  <TravisTable/>
+ <Reload/>
  </div>
     </div>
   )

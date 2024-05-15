@@ -7,7 +7,7 @@ import {getCurrentUser,getAdminToken,
   addUserAccount} from "../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from 'react-redux'
 
-import {getTravisProducts,getCategory,getStyleCode,getOtherProducts} from "../slice/allProducts/TravisMethewSlice";
+import {getTravisProducts,getCategory,getStyleCode,getOtherProducts, addTravisProduct} from "../slice/allProducts/TravisMethewSlice";
 import {addOgioProduct, getOgioProducts} from "../slice/allProducts/OgioSlice"
 
 import { useAuth } from '../modules/auth/core/Auth'
@@ -30,18 +30,22 @@ const Reload = () => {
      if(getCurrentUsers &&
          getUserAccounts&&
          getAdminTokens &&
-         getOgioProduct
+         getOgioProduct &&
+         getTravisProduct
 
         ){
             localStorage.setItem('getCurrentUsers',JSON.stringify(getCurrentUsers))
             localStorage.setItem('getAdminTokens',JSON.stringify(getAdminTokens))
             localStorage.setItem('getUserAccounts',JSON.stringify(getUserAccounts))
             localStorage.setItem('getOgioProduct',JSON.stringify(getOgioProduct))
+            localStorage.setItem('getTravisProduct',JSON.stringify(getTravisProduct))
            
      }  else if(getCurrentUsers && 
       getCurrentUsers.length === 0 &&
       getUserAccounts &&
-      getOgioProduct &&getOgioProduct.length === 0) {
+      getOgioProduct &&getOgioProduct.length === 0 &&
+      getTravisProduct &&getTravisProduct.length === 0
+    ) {
 9
         
          dispatch(addUser({
@@ -51,6 +55,9 @@ const Reload = () => {
          }))
         dispatch(addOgioProduct({
           ogioProduct:JSON.parse(localStorage.getItem('getOgioProduct') as string)
+        }))
+        dispatch(addTravisProduct({
+          travisProduct:JSON.parse(localStorage.getItem('getTravisProduct') as string)
         }))
   
      }

@@ -122,6 +122,12 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           key: 'gst',
           width: 80,
         },
+        {
+          title: 'variation_sku',
+          dataIndex: 'variation_sku',
+          key: 'variation_sku',
+          width: 80,
+        },
       ];
       
       const excelData: BasicModelTravis[] = [

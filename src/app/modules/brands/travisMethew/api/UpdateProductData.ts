@@ -3,11 +3,11 @@ import axios from "axios";
 import {ExcelModelTravis} from "../../../model/travis/TravisExcel";
 import {BasicModelTravis,UpdateTravisModel} from "../../../model/travis/TravisMethewModel";
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
-
+export  const serverUrl= import.meta.env.VITE_APP_MY_SERVER_URL;
 // get USer Role 
-export function UpdateTravisProduct(data:UpdateTravisModel, id:number){
-
-    return axios.put(`${STRAPI_URL}/api/products/${id}`,data,
+export function UpdateTravisProduct(data:BasicModelTravis, id:number){
+  const update=[data]
+    return axios.post(`${serverUrl}/update-travis`,update,
     {
         headers: {
           "Content-Type": "application/json",
@@ -25,8 +25,9 @@ export function UpdateTravisProduct(data:UpdateTravisModel, id:number){
   }
 
 
-  export function AddNewProduct(data: UpdateTravisModel){
-    return axios.post(`${STRAPI_URL}/api/products`,data,
+  export function AddNewProduct(data: BasicModelTravis){
+    const newData=[data]
+    return axios.post(`${serverUrl}/add-travis`,newData,
     {
         headers: {
           "Content-Type": "application/json",

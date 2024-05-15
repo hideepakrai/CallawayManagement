@@ -198,10 +198,9 @@ const TravisMethewSlice = createSlice({
             state.uniqueStyleCode=action.payload.reloadStyleCode
            },
 
-        updateNewData: (state, action) => {
-            const { travisProduct, id } = action.payload;
-            
-            
+        updateReduxData: (state, action) => {
+            const { travisProduct } = action.payload;
+
             if (travisProduct) {
               
                 const travisIndex = state.travisMethew.findIndex(
@@ -240,18 +239,70 @@ const TravisMethewSlice = createSlice({
                  
               
                 } 
+                else if (travisIndex!==-1){
+                  const rdx= state.travisMethew[travisIndex];
+                  if(travisProduct.name!==undefined){
+                    rdx.name=travisProduct.name
+                  } 
+                   if(travisProduct.description!==undefined){
+                    rdx.description=travisProduct.description
+                  }
+                   if(travisProduct.mrp!==undefined){
+                    rdx.mrp=travisProduct.mrp
+                  }
+                  if(travisProduct.category!==undefined){
+                    rdx.category=travisProduct.category
+                  }
+                  if(travisProduct.season!==undefined){
+                    rdx.season=travisProduct.season
+                  }
+                  if(travisProduct.style_code!==undefined){
+                    rdx.style_code=travisProduct.style_code
+                  }
+                  if(travisProduct.color!==undefined){
+                    rdx.color=travisProduct.color
+                  }
+                  if(travisProduct.gst!==undefined){
+                    rdx.gst=travisProduct.gst
+                  }
+                  if(travisProduct.primary_image_url!==undefined){
+                    rdx.primary_image_url=travisProduct.primary_image_url
+                  }
+                  if(travisProduct.gallery_images_url!==undefined){
+                    rdx.gallery_images_url=travisProduct.gallery_images_url
+                  }
+                  if(travisProduct.gallery_images_url!==undefined){
+                    rdx.gallery_images_url=travisProduct.gallery_images_url
+                  }
+                  if(travisProduct.variation_sku!==undefined){
+                    rdx.variation_sku=travisProduct.variation_sku
+                  }
+                  if(travisProduct.stock_90!==undefined){
+                    rdx.stock_90=travisProduct.stock_90
+                  }
+                  if(travisProduct.stock_88!==undefined){
+                    rdx.stock_88=travisProduct.stock_88
+                  }
+                  
+                 
+                  
+                 
+                  
+
+
+
+
+                }
               
             }
           }
           ,
 
           updateQuantity90:(state,actions) => {
-          
-            
-            
+        
             const {sku, qty90,MRP}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(
-              (travisItem) => travisItem.SKU === sku
+              (travisItem) => travisItem.sku === sku
             );
             if (travisIndex!== -1) {
               state.travisMethew[travisIndex].Quantity90 = qty90;
@@ -263,22 +314,80 @@ const TravisMethewSlice = createSlice({
               
               state.travisMethew[travisIndex].Amount = MRP*(quantity88+quantity90)
               state.travisMethew[travisIndex].ordered = true;
+              const gst=state.travisMethew[travisIndex].gst;
+               const mrp=state.travisMethew[travisIndex].mrp;
+               const amount=state.travisMethew[travisIndex].Amount;
+               if(mrp &&gst && amount){
+                const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
+
+
+              const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
+
+              const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
+
+
+              const netBillings = parseFloat((amount - (qty90 * gst * mrp / 100)).toFixed(2));
+
+              const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+
+              state.travisMethew[travisIndex].LessGST = gstdiscount;
+              state.travisMethew[travisIndex].LessDiscountAmount = lessDiscountAmount;
+              state.travisMethew[travisIndex].NetBillings = netBillings;
+              state.travisMethew[travisIndex].FinalBillValue = finalBillValue;
+            } if(travisIndex!== -1 &&qty90==0 &&quantity88===0) {
+              state.travisMethew[travisIndex].Quantity90 = 0;
+              state.travisMethew[travisIndex].Quantity88 = 0;
+              state.travisMethew[travisIndex].Amount = 0;
+              state.travisMethew[travisIndex].ordered = false;
+
+          }
+       
+          
+            
             }
           },
           updateQuantity88:(state,actions) => {
             const {sku, qty88,MRP}=actions.payload;
             const travisIndex = state.travisMethew.findIndex(
-              (travisItem) => travisItem.SKU === sku
+              (travisItem) => travisItem.sku === sku
             );
             if (travisIndex!== -1) {
               state.travisMethew[travisIndex].Quantity88 = qty88;
               const quantity88 = state.travisMethew[travisIndex]?.Quantity88 ?? 0;
               const quantity90 = state.travisMethew[travisIndex]?.Quantity90 ?? 0;
+              const total=quantity88+quantity90;
               state.travisMethew[travisIndex].TotalQty = quantity88+quantity90;
 
               //const totalQty = state.travisMethew[travisIndex]?.TotalQty ?? 0;
               state.travisMethew[travisIndex].Amount = MRP*(quantity88+quantity90)
               state.travisMethew[travisIndex].ordered = true;
+              const gst=state.travisMethew[travisIndex].gst;
+              const mrp=state.travisMethew[travisIndex].mrp;
+              const amount=state.travisMethew[travisIndex].Amount;
+              if(mrp &&gst && amount){
+               const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
+
+
+             const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
+
+             const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
+
+
+             const netBillings = parseFloat((amount - (total * gst * mrp / 100)).toFixed(2));
+
+             const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+
+             state.travisMethew[travisIndex].LessGST = gstdiscount;
+             state.travisMethew[travisIndex].LessDiscountAmount = lessDiscountAmount;
+             state.travisMethew[travisIndex].NetBillings = netBillings;
+             state.travisMethew[travisIndex].FinalBillValue = finalBillValue;
+           } if(travisIndex!== -1 &&qty88==0 &&quantity90===0) {
+             state.travisMethew[travisIndex].Quantity90 = 0;
+             state.travisMethew[travisIndex].Quantity88 = 0;
+             state.travisMethew[travisIndex].Amount = 0;
+             state.travisMethew[travisIndex].ordered = false;
+
+         }
             }
           },
           addOtherProduct:(state,action)=>{
@@ -333,7 +442,7 @@ const TravisMethewSlice = createSlice({
 export const {
     resetTravisProduct,
      addTravisProduct 
-    ,updateNewData,
+    ,updateReduxData,
     updateQuantity90,
     updateQuantity88,
     addOtherProduct,

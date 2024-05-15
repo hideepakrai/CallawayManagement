@@ -12,6 +12,7 @@ import { LoadingStart, LoadingStop, getLoading } from "../../../slice/loading/Lo
 import Loading from '../../loading/Loading.tsx';
 import OgioProduct  from "../../../api/allProduct/ogio/OgioProduct.tsx"
 import { useLocation } from 'react-router-dom';
+import Reload from '../../../reload/Reload.tsx';
   
 const OgioPage= () => {
   const location = useLocation();
@@ -60,8 +61,7 @@ const OgioPage= () => {
     {getLoadings && <Loading />}
     <OgioTable/>
 
-   {/* { ogioPath &&<OgioProduct
-    resetOgio={handleCloseGrapql}/>} */}
+  <Reload/>
   </div>
     
     </>
