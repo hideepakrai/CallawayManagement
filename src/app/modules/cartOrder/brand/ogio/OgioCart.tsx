@@ -524,11 +524,11 @@ useEffect(() => {
   if (getOgioProduct && getOgioProduct.length > 0) {
     getOgioProduct.map((item: OgioBasicModel) => {
       if (item.Amount && item.ordered && item.error==="") {
-        tAmount = item.Amount + tAmount
+        tAmount =parseFloat(( item.Amount + tAmount).toFixed(2))
       }
       if (item.FinalBillValue && item.ordered && item.error==="") {
 
-        totalBillAmount = totalBillAmount + item.FinalBillValue
+        totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
       }
 
     })

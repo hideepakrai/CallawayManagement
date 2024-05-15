@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 import {ExcelModelTravis} from "../../../model/travis/TravisExcel"
 import { Space, Table, Tag } from 'antd';
 import type { ColumnProps } from 'antd/lib/table';
+import { BasicModelTravis } from "../../../model/travis/TravisMethewModel";
 type Props={
     isSample: boolean;
     resetIsSample:()=>void
@@ -15,7 +16,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
     const tableRef = useRef(null);
 
    
-    const columns: ColumnProps<ExcelModelTravis>[] = [
+    const columns: ColumnProps<BasicModelTravis>[] = [
         {
           title: 'Brand',
           dataIndex: 'Brand',
@@ -23,177 +24,172 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
           width: 150,
         },
         {
-          title: 'SKU',
-          dataIndex: 'SKU',
-          key: 'SKU',
+          title: 'sku',
+          dataIndex: 'sku',
+          key: 'sku',
           width: 150,
         },
         {
-          title: 'Name',
-          dataIndex: 'Name',
-          key: 'Name',
+          title: 'name',
+          dataIndex: 'name',
+          key: 'name',
           width: 70,
         },
         {
-          title: 'Description',
-          dataIndex: 'Description',
-          key: 'Description',
+          title: 'description',
+          dataIndex: 'description',
+          key: 'description',
           width: 115,
         },
         {
-          title: 'Category',
-          dataIndex: 'Category',
-          key: 'Category',
+          title: 'category',
+          dataIndex: 'category',
+          key: 'category',
           width: 115,
         },
         {
-          title: 'Season',
-          dataIndex: 'Season',
-          key: 'Season',
+          title: 'season',
+          dataIndex: 'season',
+          key: 'season',
           width: 115,
         },
         {
-          title: 'StyleCode',
-          dataIndex: 'StyleCode',
-          key: 'StyleCode',
+          title: 'style_code',
+          dataIndex: 'style_code',
+          key: 'style_code',
           width: 115,
         },
         {
-          title: 'Length',
-          dataIndex: 'Length',
-          key: 'Length',
+          title: 'length',
+          dataIndex: 'length',
+          key: 'length',
           width: 115,
         },
         {
-          title: 'Line',
-          dataIndex: 'Line',
-          key: 'Line',
+          title: 'line',
+          dataIndex: 'line',
+          key: 'line',
           width: 115,
         },
         {
-          title: 'Color',
-          dataIndex: 'Color',
-          key: 'Color',
+          title: 'color',
+          dataIndex: 'color',
+          key: 'color',
           width: 115,
         },
         {
-          title: 'ColorCode',
-          dataIndex: 'ColorCode',
-          key: 'ColorCode',
+          title: 'color_code',
+          dataIndex: 'color_code',
+          key: 'color_code',
           width: 115,
         },
         {
-          title: 'Size',
-          dataIndex: 'Size',
-          key: 'Size',
+          title: 'size',
+          dataIndex: 'size',
+          key: 'size',
           width: 115,
         },
         {
-          title: 'Gender',
-          dataIndex: 'Gender',
-          key: 'Gender',
+          title: 'gender',
+          dataIndex: 'gender',
+          key: 'gender',
           width: 115,
         },
-        {
-          title: 'SetType',
-          dataIndex: 'SetType',
-          key: 'SetType',
-          width: 115,
-        },
+       
         
         
         {
-          title: 'Stock88',
-          dataIndex: 'Stock88',
-          key: 'Stock88',
+          title: 'stock_88',
+          dataIndex: 'stock_88',
+          key: 'stock_88',
           width: 80,
         },
         {
-          title: 'Stock90',
-          dataIndex: 'Stock90',
-          key: 'Stock90',
+          title: 'stock_90',
+          dataIndex: 'stock_90',
+          key: 'stock_90',
           width: 80,
         },
         {
-          title: 'MRP',
-          dataIndex: 'MRP',
-          key: 'MRP',
+          title: 'mrp',
+          dataIndex: 'mrp',
+          key: 'mrp',
           width: 80,
         },
         {
-          title: 'GST',
-          dataIndex: 'GST',
-          key: 'GST',
+          title: 'gst',
+          dataIndex: 'gst',
+          key: 'gst',
           width: 80,
         },
       ];
       
-      const excelData: ExcelModelTravis[] = [
+      const excelData: BasicModelTravis[] = [
         {
           Brand: 4,
-          SKU: 'TM001',
-          Name: 'Cool Belt',
-          Category: 'Belts',
-          Season: 'SS22',
-          StyleCode: '4MT044',
-          Length: 'NA',
-          Line: 'In_Line',
-          Gender:"Mens",
-          Color: 'Heather_Purple_Velvet',
-          ColorCode: '5HPR',
-          Size: 'M',
-          SetType: 'Travis Methew',
-          Description: 'This is a cool belt from Travis Mathew.',
-          MRP: 50,
+          sku: 'TM001',
+          name: 'Cool Belt',
+          category: 'Belts',
+          season: 'SS22',
+          style_code: '4MT044',
+          length: 'NA',
+          line: 'In_Line',
+          gender:"Mens",
+          color: 'Heather_Purple_Velvet',
+          color_code: '5HPR',
+          size: 'M',
+         
+          description: 'This is a cool belt from Travis Mathew.',
+          mrp: 50,
        
-          Stock88: 100,
-          Stock90: 100,
-          GST:12,
+          stock_88: 100,
+          stock_90: 100,
+          gst:12,
           
         },
         {
             Brand: 4,
-          SKU: 'TM002',
-          Name: 'Stylish Cap',
-          Category: 'Headwear',
-          Season: 'SS22',
-          StyleCode: '4MT045',
-          Length: 'NA',
-          Line: 'In_Line',
-          Color: 'Black',
-          ColorCode: 'BLK',
-          Size: 'L',
-          SetType: 'Travis Methew',
-          Description: 'A stylish cap from Travis Mathew.',
-          MRP: 30,
+          sku: 'TM002',
+          name: 'Stylish Cap',
+          category: 'Headwear',
+          season: 'SS22',
+          style_code: '4MT045',
+          length: 'NA',
+          line: 'In_Line',
+          color: 'Black',
+          color_code: 'BLK',
+          size: 'L',
+         
+          description: 'A stylish cap from Travis Mathew.',
+          mrp: 30,
         
          
-          Gender:"Mens",
-          Stock88: 100,
-          Stock90: 100,
-          GST:12,
+          gender:"Mens",
+          stock_88: 100,
+          stock_90: 100,
+          gst:12,
         },
         {
             Brand: 4,
-          SKU: 'TM003',
-          Name: 'Classic Polo',
-          Category: 'Tops',
-          Season: 'SS22',
-          StyleCode: '4MT046',
-          Length: 'NA',
-          Line: 'In_Line',
-          Color: 'Navy Blue',
-          ColorCode: 'NVBL',
-          Size: 'XL',
-          SetType: 'Travis Methew',
-          Description: 'A classic polo shirt from Travis Mathew.',
-          MRP: 70,
+          sku: 'TM003',
+          name: 'Classic Polo',
+          category: 'Tops',
+          season: 'SS22',
+          style_code: '4MT046',
+          length: 'NA',
+          line: 'In_Line',
+          color: 'Navy Blue',
+          color_code: 'NVBL',
+          size: 'XL',
+         
+          description: 'A classic polo shirt from Travis Mathew.',
+          mrp: 70,
           
         
-          Gender:"Mens",
-          Stock88: 100,
-          Stock90: 100,
-          GST:12,
+          gender:"Mens",
+          stock_88: 100,
+          stock_90: 100,
+          gst:12,
         },
       ];
       
@@ -230,7 +226,7 @@ const SampleTravisExcel = ({isSample,resetIsSample}:Props) => {
             const tr = document.createElement("tr");
             columns.forEach((column) => {
               const td = document.createElement("td");
-              td.innerText = String(rowData[column.dataIndex as keyof ExcelModelTravis]) ;
+              td.innerText = String(rowData[column.dataIndex as keyof BasicModelTravis]) ;
               tr.appendChild(td);
             });
             tbody.appendChild(tr);

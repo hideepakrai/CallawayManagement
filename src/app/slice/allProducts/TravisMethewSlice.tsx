@@ -39,8 +39,8 @@ const TravisMethewSlice = createSlice({
         state.travisMethew=action.payload.reloadTravis
        
        },
-        addTravisProduct: (state, action:PayloadAction<{ travisProduct: BasicModelTravisGraph[], id: string }>) => {
-            const { travisProduct, id } = action.payload;
+        addTravisProduct: (state, action) => {
+            const { travisProduct} = action.payload;
             const categoriesSet = new Set<string>();
             const seasonSet = new Set<string>();
             const styleCodesSet = new Set<string>();
@@ -70,6 +70,9 @@ const TravisMethewSlice = createSlice({
                             description: item.description,
                             mrp: item.mrp,
                             category: item.category,
+                            season:item.season,
+                            style_code:item.style_code,
+                            color: item.color,
                             gst: item.gst,
                             brand_id: item.brand_id,
                             primary_image_url: item.primary_image_url,

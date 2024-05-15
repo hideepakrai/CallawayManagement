@@ -56,10 +56,11 @@ type Props = {
       
              }
              
-
+            // newData.push(data)
              updateNewData(data,index)
              
-          }else if(ogioIndex==-1){
+          }
+          else if(ogioIndex===-1){
             const data={
               sku:item.sku,
               brand_id:4,

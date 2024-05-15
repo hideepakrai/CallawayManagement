@@ -78,7 +78,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
        setGetAllOgioOrders(ogio)
        setTotalAmount(tAmount)
     setTotalNetBillAmount(totalBillAmount)
-    setDiscountAmount(tAmount - totalBillAmount)
+    setDiscountAmount(parseFloat((tAmount - totalBillAmount).toFixed(2)));
     }
   },[getOgioProduct]);
   const columns: TableColumnsType<OgioBasicModel>= [

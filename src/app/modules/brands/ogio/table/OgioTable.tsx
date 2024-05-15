@@ -596,7 +596,7 @@ resetXls={handleReseAllXlData}
 />
 
 
-{isUpdate &&
+{/* {isUpdate &&
 <OgioUpdateExcel
 isUpdate={isUpdate}
 onClose={handleCloseUpdate}
@@ -607,7 +607,7 @@ updateOgioData={handleUpdateOgioData}
 updateXlsData={updateXlsData}
 resetUpdateXs={handleResetUpdateXls}
 
-/>
+/> */}
 
 
     </div>

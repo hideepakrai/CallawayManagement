@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import {GET_TRAVISMETHEW_Prduct} from "../../../modules/brands/travisMethew/graphQl/TravisMethewProducts"
 import {addTravisProduct} from "../../../slice/../slice/allProducts/TravisMethewSlice"
 import { GetTravisProduct } from './TravisProduct';
+import { BasicModelTravis } from '../../../modules/model/travis/TravisMethewModel';
 type Props = {
   
     resetTravis:()=>void
@@ -23,10 +24,15 @@ const GetTravisMethewProduct = ({ resetTravis}: Props) => {
  try{
        const response= await GetTravisProduct ();
        console.log("Travis product",response)
-    //    dispatch(addOgioProduct({
-    //                 ogioProduct: response
-    //             }));
-                resetTravis();
+       const products: BasicModelTravis[] = response
+       if(response){
+          dispatch(addTravisProduct({
+            travisProduct: response
+          }))
+                    resetTravis();
+       }
+       
+                
        
 
  } catch(err){

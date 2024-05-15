@@ -11,8 +11,8 @@ export interface BasicModelTravis {
     length?:string|null;
       color_code?:string
       size?:string,
-        stock_88?:string,
-        stock_90?:string,
+        stock_88?:number,
+        stock_90?:number,
         primary_image_url?:string,
         gallery_images_url?:string,
        category?:string,
