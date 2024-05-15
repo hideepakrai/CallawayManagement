@@ -175,10 +175,11 @@ const OgioCart = () => {
       },
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Category"
+           
             value={selectedKeys}
             onChange={setSelectedKeys}
             style={{ width: '100%' }}
@@ -226,10 +227,11 @@ const OgioCart = () => {
       },
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Category"
+        
             value={selectedKeys}
             onChange={setSelectedKeys}
             style={{ width: '100%' }}
@@ -279,10 +281,11 @@ const OgioCart = () => {
       },
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Category"
+           
             value={selectedKeys}
             onChange={setSelectedKeys}
             style={{ width: '100%' }}
@@ -518,6 +521,7 @@ useEffect(()=>{
 const [totalAmount, setTotalAmount] = useState<number>()
 const [discountAmount, setDiscountAmount] = useState<number>()
 const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+
 useEffect(() => {
   let tAmount: number = 0;
   let totalBillAmount: number = 0;
@@ -661,6 +665,7 @@ const handleUpdateRedux=()=>{
         reviewOrder={handleRefetch}
         submitOrder={hanldeSubmitOrder}
         />}
+
        <Table
             ref={tableRef}
             columns={columns}
@@ -670,7 +675,12 @@ const handleUpdateRedux=()=>{
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
             style={{ maxHeight: "1600px" }}
-            pagination={{ defaultPageSize: 20 }}
+           
+            pagination={{
+              position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+              defaultPageSize: 20
+            }}
+            
             footer={() => (
               <div
                 style={{
@@ -737,15 +747,15 @@ const handleUpdateRedux=()=>{
                     <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> {totalAmount}
                   </h4>
   
-                  <h4 style={{ borderBottom: "1px solid #ddd",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"2px", margin:"0" }}>
+                  <h4 style={{ borderBottom: "1px solid #ddd", display:"flex",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"2px", margin:"0" }}>
                     {" "}
                     <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount:</a>
                     {discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
                   </h4>
   
-                  <h4 style={{ borderBottom: "1px solid #ddd",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"10px", background:"#f1f1f1"  }}>
+                  <h4 style={{ borderBottom: "1px solid #ddd", display:"flex",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"10px", background:"#f1f1f1"  }}>
                     {" "}
-                    <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
+                    <a style={{ color: "#000",  paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
                     {totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
                   </h4>
   
@@ -763,6 +773,7 @@ const handleUpdateRedux=()=>{
             )}
           />
         
+
         <OgioCartPdf/>
 
 {/* update the order from user 

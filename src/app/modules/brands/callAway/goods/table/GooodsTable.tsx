@@ -94,7 +94,7 @@ const GooodsTable = () => {
           },
 
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
                 placeholder="Select ProductType"
@@ -146,7 +146,7 @@ const GooodsTable = () => {
           },
 
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
                 placeholder="Select Category"
@@ -200,7 +200,7 @@ const GooodsTable = () => {
           },
 
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
                 placeholder="Select ProductModel"
@@ -497,19 +497,25 @@ return (
           }
         >
           <div  style={{ float: "right",marginBottom:"12px" }}>
-            <Button className='mx-3'
+          <Button className='mx-3 select-btn-detail'
+          // onClick={handleImport}
+          > <i className="bi bi-bag-check"></i> View cart</Button>
+
+            <Button className='mx-3 select-btn-detail '
             onClick={handleImport}
-            >Import Products</Button>
-            <Button className='mx-3'
+            > <i className="bi bi-file-earmark-arrow-up"></i> Import Products</Button>
+            <Button className='mx-3 select-btn-detail'
             // onClick={handleExportToPDF} 
-            >Export to PDF</Button>
-            <Button className='mx-3'
+            > <i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button>
+            <Button className='mx-3 select-btn-detail'
            onClick={handleExportToExcel}
-            >Export to Excel</Button>
-            <Button className='mx-3'
+            > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
+            <Button className='mx-3 select-btn-detail'
              onClick={handleSampleExcel}
-             >Sample Excel</Button>
+             > <i className="bi bi-file-spreadsheet"></i> Sample Excel</Button>
           </div>
+
+
 
           <Table
             ref={tableRef}
@@ -519,10 +525,15 @@ return (
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
-            style={{ maxHeight: "1600px" }}
-            pagination={{ defaultPageSize: 20 }}
+            
+            pagination={{
+              position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+              defaultPageSize: 20
+            }}
           />
         </Card>
+
+        
 
         <SampleExcel
          isSample={isSample}

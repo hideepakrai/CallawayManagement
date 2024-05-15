@@ -10,7 +10,7 @@ import SliderApprel from './SliderApprel';
 import { number } from 'yup';
 import TravisImportExcel from '../../travisMethew/excel/importExcel/TravisImportExcel';
 import { ExcelModelTravis } from "../../../model/travis/TravisExcel"
-
+import "./CallAwayApprelProducts.css";
 import TravisExcelUploadDB from '../../travisMethew/excel/importExcel/TravisExcelUploadDB';
 import * as XLSX from 'xlsx';
 import { updateQuantity90, updateQuantity88 } from "../../../../slice/allProducts/TravisMethewSlice"
@@ -93,7 +93,7 @@ const CallAwayApprelProducts = () => {
       fixed: "left",
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Input
             placeholder="Search SKU"
             value={selectedKeys[0]}
@@ -147,7 +147,7 @@ const CallAwayApprelProducts = () => {
       fixed: "left",
       filterMode: 'tree',
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Input
             placeholder="Search Name"
             value={selectedKeys[0]}
@@ -191,13 +191,14 @@ const CallAwayApprelProducts = () => {
         return categoryA.localeCompare(categoryB);
       },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Category"
             value={selectedKeys}
+      
             onChange={setSelectedKeys}
-            style={{ width: '100%' }}
+            style={{ width: '100%'  }}
             placement={placement}
           >
             {/* Render options based on available categories */}
@@ -243,7 +244,7 @@ const CallAwayApprelProducts = () => {
         return seasonA.localeCompare(seasonB);
       },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8 ,width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Season"
@@ -294,7 +295,7 @@ const CallAwayApprelProducts = () => {
         return styleCodeA.localeCompare(styleCodeB);
       },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
           <Select
             mode="multiple"
             placeholder="Select Style"
@@ -828,22 +829,22 @@ const CallAwayApprelProducts = () => {
       >
 
         <div style={{ float: "right", marginBottom: "12px" }}>
-          <Button className='mx-3'
+          <Button className='mx-3 select-btn-detail'
           // onClick={handleImport}
-          >Add to cart</Button>
+          > <i className="bi bi-bag-check"></i> View cart</Button>
 
-          <Button className='mx-3'
+          <Button className='mx-3 select-btn-detail'
             onClick={handleImport}
-          >Import Products</Button>
-          <Button className='mx-3'
+          > <i className="bi bi-file-earmark-arrow-up"></i> Import Products</Button>
+          <Button className='mx-3 select-btn-detail'
           // onClick={handleExportToPDF} 
-          >Export to PDF</Button>
-          <Button className='mx-3'
+          > <i className="bi bi-file-earmark-pdf"></i>  Export to PDF</Button>
+          <Button className='mx-3 select-btn-detail'
             onClick={handleExportToExcel}
-          >Export to Excel</Button>
-          <Button className='mx-3'
+          > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
+          <Button className='mx-3 select-btn-detail'
             onClick={handleSampleExcel}
-          >Sample Excel</Button>
+          > <i className="bi bi-file-spreadsheet"></i> Sample Excel</Button>
         </div>
 
 
@@ -863,8 +864,11 @@ const CallAwayApprelProducts = () => {
           bordered
           size="middle"
           scroll={{ x: "100%", y: "auto" }}
-          style={{ maxHeight: "1600px" }}
-          pagination={{ defaultPageSize: 20 }}
+          
+          pagination={{
+            position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+            defaultPageSize: 20
+          }}
         />
 
 

@@ -17,7 +17,7 @@ const CallAwayGoodsProducts = () => {
       </div>
 
   
-      <GoodsHeader />
+      {/* <GoodsHeader /> */}
       <GooodsTable />
       </div>
     </div>

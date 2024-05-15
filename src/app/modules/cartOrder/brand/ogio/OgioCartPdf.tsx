@@ -66,11 +66,12 @@ const [retailerCty, setRetailerCity]= useState<string>()
           ogio.push(item)
         }
         if (item.Amount) {
-          tAmount = item.Amount + tAmount
+      
+          tAmount =parseFloat(( item.Amount + tAmount).toFixed(2))
         }
         if (item.FinalBillValue) {
   
-          totalBillAmount = totalBillAmount + item.FinalBillValue
+          totalBillAmount =parseFloat ((totalBillAmount + item.FinalBillValue).toFixed(2))
         }
       })
      
@@ -191,7 +192,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
       });
   return (
     <div>
-      <Card style={{marginLeft:"20px", marginRight:"20px", paddingLeft:"30px"}}>
+      <Card style={{marginLeft:"20px", marginTop:"30px", marginRight:"20px", paddingLeft:"30px"}}>
         <Button 
         onClick={() => {
           handlePrint(null, () => contentToPrint.current);
@@ -235,12 +236,12 @@ const [retailerCty, setRetailerCity]= useState<string>()
 
        <div style={{width:"237px", float:"right", paddingTop:"20px"}}>
             
-            <h4 style={{ color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px",fontSize:"14px"}}>
+            <h4 style={{ color:"#545454", display:"flex", borderBottom:"1px solid #ddd", paddingBottom:"5px",fontSize:"14px"}}>
                 {" "}
                 <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{totalAmount}
               </h4>
               {/* ₹ */}
-              <h4 style={{ color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px", fontSize:"14px"}}>
+              <h4 style={{ color:"#545454", display:"flex", borderBottom:"1px solid #ddd", paddingBottom:"5px", fontSize:"14px"}}>
                 {" "}
                 <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{discountAmount}
               </h4>
@@ -254,7 +255,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
 
              
 
-              <h4 style={{color:"#545454", padding:"8px 0px", backgroundColor:"#ddd",fontSize:"14px"}}>
+              <h4 style={{color:"#545454",  padding:"8px 0px", backgroundColor:"#ddd",fontSize:"14px"}}>
                 <a style={{ color:"#545454", paddingRight:"109px", paddingLeft:"10px",}}>Total : </a>{totalNetBillAmount}
               </h4>
             </div>
@@ -265,6 +266,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
       </Card>
       
     </div>
+    
   )
 }
 

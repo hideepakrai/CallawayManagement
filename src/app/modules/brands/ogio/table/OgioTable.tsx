@@ -72,7 +72,7 @@ const OgioTable = () => {
           key:'sku',
           
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div  style={{ padding: 8, position: "absolute", top: -90, backgroundColor: "white", zIndex: 1 }}>
+            <div  style={{ padding: 8,  width:"300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Input
                 ref={searchInput}
 
@@ -119,9 +119,10 @@ const OgioTable = () => {
             fixed: "left",
             filterMode: 'tree',
             filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-             <div style={{ padding: 8 }}>
+             <div style={{ padding: 8, width:"300px", position: "absolute", top: -90,  zIndex: 1, }}>
                <Input
                  placeholder="Search Name"
+                 
                  value={selectedKeys[0]}
                  onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                  onKeyUp={() => confirm()}
@@ -169,10 +170,10 @@ const OgioTable = () => {
           },
 
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8, width:"300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
-                placeholder="Select Category"
+                placeholder="Select ProductType"
                 value={selectedKeys}
                 onChange={setSelectedKeys}
                 onSelect={() => { confirm(); }}
@@ -222,10 +223,11 @@ const OgioTable = () => {
           },
 
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8, width:"300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
-                placeholder="Select Category"
+                placeholder="Select Category "
+               
                 value={selectedKeys}
                 onChange={setSelectedKeys}
                 onSelect={() => { confirm(); }}
@@ -277,10 +279,11 @@ const OgioTable = () => {
           },
 
           filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
               <Select
                 mode="multiple"
-                placeholder="Select Category"
+                placeholder="Select ProductModel"
+              
                 value={selectedKeys}
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
@@ -548,21 +551,21 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
 
         >
           <div  style={{ float: "right", marginBottom:"12px"}}>
-            <Button  className='mx-3'
+            <Button  className='mx-3 select-btn-detail'
             onClick={handleViewCart}
-            >View Cart</Button>
-            <Button  className='mx-3'
+            > <i className="bi bi-bag-check"></i> View Cart</Button>
+            <Button  className='mx-3 select-btn-detail'
             onClick={handleImport}
-            >Import Products</Button>
-            <Button  className='mx-3'
+            > <i className="bi bi-file-earmark-arrow-up"></i> Import Products</Button>
+            <Button  className='mx-3 select-btn-detail'
             // onClick={handleExportToPDF} 
-            >Export to PDF</Button>
-            <Button  className='mx-3'
+            > <i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button>
+            <Button  className='mx-3 select-btn-detail'
             // onClick={handleExportToExcel}
-            >Export to Excel</Button>
-            <Button className='mx-3'
+            > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
+            <Button className='mx-3 select-btn-detail'
              onClick={handleSampleExcel}
-             >Sample Excel</Button>
+             > <i className="bi bi-file-spreadsheet"></i> Sample Excel</Button>
             
           </div>
 
@@ -574,9 +577,14 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
-            style={{ maxHeight: "1600px" }}
-            pagination={{ defaultPageSize: 20 }}
+           
+            pagination={{
+              position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+              defaultPageSize: 20
+            }}
           />
+
+
         </Card>
 
         <SampleOgioExcel
