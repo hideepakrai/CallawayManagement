@@ -20,7 +20,7 @@ const TilesWidget6 = (props: Props) => {
 
         <img width={30} src='https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png'></img>
         <div className='d-flex flex-column'>
-          <div className={clsx(titleClass, 'fw-bold fs-1 mb-0 mt-5')}>280</div>
+          <div className={clsx(titleClass, 'fw-bold fs-1 mb-0 mt-5')}>0</div>
           <div className={clsx(descriptionClass, 'fw-semibold fs-6')}>
 Callaway Hardgoods</div>
         </div>

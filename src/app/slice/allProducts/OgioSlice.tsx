@@ -53,31 +53,35 @@ const OgioSlice = createSlice({
                             productTypeSet.add(item.product_type);
                             prodctModelSet.add(item.product_model);
                           }
-                        state.ogio.push({
-                            sku: item.sku,
-                            name: item.name,
-                            description: item.description,
-                            mrp: item.mrp,
-                            category: item.category,
-                            product_type: item.product_type,
-                            product_model: item.product_model,
-                            gst: item.gst,
-                            brand_id: item.brand_id,
-                            primary_image_url: item.primary_image_url,
-                            gallery_images_url: item.gallery_images_url,
-                            variation_sku: item.variation_sku,
-                            stock_90:item.stock_90,
-                            Quantity90:0,
-                            Amount:0,
-                            TotalQty:0,
-                            LessGST:0,
-                            LessDiscountAmount:0,
-                            Discount:0,
-                            NetBillings:0,
-                            FinalBillValue:0,
-                            error:""
-          
-                        })
+
+                          if(item.stock_90!=0){
+                            state.ogio.push({
+                                sku: item.sku,
+                                name: item.name,
+                                description: item.description,
+                                mrp: item.mrp,
+                                category: item.category,
+                                product_type: item.product_type,
+                                product_model: item.product_model,
+                                gst: item.gst,
+                                brand_id: item.brand_id,
+                                primary_image_url: item.primary_image_url,
+                                gallery_images_url: item.gallery_images_url,
+                                variation_sku: item.variation_sku,
+                                stock_90:item.stock_90,
+                                Quantity90:0,
+                                Amount:0,
+                                TotalQty:0,
+                                LessGST:0,
+                                LessDiscountAmount:0,
+                                Discount:0,
+                                NetBillings:0,
+                                FinalBillValue:0,
+                                error:""
+              
+                            })
+                          }
+                      
                          // Add unique values to the sets
                          
             
@@ -131,33 +135,36 @@ const OgioSlice = createSlice({
                         else if(ogioIndex===-1){
                             if(ogioProduct && ogioProduct.length > 0) {
                                 ogioProduct.map((item:OgioBasicModel)=>{
-                                    state.ogio.push({
-                                        sku: item.sku,
-                                        name: item.name,
-                                        description: item.description,
-                                        mrp: item.mrp,
-                                        category: item.category,
-                                        product_type: item.product_type,
-                                        product_model: item.product_model,
-                                        gst: item.gst,
-                                        brand_id: item.brand_id,
-                                        primary_image_url: item.primary_image_url,
-                                        gallery_images_url: item.gallery_images_url,
-                                        variation_sku: item.variation_sku,
-                                        stock_90:item.stock_90,
-                                        Quantity90:0,
-                                        Amount:0,
-                                        TotalQty:0,
-                                        LessGST:0,
-                                        LessDiscountAmount:0,
-                                        Discount:0,
-                                        NetBillings:0,
-                                        FinalBillValue:0,
-                                        error:""
-                                       
-        
-        
-                                    })
+                                    if(item.stock_90!=0){
+                                        state.ogio.push({
+                                            sku: item.sku,
+                                            name: item.name,
+                                            description: item.description,
+                                            mrp: item.mrp,
+                                            category: item.category,
+                                            product_type: item.product_type,
+                                            product_model: item.product_model,
+                                            gst: item.gst,
+                                            brand_id: item.brand_id,
+                                            primary_image_url: item.primary_image_url,
+                                            gallery_images_url: item.gallery_images_url,
+                                            variation_sku: item.variation_sku,
+                                            stock_90:item.stock_90,
+                                            Quantity90:0,
+                                            Amount:0,
+                                            TotalQty:0,
+                                            LessGST:0,
+                                            LessDiscountAmount:0,
+                                            Discount:0,
+                                            NetBillings:0,
+                                            FinalBillValue:0,
+                                            error:""
+                                           
+            
+            
+                                        })
+                                    }
+                                   
                                 })
                             } 
                         }

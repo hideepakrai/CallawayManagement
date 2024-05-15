@@ -1,11 +1,12 @@
 
-import {useEffect, useRef, FC} from 'react'
+import {useEffect, useRef, FC, useState} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {KTIcon} from '../../../helpers'
 import {getCSSVariableValue} from '../../../assets/ts/_utils'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
-
+import {useSelector} from"react-redux";
+import { getTravisProducts } from '../../../../app/slice/allProducts/TravisMethewSlice'
 type Props = {
   className: string
   chartColor: string
@@ -42,6 +43,14 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef, mode])
 
+  const getTravisProduct= useSelector(getTravisProducts)
+  const [travisQuantity,setTravisQuantity]= useState<number>()
+
+  useEffect(()=>{
+    if(getTravisProduct){
+      setTravisQuantity(getTravisProduct.length)
+    }
+  },[getTravisProduct])
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -78,7 +87,7 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
             <div className='col bg-light-warning px-4 pt-7 rounded-2 me-7 mb-7'>
               {/* <KTIcon iconName='chart-simple' className='fs-3x text-warning d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6' style={{color:"#141414"}} >
-              <span className='fs-1 fw-bold text-warning' style={{lineHeight:"35px",}}>1234 </span> <br></br> Total Products     
+              <span className='fs-1 fw-bold text-warning' style={{lineHeight:"35px",}}>{travisQuantity} </span> <br></br> Total Products     
               </a>
             </div>
             {/* end::Col */}

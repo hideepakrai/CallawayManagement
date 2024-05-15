@@ -62,40 +62,43 @@ const TravisMethewSlice = createSlice({
                          
                         
                     }
-
+   
+                    if(item.stock_88 !=0 || item.stock_90!=0){
+                      state.travisMethew.push({
+                        sku: item.sku,
+                              name: item.name,
+                              description: item.description,
+                              mrp: item.mrp,
+                              category: item.category,
+                              season:item.season,
+                              style_code:item.style_code,
+                              color: item.color,
+                              gst: item.gst,
+                              brand_id: item.brand_id,
+                              primary_image_url: item.primary_image_url,
+                              gallery_images_url: item.gallery_images_url,
+                              variation_sku: item.variation_sku,
+                              stock_90:item.stock_90,
+                              stock_88:item.stock_88,
+                              Quantity90:0,
+                              Quantity88:0,
+                              Amount:0,
+                              TotalQty:0,
+                              LessGST:0,
+                              LessDiscountAmount:0,
+                              Discount:0,
+                              NetBillings:0,
+                              FinalBillValue:0,
+                              error88:"",
+                              error90:"",
+                              
+                          
+                          
+  
+                      });
+                    }
                  
-                    state.travisMethew.push({
-                      sku: item.sku,
-                            name: item.name,
-                            description: item.description,
-                            mrp: item.mrp,
-                            category: item.category,
-                            season:item.season,
-                            style_code:item.style_code,
-                            color: item.color,
-                            gst: item.gst,
-                            brand_id: item.brand_id,
-                            primary_image_url: item.primary_image_url,
-                            gallery_images_url: item.gallery_images_url,
-                            variation_sku: item.variation_sku,
-                            stock_90:item.stock_90,
-                            stock_88:item.stock_88,
-                            Quantity90:0,
-                            Quantity88:0,
-                            Amount:0,
-                            TotalQty:0,
-                            LessGST:0,
-                            LessDiscountAmount:0,
-                            Discount:0,
-                            NetBillings:0,
-                            FinalBillValue:0,
-                            error88:"",
-                            error90:"",
-                            
-                        
-                        
-
-                    });
+                   
 
                     state.uniqueCategories = Array.from(categoriesSet);
                     state.uniqueSeason = Array.from(seasonSet);

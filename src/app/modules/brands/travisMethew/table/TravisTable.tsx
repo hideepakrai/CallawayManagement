@@ -25,7 +25,7 @@ import type { RadioChangeEvent, SelectProps } from 'antd';
 import TravisPdf from '../pdf/TravisPdf';
 import { useNavigate } from 'react-router-dom';
 import { Image } from 'antd';
-import ImageRenderer from "./column/gallery";
+// import ImageRenderer from "./column/gallery";
 import {getCategory,getStyleCode} from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
 type SelectCommonPlacement = SelectProps['placement'];
@@ -62,10 +62,10 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
     const columns: TableColumnsType<BasicModelTravis>= [
         {
           // title: "Image",
-          dataIndex: "Gallery",
+          dataIndex: "gallery_images_url",
           // fixed: "left",
           width: 50,
-          // render: (value) => <ImageRenderer value={value} />,
+          //  render: (value) => <ImageRenderer value={gallery_images_url} />,
 
         },
 

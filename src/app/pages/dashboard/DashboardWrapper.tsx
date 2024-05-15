@@ -64,7 +64,7 @@ const DashboardPage = () => (
               <TilesWidget2 className='card-xl-stretch mb-5 mb-xl-8' />
               <div className='row gx-5 gx-xl-8'>
                 <div className='col-xl-6'>
-
+                {/* callaway Appareal */}
                   <TilesWidget5
                     className='card-xxl-stretch bg-primary'
                     svgIcon='element-11'
@@ -75,7 +75,7 @@ const DashboardPage = () => (
                     description='New Products'
                   />
                 </div>
-
+ {/* callaway haed good */}
                 <div className='col-xl-6'>
                   <TilesWidget6
                     className='card-xxl-stretch bg-body'
@@ -88,7 +88,7 @@ const DashboardPage = () => (
                   />
                 </div>
 
-
+              {/* ogio  */}
                 <div className='col-xl-6 mt-3'>
                   <TilesWidget7
                     className='card-xxl-stretch  bg-body'
@@ -100,6 +100,7 @@ const DashboardPage = () => (
                     description='New Products'
                   />
                 </div>
+                {/* travis  */}
                 <div className='col-xl-6 mt-3'>
                   <TilesWidget8
                     className='card-xxl-stretch '
