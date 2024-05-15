@@ -179,7 +179,7 @@ const OgioSlice = createSlice({
             
             },
 
-            updateData:(state,action) => {
+            updateNewData:(state,action) => {
                 const {ogioProduct}= action.payload;
               if(ogioProduct && ogioProduct.length > 0) {
                     ogioProduct.map((item:OgioBasicModel)=>{
@@ -403,7 +403,7 @@ const OgioSlice = createSlice({
 
 
 export const { addOgioProduct,
-    updateData,
+    updateNewData,
     updateQuantity90,stopOgioLoading,
     startOgioLoading,resetOgio,
     updateOgioFlatDiscount,

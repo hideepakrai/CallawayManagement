@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Axios from "axios";
 import { OgioExcelModel ,UploadOgioExcel} from "../../../../model/ogio/OgioExcelModel";
 import {useDispatch} from "react-redux"
-import {updateNewData} from "../../../../../slice/allProducts/TravisMethewSlice"
-import {getOgioProducts, updateData} from "../../../../../slice/allProducts/OgioSlice"
+import {getOgioProducts, updateNewData} from "../../../../../slice/allProducts/OgioSlice"
 import { useSelector } from "react-redux";
 import {OgioUploadDataModel,OgioBasicModel} from "../../../../model/ogio/OgioBrandModel"
 import { LoadingStart, LoadingStop } from "../../../../../slice/loading/LoadingSlice";
@@ -29,7 +28,7 @@ type Props = {
         dispatch(LoadingStart())
          // eslint-disable-next-line no-debugger
          debugger
-         dispatch(updateData({
+         dispatch(updateNewData({
           ogioProduct:xlData
          }));
         const newData: OgioBasicModel[] = [];
@@ -57,7 +56,7 @@ type Props = {
              }
              
             // newData.push(data)
-             updateNewData(data,index)
+             updateData(data,index)
              
           }
           else if(ogioIndex===-1){
@@ -89,7 +88,7 @@ type Props = {
       }
     }, [xlData,getOgioProduct]);
   
-    const updateNewData = async (data:OgioBasicModel,index:number) => {
+    const updateData = async (data:OgioBasicModel,index:number) => {
      
   
       try {
