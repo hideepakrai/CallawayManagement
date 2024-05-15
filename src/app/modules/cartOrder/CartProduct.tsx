@@ -44,6 +44,7 @@ const CartProduct = () => {
    (<NoProdect/>):(
     <div className='mt-14 '>
       <div className="card card-custom">
+        
         <div className="card-header">
           <ul className="nav nav-tabs nav-line-tabs border-0 mb-5 fs-6 mt-6 ">
           
@@ -65,6 +66,7 @@ const CartProduct = () => {
             </li>
           </ul>
         </div>
+
         <div className="card-body">
           <div className="tab-content" id="myTabContent">
             {/* <div className={`tab-pane fade ${activeTab === 'apparel' ? 'show active' : ''}`} id="kt_tab_pane_Apperal" role="tabpanel">
@@ -81,7 +83,9 @@ const CartProduct = () => {
               <TravisCart />
             </div>
           </div>
+        
         </div>
+
       </div>
 
       

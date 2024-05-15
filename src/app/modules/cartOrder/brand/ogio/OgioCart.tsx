@@ -521,17 +521,18 @@ useEffect(()=>{
 const [totalAmount, setTotalAmount] = useState<number>()
 const [discountAmount, setDiscountAmount] = useState<number>()
 const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+
 useEffect(() => {
   let tAmount: number = 0;
   let totalBillAmount: number = 0;
   if (getOgioProduct && getOgioProduct.length > 0) {
     getOgioProduct.map((item: OgioBasicModel) => {
       if (item.Amount && item.ordered && item.error==="") {
-        tAmount = item.Amount + tAmount
+        tAmount =parseFloat(( item.Amount + tAmount).toFixed(2))
       }
       if (item.FinalBillValue && item.ordered && item.error==="") {
 
-        totalBillAmount = totalBillAmount + item.FinalBillValue
+        totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
       }
 
     })
@@ -664,6 +665,7 @@ const handleUpdateRedux=()=>{
         reviewOrder={handleRefetch}
         submitOrder={hanldeSubmitOrder}
         />}
+
        <Table
             ref={tableRef}
             columns={columns}
@@ -745,15 +747,15 @@ const handleUpdateRedux=()=>{
                     <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> {totalAmount}
                   </h4>
   
-                  <h4 style={{ borderBottom: "1px solid #ddd",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"2px", margin:"0" }}>
+                  <h4 style={{ borderBottom: "1px solid #ddd", display:"flex",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"2px", margin:"0" }}>
                     {" "}
                     <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount:</a>
                     {discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
                   </h4>
   
-                  <h4 style={{ borderBottom: "1px solid #ddd",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"10px", background:"#f1f1f1"  }}>
+                  <h4 style={{ borderBottom: "1px solid #ddd", display:"flex",  fontSize: "14px", paddingBottom:"10px" ,paddingTop:"10px", background:"#f1f1f1"  }}>
                     {" "}
-                    <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
+                    <a style={{ color: "#000",  paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
                     {totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
                   </h4>
   
@@ -771,6 +773,7 @@ const handleUpdateRedux=()=>{
             )}
           />
         
+
         <OgioCartPdf/>
 
 {/* update the order from user 

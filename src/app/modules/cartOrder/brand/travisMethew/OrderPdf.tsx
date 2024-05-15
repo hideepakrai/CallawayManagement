@@ -265,6 +265,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
          <h4>Retailer Details:</h4>
          <h1>{retailerName}</h1>
          <p>{retailerAddres}</p>
+         
          <p>+123-456-789</p>
        </div>
        <div style={{float:"left"}}>
