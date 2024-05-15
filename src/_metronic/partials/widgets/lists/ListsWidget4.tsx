@@ -29,7 +29,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
+                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/icon_callway_f25555115b.png"
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -58,7 +58,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
+                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/icon_callway_f25555115b.png"
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -84,7 +84,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src="https://admin.callawayindiaoms.com/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png"
+                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png"
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -110,7 +110,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src="https://admin.callawayindiaoms.com/uploads/tm_thum_23fdeb8c29.png"
+                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/tm_thum_23fdeb8c29.png"
                 className='h-50 align-self-center'
                 alt=''
               />

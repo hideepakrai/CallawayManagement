@@ -26,8 +26,7 @@ const Reload = () => {
     const getCategorys = useSelector(getCategory)
     const getStyleCodes = useSelector(getStyleCode)
     useEffect(()=>{
-      // eslint-disable-next-line no-debugger
-      debugger
+     
      if(getCurrentUsers &&
          getUserAccounts&&
          getAdminTokens &&

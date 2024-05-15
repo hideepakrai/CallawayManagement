@@ -176,7 +176,7 @@ getGoodsOrders.length>0?
             pagination={{ defaultPageSize: 20 }}
           />):(
             <div className='not-data-section'>
-              <img src="https://admin.callawayindiaoms.com/uploads/empty_eefc36e883.png"></img>
+              <img src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/empty_eefc36e883.png"></img>
               <h2>No Data Found</h2>
             </div>
           )}

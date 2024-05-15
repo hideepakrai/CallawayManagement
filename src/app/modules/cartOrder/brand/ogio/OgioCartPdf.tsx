@@ -202,7 +202,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
        
       <div className=" ant-card ant-card-bordered gx-card" style={{marginTop:"40px"}} ref={contentToPrint}>
         <div className="ant-card-body"> 
-       <div><img width={150} src="https://admin.callawayindiaoms.com/uploads/callaway_logo_da080f1136_e19022b0ce.png"></img></div>
+       <div><img width={150} src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/callaway_logo_da080f1136_e19022b0ce.png"></img></div>
        <div style={{textAlign:"right", }}>
         <h1 style={{fontSize:"60px", color:"#038fde"}}>ORDER PDF</h1> 
         </div>

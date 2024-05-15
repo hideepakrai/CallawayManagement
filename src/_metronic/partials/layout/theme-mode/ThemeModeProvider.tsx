@@ -34,14 +34,14 @@ const themeModeSwitchHelper = (_mode: ThemeModeType) => {
   {/* autoplay autoplaySpeed={3000} */}
     <div className="gx-slider-1 ">
       <div className='prodect-image'>
-        <img src="https://admin.callawayindiaoms.com/uploads/image_3_2_3d5fa0ef7f.png" alt="Banner One"></img>
+        <img src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/image_3_2_3d5fa0ef7f.png" alt="Banner One"></img>
       </div>
     </div>
     <div className='prodect-image'>
-      <img src="https://admin.callawayindiaoms.com/uploads/2024_01_03_CG_Paradym_Ai_Smoke_Driver_Intro_Banner_2560x1000_1_9a9c1b0fdc.png" alt="Banner Two"></img>
+      <img src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/2024_01_03_CG_Paradym_Ai_Smoke_Driver_Intro_Banner_2560x1000_1_9a9c1b0fdc.png" alt="Banner Two"></img>
     </div>
     <div className='prodect-image'>
-      <img src="https://admin.callawayindiaoms.com/uploads/callaway_img1_1_3_bd66b91a82.png" alt="Banner Three"></img>
+      <img src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/callaway_img1_1_3_bd66b91a82.png" alt="Banner Three"></img>
     </div>
   </Carousel>
 </div>

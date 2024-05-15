@@ -29,7 +29,7 @@ const TilesWidget7 = (props: Props) => {
     <a href='#' className={clsx('card', className)}>
       <div className='card-body d-flex flex-column justify-content-between'>
        
-        <img width={30} src='https://admin.callawayindiaoms.com/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png'></img>
+        <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png'></img>
         <div className='d-flex flex-column'>
           <div className={clsx(titleClass, 'fw-bold fs-1 mb-0 mt-5')}>{ogioQuantity}</div>
           <div className={clsx(descriptionClass, 'fw-semibold fs-6')}>Ogio</div>

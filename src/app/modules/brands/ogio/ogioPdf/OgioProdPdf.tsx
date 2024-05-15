@@ -11,13 +11,14 @@ import { useSelector } from 'react-redux';
 import { BrandModel } from "../../../model/brand/AllBrands"
 import { getAllBrands } from "../../../../slice/brand/BrandSlice";
 import { Link } from 'react-router-dom';
-import "./TravisPdf.css"
+import "../../travisMethew/pdf/TravisPdf.css"
+import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 type Props = {
-  selectedRow: BasicModelTravis[];
+  selectedRow: OgioBasicModel[];
   resetSelectedRow: () => void;
 };
 
-const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
+const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
      
 
   console.log("selected row")
@@ -30,8 +31,6 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
     removeAfterPrint: true,
 
   });
-
-
 
 
 
@@ -80,7 +79,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                     {getAllBrand &&
                       getAllBrand.length > 0 &&
                       getAllBrand.map((item: BrandModel) => {
-                        if (item && item.attributes && item.attributes.Name === "Travis Mathew") {
+                        if (item && item.attributes && item.attributes.Name === "ogio") {
                           return (
                             <div key={item.id}>
                               <div>
@@ -223,10 +222,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                     paddingLeft: "10px",
                                   }}
                                 >
-                                  Season
+                                  Product model
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  {callout.season}{" "}
+                                  {callout.product_model}{" "}
                                 </td>
                               </tr>
 
@@ -242,49 +241,14 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                     paddingLeft: "10px",
                                   }}
                                 >
-                                  Color
+                                  Product Type
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  {callout.color}
+                                  {callout.product_type}
                                 </td>
                               </tr>
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Style Code
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.style_code}
-                                </td>
-                              </tr>
+                              
 
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Color code
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.color_code}
-                                </td>
-                              </tr>
                             </table>
                           </div>
                         </div>
@@ -302,7 +266,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                           />
                    </div>
 
-                          <div
+                          {/* <div
                             className="prodect-info-img">
                             {callout?.Gallery &&
                               callout?.Gallery.data.length > 0 &&
@@ -330,7 +294,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                   </div>
                                 </>
                               ))}
-                          </div>
+                          </div> */}
 
 
                         </div>
@@ -351,4 +315,6 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
   </div>);
 };
 
-export default TravisPdf;
+ 
+
+export default OgioPdf;

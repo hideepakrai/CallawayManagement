@@ -81,7 +81,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
+                    src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/icon_callway_f25555115b.png"
                     alt=''
                     className='h-50'
                   />
@@ -114,7 +114,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src="https://admin.callawayindiaoms.com/uploads/icon_callway_f25555115b.png"
+                    src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/icon_callway_f25555115b.png"
                     alt=''
                     className='h-50'
                   />
@@ -148,7 +148,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src="https://admin.callawayindiaoms.com/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png"
+                    src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png"
                     alt=''
                     className='h-50'
                   />
@@ -181,7 +181,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src="https://admin.callawayindiaoms.com/uploads/tm_thum_23fdeb8c29.png"
+                    src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/tm_thum_23fdeb8c29.png"
                     alt=''
                     className='h-50'
                   />

@@ -29,7 +29,7 @@ const TilesWidget8 = (props: Props) => {
     <a href='#' className={clsx('card', className)}>
       <div className='card-body d-flex flex-column justify-content-between'>
       {/* <KTIcon iconName={svgIcon || ''} className={clsx(iconClass, 'fs-2hx ms-n1 flex-grow-1')} /> */}
-       <img width={30} src='https://admin.callawayindiaoms.com/uploads/tm_thum_23fdeb8c29.png'></img>
+       <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/tm_thum_23fdeb8c29.png'></img>
         <div className='d-flex flex-column'>
           <div className={clsx(titleClass, 'fw-bold fs-1 mb-0 mt-5')}>{travisQuantity}</div>
           <div className={clsx(descriptionClass, 'fw-semibold fs-6')}> 

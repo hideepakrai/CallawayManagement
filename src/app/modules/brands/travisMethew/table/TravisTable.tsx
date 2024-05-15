@@ -25,9 +25,12 @@ import type { RadioChangeEvent, SelectProps } from 'antd';
 import TravisPdf from '../pdf/TravisPdf';
 import { useNavigate } from 'react-router-dom';
 import { Image } from 'antd';
-// import ImageRenderer from "./column/gallery";
+import ImageRenderer from "./column/gallery";
 import {getCategory,getStyleCode} from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
+import AWS from 'aws-sdk';
+
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19','SS20	' ];
@@ -35,6 +38,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
 
  const TravisTable = () => {
+  
   const placement: SelectCommonPlacement = 'topLeft'; 
    const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
@@ -60,14 +64,86 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
     const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
     const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
     const columns: TableColumnsType<BasicModelTravis>= [
-        {
-          // title: "Image",
-          dataIndex: "gallery_images_url",
-          // fixed: "left",
-          width: 50,
-          //  render: (value) => <ImageRenderer value={gallery_images_url} />,
+      {
+        dataIndex: "primary_image_url",
+        width: 50,
+        render: (value,record) => {
+          console.log("recoerd", record)
+          console.log("value", value)
+          let newSKU
+          const checkFolderExists=async(bucketName:string, folderPath:string)=> {
+            try {
+              const params = {
+                Bucket: bucketName,
+                Prefix: folderPath
+              };
+          
+              // List objects in the specified bucket and prefix (folder)
+             // const data = await s3.listObjectsV2(params).promise();
+          
+              // If the folder exists, return true
+             // console.log("s3 bucket file",data.Contents) 
+            } catch (error) {
+              console.error('Error checking folder existence:', error);
+              return false; // Return false in case of any error
+            }
+          }
 
+          if(record && record.sku){
+            const removeLastUnderscore = (str:string) => {
+              const lastUnderscoreIndex = str.lastIndexOf('_');
+              if (lastUnderscoreIndex !== -1) {
+                return str.substring(0, lastUnderscoreIndex);
+              }
+              return str;
+            };
+            newSKU = removeLastUnderscore(record?.sku);
+            const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
+            //checkFolderExists(newSKU, folderPath)
+          }
+          // Configure AWS SDK with your credentials and region
+
+            
+              // Create an S3 object instance
+                    
+                    // Function to check folder existence
+
+
+
+
+
+
+
+         
+         
+          return (
+            record.primary_image_url!=="" ?(
+              <Image.PreviewGroup
+                items={[
+                  'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp',
+                  'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp',
+                  'https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp',
+                ]}
+              >
+                <Image
+                  width={200}
+                  src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/${newSKU}/${record.primary_image_url}.jpg`}
+                />
+              </Image.PreviewGroup>
+            ):(
+              <span>
+
+              <img
+              src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
+              alt="Primary Image"
+              style={{ maxWidth: "30px", marginRight: "5px" }}
+              width={30}
+            />
+            </span>
+            )
+          );
         },
+      },
 
        
     
@@ -977,7 +1053,7 @@ const handleSelctRow = (record: BasicModelTravis) => {
   console.log("record", record);
     if(selectedRow &&selectedRow.length>0){
       const updatedSelectedRow = [...selectedRow];
-     const index= selectedRow.findIndex(row=> row.SKU===record.SKU);
+     const index= selectedRow.findIndex(row=> row.sku===record.sku);
      if(index!==-1){
       updatedSelectedRow.splice(index,1);
       setSelectedRow(updatedSelectedRow);

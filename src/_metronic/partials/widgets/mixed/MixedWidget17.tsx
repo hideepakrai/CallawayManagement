@@ -64,7 +64,7 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
         </div>
 
         <div className='card-toolbar col-6 justify-content-end pt-4'>                
-       <img width="100" src='https://admin.callawayindiaoms.com/uploads/Untitled_2_d1e539951e.png'></img>
+       <img width="100" src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/Untitled_2_d1e539951e.png'></img>
              
         </div>
 

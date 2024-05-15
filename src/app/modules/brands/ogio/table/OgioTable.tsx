@@ -18,7 +18,8 @@ import {addOgioOrder,removeOgioOrder} from "../../../../slice/orderSlice/ogio/Og
 import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 import { useNavigate } from 'react-router-dom';
 import { checkIsActive } from '../../../../../_metronic/helpers';
-
+import { BasicModelTravis } from '../../../model/travis/TravisMethewModel';
+import OgioProdPdf from "../ogioPdf/OgioProdPdf"
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -531,6 +532,56 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
   const handleViewCart=()=>{
     navigate("/cart")
   }
+
+
+const [selectedRow, setSelectedRow]= useState<OgioBasicModel[]>([])
+const handleSelctRow = (record: OgioBasicModel) => {
+  console.log("record", record);
+    if(selectedRow &&selectedRow.length>0){
+      const updatedSelectedRow = [...selectedRow];
+     const index= selectedRow.findIndex(row=> row.sku===record.sku);
+     if(index!==-1){
+      updatedSelectedRow.splice(index,1);
+      setSelectedRow(updatedSelectedRow);
+
+     }else if(index ===-1){
+      //setSelectedRowKeys([record]);
+      if (record) {
+        setSelectedRow(prev => [...prev, record]);
+      }
+     }
+    } else {
+      //setSelectedRowKeys([record]);
+      if (record) {
+        setSelectedRow(prev => [...prev, record]);
+      }
+    }
+  
+};
+
+// export to pdf 
+const [isPDF, setIspdf]= useState<boolean>(false)
+useEffect(()=>{
+  if(selectedRow){
+    console.log("selectedrow",selectedRow)
+  }
+},[selectedRow])
+
+
+const handleExportToPDF=()=>{
+  setIspdf(true)
+  //setIsCard(false)
+  
+}
+
+const handleResetSelectedRow =()=>{
+  //setSelectedRowKeys([]);
+  setSelectedRow([])
+  setIspdf(false)
+ // setIsCard(true)
+}
+
+
   return (
     <div className='container'>
 <Card style={{ marginTop:'80px'}}
@@ -558,7 +609,7 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
             onClick={handleImport}
             > <i className="bi bi-file-earmark-arrow-up"></i> Import Products</Button>
             <Button  className='mx-3 select-btn-detail'
-            // onClick={handleExportToPDF} 
+             onClick={handleExportToPDF} 
             > <i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button>
             <Button  className='mx-3 select-btn-detail'
             // onClick={handleExportToExcel}
@@ -573,7 +624,13 @@ const handleQuantity90=(value: string, record:OgioBasicModel)=>{
             ref={tableRef}
             columns={columns}
             dataSource={ogioProducts?.map((item) => ({ ...item, key: item.sku }))}
-            rowSelection={rowSelection}
+            rowSelection={{
+              onSelect:(record)=>{handleSelctRow(record)}
+            }}
+          //   expandable={{ expandedRowRender,
+          //  onExpand: (expanded, record) => handleExpand(expanded, record),
+              
+          //    }}
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
@@ -617,6 +674,11 @@ resetUpdateXs={handleResetUpdateXls}
 
 /> */}
 
+
+{ isPDF &&<OgioProdPdf
+              selectedRow={selectedRow}
+              resetSelectedRow={handleResetSelectedRow}
+              />}
 
     </div>
   )

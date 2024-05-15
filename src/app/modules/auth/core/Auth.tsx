@@ -55,8 +55,7 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
 
   useEffect(() => {
 
-    // eslint-disable-next-line no-debugger
-    debugger
+   
     // Load authentication state from local storage
     saveAuth(JSON.parse(localStorage.getItem('getCurrentUsers') as string))
     setCurrentUser(JSON.parse(localStorage.getItem('getUserAccounts') as string))
