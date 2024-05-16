@@ -35,8 +35,8 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: 'ankurShriv@gmail.com',
-  password: 'Ankur1!',
+  email: 'prashant.singh@callawaygolf.com',
+  password: 'Callaway1!',
   role: 'manager'
 }
 
@@ -112,7 +112,10 @@ export function Login() {
         // setCurrentUser(response)
         
       } catch (error) {
-        console.error(error)
+        console.log(error)
+        if(error){
+          alert("check your username and password")
+        }
         saveAuth(undefined)
         setStatus('The login details are incorrect')
         setSubmitting(false)
