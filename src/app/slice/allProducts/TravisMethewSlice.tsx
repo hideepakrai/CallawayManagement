@@ -412,22 +412,81 @@ const TravisMethewSlice = createSlice({
               
               state.otherProduct[otherIndex].Amount = MRP*(quantity88+quantity90)
               state.otherProduct[otherIndex].ordered = true;
+              const gst=state.otherProduct[otherIndex].gst;
+              const mrp=state.otherProduct[otherIndex].mrp;
+              const amount=state.otherProduct[otherIndex].Amount;
+              if(mrp &&gst && amount){
+               const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
+
+
+             const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
+
+             const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
+
+
+             const netBillings = parseFloat((amount - (qty90 * gst * mrp / 100)).toFixed(2));
+
+             const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+
+             state.otherProduct[otherIndex].LessGST = gstdiscount;
+             state.otherProduct[otherIndex].LessDiscountAmount = lessDiscountAmount;
+             state.otherProduct[otherIndex].NetBillings = netBillings;
+             state.otherProduct[otherIndex].FinalBillValue = finalBillValue;
+           } 
+           if(otherIndex!== -1 &&qty90==0 &&quantity88===0) {
+            state.otherProduct[otherIndex].Quantity90 = 0;
+            state.otherProduct[otherIndex].Quantity88 = 0;
+            state.otherProduct[otherIndex].Amount = 0;
+            state.otherProduct[otherIndex].ordered = false;
+
+        }
+
+
             }
           },
           updateOtherQuantity88:(state,actions) => {
             const {sku, qty88,MRP}=actions.payload;
             const otherIndex = state.otherProduct.findIndex(
-              (travisItem) => travisItem.SKU === sku
+              (travisItem) => travisItem.sku === sku
             );
             if (otherIndex!== -1) {
               state.otherProduct[otherIndex].Quantity88 = qty88;
               const quantity88 = state.otherProduct[otherIndex]?.Quantity88 ?? 0;
               const quantity90 = state.otherProduct[otherIndex]?.Quantity90 ?? 0;
+              const total=quantity88+quantity90;
               state.otherProduct[otherIndex].TotalQty = quantity88+quantity90;
 
               //const totalQty = state.otherProduct.[otherIndex]?.TotalQty ?? 0;
               state.otherProduct[otherIndex].Amount = MRP*(quantity88+quantity90)
               state.otherProduct[otherIndex].ordered = true;
+              const gst=state.otherProduct[otherIndex].gst;
+              const mrp=state.otherProduct[otherIndex].mrp;
+              const amount=state.otherProduct[otherIndex].Amount;
+              if(mrp &&gst && amount){
+                const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
+ 
+ 
+              const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
+ 
+              const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
+ 
+ 
+              const netBillings = parseFloat((amount - (total * gst * mrp / 100)).toFixed(2));
+ 
+              const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+ 
+              state.otherProduct[otherIndex].LessGST = gstdiscount;
+              state.otherProduct[otherIndex].LessDiscountAmount = lessDiscountAmount;
+              state.otherProduct[otherIndex].NetBillings = netBillings;
+              state.otherProduct[otherIndex].FinalBillValue = finalBillValue;
+            }
+            if(otherIndex!== -1 &&qty88==0 &&quantity90===0) {
+              state.otherProduct[otherIndex].Quantity90 = 0;
+              state.otherProduct[otherIndex].Quantity88 = 0;
+              state.otherProduct[otherIndex].Amount = 0;
+              state.otherProduct[otherIndex].ordered = false;
+ 
+          }
             }
           },
           removeOtherProduct:(state)=>{

@@ -68,8 +68,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         dataIndex: "primary_image_url",
         width: 50,
         render: (value,record) => {
-          console.log("recoerd", record)
-          console.log("value", value)
+          
           let newSKU
           const checkFolderExists=async(bucketName:string, folderPath:string)=> {
             try {
@@ -535,28 +534,28 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
       const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
       const handleExpand = (expanded: boolean, record: BasicModelTravis) => {
-         
+        console.log("handleExpand",record)
           dispatch(removeOtherProduct())
-        if (record && record.products && record.products.data) {
-          // eslint-disable-next-line no-debugger
-          debugger
-          const sdd:BasicModelTravisGraph[]=record.products.data
-          const recordedData:BasicModelTravis[]=[];
-          getProduct.map((item)=>{
-            sdd.map((product:BasicModelTravisGraph)=>{
-              if(product && product.attributes){
-                if(product.attributes.SKU === item.SKU){
-                  recordedData.push(item)
-                }
+        if (record.sku && record.variation_sku!="" && record.variation_sku!=undefined) {
+          const inputString = record.variation_sku
+        const stringArray = inputString.split(',');
+          console.log(stringArray)
+          const varskuArray:BasicModelTravis[]=[]
+         getProduct.map((item)=>{
+              if(stringArray && stringArray.length>0){
+                 stringArray.map(varSku=>{
+                  if(item.sku===varSku){
+                      varskuArray.push(item)
+                  }
+                 })
+
               }
-            })
-
-
-          })
+           
+         })
           // Expand only the clicked row
           
-          setExpandedRowKeys(recordedData);
-          dispatch(addOtherProduct(recordedData))
+          setExpandedRowKeys(varskuArray);
+         dispatch(addOtherProduct(varskuArray))
          // expandedRowRender (record.products.data)  // Assuming SKU is a string
         } else{
           setExpandedRowKeys([])
@@ -566,15 +565,15 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
       const expandedRowRender = (record: BasicModelTravis) => {
        
-
-        if (record && record.products && record.products.data  &&record.products.data.length > 0) {
+       console.log("expandedRowRender", record)
+        if (record ) {
          
         const subcolumns: TableColumnsType<BasicModelTravis> = [
 
           {
             title: "SKU",
-            dataIndex: "SKU",
-            key: "SKU",
+            dataIndex: "sku",
+            key: "sku",
             width: 130,
             fixed: "left",
           }
@@ -583,39 +582,100 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
            
             {
               title: "Style",
-              dataIndex: "TravisAttributes",
-              key: "StyleCode", 
+              dataIndex: "style_code",
+              key: "style_code", 
               width: 85,
-              render: (value) => <span>{value && value[0] && value[0].StyleCode}</span>,
+             
         },
             {
-              title: "Size",
-              dataIndex: "TravisAttributes",
-              key: "Size", 
+              title: "size",
+              dataIndex: "size",
+              key: "size", 
               width: 85,
-              render: (value) => <span>{value && value[0] && value[0].Size}</span>,
+             
         },
         
          
-        { title: "Qty88",
-        dataIndex: "TravisAttributes",
-        key: "Stock88", 
-        width: 100,
-        fixed:'right',
-        render: (value,record) => (
-          <Tooltip  open={record.SKU=== qty881ToolSKU ?isQty881ToolTip:false} title={record.SKU=== qty881ToolSKU ? qty881ToolMesage : ""} placement="top">
-          {/* <Input 
-          addonBefore={value[0]?.Stock88} 
-          type='number'
+//         { title: "Qty88",
+//         dataIndex: "TravisAttributes",
+//         key: "Stock88", 
+//         width: 100,
+//         fixed:'right',
+//         render: (value,record) => (
+//           <Tooltip  open={record.SKU=== qty881ToolSKU ?isQty881ToolTip:false} title={record.SKU=== qty881ToolSKU ? qty881ToolMesage : ""} placement="top">
+//           {/* <Input 
+//           addonBefore={value[0]?.Stock88} 
+//           type='number'
          
-          value={record.Quantity88?.toString()}
-          onChange={(e) => handleQuantity881(e.target.value, record)}
-          disabled={value[0]?.Stock88 === 0} 
-          /> */}
-           <InputNumber
+//           value={record.Quantity88?.toString()}
+//           onChange={(e) => handleQuantity881(e.target.value, record)}
+//           disabled={value[0]?.Stock88 === 0} 
+//           /> */}
+//            <InputNumber
+//                status={record.sku=== qty88ToolSKU &&qty88ToolMesage!=""?"error":""}
+//               className='mx-3 number-input'
+//               addonBefore={value[0]?.Stock88} 
+//               value={record.Quantity88?.toString()}
+//               style={{ width: 100 }}
+//               onChange={(value) => {
+//                 if (value !== null) {
+//                   handleQuantity881(value, record)
+//                 }
+
+//               }}
+             
+               
+//               disabled={value[0]?.Stock90 === 0} 
+//             />
+//          </Tooltip>
+//         ),
+//       },
+//       {
+//         title: "Qty90",
+//       dataIndex: "TravisAttributes",
+//       key: "Stock88", 
+//       width: 100,
+//       fixed:'right',
+//       render: (value,record) => (
+//         <Tooltip  open={record.SKU=== qty901ToolSKU ?isQty901ToolTip:false} title={record.SKU=== qty901ToolSKU ? qty901ToolMesage : ""} placement="top">
+//         {/* <Input addonBefore={value[0]?.Stock90||0} 
+//         type='number'
+        
+//         value={record.Quantity90?.toString()}
+//         onChange={(e) => handleQuantity901(e.target.value, record)} 
+//         disabled={value[0]?.Stock90 === 0} 
+//         /> */}
+
+// <InputNumber
+//  status={record.sku=== qty90ToolSKU &&qty90ToolMesage!=""?"error":""}
+//               className='mx-5 number-input'
+//               addonBefore={value[0]?.Stock90||0} 
+//               value={record.Quantity90?.toString()}
+//               onChange={(value) => {
+//                 if (value !== null) {
+//                   handleQuantity901(value, record)
+//                 }
+
+//               }}
+               
+//               disabled={value[0]?.Stock90 === 0} 
+//               style={{ width: 100 }}
+//             />
+//        </Tooltip>
+//       ),
+//       },
+
+           { title: "Qty88",
+            dataIndex: "stock_88",
+            key: "stock_88", 
+            width: 150,
+            fixed:'right',
+            render: (value,record) => (
+              <Tooltip  open={record.sku=== qty88ToolSKU ?isQty88ToolTip:false} title={record.sku=== qty88ToolSKU ? qty88ToolMesage : ""} placement="top">
+              <InputNumber
                status={record.sku=== qty88ToolSKU &&qty88ToolMesage!=""?"error":""}
               className='mx-3 number-input'
-              addonBefore={value[0]?.Stock88} 
+              addonBefore={record.stock_88} 
               value={record.Quantity88?.toString()}
               style={{ width: 100 }}
               onChange={(value) => {
@@ -626,31 +686,25 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
               }}
              
                
-              disabled={value[0]?.Stock90 === 0} 
+              disabled={value.stock_88 === 0} 
             />
-         </Tooltip>
-        ),
-      },
-      {
-        title: "Qty90",
-      dataIndex: "TravisAttributes",
-      key: "Stock88", 
-      width: 100,
-      fixed:'right',
-      render: (value,record) => (
-        <Tooltip  open={record.SKU=== qty901ToolSKU ?isQty901ToolTip:false} title={record.SKU=== qty901ToolSKU ? qty901ToolMesage : ""} placement="top">
-        {/* <Input addonBefore={value[0]?.Stock90||0} 
-        type='number'
-        
-        value={record.Quantity90?.toString()}
-        onChange={(e) => handleQuantity901(e.target.value, record)} 
-        disabled={value[0]?.Stock90 === 0} 
-        /> */}
-
-<InputNumber
- status={record.sku=== qty90ToolSKU &&qty90ToolMesage!=""?"error":""}
+            </Tooltip>
+             
+            ),
+          },
+            {
+              title: "Qty90",
+            dataIndex: "stock_90",
+            key: "stock_90", 
+            width: 150,
+            fixed:'right',
+            render: (value,record) => (
+              
+              <Tooltip  open={record.sku=== qty90ToolSKU ?isQty90ToolTip:false} title={record.sku=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+              <InputNumber
+               status={record.sku=== qty90ToolSKU &&qty90ToolMesage!=""?"error":""}
               className='mx-5 number-input'
-              addonBefore={value[0]?.Stock90||0} 
+              addonBefore={record.stock_90||0} 
               value={record.Quantity90?.toString()}
               onChange={(value) => {
                 if (value !== null) {
@@ -659,12 +713,13 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
               }}
                
-              disabled={value[0]?.Stock90 === 0} 
+              disabled={value.stock_90=== 0} 
               style={{ width: 100 }}
             />
-       </Tooltip>
-      ),
-      },
+            </Tooltip>
+             
+            ),
+            },
       {
         title: "Qty",
         dataIndex: "TotalQty",
@@ -675,8 +730,8 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         
             {
               title: "MRP",
-              dataIndex: "MRP",
-              key: "MRP", 
+              dataIndex: "mrp",
+              key: "mrp", 
               width: 80,
               fixed:'right',
             
@@ -701,7 +756,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 
       <Table  className='table-travis'
                 columns={subcolumns}
-                dataSource={getOtherProduct?.map((item)=>({...item,key:item.id}))}
+                dataSource={getOtherProduct?.map((item)=>({...item,key:item.sku}))}
                 pagination={false}
                 
                 size="middle"
@@ -756,6 +811,12 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           MRP: record.mrp,
           
         }));
+        dispatch(updateOtherQuantity90({
+          sku: record.sku,
+          qty90: intValue,
+          MRP: record.mrp,
+          
+        }));
       
       
       }
@@ -772,6 +833,12 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           MRP:record.mrp
         
          
+        }));
+        dispatch(updateOtherQuantity90({
+          sku: record.sku,
+          qty90: intValue,
+          MRP: record.mrp,
+          
         }));
         
     
@@ -791,7 +858,12 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         MRP: record.mrp,
         
       }));
-
+      dispatch(updateOtherQuantity90({
+        sku: record.sku,
+        qty90: intValue,
+        MRP: record.mrp,
+        
+      }));
       
     }
 
@@ -962,8 +1034,9 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
     setQty881Message("");
     setIsQty881ToolTip(false);
     setQty881SKU("")
+    console.log("881",record)
     const intValue = parseInt(value, 10);
-   
+    console.log("intValue",intValue)
 
       if(intValue>0 ){
 
@@ -971,10 +1044,15 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           
     
           dispatch(updateQuantity88({
-            sku: record.SKU,
+            sku: record.sku,
             qty88: intValue,
-            MRP: record.MRP,
+            MRP: record.mrp,
           }));
+          dispatch(updateOtherQuantity88({
+            sku: record.sku,
+            qty88: intValue,
+            MRP: record.mrp,
+          }))
         
         }
         else if( record && record.stock_88 && record.stock_88){
@@ -984,10 +1062,15 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           setQty88SKU(record.sku)
           const st88=(record&& record.stock_88)? record.stock_88:0;
          dispatch(updateQuantity88({
-          sku: record.SKU,
+          sku: record.sku,
           qty88:st88 ,
           MRP: record.mrp
         }));
+        dispatch(updateOtherQuantity88({
+          sku: record.sku,
+          qty88: intValue,
+          MRP: record.mrp,
+        }))
     
        
         }
@@ -995,14 +1078,19 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
         // alert("Quantity cannot be negative")
         setQty88Message("Quantity cannot be negative")
         setIsQty88ToolTip(true)
-        setQty88SKU(record.SKU)
+        setQty88SKU(record.sku)
         console.log("Quantity cannot be negative")
       } else if(intValue===0){
         dispatch(updateQuantity88({
-          sku: record.SKU,
+          sku: record.sku,
           qty88: intValue,
-          MRP: record.MRP,
+          MRP: record.mrp,
         }));
+        dispatch(updateOtherQuantity88({
+          sku: record.sku,
+          qty88: intValue,
+          MRP: record.mrp,
+        }))
       }
       
   
