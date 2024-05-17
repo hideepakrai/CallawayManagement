@@ -1,6 +1,7 @@
 import {createRoot} from 'react-dom/client'
 import { Provider } from 'react-redux'; // Import Provider from Redux Toolkit
 import store  from './app/store/store'; // Import your Redux store
+import dotenv from 'dotenv';
 // Axios
 import axios from 'axios'
 import {Chart, registerables} from 'chart.js'
@@ -24,7 +25,7 @@ import './_metronic/assets/keenicons/solid/style.css'
 import './_metronic/assets/sass/style.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
 import {AuthProvider, setupAxios} from './app/modules/auth'
- const graphQlUrl=import.meta.env.VITE_APP_STRAPI_URL_GraphQl
+const graphQlUrl=import.meta.env.VITE_APP_STRAPI_URL_GraphQl
 
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
@@ -48,6 +49,8 @@ const client = new ApolloClient({
 
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
+// Load environment variables from .env file
+dotenv.config();
 if (container) {
   createRoot(container).render(
     <Provider store={store}>
