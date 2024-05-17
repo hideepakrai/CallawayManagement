@@ -1,2 +1,19 @@
 .prodect-images{width: 80%;}
 .pdf-info{width: 765px!important; margin: 0 auto;}
+.download-prodect{    color: #111;
+    background-color: #fff;
+    border: 1px solid #707070;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 14px !important; 
+}
+
+.download-prodect:hover{    color: #fff!important;
+    background-color: #707070!important;
+    border: 1px solid #707070!important;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 14px !important; 
+}

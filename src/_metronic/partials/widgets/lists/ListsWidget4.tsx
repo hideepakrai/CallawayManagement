@@ -2,7 +2,8 @@
 import { FC } from 'react'
 import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
-
+import {Link} from 'react-router-dom'
+import clsx from 'clsx'
 type Props = {
   className: string
   items?: number
@@ -40,9 +41,11 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
 
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
-              <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
+           
+              <Link className ={ clsx ('text-gray-800 text-hover-primary fs-6 fw-bold')} to={"/brand/callaway/apparel"} > 
                Callaway Apparel
-              </a>
+              </Link>
+
               <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold my-2'>82</span>
@@ -68,9 +71,10 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           {/* begin::Section */}
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
-              <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
+            <Link className ={ clsx ('text-gray-800 text-hover-primary fs-6 fw-bold')} to={"/brand/callaway/goods"} > 
               Callaway Hardgoods
-              </a>
+              </Link>
+              
               <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold my-2'>280</span>
@@ -94,9 +98,10 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           {/* begin::Section */}
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
-              <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
+            <Link className ={ clsx ('text-gray-800 text-hover-primary fs-6 fw-bold')} to={"/brand/ogio"} > 
+           
               Ogio
-              </a>
+              </Link>
               <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold my-2'>500</span>
@@ -120,9 +125,10 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           {/* begin::Section */}
           <div className='d-flex align-items-center flex-row-fluid flex-wrap'>
             <div className='flex-grow-1 me-2'>
-              <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
+            <Link className ={ clsx ('text-gray-800 text-hover-primary fs-6 fw-bold')} to={"/brand/travis-methew"} > 
+            
               Travis Mathew
-              </a>
+              </Link>
               <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>
             </div>
             <span className='badge badge-light fw-bold fs my-2'>450</span>

@@ -4,7 +4,7 @@ import {KTIcon} from '../../../helpers'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getTravisProducts } from '../../../../app/slice/allProducts/TravisMethewSlice'
-
+import {Link} from 'react-router-dom'
 type Props = {
   className?: string
   svgIcon?: string
@@ -26,7 +26,8 @@ const TilesWidget8 = (props: Props) => {
     }
   },[getTravisProduct])
   return (
-    <a href='#' className={clsx('card', className)}>
+   
+      <Link className ={clsx('card', className)} to={"/brand/travis-methew"}>
       <div className='card-body d-flex flex-column justify-content-between'>
       {/* <KTIcon iconName={svgIcon || ''} className={clsx(iconClass, 'fs-2hx ms-n1 flex-grow-1')} /> */}
        <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/tm_thum_23fdeb8c29.png'></img>
@@ -36,7 +37,7 @@ const TilesWidget8 = (props: Props) => {
         Travis Mathew</div>
         </div>
       </div>
-    </a>
+    </Link>
   )
 }
 

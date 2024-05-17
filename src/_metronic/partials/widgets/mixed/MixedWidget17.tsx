@@ -7,6 +7,9 @@ import {Dropdown1} from '../../content/dropdown/Dropdown1'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 import { getOgioProducts } from '../../../../app/slice/allProducts/OgioSlice'
 import { useSelector } from 'react-redux'
+import {Link} from 'react-router-dom'
+
+import clsx from 'clsx'
 type Props = {
   className: string
   chartColor: string
@@ -94,12 +97,14 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
             </div>
             {/* end::Col */}
             {/* begin::Col */}
-            <div className='col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7'>
+
+            <Link className ={ clsx ('col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7')} to={"/brand/callaway/goods"} > 
               <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
               <a href='#' className=' fw-semibold fs-6'style={{color:"#141414"}}  >
               Create Order
               </a>
-            </div>
+
+            </Link>
             {/* end::Col */}
           </div>
           {/* end::Row */}

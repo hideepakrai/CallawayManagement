@@ -4,6 +4,7 @@ import {KTIcon} from '../../../helpers'
 import { getOgioProducts } from '../../../../app/slice/allProducts/OgioSlice'
 import { useSelector } from 'react-redux'
 import { useState , useEffect} from 'react'
+import {Link} from 'react-router-dom'
 type Props = {
   className?: string
   svgIcon?: string
@@ -26,7 +27,7 @@ const TilesWidget7 = (props: Props) => {
     }
   },[getOgioProduct])
   return (
-    <a href='#' className={clsx('card', className)}>
+    <Link className ={clsx('card', className)} to={"/brand/ogio" }>      
       <div className='card-body d-flex flex-column justify-content-between'>
        
         <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png'></img>
@@ -35,7 +36,9 @@ const TilesWidget7 = (props: Props) => {
           <div className={clsx(descriptionClass, 'fw-semibold fs-6')}>Ogio</div>
         </div>
       </div>
-    </a>
+
+    </Link>
+
   )
 }
 

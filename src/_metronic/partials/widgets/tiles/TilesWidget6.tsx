@@ -1,7 +1,7 @@
 
 import clsx from 'clsx'
 import {KTIcon} from '../../../helpers'
-
+import {Link} from 'react-router-dom'
 type Props = {
   className?: string
   svgIcon?: string
@@ -15,7 +15,8 @@ const TilesWidget6 = (props: Props) => {
   
   const {className, svgIcon, titleClass, descriptionClass, iconClass, title, description} = props
   return (
-    <a href='#' className={clsx('card', className)}>
+    
+       <Link className ={clsx('card', className)} to={"/brand/callaway/goods" }>
       <div className='card-body d-flex flex-column justify-content-between'>
 
         <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/icon_callway_f25555115b.png'></img>
@@ -25,7 +26,8 @@ const TilesWidget6 = (props: Props) => {
 Callaway Hardgoods</div>
         </div>
       </div>
-    </a>
+   
+      </Link>
   )
 }
 

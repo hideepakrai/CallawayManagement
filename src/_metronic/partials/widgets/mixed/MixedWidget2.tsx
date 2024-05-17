@@ -6,6 +6,8 @@ import {getCSSVariableValue} from '../../../assets/ts/_utils'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 import image3 from "../../../../../public/media/icons/logo-white.png"
+import {Link} from 'react-router-dom'
+import clsx from 'clsx'
 type Props = {
   className: string
   chartColor: string
@@ -48,7 +50,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
 
       <div className={`card-header row m-0 border-0 py-5`}  style={{backgroundColor:"#000"}}>
         <div className='col-6'>
-        <h3 className='card-title fw-bold text-white pt-4'>Callaway Apparel </h3>
+        <h3 className='card-title fw-bold text-white pt-4'>Callaway Apparel</h3>
         </div>
 
         <div className='card-toolbar col-6 justify-content-end'>                
@@ -82,12 +84,16 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
             </div>
             {/* end::Col */}
             {/* begin::Col */}
-            <div className='col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7'>
+
+            <Link className ={ clsx ('col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7')} to={"/brand/travis-methew"} >
               <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
               <a href='#' className='text-primary fw-semibold fs-6'style={{color:"#141414"}}  >
               Create Order
               </a>
-            </div>
+          
+            </Link>
+
+
             {/* end::Col */}
           </div>
           {/* end::Row */}

@@ -770,7 +770,7 @@ const TravisTable = () => {
             size="middle"
 
             rowSelection={{
-              onSelect: (record) => { handleSelctRow(record) }
+              onSelect:( record) => { handleSelctRow(record) }
             }}
           />
 

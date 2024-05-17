@@ -13,6 +13,7 @@ import { getAllBrands } from "../../../../slice/brand/BrandSlice";
 import { Link } from 'react-router-dom';
 import "../../travisMethew/pdf/TravisPdf.css"
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
+import OgioLogo from "../../../../../../public/media/logos/ogio-logo.png";
 type Props = {
   selectedRow: OgioBasicModel[];
   resetSelectedRow: () => void;
@@ -49,7 +50,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
                       <button onClick={() => {
                         handlePrint(null, () => contentToPrint.current);
-                      }} type="button" className="ant-btn css-dev-only-do-not-override-11xg00t ant-btn-default mx-3 "><span>Download Pdf</span></button>
+                      }} type="button" className="ant-btn css-dev-only-do-not-override-11xg00t ant-btn-default mx-3 download-prodect"><span>Download Pdf</span></button>
 
                       {/* <Button 
                         onClick={handleExportToPPT}
@@ -57,18 +58,26 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                           
                         </Button> */}
 
-                      <button type="button" className="ant-btn css-dev-only-do-not-override-11xg00t ant-btn-default mx-3 "><span>Download PPT</span></button>
+                      <button type="button" className="ant-btn css-dev-only-do-not-override-11xg00t ant-btn-default mx-3 download-prodect"><span>Download PPT</span></button>
 
                     </div>
 
           <Card id="catelog" ref={contentToPrint}>
             <div>
               <div>
-                <div>
+                <div className='mb-18' style={{textAlign:'center'}}>
+           
+                <div >   
+               <img  style={{ width: "230px", paddingTop: "60px" }} src={OgioLogo}></img>
+               </div>
+               <h2 style={{ paddingTop: "35px", paddingBottom: "10px", fontSize: "28px", color: "#262626",  fontWeight: "500" }}>Ogio</h2>    
 
+               <p style={{ fontSize: "14px",paddingLeft: "20px", paddingRight: "20px",}}>
+               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                </p>
                
 
-                  <div
+                  {/* <div
                     style={{
                       paddingBottom: "100px",
                       textAlign: "center",
@@ -108,7 +117,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                       })
                     }
 
-                  </div>
+                  </div> */}
 
                 </div>
 
@@ -137,10 +146,10 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                           style={{ order: "0", width: "47%" }}
                         >
                           <h2 style={{
-                            fontSize: "24px",
+                            fontSize: "20px",
                             //fontweight: "500" 
                           }}>
-                            <span> Name :</span> {callout?.name}
+                            {callout?.name}
                           </h2>
                           <p
                             style={{
@@ -222,7 +231,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                     paddingLeft: "10px",
                                   }}
                                 >
-                                  Product model
+                                  Product Model
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
                                   {callout.product_model}{" "}
@@ -245,6 +254,25 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
                                   {callout.product_type}
+                                </td>
+                              </tr>
+
+                              <tr
+                                style={{
+                                  border: "1px solid #ddd",
+                                  lineHeight: "40px",
+                                }}
+                              >
+                                <td
+                                  style={{
+                                    borderRight: "1px solid #ddd",
+                                    paddingLeft: "10px",
+                                  }}
+                                >
+                                  MRP
+                                </td>
+                                <td style={{ paddingLeft: "10px" }}>
+                                  1500
                                 </td>
                               </tr>
                               
