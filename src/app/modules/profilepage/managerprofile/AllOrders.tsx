@@ -10,18 +10,25 @@ import { Card } from "react-bootstrap";
 import {ProductDetails,CartModel,AccountOrder} from "../../model/CartOrder/CartModel.ts"
 import {addPendingOrder} from "../../../slice/orderSlice/travis/Orderdetails.tsx"
 import UpdateStatus from "./UpdateStatus.tsx";
-import GetAllorder from "../../orderPage/GetAllorder.tsx"
+
+import { GetAllUserOrders } from "../../../api/order/OrederApi.ts";
 const AllOrder = () => {
      
     const getUserAccounts= useSelector(getUserAccount)
+
+
+
+  
     const dispatch= useDispatch()
     const getUserOrder= useSelector(getUserOrders) as AccountOrder[];
-  const [orderId, setOrderId]= useState<number>()
+    console.log("getUserOrder",getUserOrder)
+    const [orderId, setOrderId]= useState<number>()
 
     const [isEdit, setIsEdit] = useState(false);
      
    
     
+    // getAll Orders
     
     const handleEdit = (id: number | undefined) => {
         if (id !== undefined) {
@@ -88,16 +95,16 @@ const AllOrder = () => {
         {getUserOrder &&
  getUserOrder?.length>0 &&
  getUserOrder?.map((item)=>{
-    if(item && item.attributes && item.attributes.Status!=="Pending"){
+    if(item && item.status!=="Pending"){
 
         return(
             <tr>
-				<td>{item.attributes.OrderId}</td>
-				<td>{item.attributes.Brand}</td>
-				<td>{item.attributes?.retailer?.data?.attributes?.Name}</td>
-				<td>{item.attributes.Status}</td>
-				<td>{item.attributes.createdAt}</td>
-				<td>{item.attributes?.Amount}</td>
+				<td>{item?.id}</td>
+				<td>{item?.brand_id==4?"Ogio":"Travis Mathew"}</td>
+				<td>{item.retailer_id}</td>
+				<td>{item.status}</td>
+				<td>{item.created_at}</td>
+				<td>{item.total_value}</td>
 				<td>
                 <span>
                    <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}

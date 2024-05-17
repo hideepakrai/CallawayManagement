@@ -84,15 +84,15 @@ const PendingOrder = () => {
                             {getUserOrder &&
                                 getUserOrder?.length > 0 &&
                                 getUserOrder?.map((item) => {
-                                    if (item && item.attributes && item.attributes.Status === "Pending") {
+                                    if (item && item.status === "Pending") {
 
                                         return (
                                             <tr>
-                                                <td>{item.attributes.OrderId}</td>
-                                                <td>{item.attributes.Brand}</td>
-                                                <td>{item.attributes?.retailer?.data?.attributes?.Name}</td>
-                                                <td>{item.attributes.createdAt}</td>
-                                                <td>{item.attributes?.Amount}</td>
+                                                <td>{item.id}</td>
+                                                <td>{item.brand_id===4?"Ogio":"TravisMathew"}</td>
+                                                <td>{item.retailer_id}</td>
+                                                <td>{item.created_at}</td>
+                                                <td>{item.total_value}</td>
                                                 <td>
                                                     <span>
                                                         <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}

@@ -18,6 +18,7 @@ import GetAllOrder from '../../../api/manager/GetAllOrders';
 import { useDispatch } from 'react-redux';
 import ManagerSlider from './ManagerSlider';
 import GetAllorder from '../../orderPage/GetAllorder';
+
 const ManagerProfile = () => {
   const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
@@ -29,8 +30,7 @@ const ManagerProfile = () => {
   const [acountype, setAcountype]= useState<string>("")
   const [UserId, setUserId]= useState<number>()
   useEffect(()=>{
-    if(getUserAccounts && getUserAccounts.user_id && getUserAccounts.role){
-        setAcountype(getUserAccounts.role);
+    if(getUserAccounts && getUserAccounts.user_id){
         setUserId(getUserAccounts.user_id);
         setIsOrder(true)
     }
@@ -94,12 +94,14 @@ const handleResetOrder=() => {
       resetmanagerid={handleResetId}
       />} */}
 
-{isOrder && UserId!=null &&
+ {isOrder && UserId!=null &&
     <GetAllorder
     userId={UserId}
-    acountype={acountype}
+    
     resetOrder={handleResetOrder}
-    />}
+    />} 
+
+ 
           </div>  
 
 

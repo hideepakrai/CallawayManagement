@@ -57,8 +57,20 @@ export interface ProductData{
 }
 
 export interface AccountOrder{
-  id?:number
-  attributes?:AttributesData;
+  id?:number,
+  brand_id?:number,
+  order_date?:string,
+items?:string,
+discount_type?:string,
+ discount_percent?:number,
+total_value?:number,
+status?:string,
+ manager_id?:number|null,
+ retailer_id?:number,
+salesrep_id?:number,
+user_id?:number,
+created_at?:string,
+  
 }
 export interface AttributesData{
   

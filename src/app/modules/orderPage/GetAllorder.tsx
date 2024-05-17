@@ -1,45 +1,44 @@
 import React, { useEffect } from 'react'
 import { GetUserOrder } from './api/_orderRequest'
-import { addUserOrders } from '../../slice/UserSlice/UserSlice'
+import { addUserOrders, getUserAccount } from '../../slice/UserSlice/UserSlice'
 import {useDispatch, useSelector} from "react-redux"
+import { GetAllUserOrders } from '../../api/order/OrederApi'
 
 
 type Props={
     userId:number,
-    acountype:string,
+    
     resetOrder:()=>void
 }
 
-const GetAllorder = ({userId,acountype,resetOrder}:Props) => {
+const GetAllorder = ({userId,resetOrder}:Props) => {
+  
    const dispatch= useDispatch()
 
-
     useEffect(()=>{
-      if(acountype && userId){
-        GetAllOrders(userId,acountype)
-      }
-
-    },[acountype , userId])
-    const GetAllOrders=async (userId:number, type:string) => {
-        try{
-            const response = await GetUserOrder(userId,type)
+        if(userId){
+           
+            getAllorders(userId)
             
-            console.log("all orders", response)
-            if(response.length>0){
+        }
+    },[userId])
+
+    const getAllorders= async (user_id:number) =>{
+
+
+        try{
+            const response= await GetAllUserOrders(user_id)
+            if(response){
                 dispatch(addUserOrders({
-                    userOrders: response.data,
+                    userOrders: response
                 }))
+
                 resetOrder()
-            }else if(response===null){
-              alert("No orders")
-              resetOrder()
             }
 
-        }catch(err){
-            console.log(err)
-            resetOrder()
+        }catch(error){
+            console.log(error)
         }
-
     }
   return (
     <div>GetAllorder</div>
