@@ -3,6 +3,7 @@ import RetailsTable from './RetailsTable'
 import Slider from '../../model/slider/Slider'
 import GetAllRetailer from "./GetAllRetailers"
 import { boolean } from 'yup'
+import GetAllRetailerAssociatedManager from '../../../api/retailers/GetAllRetailerAssociatedManager'
 const Retailer = () => {
 
   const [isRetailers, setIsRetailer]= useState<boolean>(false)
@@ -48,9 +49,12 @@ useEffect(()=>{
       
       <RetailsTable/>
 
-      {isRetailers &&<GetAllRetailer
-      resetRetailers={handleCloseQuery}
-      />}
+{
+  isRetailers &&
+  <GetAllRetailerAssociatedManager
+  resetRetailer={handleCloseQuery}
+  />}
+     
       </div>
     </div>
   )

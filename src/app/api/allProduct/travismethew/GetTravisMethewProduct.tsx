@@ -36,7 +36,7 @@ const GetTravisMethewProduct = ({ resetTravis}: Props) => {
        
 
  } catch(err){
-    alert("Error in getting ogio product")
+    // alert("Error in getting ogio product")
  }
         
     }

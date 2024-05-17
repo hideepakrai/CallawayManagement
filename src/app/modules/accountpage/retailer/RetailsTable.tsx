@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from "react-redux"
 import Retailerheader from './Retailerheader';
 //import {getRetailers} from "../../../slice/retailer/RetailerSlice"
 import {RetailerModel} from "../../model/AccountType/retailer/RetailerModel"
+import { getRetailers } from '../../../slice/retailer/RetailerSlice';
 
 type Props = {
     className: string
@@ -14,15 +15,15 @@ type Props = {
 const RetailsTable = () => {
 
   const dispatch = useDispatch();
-  //const getRetailer= useSelector(getRetailers)
+  const getRetailer= useSelector(getRetailers)
   const [allRetailers, setRetailers] = useState<RetailerModel[]>([])
     
-//   useEffect(()=>{
-//  if(getRetailer){
-//       console.log("Retailer",getRetailer)
-//       setRetailers(getRetailer)
-//     }
-//   },[getRetailer])
+  useEffect(()=>{
+ if(getRetailer){
+      console.log("Retailer",getRetailer)
+      setRetailers(getRetailer)
+    }
+  },[getRetailer])
 
   return (
     <>
@@ -52,10 +53,10 @@ const RetailsTable = () => {
                   </div>
                 </th>
                 <th className='min-w-150px'>Name</th>
-                <th className='min-w-150px'>Phone </th>
+                <th className='min-w-150px'>Address </th>
 
-                <th className='min-w-120px'>Address</th>
-                <th className='min-w-120px'>GST</th>
+                <th className='min-w-120px'>GSTIN</th>
+                <th className='min-w-120px'>Manager Name</th>
                 <th className='min-w-100px text-end'>Actions</th>
               </tr>
             </thead>
@@ -64,7 +65,7 @@ const RetailsTable = () => {
 
 
             <tbody>
-            {/* {allRetailers &&
+             {allRetailers &&
             allRetailers.length>0&&
             allRetailers.map((item:RetailerModel)=>{
 
@@ -82,10 +83,10 @@ const RetailsTable = () => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
-                      {item.attributes?.Name}
+                      {item.name}
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                      {item.attributes?.Email}
+                      {item.email}
                       </span>
                     </div>
                   </div>
@@ -94,23 +95,23 @@ const RetailsTable = () => {
                 <td>
                     
                 <span  className='text-gray-900 fw-bold  fs-6'>
-                {item.attributes?.Location}
+                {item.address}
                       </span>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                      {item.attributes?.Phone} ,{item.attributes?.Phone2}
+                      
                       </span>
                 
                 </td>
 
                 <td>
                  
-                  <span className='text-muted me-2 fs-6 fw-semibold'> {item.attributes?.Address}</span>
+                  <span className='text-muted me-2 fs-6 fw-semibold'> {item.gstin}</span>
                  
                 </td>
                 <td className='text-end'>
                   <div className='d-flex flex-column w-100 me-2'>
                     <div className='d-flex flex-stack mb-2'>
-                      <span className='text-muted me-2 fs-7 fw-semibold'> {item.attributes?.GST}</span>
+                      <span className='text-muted me-2 fs-7 fw-semibold'> {item.manager_name}</span>
                     </div>
                    
                   </div>
@@ -134,7 +135,7 @@ const RetailsTable = () => {
                 </td>
               </tr>
               )
-            })  } */}
+            })  } 
 
 
              

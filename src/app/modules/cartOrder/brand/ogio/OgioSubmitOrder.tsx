@@ -55,7 +55,12 @@ const OgioSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSub
     if(getOgioProduct &&getOgioProduct.length>0){
       getOgioProduct.map((item)=>{
         if(item.ordered && item.error==="" &&item.brand_id){
-          ogio.push(item)
+          ogio.push({
+            sku: item.sku,
+            mrp: item.mrp,
+            stock_90: item.Quantity90?item.Quantity90:0,
+            
+          })
           setBrandId(item.brand_id)
           
         }

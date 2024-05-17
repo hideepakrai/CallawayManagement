@@ -16,29 +16,7 @@ const GetRetailerInfo = ({ userRoleId,resetRetailer}: Props) => {
 
     const {setCurrentUser} = useAuth()   
     const dispatch= useDispatch()
-    const[user_Id, setUser_id]=useState<number>()
    
-
-    const { loading, error,data,refetch } = useQuery(GET_Retailer_ACCOUNT, {
-        variables: {
-            userId:userRoleId
-        },
-        fetchPolicy: 'no-cache',
-      });
-      
-
-// useEffect(() => {
-//      console.log("Retailers",data);
-//     // console.log(loading);
-//     if (data && !loading) {
-//         dispatch(addUserInfo({
-//             UserInfo:data?.retailers.data[0]?.attributes
-//         }))
-        
-//         setCurrentUser(data)
-//     resetRetailer();
-//     }
-// }, [data, loading]);
 
 
     return (
