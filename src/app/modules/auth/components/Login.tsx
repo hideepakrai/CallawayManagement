@@ -56,6 +56,7 @@ export function Login() {
   const [isManager, setisManager] = useState<boolean>(true)
   const [isRetailer, setIsRetailer] =useState<boolean>(false)
   const [isSalesRep, setIsSalesRep] = useState<boolean>(false)
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
   const [grpqlUser, setGrpqlUser] = useState<boolean>(false)
   const [grpqlManager, setGrpqlManager] = useState<boolean>(false)
   const [grpqlRetailer, setGrpqlRetailer] =useState<boolean>(false)
@@ -189,33 +190,33 @@ export function Login() {
   const handleRetailer=()=>{
     setisManager(false);
     setIsRetailer(true);
-    setIsSalesRep(false)
+    setIsAdmin(false)
     formik.setValues({
       ...formik.values,
-      email: 'delhi_golf_house@gmail.com',
-      password: 'Jaipur1!',
+      email: 'arjun.budidi@gmail.com',
+      password: 'Callaway@1!',
       role:"retailer"
     });
   }
   const handleManager=()=>{
     setisManager(true);
     setIsRetailer(false);
-    setIsSalesRep(false)
+    setIsAdmin(false)
     formik.setValues({
       ...formik.values,
-      email: 'ankurShriv@gmail.com',
-      password: 'Ankur1!',
+  email: 'prashant.singh@callawaygolf.com',
+      password: 'Callaway@1!',
       role:"retailer"
     });
   }
-  const handleSalesRep=()=>{
-    setIsSalesRep(true)
+  const handleAdmin=()=>{
+    setIsAdmin(true)
     setisManager(false);
     setIsRetailer(false);
     formik.setValues({
       ...formik.values,
-      email: 'testsalerep@gmail.com',
-      password: 'Jaipur1!',
+      email: 'ankur.srivastava@callawaygolf.com',
+      password: 'Callaway@1!',
       role:"sales-representtaive"
     });
   }
@@ -292,7 +293,7 @@ export function Login() {
               </div>
 
               <div className="col user-box text-center col-3" 
-              onClick={handleSalesRep}
+              onClick={handleAdmin}
               >
                
                   <div className='user-checkbox'>
@@ -300,7 +301,7 @@ export function Login() {
                       <img src="/media/icons/sales-representative.png" alt="Image 3"></img>
 
                       </div>
-                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Sales Rep</h4>
+                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Admin</h4>
                     <div className="tick_container">
                      {isSalesRep &&<div className="tick">
                         <i className="bi bi-check2"></i>
