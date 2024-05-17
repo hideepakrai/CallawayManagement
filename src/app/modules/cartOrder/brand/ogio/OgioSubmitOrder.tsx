@@ -48,14 +48,15 @@ const OgioSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSub
   
   // getAll Order
   const [ allOgioOrders, setGetAllOgioOrders]= useState<OgioBasicModel[]>([])
- 
-  
+ const [brandId, setBrandId]= useState<number>()
+    
   useEffect(()=>{
     const ogio:OgioBasicModel[]=[];
     if(getOgioProduct &&getOgioProduct.length>0){
       getOgioProduct.map((item)=>{
-        if(item.ordered && item.error===""){
+        if(item.ordered && item.error==="" &&item.brand_id){
           ogio.push(item)
+          setBrandId(item.brand_id)
           
         }
       })
@@ -94,7 +95,8 @@ if(getRetailerDetail &&
       if (Array.isArray(allOgioOrders) &&orderId) {
         const data={
           order_date:"",
-          //user_id:managerUserId,
+          brand_id:brandId,
+          user_id:managerUserId?managerUserId:0,
           items:JSON.stringify(allOgioOrders),
           discount_type:discountType,
           discount_percent:discountValue,
@@ -148,6 +150,7 @@ if(getRetailerDetail &&
     setIsOrder(false);
     setManagerUserId(null);
     settypeOfAccount("")
+    setGetAllOgioOrders([])
     resetSubmitOrder()
   }
    

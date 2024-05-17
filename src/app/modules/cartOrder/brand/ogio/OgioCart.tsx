@@ -520,7 +520,7 @@ useEffect(()=>{
 
 const [totalAmount, setTotalAmount] = useState<number>()
 const [discountAmount, setDiscountAmount] = useState<number>()
-const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>(0)
 
 useEffect(() => {
   let tAmount: number = 0;
@@ -631,8 +631,12 @@ const hanldeSubmitOrder = () => {
 }
 
 const handleResetSubmitOrder=()=>{
+  console.log("order submitted")
   setIsSubmitOrder(false)
-  
+  setIsUpdateStrapi(true)
+  setTotalAmount(0);
+  setTotalNetBillAmount(0);
+  setDiscountAmount(0)
 
   
 }
@@ -643,6 +647,7 @@ const handleResetUSerAccount=()=>{
 }
 
 const handleUpdateStrapi=()=>{
+  console.log("updated in DB")
   setIsUpdateStrapi(false)
   setIsUpdateRedux(true)
 }  
@@ -653,6 +658,7 @@ const handleUpdateRedux=()=>{
   setIsUpdateRedux(false)
   
     dispatch(LoadingStop())
+    setGetAllOgioOrders([])
 }
   return (
     <div>
@@ -792,7 +798,7 @@ const handleUpdateRedux=()=>{
        
        />}
 
-      { totalNetBillAmount &&
+      { totalNetBillAmount!=0 &&
       isSubmitOrder&&
       <OgioSubmitOrder
        totalNetBillAmount={totalNetBillAmount}

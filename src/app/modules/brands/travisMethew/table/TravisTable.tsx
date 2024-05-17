@@ -30,14 +30,14 @@ import { Image } from 'antd';
 import ImageRenderer from "./column/gallery";
 import { getCategory, getStyleCode } from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
-import AWS from 'aws-sdk';
+// import AWS from 'aws-sdk';
 
-// Configure AWS SDK with environment variables
-AWS.config.update({
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-  region: process.env.REACT_APP_AWS_REGION,
-});
+// // Configure AWS SDK with environment variables
+// AWS.config.update({
+//   accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+//   region: process.env.REACT_APP_AWS_REGION,
+// });
 
 
 
@@ -89,9 +89,9 @@ const TravisTable = () => {
               Prefix: folderPath
             };
 
-            const s3 = new AWS.S3();
-            const data = await s3.listObjectsV2(params).promise();
-            console.log("s3 bucket file", data.Contents);
+           // const s3 = new AWS.S3();
+           // const data = await s3.listObjectsV2(params).promise();
+           // console.log("s3 bucket file", data.Contents);
 
             // List objects in the specified bucket and prefix (folder)
             // const data = await s3.listObjectsV2(params).promise();
