@@ -28,9 +28,6 @@ import { Image } from 'antd';
 import ImageRenderer from "./column/gallery";
 import {getCategory,getStyleCode} from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
-import AWS from 'aws-sdk';
-
-
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19','SS20	' ];
@@ -573,7 +570,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
             title: "SKU",
             dataIndex: "sku",
             key: "sku",
-            width: 130,
+            width: 390,
             fixed: "left",
           }
           ,
@@ -583,14 +580,14 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
               title: "Style",
               dataIndex: "style_code",
               key: "style_code", 
-              width: 85,
+              width: 200,
              
         },
             {
               title: "size",
               dataIndex: "size",
               key: "size", 
-              width: 85,
+              width: 170,
              
         },
         
@@ -664,6 +661,9 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
 //       ),
 //       },
 
+
+
+
            { title: "Qty88",
             dataIndex: "stock_88",
             key: "stock_88", 
@@ -691,6 +691,7 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
              
             ),
           },
+
             {
               title: "Qty90",
             dataIndex: "stock_90",

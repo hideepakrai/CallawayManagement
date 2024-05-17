@@ -5,7 +5,7 @@ import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import {getCSSVariableValue} from '../../../assets/ts/_utils'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
-
+import image3 from "../../../../../public/media/icons/logo-white.png"
 type Props = {
   className: string
   chartColor: string
@@ -52,7 +52,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
         </div>
 
         <div className='card-toolbar col-6 justify-content-end'>                
-       <img width="100" src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/logo_white_4f59272bf0.png'></img>
+       <img width="100" src={image3}></img>
              
         </div>
 

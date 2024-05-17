@@ -2,7 +2,7 @@
 import {useEffect} from 'react'
 import {Outlet, Link} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
-
+import logocallaway from "../../../../public/media/logos/logo-white.png"
 const AuthLayout = () => {
   useEffect(() => {
     document.body.style.backgroundImage = `none`
@@ -47,7 +47,7 @@ const AuthLayout = () => {
         <div className='d-flex flex-column flex-center py-15 px-5 px-md-15 w-100'>
           {/* begin::Logo */}
           <Link to='/' className=' mt-6 mb-6'>
-            <img alt='Logo' className='h-75px' />
+            <img alt='Logo' className='h-75px' src={logocallaway} />
           </Link>
           {/* end::Logo */}
 
