@@ -178,11 +178,16 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
           },
           onFilter: (value, record) => {
              
-              let check: boolean= false
-            const val:string=value.toString().toUpperCase()
-              if(record && record.sku){
-                 check= record.sku?.startsWith(val)
-              }
+            let check = false;
+  const valUpper = value.toString().toUpperCase();
+  const valLower = value.toString().toLowerCase();
+
+  if (record && record.sku) {
+    check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+  }
+
+              
+             
            
             return  check;
           },
@@ -262,10 +267,8 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
                 placement={placement} 
-                onClick={(e) => {
-                  confirm({ closeDropdown: false });
-                  
-                }}
+                 onSelect={() => { confirm(); }}
+                onDeselect={() => { confirm(); }}
               >
                 {/* Render options based on available categories */}
                 {filteredOptions.map((item) => (
@@ -322,10 +325,8 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
                 onChange={setSelectedKeys}
                 style={{ width: '100%' }}
                 placement={placement} 
-                onClick={(e) => {
-                  confirm({ closeDropdown: false });
-                  
-                }}
+                 onSelect={() => { confirm(); }}
+                onDeselect={() => { confirm(); }}
               >
                 {/* Render options based on available seasons */}
                 {filteredOptionsOne.map((item) => (
@@ -377,10 +378,8 @@ const OPTIONS2 = ['1MR410', '1MO479','1MR410',];
               onChange={setSelectedKeys}
               style={{ width: '100%' }}
               placement={placement} 
-              onClick={(e) => {
-                confirm({ closeDropdown: false });
-                
-              }}
+               onSelect={() => { confirm(); }}
+                onDeselect={() => { confirm(); }}
             >
               {/* Render options based on available style codes */}
               {filteredOptionsTwo.map((item) => (

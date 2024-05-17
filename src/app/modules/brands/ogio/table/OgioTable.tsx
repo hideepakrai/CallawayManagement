@@ -96,14 +96,14 @@ const OgioTable = () => {
             }
           },
           onFilter: (value, record) => {
-                console.log("filter Record",record)
-              let check: boolean= false
-            const val:string=value.toString().toUpperCase()
-              console.log("value",val)
-              if(record && record.sku){
-                 check= record.sku?.startsWith(val)
-                 console.log("check",check)
-              }
+            let check = false;
+            const valUpper = value.toString().toUpperCase();
+            const valLower = value.toString().toLowerCase();
+          
+            if (record && record.sku) {
+              check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+            }
+          
            
             return  check;
           },
@@ -148,13 +148,13 @@ const OgioTable = () => {
            },
            filterSearch: true,
         },
-        {
-          title: "Description",
-          dataIndex: "description",
-          key: "description", 
-          width: 150,
+        // {
+        //   title: "Description",
+        //   dataIndex: "description",
+        //   key: "description", 
+        //   width: 150,
           
-        },
+        // },
         
         //product Type
         {
