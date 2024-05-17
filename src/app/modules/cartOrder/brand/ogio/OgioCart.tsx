@@ -689,6 +689,7 @@ const handleUpdateRedux=()=>{
                     placeholder="Select discount"
                     optionFilterProp="children"
                     onChange={handleDiscount}
+                    defaultValue="Inclusive"
   
                     options={[
                       {
