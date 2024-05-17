@@ -151,13 +151,13 @@ const OgioCart = () => {
        },
        filterSearch: true,
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description", 
-      width: 150,
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   key: "description", 
+    //   width: 150,
       
-    },
+    // },
     
     //product Type
     {

@@ -7,7 +7,8 @@ total_value?:number,
 status?:string,
  manager_id?:number|null,
  retailer_id?:number,
-salesrep_id?:number
+salesrep_id?:number,
+user_id?:number,
   
     }
     

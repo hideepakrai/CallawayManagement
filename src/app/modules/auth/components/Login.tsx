@@ -35,7 +35,7 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: 'prashant.singh@callawaygolf.com',
+  email: 'shashi.kiranshetty@callawaygolf.com',
   password: 'Callaway@1!',
   role: 'manager'
 }
@@ -204,7 +204,7 @@ export function Login() {
     setIsAdmin(false)
     formik.setValues({
       ...formik.values,
-  email: 'prashant.singh@callawaygolf.com',
+  email: 'shashi.kiranshetty@callawaygolf.com',
       password: 'Callaway@1!',
       role:"retailer"
     });

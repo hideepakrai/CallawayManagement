@@ -43,6 +43,8 @@ import Slider from '../../modules/model/slider/Slider.tsx'
 import "./DashboardWrapper.css";
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import {startTravisLoading} from "../../slice/allProducts/TravisMethewSlice.tsx"
+import { addUserRetailer, getUserAccount } from '../../slice/UserSlice/UserSlice.tsx'
+import { GetUserRetailer } from '../../modules/auth/core/_requests.ts'
 const DashboardPage = () => (
 
   
@@ -240,6 +242,32 @@ const DashboardWrapper = () => {
   },[getTravisProduct,getOgioProduct,getAllBrand])
 
   
+  // "getRetailer-associated""
+const getUserAccounts= useSelector(getUserAccount);
+console.log("getRetailer-associated",getUserAccounts)
+useEffect(()=>{
+  if(getUserAccounts && getUserAccounts.id){
+    console.log("hello")
+    getUserRetailer(getUserAccounts.id )
+  }
+},[getUserAccounts]);
+
+const getUserRetailer =async(id:number)=>{
+   try{
+  const response= await GetUserRetailer(id)
+  console.log("get etailer",response)
+  if(response){
+    dispatch(addUserRetailer({
+      UserRetailer:response
+  
+    }))
+  }
+  
+   }catch(error){
+     console.log("error",error)
+   }
+}
+
   return (
     <>
       <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>

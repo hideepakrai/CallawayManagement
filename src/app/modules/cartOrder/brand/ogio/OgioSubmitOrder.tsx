@@ -94,6 +94,7 @@ if(getRetailerDetail &&
       if (Array.isArray(allOgioOrders) &&orderId) {
         const data={
           order_date:"",
+          //user_id:managerUserId,
           items:JSON.stringify(allOgioOrders),
           discount_type:discountType,
           discount_percent:discountValue,
@@ -101,7 +102,8 @@ if(getRetailerDetail &&
           status:"Pending",
           manager_id:managerUserId,
           retailer_id:getRetailerDetail.retailerUserId,
-          salesrep_id:0
+          salesrep_id:111,
+        
 
         }
 

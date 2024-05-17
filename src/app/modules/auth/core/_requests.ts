@@ -27,6 +27,27 @@ export function login(data:{
   });
 }
 
+
+
+// fer retailers associati=ed with user
+export function GetUserRetailer(id:number){
+  
+
+  const payload={
+    managerId:id
+  }
+  // return axios.get(`${STRAPI_URL}/content-manager/collection-types/plugin::users-permissions.user/${data.userId}`,{headers})
+  return axios.post(`${serverUrl}/get-retailer-associated`,payload)
+  .then(response=>{
+    console.log(response)
+    return response.data
+}).catch(error=>{
+    throw error;
+});
+
+
+}
+
 // Server should return AuthModel
 export function register(data:{
   email: string,

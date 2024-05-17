@@ -33,8 +33,11 @@ const UserSlice = createSlice({
             state.currentUser = action.payload.currentUser;
             state.UserAccount=action.payload.UserAccount;
             state.adminToken=action.payload.adminToken;
-            state.UserRetailer=action.payload.UserRetailer;
+            
 
+        },
+        addUserRetailer:(state,action)=>{
+            state.UserRetailer=action.payload.UserRetailer;
         },
         addUserAccount: (state, action) => {
             state.UserAccount = action.payload.UserAccount;
@@ -59,7 +62,7 @@ const UserSlice = createSlice({
 
 export const { addUser, addUserAccount,
     addAdminToken ,
-    addUserOrders,updateOrderStatus,resetUserAccount} = UserSlice.actions;
+    addUserOrders,updateOrderStatus,resetUserAccount,addUserRetailer} = UserSlice.actions;
 
 
 export const getCurrentUser = (state: { user: UserState }) => state.user.currentUser;

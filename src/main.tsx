@@ -1,7 +1,7 @@
 import {createRoot} from 'react-dom/client'
 import { Provider } from 'react-redux'; // Import Provider from Redux Toolkit
 import store  from './app/store/store'; // Import your Redux store
-import dotenv from 'dotenv';
+//import dotenv from 'dotenv';
 // Axios
 import axios from 'axios'
 import {Chart, registerables} from 'chart.js'
@@ -50,7 +50,7 @@ const client = new ApolloClient({
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
 // Load environment variables from .env file
-dotenv.config();
+//dotenv.config();
 if (container) {
   createRoot(container).render(
     <Provider store={store}>
