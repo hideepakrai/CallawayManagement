@@ -34,9 +34,9 @@ import AWS from 'aws-sdk';
 
 // Configure AWS SDK with environment variables
 AWS.config.update({
-  accessKeyId:"AKIAZI2LFO22IIPFMLV6" ,
-  secretAccessKey: "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",
-  region: "ap-south-1"
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  region: process.env.REACT_APP_AWS_REGION,
 });
 
 
@@ -89,15 +89,15 @@ const TravisTable = () => {
               Prefix: folderPath
             };
 
-            //console.log("params",params)
-           
-    
-          
-
             const s3 = new AWS.S3();
             const data = await s3.listObjectsV2(params).promise();
-   console.log("data",data)
-            
+            console.log("s3 bucket file", data.Contents);
+
+            // List objects in the specified bucket and prefix (folder)
+            // const data = await s3.listObjectsV2(params).promise();
+
+            // If the folder exists, return true
+            // console.log("s3 bucket file",data.Contents) 
           } catch (error) {
             console.error('Error checking folder existence:', error);
             return false; // Return false in case of any error
@@ -114,9 +114,22 @@ const TravisTable = () => {
           };
           newSKU = removeLastUnderscore(record?.sku);
           const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
-          checkFolderExists(newSKU, folderPath)
+          //checkFolderExists(newSKU, folderPath)
         }
-      
+        // Configure AWS SDK with your credentials and region
+
+
+        // Create an S3 object instance
+
+        // Function to check folder existence
+
+
+
+
+
+
+
+
 
         return (
           record.primary_image_url !== "" ? (
@@ -770,7 +783,7 @@ const TravisTable = () => {
             size="middle"
 
             rowSelection={{
-              onSelect:( record) => { handleSelctRow(record) }
+              onSelect: (record) => { handleSelctRow(record) }
             }}
           />
 
