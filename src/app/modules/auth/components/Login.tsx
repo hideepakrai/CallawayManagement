@@ -36,7 +36,7 @@ const loginSchema = Yup.object().shape({
 
 const initialValues = {
   email: 'prashant.singh@callawaygolf.com',
-  password: 'Callaway1!',
+  password: 'Callaway@1!',
   role: 'manager'
 }
 
