@@ -162,7 +162,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                               paddingRight: "10px",
                             }}
                           >
-                            <span> Description :</span> {callout?.description}
+                            {callout?.description}
                           </p>
 
                           <div>
