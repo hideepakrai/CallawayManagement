@@ -13,6 +13,10 @@ import { getAllBrands } from "../../../../slice/brand/BrandSlice";
 import { Link } from 'react-router-dom';
 import "./TravisPdf.css"
 import TravisLogo from "../../../../../../public/media/logos/tm-logo.png";
+import productimg from "../../../../../../public/media/product/Pro-img (1).png";
+import productimg1 from "../../../../../../public/media/product/Pro-img (2).png";
+import productimg2 from "../../../../../../public/media/product/Pro-img (3).png";
+import productimg3 from "../../../../../../public/media/product/Pro-img (4).png";
 type Props = {
   selectedRow: BasicModelTravis[];
   resetSelectedRow: () => void;
@@ -158,7 +162,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                               paddingRight: "10px",
                             }}
                           >
-                            <span> Description :</span> {callout?.description}
+                           {callout?.description}
                           </p>
 
                           <div>
@@ -333,10 +337,8 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                    </div>
 
                           <div
-                            className="prodect-info-img">
-                            {callout?.Gallery &&
-                              callout?.Gallery.data.length > 0 &&
-                              callout?.Gallery.data.map((item) => (
+                            className="prodect-info-img" >
+                            {(
                                 <>
                                   <div
                                     className="prodect-images-pdf"
@@ -354,12 +356,64 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                           height: "70px",
                                         }}
 
-                                        src={`https://admin.callawayindiaoms.com${item?.attributes?.formats?.medium?.url}`}
+                                        src={productimg}
+
                                       />
                                     </span>
+                                    <span style={{ width: "150px" }} className="">
+                                      <img
+                                        alt="Special Edition Party Spas"
+                                        style={{
+                                          backgroundColor: "#eee",
+                                          borderRadius: "10px",
+                                          width: "70px",
+                                          border: "1px solid #ddd",
+                                          marginBottom: "5px",
+                                          height: "70px",
+                                        }}
+
+                                        src={productimg1}
+
+                                      />
+                                    </span>
+
+                                    <span style={{ width: "150px" }} className="">
+                                      <img
+                                        alt="Special Edition Party Spas"
+                                        style={{
+                                          backgroundColor: "#eee",
+                                          borderRadius: "10px",
+                                          width: "70px",
+                                          border: "1px solid #ddd",
+                                          marginBottom: "5px",
+                                          height: "70px",
+                                        }}
+
+                                        src={productimg2}
+
+                                      />
+                                    </span>
+
+                                    <span style={{ width: "150px" }} className="">
+                                      <img
+                                        alt="Special Edition Party Spas"
+                                        style={{
+                                          backgroundColor: "#eee",
+                                          borderRadius: "10px",
+                                          width: "70px",
+                                          border: "1px solid #ddd",
+                                          marginBottom: "5px",
+                                          height: "70px",
+                                        }}
+
+                                        src={ productimg3}
+
+                                      />
+                                    </span>
+
                                   </div>
                                 </>
-                              ))}
+                              )}
                           </div>
 
 
