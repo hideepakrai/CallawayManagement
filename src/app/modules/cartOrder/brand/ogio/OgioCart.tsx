@@ -21,7 +21,7 @@ import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 import OgioProduct from '../../../../api/allProduct/ogio/OgioProduct';
 import OgioSubmitOrder from './OgioSubmitOrder';
 import UpdateOrderToDB from "./updateOrderToDB"
-import { InfoCircleOutlined } from '@ant-design/icons';
+// import { InfoCircleOutlined } from '@ant-design/icons';
 import UpdateReduxOgio  from "./UpdateReduxOgio"
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -327,21 +327,7 @@ const OgioCart = () => {
           
           render: (value,record) => (
             <>
-               {value === 0 && ( // Conditionally render Popconfirm when intValue is 0
-            <Popconfirm
-              title="Delete the task"
-              description="Are you sure to delete this task?"
-              onConfirm={handleconfirm}
-              onCancel={handlecancel}
-              okText="Yes"
-              cancelText="No"
-              placement="top" // Set the placement to top
-            >
-              <Tooltip title="Enter quantity" placement="top">
-                <InfoCircleOutlined className="icon" />
-              </Tooltip>
-            </Popconfirm>
-          )}
+            
             <Tooltip  open={record.sku=== qty90ToolSKU ?isQty90ToolTip:false} title={record.sku=== qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
            
             <InputNumber
