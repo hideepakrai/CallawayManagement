@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-callawaybackend-dev-1ca9b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::637423417012:role/amplify-callawaybackend-dev-1ca9b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::637423417012:role/amplify-callawaybackend-dev-1ca9b-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-callawaybackend-dev-1ca9b-deployment",
+      "UnauthRoleName": "amplify-callawaybackend-dev-1ca9b-unauthRole",
+      "StackName": "amplify-callawaybackend-dev-1ca9b",
+      "StackId": "arn:aws:cloudformation:ap-south-1:637423417012:stack/amplify-callawaybackend-dev-1ca9b/e37bd180-1534-11ef-b089-0a780234ac1b",
+      "AmplifyAppId": "d1437a8lgg0w9v"
+    },
+    "categories": {
+      "auth": {
+        "callawaybackend50a45f2b": {}
+      }
+    }
+  }
+}
