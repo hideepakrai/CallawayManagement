@@ -3,6 +3,10 @@ import { Provider } from 'react-redux'; // Import Provider from Redux Toolkit
 import store  from './app/store/store'; // Import your Redux store
 //import dotenv from 'dotenv';
 // Axios
+
+import { Amplify } from 'aws-amplify';
+import config from '../src/amplifyconfiguration.json';
+
 import axios from 'axios'
 import {Chart, registerables} from 'chart.js'
 import {QueryClient, QueryClientProvider} from 'react-query'
@@ -51,6 +55,7 @@ const queryClient = new QueryClient()
 const container = document.getElementById('root')
 // Load environment variables from .env file
 //dotenv.config();
+Amplify.configure(config);
 if (container) {
   createRoot(container).render(
     <Provider store={store}>

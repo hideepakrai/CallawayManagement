@@ -13,14 +13,20 @@ import { addUser, addAdminToken } from "../../../slice/UserSlice/UserSlice"
 
 import GetUserAccount from './GetUserAccount'
 import { UserModel } from '../core/_models';
-import {LoadingStart} from "../../../slice/loading/LoadingSlice"
+import { LoadingStart } from "../../../slice/loading/LoadingSlice"
 import GetRetailerAccount from './GetRetailerAccount'
 import GetAllProduct from '../../../api/allProduct/GetAllProduct';
-import {getUserAccount} from "../../../slice/UserSlice/UserSlice"
+import { getUserAccount } from "../../../slice/UserSlice/UserSlice"
 import Manager from "../../../api/manager/Manager"
-import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
+import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
+import type { FormEvent } from "react"
+import { Amplify } from "aws-amplify"
+import { signIn } from "aws-amplify/auth"
+import outputs from "../../../../../amplify_outputs.json"
 
+console.log(outputs);
+Amplify.configure(outputs)
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -52,14 +58,14 @@ export function Login() {
   const { saveAuth, setCurrentUser } = useAuth()
   const [userName, setUserName] = useState(null)
   const [userId, setUserId] = useState(null)
-  const [userRoleId, setUserRoleId] = useState<number|null>(null)
+  const [userRoleId, setUserRoleId] = useState<number | null>(null)
   const [isManager, setisManager] = useState<boolean>(true)
-  const [isRetailer, setIsRetailer] =useState<boolean>(false)
+  const [isRetailer, setIsRetailer] = useState<boolean>(false)
   const [isSalesRep, setIsSalesRep] = useState<boolean>(false)
   const [isAdmin, setIsAdmin] = useState<boolean>(false)
   const [grpqlUser, setGrpqlUser] = useState<boolean>(false)
   const [grpqlManager, setGrpqlManager] = useState<boolean>(false)
-  const [grpqlRetailer, setGrpqlRetailer] =useState<boolean>(false)
+  const [grpqlRetailer, setGrpqlRetailer] = useState<boolean>(false)
   const [grpqlSalesRep, setGrpqlSalesRep] = useState<boolean>(false)
 
   const dispatch = useDispatch()
@@ -71,24 +77,30 @@ export function Login() {
 
       const data = {
         // identifier: values.email,
-         email: values.email,
+        email: values.email,
         password: values.password,
       };
 
+
       try {
         const response = await login(data)
-          console.log("userLof=gin ",response)
-       saveAuth(response?.token)
-       setCurrentUser(response)
-       // setUserName(response?.user?.name);
-        
-      // setUserId(response?.user?.id);
-      // setGrpqlUser(true)
+        const awsLogin = await signIn({
+          username: "shashi.kiranshetty@callawaygolf.com",
+          password: "Callaway@1!",
+        })  
+        console.log("awsLogin =>", awsLogin)
+        console.log("userLof=gin ", response)
+        saveAuth(response?.token)
+        setCurrentUser(response)
+        // setUserName(response?.user?.name);
+
+        // setUserId(response?.user?.id);
+        // setGrpqlUser(true)
         dispatch(addUser({
           currentUser: response.user,
-          UserAccount:response.accountType,
-          adminToken:response.token,
-          UserRetailer:response.retailer
+          UserAccount: response.accountType,
+          adminToken: response.token,
+          UserRetailer: response.retailer
         }))
 
         setLoading(false)
@@ -111,10 +123,10 @@ export function Login() {
         //   adminToken: admintoken
         // }))
         // setCurrentUser(response)
-        
+
       } catch (error) {
         console.log(error)
-        if(error){
+        if (error) {
           alert("check your username and password")
         }
         saveAuth(undefined)
@@ -126,7 +138,7 @@ export function Login() {
   })
 
 
-  const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
+  const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
   console.log(getUserAccounts)
   //get user Sale and retailer associated with 
   // useEffect(()=>{
@@ -141,10 +153,10 @@ export function Login() {
   //   ){
   //     const userRole:string= getUserAccounts.attributes.role.data.attributes.name
   //     if(userRole==="manager"){
-       
+
   //       const id=getUserAccounts?.attributes?.manager?.data?.id
   //       if (id ) {
-         
+
   //         setUserRoleId(id);
   //         setGrpqlManager(true)
   //         setGrpqlRetailer(false)
@@ -159,15 +171,15 @@ export function Login() {
   //         setGrpqlRetailer(true)
   //         setGrpqlSalesRep(false)
   //       }
-       
+
   //     }
-      
+
   //   }
   // },[getUserAccounts]) 
 
 
 
-  const handleResetRoleId=() => {
+  const handleResetRoleId = () => {
     setUserRoleId(null)
     setGrpqlManager(false)
     setGrpqlRetailer(false)
@@ -187,7 +199,7 @@ export function Login() {
 
   }
 
-  const handleRetailer=()=>{
+  const handleRetailer = () => {
     setisManager(false);
     setIsRetailer(true);
     setIsAdmin(false)
@@ -195,21 +207,21 @@ export function Login() {
       ...formik.values,
       email: 'arjun.budidi@gmail.com',
       password: 'Callaway@1!',
-      role:"retailer"
+      role: "retailer"
     });
   }
-  const handleManager=()=>{
+  const handleManager = () => {
     setisManager(true);
     setIsRetailer(false);
     setIsAdmin(false)
     formik.setValues({
       ...formik.values,
-  email: 'shashi.kiranshetty@callawaygolf.com',
+      email: 'shashi.kiranshetty@callawaygolf.com',
       password: 'Callaway@1!',
-      role:"retailer"
+      role: "retailer"
     });
   }
-  const handleAdmin=()=>{
+  const handleAdmin = () => {
     setIsAdmin(true)
     setisManager(false);
     setIsRetailer(false);
@@ -217,7 +229,7 @@ export function Login() {
       ...formik.values,
       email: 'ankur.srivastava@callawaygolf.com',
       password: 'Callaway@1!',
-      role:"sales-representtaive"
+      role: "sales-representtaive"
     });
   }
 
@@ -254,60 +266,60 @@ export function Login() {
             {/* <label>Role</label> */}
 
             <div className="user-section row mb-8">
-              <div className="col user-box  text-center col-3" 
-              onClick={handleManager}
+              <div className="col user-box  text-center col-3"
+                onClick={handleManager}
               >
-               
-                  <div className='user-checkbox'>
-                    <div className="user-img">
+
+                <div className='user-checkbox'>
+                  <div className="user-img">
                     <img src="https://dzinlystrapi.s3.us-east-2.amazonaws.com/graphic_designer_5b13ac7386.png" alt="Image 1"></img>
 
-                    </div>
-                    <h4 className="user-detail d-flex  fs-5 fw-bolder text-gray-900">Manager</h4><div className="tick_container">
-                     { isManager && <div className="tick">
-                        <i className="bi bi-check2"></i>
-                      </div>}
-                      
-                    </div>
                   </div>
+                  <h4 className="user-detail d-flex  fs-5 fw-bolder text-gray-900">Manager</h4><div className="tick_container">
+                    {isManager && <div className="tick">
+                      <i className="bi bi-check2"></i>
+                    </div>}
+
+                  </div>
+                </div>
               </div>
 
 
               <div className="col user-box text-center col-3"
-               onClick={handleRetailer}
+                onClick={handleRetailer}
               >
-                
-                  <div className='user-checkbox'>
-                    <div className="user-img">
+
+                <div className='user-checkbox'>
+                  <div className="user-img">
                     <img src=" https://dzinlystrapi.s3.us-east-2.amazonaws.com/people_bc29368361.png" alt="Image 2"></img>
                   </div>
-                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900 retailer"
-                   
-                    >Retailer</h4>
-                    <div className="tick_container">
-                     { isRetailer &&<div className="tick">
-                        <i className="bi bi-check2"></i>
-                      </div>}
-                    </div>
+                  <h4 className="user-detail  fs-5 fw-bolder text-gray-900 retailer"
+
+                  >Retailer</h4>
+                  <div className="tick_container">
+                    {isRetailer && <div className="tick">
+                      <i className="bi bi-check2"></i>
+                    </div>}
                   </div>
+                </div>
               </div>
 
-              <div className="col user-box text-center col-3" 
-              onClick={handleAdmin}
+              <div className="col user-box text-center col-3"
+                onClick={handleAdmin}
               >
-               
-                  <div className='user-checkbox'>
-                    <div className="user-img">
-                      <img src="/media/icons/sales-representative.png" alt="Image 3"></img>
 
-                      </div>
-                    <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Admin</h4>
-                    <div className="tick_container">
-                     {isSalesRep &&<div className="tick">
-                        <i className="bi bi-check2"></i>
-                      </div>}
-                    </div>
+                <div className='user-checkbox'>
+                  <div className="user-img">
+                    <img src="/media/icons/sales-representative.png" alt="Image 3"></img>
+
                   </div>
+                  <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Admin</h4>
+                  <div className="tick_container">
+                    {isSalesRep && <div className="tick">
+                      <i className="bi bi-check2"></i>
+                    </div>}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -375,7 +387,7 @@ export function Login() {
 
 
 
-          
+
           </div>
 
           <label className='form-label fs-6 fw-bolder text-gray-900'>Email</label>
@@ -429,8 +441,8 @@ export function Login() {
         {/* end::Form group */}
 
         {/* begin::Wrapper */}
-        <div className='d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8'> 
-        
+        <div className='d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8'>
+
           <div />
 
           {/* begin::Link */}
@@ -451,7 +463,7 @@ export function Login() {
           >
             {!loading && <span className='indicator-label text-white'>Continue</span>}
             {loading && (
-              <span className='indicator-progress' style={{ display: 'block',color:"#fff" }}>
+              <span className='indicator-progress' style={{ display: 'block', color: "#fff" }}>
                 Please wait...
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
               </span>
@@ -460,12 +472,12 @@ export function Login() {
         </div>
         {/* end::Action */}
 
-       
-      </form>    
-     
 
-      
-     
+      </form>
+
+
+
+
 
     </>
 

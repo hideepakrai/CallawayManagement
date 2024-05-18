@@ -30,17 +30,15 @@ import { Image } from 'antd';
 import ImageRenderer from "./column/gallery";
 import { getCategory, getStyleCode } from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
-import AWS from 'aws-sdk';
-// import { config } from 'dotenv';
-// config();
-
-import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { list } from 'aws-amplify/storage';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
 const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
+
+
+
 
 const TravisTable = () => {
 
@@ -60,49 +58,19 @@ const TravisTable = () => {
   const getCategorys = useSelector(getCategory);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
-  console.log("Access Key ID:", process.env.REACT_APP_AWS_ACCESS_KEY_ID);
-  console.log("Secret Access Key:", process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
-  console.log("Region:", process.env.REACT_APP_AWS_REGION);
 
-  useEffect(() => {
-    const REGION = process.env.REACT_APP_AWS_REGION;
-    const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID;
-    const secretAccessKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
-    console.log("REGION =>", REGION)
-    console.log("accessKeyId =>", accessKeyId)
-    console.log("secretAccessKey =>", secretAccessKey)
-
-    if (!accessKeyId || !secretAccessKey || !REGION) {
-      console.error('AWS credentials or region not set');
-      return;
-    }
-
-    const s3Client = new S3Client({
-      region: REGION,
-      credentials: {
-        accessKeyId,
-        secretAccessKey,
-      },
+  try {
+    const result =  list({
+      path: 'testingDev/',
+      // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
     });
+    console.log("result AWS -------->", result)
+  } catch (error) {
+    console.log(error);
+  }
 
-    const bucketName = 'callawaytech';
 
-    const listFolders = async () => {
-      try {
-        const params = {
-          Bucket: bucketName,
-          Delimiter: '/',
-        };
-        const command = new ListObjectsV2Command(params);
-        const data = await s3Client.send(command);
-        console.log('Folders in bucket:', data.CommonPrefixes);
-      } catch (error) {
-        console.error('Error listing folders:', error);
-      }
-    };
-
-    listFolders();
-  }, []);
+  
   
   const columns: TableColumnsType<BasicModelTravis> = [
     {
