@@ -31,12 +31,16 @@ import ImageRenderer from "./column/gallery";
 import { getCategory, getStyleCode } from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
 import AWS from 'aws-sdk';
+// import { config } from 'dotenv';
+// config();
+
+import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
 const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
-
 
 const TravisTable = () => {
 
@@ -56,31 +60,50 @@ const TravisTable = () => {
   const getCategorys = useSelector(getCategory);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
-  AWS.config.update({
-    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-    region: process.env.REACT_APP_AWS_REGION,
-  });
-  const s3 = new AWS.S3();
-  const bucketName = 'callawaytech';
-  // Function to list folders in the S3 bucket
-  const listFolders = async () => {
-    try {
-      const params = {
-        Bucket: bucketName,
-        Delimiter: '/'
-      };
-      const data = await s3.listObjectsV2(params).promise();
-      console.log('Folders in bucket:', data.CommonPrefixes);
-    } catch (error) {
-      console.error('Error listing folders:', error);
-    }
-  };
+  console.log("Access Key ID:", process.env.REACT_APP_AWS_ACCESS_KEY_ID);
+  console.log("Secret Access Key:", process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
+  console.log("Region:", process.env.REACT_APP_AWS_REGION);
 
-  // Example usage
-  (async () => {
-    await listFolders();
-  })();
+  useEffect(() => {
+    const REGION = process.env.REACT_APP_AWS_REGION;
+    const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID;
+    const secretAccessKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
+    console.log("REGION =>", REGION)
+    console.log("accessKeyId =>", accessKeyId)
+    console.log("secretAccessKey =>", secretAccessKey)
+
+    if (!accessKeyId || !secretAccessKey || !REGION) {
+      console.error('AWS credentials or region not set');
+      return;
+    }
+
+    const s3Client = new S3Client({
+      region: REGION,
+      credentials: {
+        accessKeyId,
+        secretAccessKey,
+      },
+    });
+
+    const bucketName = 'callawaytech';
+
+    const listFolders = async () => {
+      try {
+        const params = {
+          Bucket: bucketName,
+          Delimiter: '/',
+        };
+        const command = new ListObjectsV2Command(params);
+        const data = await s3Client.send(command);
+        console.log('Folders in bucket:', data.CommonPrefixes);
+      } catch (error) {
+        console.error('Error listing folders:', error);
+      }
+    };
+
+    listFolders();
+  }, []);
+  
   const columns: TableColumnsType<BasicModelTravis> = [
     {
       dataIndex: "primary_image_url",
