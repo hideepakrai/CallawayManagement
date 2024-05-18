@@ -166,9 +166,9 @@ if(getRetailerDetail &&
 {isOrder && userId &&
     <GetAllorder
     userId={userId}
-    acountype={typeOfAccount}
+    
     resetOrder={handleResetOrder}
-    />}
+    />} 
     </div>
   )
 }

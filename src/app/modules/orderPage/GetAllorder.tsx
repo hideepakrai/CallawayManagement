@@ -7,7 +7,6 @@ import { GetAllUserOrders } from '../../api/order/OrederApi'
 
 type Props={
     userId:number,
-    
     resetOrder:()=>void
 }
 

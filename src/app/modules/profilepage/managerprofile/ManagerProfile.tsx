@@ -97,7 +97,6 @@ const handleResetOrder=() => {
  {isOrder && UserId!=null &&
     <GetAllorder
     userId={UserId}
-    
     resetOrder={handleResetOrder}
     />} 
 

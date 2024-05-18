@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Table, Tooltip } from "antd";
 import Edit from "./Edit";
-import View from "./View"
+// import View from "./View"
 import {getUserAccount, getUserOrders} from "../../../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from "react-redux";
 import {UserAccountModel,AllOrderss} from "../../model/useAccount/UserAccountModel"
@@ -154,11 +154,11 @@ const AllOrder = () => {
 
 </Card>
 
-<View 
+{/* <View 
 isView={isView}
 
  onCloseView={handleCloseView} 
- /> 
+ />  */}
 <Edit 
 isEdit={isEdit} 
 
