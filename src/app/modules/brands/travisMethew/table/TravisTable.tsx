@@ -30,18 +30,7 @@ import { Image } from 'antd';
 import ImageRenderer from "./column/gallery";
 import { getCategory, getStyleCode } from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
-// import AWS from 'aws-sdk';
-
-// // Configure AWS SDK with environment variables
-// AWS.config.update({
-//   accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-//   secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-//   region: process.env.REACT_APP_AWS_REGION,
-// });
-
-
-
-
+import AWS from 'aws-sdk';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
@@ -59,22 +48,39 @@ const TravisTable = () => {
   const searchInput = useRef<InputRef>(null);
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const [amount, setAmount] = useState<number>()
-
-
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-
-
-
   const filteredOptionsOne = OPTIONS1.filter((o) => !selectedItems.includes(o));
-
   const [isCard, setIsCard] = useState<boolean>(true)
   //console.log(" travis Product",getProduct)
-
-
   const getStyleCodes = useSelector(getStyleCode)
   const getCategorys = useSelector(getCategory);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
+  AWS.config.update({
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    region: process.env.REACT_APP_AWS_REGION,
+  });
+  const s3 = new AWS.S3();
+  const bucketName = 'callawaytech';
+  // Function to list folders in the S3 bucket
+  const listFolders = async () => {
+    try {
+      const params = {
+        Bucket: bucketName,
+        Delimiter: '/'
+      };
+      const data = await s3.listObjectsV2(params).promise();
+      console.log('Folders in bucket:', data.CommonPrefixes);
+    } catch (error) {
+      console.error('Error listing folders:', error);
+    }
+  };
+
+  // Example usage
+  (async () => {
+    await listFolders();
+  })();
   const columns: TableColumnsType<BasicModelTravis> = [
     {
       dataIndex: "primary_image_url",
@@ -89,9 +95,9 @@ const TravisTable = () => {
               Prefix: folderPath
             };
 
-           // const s3 = new AWS.S3();
-           // const data = await s3.listObjectsV2(params).promise();
-           // console.log("s3 bucket file", data.Contents);
+            //  const s3 = new AWS.S3();
+            // const data = await s3.listObjectsV2(params).promise();
+            // console.log("s3 bucket file", data.Contents);
 
             // List objects in the specified bucket and prefix (folder)
             // const data = await s3.listObjectsV2(params).promise();
@@ -122,15 +128,6 @@ const TravisTable = () => {
         // Create an S3 object instance
 
         // Function to check folder existence
-
-
-
-
-
-
-
-
-
         return (
           record.primary_image_url !== "" ? (
             <Image.PreviewGroup
