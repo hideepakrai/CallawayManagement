@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
+    "@aws-amplify/ui-react": "^6.1.11",
+    "@aws-amplify/ui-react-storage": "^3.1.2",
     "@aws-sdk/client-s3": "^3.577.0",
     "@aws-sdk/lib-storage": "^3.578.0",
     "@aws-sdk/s3-request-presigner": "^3.577.0",
