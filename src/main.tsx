@@ -56,6 +56,7 @@ const container = document.getElementById('root')
 // Load environment variables from .env file
 //dotenv.config();
 Amplify.configure(config);
+console.log("AWS config ====>>>", config)
 if (container) {
   createRoot(container).render(
     <Provider store={store}>
