@@ -491,7 +491,73 @@ const TravisMethewSlice = createSlice({
           },
           removeOtherProduct:(state)=>{
              state.otherProduct=[]
-          }
+          },
+          updateTravisInclusiveDiscount:(state,action)=>{
+            const {discount}= action.payload;
+            state.travisMethew.forEach((item) => {
+                item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+            
+                const gst = item.gst||0; // Parse gst to float or default to 0
+                const salP = item.Amount || 0; // Parse Amount to float or default to 0
+            
+                const gstdiscount = parseFloat((salP - ((100 * salP) / (100 + gst))).toFixed(2));
+                item.LessGST = gstdiscount;
+            
+                const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+
+                item.LessDiscountAmount = lessDiscountAmount;
+            
+                const netbill = parseFloat((salP - ((salP * discount) / 100) - gstdiscount).toFixed(2));
+                item.NetBillings = netbill;
+            
+                const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+                item.FinalBillValue = totalNetbill;
+            });
+        },
+        updaterTravisExclusiveDiscount:(state,action)=>{
+          const {discount}=action.payload;
+          state.travisMethew.forEach((item) => {
+              item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+          
+              const gst = item.gst || 0; // Parse gst to float or default to 0
+              const salP = item.Amount || 0; // Parse Amount to float or default to 0
+          
+              item.LessGST = 0; // Initialize LessGST to 0
+          
+              const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+              item.LessDiscountAmount = lessDiscountAmount;
+          
+              const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+              item.NetBillings = netbill;
+          
+              const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+              item.FinalBillValue = totalNetbill;
+          });
+
+
+      },
+      updateTravisFlatDiscount:(state,action)=>{
+        const {discount}=action.payload;
+        state.travisMethew.forEach((item) => {
+            item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+        
+            item.LessGST = 0; // Initialize LessGST to 0
+        
+            const salP =item.Amount || 0; // Parse Amount to float or default to 0
+        
+            const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+            item.LessDiscountAmount = lessDiscountAmount;
+        
+            const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+            item.NetBillings = netbill;
+        
+            const totalNetbill = parseFloat(netbill.toFixed(2));
+            item.FinalBillValue = totalNetbill;
+        });
+        
+
+
+    },
 
           
 
@@ -510,7 +576,9 @@ export const {
     removeOtherProduct,
     reloadTravisProduct,
     reloadCategory,
-    reloadStyleCode,startTravisLoading,stopTravisLoading
+    reloadStyleCode,startTravisLoading,stopTravisLoading,
+    updateTravisInclusiveDiscount,updaterTravisExclusiveDiscount,
+    updateTravisFlatDiscount
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];

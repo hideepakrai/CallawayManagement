@@ -4,7 +4,7 @@ import { Card, Table, Carousel, Breadcrumb, Tooltip, Select, Space } from "antd"
 import { Input, Radio,InputNumber, Button } from "antd";
 import type { InputRef, SelectProps, TableColumnsType } from 'antd';
 import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../model/travis/TravisMethewModel"
-import {getTravisProducts,getOtherProducts} from "../../../../slice/allProducts/TravisMethewSlice"
+import {getTravisProducts,getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount} from "../../../../slice/allProducts/TravisMethewSlice"
 import {updateQuantity90,updateQuantity88,
   addOtherProduct,updateOtherQuantity90,
   updateOtherQuantity88,removeOtherProduct} from "../../../../slice/allProducts/TravisMethewSlice";
@@ -14,7 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../../../loading/Loading';
 import { LoadingStart, LoadingStop, getLoading } from '../../../../slice/loading/LoadingSlice';
 import CartHeader from '../../CartHeader';
-
+import GetTravisMethewProduct from "../../../../api/allProduct/travismethew/GetTravisMethewProduct"
+import TravisSubmitOrder from './TravisSubmitOrder';
+import TravisUpdateOrderToDB from "./TravisUpdateOrderToDB"
   const TravisCarts = () => {
     const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
     const tableRef = useRef(null);
@@ -476,23 +478,23 @@ if (record && record.sku) {
     if (discountType === "Inclusive") {
       setDiscountType("Inclusive")
       setDiscountValue(dis)
-      // dispatch(updateOgioInclusiveDiscount({
-      //   discount: dis
-      // }))
+      dispatch(updateTravisInclusiveDiscount({
+        discount: dis
+      }))
     }
     if (discountType === "Exclusive") {
       setDiscountType("Exclusive")
       setDiscountValue(dis)
-      // dispatch(updateOgioExclusiveDiscount({
-      //   discount: dis
-      // }))
+      dispatch(updaterTravisExclusiveDiscount({
+        discount: dis
+      }))
     }
     if (discountType === "Flat") {
       setDiscountValue(dis)
       setDiscountType("Flat")
-      // dispatch(updateOgioFlatDiscount({
-      //   discount: dis
-      // }))
+      dispatch(updateTravisFlatDiscount({
+        discount: dis
+      }))
     }
 
   }
@@ -545,10 +547,19 @@ const hanldeSubmitOrder = () => {
 
 const handleResetSubmitOrder=()=>{
   setIsSubmitOrder(false)
+  setIsUpdateStrapi(true)
+  setTotalAmount(0);
+  setTotalNetBillAmount(0)
   
 
   
 }
+
+const handleUpdateStrapi=()=>{
+  console.log("updated in DB")
+  setIsUpdateStrapi(false)
+  setIsUpdateRedux(true)
+} 
 
   return (
     <div>
@@ -617,8 +628,8 @@ const handleResetSubmitOrder=()=>{
               {/* <Input
            
            
-            onChange={(e)=>handleChangeDiscount(e.target.value)}
-          /> */}
+          //   onChange={(e)=>handleChangeDiscount(e.target.value)}
+          // /> */}
               <InputNumber
               
                 className='mx-3 number-input'
@@ -671,7 +682,24 @@ const handleResetSubmitOrder=()=>{
     )}
   />
   
+  {isRefetch && <GetTravisMethewProduct
+       resetTravis={handleResetRefetch}
+       
+       
+       />}
 
+{ totalNetBillAmount&&
+      isSubmitOrder&&
+      <TravisSubmitOrder
+       totalNetBillAmount={totalNetBillAmount}
+       discountType={discountType}
+       discountValue={discountValue}
+       resetSubmitOrder={handleResetSubmitOrder}
+       />}
+
+{isUpdateStrapi &&  <TravisUpdateOrderToDB
+    resetUpdateOrder={handleUpdateStrapi}
+   />} 
     </div>
   )
 }
