@@ -110,32 +110,32 @@ const TravisTable = () => {
 
         let newSKU
         const checkFolderExists = async (bucketName: string, folderPath: string) => {
-          try {
-            const result =  list({
-              path: folderPath,
-              // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
-            });
-            console.log("result AWS -------->", result)
+          // try {
+          //   const result =  list({
+          //     path: folderPath,
+          //     // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
+          //   });
+          //   console.log("result AWS -------->", result)
 
             
-          } catch (error) {
-            console.error('Error checking folder existence:', error);
-            return false; // Return false in case of any error
-          }
+          // } catch (error) {
+          //   console.error('Error checking folder existence:', error);
+          //   return false; // Return false in case of any error
+          // }
         }
 
-        if (record && record.sku) {
-          const removeLastUnderscore = (str: string) => {
-            const lastUnderscoreIndex = str.lastIndexOf('_');
-            if (lastUnderscoreIndex !== -1) {
-              return str.substring(0, lastUnderscoreIndex);
-            }
-            return str;
-          };
-          newSKU = removeLastUnderscore(record?.sku);
-          const folderPath = 'https://s3.console.aws.amazon.com/s3/buckets/callawaystoragedevbucket1ca9b-dev';
-          checkFolderExists(newSKU, folderPath)
-        }
+        // if (record && record.sku) {
+        //   const removeLastUnderscore = (str: string) => {
+        //     const lastUnderscoreIndex = str.lastIndexOf('_');
+        //     if (lastUnderscoreIndex !== -1) {
+        //       return str.substring(0, lastUnderscoreIndex);
+        //     }
+        //     return str;
+        //   };
+        //   newSKU = removeLastUnderscore(record?.sku);
+        //   const folderPath = 'https://s3.console.aws.amazon.com/s3/buckets/callawaystoragedevbucket1ca9b-dev';
+        //   checkFolderExists(newSKU, folderPath)
+        // }
         // Configure AWS SDK with your credentials and region
 
 
