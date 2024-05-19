@@ -83,20 +83,13 @@ const TravisTable = () => {
         let newSKU
         const checkFolderExists = async (bucketName: string, folderPath: string) => {
           try {
-            const params = {
-              Bucket: bucketName,
-              Prefix: folderPath
-            };
+            const result =  list({
+              path: folderPath,
+              // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
+            });
+            console.log("result AWS -------->", result)
 
-            //  const s3 = new AWS.S3();
-            // const data = await s3.listObjectsV2(params).promise();
-            // console.log("s3 bucket file", data.Contents);
-
-            // List objects in the specified bucket and prefix (folder)
-            // const data = await s3.listObjectsV2(params).promise();
-
-            // If the folder exists, return true
-            // console.log("s3 bucket file",data.Contents) 
+            
           } catch (error) {
             console.error('Error checking folder existence:', error);
             return false; // Return false in case of any error
@@ -112,8 +105,8 @@ const TravisTable = () => {
             return str;
           };
           newSKU = removeLastUnderscore(record?.sku);
-          const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
-          //checkFolderExists(newSKU, folderPath)
+          const folderPath = 'https://s3.console.aws.amazon.com/s3/buckets/callawaystoragedevbucket1ca9b-dev';
+          checkFolderExists(newSKU, folderPath)
         }
         // Configure AWS SDK with your credentials and region
 
