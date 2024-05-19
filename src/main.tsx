@@ -35,7 +35,6 @@ import { Amplify } from 'aws-amplify';
 import config from './amplifyconfiguration.json';
 
 Amplify.configure(config);
-console.log("AWS config ====>>>", config)
 
 
 const graphQlUrl=import.meta.env.VITE_APP_STRAPI_URL_GraphQl

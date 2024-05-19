@@ -17,6 +17,12 @@
       },
       "storage": {
         "CallaWayDevProfile": {}
+      },
+      "function": {
+        "callawayLogin": {
+          "deploymentBucketName": "amplify-callawaybackend-dev-1ca9b-deployment",
+          "s3Key": "amplify-builds/callawayLogin-355a3459744a3369542b-build.zip"
+        }
       }
     }
   }
