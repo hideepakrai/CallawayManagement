@@ -15,8 +15,17 @@
 
 /* .travish-mat-section .ant-card-body{padding:30px 12px!important; overflow: auto!important;} */
 .card-table-travis .ant-table-fixed-header .ant-table-container .ant-card-body{overflow: auto!important;}
-.travish-mat-section{padding: 0!important;}
 
+.card-table-travis .css-dev-only-do-not-override-1r287do{left: -3px;}
+.toggle-dropdown #pet-select{ margin-left: 10px; width: 60px;     border: 1px solid #d9d9d9;
+    background: #ffffff;}
+.anticon-down{vertical-align: middle;}
+.show-prodect{width: 70px;}
+
+.travish-mat-section{position: relative;}
+.show-prodect-section{position: absolute;top: 123px;}
+ .ant-pagination-options .ant-select-sm{   
+    height: 31px!important; top:-4px!important;}
 
 
 

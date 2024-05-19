@@ -10,10 +10,10 @@ import travishtham from "../../../../../../public/media/logos/tm-logo.png"
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import { ExcelModelTravis } from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
-// import ProductImg from "../../../../../../public/media/product/drivers-1.png";
-// import ProductImg1 from "../../../../../../public/media/product/drivers-1.png";
-// import ProductImg2 from "../../../../../../public/media/product/drivers-1.png";
-// import ProductImg3 from "../../../../../../public/media/product/drivers-1.png";
+import tmlogo from "../../../../../../public/media/logos/tm_thum.png"
+import {  Dropdown } from 'antd';
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+
 // import * as XLSX from 'xlsx';
 
 import {
@@ -40,6 +40,34 @@ type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
 const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
+
+
+const items = [
+  {
+    key: '1',
+    label: (
+
+       50
+
+    ),
+  },
+  {
+    key: '2',
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+        2nd menu item
+      </a>
+    ),
+  },
+  {
+    key: '3',
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+        3rd menu item
+      </a>
+    ),
+  },
+];
 
 
 
@@ -125,7 +153,8 @@ const TravisTable = () => {
               ]}
             >
               <Image
-                width={200}
+                width={40}
+              className='pro-img'
                 src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/${newSKU}/${record.primary_image_url}.jpg`}
               />
             </Image.PreviewGroup>
@@ -133,13 +162,18 @@ const TravisTable = () => {
             <span>
 
               <img
-                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
+                 src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
+                // src={tmlogo}
+
                 alt="Primary Image"
                 style={{ maxWidth: "30px", marginRight: "5px" }}
                 width={30}
               />
+
+
             </span>
           )
+          
         );
       },
     },
@@ -259,6 +293,7 @@ const TravisTable = () => {
       },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
         <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
+
           <Select
             mode="multiple"
             placeholder="Select Category"
@@ -1271,6 +1306,49 @@ const TravisTable = () => {
         </div>
 
 
+
+{/* <label className='form-label'>Show</label>
+
+    <Dropdown className='mx-3' menu={{ items }} placement="top">
+
+    <Button>
+   69
+        <DownOutlined />
+    </Button>
+  
+       
+  
+
+  </Dropdown> */}
+  
+<div className='show-prodect-section' >
+<label style={{ marginRight: 10, color: "#000", }}>Show</label>
+                  <Select className="input-dropdown show-prodect"
+                    showSearch
+                    placeholder="50"
+                    optionFilterProp="children"
+                 
+                    defaultValue="50"
+  
+                    options={[
+                      {
+                        value: "50",
+                        label: "50",
+                      },
+                      {
+                        value: "40",
+                        label: "40",
+                      },
+                      {
+                        value: "30",
+                        label: "30",
+                      },
+                    ]}
+                  />
+
+  </div>
+
+                  
         <Table className='card-table-travis'
           ref={tableRef}
           columns={columns}
@@ -1291,6 +1369,8 @@ const TravisTable = () => {
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
             defaultPageSize: 20
           }}
+
+          
         />
 
 

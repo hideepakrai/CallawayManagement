@@ -18,7 +18,7 @@ import GetAllOrder from '../../../api/manager/GetAllOrders';
 import { useDispatch } from 'react-redux';
 import ManagerSlider from './ManagerSlider';
 import GetAllorder from '../../orderPage/GetAllorder';
-
+import profilelogo from "../../../../../public/media/logos/favicon-icon.png"
 const ManagerProfile = () => {
   const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
@@ -55,7 +55,7 @@ const handleResetOrder=() => {
         <div id="kt_toolbar_container" className="container d-flex flex-stack">
           <div className="d-flex ">
             <div className='profile-page'>
-              <img src='https://via.placeholder.com/150' alt="Profile"></img>
+              <img style={{backgroundColor:"#ddd",}} src={profilelogo} alt="Profile"></img>
               <span className="d-flex text-white  my-1 fs-5  profle-role">Manager</span>
             </div>
             

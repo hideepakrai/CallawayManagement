@@ -17,6 +17,8 @@ import CartHeader from '../../CartHeader';
 import GetTravisMethewProduct from "../../../../api/allProduct/travismethew/GetTravisMethewProduct"
 import TravisSubmitOrder from './TravisSubmitOrder';
 import TravisUpdateOrderToDB from "./TravisUpdateOrderToDB"
+import TravisGallery from "../../../brands/travisMethew/table/column/gallery"
+
   const TravisCarts = () => {
     const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
     const tableRef = useRef(null);
@@ -47,12 +49,16 @@ useEffect(()=>{
       })
       setAllorder(order)
     }
-   },[getProduct])
+   },
+  [getProduct])
   const columns: TableColumnsType<BasicModelTravis>= [
+    
     {
-      dataIndex: "primary_image_url",
+      // title: "Image",
+      dataIndex: "PrimaryImage",
+      // fixed: "left",
       width: 50,
-      
+      render: (value) => <TravisGallery value={value} />,
     },
       {
         title: "SKU",
@@ -60,22 +66,22 @@ useEffect(()=>{
         width: 100,
         fixed: "left",
         
-        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-          <div  style={{ padding: 8, width:"300px", position: "absolute", top: -90,  zIndex: 1 }}>
-            <Input
-              ref={searchInput}
+        // filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+        //   <div  style={{ padding: 8, width:"300px", position: "absolute", top: -90,  zIndex: 1 }}>
+        //     <Input
+        //       ref={searchInput}
 
-              placeholder="Search SKU"
-              value={selectedKeys[0]}
-              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-              onKeyUp={(e) => {
-                confirm({ closeDropdown: false });
+        //       placeholder="Search SKU"
+        //       value={selectedKeys[0]}
+        //       onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+        //       onKeyUp={(e) => {
+        //         confirm({ closeDropdown: false });
                 
-              }}
-              style={{ width: 188, marginBottom: 8, display: "block" }}
-            />
-          </div>
-        ),
+        //       }}
+        //       style={{ width: 188, marginBottom: 8, display: "block" }}
+        //     />
+        //   </div>
+        // ),
         onFilterDropdownVisibleChange: (visible) => {
           if (visible) {
             setTimeout(() => {
