@@ -6,6 +6,12 @@ import {MasterInit} from '../_metronic/layout/MasterInit'
 import {AuthInit} from './modules/auth'
 import {ThemeModeProvider} from '../_metronic/partials/layout/theme-mode/ThemeModeProvider'
 
+import { Amplify } from 'aws-amplify';
+import config from '../amplifyconfiguration.json';
+
+Amplify.configure(config);
+console.log("AWS config ====>>>", config)
+
 const App = () => {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
