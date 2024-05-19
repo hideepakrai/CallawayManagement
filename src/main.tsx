@@ -28,6 +28,16 @@ import './_metronic/assets/keenicons/solid/style.css'
 import './_metronic/assets/sass/style.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
 import {AuthProvider, setupAxios} from './app/modules/auth'
+
+
+
+import { Amplify } from 'aws-amplify';
+import config from './amplifyconfiguration.json';
+
+Amplify.configure(config);
+console.log("AWS config ====>>>", config)
+
+
 const graphQlUrl=import.meta.env.VITE_APP_STRAPI_URL_GraphQl
 
 /**
