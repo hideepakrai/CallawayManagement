@@ -1,95 +1,95 @@
 .user-detail {
-    font-size: 14px;
-    color: #071437;
-    padding-top: 8px;
-    font-weight: 700;
-    justify-content: center;
-  }
+  font-size: 14px;
+  color: #071437;
+  padding-top: 8px;
+  font-weight: 700;
+  justify-content: center;
+}
 
-  .user-detail:hover{color: #666;}
-  
-  .user-img {
-    padding-top: 9px;
-    --bs-card-border-color: var(--bs-root-card-border-color);
-    border: 1px solid #f1f1f4;
-  }
+.user-detail:hover{color: #666;}
 
-  
-  
-  .user-section>.row {
-    display: flex;
-    align-items: center;
-  
-  }
-  
-  .user-box {
-    margin-left: 20px;
-  }
-  
-  .user-img {
-    margin: 0 auto;
-    border: 1px solid #a3a3a3;
-    border-radius: 82px;
-    width: 80px;
-    height: 80px;
-    background-color: #f8f8f8;
-    cursor: pointer;
-  
-  }
-  
-  
-  .user-box img {
-  
-    width: 68%;
-    cursor: pointer;
-    transition: transform 1s;
-    object-fit: cover;
-    margin: 0 auto;
-  }
+.user-img {
+  padding-top: 9px;
+  --bs-card-border-color: var(--bs-root-card-border-color);
+  border: 1px solid #f1f1f4;
+}
 
-  
-  .user-box .user-checkbox {
-  
-    position: relative;
-  }
-  
-  .imgbgchk:checked+label>.tick_container {
-    opacity: 1;
-  }
-  
 
-  
-  /* animaion start */
-  .imgbgchk:checked+label>img {
-    transform: scale(1.25);
-  }
-   /* animaion end */
-  
-  .tick_container {
-    transition: .5s ease;
-  
-    position: absolute;
-    top: 36%;
-    left: 51%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .tick {
-    background-color: #202020;
-    color: white;
-    font-size: 16px;
-    padding: 3px 7px;
-    height: 30px;
-    width: 30px;
-    border-radius: 100%;
-  }
-  
 
-  .imgbgchk:checked+label>.tick_container {
-    opacity: 1;
+.user-section>.row {
+  display: flex;
+  align-items: center;
+
+}
+
+.user-box {
+  margin-left: 20px;
+}
+
+.user-img {
+  margin: 0 auto;
+  border: 1px solid #a3a3a3;
+  border-radius: 82px;
+  width: 80px;
+  height: 80px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+
+}
+
+
+.user-box img {
+
+  width: 68%;
+  cursor: pointer;
+  transition: transform 1s;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+
+.user-box .user-checkbox {
+
+  position: relative;
+}
+
+.imgbgchk:checked+label>.tick_container {
+  opacity: 1;
+}
+
+
+
+/* animaion start */
+.imgbgchk:checked+label>img {
+  transform: scale(1.25);
+}
+ /* animaion end */
+
+.tick_container {
+  transition: .5s ease;
+
+  position: absolute;
+  top: 36%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  cursor: pointer;
+  text-align: center;
+}
+
+.tick {
+  background-color: #202020;
+  color: white;
+  font-size: 16px;
+  padding: 3px 7px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+}
+
+
+.imgbgchk:checked+label>.tick_container {
+  opacity: 1;
 }
 
 .tick i{color: #fff;}
@@ -98,14 +98,19 @@
 .sub-btn:hover{background-color: #111!important; color: #fff;}
 
 /* .user-img{ overflow: hidden;}
- .user-img img:hover{
-  transform: scale(1.25);
-  opacity: 0.6;
+.user-img img:hover{
+transform: scale(1.25);
+opacity: 0.6;
 } */
 
 
 
 .user-img:hover{transform: scale(1.11); transition: all 0.2s ease;}
 .user-img{ transition: all 0.2s ease-in-out;}
+
+
+.eye-icon i{font-size: 22px;}
+.was-validated .login-input:valid, .form-control.is-valid{background-image: none!important;}
+/* .eye-icon{    padding: 0 37px 0 0!important;} */
 
 

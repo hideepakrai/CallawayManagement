@@ -56,12 +56,22 @@ const handleResetOrder=() => {
           <div className="d-flex ">
             <div className='profile-page'>
               <img src='https://via.placeholder.com/150' alt="Profile"></img>
+              <span className="d-flex text-white  my-1 fs-5  profle-role">Manager</span>
             </div>
+            
+            
             <div className='pt-5 mx-6'>
+              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3 fw-bold"> Shashi Kiranshetty</h1>
+              <a href='#'><span className="gx-mb-0 text-gray-100 fw-semibold text-hover-primary fs-4">shashi.kiranshetty@gmail.com</span></a>
+              <span className="d-flex text-white  my-1 fs-7">Lorem Ipsum is simply dummy text  of the printing and <br></br> typesetting industry.</span>
+      
+
               {/* <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">{getUserAccountDetails?.attributes?.username} </h1>
               <h2 className="d-flex text-white fw-bold my-1 fs-3"> {getUserAccountDetails?.attributes?.role?.data?.attributes?.name}</h2> */}
             </div>
           </div>
+
+
           <div className="d-flex align-items-center py-1">
             <div className="me-4">
               <a href="#" className="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-white" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">

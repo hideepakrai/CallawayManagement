@@ -35,11 +35,12 @@ export function MenuInner() {
 
           <MenuItem to='/brand/callaway/odyssey' title='Odyssey' hasBullet={true} />
         </MenuInnerWithSub> */}
+        {/* icon='message-text-2' */}
       
-        <MenuItem icon='message-text-2' to='/brand/callaway/apparel' title='Callaway Apparel' />
+        <MenuItem icon='shield-tick' to='/brand/callaway/apparel' title='Callaway Apparel' />
 
           <MenuItem icon='shield-tick' to='/brand/callaway/goods' title='Callaway Hardgoods' />
-        <MenuItem icon='message-text-2' to='/brand/ogio' title='Ogio' />
+        <MenuItem icon='shield-tick' to='/brand/ogio' title='Ogio' />
         <MenuItem icon='shield-tick' to='/brand/travis-methew' title='Travis Mathew' />
       </MenuInnerWithSub>
 

@@ -28,6 +28,7 @@ import outputs from "../../../../../amplify_outputs.json"
 console.log(outputs);
 Amplify.configure(outputs)
 
+
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -67,6 +68,7 @@ export function Login() {
   const [grpqlManager, setGrpqlManager] = useState<boolean>(false)
   const [grpqlRetailer, setGrpqlRetailer] = useState<boolean>(false)
   const [grpqlSalesRep, setGrpqlSalesRep] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const dispatch = useDispatch()
   const formik = useFormik({
@@ -395,7 +397,7 @@ export function Login() {
             placeholder='Email'
             {...formik.getFieldProps('email')}
             className={clsx(
-              'form-control bg-transparent',
+              'form-control bg-transparent login-input',
               { 'is-invalid': formik.touched.email && formik.errors.email },
               {
                 'is-valid': formik.touched.email && !formik.errors.email,
@@ -403,6 +405,7 @@ export function Login() {
             )}
             type='email'
             name='email'
+            
             autoComplete='off'
           />
           {formik.touched.email && formik.errors.email && (
@@ -415,7 +418,7 @@ export function Login() {
 
         {/* begin::Form group */}
         <div className='fv-row mb-3'>
-          <label className='form-label fw-bolder text-gray-900 fs-6 mb-0'>Password</label>
+          {/* <label className='form-label fw-bolder text-gray-900 fs-6 mb-0'>Password</label>
           <input
             type='password'
             autoComplete='off'
@@ -429,7 +432,30 @@ export function Login() {
                 'is-valid': formik.touched.password && !formik.errors.password,
               }
             )}
-          />
+          /> */}
+
+<div className="position-relative mb-3">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              autoComplete='off'
+              {...formik.getFieldProps('password')}
+              className={clsx(
+                'form-control bg-transparent login-input',
+                { 'is-invalid': formik.touched.password && formik.errors.password },
+                { 'is-valid' : formik.touched.password && !formik.errors.password }
+                
+              )}
+            />
+            <span
+              className="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2 eye-icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <i className={showPassword ? "bi bi-eye" : "bi bi-eye-slash"}></i>
+             
+            </span>
+          </div>
+
+
           {formik.touched.password && formik.errors.password && (
             <div className='fv-plugins-message-container'>
               <div className='fv-help-block'>

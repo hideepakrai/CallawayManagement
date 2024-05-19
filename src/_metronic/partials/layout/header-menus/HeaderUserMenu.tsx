@@ -14,7 +14,7 @@ import { UserAccountModel } from '../../../../app/modules/model/useAccount/UserA
 import { useNavigate } from 'react-router-dom'
 import { resetOgio } from '../../../../app/slice/allProducts/OgioSlice'
 import { resetOgioOrder } from '../../../../app/slice/orderSlice/ogio/OgioCartOrderSlice'
-
+import ProfileImage from "../../../../../public/media/logos/favicon-icon.png";
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth();
   const [role, setRole]= useState<string>();
@@ -72,17 +72,19 @@ const HeaderUserMenu: FC = () => {
     >
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
-          <div className='symbol symbol-50px me-5'>
-            <img alt='Logo' src={toAbsoluteUrl('media/avatars/300-2.jpg')} />
-          </div>
+         <div className='symbol symbol-50px me-5 user-profile-img bg-secondary'>
+            <img alt='Logo' src={ProfileImage} />
+          </div>  
 
           <div className='d-flex flex-column'>
             <div className='fw-bold d-flex align-items-center fs-5'>
-              {currentUser?.first_name} {currentUser?.last_name}
-              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>Pro</span>
+             {/* {currentUser?.first_name} {currentUser?.last_name}  */}
+              
+              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>Manager</span>
             </div>
-            <a href='#' className='fw-semibold text-muted text-hover-primary fs-7'>
-              {currentUser?.email}
+            <a href='#' className='fw-semibold text-muted text-hover-primary fs-7 pt-2'>
+               {/* {currentUser?.email}  */}
+               Shashi Kiranshetty
             </a>
           </div>
         </div>
@@ -100,10 +102,11 @@ const HeaderUserMenu: FC = () => {
         <a href='#' className='menu-link px-5'
         onClick={handleProfile}
         >
-          <span className='menu-text'>My Profile</span>
+          <span className='menu-text'>My Orders</span>
           {/* <span className='menu-badge'>
             <span className='badge badge-light-danger badge-circle fw-bold fs-7'>3</span>
           </span> */}
+          
         </a>
       </div>
 
@@ -175,7 +178,7 @@ const HeaderUserMenu: FC = () => {
 
       <div className='separator my-2'></div>
 
-      <Languages />
+      {/* <Languages /> */}
 
       {/* <div className='menu-item px-5 my-1'>
         <Link to='/crafted/account/settings' className='menu-link px-5'>

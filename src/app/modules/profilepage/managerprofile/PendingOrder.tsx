@@ -95,6 +95,26 @@ const PendingOrder = () => {
                                                 <td>{item.total_value}</td>
                                                 <td>
                                                     <span>
+
+                                                    <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                                            // onClick={() => handleEdit(item.id)}
+                                                        >
+
+                                                            <Tooltip title="Download" placement="bottom">
+                                                            <i className="bi bi-download"></i>
+                                                            </Tooltip>
+                                                        </span>
+
+
+                                                        <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                                            onClick={() => handleView(item)}
+
+                                                        >
+                                                            <Tooltip title="View" placement="bottom">
+                                                                <i className="bi bi-arrow-up-right-square"></i>
+                                                            </Tooltip>
+                                                        </span>
+
                                                         <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleEdit(item.id)}
                                                         >
@@ -104,26 +124,18 @@ const PendingOrder = () => {
                                                             </Tooltip>
                                                         </span>
 
-                                                        <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                                            onClick={() => handleView(item)}
+                                                       
 
-                                                        >
 
-                                                            <Tooltip title="View" placement="bottom">
-                                                                <i className="bi bi-arrow-up-right-square"></i>
-                                                            </Tooltip>
-                                                        </span>
-
-                                                        <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
+                                                        {/* <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
                                                             <Tooltip title="View Prodects" placement="bottom">
-
                                                                 <i className="bi bi-box-arrow-up-right " ></i>
                                                             </Tooltip>
-                                                        </span>
+                                                        </span> */}
 
 
 
-                                                    </span>,
+                                                    </span>
                                                 </td>
                                             </tr>
 
