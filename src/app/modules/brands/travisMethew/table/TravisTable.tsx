@@ -10,10 +10,10 @@ import travishtham from "../../../../../../public/media/logos/tm-logo.png"
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import { ExcelModelTravis } from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
-import tmlogo from "../../../../../../public/media/logos/tm_thum.png"
-import {  Dropdown } from 'antd';
-import { DownOutlined, SmileOutlined } from '@ant-design/icons';
-
+// import ProductImg from "../../../../../../public/media/product/drivers-1.png";
+// import ProductImg1 from "../../../../../../public/media/product/drivers-1.png";
+// import ProductImg2 from "../../../../../../public/media/product/drivers-1.png";
+// import ProductImg3 from "../../../../../../public/media/product/drivers-1.png";
 // import * as XLSX from 'xlsx';
 
 import {
@@ -40,34 +40,6 @@ type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
 const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
-
-
-const items = [
-  {
-    key: '1',
-    label: (
-
-       50
-
-    ),
-  },
-  {
-    key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-        2nd menu item
-      </a>
-    ),
-  },
-  {
-    key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        3rd menu item
-      </a>
-    ),
-  },
-];
 
 
 
@@ -110,32 +82,39 @@ const TravisTable = () => {
 
         let newSKU
         const checkFolderExists = async (bucketName: string, folderPath: string) => {
-          // try {
-          //   const result =  list({
-          //     path: folderPath,
-          //     // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
-          //   });
-          //   console.log("result AWS -------->", result)
+          try {
+            const params = {
+              Bucket: bucketName,
+              Prefix: folderPath
+            };
 
-            
-          // } catch (error) {
-          //   console.error('Error checking folder existence:', error);
-          //   return false; // Return false in case of any error
-          // }
+            //  const s3 = new AWS.S3();
+            // const data = await s3.listObjectsV2(params).promise();
+            // console.log("s3 bucket file", data.Contents);
+
+            // List objects in the specified bucket and prefix (folder)
+            // const data = await s3.listObjectsV2(params).promise();
+
+            // If the folder exists, return true
+            // console.log("s3 bucket file",data.Contents) 
+          } catch (error) {
+            console.error('Error checking folder existence:', error);
+            return false; // Return false in case of any error
+          }
         }
 
-        // if (record && record.sku) {
-        //   const removeLastUnderscore = (str: string) => {
-        //     const lastUnderscoreIndex = str.lastIndexOf('_');
-        //     if (lastUnderscoreIndex !== -1) {
-        //       return str.substring(0, lastUnderscoreIndex);
-        //     }
-        //     return str;
-        //   };
-        //   newSKU = removeLastUnderscore(record?.sku);
-        //   const folderPath = 'https://s3.console.aws.amazon.com/s3/buckets/callawaystoragedevbucket1ca9b-dev';
-        //   checkFolderExists(newSKU, folderPath)
-        // }
+        if (record && record.sku) {
+          const removeLastUnderscore = (str: string) => {
+            const lastUnderscoreIndex = str.lastIndexOf('_');
+            if (lastUnderscoreIndex !== -1) {
+              return str.substring(0, lastUnderscoreIndex);
+            }
+            return str;
+          };
+          newSKU = removeLastUnderscore(record?.sku);
+          const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
+          //checkFolderExists(newSKU, folderPath)
+        }
         // Configure AWS SDK with your credentials and region
 
 
@@ -153,8 +132,7 @@ const TravisTable = () => {
               ]}
             >
               <Image
-                width={40}
-              className='pro-img'
+                width={200}
                 src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/${newSKU}/${record.primary_image_url}.jpg`}
               />
             </Image.PreviewGroup>
@@ -162,18 +140,13 @@ const TravisTable = () => {
             <span>
 
               <img
-                 src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
-                // src={tmlogo}
-
+                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
                 alt="Primary Image"
                 style={{ maxWidth: "30px", marginRight: "5px" }}
                 width={30}
               />
-
-
             </span>
           )
-          
         );
       },
     },
@@ -293,7 +266,6 @@ const TravisTable = () => {
       },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
         <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
-
           <Select
             mode="multiple"
             placeholder="Select Category"
@@ -1306,49 +1278,6 @@ const TravisTable = () => {
         </div>
 
 
-
-{/* <label className='form-label'>Show</label>
-
-    <Dropdown className='mx-3' menu={{ items }} placement="top">
-
-    <Button>
-   69
-        <DownOutlined />
-    </Button>
-  
-       
-  
-
-  </Dropdown> */}
-  
-<div className='show-prodect-section' >
-<label style={{ marginRight: 10, color: "#000", }}>Show</label>
-                  <Select className="input-dropdown show-prodect"
-                    showSearch
-                    placeholder="50"
-                    optionFilterProp="children"
-                 
-                    defaultValue="50"
-  
-                    options={[
-                      {
-                        value: "50",
-                        label: "50",
-                      },
-                      {
-                        value: "40",
-                        label: "40",
-                      },
-                      {
-                        value: "30",
-                        label: "30",
-                      },
-                    ]}
-                  />
-
-  </div>
-
-                  
         <Table className='card-table-travis'
           ref={tableRef}
           columns={columns}
@@ -1369,8 +1298,6 @@ const TravisTable = () => {
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
             defaultPageSize: 20
           }}
-
-          
         />
 
 
