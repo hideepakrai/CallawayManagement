@@ -65,7 +65,7 @@ const TravisTable = () => {
 
   try {
     const result =  list({
-      path: 'public/_BASE_1677014988.jpg',
+      path: 'public/uploads/',
       // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
     });
     console.log("result AWS -------->", result)
