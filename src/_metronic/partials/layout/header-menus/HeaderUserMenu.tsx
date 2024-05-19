@@ -82,7 +82,10 @@ const HeaderUserMenu: FC = () => {
               
               <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>Manager</span>
             </div>
-            <a href='#' className='fw-semibold text-muted text-hover-primary fs-7 pt-2'>
+            <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2 ' 
+               onClick={handleProfile}
+            >
+
                {/* {currentUser?.email}  */}
                Shashi Kiranshetty
             </a>
@@ -99,10 +102,10 @@ const HeaderUserMenu: FC = () => {
       </div> */}
 
       <div className='menu-item px-5' >
-        <a href='#' className='menu-link px-5'
+        <a href='#' className='menu-link px-5 '
         onClick={handleProfile}
         >
-          <span className='menu-text'>My Orders</span>
+          <span className='menu-text' >My Orders</span>
           {/* <span className='menu-badge'>
             <span className='badge badge-light-danger badge-circle fw-bold fs-7'>3</span>
           </span> */}

@@ -69,7 +69,7 @@ const Topbar: FC = () => {
           
             </KTSVG>
            
-            <span className="cart-btn">Cart</span>         
+            <span className="cart-btn"> CART</span>         
           </div>
           {/* <HeaderNotificationsMenu /> */}
           {/* end::Menu wrapper */}

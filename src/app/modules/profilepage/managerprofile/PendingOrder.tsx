@@ -23,6 +23,7 @@ const PendingOrder = () => {
             setOrderId(id)
         }
     };
+
     const handleCloseEdit = () => {
         setIsEdit(false);
     };
@@ -62,8 +63,6 @@ const PendingOrder = () => {
         <>
 
             <Card>
-
-
                 <div className="table-responsive mb-6">
                     <label><h3 className="mx-6 my-7">Pending Order</h3></label>
 
@@ -108,14 +107,15 @@ const PendingOrder = () => {
 
                                                         <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleView(item)}
-
                                                         >
                                                             <Tooltip title="View" placement="bottom">
-                                                                <i className="bi bi-arrow-up-right-square"></i>
+                                                                {/* <i className="bi bi-arrow-up-right-square"></i> */}
+                                                                <i className="bi bi-box-arrow-up-right"></i>
                                                             </Tooltip>
                                                         </span>
+                                                        
 
-                                                        <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                                        <span style={{ paddingRight: "5px", paddingLeft:"6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleEdit(item.id)}
                                                         >
 

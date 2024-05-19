@@ -78,22 +78,7 @@ const OgioCart = () => {
       width: 100,
       fixed: "left",
       
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div  style={{ padding: 8, position: "absolute", top: -90, backgroundColor: "white", zIndex: 1 }}>
-          <Input
-            ref={searchInput}
-
-            placeholder="Search SKU"
-            value={selectedKeys[0]}
-            onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-            onKeyUp={(e) => {
-              confirm({ closeDropdown: false });
-              
-            }}
-            style={{ width: 188, marginBottom: 8, display: "block" }}
-          />
-        </div>
-      ),
+   
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
           setTimeout(() => {
@@ -123,17 +108,17 @@ const OgioCart = () => {
       width: 150,
         fixed: "left",
         filterMode: 'tree',
-        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-         <div style={{ padding: 8 }}>
-           <Input
-             placeholder="Search Name"
-             value={selectedKeys[0]}
-             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-             onPressEnter={() => confirm()}
-             style={{ width: 188, marginBottom: 8, display: "block" }}
-           />
-         </div>
-       ),
+      //   filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+      //    <div style={{ padding: 8 }}>
+      //      <Input
+      //        placeholder="Search Name"
+      //        value={selectedKeys[0]}
+      //        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+      //        onPressEnter={() => confirm()}
+      //        style={{ width: 188, marginBottom: 8, display: "block" }}
+      //      />
+      //    </div>
+      //  ),
        onFilterDropdownVisibleChange: (visible) => {
          if (visible) {
            setTimeout(() => {
@@ -174,27 +159,27 @@ const OgioCart = () => {
         return categoryA.localeCompare(categoryB);
       },
 
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
-          <Select
-            mode="multiple"
-            placeholder="Select Category"
+      // filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+      //   <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
+      //     <Select
+      //       mode="multiple"
+      //       placeholder="Select Category"
            
-            value={selectedKeys}
-            onChange={setSelectedKeys}
-            style={{ width: '100%' }}
-            placement={placement} 
-          >
-            {/* Render options based on available categories */}
-            {filteredOptions.map((item) => (
-              <Select.Option key={item} value={item}>
-                {item}
-              </Select.Option>
-            ))}
-          </Select>
+      //       value={selectedKeys}
+      //       onChange={setSelectedKeys}
+      //       style={{ width: '100%' }}
+      //       placement={placement} 
+      //     >
+      //       {/* Render options based on available categories */}
+      //       {filteredOptions.map((item) => (
+      //         <Select.Option key={item} value={item}>
+      //           {item}
+      //         </Select.Option>
+      //       ))}
+      //     </Select>
        
-        </div>
-      ),
+      //   </div>
+      // ),
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
           setTimeout(() => {
@@ -226,27 +211,27 @@ const OgioCart = () => {
         return categoryA.localeCompare(categoryB);
       },
 
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
-          <Select
-            mode="multiple"
-            placeholder="Select Category"
+      // filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+      //   <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
+      //     <Select
+      //       mode="multiple"
+      //       placeholder="Select Category"
         
-            value={selectedKeys}
-            onChange={setSelectedKeys}
-            style={{ width: '100%' }}
-            placement={placement} 
-          >
-            {/* Render options based on available categories */}
-            {filteredOptions1.map((item) => (
-              <Select.Option key={item} value={item}>
-                {item}
-              </Select.Option>
-            ))}
-          </Select>
+      //       value={selectedKeys}
+      //       onChange={setSelectedKeys}
+      //       style={{ width: '100%' }}
+      //       placement={placement} 
+      //     >
+      //       {/* Render options based on available categories */}
+      //       {filteredOptions1.map((item) => (
+      //         <Select.Option key={item} value={item}>
+      //           {item}
+      //         </Select.Option>
+      //       ))}
+      //     </Select>
        
-        </div>
-      ),
+      //   </div>
+      // ),
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
           setTimeout(() => {
@@ -280,27 +265,27 @@ const OgioCart = () => {
         return categoryA.localeCompare(categoryB);
       },
 
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
-          <Select
-            mode="multiple"
-            placeholder="Select Category"
+      // filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+      //   <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
+      //     <Select
+      //       mode="multiple"
+      //       placeholder="Select Category"
            
-            value={selectedKeys}
-            onChange={setSelectedKeys}
-            style={{ width: '100%' }}
-            placement={placement} 
-          >
-            {/* Render options based on available categories */}
-            {filteredOptions2.map((item) => (
-              <Select.Option key={item} value={item}>
-                {item}
-              </Select.Option>
-            ))}
-          </Select>
+      //       value={selectedKeys}
+      //       onChange={setSelectedKeys}
+      //       style={{ width: '100%' }}
+      //       placement={placement} 
+      //     >
+      //       {/* Render options based on available categories */}
+      //       {filteredOptions2.map((item) => (
+      //         <Select.Option key={item} value={item}>
+      //           {item}
+      //         </Select.Option>
+      //       ))}
+      //     </Select>
        
-        </div>
-      ),
+      //   </div>
+      // ),
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
           setTimeout(() => {
@@ -706,14 +691,11 @@ const handleUpdateRedux=()=>{
                       },
                     ]}
                   />
+                  
                   {isDiscount && (
                     <Space className='number-input' direction="vertical">
   
-                      {/* <Input
-                   
-                   
-                    onChange={(e)=>handleChangeDiscount(e.target.value)}
-                  /> */}
+                     
                       <InputNumber
                       
                         className='mx-3 number-input'
@@ -727,11 +709,14 @@ const handleUpdateRedux=()=>{
                       />
   
                     </Space>
+
   
                   )}
   
   
                 </div>
+
+
   
                 <div style={{ width: "261px" }}>
   
