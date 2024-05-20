@@ -9,19 +9,17 @@ import { AccountOrder, CartModel } from "../../model/CartOrder/CartModel";
 const AllPendingOrder = () => {
     const tableRef = useRef(null);
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
-    const [expandedRowKeys, setExpandedRowKeys] = useState<AccountOrder>();
+    const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
     const handleExpand = (record: CartModel) => {
 
         console.log("handleExpand", record)
-        if(record && record.item && record.item.length>0 &&record.id){
-            setExpandedRowKeys(record);
+        if(record && record.items && record.items.length>0 &&record.id){
+            const allarray= JSON.parse(record.items)
+            setExpandedRowKeys(allarray);
         }
        
-    //     const newExpandedRowKeys = expandedRowKeys.includes(record.id) ? 
-    //         expandedRowKeys.filter(key => key !== record.id) : 
-    //         [...expandedRowKeys, record.id];
-    //     setExpandedRowKeys(newExpandedRowKeys);
+    
      };
 
     const columns: TableColumnsType<CartModel> = [
@@ -135,7 +133,7 @@ const AllPendingOrder = () => {
         return (
             <Table
                 columns={subcolumns}
-               // dataSource={expandedRowKeys?.items.map(item => ({ ...item, key: item.sku }))}
+                dataSource={expandedRowKeys?.map(item => ({ ...item, key: item.sku }))}
                 pagination={false}
                 size="middle"
             />
