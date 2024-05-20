@@ -31,10 +31,10 @@ import {AuthProvider, setupAxios} from './app/modules/auth'
 
 
 
-import { Amplify } from 'aws-amplify';
-import config from './amplifyconfiguration.json';
-console.log("awsconfig ---->", config)
-Amplify.configure(config);
+// import { Amplify } from 'aws-amplify';
+// import config from './amplifyconfiguration.json';
+// console.log("awsconfig ---->", config)
+// Amplify.configure(config);
 
 
 const graphQlUrl=import.meta.env.VITE_APP_STRAPI_URL_GraphQl
