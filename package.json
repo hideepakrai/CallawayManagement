@@ -69,6 +69,7 @@
     "socicon": "3.0.5",
     "strapi-sdk-javascript": "^0.3.3",
     "xlsx": "^0.18.5",
+    "yarn": "^1.22.22",
     "yup": "^1.0.0"
   },
   "devDependencies": {
