@@ -1,4 +1,7 @@
+import {BasicModelTravis} from "../../model/travis/TravisMethewModel"
+
 export interface CartModel{
+  id?:number,
   order_date?:string,
 items?:string,
 discount_type?:string,
@@ -9,6 +12,7 @@ status?:string,
  retailer_id?:number,
 salesrep_id?:number,
 user_id?:number,
+item?:BasicModelTravis[]
   
     }
     

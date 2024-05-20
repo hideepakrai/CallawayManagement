@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import ManagerSlider from './ManagerSlider';
 import GetAllorder from '../../orderPage/GetAllorder';
 import profilelogo from "../../../../../public/media/logos/favicon-icon.png"
+import AllPendingOrder from './AllPendingOrder';
 const ManagerProfile = () => {
   const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
@@ -86,7 +87,7 @@ const handleResetOrder=() => {
       <Row className='container'>
         <Col xl={18} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
 
-        <PendingOrder />
+        <AllPendingOrder />
        <AllOrder   />
         </Col>
 
