@@ -23,10 +23,10 @@ import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
 import type { FormEvent } from "react"
 import { Amplify } from "aws-amplify"
 import { signIn } from "aws-amplify/auth"
-import outputs from "../../../../../amplify_outputs.json"
+// import outputs from "../../../../../amplify_outputs.json"
 
-console.log(outputs);
-Amplify.configure(outputs)
+// console.log(outputs);
+// Amplify.configure(outputs)
 
 
 const loginSchema = Yup.object().shape({
@@ -86,11 +86,11 @@ export function Login() {
 
       try {
         const response = await login(data)
-        const awsLogin = await signIn({
-          username: "shashi.kiranshetty@callawaygolf.com",
-          password: "Callaway@1!",
-        })  
-        console.log("awsLogin =>", awsLogin)
+        // const awsLogin = await signIn({
+        //   username: "shashi.kiranshetty@callawaygolf.com",
+        //   password: "Callaway@1!",
+        // })  
+        // console.log("awsLogin =>", awsLogin)
         console.log("userLof=gin ", response)
         saveAuth(response?.token)
         setCurrentUser(response)
