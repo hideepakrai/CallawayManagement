@@ -41,9 +41,9 @@ amplify/backend/.temp
 build/
 dist/
 node_modules/
-# aws-exports.js
+aws-exports.js
 awsconfiguration.json
-# amplifyconfiguration.json
+amplifyconfiguration.json
 amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
@@ -51,3 +51,6 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+amplify_outputs*
+amplifyconfiguration*

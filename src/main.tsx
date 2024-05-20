@@ -33,7 +33,7 @@ import {AuthProvider, setupAxios} from './app/modules/auth'
 
 import { Amplify } from 'aws-amplify';
 import config from './amplifyconfiguration.json';
-
+console.log("awsconfig ---->", config)
 Amplify.configure(config);
 
 
