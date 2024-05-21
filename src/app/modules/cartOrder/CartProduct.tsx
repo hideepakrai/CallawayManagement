@@ -46,26 +46,30 @@ const CartProduct = () => {
       <div className="card card-custom">
         
         <div className="card-header">
-          <ul className="nav nav-tabs nav-line-tabs border-0 mb-5 fs-6 mt-6 ">
+          <ul className="nav nav-tabs nav-line-tabs nav-link-tab border-0 mb-5 fs-6 mt-6 ">
           
 
+         
 
           
-           <li className="nav-item">
+           <li className="nav-item hover-elevate-up">
               <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} href="#kt_tab_pane_Ogio" onClick={() => setActiveTab('ogio')}>
+              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
                 Ogio
               </a>
             </li>
 
 
          
-             <li className="nav-item">
+             <li className="nav-item hover-elevate-up">
               <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} href="#kt_tab_pane_Travis" onClick={() => setActiveTab('travis')}>
-                Travis Mathew
+              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' cart-img'></img>
+                Travis Mathew 
               </a>
             </li>
           </ul>
         </div>
+
 
         <div className="card-body">
           <div className="tab-content" id="myTabContent">

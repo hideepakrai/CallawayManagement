@@ -79,7 +79,7 @@ const NoProdect = ({
           <Link className="btn btn-dark fw-semibold px-6 py-3 mx-3 hover-elevate-up" to="/brand/travis-methew">
           <a
           >
-             <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' w-20px brand-icon'></img>
+             <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' w-20px cart-icon'></img>
           Travis Mathew 
           </a>
           </Link>
