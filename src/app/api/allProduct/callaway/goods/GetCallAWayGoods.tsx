@@ -25,10 +25,10 @@ const GetCallawayGoodsProduct = ({ resetGoods}: Props) => {
       
 
 useEffect(() => {
-    console.log("CAllaway Goods,",data);
-    console.log(loading);
+    // console.log("CAllaway Goods,",data);
+    // console.log(loading);
     if (data && !loading) {
-        console.log(data?.products?.data);
+        // console.log(data?.products?.data);
         
         dispatch(addCallawayGoodsProduct({
             goodsProduct: data?.products?.data,

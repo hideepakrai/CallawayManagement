@@ -31,10 +31,10 @@ const GetRetailerAccount = ({ userId,resetId }: Props) => {
 
       useEffect(()=>{
 
-        console.log("userAccount",data)
-        console.log(loading )
+        // console.log("userAccount",data)
+        // console.log(loading )
         if(data &&!loading){
-            console.log(data?.usersPermissionsUsers?.data[0]);
+            // console.log(data?.usersPermissionsUsers?.data[0]);
         
             dispatch(addUserAccount({
                 UserAccount: data?.usersPermissionsUsers?.data[0],

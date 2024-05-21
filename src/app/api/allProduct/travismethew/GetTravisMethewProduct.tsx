@@ -20,10 +20,10 @@ const GetTravisMethewProduct = ({ resetTravis}: Props) => {
     },[])
 
     const getAllTravisProduct =async()=>{
-  console.log("Getting")
+//   console.log("Getting")
  try{
        const response= await GetTravisProduct ();
-       console.log("Travis product",response)
+    //    console.log("Travis product",response)
        const products: BasicModelTravis[] = response
        if(response){
           dispatch(addTravisProduct({

@@ -86,7 +86,7 @@ export function Login() {
         //   password: "Callaway@1!",
         // })  
         // console.log("awsLogin =>", awsLogin)
-        console.log("userLof=gin ", response)
+        // console.log("userLof=gin ", response)
         saveAuth(response?.token)
         setCurrentUser(response)
         // setUserName(response?.user?.name);
@@ -122,7 +122,7 @@ export function Login() {
         // setCurrentUser(response)
 
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         if (error) {
           alert("check your username and password")
         }
@@ -136,7 +136,7 @@ export function Login() {
 
 
   const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
-  console.log(getUserAccounts)
+  // console.log(getUserAccounts)
   //get user Sale and retailer associated with 
   // useEffect(()=>{
 

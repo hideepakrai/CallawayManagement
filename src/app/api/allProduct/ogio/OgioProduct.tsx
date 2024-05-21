@@ -22,10 +22,10 @@ const OgioProduct = ({ resetOgio,isRefetch}: Props) => {
     },[isRefetch])
 
     const getAllOgioProduct =async()=>{
-  console.log("Getting")
+//   console.log("Getting")
  try{
        const response= await GetOgioProduct ();
-       console.log("ogio product",response)
+    //    console.log("ogio product",response)
        dispatch(addOgioProduct({
                     ogioProduct: response
                 }));
@@ -34,7 +34,7 @@ const OgioProduct = ({ resetOgio,isRefetch}: Props) => {
 
  } catch(err){
    // alert("Error in getting ogio product")
-   console.log("error",err
+//    console.log("error",err
     
    )
  }

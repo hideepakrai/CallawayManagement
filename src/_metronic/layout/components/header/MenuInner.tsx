@@ -9,7 +9,7 @@ export function MenuInner() {
 
 
   const handleCart=()=>{
-    console.log('cart')
+    // console.log('cart')
   }
   return (
     <>

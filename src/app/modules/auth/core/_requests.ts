@@ -21,7 +21,7 @@ export function login(data:{
   return axios.post(`${serverUrl}/login`, data,
   
   ).then(response=>{
-    console.log("login",response)
+    // console.log("login",response)
     return response.data;
   }).catch(err => {
     throw err;
@@ -40,7 +40,7 @@ export function GetUserRetailer(id:number){
   // return axios.get(`${STRAPI_URL}/content-manager/collection-types/plugin::users-permissions.user/${data.userId}`,{headers})
   return axios.post(`${serverUrl}/get-retailer-associated`,payload)
   .then(response=>{
-    console.log(response)
+    // console.log(response)
     return response.data
 }).catch(error=>{
     throw error;
@@ -87,7 +87,7 @@ export function getAdminToken(data:{
 }){
   return axios.post(`${STRAPI_URL}/admin/login`,data)
   .then(response=>{
-    console.log(response)
+    // console.log(response)
     return response?.data?.data?.token
 }).catch(error=>{
     throw error;
@@ -109,7 +109,7 @@ export function getUserRole(data:{
   // return axios.get(`${STRAPI_URL}/content-manager/collection-types/plugin::users-permissions.user/${data.userId}`,{headers})
   return axios.get(`${STRAPI_URL}/content-manager/relations/plugin::users-permissions.user/${data.userId}/role?pageSize=5&page=1`,{headers})
   .then(response=>{
-    console.log(response)
+    // console.log(response)
     return response.data
 }).catch(error=>{
     throw error;

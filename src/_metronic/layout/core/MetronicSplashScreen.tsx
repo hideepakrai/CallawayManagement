@@ -20,11 +20,11 @@ const MetronicSplashScreenProvider: FC<WithChildren> = ({children}) => {
   useEffect(() => {
     // Show SplashScreen
     if (visible) {
-      console.log('remove loading')
+      // console.log('remove loading')
       document.body.classList.remove('page-loading')
 
       return () => {
-        console.log('add loading')
+        // console.log('add loading')
         document.body.classList.add('page-loading')
       }
     }
@@ -33,7 +33,7 @@ const MetronicSplashScreenProvider: FC<WithChildren> = ({children}) => {
     let timeout: number
     if (!visible) {
       timeout = window.setTimeout(() => {
-        console.log('add loading')
+        // console.log('add loading')
         document.body.classList.add('page-loading')
       }, 3000)
     }

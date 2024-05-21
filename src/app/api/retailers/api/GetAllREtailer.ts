@@ -10,7 +10,7 @@ export function GetAlllRetailerAssManager () {
    
       return axios.get(`${serverApi}/get-retailers-associated-manager`,)
       .then(response=>{
-        console.log(response)
+        // console.log(response)
         return response.data
     }).catch(error=>{
         throw error;

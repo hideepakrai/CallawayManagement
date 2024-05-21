@@ -57,7 +57,7 @@ const CallAwayApprelProducts = () => {
       render: (value) => {
         // Check if value and value.data[0] exist before accessing properties
         if (value && value.data[0] && value.data[0].attributes && value.data[0].attributes.formats && value.data[0].attributes.formats.thumbnail && value.data[0].attributes.formats.thumbnail.url) {
-          console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
+          // console.log("image: " + value.data[0].attributes.formats.thumbnail.url);
           return (
             <span>
               <img
@@ -100,7 +100,7 @@ const CallAwayApprelProducts = () => {
             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
             onKeyUp={(e) => {
 
-              console.log("enter", e)
+              // console.log("enter", e)
               if (e.key === 'Enter') {
                 confirm();
               }
@@ -121,7 +121,7 @@ const CallAwayApprelProducts = () => {
           record &&
           record.SKU;
 
-        console.log("Filtering:", value, "sku:", sku);
+        // console.log("Filtering:", value, "sku:", sku);
         return sku === value;
       },
       filterSearch: true,
@@ -169,7 +169,7 @@ const CallAwayApprelProducts = () => {
           record &&
           record.Name;
 
-        console.log("Filtering:", value, "sku:", name);
+        // console.log("Filtering:", value, "sku:", name);
         return name === value;
       },
       filterSearch: true,
@@ -221,7 +221,7 @@ const CallAwayApprelProducts = () => {
       onFilter: (value, record) => {
         const category = record?.TravisAttributes?.[0]?.Category;
 
-        console.log("Filtering:", value, "Category:", category);
+        // console.log("Filtering:", value, "Category:", category);
         return category === value;
       },
       filterSearch: true,
@@ -273,7 +273,7 @@ const CallAwayApprelProducts = () => {
       onFilter: (value, record) => {
         const Season = record?.TravisAttributes?.[0]?.Season;
 
-        console.log("Filtering:", value, "season:", Season);
+        // console.log("Filtering:", value, "season:", Season);
         return Season === value;
       },
       filterSearch: true,
@@ -324,7 +324,7 @@ const CallAwayApprelProducts = () => {
       onFilter: (value, record) => {
         const StyleCode = record?.TravisAttributes?.[0]?.StyleCode;
 
-        console.log("Filtering:", value, "Style Code:", StyleCode);
+        // console.log("Filtering:", value, "Style Code:", StyleCode);
         return StyleCode === value;
       },
       filterSearch: true,
@@ -486,7 +486,7 @@ const CallAwayApprelProducts = () => {
 
   const expandedRowRender = (record: BasicModelTravis) => {
 
-    console.log("record expanded", record)
+    // console.log("record expanded", record)
     if (record.TravisAttributes && record.TravisAttributes.length > 0) {
       const subcolumns: TableColumnsType<BasicModelTravis> = [
         {
@@ -615,7 +615,7 @@ const CallAwayApprelProducts = () => {
 
 
 
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    // console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     // Check if the record is selected by checking if its key is included in newSelectedRowKeys
     //const isSelected = newSelectedRowKeys.includes(record.SKU);
     // Update the selectedRowKeys state based on the toggle state
@@ -664,10 +664,10 @@ const CallAwayApprelProducts = () => {
 
 
     // Log the record for debugging or tracking purposes
-    console.log(record);
+    // console.log(record);
   };
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
-    console.log("record", record)
+    // console.log("record", record)
     const intValue = parseInt(value, 10);
     if (intValue >= 0) {
 
@@ -726,7 +726,7 @@ const CallAwayApprelProducts = () => {
   const handleTravisData = (allDatat: ExcelModelTravis[]) => {
     const table = tableRef.current;
     handleCloseImport()
-    console.log("all travis data", allDatat)
+    // console.log("all travis data", allDatat)
     setAllXlxData(allDatat)
   }
 
@@ -738,7 +738,7 @@ const CallAwayApprelProducts = () => {
   //exportto excel
   const handleExportToExcel = () => {
     try {
-      console.log("Exporting to Excel...");
+      // console.log("Exporting to Excel...");
 
       const table = tableRef.current as HTMLTableElement | null;
 
@@ -766,7 +766,7 @@ const CallAwayApprelProducts = () => {
       // Release the object URL
       URL.revokeObjectURL(url);
 
-      console.log("Excel exported successfully.");
+      // console.log("Excel exported successfully.");
     } catch (error) {
       console.error("Error exporting to Excel:", error);
     }
@@ -783,7 +783,7 @@ const CallAwayApprelProducts = () => {
 
 
   const handleSelctRow = (record: BasicModelTravis) => {
-    console.log("record", record)
+    // console.log("record", record)
     setSelectedRowKeys([record])
   }
 

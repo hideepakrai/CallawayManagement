@@ -36,10 +36,10 @@ const GetUserAccount = ({ userId,resetId,reLoadUserAccount }: Props) => {
 
       useEffect(()=>{
 
-        console.log("user Account",data)
-        console.log(loading )
+        // console.log("user Account",data)
+        // console.log(loading )
         if(data &&!loading){
-            console.log(data?.usersPermissionsUsers?.data[0]);
+            // console.log(data?.usersPermissionsUsers?.data[0]);
         
             dispatch(addUserAccount({
                 UserAccount: data?.usersPermissionsUsers?.data[0],

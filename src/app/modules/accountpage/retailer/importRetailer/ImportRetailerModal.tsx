@@ -44,7 +44,7 @@ const TravisImportExcel = ({isRetailer,onClose}:Props) => {
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
        const jsonData = XLSX.utils.sheet_to_json<RetailerExcelModal>(worksheet) as RetailerExcelModal[];
-    console.log("json ", data)
+    // console.log("json ", data)
       // Use the extracted JSON data here
       //console.log(jsonData);
     //   setAllXlxData(jsonData)

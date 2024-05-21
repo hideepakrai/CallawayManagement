@@ -11,7 +11,7 @@ export function GetAllUserOrders (user_id:number) {
    }
       return axios.post(`${serverApi}/get-user-orders`,payload)
       .then(response=>{
-        console.log(response)
+        // console.log(response)
         return response.data
     }).catch(error=>{
         throw error;

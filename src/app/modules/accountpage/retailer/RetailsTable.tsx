@@ -20,7 +20,7 @@ const RetailsTable = () => {
     
   useEffect(()=>{
  if(getRetailer){
-      console.log("Retailer",getRetailer)
+      // console.log("Retailer",getRetailer)
       setRetailers(getRetailer)
     }
   },[getRetailer])

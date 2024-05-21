@@ -9,7 +9,7 @@ export function GetTravisProduct () {
    
       return axios.get(`${serverApi}/get-travisMathew`,)
       .then(response=>{
-        console.log(response)
+        // console.log(response)
         return response.data
     }).catch(error=>{
         throw error;
