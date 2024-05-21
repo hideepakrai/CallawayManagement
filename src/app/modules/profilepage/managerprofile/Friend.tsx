@@ -1,7 +1,7 @@
 import React from "react";
 import {Badge} from "antd";
 import "./Friend.css"
-
+import UserList from "./UserList";
 
 
 type Props={
@@ -29,7 +29,7 @@ const Friends = ({friendList}: Props) => {
      
   </div>
   <div className="card-body py-7 px-3">
-  <div className="gx-pt-2">
+  {/* <div className="gx-pt-2">
         <ul className="gx-fnd-list gx-mb-0 d-flex row user-image" >
           {friendList.map((user:user, index) =>
             <li className="gx-mb-2 col-2 pb-6" style={{width:"160px"}} key={index} >
@@ -44,7 +44,8 @@ const Friends = ({friendList}: Props) => {
           )
           }
         </ul>
-      </div>
+      </div> */}
+      <UserList/>
   </div>
  
 </div>

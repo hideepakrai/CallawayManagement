@@ -815,7 +815,7 @@ const TravisTable = () => {
 
         },
         {
-          title: "Amount",
+          title: "Amount ",
           dataIndex: "Amount",
           key: "Amount",
           width: 100,
@@ -828,7 +828,7 @@ const TravisTable = () => {
 
 
         return (
-          <Table className='table-travis'
+          <Table className='cart-table-profile'
             columns={subcolumns}
             dataSource={getOtherProduct?.map((item) => ({ ...item, key: item.sku }))}
             pagination={false}
@@ -1343,7 +1343,7 @@ const TravisTable = () => {
         </div>
 
 
-        <Table className='cart-table'
+        <Table className='cart-table-profile'
           ref={tableRef}
           columns={columns}
           dataSource={getProduct?.map((item) => ({ ...item, key: item?.sku }))}

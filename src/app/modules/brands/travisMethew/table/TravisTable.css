@@ -27,6 +27,8 @@
  .ant-pagination-options .ant-select-sm{   
     height: 31px!important; top:-4px!important;}
 
+    :where(.css-17seli4) .cart-table .ant-table-wrapper .ant-table-thead >tr>th, :where(.css-17seli4).ant-table-wrapper .ant-table-thead >tr>td{background-color: #111!important;}
+
 
 
   
