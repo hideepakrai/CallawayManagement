@@ -5,7 +5,7 @@ const UserList = () => {
   return (
     <div className='d-flex row'>
 
-<div className="card card-custom card-user-list mx-1" style={{width:"270px", padding:"0"}}  >
+<div className="card card-custom card-user-list mx-1" style={{width:"260px", padding:"0"}}  >
           <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
             <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Alok Singh</h1>
@@ -13,7 +13,7 @@ const UserList = () => {
 
           </div>
 
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 20px 5px 8px"}}>
+          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
 
             <ul className="card-list m-0" >
               <li>
@@ -34,7 +34,7 @@ const UserList = () => {
         
 </div>
 
-<div className="card card-custom    card-user-list " style={{width:"270px", padding:"0"}}  >
+<div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}}  >
           <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
             <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Ankur Shriv</h1>
@@ -42,7 +42,7 @@ const UserList = () => {
 
           </div>
 
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 20px 5px 8px"}}>
+          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
 
             <ul className="card-list m-0" >
               <li>
@@ -64,7 +64,7 @@ const UserList = () => {
 </div>
 
 
-<div className="card card-custom    card-user-list " style={{width:"270px", padding:"0"}} >
+<div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}} >
           <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
             <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Manish Sharma</h1>
@@ -72,7 +72,7 @@ const UserList = () => {
 
           </div>
 
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 20px 5px 8px"}}>
+          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
 
             <ul className="card-list m-0" >
               <li>
@@ -94,7 +94,7 @@ const UserList = () => {
 </div>
 
 
-<div className="card card-custom    card-user-list " style={{width:"270px", padding:"0"}} >
+<div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}} >
           <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
             <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Manish Gupta</h1>
@@ -102,7 +102,7 @@ const UserList = () => {
 
           </div>
 
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 20px 5px 8px"}}>
+          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
 
             <ul className="card-list m-0" >
               <li>
@@ -117,7 +117,7 @@ const UserList = () => {
           </div>        
 </div>
 
-<div className="card card-custom    card-user-list col-lg-2" style={{width:"270px", padding:"0"}}  >
+<div className="card card-custom    card-user-list col-lg-2" style={{width:"260px", padding:"0"}}  >
           <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
             <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Deepak Sharma</h1>
@@ -125,7 +125,7 @@ const UserList = () => {
 
           </div>
 
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 20px 5px 8px"}}>
+          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
 
             <ul className="card-list m-0" >
               <li>

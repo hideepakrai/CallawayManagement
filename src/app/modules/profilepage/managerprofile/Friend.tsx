@@ -28,7 +28,7 @@ const Friends = ({friendList}: Props) => {
       <h3 className="card-title text-white">Support</h3>
      
   </div>
-  <div className="card-body py-7 px-3">
+  <div className="card-body py-7 mx-1">
   {/* <div className="gx-pt-2">
         <ul className="gx-fnd-list gx-mb-0 d-flex row user-image" >
           {friendList.map((user:user, index) =>
