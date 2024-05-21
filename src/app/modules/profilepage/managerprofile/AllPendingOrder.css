@@ -1,5 +1,5 @@
 .table-profile{margin-top: 10px; padding-bottom: 10px; }
-.table-profile .ant-table-thead tr th{background-color: #000!important; color: #fff;}
+.table-profile .ant-table-thead tr th{background-color: #000!important; color: #fff!important;}
 .ant-table-has-fix-right{margin: 0!important;}
 .cart-table .ant-table-expanded-row-level-1{background-color: #f6f6f6!important;} #f5f5f5
 .cart-table-profile .ant-spin-container .ant-table-thead .ant-table-cell{background-color: #333!important; color: #fff!important;}
