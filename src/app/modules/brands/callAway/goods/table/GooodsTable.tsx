@@ -518,6 +518,7 @@ return (
 
 
           <Table
+          className='cart-table-profile'
             ref={tableRef}
             columns={columns}
             dataSource={callawayGooodsProduct?.map((item) => ({ ...item, key: item.id }))}

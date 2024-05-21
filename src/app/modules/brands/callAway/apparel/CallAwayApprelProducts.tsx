@@ -593,7 +593,7 @@ const CallAwayApprelProducts = () => {
 
 
 
-          <Table className='table-travis'
+          <Table className='cart-table-profile'
             columns={subcolumns}
             dataSource={[record]}
             pagination={false}
@@ -848,7 +848,7 @@ const CallAwayApprelProducts = () => {
         </div>
 
 
-        <Table className='card-table-travis'
+        <Table className='cart-table-profile'
           ref={tableRef}
           columns={columns}
           dataSource={getProduct?.map((item) => ({ ...item, key: item?.SKU }))}

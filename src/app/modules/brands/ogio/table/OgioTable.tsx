@@ -649,6 +649,7 @@ const handleResetSelectedRow =()=>{
   </div>
   
           <Table
+          className='cart-table-profile'
             ref={tableRef}
             columns={columns}
             dataSource={ogioProducts?.map((item) => ({ ...item, key: item.sku }))}
