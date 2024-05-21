@@ -28,7 +28,7 @@ const Edit = ({ isEdit, onClose }:Props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3>Edit Status</h3>
+        <h3>Edit Status </h3>
 
         <Select
           showSearch

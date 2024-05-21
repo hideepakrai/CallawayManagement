@@ -1,0 +1,10 @@
+.table-profile{margin-top: 10px; padding-bottom: 10px; }
+.table-profile .ant-table-thead tr th{background-color: #000!important; color: #fff;}
+.ant-table-has-fix-right{margin: 0!important;}
+.cart-table .ant-table-expanded-row-level-1{background-color: #f6f6f6!important;} #f5f5f5
+.cart-table-profile .ant-spin-container .ant-table-thead .ant-table-cell{background-color: #333!important;}
+
+:where(.css-dev-only-do-not-override-1r287do).cart-table-profile .ant-table-thead >tr>th, :where(.css-dev-only-do-not-override-1r287do).ant-table-wrapper .ant-table-thead >tr>td{
+    background-color: #111!important;
+    color: #fff!important;
+}

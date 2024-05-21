@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Table, Carousel, Breadcrumb } from "antd";
-import prodecbanner from "../../../../../public/media/product/banner4.png"
+import prodecbanner from "../../../../../public/media/product/black-banner.png"
 const ManagerSlider = () => {
   return (
     

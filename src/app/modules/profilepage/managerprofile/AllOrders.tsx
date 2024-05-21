@@ -76,19 +76,19 @@ const AllOrder = () => {
 
             <Card className="mt-6">
                 <div className="table-responsive mb-6">
-                    <label><h3 className="mx-6 my-7">All Order</h3></label>
+                    <label><h3 className="mx-6 my-7">All Order </h3></label>
 
-                    <table className="table table-striped gy-7 gs-7" style={{ width: "96%", margin: "0 auto", }}>
+                    <table className="table table-striped gy-7 gs-7" style={{ width: "96%", margin: "0 auto", backgroundColor: "#111", borderRadius:"8px 8px 0px 0px" }}>
 
-                        <thead style={{ backgroundColor: "#f5f5f5" }} >
-                            <tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                                <th>Order Id</th>
-                                <th>Brand</th>
-                                <th>Retailer Name</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Action</th>
+                        <thead  >
+                            <tr className="fw-semibold fs-6  border-bottom border-gray-200  text-white border-right-1" style={{borderRadius:"20px"}}>
+                                <th className="py-4 px-4">Order Id</th>
+                                <th className="py-4 px-4">Brand</th>
+                                <th className="py-4 px-4">Retailer Name</th>
+                                <th className="py-4 px-4">Status</th>
+                                <th className="py-4 px-4">Date</th>
+                                <th className="py-4 px-4">Amount</th>
+                                <th className="py-4 px-4">Action</th>
                             </tr>
                         </thead>
                         <tbody>

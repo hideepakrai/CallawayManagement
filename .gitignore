@@ -30,6 +30,10 @@ yarn.lock
 # amplify_outputs*
 # amplifyconfiguration*
 
+
+amplify_outputs*
+amplifyconfiguration*
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -51,6 +55,3 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-
-amplify_outputs*
-amplifyconfiguration*

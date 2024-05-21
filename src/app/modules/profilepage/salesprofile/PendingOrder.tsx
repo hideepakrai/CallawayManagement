@@ -93,7 +93,7 @@ const PendingOrder = () => {
         <div >
             <div className="card card-custom">
                 <div className="card-header">
-                    <h3 className="card-title">Pending Order</h3>
+                    <h3 className="card-title">Pending Order </h3>
                 </div>
 
                 <div className="card-body ">

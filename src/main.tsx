@@ -4,6 +4,10 @@ import store  from './app/store/store'; // Import your Redux store
 //import dotenv from 'dotenv';
 // Axios
 
+import { Amplify } from 'aws-amplify';
+import config from './amplifyconfiguration.json';
+Amplify.configure(config);
+
 
 
 import axios from 'axios'
@@ -28,6 +32,8 @@ import './_metronic/assets/keenicons/solid/style.css'
 import './_metronic/assets/sass/style.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
 import {AuthProvider, setupAxios} from './app/modules/auth'
+
+
 
 const graphQlUrl=import.meta.env.VITE_APP_STRAPI_URL_GraphQl
 

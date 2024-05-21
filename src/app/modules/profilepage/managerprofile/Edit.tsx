@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import { Input,Timeline } from "antd";
+import { Input, Timeline } from "antd";
 import { Select } from "antd";
+import "./Edit.css";
+type Props = {
+  isEdit: boolean
+  onClose: () => void,
+  changeStatus: (status: string) => void
 
-type Props={
-    isEdit:boolean
-    onClose:() => void,
-    changeStatus:(status:string) => void
-    
 }
-const Edit = ({ isEdit, onClose,changeStatus}:Props) => {
+const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
   const handleOk = () => {
     //setIsModalOpen(false);
-    if(status!==""){
+    if (status !== "") {
       changeStatus(status)
-    }else{
+    } else {
       alert("Please select status")
       return
     }
@@ -25,53 +25,74 @@ const Edit = ({ isEdit, onClose,changeStatus}:Props) => {
     // setIsModalOpen(false);
     onClose();
   };
- const [status, setStatus]= useState<string>("")
-  const handleOnChange = (value:string) => {
-       setStatus(value)
+  const [status, setStatus] = useState<string>("")
+  const handleOnChange = (value: string) => {
+    setStatus(value)
     // console.log(`selected ${value}`);
   };
   return (
     <>
-    <div>
-      <Modal
-        // title="Basic Modal"
-        open={isEdit}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <h3 className=" pb-1">Edit Status</h3>
+      <div>
 
-        <Select className="status-select" style={{width: '100%',}}
-          showSearch
-          placeholder="Update status"
-          optionFilterProp="children"
-          onChange={handleOnChange}
-          // onSearch={onSearch}
-          //filterOption={filterOption}
-          options={[
-            {
-              value: "Completed",
-              label: "Completed",
-            },
-            {
-              value: "Rejected",
-              label: "Rejected",
-            },
-            {
-              value: "Approved",
-              label: "Approved",
-            },
-            {
-              value: "Under Review",
-              label: "Under Review",
-            },
-          ]}
-        />
+        
+        <Modal
+          // title="Basic Modal"
+          open={isEdit}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          title="Note"
+          className="note-modal"
 
-<div  className="mt-8">
+        >
+
+ <div className="mt-8">
+            {/* <h3 className="pb-4">Note <i className="bi bi-pencil-fill"></i></h3>  */}
+            <Timeline>
+              <Timeline.Item color="gray">
+              <h3 className="fs-1">Cras non dolor. Praesent ac massa at ligula laoreet iaculis. </h3>
+                {/* <h3 > <span className="fs-1"> Note</span>  <span className="fs-6">by</span> <span className=" fs-5 text-black">Deepak Rai</span> <span className="fs-6 ">on</span><span className="fs-6"><i className=" text-black"> 21-01-2024 01:00AM</i> </span></h3> */}
+                <p className="text-gray-600 fs-4">Note by Deepak Rai on 21-01-2024 01:00AM</p>
+              </Timeline.Item>
+            </Timeline>
+          </div>
+
+          <div className="d-flex">
+          <h3 className=" pb-1 fs-4 text-gray-900"> Status </h3>
+
+          <Select className="status-select" style={{ width: '35%', marginLeft:"20px", marginTop:"-5px" }}
+            showSearch
+            placeholder="Update status"
+            optionFilterProp="children"
+            onChange={handleOnChange}
+            // onSearch={onSearch}
+            //filterOption={filterOption}
+            options={[
+              {
+                value: "Completed",
+                label: "Completed",
+              },
+              {
+                value: "Rejected",
+                label: "Rejected",
+              },
+              {
+                value: "Approved",
+                label: "Approved",
+              },
+              {
+                value: "Under Review",
+                label: "Under Review",
+              },
+            ]}
+          />
+
+</div>
+         
+
+          {/* <div  className="mt-8">
             <h3 className="pb-4">Timeline</h3>
 
-            {/* <span className="gx-mb-3">Timeline</span> */}
+         
             <Timeline>
               <Timeline.Item color="green">
                 <h3>  Comment  <span className="fs-6">by</span> <span className="text-primary">Deepak Rai</span> <span className="fs-6 ">on</span><span className="fs-6"><i className="text-primary"> 21-01-2024 01:00AM</i> </span></h3>
@@ -82,18 +103,15 @@ const Edit = ({ isEdit, onClose,changeStatus}:Props) => {
                <h3>  Approve Order <span className="fs-6">by</span> <span className="text-primary">Manish Sharma</span> <span className="fs-6 ">on</span><span className="fs-6"><i className="text-primary"> 01-10-2024 05:00AM</i> </span></h3>
                 <p>Cras non dolor. Praesent ac massa at ligula laoreet iaculis. </p>
               </Timeline.Item>
-              {/* <Timeline.Item>
-                <h3> Reject Order <span className="fs-6">by</span> <span className="text-primary">Rahul Singh</span> <span className="fs-6 ">on</span><span className="fs-6"><i className="text-primary"> 25-06-2024 03:10AM</i> </span></h3>
-                <p>Cras non dolor. Praesent ac massa at ligula laoreet iaculis. </p>
-              </Timeline.Item> */}
+             
             </Timeline>
-          </div>
+          </div> */}
 
-      </Modal>
+        </Modal>
 
-     
-    </div>
-    
+
+      </div>
+
     </>
 
   );

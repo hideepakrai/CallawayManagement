@@ -12,7 +12,7 @@ const TablesWidget10: FC<Props> = ({className}) => {
       {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Members Statistics</span>
+          <span className='card-label fw-bold fs-3 mb-1'>Members Statistics </span>
           <span className='text-muted mt-1 fw-semibold fs-7'>Over 500 members</span>
         </h3>
         <div
@@ -74,6 +74,7 @@ const TablesWidget10: FC<Props> = ({className}) => {
                     <div className='symbol symbol-45px me-5'>
                       <img src={toAbsoluteUrl('media/avatars/300-14.jpg')} alt='' />
                     </div>
+                    
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
                         Ana Simmons
@@ -82,6 +83,8 @@ const TablesWidget10: FC<Props> = ({className}) => {
                         HTML, JS, ReactJS
                       </span>
                     </div>
+
+
                   </div>
                 </td>
                 <td>

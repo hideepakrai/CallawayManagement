@@ -23,16 +23,16 @@ const Friends = ({friendList}: Props) => {
  
       
 
-      <div className="card card-custom">
-  <div className="card-header">
-      <h3 className="card-title">Support</h3>
+      <div className="card card-custom  mb-6 border support-section">
+  <div className="card-header bg-black">
+      <h3 className="card-title text-white">Support</h3>
      
   </div>
   <div className="card-body py-7 px-3">
   <div className="gx-pt-2">
         <ul className="gx-fnd-list gx-mb-0 d-flex row user-image" >
           {friendList.map((user:user, index) =>
-            <li className="gx-mb-2 col-4 pb-6" key={index} >
+            <li className="gx-mb-2 col-2 pb-6" style={{width:"160px"}} key={index} >
               <div className="user-images">
                 <img alt="..." src={user.image}/>
                 <div className="cw-user-content">

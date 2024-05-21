@@ -43,6 +43,35 @@ const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
 
 
 
+const items = [
+  {
+    key: '1',
+    label: (
+
+       50
+
+    ),
+  },
+  {
+    key: '2',
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+        2nd menu item
+      </a>
+    ),
+  },
+  {
+    key: '3',
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+        3rd menu item
+      </a>
+    ),
+  },
+];
+
+
+
 
 const TravisTable = () => {
 
@@ -63,16 +92,51 @@ const TravisTable = () => {
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
 
-  try {
-    const result =  list({
-      path: 'public/uploads/',
-      // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
-    });
-    console.log("result AWS -------->", result)
-  } catch (error) {
-    console.log(error);
-  }
+  (async () => {
+    try {
+      const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
+      const result = await list({
+        path: 'public/productimg/TRAVIS-Images/',
+        // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
+      });
+      console.log("result =>", result);
+      console.log("items =>", result.items); // Accessing the items array
   
+      const originalString: string = "1MAA007_0HLG_11";
+      const derivedString: string = originalString.split('_').slice(0, 2).join('_');
+      console.log(derivedString); // Output: 1BR118_0BLK
+  
+      const folderPath = `public/productimg/TRAVIS-Images/${derivedString}/`;
+  
+      const folderExists = result.items.some((item: any) => {
+        return item.path.startsWith(folderPath);
+      });
+  
+      console.log(`Folder ${derivedString} exists:`, folderExists);
+  
+      if (folderExists) {
+        const imagePaths = result.items
+          .filter((item: any) => item.path.startsWith(folderPath))
+          .map((item: any) => item.path);
+  
+        if (imagePaths.length > 0) {
+          const primary_image = imagePaths[0];
+          const secondary_image = imagePaths.slice(1);
+  
+          console.log(`Primary image:`, primary_image);
+          console.log(`Secondary images:`, secondary_image);
+        } else {
+          console.log(`No images found in folder ${derivedString}.`);
+        }
+      } else {
+        console.log(`Folder ${derivedString} does not exist.`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+
+
   
   const columns: TableColumnsType<BasicModelTravis> = [
     {
@@ -155,7 +219,7 @@ const TravisTable = () => {
 
 
     {
-      title: "SKU",
+      title: "SKU ",
       dataIndex: "sku",
       width: 100,
       fixed: "left",
@@ -172,8 +236,10 @@ const TravisTable = () => {
               confirm({ closeDropdown: false });
 
             }}
+
             style={{ width: 188, marginBottom: 8, display: "block" }}
           />
+          
         </div>
       ),
       onFilterDropdownVisibleChange: (visible) => {
@@ -253,7 +319,7 @@ const TravisTable = () => {
 
 
     {
-      title: "Category",
+      title: "Category ",
       dataIndex: "category",
       key: "category",
       width: 110,
@@ -525,7 +591,7 @@ const TravisTable = () => {
 
 
     {
-      title: "Amount",
+      title: "Amount ",
       dataIndex: "Amount",
       key: "Amount",
       width: 100,
@@ -762,10 +828,6 @@ const TravisTable = () => {
 
 
         return (
-
-
-
-
           <Table className='table-travis'
             columns={subcolumns}
             dataSource={getOtherProduct?.map((item) => ({ ...item, key: item.sku }))}
@@ -1145,6 +1207,8 @@ const TravisTable = () => {
     try {
 
 
+      
+
       const table = tableRef.current as HTMLTableElement | null;
 
       if (!table) {
@@ -1254,6 +1318,7 @@ const TravisTable = () => {
               <Breadcrumb.Item>Travis Mathew</Breadcrumb.Item>
             </Breadcrumb>
           </div>
+
         }
 
       >
@@ -1278,7 +1343,7 @@ const TravisTable = () => {
         </div>
 
 
-        <Table className='card-table-travis'
+        <Table className='cart-table'
           ref={tableRef}
           columns={columns}
           dataSource={getProduct?.map((item) => ({ ...item, key: item?.sku }))}
@@ -1299,8 +1364,6 @@ const TravisTable = () => {
             defaultPageSize: 20
           }}
         />
-
-
 
 
       </Card>}

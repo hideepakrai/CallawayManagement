@@ -64,7 +64,7 @@ const PendingOrder = () => {
 
             <Card>
                 <div className="table-responsive mb-6">
-                    <label><h3 className="mx-6 my-7">Pending Order</h3></label>
+                    <label><h3 className="mx-6 my-7">Pending Order </h3></label>
 
 
                     <table className="table table-striped gy-7 gs-7 table-order"  >
@@ -76,7 +76,7 @@ const PendingOrder = () => {
                                 <th>Retailer Name</th>
                                 <th>Date</th>
                                 <th>Amount</th>
-                                <th>Action</th>
+                                <th>Action </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,23 +88,32 @@ const PendingOrder = () => {
                                         return (
                                             <tr>
                                                 <td>{item.id}</td>
-                                                <td>{item.brand_id===4?"Ogio":"TravisMathew"}</td>
+                                                <td>{item.brand_id === 4 ? "Ogio" : "TravisMathew"}</td>
                                                 <td>{item.retailer_id}</td>
-                                                <td>{item.created_at}</td>
+                                                {/* <td>{item.created_at}</td> */}
+                                                <td>
+                                                    <div className='d-flex justify-content-start flex-column'>
+                                                        <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
+                                                            24-05-2024
+                                                        </a>
+                                                        <span className='text-muted fw-semibold text-muted d-block fs-7'>
+                                                            T06:01:16.000Z
+                                                        </span>
+                                                    </div>
+                                                </td>
+
                                                 <td>{item.total_value}</td>
+
                                                 <td>
                                                     <span>
 
-                                                    <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                                            // onClick={() => handleEdit(item.id)}
+                                                        <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                                        // onClick={() => handleEdit(item.id)}
                                                         >
-
                                                             <Tooltip title="Download" placement="bottom">
-                                                            <i className="bi bi-download"></i>
+                                                                <i className="bi bi-download"></i>
                                                             </Tooltip>
                                                         </span>
-
-
                                                         <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleView(item)}
                                                         >
@@ -113,25 +122,21 @@ const PendingOrder = () => {
                                                                 <i className="bi bi-box-arrow-up-right"></i>
                                                             </Tooltip>
                                                         </span>
-                                                        
 
-                                                        <span style={{ paddingRight: "5px", paddingLeft:"6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+
+                                                        <span style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleEdit(item.id)}
+                                                           
                                                         >
-
                                                             <Tooltip title="Edit" placement="bottom">
                                                                 <i className="bi bi-pencil-fill" ></i>
                                                             </Tooltip>
                                                         </span>
 
-                                                       
 
 
-                                                        {/* <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
-                                                            <Tooltip title="View Prodects" placement="bottom">
-                                                                <i className="bi bi-box-arrow-up-right " ></i>
-                                                            </Tooltip>
-                                                        </span> */}
+
+                                                     
 
 
 
@@ -150,6 +155,13 @@ const PendingOrder = () => {
 
                         </tbody>
                     </table>
+
+
+
+
+
+
+
                 </div>
 
             </Card>

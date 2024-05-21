@@ -182,7 +182,7 @@ const DashboardPage = () => (
       {/* end::Row */}
 
       {/* begin::Row */}
-      <div className='row gy-5 gx-xl-8'>
+      {/* <div className='row gy-5 gx-xl-8'>
       <div className='col-xl-4'>
           
       <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-8' items={5} />
@@ -191,11 +191,11 @@ const DashboardPage = () => (
           
            <TablesWidget10 className='card-xxl-stretch mb-5 mb-xl-8' /> 
         </div>
-      </div>
+      </div> */}
       {/* end::Row */}
 
       {/* begin::Row */}
-      <div className='row gy-5 g-xl-8'>
+      {/* <div className='row gy-5 g-xl-8'>
         <div className='col-xl-4'>
         <ListsWidget5 className='card-xxl-stretch' />
       
@@ -206,12 +206,12 @@ const DashboardPage = () => (
         </div>
          <div className='col-xl-4'>
          <ListsWidget6 className='card-xl-stretch mb-xl-8' /> 
-          {/* <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-8' items={5} /> */}
+      
         </div> 
         
 
      
-      </div>
+      </div> */}
       {/* end::Row */}
     </Content>
     </div>
