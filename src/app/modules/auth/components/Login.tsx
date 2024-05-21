@@ -21,12 +21,7 @@ import Manager from "../../../api/manager/Manager"
 import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
 import type { FormEvent } from "react"
-import { Amplify } from "aws-amplify"
-import { signIn } from "aws-amplify/auth"
-// import outputs from "../../../../../amplify_outputs.json"
 
-// console.log(outputs);
-// Amplify.configure(outputs)
 
 
 const loginSchema = Yup.object().shape({
