@@ -64,7 +64,7 @@ const DashboardPage = () => (
 
       <div className='col-xl-4'>
               <TilesWidget2 className='card-xl-stretch mb-5 mb-xl-8' />
-              <div className='row gx-5 gx-xl-8'>
+              <div className='row gx-5 mb-5 gx-xl-8'>
                 <div className='col-xl-6'>
                 {/* callaway Appareal */}
                   <TilesWidget5
@@ -148,7 +148,7 @@ const DashboardPage = () => (
    
 
       {/* begin::Row */}
-      <div className='row gy-5 g-xl-8'>
+      <div className='row gy-5  g-xl-8'>
    
         <div className='col-xxl-4'>
           <MixedWidget17

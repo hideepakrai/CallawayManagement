@@ -43,7 +43,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
             <div className='flex-grow-1 me-2'>
            
               <Link className ={ clsx ('text-gray-800 text-hover-primary fs-6 fw-bold')} to={"/brand/callaway/apparel"} > 
-               Callaway Apparel
+               Callaway Apparel 
               </Link>
 
               <span className='text-muted fw-semibold d-block fs-7'>Lorem Ipsum</span>

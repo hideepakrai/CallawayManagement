@@ -48,9 +48,6 @@ const CartProduct = () => {
         <div className="card-header">
           <ul className="nav nav-tabs nav-line-tabs nav-link-tab border-0 mb-5 fs-6 mt-6 ">
           
-
-         
-
           
            <li className="nav-item hover-elevate-up">
               <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} href="#kt_tab_pane_Ogio" onClick={() => setActiveTab('ogio')}>

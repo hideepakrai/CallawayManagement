@@ -92,7 +92,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               {/* begin::Title */}
               <div>
                 <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold pt-6'>
-                Callaway Apparel
+                Callaway Apparel 
                 </a>
                 <div className='fs-7 text-muted fw-semibold mt-1'>Lorem Ipsum </div>
               </div>

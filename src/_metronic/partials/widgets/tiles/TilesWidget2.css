@@ -5,8 +5,31 @@
 
 .time-date{font-size: 28px; font-weight:400 ;}
 .date{font-size: 45px; font-weight: 500 ;}
-.pro-time{font-size: 28px; font-weight: 400; padding-top: 5px; color: #ddd!important;}
-.time-section{height: 210px!important;}
+.pro-time{font-size: 28px; font-weight: 400; padding-top: 5px; color: #ddd!important; position: relative; }
+.time-section{height: 240px!important;}
 .calendar i{ width: 30%;}
 
+.time{background-color: #fff; color: #000; border-radius: 3px; padding: 0 2px; font-weight: 500; font-size: 26px;}
+.time-title{font-size: 12px;position: absolute; top: -14px; left: 8px; }
+.time-min{font-size: 12px; position: absolute; top: -14px;     left: 86px;}
+.time-sec{font-size: 12px; position: absolute; top: -14px;     right: 10px;}
+.calendar{justify-content: center;}
   
+.date{ background-color: #fff; color: #000; border-radius: 3px; padding: 0 2px; font-weight: 500; font-size: 26px; }
+.calendar-day{ background-color: #fff; color: #000; border-radius: 3px; padding: 0 2px; font-weight: 500; font-size: 35px; }
+
+
+.day{ background-color: #fff; color: #000; border-radius: 3px; padding: 0 2px; font-weight: 500; }
+.month-title{font-size: 12px;position: absolute; top: -18px; left: 4px; color: #f1f1f4;}
+.day-title{font-size: 12px;position: absolute; top: -18px; left: 16px; color: #f1f1f4; }
+.year-title{font-size: 12px;position: absolute; top: -18px; right: 35px; color: #f1f1f4; }
+
+.date-calendar{position: relative;}
+.time-date {justify-content: center;}
+.calendar-var{position: relative;}
+.var-title{font-size: 12px;position: absolute; top: -18px; left: 180px; color: #f1f1f4;}
+.var{   background-color: #fff;  color: #000;  margin-top: 2;  border-radius: 3px; padding: 0 2px; font-weight: 500; text-transform: uppercase;
+padding: 4px 6px;
+}
+
+.calla-img{width: 80px;}
