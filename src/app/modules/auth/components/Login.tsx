@@ -312,7 +312,7 @@ export function Login() {
                   </div>
                   <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Admin</h4>
                   <div className="tick_container">
-                    {isSalesRep && <div className="tick">
+                    {isAdmin && <div className="tick">
                       <i className="bi bi-check2"></i>
                     </div>}
                   </div>
