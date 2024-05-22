@@ -9,7 +9,7 @@ import { resetTravisProduct } from "../../../../app/slice/allProducts/TravisMeth
 import { resetOrder } from "../../../../app/slice/orderSlice/travis/CartOrder"
 import { useSelector } from 'react-redux'
 import { resetCallayGoods } from "../../../../app/slice/allProducts/CallAwayGoodsSlice"
-import { getUserAccount, resetUserAccount } from "../../../../app/slice/UserSlice/UserSlice"
+import { getUserAccount, resetUserAccount, getCurrentUser } from "../../../../app/slice/UserSlice/UserSlice"
 import { UserAccountModel } from '../../../../app/modules/model/useAccount/UserAccountModel'
 import { useNavigate } from 'react-router-dom'
 import { resetOgio } from '../../../../app/slice/allProducts/OgioSlice'
@@ -46,16 +46,17 @@ const HeaderUserMenu: FC = () => {
   // set the role
 
   const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
+  const getCurrentUsers = useSelector(getCurrentUser) as UserAccountModel;
+  console.log("<<<<------getCurrentUsers------->>>>", getCurrentUsers)
   useEffect(() => {
-    if (getUserAccounts &&
-      getUserAccounts &&
-      getUserAccounts?.role) {
-      setRole(getUserAccounts?.role)
+    if (getCurrentUsers &&
+      getCurrentUsers &&
+      getCurrentUsers?.role) {
+      setRole(getCurrentUsers?.role)
     }
   }
-    , [getUserAccounts])
-  console.log("------------>>>>>>",getUserAccounts)
-  console.log("ROLE ->", role)
+    , [getCurrentUsers])
+  console.log("getUserAccounts------------>>>>>>",getUserAccounts)
   const handleProfile = () => {
     if (role === "Manager") {
       navigate("/profilepage/managerprofile")
@@ -65,8 +66,6 @@ const HeaderUserMenu: FC = () => {
 
   }
 
-  console.log("getUserAccounts --------->>>>->", getUserAccounts.name)
-  console.log("getUserAccounts -------->>>>>->", getUserAccounts?.role)
 
 
   return (
@@ -84,13 +83,13 @@ const HeaderUserMenu: FC = () => {
             <div className='fw-bold d-flex align-items-center fs-5'>
               {currentUser?.first_name} {currentUser?.last_name} 
 
-              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>{getUserAccounts.role}</span>
+              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>{getCurrentUsers.role}</span>
             </div>
             <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2 '
               onClick={handleProfile}
             >
 
-              {getUserAccounts.name} 
+              {getCurrentUsers.email} 
               
             </a>
           </div>

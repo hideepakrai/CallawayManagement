@@ -86,7 +86,7 @@ export function Login() {
         //   password: "Callaway@1!",
         // })  
         // console.log("awsLogin =>", awsLogin)
-        // console.log("userLof=gin ", response)
+        console.log("response -------------------->>>>>>>>>>>>>>", response)
         saveAuth(response?.token)
         setCurrentUser(response)
         // setUserName(response?.user?.name);

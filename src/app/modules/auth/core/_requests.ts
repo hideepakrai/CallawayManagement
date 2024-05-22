@@ -21,7 +21,7 @@ export function login(data:{
   return axios.post(`${serverUrl}/login`, data,
   
   ).then(response=>{
-    // console.log("login",response)
+    console.log("login-------------->>>>>>>>",response)
     return response.data;
   }).catch(err => {
     throw err;
