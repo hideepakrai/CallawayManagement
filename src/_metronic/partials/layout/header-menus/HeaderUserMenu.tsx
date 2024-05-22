@@ -60,7 +60,7 @@ const HeaderUserMenu: FC = () => {
   const handleProfile = () => {
     if (role === "Manager") {
       navigate("/profilepage/managerprofile")
-    } else if (role === "retailer") {
+    } else if (role === "Retailer") {
       navigate("/profilepage/retailerprofile")
     }
 
