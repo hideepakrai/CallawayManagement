@@ -54,7 +54,7 @@ const HeaderUserMenu: FC = () => {
     }
   }
     , [getUserAccounts])
-  console.log(getUserAccounts)
+  console.log("------------>>>>>>",getUserAccounts)
   console.log("ROLE ->", role)
   const handleProfile = () => {
     if (role === "Manager") {
@@ -64,6 +64,9 @@ const HeaderUserMenu: FC = () => {
     }
 
   }
+
+  console.log("getUserAccounts --------->>>>->", getUserAccounts.name)
+  console.log("getUserAccounts -------->>>>>->", getUserAccounts?.role)
 
 
   return (
@@ -81,13 +84,13 @@ const HeaderUserMenu: FC = () => {
             <div className='fw-bold d-flex align-items-center fs-5'>
               {currentUser?.first_name} {currentUser?.last_name} 
 
-              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>{currentUser?.role}</span>
+              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>{getUserAccounts.role}</span>
             </div>
             <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2 '
               onClick={handleProfile}
             >
 
-              {currentUser?.email} 
+              {getUserAccounts.name} 
               
             </a>
           </div>
