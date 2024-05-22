@@ -1,31 +1,31 @@
-import React, {useState, useEffect} from 'react'
-import {FC} from 'react'
-import {Link} from 'react-router-dom'
-import {useAuth} from '../../../../app/modules/auth'
-import {Languages} from './Languages'
-import {toAbsoluteUrl} from '../../../helpers'
+import React, { useState, useEffect } from 'react'
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../../../app/modules/auth'
+import { Languages } from './Languages'
+import { toAbsoluteUrl } from '../../../helpers'
 import { useDispatch } from 'react-redux'
-import {resetTravisProduct} from "../../../../app/slice/allProducts/TravisMethewSlice"
-import {resetOrder} from "../../../../app/slice/orderSlice/travis/CartOrder"
+import { resetTravisProduct } from "../../../../app/slice/allProducts/TravisMethewSlice"
+import { resetOrder } from "../../../../app/slice/orderSlice/travis/CartOrder"
 import { useSelector } from 'react-redux'
-import {resetCallayGoods} from "../../../../app/slice/allProducts/CallAwayGoodsSlice"
-import {getUserAccount,resetUserAccount} from "../../../../app/slice/UserSlice/UserSlice"
+import { resetCallayGoods } from "../../../../app/slice/allProducts/CallAwayGoodsSlice"
+import { getUserAccount, resetUserAccount } from "../../../../app/slice/UserSlice/UserSlice"
 import { UserAccountModel } from '../../../../app/modules/model/useAccount/UserAccountModel'
 import { useNavigate } from 'react-router-dom'
 import { resetOgio } from '../../../../app/slice/allProducts/OgioSlice'
 import { resetOgioOrder } from '../../../../app/slice/orderSlice/ogio/OgioCartOrderSlice'
 import ProfileImage from "../../../../../public/media/logos/favicon-icon.png";
 const HeaderUserMenu: FC = () => {
-  const {currentUser, logout} = useAuth();
-  const [role, setRole]= useState<string>();
-  const navigate= useNavigate()
+  const { currentUser, logout } = useAuth();
+  const [role, setRole] = useState<string>();
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const handleLogout=()=>{
-    
+  const handleLogout = () => {
+
     dispatch(resetOrder())
     dispatch(resetCallayGoods())
-      dispatch(resetOgioOrder())
-  dispatch(resetOgio())
+    dispatch(resetOgioOrder())
+    dispatch(resetOgio())
     dispatch(resetUserAccount())
     deleteLocalStorage()
     logout()
@@ -33,32 +33,33 @@ const HeaderUserMenu: FC = () => {
   }
 
 
-  const deleteLocalStorage=()=>{
+  const deleteLocalStorage = () => {
     localStorage.removeItem('getCurrentUsers')
     localStorage.removeItem('getUserAccounts')
     localStorage.removeItem('getOtherProduct')
     localStorage.removeItem('getTravisProduct')
     localStorage.removeItem('getOgioProduct')
     localStorage.removeItem('getCategorys')
-  
+
     localStorage.removeItem('getStyleCodes')
   }
-// set the role
+  // set the role
 
-  const getUserAccounts= useSelector(getUserAccount) as UserAccountModel;
+  const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
   useEffect(() => {
-    if(getUserAccounts && 
-      getUserAccounts&&
-    getUserAccounts?.role ){
+    if (getUserAccounts &&
+      getUserAccounts &&
+      getUserAccounts?.role) {
       setRole(getUserAccounts?.role)
     }
   }
-  , [getUserAccounts])
+    , [getUserAccounts])
   // console.log(getUserAccounts)
-  const handleProfile=()=>{
-    if(role==="Manager"){
-  navigate("/profilepage/managerprofile")
-    } else if (role==="retailer"){
+  console.log("ROLE ->", role)
+  const handleProfile = () => {
+    if (role === "Manager") {
+      navigate("/profilepage/managerprofile")
+    } else if (role === "retailer") {
       navigate("/profilepage/retailerprofile")
     }
 
@@ -72,22 +73,22 @@ const HeaderUserMenu: FC = () => {
     >
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
-         <div className='symbol symbol-50px me-5 user-profile-img bg-secondary'>
+          <div className='symbol symbol-50px me-5 user-profile-img bg-secondary'>
             <img alt='Logo' src={ProfileImage} />
-          </div>  
+          </div>
 
           <div className='d-flex flex-column'>
             <div className='fw-bold d-flex align-items-center fs-5'>
-             {/* {currentUser?.first_name} {currentUser?.last_name}  */}
-              
+              {/* {currentUser?.first_name} {currentUser?.last_name}  */}
+
               <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>Manager</span>
             </div>
-            <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2 ' 
-               onClick={handleProfile}
+            <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2 '
+              onClick={handleProfile}
             >
 
-               {/* {currentUser?.email}  */}
-               Shashi Kiranshetty
+              {/* {currentUser?.email}  */}
+              Shashi Kiranshetty
             </a>
           </div>
         </div>
@@ -103,13 +104,13 @@ const HeaderUserMenu: FC = () => {
 
       <div className='menu-item px-5' >
         <a href='#' className='menu-link px-5 '
-        onClick={handleProfile}
+          onClick={handleProfile}
         >
           <span className='menu-text' >My Orders</span>
           {/* <span className='menu-badge'>
             <span className='badge badge-light-danger badge-circle fw-bold fs-7'>3</span>
           </span> */}
-          
+
         </a>
       </div>
 
@@ -198,4 +199,4 @@ const HeaderUserMenu: FC = () => {
   )
 }
 
-export {HeaderUserMenu}
+export { HeaderUserMenu }

@@ -400,7 +400,7 @@ export function Login() {
             )}
             type='email'
             name='email'
-            
+
             autoComplete='off'
           />
           {formik.touched.email && formik.errors.email && (
@@ -429,7 +429,7 @@ export function Login() {
             )}
           /> */}
 
-<div className="position-relative mb-3">
+          <div className="position-relative mb-3">
             <input
               type={showPassword ? 'text' : 'password'}
               autoComplete='off'
@@ -437,8 +437,8 @@ export function Login() {
               className={clsx(
                 'form-control bg-transparent login-input',
                 { 'is-invalid': formik.touched.password && formik.errors.password },
-                { 'is-valid' : formik.touched.password && !formik.errors.password }
-                
+                { 'is-valid': formik.touched.password && !formik.errors.password }
+
               )}
             />
             <span
@@ -446,7 +446,7 @@ export function Login() {
               onClick={() => setShowPassword(!showPassword)}
             >
               <i className={showPassword ? "bi bi-eye" : "bi bi-eye-slash"}></i>
-             
+
             </span>
           </div>
 
