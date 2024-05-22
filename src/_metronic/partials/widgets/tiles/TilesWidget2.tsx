@@ -12,7 +12,7 @@ type Props = {
 
 const TilesWidget2 = ({
   className,
-  bgColor = '#202020',
+  bgColor = '#000000',
   title = 'Create SaaS 1',
   title2 = 'Based Reports',
 }: Props) => {
