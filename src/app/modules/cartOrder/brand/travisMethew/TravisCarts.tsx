@@ -58,7 +58,7 @@ useEffect(()=>{
       dataIndex: "PrimaryImage",
       // fixed: "left",
       width: 50,
-      render: (value) => <TravisGallery value={value} />,
+      render: (value,record) => <TravisGallery record={record} />,
     },
       {
         title: "SKU",

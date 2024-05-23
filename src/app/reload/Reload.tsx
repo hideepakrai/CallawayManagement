@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react'
 import {getCurrentUser,getAdminToken,
   getUserAccount,
   getUserOrders,addUser,
-  addUserAccount} from "../slice/UserSlice/UserSlice"
+  addUserAccount,
+  getUserRetailer,
+  addUserRetailer} from "../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from 'react-redux'
 
 import {getTravisProducts,getCategory,getStyleCode,getOtherProducts, addTravisProduct} from "../slice/allProducts/TravisMethewSlice";
@@ -24,7 +26,7 @@ const Reload = () => {
    const getOgioProduct = useSelector(getOgioProducts)
     const getOtherProduct = useSelector(getOtherProducts)
     const getCategorys = useSelector(getCategory)
-    const getStyleCodes = useSelector(getStyleCode)
+    const getUserRetailers = useSelector(getUserRetailer)
     useEffect(()=>{
      
      if(getCurrentUsers &&
@@ -69,7 +71,19 @@ const Reload = () => {
       ]);
 
 
+// reload userRetailer
+useEffect(()=>{
+  if(getUserRetailers  &&getUserRetailers.length>0){
+    localStorage.setItem('getUserRetailers',JSON.stringify(getUserRetailers))
 
+  } 
+  else if (getUserRetailers && 
+    getUserRetailers.length===0){
+    dispatch(addUserRetailer({
+      UserRetailer:JSON.parse(localStorage.getItem('getUserRetailers') as string)
+    }))
+  }
+},[getUserRetailers])
    
   return (
     <div></div>
