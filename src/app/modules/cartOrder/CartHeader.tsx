@@ -124,7 +124,7 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
                         options={getUserRetailers?.map((item: RetailerModel) => (
                             {
                                 label: item.name ?? "",
-                                value: item.user_id
+                                value: item.id
                             }))}
                     />
 

@@ -70,7 +70,7 @@ const TravisUpdateOrderToDB = ({resetUpdateOrder}:props) => {
     // }
 
   return (
-    <div>UpdateOrderToDB</div>
+    <div></div>
   )
 }
 

@@ -538,20 +538,24 @@ const TravisTable = () => {
   //get other product 
   const getOtherProduct = useSelector(getOtherProducts)
   const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
+  const [expandedKeys, setExpandedKeys] = useState<string>('');
 
   const handleExpand = (expanded: boolean, record: BasicModelTravis) => {
     console.log("handleExpand", record)
+    setExpandedRowKeys([])
     dispatch(removeOtherProduct())
     if (record.sku && record.variation_sku != "" && record.variation_sku != undefined) {
       const inputString = record.variation_sku
       const stringArray = inputString.split(',');
       console.log(stringArray)
-      const varskuArray: BasicModelTravis[] = []
+      const varskuArray: BasicModelTravis[] = [];
+      const keys:string="";
       getProduct.map((item) => {
         if (stringArray && stringArray.length > 0) {
           stringArray.map(varSku => {
             if (item.sku === varSku) {
               varskuArray.push(item)
+              
             }
           })
 
@@ -559,12 +563,13 @@ const TravisTable = () => {
 
       })
       // Expand only the clicked row
-
+      setExpandedKeys(record.sku)
       setExpandedRowKeys(varskuArray);
       dispatch(addOtherProduct(varskuArray))
       // expandedRowRender (record.products.data)  // Assuming SKU is a string
     } else {
       setExpandedRowKeys([])
+      setExpandedKeys("")
     }
   };
 
@@ -1315,6 +1320,7 @@ const TravisTable = () => {
           }}
           expandable={{
             expandedRowRender,
+            
             onExpand: (expanded, record) => handleExpand(expanded, record),
 
           }}
