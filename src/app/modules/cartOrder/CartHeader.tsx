@@ -101,7 +101,7 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
   return (
     <div>
       <div className='row'>
-            <div className='col-3 d-flex' >
+            <div className='col-12 d-flex' >
                 <h4 className='mx-3 pt-3 fs-6' style={{width:"100px", minWidth:"100px"}}>
                     <a>Select Retailer</a>
                 </h4>
@@ -111,7 +111,7 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
                     placeholder="Select retailer"
                     optionFilterProp="children"
                     className="select-toogle"
-                    style={{ width: "70%", marginBottom: 10 }} 
+                    style={{  marginBottom: 10 }} 
                     onChange={handleChange}
                     options={getUserRetailers?.map((item:RetailerModel) => (
                         { label: item.name??"",
@@ -125,7 +125,7 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
     
                 
             </div>
-            <div className='col-9' style={{paddingLeft:"47px", paddingTop:"4px"}}>
+            <div className='col-12' style={{paddingLeft:"21px", paddingTop:"4px"}}>
                 <span style={{ marginRight: 10 }}>
                     {" "}
                     <a style={{ color: "#000", fontSize:"14px"}}> <span style={{fontWeight:600, }}>Address City :</span> {retailerAddres} </a>
@@ -138,7 +138,7 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
 
 
 
-            <div className='col-12 mb-3'style={{textAlign:"end"}}>
+            <div className='col-12 mb-3 mt-5'style={{textAlign:"end"}}>
                 <span className='mx-3'  >
                     <Button  className="select-btn"> 
                     <i style={{ paddingRight: "6px", verticalAlign: "inherit",}} 

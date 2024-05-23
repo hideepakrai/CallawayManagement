@@ -1,6 +1,7 @@
 .no-order-section{padding-top: 40px; padding-bottom: 40px; text-align: center;}
 .no-order-section i{font-size: 100px; color: #fff;}
 .no-order-section h2{     font-weight: 400; font-size: 18px; color: #989ca7;}
-.number-input{vertical-align: middle;}
-.number-input{vertical-align: bottom; width: 32%;}
+.number-input{vertical-align: middle!important;}
+.number-input{vertical-align: bottom!important; width: 32%;}
 .input-dropdown{width: 15%;}
+.cart-sec .cart-number-input{ display: inline-block;  vertical-align: bottom!important;}

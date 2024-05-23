@@ -605,7 +605,8 @@ const handleUpdateStrapi=()=>{
 
         }}
       >
-        <div style={{ width: "78%" }}>
+        <div className='cart-sec' style={{ width: "78%", display:"flex",}}>
+          <div>
           <a style={{ marginRight: 10, color: "#000", }}>Discount</a>
           <Select className="input-dropdown"
             showSearch
@@ -628,14 +629,16 @@ const handleUpdateStrapi=()=>{
               },
             ]}
           />
+          </div>
+
+          <div>
           {isDiscount && (
-            <Space className='number-input' direction="vertical">
+            <Space className='cart-number-input' direction="vertical">
 
               {/* <Input
-           
-           
           //   onChange={(e)=>handleChangeDiscount(e.target.value)}
           // /> */}
+
               <InputNumber
               
                 className='mx-3 number-input'
@@ -651,6 +654,7 @@ const handleUpdateStrapi=()=>{
             </Space>
 
           )}
+          </div>
 
 
         </div>

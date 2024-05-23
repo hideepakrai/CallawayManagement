@@ -65,6 +65,7 @@ const OgioTable = () => {
           render: (value) => <OgioGallery value={value} />,
         },
     
+        
         {
           title: "SKU",
           dataIndex: "sku",
@@ -602,21 +603,27 @@ const handleResetSelectedRow =()=>{
 
         >
           <div  style={{ float: "right", marginBottom:"12px"}}>
-            <Button  className='mx-3 select-btn-detail'
-            onClick={handleViewCart}
-            > <i className="bi bi-bag-check"></i> View Cart</Button>
-            <Button  className='mx-3 select-btn-detail'
-            onClick={handleImport}
-            > <i className="bi bi-file-earmark-arrow-up"></i> Import Products</Button>
-            <Button  className='mx-3 select-btn-detail'
-             onClick={handleExportToPDF} 
-            > <i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button>
-            <Button  className='mx-3 select-btn-detail'
-            // onClick={handleExportToExcel}
-            > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
-            <Button className='mx-3 select-btn-detail'
-             onClick={handleSampleExcel}
-             > <i className="bi bi-file-spreadsheet"></i> Sample Excel</Button>
+          
+          
+
+
+<Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+
+onClick={handleViewCart}
+> <i className="bi bi-bag-check fs-3"></i> View Cart</Button>
+
+<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+ onClick={handleImport}
+> <i className="bi bi-file-earmark-arrow-up fs-3"></i>  Import Products</Button>
+
+
+<Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+ onClick={handleImport}
+> <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
+
+<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+ onClick={handleSampleExcel}
+> <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
             
           </div>
 

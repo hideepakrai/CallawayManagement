@@ -133,6 +133,7 @@ const CartTable = () => {
                     <a>Select Retailer </a>
                 </h4>
 
+
                 <Select
                     showSearch
                     placeholder="Select retailer"
@@ -157,6 +158,9 @@ const CartTable = () => {
                     ]}
                 />
             </div>
+
+
+            
             <div className='col-6'>
                 <span style={{ marginRight: 10 }}>
                     {" "}

@@ -53,7 +53,7 @@ const OgioGallery = ({ value }:Props) => {
               src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.medium.url}`}
               alt="Primary Image"
               style={{ maxWidth: "50px", marginRight: "5px" }}
-              width={30}
+              width={42}
             />}
           </Image.PreviewGroup>
         </span>

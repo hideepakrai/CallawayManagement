@@ -16,7 +16,8 @@
 /* .travish-mat-section .ant-card-body{padding:30px 12px!important; overflow: auto!important;} */
 .card-table-travis .ant-table-fixed-header .ant-table-container .ant-card-body{overflow: auto!important;}
 
-.card-table-travis .css-dev-only-do-not-override-1r287do{left: -3px;}
+/* .card-table-travis .css-dev-only-do-not-override-1r287do{left: -3px;} */
+
 .toggle-dropdown #pet-select{ margin-left: 10px; width: 60px;     border: 1px solid #d9d9d9;
     background: #ffffff;}
 .anticon-down{vertical-align: middle;}
@@ -26,6 +27,22 @@
 .show-prodect-section{position: absolute;top: 123px;}
  .ant-pagination-options .ant-select-sm{   
     height: 31px!important; top:-4px!important;}
+
+
+
+
+.btn-travis{    color: #fff;
+    background-color: #000;
+    font-size: 16px;
+    border: 1px solid #707070;
+    border-radius: 4px;
+   height: 40px;
+   font-weight: 400;
+}
+
+
+
+.btn-travis i{vertical-align: middle; }
 
     .cart-table-profile .ant-spin-container .ant-table-thead .ant-table-cell{background-color: #111!important; color: #fff!important;}
     .cart-table-profile .ant-table-column-sorter{color: #fff!important;}
@@ -41,3 +58,10 @@
 :where(.css-17seli4).ant-table-wrapper .ant-table-thead >tr>th, :where(.css-17seli4).ant-table-wrapper .ant-table-thead >tr>td{background-color: #111!important;} */
 
 
+.active-btn{background-color: #1e2129!important;}
+
+.btn-travis:hover{background-color:#383838!important; color: #fff!important;}
+.btn-travis:hover i{ color: #fff!important;}
+.btn-travis i{ color: #fff!important;}
+
+.travish-mat-section .ant-table-cell .ant-image{ left: -4px!important;}
