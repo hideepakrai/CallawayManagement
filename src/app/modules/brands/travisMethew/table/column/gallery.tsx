@@ -1,80 +1,105 @@
-import React, { useEffect, useState } from 'react';
-import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../../model/travis/TravisMethewModel"
+import React, { useEffect, useState } from 'react'
 import { Image } from 'antd';
-import {getAllBrands} from "../../../../../slice/brand/BrandSlice"
-import { useSelector } from 'react-redux';
-import {BrandModel} from "../../../../model/brand/AllBrands"
-type Props = {
-    value:ImageType
+import { list } from 'aws-amplify/storage';
+import { BasicModelTravis } from '../../../../model/travis/TravisMethewModel';
+
+type Props={
+  record:BasicModelTravis
+}
+const ImageRenderer = ({record}:Props) => {
+  const [primaryImage, setPrimaryImage] = useState<string | null>(null);
+  const [imagePaths, setImagePaths] = useState<string[]>([]);
+  const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
+
+  
+
+  useEffect(()=>{
+    if(record){
+      renderImage(record)
+    }
+  },[record])
+const renderImage=(record:BasicModelTravis)=>{
+ 
+  let newSKU
+
+
+  if (record &&record?.sku ) {
+    const removeLastUnderscore = (str: string) => {
+      const lastUnderscoreIndex = str.lastIndexOf('_');
+      if (lastUnderscoreIndex !== -1) {
+        return str.substring(0, lastUnderscoreIndex);
+      }
+      return str;
+    };
+    newSKU = removeLastUnderscore(record?.sku);
+    const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
+   checkFolderExists(newSKU)
+  }
+
 }
 
-
-const ImageRenderer = ({ value }:Props) => {
-
-   const getAllBrand = useSelector(getAllBrands) as BrandModel[]
-  const[imagePath, setImagePath]= useState<string |undefined>("")
-   useEffect(()=>{
-    if(getAllBrand &&
-      getAllBrand.length>0
-    ){
+const checkFolderExists = async (bucketName: string,) => {
+  try {
      
-      const image:BrandModel[]=getAllBrand.filter(brand => brand.attributes?.Name==="Travis Mathew");
-     if(image && image.length>0)
-      setImagePath(image[0].attributes?.Logo?.data.attributes?.formats?.thumbnail?.url)
-     //  console.log("image: " + image[0].attributes?.Logo?.data.attributes?.formats?.thumbnail?.url);
-    }
-   },[getAllBrand])
-   console.log("getAllBrand",getAllBrand)
-  if (value && value.data &&
-    value?.data[0]?.attributes &&
-    value?.data[0]?.attributes?.formats &&
-    value?.data[0]?.attributes?.formats?.medium &&
-    value?.data[0]?.attributes?.formats?.medium?.url
+    const result = await list({
+      path: 'public/productimg/TRAVIS-Images/',
     
-) {
-    const mediumUrls = [
-        value?.data[0]?.attributes?.formats?.medium?.url,
-        value?.data[1]?.attributes?.formats?.medium?.url,
-        value?.data[2]?.attributes?.formats?.medium?.url
-      ].filter(Boolean);
-      const previewItems = mediumUrls.map((url) => `https://admin.callawayindiaoms.com${url}`);
-    return (
-        <span>
-          <Image.PreviewGroup
-            items={previewItems}
-          >
-           {value &&
-           value?.data[0]&&
-           value?.data[0]?.attributes &&
-           value?.data[0]?.attributes?.formats &&
-           value?.data[0]?.attributes?.formats?.medium &&
-           value?.data[0]?.attributes?.formats?.medium?.url &&
-            <Image
-              src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.medium.url}`}
-              alt="Primary Image"
-              style={{ maxWidth: "50px", marginRight: "5px" }}
-              width={30}
-            />}
-          </Image.PreviewGroup>
-        </span>
-      );
-  } else {
+    });
+ 
+    const folderPath = `public/productimg/TRAVIS-Images/${bucketName}/`;
+
+const folderExists = result.items.some((item) => {
+return item.path.startsWith(folderPath);
+});
+
+if (folderExists) {
+const imagePaths = result.items
+  .filter((item) => item.path.startsWith(folderPath))
+  .map((item) => item.path);
+ 
+if (imagePaths.length > 0) {
+ const primary_image = imagePaths[0];
+ setPrimaryImage(primary_image)
+  //const secondary_image = imagePaths.slice(1);
+  setImagePaths(imagePaths)
+ 
+} else {
+  console.log(`No images found in folder ${bucketName}.`);
+}
+} else {
+console.log(`Folder ${bucketName} does not exist.`);
+}
     
-     
-          return(
+  } catch (error) {
+    console.error('Error checking folder existence:', error);
+    return false; // Return false in case of any error
+  }
+}
+  return (
+    <div>
+ {primaryImage?(
+            <Image.PreviewGroup
+            items={imagePaths.map(path => `${s3_url}${path}`)}
+            >
+              <Image
+                width={200}
+                src={`${s3_url}${primaryImage}`}
+              />
+            </Image.PreviewGroup>
+          ) : (
             <span>
-           {imagePath &&   <img
-                src={`https://admin.callawayindiaoms.com${imagePath}`}
+
+              <img
+                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
                 alt="Primary Image"
                 style={{ maxWidth: "30px", marginRight: "5px" }}
                 width={30}
-              />}
+              />
             </span>
-          )
-      
-    }
-    
-  }
+          )}
 
+    </div>
+  )
+}
 
-export default ImageRenderer;
+export default ImageRenderer

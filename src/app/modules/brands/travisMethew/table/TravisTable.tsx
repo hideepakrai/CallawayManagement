@@ -34,7 +34,6 @@ import { Image } from 'antd';
 import ImageRenderer from "./column/gallery";
 import { getCategory, getStyleCode } from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
-import { list } from 'aws-amplify/storage';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
@@ -92,129 +91,59 @@ const TravisTable = () => {
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
 
-  (async () => {
-    try {
-      const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
-      const result = await list({
-        path: 'public/productimg/TRAVIS-Images/',
-        // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
-      });
-      console.log("result =>", result);
-      console.log("items =>", result.items); // Accessing the items array
+  // (async () => {
+  //   try {
+  //     const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
+  //     const result = await list({
+  //       path: 'public/productimg/TRAVIS-Images/',
+  //       // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
+  //     });
+  //     console.log("result =>", result);
+  //     console.log("items =>", result.items); // Accessing the items array
   
-      const originalString: string = "1MAA007_0HLG_11";
-      const derivedString: string = originalString.split('_').slice(0, 2).join('_');
-      console.log(derivedString); // Output: 1BR118_0BLK
+  //     const originalString: string = "1MAA007_0HLG_11";
+  //     const derivedString: string = originalString.split('_').slice(0, 2).join('_');
+  //     console.log(derivedString); // Output: 1BR118_0BLK
   
-      const folderPath = `public/productimg/TRAVIS-Images/${derivedString}/`;
+  //     const folderPath = `public/productimg/TRAVIS-Images/${derivedString}/`;
   
-      const folderExists = result.items.some((item: any) => {
-        return item.path.startsWith(folderPath);
-      });
+  //     const folderExists = result.items.some((item) => {
+  //       return item.path.startsWith(folderPath);
+  //     });
   
-      console.log(`Folder ${derivedString} exists:`, folderExists);
+  //     console.log(`Folder ${derivedString} exists:`, folderExists);
   
-      if (folderExists) {
-        const imagePaths = result.items
-          .filter((item: any) => item.path.startsWith(folderPath))
-          .map((item: any) => item.path);
+  //     if (folderExists) {
+  //       const imagePaths = result.items
+  //         .filter((item) => item.path.startsWith(folderPath))
+  //         .map((item) => item.path);
   
-        if (imagePaths.length > 0) {
-          const primary_image = imagePaths[0];
-          const secondary_image = imagePaths.slice(1);
+  //       if (imagePaths.length > 0) {
+  //         const primary_image = imagePaths[0];
+  //         const secondary_image = imagePaths.slice(1);
   
-          console.log(`Primary image:`, primary_image);
-          console.log(`Secondary images:`, secondary_image);
-        } else {
-          console.log(`No images found in folder ${derivedString}.`);
-        }
-      } else {
-        console.log(`Folder ${derivedString} does not exist.`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  })();
+  //         console.log(`Primary image:`, primary_image);
+  //         console.log(`Secondary images:`, secondary_image);
+  //       } else {
+  //         console.log(`No images found in folder ${derivedString}.`);
+  //       }
+  //     } else {
+  //       console.log(`Folder ${derivedString} does not exist.`);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // })();
 
 
   
   const columns: TableColumnsType<BasicModelTravis> = [
     {
       dataIndex: "primary_image_url",
-      width: 50,
-      render: (value, record) => {
-
-        let newSKU
-        const checkFolderExists = async (bucketName: string, folderPath: string) => {
-          try {
-            const params = {
-              Bucket: bucketName,
-              Prefix: folderPath
-            };
-
-            //  const s3 = new AWS.S3();
-            // const data = await s3.listObjectsV2(params).promise();
-            // console.log("s3 bucket file", data.Contents);
-
-            // List objects in the specified bucket and prefix (folder)
-            // const data = await s3.listObjectsV2(params).promise();
-
-            // If the folder exists, return true
-            // console.log("s3 bucket file",data.Contents) 
-          } catch (error) {
-            console.error('Error checking folder existence:', error);
-            return false; // Return false in case of any error
-          }
-        }
-
-        if (record && record.sku) {
-          const removeLastUnderscore = (str: string) => {
-            const lastUnderscoreIndex = str.lastIndexOf('_');
-            if (lastUnderscoreIndex !== -1) {
-              return str.substring(0, lastUnderscoreIndex);
-            }
-            return str;
-          };
-          newSKU = removeLastUnderscore(record?.sku);
-          const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
-          //checkFolderExists(newSKU, folderPath)
-        }
-        // Configure AWS SDK with your credentials and region
-
-
-        // Create an S3 object instance
-
-        // Function to check folder existence
-        return (
-          record.primary_image_url !== "" ? (
-            <Image.PreviewGroup
-              items={[
-                '/public/media/product/drivers-1.png',
-                '/public/media/product/drivers-2.png',
-                '/public/media/product/drivers-3.png',
-                '/public/media/product/drivers-4.png',
-              ]}
-            >
-              <Image
-                width={200}
-                src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/${newSKU}/${record.primary_image_url}.jpg`}
-              />
-            </Image.PreviewGroup>
-          ) : (
-            <span>
-
-              <img
-                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
-                alt="Primary Image"
-                style={{ maxWidth: "30px", marginRight: "5px" }}
-                width={30}
-              />
-            </span>
-          )
-        );
-      },
+      width: 150,
+      render: (value, record) => <ImageRenderer 
+      record={record} />
     },
-
 
 
 
