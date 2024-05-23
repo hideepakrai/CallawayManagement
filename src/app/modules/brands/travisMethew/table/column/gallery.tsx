@@ -82,7 +82,7 @@ console.log(`Folder ${bucketName} does not exist.`);
             items={imagePaths.map(path => `${s3_url}${path}`)}
             >
               <Image
-                width={200}
+                width={42}
                 src={`${s3_url}${primaryImage}`}
               />
             </Image.PreviewGroup>

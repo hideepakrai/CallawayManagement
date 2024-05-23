@@ -4,7 +4,7 @@ import { Card, Table, Carousel, Breadcrumb, Tooltip, Select, Space } from "antd"
 import { Input, Radio,InputNumber, Button } from "antd";
 import type { InputRef, SelectProps, TableColumnsType } from 'antd';
 import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../model/travis/TravisMethewModel"
-import {getTravisProducts,getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount} from "../../../../slice/allProducts/TravisMethewSlice"
+import {getTravisProducts,getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount, resetTravisOrder} from "../../../../slice/allProducts/TravisMethewSlice"
 import {updateQuantity90,updateQuantity88,
   addOtherProduct,updateOtherQuantity90,
   updateOtherQuantity88,removeOtherProduct} from "../../../../slice/allProducts/TravisMethewSlice";
@@ -18,7 +18,8 @@ import GetTravisMethewProduct from "../../../../api/allProduct/travismethew/GetT
 import TravisSubmitOrder from './TravisSubmitOrder';
 import TravisUpdateOrderToDB from "./TravisUpdateOrderToDB"
 import TravisGallery from "../../../brands/travisMethew/table/column/gallery"
-
+import Note from "../../Note"
+import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
   const TravisCarts = () => {
     const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
     const tableRef = useRef(null);
@@ -28,7 +29,10 @@ import TravisGallery from "../../../brands/travisMethew/table/column/gallery"
     type SelectCommonPlacement = SelectProps['placement'];
    const placement: SelectCommonPlacement = 'topLeft';
    const getLoadings = useSelector(getLoading)
+   const [notes, setNotes] = useState<string>('');
 const[isLoadingStart, setIsLoadingStart]= useState<boolean>(false)
+
+const getUserAccounts= useSelector(getUserAccount)
 useEffect(()=>{
   if(getLoadings){
     setIsLoadingStart(true)
@@ -567,6 +571,28 @@ const handleUpdateStrapi=()=>{
   setIsUpdateRedux(true)
 } 
 
+
+const handleRejectOrder=()=>{
+  console.log("reject button")
+  dispatch(resetTravisOrder())
+}
+const[isNote, setIsnote]= useState<boolean>(false)
+ const handleNote=()=>{
+  setIsnote(true)
+ }
+
+ const handleCancelNote=()=>{
+  setIsnote(false)
+ }
+ 
+ const handleOkNote=(note:string)=>{
+  const userNote={
+    user_Name:getUserAccounts?.name,
+    date_time:new Date().toISOString(),
+    note:note
+  }
+  setNotes(JSON.stringify(userNote))
+ }
   return (
     <div>
 
@@ -578,6 +604,8 @@ const handleUpdateStrapi=()=>{
           
         reviewOrder={handleRefetch}
         submitOrder={hanldeSubmitOrder}
+        rejectOrder={handleRejectOrder}
+        note={handleNote}
         />}
 
     <Table className='card-table-travis'
@@ -705,11 +733,18 @@ const handleUpdateStrapi=()=>{
        discountType={discountType}
        discountValue={discountValue}
        resetSubmitOrder={handleResetSubmitOrder}
+       note={notes}
        />}
 
 {isUpdateStrapi &&  <TravisUpdateOrderToDB
     resetUpdateOrder={handleUpdateStrapi}
    />} 
+
+   <Note
+  isModalOpen ={isNote}
+  handleOk={handleOkNote}
+  handleCancel={handleCancelNote}
+   />
     </div>
   )
 }

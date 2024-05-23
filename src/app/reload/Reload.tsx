@@ -43,7 +43,7 @@ const Reload = () => {
             localStorage.setItem('getTravisProduct',JSON.stringify(getTravisProduct))
            
      }  else if(getCurrentUsers && 
-      getCurrentUsers.length === 0 &&
+      getCurrentUsers&&
       getUserAccounts &&
       getOgioProduct &&getOgioProduct.length === 0 &&
       getTravisProduct &&getTravisProduct.length === 0
@@ -78,12 +78,22 @@ useEffect(()=>{
 
   } 
   else if (getUserRetailers && 
-    getUserRetailers.length===0){
+    getUserRetailers.length===0
+
+  ){
+    // eslint-disable-next-line no-debugger
+    debugger
+     
+    const  allretailer=JSON.parse(localStorage.getItem('getUserRetailers') as string) 
     dispatch(addUserRetailer({
-      UserRetailer:JSON.parse(localStorage.getItem('getUserRetailers') as string)
+      UserRetailer:allretailer
     }))
+   
+    
+      
+   
   }
-},[getUserRetailers])
+},[getUserRetailers,getCurrentUsers])
    
   return (
     <div></div>

@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import {UserAccountModel,OrderData} from "../../modules/model/useAccount/UserAccountModel";
 import {AccountOrder} from "../../modules/model/CartOrder/CartModel"
 import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
+import { CurentUser } from "../../modules/model/useAccount/CurrentUser";
 // Define interface for Redux state
 interface UserState {
-    currentUser: unknown[],
+    currentUser: CurentUser| null,
     UserAccount: UserAccountModel|null,
     UserRetailer:RetailerModel[]
     adminToken: null | string,
@@ -15,7 +16,7 @@ interface UserState {
 const UserSlice = createSlice({
     name: "user",
     initialState: {
-        currentUser: [],
+        currentUser: null,
         UserAccount: null,
         UserRetailer:[],
         adminToken: null,
@@ -23,7 +24,7 @@ const UserSlice = createSlice({
     } as UserState, 
     reducers: {
         resetUserAccount:(state)=>{
-        state.currentUser=[];
+        state.currentUser=null;
         state.UserAccount=null;
         state.UserRetailer=[];
         state.adminToken=null;
@@ -31,7 +32,7 @@ const UserSlice = createSlice({
         },
         addUser: (state, action) => {
             state.currentUser = action.payload.currentUser;
-            state.UserAccount=action.payload.UserAccount;
+            state.UserRetailer=action.payload.UserRetailer;
             state.adminToken=action.payload.adminToken;
             
 

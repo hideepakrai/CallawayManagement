@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {BasicModelTravis} from "../model/travis/TravisMethewModel"
 import {getRetailers} from "../../slice/retailer/RetailerSlice"
 import {RetailerModel,Retailer}  from "../model/AccountType/retailer/RetailerModel"
-import {getUserAccount, getUserRetailer} from "../.../../../slice/UserSlice/UserSlice"
+import {getCurrentUser, getUserAccount, getUserRetailer} from "../.../../../slice/UserSlice/UserSlice"
 import {RetailerData,UserAccountModel,RetailerModels,retailerData } from "../../modules/model/useAccount/UserAccountModel"
 import "./CartHeader.css"
 
@@ -12,19 +12,22 @@ import {addTravisOrderDetails} from "../../slice/orderSlice/travis/Orderdetails"
 type Props={
     reviewOrder: ()=>void,
     submitOrder:()=>void
-   
+    rejectOrder:()=>void,
+    note:()=>void
     
    
     
 }
-const CartHeader = ({reviewOrder,submitOrder}:Props) => {
+const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
     const dispatch= useDispatch()
     const [isNote, setIsNote] = useState(false);
     const handleNote = () => {
-      setIsNote(true);
+     note()
     };
+
+    const getCurrentUsers= useSelector(getCurrentUser)
  const [isAvailable, setIsAvailable] =useState(false)
- const [isSubmit, setIsSubmit] =useState(true)
+ const [isSubmit, setIsSubmit] =useState<boolean>(false)
   const [retailerName, setRetailerName]= useState<string>()
   const [retailerAddres, setRetailerAddress]= useState<string>()
   const [retailerId, setRetailerId]= useState<number>(0)
@@ -35,7 +38,7 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
     const handleReview=()=>{
         // eslint-disable-next-line no-debugger
         debugger
-        if(retailerId!==0 && retailerUserId!==0){
+        if(retailerId!==0){
             reviewOrder()
             setIsAvailable(true)
         }
@@ -53,12 +56,11 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
     const getUserAccounts= useSelector(getUserAccount) 
     console.log("getUserAccount",getUserAccounts)
      const handleChange=(value:number)=>{
-       const allData= getUserRetailers?.filter(retailer=>retailer.user_id==value)
+       const allData= getUserRetailers?.filter(retailer=>retailer.id==value)
         console.log("allData",allData)
         if (allData && 
             allData.length>0 &&
             allData[0]?.gstin &&
-            allData[0]?.user_id&&
             allData[0]?.id)  { 
            
             setRetailerAddress(allData[0].address); 
@@ -66,14 +68,14 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
             setGST(allData[0]?.gstin);
             setRetailerId(allData[0]?.id)
             setRetailerName(allData[0]?.name)
-            setRetailerUserId(allData[0]?.user_id)
+            // setRetailerUserId(allData[0]?.user_id)
             dispatch(addTravisOrderDetails({
 
                 retailerAddres: allData[0]?.address,
               
                 retailerName: allData[0]?.name ??"",
                 retailerId:allData[0]?.id,
-                retailerUserId:allData[0].user_id
+                // retailerUserId:allData[0].user_id
               }))
 
             //   if(allData[0]?.attributes?.users_permissions_user?.data?.id)
@@ -93,10 +95,14 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
      }
 
     const handleSubmit = () => {
-       
+        console.log("sumit")
+        setIsSubmit(true)
         submitOrder()
     }
 
+    const handleRejectOrder=()=>{
+        rejectOrder()
+    }
      
   return (
     <div>
@@ -115,7 +121,7 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
                     onChange={handleChange}
                     options={getUserRetailers?.map((item:RetailerModel) => (
                         { label: item.name??"",
-                             value: item.user_id}))}
+                             value: item.id}))}
 
                   
 
@@ -160,26 +166,38 @@ const CartHeader = ({reviewOrder,submitOrder}:Props) => {
                 </span>}
 
 
+                {!isSubmit &&
+                getCurrentUsers &&
+                getCurrentUsers.role!=="Retailer" &&
                 <span className='mx-3' 
                  onClick={handleNote}
                 >
           
                     
-                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  className="bi bi-bag-check travis-icon"></i>Approve Order</Button>
+                    <Button className="select-btn"> 
+                    <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
+                      className="bi bi-bag-check travis-icon">
+                        </i>Approve Order</Button>
                     
               
               
-                </span>
+                </span>}
 
-                <span className='mx-3'
-                 onClick={handleNote}
+               { !isSubmit &&
+               getCurrentUsers &&
+               getCurrentUsers.role!=="Retailer" &&
+               <span className='mx-3'
+                 onClick={handleRejectOrder}
                 >
 
-                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }} className="bi bi-cart travis-icon"></i>      Reject Order</Button>
+                    <Button className="select-btn">
+                         <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
+                          className="bi bi-cart travis-icon">
+                            </i>      Reject Order</Button>
                   
 
               
-                </span>
+                </span>}
 
                 <span className='mx-3'
                 onClick={handleNote}

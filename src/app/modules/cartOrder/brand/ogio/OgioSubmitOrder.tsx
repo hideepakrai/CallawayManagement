@@ -133,11 +133,11 @@ if(getRetailerDetail &&
     try {
       const response = await CreateOrder(data);
        console.log("order created ", response)
-      if (response==="order created successfully") {
-        setReloadUserAccount(true)
-        setIsOrder(true)
-      }
-
+      // if (response==="order created successfully") {
+      //   setReloadUserAccount(true)
+      //   setIsOrder(true)
+      // }
+      resetSubmitOrder()
 
     }
     catch (err) {

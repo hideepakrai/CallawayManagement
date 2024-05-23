@@ -43,7 +43,7 @@ import Slider from '../../modules/model/slider/Slider.tsx'
 import "./DashboardWrapper.css";
 import { Card, Table, Carousel, Breadcrumb } from "antd";
 import {startTravisLoading} from "../../slice/allProducts/TravisMethewSlice.tsx"
-import { addUserRetailer, getUserAccount } from '../../slice/UserSlice/UserSlice.tsx'
+import { addUserRetailer, getCurrentUser, getUserAccount } from '../../slice/UserSlice/UserSlice.tsx'
 import { GetUserRetailer } from '../../modules/auth/core/_requests.ts'
 const DashboardPage = () => (
 
@@ -244,13 +244,19 @@ const DashboardWrapper = () => {
   
   // "getRetailer-associated""
 const getUserAccounts= useSelector(getUserAccount);
+const getCurrentUsers= useSelector(getCurrentUser);
 console.log("getRetailer-associated",getUserAccounts)
 useEffect(()=>{
-  if(getUserAccounts && getUserAccounts.id){
+  if(getUserAccounts && getUserAccounts.id &&getUserAccounts.role!="Retailer"){
     console.log("hello")
     getUserRetailer(getUserAccounts.id )
+  } else if (getUserAccounts && getUserAccounts.id &&getUserAccounts.role==="Retailer"){
+    console.log("hello")
+    dispatch(addUserRetailer({
+      UserRetailer:getUserAccounts
+    }))
   }
-},[getUserAccounts]);
+},[getUserAccounts,getCurrentUsers]);
 
 const getUserRetailer =async(id:number)=>{
    try{

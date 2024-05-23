@@ -142,77 +142,8 @@ const TravisTable = () => {
       dataIndex: "primary_image_url",
 
       width: 50,
-      render: (value, record) => {
-
-        let newSKU
-        const checkFolderExists = async (bucketName: string, folderPath: string) => {
-          try {
-            const params = {
-              Bucket: bucketName,
-              Prefix: folderPath
-            };
-
-            //  const s3 = new AWS.S3();
-            // const data = await s3.listObjectsV2(params).promise();
-            // console.log("s3 bucket file", data.Contents);
-
-            // List objects in the specified bucket and prefix (folder)
-            // const data = await s3.listObjectsV2(params).promise();
-
-            // If the folder exists, return true
-            // console.log("s3 bucket file",data.Contents) 
-          } catch (error) {
-            console.error('Error checking folder existence:', error);
-            return false; // Return false in case of any error
-          }
-        }
-
-        if (record && record.sku) {
-          const removeLastUnderscore = (str: string) => {
-            const lastUnderscoreIndex = str.lastIndexOf('_');
-            if (lastUnderscoreIndex !== -1) {
-              return str.substring(0, lastUnderscoreIndex);
-            }
-            return str;
-          };
-          newSKU = removeLastUnderscore(record?.sku);
-          const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
-          //checkFolderExists(newSKU, folderPath)
-        }
-        // Configure AWS SDK with your credentials and region
-
-
-        // Create an S3 object instance
-
-        // Function to check folder existence
-        return (
-          record.primary_image_url !== "" ? (
-            <Image.PreviewGroup
-              items={[
-                '/public/media/product/drivers-1.png',
-                '/public/media/product/drivers-2.png',
-                '/public/media/product/drivers-3.png',
-                '/public/media/product/drivers-4.png',
-              ]}
-            >
-              <Image
-                width={42}
-                src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/${newSKU}/${record.primary_image_url}.jpg`}
-              />
-            </Image.PreviewGroup>
-          ) : (
-            <span>
-
-              <img
-                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/thumbnail_tm_logo_52e3761629.png"
-                alt="Primary Image"
-                style={{ maxWidth: "30px", marginRight: "5px" }}
-                width={30}
-              />
-            </span>
-          )
-        );
-      },
+      render: (value, record) => <ImageRenderer 
+      record={record} />
 
     },
 

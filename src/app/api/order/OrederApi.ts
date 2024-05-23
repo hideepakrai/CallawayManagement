@@ -19,6 +19,48 @@ export function GetAllUserOrders (user_id:number) {
 
     
 }
+export function GetAllManagerOrder (user_id:number) {
+   const payload = {
+    id:user_id
+   }
+      return axios.post(`${serverApi}/get-manager-orders`,payload)
+      .then(response=>{
+        // console.log(response)
+        return response.data
+    }).catch(error=>{
+        throw error;
+    });
+
+    
+}
+export function GetAllRetailerOrder (user_id:number) {
+   const payload = {
+    id:user_id
+   }
+      return axios.post(`${serverApi}/get-retailer-orders`,payload)
+      .then(response=>{
+        // console.log(response)
+        return response.data
+    }).catch(error=>{
+        throw error;
+    });
+
+    
+}
+export function GetAllSaleRepresentationOrder (user_id:number) {
+   const payload = {
+    id:user_id
+   }
+      return axios.post(`${serverApi}/get-salesRep-orders`,payload)
+      .then(response=>{
+        // console.log(response)
+        return response.data
+    }).catch(error=>{
+        throw error;
+    });
+
+    
+}
 
 
 

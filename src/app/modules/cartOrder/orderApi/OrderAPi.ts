@@ -9,7 +9,7 @@ export function CreateOrder(data: CartModel) {
     return axios.post(`${serverUrl}/add-order`, data)
         .then(response => {
            
-            return response.data;
+            return response;
         })
         .catch(err => {
             console.error("Error creating order:", err);

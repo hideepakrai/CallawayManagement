@@ -81,45 +81,20 @@ export function Login() {
 
       try {
         const response = await login(data)
-        // const awsLogin = await signIn({
-        //   username: "shashi.kiranshetty@callawaygolf.com",
-        //   password: "Callaway@1!",
-        // })  
-        // console.log("awsLogin =>", awsLogin)
-        console.log("response -------------------->>>>>>>>>>>>>>", response)
+     
+      
         saveAuth(response?.token)
         setCurrentUser(response)
-        // setUserName(response?.user?.name);
-
-        // setUserId(response?.user?.id);
-        // setGrpqlUser(true)
+       
         dispatch(addUser({
           currentUser: response.user,
-          UserAccount: response.accountType,
+          UserRetailer: response.accountType,
           adminToken: response.token,
-          UserRetailer: response.retailer
+          
         }))
 
         setLoading(false)
-        // if(values.role==='retailer'){
-        //   setGrpqlManager(false)
-        //   setGrpqlRetailer(true)
-        //   setGrpqlSalesRep(false)
-        // } else if (values.role==='manager'){
-        //   setGrpqlManager(true)
-        //   setGrpqlRetailer(false)
-        //   setGrpqlSalesRep(false)
-        // }
-        // const token = {
-        //   email: "ankurShriv@gmail.com",
-        //   password: "AnkurDzinly1!"
-
-        // }
-        // const admintoken = await getAdminToken(token)
-        // dispatch(addAdminToken({
-        //   adminToken: admintoken
-        // }))
-        // setCurrentUser(response)
+ 
 
       } catch (error) {
         // console.log(error)

@@ -16,10 +16,11 @@ type Props={
     totalNetBillAmount:number;
     discountType:string;
     discountValue:number;
-    resetSubmitOrder:()=>void
+    resetSubmitOrder:()=>void,
+    note:string
 }
 
-const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSubmitOrder}:Props) => {
+const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSubmitOrder,note}:Props) => {
     const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
   const getUserAccounts= useSelector(getUserAccount)
   const [ typeOfAccount, settypeOfAccount]= useState<string>("")
@@ -32,20 +33,27 @@ const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetS
    const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
      console.log("getCurrentUsers",getCurrentUsers)
    useEffect(() => {
-    
-    if (getUserAccounts &&
-      getUserAccounts.role &&
-      getUserAccounts.user_id) {
+     // eslint-disable-next-line no-debugger
+     debugger
+    if (getCurrentUsers &&
+      getCurrentUsers.role &&
+      getCurrentUsers.id 
+      ) {
  
-        if(getUserAccounts.role==="Manager"){
-          settypeOfAccount(getUserAccounts.role)
-          setManagerUserId(getUserAccounts.user_id)
-          setUserId(getUserAccounts.user_id)
+        if(getCurrentUsers.role==="Manager"){
+          settypeOfAccount(getCurrentUsers.role)
+          setManagerUserId(getCurrentUsers.id)
+          setUserId(getCurrentUsers.id)
+        }else if(getCurrentUsers.role==="Sales Representative" &&getCurrentUsers.manager_id){
+          settypeOfAccount(getCurrentUsers.role)
+          
+          setManagerUserId(getCurrentUsers.manager_id)
+          setUserId(getCurrentUsers.id)
         }
-        console.log("getUserAccounts,",getUserAccounts)
+        
      
     }
-  }, [getUserAccounts])
+  }, [getCurrentUsers])
   
   // getAll Order
   const [ allTravisOrders, setGetAllTravisOrders]= useState<BasicModelTravis[]>([])
@@ -77,21 +85,23 @@ const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetS
   //getAlll retailer detail 
   const getRetailerDetail= useSelector(getRetailerDetails)
   useEffect(()=>{
-   
+   // eslint-disable-next-line no-debugger
+   debugger
     
 if(getRetailerDetail && 
-    getRetailerDetail.retailerUserId &&
+   
     getRetailerDetail.retailerId&&
    
     totalNetBillAmount&&
     discountValue&&
-    discountType  &&
-    managerUserId
+    discountType &&
+    brandId
+    
 ){
         handleCreateOrder()
     }
 
-  },[allTravisOrders,getRetailerDetail,totalNetBillAmount,discountType,discountValue,managerUserId])
+  },[allTravisOrders,getRetailerDetail,totalNetBillAmount,discountType,discountValue,managerUserId,brandId])
     
 
   const handleCreateOrder = () => {
@@ -102,16 +112,18 @@ if(getRetailerDetail &&
       if (Array.isArray(allTravisOrders) &&orderId) {
         const data={
           order_date:"",
+          note:note,
           brand_id:brandId,
-          user_id:managerUserId?managerUserId:0,
+          user_id:getCurrentUsers.id,
           items:JSON.stringify(allTravisOrders),
           discount_type:discountType,
           discount_percent:discountValue,
           total_value:totalNetBillAmount,
           status:"Pending",
           manager_id:managerUserId,
-          retailer_id:getRetailerDetail.retailerUserId,
-          salesrep_id:111,
+          retailer_id:getRetailerDetail.retailerId,
+          salesrep_id:111
+    
         
 
         }
@@ -135,12 +147,13 @@ if(getRetailerDetail &&
     try {
       const response = await CreateOrder(data);
        console.log("order created ", response)
-      if (response==="order created successfully") {
-        setReloadUserAccount(true)
-        setIsOrder(true)
-      }
+      // if (response==="order created successfully") {
+      //   setReloadUserAccount(true)
+      //   setIsOrder(true)
+      // }
 
-
+      setReloadUserAccount(true)
+      setIsOrder(true)
     }
     catch (err) {
       console.log(err);

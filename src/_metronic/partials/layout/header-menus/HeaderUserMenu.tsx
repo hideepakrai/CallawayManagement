@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { resetOgio } from '../../../../app/slice/allProducts/OgioSlice'
 import { resetOgioOrder } from '../../../../app/slice/orderSlice/ogio/OgioCartOrderSlice'
 import ProfileImage from "../../../../../public/media/logos/favicon-icon.png";
+import { resetLoading } from '../../../../app/slice/loading/LoadingSlice'
 const HeaderUserMenu: FC = () => {
   const { currentUser, logout } = useAuth();
   const [role, setRole] = useState<string>();
@@ -29,7 +30,7 @@ const HeaderUserMenu: FC = () => {
     dispatch(resetUserAccount())
     deleteLocalStorage()
     logout()
-
+   dispatch(resetLoading())
   }
 
 
@@ -81,12 +82,16 @@ const HeaderUserMenu: FC = () => {
             
             <div className='fw-bold d-flex align-items-center fs-5'>
               {currentUser?.first_name} {currentUser?.last_name} 
-              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>{getCurrentUsers.role} </span>
+
+              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>{getCurrentUsers?.role}</span>
             </div>
             
             <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2 '
               onClick={handleProfile}
-            > Shashi Kiran 
+            >
+
+              {getCurrentUsers?.name} 
+              
             </a>
 
            

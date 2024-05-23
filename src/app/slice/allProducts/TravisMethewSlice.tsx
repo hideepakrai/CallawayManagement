@@ -558,7 +558,19 @@ const TravisMethewSlice = createSlice({
 
 
     },
-
+     resetTravisOrder:(state)=>{
+      state.travisMethew.map(item=>{
+        item.Quantity90=0;
+        item.Quantity88=0;
+        item.Amount=0;
+        item.ordered=false;
+        item.LessGST=0;
+        item.LessDiscountAmount=0;
+        item.NetBillings=0;
+        item.FinalBillValue=0;
+        item.Discount=0;
+      })
+     }
           
 
     }
@@ -578,7 +590,8 @@ export const {
     reloadCategory,
     reloadStyleCode,startTravisLoading,stopTravisLoading,
     updateTravisInclusiveDiscount,updaterTravisExclusiveDiscount,
-    updateTravisFlatDiscount
+    updateTravisFlatDiscount,
+    resetTravisOrder
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];

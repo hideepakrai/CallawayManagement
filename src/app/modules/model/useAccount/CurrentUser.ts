@@ -1,6 +1,14 @@
 export interface CurentUser{
-    jwt?: string;
-    user?:UserData;
+   id?: number;
+   email?:string;
+   code?:string;
+   password_hash?:string;
+   role?:string;
+   status?:string;
+   created_at?:string;
+   updated_at?:string;
+   manager_id?:number
+
 }
 
 export interface UserData{

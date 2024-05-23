@@ -60,7 +60,7 @@ const OgioCart = () => {
     if (getCurrentUsers) {
 
      
-      setUserId(getCurrentUsers?.user?.id)
+      setUserId(getCurrentUsers?.id)
     }
   }, [getCurrentUsers])
   const columns: TableColumnsType<OgioBasicModel>= [
@@ -635,13 +635,13 @@ const handleUpdateRedux=()=>{
     <div>
 
 {isLoadingStart && <Loading />}
-      {allOgioOrders &&
+      {/* {allOgioOrders &&
         allOgioOrders.length > 0 &&
         <CartHeader
           
         reviewOrder={handleRefetch}
         submitOrder={hanldeSubmitOrder}
-        />}
+        />} */}
 
        <Table
             ref={tableRef}

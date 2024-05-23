@@ -17,13 +17,16 @@ const LoadingSlice = createSlice({
         },
         LoadingStop:(state)=>{
             state.isLoading=false;
+        }, 
+        resetLoading:(state)=>{
+            state.isLoading=false;
         }
     }
 }
 );
 
 
-export const {LoadingStart,LoadingStop}= LoadingSlice.actions;
+export const {LoadingStart,LoadingStop,resetLoading}= LoadingSlice.actions;
 export const getLoading = (state: {loading:LoadingState}): boolean => {
     return state.loading.isLoading;
 };
