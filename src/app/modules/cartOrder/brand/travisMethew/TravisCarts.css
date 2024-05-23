@@ -5,3 +5,5 @@
 .number-input{vertical-align: bottom!important; width: 32%;}
 .input-dropdown{width: 15%;}
 .cart-sec .cart-number-input{ display: inline-block;  vertical-align: bottom!important;}
+
+.cart-number-input{width: 120px!important;}

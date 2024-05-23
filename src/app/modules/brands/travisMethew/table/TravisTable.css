@@ -65,3 +65,9 @@
 .btn-travis i{ color: #fff!important;}
 
 .travish-mat-section .ant-table-cell .ant-image{ left: -4px!important;}
+
+.downlaod-excel span{ border: 1px solid #ddd; cursor: pointer; border-radius: 5px; }
+.downlaod-excel span:hover{ border: 1px solid #ddd; background-color: #f1f1f1; color: #fff;  }
+
+.downlaod-excel h4{color:#303030;}
+.downlaod-excel span i{color:#303030;}

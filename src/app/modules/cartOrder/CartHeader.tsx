@@ -106,108 +106,120 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
      
   return (
     <div>
-      <div className='row'>
-            <div className='col-12 d-flex' >
-                <h4 className='mx-3 pt-3 fs-6' style={{width:"100px", minWidth:"100px"}}>
-                    <a>Select Retailer</a>
-                </h4>
+    <div className='row'>
+        <div className='col-8 ' >
+            <div className="retailer_select row">
+                <div className="col-6">
+                    <h4 className=' pt-3 fs-6' style={{ width: "100px", minWidth: "100px" }}>
+                        <a>Select Retailer</a>
+                    </h4>
 
-                <Select
-                    showSearch
-                    placeholder="Select retailer"
-                    optionFilterProp="children"
-                    className="select-toogle"
-                    style={{  marginBottom: 10 }} 
-                    onChange={handleChange}
-                    options={getUserRetailers?.map((item:RetailerModel) => (
-                        { label: item.name??"",
-                             value: item.id}))}
-
-                  
-
-   
+                    <Select
+                        showSearch
+                        placeholder="Select retailer"
+                        optionFilterProp="children"
+                        className="select-toogle"
+                        style={{ marginBottom: 10 }}
+                        onChange={handleChange}
+                        options={getUserRetailers?.map((item: RetailerModel) => (
+                            {
+                                label: item.name ?? "",
+                                value: item.user_id
+                            }))}
                     />
-                    
-    
-                
+
+                </div>
+                <div className="mb-4 col-3">
+                    <span className=' fs-5 fw-bold ' >
+                        Manager
+                    </span>
+
+                    <h3 className=' fs-2 user-title' >
+                        Shashi Kiran
+                    </h3>
+                </div>
+
+                <div className="mb-4 col-3">
+                    <span className=' fs-5 fw-bold ' >
+                        Sales Representative
+                    </span>
+
+                    <h3 className=' fs-2 user-title' >
+                        Manish Gupta
+                    </h3>
+                </div>
+
             </div>
-            <div className='col-12' style={{paddingLeft:"21px", paddingTop:"4px"}}>
-                <span style={{ marginRight: 10 }}>
+
+            <div className="retailer_details d-grid">
+                <span style={{ marginRight: 10, marginTop: "6px" }}>
                     {" "}
-                    <a style={{ color: "#000", fontSize:"14px"}}> <span style={{fontWeight:600, }}>Address City :</span> {retailerAddres} </a>
+                    <a style={{ color: "#000", fontSize: "14px" }}> <span style={{ fontWeight: 600, }}>Address City :</span> {retailerAddres} </a>
                 </span>
-                <span style={{ width: 100, marginRight: 20, borderRight: "1px solid #ddd", paddingRight: "10px", }}>{retailerCity}</span>
+                <span style={{ width: 100, marginRight: 20, borderRight: "1px solid #ddd", paddingRight: "10px", marginTop: "10px", }}>{retailerCity}</span>
                 <span>
-                    <a style={{ color: "#000", fontSize:"14px" }}> <span style={{fontWeight:600}}> GSTIN NO. :</span> </a> {GST}
+                    <a style={{ color: "#000", fontSize: "14px" }}> <span style={{ fontWeight: 600 }}> GSTIN NO. :</span> </a> {GST}
                 </span>
             </div>
+        </div>
 
+        <div className='col-4 mb-3 ' style={{ paddingLeft:"120px", }}>
 
-
-            <div className='col-12 mb-3 mt-5'style={{textAlign:"end"}}>
-                <span className='mx-3'  >
-                    <Button  className="select-btn"> 
-                    <i style={{ paddingRight: "6px", verticalAlign: "inherit",}} 
-                     className="bi bi-bag travis-icon"></i>View Pdf</Button>
-                  
-                </span>
-                <span  className='mx-3' 
-                onClick={handleReview}
-                >
-                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  
-                    className="bi bi-file-earmark-text travis-icon"></i>Checking for availability</Button>
-                </span>
-                
-              {  isAvailable &&<span  className='mx-3' 
-                onClick={handleSubmit}
-                > 
-                    <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}  
-                    className="bi bi-file-earmark-text travis-icon"></i>Submit for Review</Button>
-                </span>}
-
-
-                {!isSubmit &&
-                getCurrentUsers &&
-                getCurrentUsers.role!=="Retailer" &&
-                <span className='mx-3' 
-                 onClick={handleNote}
-                >
-          
-                    
-                    <Button className="select-btn"> 
+            <span className='mx-3'  >
+                <Button className="select-btn">
                     <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
-                      className="bi bi-bag-check travis-icon">
-                        </i>Approve Order</Button>
-                    
-              
-              
-                </span>}
+                        className="bi bi-bag travis-icon"></i>View Pdf</Button>
 
-               { !isSubmit &&
-               getCurrentUsers &&
-               getCurrentUsers.role!=="Retailer" &&
-               <span className='mx-3'
-                 onClick={handleRejectOrder}
-                >
+            </span>
+            
+        
 
-                    <Button className="select-btn">
-                         <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
-                          className="bi bi-cart travis-icon">
-                            </i>      Reject Order</Button>
-                  
+            {isAvailable && <span className='mx-3'
+                onClick={handleSubmit}
+            >
+                <Button className="select-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
+                    className="bi bi-file-earmark-text travis-icon"></i>Submit for Review</Button>
+            </span>}
 
-              
-                </span>}
 
-                <span className='mx-3'
+            <span className='mx-3'
                 onClick={handleNote}
-                >
-                    <Button className="select-btn"> <i style={{paddingRight:"6px", verticalAlign:"inherit",}} className="bi bi-pencil-square travis-icon"></i>Add Note</Button>
-                </span>
-            </div>
+            >
+                <Button className="select-btn mt-3"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }} className="bi bi-bag-check travis-icon"></i>Approve Order</Button>
+            </span>
 
-            </div>
+            <span className='mx-3'
+                onClick={handleNote}
+            >
+                <Button className="select-btn mt-3"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }} className="bi bi-cart travis-icon"></i>      Reject Order</Button>
+            </span>
+
+            <span className='mx-3 '
+                onClick={handleNote}
+            >
+                <Button className="select-btn mt-3"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }} className="bi bi-pencil-square travis-icon"></i>Add Note</Button>
+            </span>
+
+            <span className='mx-3'
+                onClick={handleReview}
+            >
+                <Button className="select-btn mt-3 user-cart-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
+                    className="bi bi-file-earmark-text travis-icon"></i>Checking for availability</Button>
+            </span>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
     </div>
+</div>
   )
 }
 

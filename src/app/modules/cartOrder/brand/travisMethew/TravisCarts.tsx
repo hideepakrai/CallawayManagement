@@ -637,6 +637,7 @@ const[isNote, setIsnote]= useState<boolean>(false)
           <div>
           <a style={{ marginRight: 10, color: "#000", }}>Discount</a>
           <Select className="input-dropdown"
+          style={{width:"150px"}}
             showSearch
             placeholder="Select discount"
             optionFilterProp="children"
@@ -661,7 +662,7 @@ const[isNote, setIsnote]= useState<boolean>(false)
 
           <div>
           {isDiscount && (
-            <Space className='cart-number-input' direction="vertical">
+            <Space className='cart-number-input' direction="vertical" style={{width:"125px"}}>
 
               {/* <Input
           //   onChange={(e)=>handleChangeDiscount(e.target.value)}

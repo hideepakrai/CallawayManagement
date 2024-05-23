@@ -76,7 +76,7 @@ const TravisImportExcel = ({isRetailer,onClose}:Props) => {
         onOk={handleOk}
        onCancel={handleCancel}
       >
-        <h3>Import products</h3>
+        <h3>Import products </h3>
         <Dragger 
          multiple={false}
         onChange={(info)=>handleInput(info)}
@@ -92,6 +92,8 @@ const TravisImportExcel = ({isRetailer,onClose}:Props) => {
             uploading company data or other banned files.
           </p>
         </Dragger>
+   
+
       </Modal>
     </div>
   )

@@ -8,6 +8,7 @@ import { getTravisProducts, getOtherProducts } from "../../../../slice/allProduc
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 import travishtham from "../../../../../../public/media/logos/tm-logo.png"
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
+import TravisImportProduct from "../excel/importExcel/TravisExportProduct"
 import { ExcelModelTravis } from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 // import ProductImg from "../../../../../../public/media/product/drivers-1.png";
@@ -77,6 +78,7 @@ const TravisTable = () => {
   const placement: SelectCommonPlacement = 'topLeft';
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
+  const [isProduct, setIsProduct] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const searchInput = useRef<InputRef>(null);
@@ -1120,6 +1122,15 @@ const TravisTable = () => {
     setIsImport(false);
   };
 
+  // handle Excels product
+  const handleProduct = () => {
+    setIsProduct(true);
+  };
+  const handleCloseProduct = () => {
+    setIsProduct(false);
+  };
+
+
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const handleTravisData = (allDatat: ExcelModelTravis[]) => {
     const table = tableRef.current;
@@ -1272,7 +1283,8 @@ const TravisTable = () => {
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
 
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-             onClick={handleSampleExcel}
+             onClick={handleProduct} 
+            //  onClick={handleSampleExcel}
           > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
 
 
@@ -1328,6 +1340,12 @@ const TravisTable = () => {
       <TravisImportExcel
         isImport={isImport}
         onClose={handleCloseImport}
+        allGoodsData={handleTravisData}
+      />
+
+<TravisImportProduct
+         isProduct={isProduct}
+        onClose={handleCloseProduct}
         allGoodsData={handleTravisData}
       />
 

@@ -83,10 +83,10 @@ const HeaderUserMenu: FC = () => {
             <div className='fw-bold d-flex align-items-center fs-5'>
               {currentUser?.first_name} {currentUser?.last_name} 
 
-              <span className='badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2'>{getCurrentUsers?.role}</span>
+              <span className='badge badge-light-success fw-bold fs-8 px-1 py-1 ms-2'>{getCurrentUsers?.role}</span>
             </div>
             
-            <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2 '
+            <a href='#' className='fw-semibold text-muted text-hover-dark fs-6 pt-2' style={{paddingLeft:"7px"}}
               onClick={handleProfile}
             >
 

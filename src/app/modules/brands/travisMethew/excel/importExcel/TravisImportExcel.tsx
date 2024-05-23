@@ -6,63 +6,63 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
-import {ExcelModelTravis} from"../../../../model/travis/TravisExcel"
+import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 
 const { Dragger } = Upload;
 
-type Props={
-    onClose: () =>void;
-    isImport:boolean;
-    allGoodsData:(allData:ExcelModelTravis[])=>void
+type Props = {
+  onClose: () => void;
+  isImport: boolean;
+  allGoodsData: (allData: ExcelModelTravis[]) => void
 }
 
 const props: UploadProps = {
-    name: 'file',
-    multiple: false,
-    
-  };
-const TravisImportExcel = ({onClose,isImport,allGoodsData}:Props) => {
-    const [allXlxData, setAllXlxData]=useState<ExcelModelTravis[]>([])
-    const [loading, setLoading] = useState<boolean>(false);
+  name: 'file',
+  multiple: false,
+
+};
+const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
+  const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
+  const [loading, setLoading] = useState<boolean>(false);
 
 
-     // handle input xls
-   const handleInput=(info:UploadChangeParam)=>{
+  // handle input xls
+  const handleInput = (info: UploadChangeParam) => {
 
     const file = info.file.originFileObj;
-    if (!file||file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    if (!file || file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       message.error('You can only upload Excel files!');
       return;
     }
     const reader = new FileReader();
     reader.onload = (e) => {
-        const data = e.target?.result as string;
-     
-       
+      const data = e.target?.result as string;
+
+
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
-    console.log("json ", data)
+      console.log("json ", data)
       // Use the extracted JSON data here
       //console.log(jsonData);
       setAllXlxData(jsonData)
       setLoading(false);
     };
     reader.onerror = () => {
-        message.error("File reading failed!");
-        setLoading(false);
-      };
+      message.error("File reading failed!");
+      setLoading(false);
+    };
     reader.readAsBinaryString(file);
-   // 
+    // 
   }
 
   const handleOk = () => {
     //setIsModalOpen(false);
     console.log("ok")
-   allGoodsData(allXlxData)
-   // onClose();
+    allGoodsData(allXlxData)
+    // onClose();
   };
   const handleCancel = () => {
     // setIsModalOpen(false);
@@ -70,16 +70,16 @@ const TravisImportExcel = ({onClose,isImport,allGoodsData}:Props) => {
   };
   return (
     <div>
-         <Modal
+      <Modal
         // title="Basic Modal"
         open={isImport}
         onOk={handleOk}
-       onCancel={handleCancel}
+        onCancel={handleCancel}
       >
         <h3>Import products</h3>
-        <Dragger 
-         multiple={false}
-        onChange={(info)=>handleInput(info)}
+        <Dragger
+          multiple={false}
+          onChange={(info) => handleInput(info)}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
@@ -92,6 +92,9 @@ const TravisImportExcel = ({onClose,isImport,allGoodsData}:Props) => {
             uploading company data or other banned files.
           </p>
         </Dragger>
+        <div className="mt-5 downlaod-excel ">
+          <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+        </div>
       </Modal>
     </div>
   )
