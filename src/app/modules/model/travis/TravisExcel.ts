@@ -2,6 +2,7 @@ import { NumberFormat } from "xlsx";
 
 export interface ExcelModelTravis {   
     Brand?: number;
+    brand?: string;
      SKU?: string;
      Name?: string;
      Category?:string | null;

@@ -8,33 +8,31 @@ import { friendList } from "./FriendList";
 import Friends from './Friend';
 import { contactList } from './ContactList';
 import Contact from './Contact';
-import {getUserAccount} from "../../../slice/UserSlice/UserSlice";
+import {getCurrentUser, getUserAccount} from "../../../slice/UserSlice/UserSlice";
 import {UserAccountModel} from "../../model/useAccount/UserAccountModel"
 import { useDispatch , useSelector} from 'react-redux';
 import Loading from '../../../modules/loading/Loading';
 import {getLoading,LoadingStop,LoadingStart} from "../../../slice/loading/LoadingSlice"
 import GetAllOrdersRetailer from '../../../api/retailers/GetAllOrdersRetlr';
+import GetAllorder from '../../orderPage/GetAllorder';
 const RetailerProfile = () => {
 
   const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
-  const getUserAccountDetails= useSelector(getUserAccount) as UserAccountModel;
-  console.log("getUserAccount",getUserAccountDetails)
+  const getCurrentUsers= useSelector(getCurrentUser)
+
   const [userRoleId, setUseRoleId]= useState<number|null>(null)
   const [userid, setUserId]= useState<number|null>(null)
-
-  useEffect(()=>{
-    if(getUserAccountDetails &&
-      getUserAccountDetails.id
-    ){
-      setUserId(getUserAccountDetails.id)
-      setUseRoleId(getUserAccountDetails.id)
-      dispatch(LoadingStart())
+  const [isOrder, setIsOrder] = useState(false);
+  useEffect(() => {
+    if (getCurrentUsers && getCurrentUsers.id) {
+      
+      setIsOrder(true)
     }
-  },[getUserAccountDetails])
+  }, [])
 
-  const handleResetId=()=>{
-    setUseRoleId(null)
+  const handleResetOrder=()=>{
+    setIsOrder(false)
     dispatch(LoadingStop())
   }
   return (
@@ -75,11 +73,11 @@ const RetailerProfile = () => {
         </Col>
       </Row>
 
-      { userRoleId !=null &&
-      <GetAllOrdersRetailer
-      userRoleId={userRoleId}
-      resetmanagerid={handleResetId}
-      />}
+      {isOrder && 
+          <GetAllorder
+           
+            resetOrder={handleResetOrder}
+          />}
     </div>
   );
 };

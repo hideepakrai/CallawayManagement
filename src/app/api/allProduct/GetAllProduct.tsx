@@ -14,6 +14,8 @@ import {getTravisStartLoading,stopTravisLoading} from "../../slice/allProducts/T
 import GetAllBrands from '../brands/GetAllBrands.tsx';
 import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
 
+import  GetAllApparelProducts from "../allProduct/callaway/appreal/GetAllApparelProducts.tsx"
+
 interface UserAccount {
   attributes: {
     username: string;
@@ -35,6 +37,7 @@ const GetAllProduct = () => {
   const [isRefetch, setIsRetech] = useState<boolean>(false)
   const [isTravis, setIsTravis] = useState<boolean>(false)
   const [isGoods, setIsGoods  ] = useState<boolean>(false)
+  const [isApparel, setIsApparel ] = useState<boolean>(false)
   const [isRetailers, setIsetailers  ] = useState<boolean>(false)
   const [isBrands, setIsBrands  ] = useState<boolean>(false)
   
@@ -73,6 +76,7 @@ if(getTravisProduct && getTravisProduct.length === 0)
      setIsGoods(true)
      setIsetailers(true)
      setIsBrands(true)
+     setIsApparel(true)
     
   }, []);
 
@@ -109,7 +113,9 @@ useEffect(()=>{
   }
 
   
-
+  const handleResetApparel=()=>{
+    setIsApparel(false)
+  }
   return (
     <div>
 
@@ -127,7 +133,11 @@ useEffect(()=>{
       resetGoods={handleResetGoods}
       />}
 
-    
+    {isApparel &&
+      <GetAllApparelProducts
+      resetApparel={handleResetApparel}
+      />
+    }
 
 
      { isBrands &&<GetAllBrands

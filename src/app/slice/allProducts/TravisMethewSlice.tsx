@@ -91,6 +91,8 @@ const TravisMethewSlice = createSlice({
                               FinalBillValue:0,
                               error88:"",
                               error90:"",
+                              primaryImage:"",
+                              secondaryImage:[]
                               
                           
                           
@@ -106,40 +108,44 @@ const TravisMethewSlice = createSlice({
                 });
             }
             }
-            // else if(tarvisLength>0){
-            //   if(travisProduct && travisProduct.length > 0) {
-            //     travisProduct.forEach((item: BasicModelTravisGraph) => {
-            //       const travisIndex = state.travisMethew.findIndex(
-            //         (travisItem) => travisItem.SKU === item.attributes.SKU
-            //       );
-            //       if(travisIndex!==-1){
-            //         const trvsRedux=state.travisMethew[travisIndex];
-            //          const trvs= state.travisMethew[travisIndex].TravisAttributes
-            //           const cusrrent=item.attributes.AttributeSet;
-            //           if(trvs&& cusrrent &&trvsRedux){
-            //             const rdxStock88=trvs[0].Stock88;
-            //             const rdxStock90=trvs[0].Stock90;
-            //             const cusrrentStock88=cusrrent[0].Stock88;
-            //             const cusrrentStock90=cusrrent[0].Stock90;
-            //             if(rdxStock88&& rdxStock90 &&cusrrentStock88 &&cusrrentStock90){
-            //               if(rdxStock88!=cusrrentStock88){
+            else if(tarvisLength>0){
+              if(travisProduct && travisProduct.length > 0) {
+                travisProduct.forEach((item: BasicModelTravis) => {
+                  const travisIndex = state.travisMethew.findIndex(
+                    (travisItem) => travisItem.sku === item.sku
+                  );
+                  if(travisIndex!==-1){
+                    const trvsRedux=state.travisMethew[travisIndex];
+                    // const trvs= state.travisMethew[travisIndex].TravisAttributes
+                      
+                      if(trvsRedux){
+                        const rdxStock88=trvsRedux.stock_88;
+                        const rdxStock90=trvsRedux.stock_90;
+                        const cusrrentStock88=item.stock_88;
+                        const cusrrentStock90=item.stock_90;
+                        if(rdxStock88&& rdxStock90 &&cusrrentStock88 &&cusrrentStock90){
+                          if(rdxStock88!=cusrrentStock88){
                            
-            //                 trvs[0].Stock88=cusrrentStock88;
-            //               } if(rdxStock90!=cusrrentStock90){
+                            trvsRedux.stock_88=cusrrentStock88;
+                          } if(rdxStock90!=cusrrentStock90){
                            
-            //                 trvs[0].Stock90=cusrrentStock90;
-            //               }
-            //               if( trvsRedux.Quantity88&&trvsRedux.Quantity88>cusrrentStock88){
-            //                 trvsRedux.error88="Quantity is more than Stock"
-            //               }
-            //               if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
-            //                 trvsRedux.error90="Quantity is more than Stock"
-            //               }
+                            trvsRedux.stock_90=cusrrentStock90;
+                          }
+                          if( trvsRedux.Quantity88&&trvsRedux.Quantity88>cusrrentStock88){
+                            trvsRedux.error88="Quantity is more than Stock"
+                          }
+                          if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
+                            trvsRedux.error90="Quantity is more than Stock"
+                          }
                         
 
-            //             }
-            //           }
-            //       } else if(travisIndex===-1){
+                        }
+                      }
+              } 
+            
+            })
+          }
+            //else if(travisIndex===-1){
                     
             //         // const att: TravisMathewAttribute[] = [
             //         //   {
@@ -189,7 +195,8 @@ const TravisMethewSlice = createSlice({
            
             // }
             
-        },
+        }
+      },
            reloadCategory:(state,action)=>{
             state.uniqueCategories=action.payload.reloadCategory
 
@@ -570,7 +577,21 @@ const TravisMethewSlice = createSlice({
         item.FinalBillValue=0;
         item.Discount=0;
       })
+     }, 
+
+     updatePrimarySeondaryImage:(state,action)=>{
+
+      const {sku, primaryImage, secondaryImage}= action.payload;
+      const travisIndex = state.travisMethew.findIndex(
+        (travisItem) => travisItem.sku === sku
+      );
+
+          if(travisIndex!=-1){
+            state.travisMethew[travisIndex].primaryImage=primaryImage;
+            state.travisMethew[travisIndex].secondaryImage=secondaryImage;
+          }
      }
+
           
 
     }
@@ -591,7 +612,8 @@ export const {
     reloadStyleCode,startTravisLoading,stopTravisLoading,
     updateTravisInclusiveDiscount,updaterTravisExclusiveDiscount,
     updateTravisFlatDiscount,
-    resetTravisOrder
+    resetTravisOrder,
+    updatePrimarySeondaryImage
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];

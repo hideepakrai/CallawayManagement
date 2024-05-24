@@ -45,6 +45,7 @@ import { Card, Table, Carousel, Breadcrumb } from "antd";
 import {startTravisLoading} from "../../slice/allProducts/TravisMethewSlice.tsx"
 import { addUserRetailer, getCurrentUser, getUserAccount } from '../../slice/UserSlice/UserSlice.tsx'
 import { GetUserRetailer } from '../../modules/auth/core/_requests.ts'
+import TravisImage from './TravisImage.tsx'
 const DashboardPage = () => (
 
   
@@ -245,7 +246,7 @@ const DashboardWrapper = () => {
   // "getRetailer-associated""
 const getUserAccounts= useSelector(getUserAccount);
 const getCurrentUsers= useSelector(getCurrentUser);
-console.log("getRetailer-associated",getUserAccounts)
+// console.log("getRetailer-associated",getUserAccounts)
 useEffect(()=>{
   if(getUserAccounts && getUserAccounts.id &&getUserAccounts.role!="Retailer"){
     console.log("hello")
@@ -283,6 +284,8 @@ const getUserRetailer =async(id:number)=>{
       <GetAllProduct/>
 
      <Reload/>
+
+     
     </>
   )
 }

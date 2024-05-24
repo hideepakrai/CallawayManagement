@@ -8,7 +8,7 @@ import { friendList } from "./FriendList";
 import Friends from './Friend';
 import { contactList } from './ContactsList';
 import Contact from './Contact';
-import { getUserAccount } from "../../../slice/UserSlice/UserSlice";
+import { getCurrentUser, getUserAccount } from "../../../slice/UserSlice/UserSlice";
 
 import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import { useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ import AllPendingOrder from './AllPendingOrder';
 const ManagerProfile = () => {
   const dispatch = useDispatch();
   const getLoadings = useSelector(getLoading)
-  const getUserAccounts = useSelector(getUserAccount)
+  const getCurrentUsers = useSelector(getCurrentUser)
 
   const [userRoleId, setUseRoleId] = useState<number | null>(null)
 
@@ -31,11 +31,11 @@ const ManagerProfile = () => {
   const [acountype, setAcountype] = useState<string>("")
   const [UserId, setUserId] = useState<number>()
   useEffect(() => {
-    if (getUserAccounts && getUserAccounts.user_id) {
-      setUserId(getUserAccounts.user_id);
+    if (getCurrentUsers && getCurrentUsers.id) {
+      
       setIsOrder(true)
     }
-  }, [getUserAccounts])
+  }, [])
 
 
 
@@ -179,9 +179,9 @@ sa
       resetmanagerid={handleResetId}
       />} */}
 
-        {isOrder && UserId != null &&
+        {isOrder && 
           <GetAllorder
-            userId={UserId}
+           
             resetOrder={handleResetOrder}
           />}
 

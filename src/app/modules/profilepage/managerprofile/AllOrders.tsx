@@ -1,187 +1,250 @@
-import React, { useEffect, useState } from "react";
-
-import { Table, Tooltip } from "antd";
+import React, { useState, useRef, useEffect } from "react";
+import { Card, Table, Tooltip } from "antd";
+import { useSelector } from "react-redux";
+import type { TableColumnsType } from "antd";
+import { getUserOrders } from "../../../slice/UserSlice/UserSlice";
+import { BasicModelTravis } from "../../model/travis/TravisMethewModel";
+import { AccountOrder, CartModel } from "../../model/CartOrder/CartModel";
+import "./AllPendingOrder.css";
 import Edit from "./Edit";
-// import View from "./View"
-import { getUserAccount, getUserOrders } from "../../../slice/UserSlice/UserSlice"
-import { useSelector, useDispatch } from "react-redux";
-import { UserAccountModel, AllOrderss } from "../../model/useAccount/UserAccountModel"
-import { Card } from "react-bootstrap";
-import { ProductDetails, CartModel, AccountOrder } from "../../model/CartOrder/CartModel.ts"
-import { addPendingOrder } from "../../../slice/orderSlice/travis/Orderdetails.tsx"
 import UpdateStatus from "./UpdateStatus.tsx";
+import CardHeader from "react-bootstrap/esm/CardHeader";
 
-import { GetAllUserOrders } from "../../../api/order/OrederApi.ts";
-const AllOrder = () => {
-
-    const getUserAccounts = useSelector(getUserAccount)
-
-
-
-
-    const dispatch = useDispatch()
-    const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
-    console.log("getUserOrder", getUserOrder)
-    const [orderId, setOrderId] = useState<number>()
-
+const AllOrders = () => {
+    const [status, setStatus] = useState<string>("");
+    const [orderId, setOrderId] = useState<number>();
     const [isEdit, setIsEdit] = useState(false);
+    const tableRef = useRef(null);
+    const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
+    const[allPending,setAllPendingOrder]= useState<AccountOrder[]>([]);
 
+    // get All pending orders
+    useEffect(()=>{
+        const allpend:AccountOrder[]=[]
+        if(getUserOrder && getUserOrder.length>0){
+            getUserOrder.map(item=>{
+                if(item.status != "Pending"){
+                    allpend.push(item)
+                }
+            })
+        }
+        setAllPendingOrder(allpend)
+    },[getUserOrder])
+    const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
-
-    // getAll Orders
+    const handleUpdateStatus = (status: string) => {
+        console.log(status);
+        setStatus(status);
+    };
 
     const handleEdit = (id: number | undefined) => {
         if (id !== undefined) {
             setIsEdit(true);
-            setOrderId(id)
+            setOrderId(id);
         }
     };
+
     const handleCloseEdit = () => {
         setIsEdit(false);
     };
 
-    // view
-
-    const [allProducts, setAllProducts] = useState<AccountOrder>()
-    const [isView, setIsView] = useState(false);
-    const handleView = (allProduct: unknown) => {
-        setIsView(true);
-        console.log(allProduct)
-        //setAllProducts(allProduct);
-
-        dispatch(addPendingOrder({
-            pendingOrders: allProduct
-        }))
-
+    const handleExpand = (record: CartModel) => {
+        console.log("handleExpand", record);
+        if (record && record.items && record.items.length > 0 && record.id) {
+            const allarray = JSON.parse(record.items);
+            setExpandedRowKeys(allarray);
+        }
     };
 
-    const handleCloseView = () => {
-        setIsView(false);
+    const columns: TableColumnsType<CartModel> = [
+        {
+            title: "Order Id",
+            dataIndex: "id",
+            width: 100,
+        },
+        {
+            title: 'Brand',
+            dataIndex: 'brand_id',
+            key: 'brand_id',
+            width: 100,
+            render: (value) => {
+              let brandName;
+              if (value === 3) {
+                brandName = "Travismathew";
+              } else {
+                brandName = "Other Brand"; // Default value or other brand name
+              }
+        
+              return <span>{brandName}</span>; // Render the brand name inside a span
+            },
+          },
+        {
+            title: "Retailer name",
+            dataIndex: "retailer_name",
+            width: 100,
+        },
+        {
+            title: "Order date",
+            dataIndex: "created_at",
+            width: 100,
+        },
+        {
+            title: "Amount",
+            dataIndex: "total_value",
+            width: 100,
+        },
+        {
+            title: "Action",
+            width: 100,
+            render: (_, record) => (
+                <>
+                    <span>
+                        <Tooltip title="Download" placement="bottom">
+                            <i
+                                className="bi bi-download"
+                                style={{
+                                    paddingRight: "9px",
+                                    borderRight: "1px solid rgb(221, 221, 221)",
+                                    cursor: "pointer",
+                                }}></i>
+                        </Tooltip>
+                        <Tooltip title="View" placement="bottom">
+                            <i
+                                className="bi bi-box-arrow-up-right"
+                                style={{
+                                    paddingLeft: "7px",
+                                    paddingRight: "6px",
+                                    borderRight: "1px solid rgb(221, 221, 221)",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => handleExpand(record)}></i>
+                        </Tooltip>
+
+                        <Tooltip title="Edit" placement="bottom">
+                            <span
+                                style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                onClick={() => handleEdit(record.id)} // Pass the id directly to handleEdit
+                            >
+                                <i className="bi bi-pencil-fill"></i>
+                            </span>
+                        </Tooltip>
+                    </span>
+                </>
+            ),
+        },
+    ];
+
+    const expandedRowRender = (record: CartModel) => {
+        const subcolumns: TableColumnsType<BasicModelTravis> = [
+            {
+                title: "SKU ",
+                dataIndex: "sku",
+                key: "sku",
+                width: 390,
+                fixed: "left",
+            },
+            {
+                title: "Style",
+                dataIndex: "style_code",
+                key: "style_code",
+                width: 200,
+            },
+            {
+                title: "Size",
+                dataIndex: "size",
+                key: "size",
+                width: 170,
+            },
+            {
+                title: "Qty88",
+                dataIndex: "stock_88",
+                key: "stock_88",
+                width: 150,
+                fixed: "right",
+            },
+            {
+                title: "Qty90",
+                dataIndex: "stock_90",
+                key: "stock_90",
+                width: 150,
+                fixed: "right",
+            },
+            {
+                title: "Qty",
+                dataIndex: "TotalQty",
+                key: "TotalQty",
+                width: 50,
+                fixed: "right",
+            },
+            {
+                title: "MRP",
+                dataIndex: "mrp",
+                key: "mrp",
+                width: 80,
+                fixed: "right",
+            },
+            {
+                title: "Amount",
+                dataIndex: "Amount",
+                key: "Amount",
+                width: 100,
+                fixed: "right",
+            },
+        ];
+
+        return (
+            <Table
+                className="table-profile"
+                columns={subcolumns}
+                dataSource={expandedRowKeys?.map((item) => ({
+                    ...item,
+                    key: item.sku,
+                }))}
+                pagination={false}
+                size="middle"
+            />
+        );
     };
-
-
-    const handleview = () => {
-        console.log("I am here");
-
-    };
-
-    const [status, setStatus] = useState<string>("")
-    const handleUpdateStatus = (status: string) => {
-        console.log(status)
-        setStatus(status)
-    }
 
     return (
-        <>
+        <div className="cart-table">
+            <Card title="All orders">
+               
+                <Table<CartModel>
+                    ref={tableRef}
+                    className="cart-table-profile"
+                    columns={columns}
+                    dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
+                    
+                    expandable={{
+                        expandedRowRender,
+                        onExpand: (expanded, record) => handleExpand(record),
+                    }}
 
-            <Card className="mt-6">
-                <div className="table-responsive mb-6">
-                    <label><h3 className="mx-6 my-7">All Order </h3></label>
-
-                    <table className="table table-striped gy-7 gs-7" style={{ width: "96%", margin: "0 auto", backgroundColor: "#111", borderRadius:"8px 8px 0px 0px" }}>
-
-                        <thead  >
-                            <tr className="fw-semibold fs-6  border-bottom border-gray-200  text-white border-right-1" style={{borderRadius:"20px"}}>
-                                <th className="py-4 px-4">Order Id</th>
-                                <th className="py-4 px-4">Brand</th>
-                                <th className="py-4 px-4">Retailer Name</th>
-                                <th className="py-4 px-4">Status</th>
-                                <th className="py-4 px-4">Date</th>
-                                <th className="py-4 px-4">Amount</th>
-                                <th className="py-4 px-4">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {getUserOrder &&
-                                getUserOrder?.length > 0 &&
-                                getUserOrder?.map((item) => {
-                                    if (item && item.status !== "Pending") {
-
-                                        return (
-                                            <tr>
-                                                <td>{item?.id}</td>
-                                                <td>{item?.brand_id == 4 ? "Ogio" : "Travis Mathew"}</td>
-                                                <td>{item.retailer_id}</td>
-                                                <td>{item.status}</td>
-                                                <td>{item.created_at}</td>
-                                                <td>{item.total_value}</td>
-                                                <td>
-                                                    <span>
-
-                                                        <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                                        //   onClick={() => handleEdit(item.id)}
-                                                        >
-                                                            <Tooltip title="Download" placement="bottom">
-                                                                <i className="bi bi-download"></i>
-                                                            </Tooltip>
-                                                        </span>
-
-                                                        <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                                            onClick={() => handleView(item)}
-
-                                                        >
-
-                                                            <Tooltip title="View" placement="bottom">
-                                                                {/* <i className="bi bi-arrow-up-right-square"></i> */}
-                                                                <i className="bi bi-box-arrow-up-right"></i>
-                                                            </Tooltip>
-                                                        </span>
-
-
-                                                        <span style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                                            onClick={() => handleEdit(item.id)}
-                                                        >
-                                                            <Tooltip title="Edit" placement="bottom">
-                                                                <i className="bi bi-pencil-fill" ></i>
-                                                            </Tooltip>
-                                                        </span>
-
-                                                     
-
-                                                        {/* <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
-                                                            <Tooltip title="View Prodects" placement="bottom">
-
-                                                                <i className="bi bi-box-arrow-up-right " ></i>
-                                                            </Tooltip>
-                                                        </span> */}
-
-
-
-                                                    </span>,
-                                                </td>
-                                            </tr>
-
-                                        )
-                                    }
-                                })
-
-
-
-                            }
-
-
-                        </tbody>
-                    </table>
-                </div>
-
+                    bordered
+                    size="middle"
+                    scroll={{ x: "100%", y: "auto" }}
+                    pagination={{
+                        position: ["topRight", "bottomRight"],
+                        defaultPageSize: 20,
+                    }}
+                />
             </Card>
 
-            {/* <View 
-isView={isView}
-
- onCloseView={handleCloseView} 
- />  */}
             <Edit
                 isEdit={isEdit}
-
                 onClose={handleCloseEdit}
                 changeStatus={handleUpdateStatus}
             />
 
-
-
-        </>
+            {status != null && orderId && (
+                <UpdateStatus
+                    status={status}
+                    orderId={orderId}
+                />
+            )}
+        </div>
     );
 };
 
-export default AllOrder;
+export default AllOrders;

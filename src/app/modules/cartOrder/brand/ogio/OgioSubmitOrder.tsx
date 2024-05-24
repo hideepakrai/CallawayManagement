@@ -163,9 +163,9 @@ if(getRetailerDetail &&
   return (
     <div>
 
-{isOrder && userId &&
+{isOrder  &&
     <GetAllorder
-    userId={userId}
+   
     
     resetOrder={handleResetOrder}
     />} 

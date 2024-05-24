@@ -14,6 +14,8 @@ const { Dragger } = Upload;
 type Props = {
   onClose: () => void;
   isProduct: boolean;
+  printPdf:()=> void;
+  excelExport:()=> void;
   allGoodsData: (allData: ExcelModelTravis[]) => void
 }
 
@@ -21,8 +23,9 @@ const props: UploadProps = {
   name: 'file',
   multiple: false,
 
+
 };
-const TravisExportProduct = ({ onClose, isProduct, allGoodsData }: Props) => {
+const TravisExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelExport}: Props) => {
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -68,6 +71,14 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData }: Props) => {
     // setIsModalOpen(false);
     onClose();
   };
+
+  const handlePdf=()=>{
+    printPdf()
+  }
+
+  const handleExcel=()=>{
+    excelExport()
+  }
   return (
     <div>
       <Modal
@@ -95,8 +106,14 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData }: Props) => {
 
 
         <div className="mt-5 downlaod-excel ">
-        <button className="export-button pdf"> <i className="bi bi-file-pdf fs-2"></i>Export to PDF</button>
-        <button className="export-button excel"><i className="bi bi-file-earmark-arrow-down fs-2"></i> Export to Excel</button>
+        <button className="export-button pdf"
+        onClick={handlePdf}
+        > <i className="bi bi-file-pdf fs-2"></i>Export to PDF</button>
+        
+        <button className="export-button excel" 
+        onClick={handleExcel}
+        >
+          <i className="bi bi-file-earmark-arrow-down fs-2"></i> Export to Excel</button>
         </div>
       </Modal>
     </div>

@@ -35,6 +35,8 @@ export interface BasicModelTravis {
        FinalBillValue?: number;
        error88?:string;
        error90?:string;
+       primaryImage?: string;
+       secondaryImage?:[]
 
 
 

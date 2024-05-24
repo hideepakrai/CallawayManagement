@@ -1,32 +1,57 @@
 import React, { useEffect } from 'react'
 import { GetUserOrder } from './api/_orderRequest'
-import { addUserOrders, getUserAccount } from '../../slice/UserSlice/UserSlice'
+import { addUserOrders, getCurrentUser, getUserAccount } from '../../slice/UserSlice/UserSlice'
 import {useDispatch, useSelector} from "react-redux"
-import { GetAllUserOrders } from '../../api/order/OrederApi'
+import { GetAllManagerOrder, GetAllRetailerOrder, GetAllUserOrders } from '../../api/order/OrederApi'
 
 
 type Props={
-    userId:number,
+   
     resetOrder:()=>void
 }
 
-const GetAllorder = ({userId,resetOrder}:Props) => {
+const GetAllorder = ({resetOrder}:Props) => {
   
+
+    const getCurrentUsers = useSelector(getCurrentUser)
    const dispatch= useDispatch()
 
     useEffect(()=>{
-        if(userId){
+     
+            if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.id){
+                getManagerOrder(getCurrentUsers.id)
+            }
+           else if(getCurrentUsers && getCurrentUsers.role==="Retailer" &&getCurrentUsers.id){
+                getRetailerOrder(getCurrentUsers.id)
+            }
            
-            getAllorders(userId)
             
-        }
-    },[userId])
+            
+        
+    },[getCurrentUsers])
 
-    const getAllorders= async (user_id:number) =>{
+    const getManagerOrder= async (user_id:number) =>{
 
 
         try{
-            const response= await GetAllUserOrders(user_id)
+            const response= await GetAllManagerOrder(user_id)
+            if(response){
+                dispatch(addUserOrders({
+                    userOrders: response
+                }))
+
+                resetOrder()
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+    const getRetailerOrder= async (user_id:number) =>{
+
+
+        try{
+            const response= await GetAllRetailerOrder(user_id)
             if(response){
                 dispatch(addUserOrders({
                     userOrders: response

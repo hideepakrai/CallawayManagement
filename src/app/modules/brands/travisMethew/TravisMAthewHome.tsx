@@ -4,6 +4,7 @@ import TravisHeader from './header/TravisHeader'
 import Slider from '../../model/slider/Slider'
 import "./TravisMAthewHome.css";
 import Reload from "../../../reload/Reload"
+import TravisImage from '../../../pages/dashboard/TravisImage';
 const TravisMAthewHome = () => {
   return (
     <div>
@@ -24,6 +25,7 @@ const TravisMAthewHome = () => {
 {/* 
 <TravisHeader/> */}
  <TravisTable/>
+ <TravisImage />
  <Reload/>
  </div>
     </div>

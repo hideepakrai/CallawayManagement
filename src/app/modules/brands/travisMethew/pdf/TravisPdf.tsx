@@ -17,6 +17,9 @@ import productimg from "../../../../../../public/media/product/Pro-img (1).png";
 import productimg1 from "../../../../../../public/media/product/Pro-img (2).png";
 import productimg2 from "../../../../../../public/media/product/Pro-img (3).png";
 import productimg3 from "../../../../../../public/media/product/Pro-img (4).png";
+import PrimaryImage from "./PrimaryImage"
+import SecondaryImage from './SecondaryImage';
+
 type Props = {
   selectedRow: BasicModelTravis[];
   resetSelectedRow: () => void;
@@ -24,8 +27,22 @@ type Props = {
 
 const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
      
+  // const handlePrint = useReactToPrint({
+  //   content: () => contentToPrint.current,
+  //   documentTitle: 'Print This Document',
+  //   onBeforePrint: () => console.log('before printing...'),
+  //   onAfterPrint: () => resetSelectedRow(),
+  //   removeAfterPrint: true,
+  // });
 
-  console.log("selected row")
+  useEffect(() => {
+    if (selectedRow && selectedRow.length > 0) {
+      console.log(selectedRow);
+      handlePrint(null, () => contentToPrint.current);
+    }
+  }, [selectedRow]);
+
+
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
   const contentToPrint = useRef(null);
   const handlePrint = useReactToPrint({
@@ -82,47 +99,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                 </p>
                 </div>
 
-                  {/* <div
-                    style={{
-                      paddingBottom: "100px",
-                      textAlign: "center",
-                    }}
-                  >
                   
-
-                    {getAllBrand &&
-                      getAllBrand.length > 0 &&
-                      getAllBrand.map((item: BrandModel) => {
-                        if (item && item.attributes && item.attributes.Name === "Travis Mathew") {
-                          return (
-                            <div key={item.id}>
-                              <div>
-                                <img
-                                  style={{ width: "300px", paddingTop: "80px" }}
-                                  src={`https://admin.callawayindiaoms.com${item.attributes.Logo?.data?.attributes?.formats?.thumbnail?.url}`}
-                                  alt="Callaway Logo"
-                                />
-                              </div>
-                              <div>
-                                <h2 style={{ paddingTop: "50px", paddingBottom: "10px", fontSize: "32px", color: "#262626", fontFamily: "'NoirPro',sans-serif", fontWeight: "500" }}>{item.attributes.Name}</h2>
-                                <p style={{
-                                  fontSize: "14px",
-                                  paddingLeft: "20px",
-                                  paddingRight: "20px",
-
-                                }}>
-                                  {item?.attributes?.Description}
-                                </p>
-                              </div>
-
-
-                            </div>
-                          );
-                        }
-                      })
-                    }
-
-                  </div> */}
 
                 </div>
 
@@ -325,15 +302,23 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
                         <div style={{ width: "45%", borderRadius: "5px", display:"flex" }}>
                           <div className='prodect-images'>
-                          <img
-                            alt="Special Edition Party Spas"
-                            style={{
-                              backgroundColor: "#eee",
-                              borderRadius: "10px",
-                              width: "225px"
-                            }}
-                            src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
-                          />
+                            {callout.primary_image_url !==null ?(
+                              <PrimaryImage
+                              record={callout}/>
+                            ):(
+                               <img
+                               alt="Special Edition Party Spas"
+                               style={{
+                                 backgroundColor: "#eee",
+                                 borderRadius: "10px",
+                                 width: "225px"
+                               }}
+                               src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
+                             />
+                            )
+                            
+                            }
+                         
                    </div>
 
                           <div
@@ -344,23 +329,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                     className="prodect-images-pdf"
                                     style={{ marginRight: "10px" }}
                                   >
-                                    <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
-
-                                        src={productimg}
-
-                                      />
-                                    </span>
-                                    <span style={{ width: "150px" }} className="">
+                                   <SecondaryImage
+                                   record={callout}
+                                   />
+                                    {/* <span style={{ width: "150px" }} className="">
                                       <img
                                         alt="Special Edition Party Spas"
                                         style={{
@@ -409,7 +381,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                         src={ productimg3}
 
                                       />
-                                    </span>
+                                    </span> */}
 
                                   </div>
                                 </>

@@ -1,11 +1,11 @@
 import React,{useState, useRef, useEffect} from 'react'
-import { Card, Table, Carousel, Breadcrumb, Select } from "antd";
+import { Card, Table, Carousel, Breadcrumb, Select, Tooltip, InputNumber } from "antd";
 import { Input, Radio, Button } from "antd";
-import type { TableColumnsType } from 'antd';
+import type { InputRef, TableColumnsType } from 'antd';
 import {BasicModelGoods} from "../../../../model/goods/CallawayGoodsModel"
 import {useDispatch, useSelector} from "react-redux"
 import "./GooodsTable.css"
-import {selectCallawayGoods} from "../../../../../slice/allProducts/CallAwayGoodsSlice"
+
 import SampleExcel from '../excel/SampleExcel';
 import { number } from 'yup';
 import ImportExcel from '../excel/importExcel/ImportExcel';
@@ -13,10 +13,10 @@ import {ExcelModelGoods} from "../../../../model/goods/CallawayGoodsExcel"
 import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB"
 
 import * as XLSX from 'xlsx';
- import {updateGoodsQuantity90,updateGoodsQuantity88} from "../../../../../slice/allProducts/CallAwayGoodsSlice";
- import { addGoodsOrder } from '../../../../../slice/orderSlice/travis/CartOrder';
+
 
  import type { RadioChangeEvent, SelectProps } from 'antd';
+import { getCategory, getGoodsProducts, getProductModel, getProductType } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
 type SelectCommonPlacement = SelectProps['placement'];
 
 const OPTIONS = ['Accessory',];
@@ -28,452 +28,470 @@ const GooodsTable = () => {
     const tableRef = useRef(null);
     const [isImport, setIsImport] = useState(false);
      const dispatch= useDispatch()
-
-
-    const callawayGooodsProduct:BasicModelGoods[]=useSelector(selectCallawayGoods)
+     const searchInput = useRef<InputRef>(null);
+     const getCategorys = useSelector(getCategory);
+     const getProductTypes = useSelector(getProductType);
+     const getProductModels = useSelector(getProductModel);
+    const getGoodsProduct:BasicModelGoods[]=useSelector(getGoodsProducts)
      const[amount, setAmount]=useState<number>()
-    console.log("callawayGooodsProduct",callawayGooodsProduct)
+    console.log("callawayGooodsProduct",getGoodsProduct)
 
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
-    const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
-    const filteredOptions1 = OPTIONS.filter((o) => !selectedItems.includes(o));
-    const filteredOptions2 = OPTIONS.filter((o) => !selectedItems.includes(o));
+    const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
+    const filteredOptions1 = getProductModels.filter((o) => !selectedItems.includes(o));
+    const filteredOptions2 = getProductTypes.filter((o) => !selectedItems.includes(o));
 
-    const columns: TableColumnsType<BasicModelGoods>= [
-
-        {
-          title: "Image",
-          dataIndex: "PrimaryImage",
-           fixed: "left",
-          width:70,
-          render: (value) => {
-            console.log("image: " + value?.data?.attributes?.formats?.thumbnail?.url)
-           return  (
+    const columns: TableColumnsType<BasicModelGoods> = [
+      {
+        dataIndex: "primary_image_url",
+  
+        width: 50,
+        // render: (value, record) => <ImageRenderer 
+        // record={record} />
+  
+      },
+  
+  
+  
+      {
+        title: "SKU ",
+        dataIndex: "sku",
+        width: 100,
+        fixed: "left",
+  
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1 }}>
+            <Input
+              ref={searchInput}
+  
+              placeholder="Search SKU"
+              value={selectedKeys[0]}
+              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              onKeyUp={(e) => {
+                confirm({ closeDropdown: false });
+  
+              }}
+  
+              style={{ width: 188, marginBottom: 8, display: "block" }}
+            />
             
-            <span>
-              <img
-                 src={`https://aigigs.in${value?.data?.attributes?.formats?.thumbnail?.url}`}
-                
-                alt="Primary Image"
-                style={{ maxWidth: "30px", marginRight: "5px" }}
-              />
-            </span>
-          )}
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              setTimeout(() => searchInput.current?.select(), 1000);
+            });
+          }
         },
-    
-        {
-          title: "SKU",
-          dataIndex: "SKU",
-          width: 80,
-          fixed: "left",
-          // render: (value) => <span>{String(value.Name)}</span>,
+        onFilter: (value, record) => {
+  
+          let check = false;
+          const valUpper = value.toString().toUpperCase();
+          const valLower = value.toString().toLowerCase();
+  
+          if (record && record.sku) {
+            check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          }
+  
+  
+  
+  
+          return check;
         },
-    
-        {
-          title: "Name",
-          dataIndex: "Name",
-          key: "name",
-          width: 100 ,
-           fixed: "left",
+        filterSearch: true,
+  
+  
+      },
+  
+      {
+        title: "Description ",
+        dataIndex: "description",
+        key: "description",
+        width: 150,
+  
+      },
+  
+  
+      {
+        title: "Category ",
+        dataIndex: "category",
+        key: "category",
+        width: 110,
+  
+        sorter: (a, b) => {
+          const categoryA = a.category ?? "";
+          const categoryB = b.category ?? "";
+  
+          return categoryA.localeCompare(categoryB);
         },
-    
-        
-        //product Type
-        {
-          title: "ProductType",
-          dataIndex: "GoodsAttributes",
-          key: "GoodsAttributes", 
-          width: 150,
-          render: (value) => <span>{value && value[0] && value[0].ProductType}</span>,
-
-          sorter: (a, b) => {
-            const categoryA = a.GoodsAttributes?.[0]?.Category ?? "";
-            const categoryB = b.GoodsAttributes?.[0]?.Category ?? "";
-        
-            return categoryA.localeCompare(categoryB);
-          },
-
-          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
-              <Select
-                mode="multiple"
-                placeholder="Select ProductType"
-                value={selectedKeys}
-                onChange={setSelectedKeys}
-                style={{ width: '100%' }}
-                placement={placement} 
-              >
-                {/* Render options based on available categories */}
-                {filteredOptions.map((item) => (
-                  <Select.Option key={item} value={item}>
-                    {item}
-                  </Select.Option>
-                ))}
-              </Select>
-           
-            </div>
-          ),
-          onFilterDropdownVisibleChange: (visible) => {
-            if (visible) {
-              setTimeout(() => {
-                // Trigger the search input to focus when the filter dropdown is opened
-              });
-            }
-          },
-          onFilter: (value, record) => {
-            const category = record?.GoodsAttributes?.[0]?.Category;
-        
-            console.log("Filtering:", value, "Category:", category);
-            return category === value;
-          },
-          filterSearch: true,
-         
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
+            <Select
+              mode="multiple"
+              placeholder="Select Category"
+  
+              value={selectedKeys}
+              onChange={setSelectedKeys}
+              style={{ width: '100%' }}
+              placement={placement}
+              onSelect={() => { confirm(); }}
+              onDeselect={() => { confirm(); }}
+            >
+              {/* Render options based on available categories */}
+              {filteredOptions.map((item) => (
+                <Select.Option key={item} value={item}>
+                  {item}
+                </Select.Option>
+              ))}
+            </Select>
+  
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              // Trigger the search input to focus when the filter dropdown is opened
+            });
+          }
         },
-
-
-
-        {
-          title: "Category",
-          dataIndex: "GoodsAttributes",
-          key: "Category", 
-          width: 120,
-          render: (value) => <span>{value && value[0] && value[0].Category}</span>,
-          sorter: (a, b) => {
-            const categoryA = a.GoodsAttributes?.[0]?.Category ?? "";
-            const categoryB = b.GoodsAttributes?.[0]?.Category ?? "";
-        
-            return categoryA.localeCompare(categoryB);
-          },
-
-          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
-              <Select
-                mode="multiple"
-                placeholder="Select Category"
-                value={selectedKeys}
-                onChange={setSelectedKeys}
-                style={{ width: '100%' }}
-                placement={placement} 
-              >
-                {/* Render options based on available categories */}
-                {filteredOptions1.map((item) => (
-                  <Select.Option key={item} value={item}>
-                    {item}
-                  </Select.Option>
-                ))}
-              </Select>
-           
-            </div>
-          ),
-          onFilterDropdownVisibleChange: (visible) => {
-            if (visible) {
-              setTimeout(() => {
-                // Trigger the search input to focus when the filter dropdown is opened
-              });
-            }
-          },
-          onFilter: (value, record) => {
-            const category = record?.GoodsAttributes?.[0]?.Category;
-        
-            console.log("Filtering:", value, "Category:", category);
-            return category === value;
-          },
-          filterSearch: true,
-         
+        onFilter: (value, record) => {
+          const category =
+            record &&
+            record.category &&
+            record.category;
+  
+  
+  
+          return category === value;
         },
-
-
-
-
-        // product model
-        {
-          title: "ProductModel",
-          dataIndex: "GoodsAttributes",
-          key: "ProductModel", 
-          width: 150,
-          render: (value) => <span>{value && value[0] && value[0].ProductModel}</span>,
-          sorter: (a, b) => {
-            const categoryA = a.GoodsAttributes?.[0]?.Category ?? "";
-            const categoryB = b.GoodsAttributes?.[0]?.Category ?? "";
-        
-            return categoryA.localeCompare(categoryB);
-          },
-
-          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <div style={{ padding: 8, width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
-              <Select
-                mode="multiple"
-                placeholder="Select ProductModel"
-                value={selectedKeys}
-                onChange={setSelectedKeys}
-                style={{ width: '100%' }}
-                placement={placement} 
-              >
-                {/* Render options based on available categories */}
-                {filteredOptions2.map((item) => (
-                  <Select.Option key={item} value={item}>
-                    {item}
-                  </Select.Option>
-                ))}
-              </Select>
-           
-            </div>
-          ),
-          onFilterDropdownVisibleChange: (visible) => {
-            if (visible) {
-              setTimeout(() => {
-                // Trigger the search input to focus when the filter dropdown is opened
-              });
-            }
-          },
-          onFilter: (value, record) => {
-            const category = record?.GoodsAttributes?.[0]?.Category;
-        
-            console.log("Filtering:", value, "Category:", category);
-            return category === value;
-          },
-          filterSearch: true,
-         
+        filterSearch: true,
+      },
+  
+  
+  
+  
+      {
+        title: "Product model",
+        dataIndex: "product_model",
+        key: "product_model",
+        width: 100,
+  
+        sorter: (a, b) => {
+          // Extract and compare Season values, handling null or undefined cases
+          const seasonA = a.product_model ?? "";
+          const seasonB = b.product_model ?? "";
+  
+          return seasonA.localeCompare(seasonB);
         },
-
-
-
-
-        
-        {
-          title: "Orientation",
-          dataIndex: "GoodsAttributes",
-          key: "Orientation", 
-          width: 100,
-          render: (value) => <span>{value && value[0] && value[0].Orientation}</span>,
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
+            <Select
+              mode="multiple"
+              placeholder="Select Season"
+              value={selectedKeys}
+              onChange={setSelectedKeys}
+              style={{ width: '100%' }}
+              placement={placement}
+              onSelect={() => { confirm(); }}
+              onDeselect={() => { confirm(); }}
+            >
+              {/* Render options based on available seasons */}
+              {filteredOptions1.map((item) => (
+                <Select.Option key={item} value={item}>
+                  {item}
+                </Select.Option>
+              ))}
+            </Select>
+  
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              // Trigger the search input to focus when the filter dropdown is opened
+            });
+          }
         },
-        {
-          title: "Description",
-          dataIndex: "Description",
-          key: "Description", 
-          width: 115,
-         
+        onFilter: (value, record) => {
+          const productmodel = record?.product_model;
+  
+  
+          return productmodel === value;
         },
-        
-        
-           { title: "Qty88",
-            dataIndex: "Stock88",
-            key: "Stock88", 
-            width: 90,
-            fixed:'right',
-            render: (text, record) => (
-              <Input addonBefore={record.Stock88 === 0 ? "0" : record.Stock88} 
-              type='number'
-             
-              value={record.Quantity88?.toString()}
-              onChange={(e) => handleQuantity88(e.target.value, record)}
-               />
-             
-            )
-          },
-            {
-              title: " Qty90",
-            dataIndex: "Stock88",
-            key: "Stock88", 
-            width: 90,
-            fixed:'right',
-            render: (text, record) => (
-              <Input addonBefore={record.Stock90 === 0 ? "0" : record.Stock90} 
-              type='number'
-              
+        filterSearch: true,
+      },
+  
+  
+  
+      {
+        title: "Product type",
+        dataIndex: "product_type",
+        key: "product_type",
+        width: 85,
+  
+        sorter: (a, b) => {
+          // Extract and compare StyleCode values, handling null or undefined cases
+          const styleCodeA = a.product_type ?? "";
+          const styleCodeB = b.product_type ?? "";
+  
+          return styleCodeA.localeCompare(styleCodeB);
+        },
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
+            <Select
+              mode="multiple"
+              placeholder="Select Style"
+              value={selectedKeys}
+              onChange={setSelectedKeys}
+              style={{ width: '100%' }}
+              placement={placement}
+              onSelect={() => { confirm(); }}
+              onDeselect={() => { confirm(); }}
+            >
+              {/* Render options based on available style codes */}
+              {filteredOptions2.map((item) => (
+                <Select.Option key={item} value={item}>
+                  {item}
+                </Select.Option>
+              ))}
+            </Select>
+  
+          </div>
+        ),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => {
+              // Trigger the search input to focus when the filter dropdown is opened
+            });
+          }
+        },
+        onFilter: (value, record) => {
+          const productype = record?.product_type;
+  
+  
+          return productype === value;
+        },
+        filterSearch: true,
+      },
+  
+  
+  
+  
+      {
+        title: "life cycle",
+        dataIndex: "life_cycle",
+        key: "life_cycle",
+        width: 75,
+  
+        sorter: (a, b) => {
+          // Extract and compare StyleCode values, handling null or undefined cases
+          const styleCodeA = a.life_cycle ?? "";
+          const styleCodeB = b.life_cycle ?? "";
+  
+          return styleCodeA.localeCompare(styleCodeB);
+        },
+      },
+      {
+        title: "Orientation",
+        dataIndex: "orientation",
+        key: "orientation",
+        width: 65,
+  
+        sorter: (a, b) => {
+          // Extract and compare StyleCode values, handling null or undefined cases
+          const styleCodeA = a.orientation ?? "";
+          const styleCodeB = b.orientation ?? "";
+  
+          return styleCodeA.localeCompare(styleCodeB);
+        },
+      },
+  
+  
+      {
+        title: "Qty90",
+        dataIndex: "stock_90",
+        key: "stock_90",
+        width: 150,
+        fixed: 'right',
+        render: (value, record) => (
+  
+          <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+            <InputNumber
+              status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
+              className='mx-5 number-input'
+              addonBefore={record.stock_90 || 0}
               value={record.Quantity90?.toString()}
-             onChange={(e) => handleQuantity90(e.target.value, record)} 
-             />
-             
-            ),
-            
-           
-          
-          
-        },
-        {
-          title: "Total Qty",
-          dataIndex: "TotalQty",
-          key: "TotalQty", 
-          width: 100,
-          fixed:'right'
-        },
-        {
-          title: "MRP",
-          dataIndex: "MRP",
-          key: "MRP", 
-          width: 80,
-          fixed:'right'
-        },
-        
-        {
-          title: "Amount",
-          dataIndex: "Amount",
-          key: "Amount", 
-          width: 100,
-          fixed:'right'
-          
-         
-        },
-        
-      
-      ];
+              onChange={(value) => {
+                if (value !== null) {
+                  handleQuantity90(value, record)
+                }
+  
+              }}
+  
+              disabled={value.stock_90 === 0}
+              style={{ width: 100 }}
+            />
+          </Tooltip>
+  
+        ),
+      },
+  
+  
+      {
+        title: "Qty",
+        dataIndex: "TotalQty",
+        key: "TotalQty",
+        width: 50,
+        fixed: 'right'
+      },
+  
+  
+      {
+        title: "MRP",
+        dataIndex: "mrp",
+        key: "mrp",
+        width: 80,
+        fixed: 'right'
+      },
+  
+  
+      {
+        title: "Amount ",
+        dataIndex: "Amount",
+        key: "Amount",
+        width: 100,
+        fixed: 'right'
+      },
+  
+  
+    ];
 
+// update goods product 
+ const [allGoodsProduct, setAllGoodsProduct]= useState< BasicModelGoods[]>([])
 
-      const handleQuantity90 = (value: string, record: BasicModelGoods) => {
-
-        const intValue = parseInt(value, 10);
-    
-        if (record?.Stock90 && record.Stock90 >= intValue) {
-          
-          // Dispatch an action to update the quantity for the SKU
-          
-          dispatch(updateGoodsQuantity90({
-            sku: record.SKU,
-            qty90: intValue,
-            MRP: record.MRP,
-            
-          }));
-          record.Quantity90=intValue;
-          dispatch(addGoodsOrder({
-            goodsOrder:record,
-            qty90: intValue,
-            qty88:record.Quantity88
-          }))
-        }
-        else{
-          alert("Quantity is not available")
-          //setQuantity90(0)
-          dispatch(updateGoodsQuantity90({
-            sku: record.SKU,
-            qty90: 0,
-          
-           
-          }));
-          record.Quantity90=0;
-          
-        }
-      
-        // Log the record for debugging or tracking purposes
-        console.log(record);
-      };
-      const handleQuantity88 = (value: string, record: BasicModelGoods) => {
-           console.log("record",record)
-        const intValue = parseInt(value, 10);
-    
-        if (record?.Stock88 && record.Stock88 >= intValue) {
-          // Dispatch an action to update the quantity for the SKU
-          dispatch(updateGoodsQuantity88({
-            sku: record.SKU,
-            qty88: intValue,
-            MRP: record.MRP,
-          }));
-          record.Quantity88=intValue;
-         // setQuantity88(intValue)
-         dispatch(addGoodsOrder({
-          goodsOrder:record,
-            qty88: intValue,
-            qty90:record.Quantity90
-            
-        }))
-        }
-        else if(record?.Stock88 && record.Stock88 < intValue &&intValue!==0){
-          alert("Quantity is not available")
-         // setQuantity88(0)
-         dispatch(updateGoodsQuantity88({
-          sku: record.SKU,
-          qty88: 0,
-        }));
-        record.Quantity90=0;
-        }
-      
-      };
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState();
-  const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: BasicModelGoods[]) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-    },
-    onSelect: (record: BasicModelGoods, selected: boolean, selectedRows: BasicModelGoods[]) => {
-      console.log(
-        "record",
-        record,
-        "selected",
-        selected,
-        "selectedRows",
-        selectedRows
-      );
-    },
-    onSelectAll: (selected: boolean, selectedRows: BasicModelGoods[], changeRows: BasicModelGoods[]) => {
-      console.log(selected, selectedRows, changeRows);
-    },
-
-    columnWidth: 40,
-  };
-
-
-      const handleAmountChange = (value:string, record:BasicModelGoods) => {
-        // Update the record with the new amount
-        record.Amount = parseInt(value);
-        // Update the state or dispatch an action to update the data source
-    };
-      // sample xls
-  const[isSample, setIsSample]=useState<boolean>(false)
-  const handleSampleExcel=()=>{
-    setIsSample(true)
+useEffect(()=>{
+  const varskuArray: BasicModelGoods[] = [];
+  if( getGoodsProduct &&
+    getGoodsProduct.length>0
+  ){
+    getGoodsProduct.map(item=>{
+      varskuArray.push(item)
+    })
   }
+  setAllGoodsProduct(varskuArray)
+},[getGoodsProduct])
+    
+    const [qty90ToolMesage, setQty90Message] = useState<string>("")
+    const [qty90ToolSKU, setQty90SKU] = useState<string | undefined>("")
+    const [isQty90ToolTip, setIsQty90ToolTip] = useState<boolean>(false)
+  
+    useEffect(() => {
+      if (qty90ToolMesage) {
+        console.log("qty90ToolMesage", qty90ToolMesage)
+        const timeout = setTimeout(() => {
+          setQty90Message("");
+          //setQty90SKU("");
+          setIsQty90ToolTip(false)
+        }, 3000); // 3 seconds
+  
+        return () => clearTimeout(timeout);
+      }
+    }, [qty90ToolMesage])
+  
+    const handleQuantity90 = (value: string, record: BasicModelGoods) => {
+  
+      const intValue = parseInt(value, 10);
+  
+      setQty90Message("");
+      setIsQty90ToolTip(false);
+      setQty90SKU("")
+      record.Quantity90 = intValue;
+      if (intValue > 0) {
+        if (record && record.stock_90 && record.stock_90 >= intValue) {
+  
+          // Dispatch an action to update the quantity for the SKU
+  
+          // dispatch(updateQuantity90({
+          //   sku: record.sku,
+          //   qty90: intValue,
+          //   MRP: record.mrp,
+  
+          // }));
+  
+  
+        }
+        else {
+          // alert("Quantity is not available")
+          const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
+          setQty90Message("The quantity should not exceed the available stock")
+          setIsQty90ToolTip(true)
+          setQty90SKU(record.sku)
+          //setQuantity90(0)
+          // dispatch(updateQuantity90({
+          //   sku: record.sku,
+          //   qty90: st90,
+          //   MRP: record.mrp
+  
+  
+          // }));
+  
+  
+  
+        }
+      } else if (intValue < 0) {
+  
+        // alert("Quantity cannot be negative")
+        setQty90Message("Quantity cannot be negative")
+        setIsQty90ToolTip(true)
+        setQty90SKU(record.sku)
+        console.log("Quantity cannot be negative")
+      } else if (intValue === 0) {
+        // dispatch(updateQuantity90({
+        //   sku: record.sku,
+        //   qty90: intValue,
+        //   MRP: record.mrp,
+  
+        // }));
+  
+  
+      }
+  
+      // Log the record for debugging or tracking purposes
+  
+    };
 
+    const [selectedRowKeys, setSelectedRowKeys] = useState<BasicModelGoods[]>([]);
+
+    const [selectedRow, setSelectedRow] = useState<BasicModelGoods[]>([])
+    const handleSelectRow = (record: BasicModelGoods) => {
+      console.log("record", record);
+      if (selectedRow && selectedRow.length > 0) {
+        const updatedSelectedRow = [...selectedRow];
+        const index = selectedRow.findIndex(row => row.sku === record.sku);
+        if (index !== -1) {
+          updatedSelectedRow.splice(index, 1);
+          setSelectedRow(updatedSelectedRow);
+  
+        } else if (index === -1) {
+          setSelectedRowKeys([record]);
+          if (record) {
+            setSelectedRow(prev => [...prev, record]);
+          }
+        }
+      } else {
+        setSelectedRowKeys([record]);
+        if (record) {
+          setSelectedRow(prev => [...prev, record]);
+        }
+      }
+  
+    };
 
   
-  const handleResetIsSample=()=>{
-    setIsSample(false)
-  }
+  
 
-  // handle Excels Data
-  const handleImport = () => {
-    setIsImport(true);
-  };
-  const handleCloseImport = () => {
-    setIsImport(false);
-  };
 
-  const [allXlxData, setAllXlxData]=useState<ExcelModelGoods[]>([])
-const handleGoodsData=(allDatat:ExcelModelGoods[])=>{
-  handleCloseImport()
-  console.log("allDatat", allDatat)
-  setAllXlxData(allDatat)
-}
-
-// reset excel datta
-const handleResetXlData=()=>{
-  setAllXlxData([])
-}
-
-//exportto excel
-const handleExportToExcel = () => {
-  try {
-    console.log("Excel importing...");
-    const table = tableRef.current;
-    
-    
-    if (!table) {
-      console.error("Table element not found.");
-      return;
-    }
-    const ws = XLSX.utils.table_to_sheet(table);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    console.log("Workbook:", wb);
-    XLSX.writeFile(wb, "Callaway_Goods.xlsx");
-    console.log("Excel exported successfully.");
-  } catch (error) {
-    console.error("Error exporting to Excel:", error);
-  }
-};
 
 
 return (
@@ -502,16 +520,16 @@ return (
           > <i className="bi bi-bag-check"></i> View cart</Button>
 
             <Button className='mx-3 select-btn-detail '
-            onClick={handleImport}
+            //onClick={handleImport}
             > <i className="bi bi-file-earmark-arrow-up"></i> Import Products</Button>
             <Button className='mx-3 select-btn-detail'
             // onClick={handleExportToPDF} 
             > <i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button>
             <Button className='mx-3 select-btn-detail'
-           onClick={handleExportToExcel}
+           //onClick={handleExportToExcel}
             > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
             <Button className='mx-3 select-btn-detail'
-             onClick={handleSampleExcel}
+            // onClick={handleSampleExcel}
              > <i className="bi bi-file-spreadsheet"></i> Sample Excel</Button>
           </div>
 
@@ -521,12 +539,15 @@ return (
           className='cart-table-profile'
             ref={tableRef}
             columns={columns}
-            dataSource={callawayGooodsProduct?.map((item) => ({ ...item, key: item.id }))}
-            rowSelection={rowSelection}
+            dataSource={allGoodsProduct?.map((item) => ({ ...item, key: item.sku }))}
+            rowSelection={{
+              onSelect: (record) => { handleSelectRow(record) }
+            }}
+         
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
-            
+  
             pagination={{
               position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
               defaultPageSize: 20
@@ -536,7 +557,7 @@ return (
 
         
 
-        <SampleExcel
+        {/* <SampleExcel
          isSample={isSample}
         resetIsSample={handleResetIsSample}
         />
@@ -550,7 +571,7 @@ return (
        <ExcelUploadDB
        xlData={allXlxData}
        resetXls={handleResetXlData}
-       />
+       /> */}
 
     </div>
   )

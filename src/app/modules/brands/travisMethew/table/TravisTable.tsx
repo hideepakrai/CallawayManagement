@@ -11,11 +11,7 @@ import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import TravisImportProduct from "../excel/importExcel/TravisExportProduct"
 import { ExcelModelTravis } from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
-// import ProductImg from "../../../../../../public/media/product/drivers-1.png";
-// import ProductImg1 from "../../../../../../public/media/product/drivers-1.png";
-// import ProductImg2 from "../../../../../../public/media/product/drivers-1.png";
-// import ProductImg3 from "../../../../../../public/media/product/drivers-1.png";
-// import * as XLSX from 'xlsx';
+
 
 import {
   updateQuantity90, updateQuantity88,
@@ -40,35 +36,6 @@ type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
 const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
-
-
-
-const items = [
-  {
-    key: '1',
-    label: (
-
-       50
-
-    ),
-  },
-  {
-    key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-        2nd menu item
-      </a>
-    ),
-  },
-  {
-    key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        3rd menu item
-      </a>
-    ),
-  },
-];
 
 
 
@@ -1230,11 +1197,7 @@ const TravisTable = () => {
     }
   }, [selectedRow])
 
-  const handleExportToPDF = () => {
-    setIspdf(true)
-    //setIsCard(false)
-
-  }
+ 
 
   const handleResetSelectedRow = () => {
     setSelectedRowKeys([]);
@@ -1248,6 +1211,17 @@ const TravisTable = () => {
   const handleViewCard = () => {
     navigate("/cart")
   }
+
+  // show pd()
+  const handleShowPdf=()=>{
+     setIsProduct(false)
+     setIspdf(true)
+  }
+  const handleDownloadExcel=()=>{
+    handleExportToExcel()
+    setIsProduct(false)
+  }
+
   return (
     <div className='container'>
 
@@ -1353,6 +1327,8 @@ const TravisTable = () => {
          isProduct={isProduct}
         onClose={handleCloseProduct}
         allGoodsData={handleTravisData}
+        printPdf={handleShowPdf}
+        excelExport={handleDownloadExcel}
       />
 
       <TravisExcelUploadDB

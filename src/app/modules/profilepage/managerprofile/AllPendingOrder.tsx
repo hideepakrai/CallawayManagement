@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, Table, Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import type { TableColumnsType } from "antd";
@@ -15,6 +15,20 @@ const AllPendingOrder = () => {
     const [isEdit, setIsEdit] = useState(false);
     const tableRef = useRef(null);
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
+    const[allPending,setAllPendingOrder]= useState<AccountOrder[]>([]);
+
+    // get All pending orders
+    useEffect(()=>{
+        const allpend:AccountOrder[]=[]
+        if(getUserOrder && getUserOrder.length>0){
+            getUserOrder.map(item=>{
+                if(item.status === "Pending"){
+                    allpend.push(item)
+                }
+            })
+        }
+        setAllPendingOrder(allpend)
+    },[getUserOrder])
     const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
     const handleUpdateStatus = (status: string) => {
@@ -48,13 +62,24 @@ const AllPendingOrder = () => {
             width: 100,
         },
         {
-            title: "Brand",
-            dataIndex: "brand_id",
+            title: 'Brand',
+            dataIndex: 'brand_id',
+            key: 'brand_id',
             width: 100,
-        },
+            render: (value) => {
+              let brandName;
+              if (value === 3) {
+                brandName = "Travismathew";
+              } else {
+                brandName = "Other Brand"; // Default value or other brand name
+              }
+        
+              return <span>{brandName}</span>; // Render the brand name inside a span
+            },
+          },
         {
             title: "Retailer name",
-            dataIndex: "retailer_id",
+            dataIndex: "retailer_name",
             width: 100,
         },
         {
@@ -182,12 +207,12 @@ const AllPendingOrder = () => {
 
     return (
         <div className="cart-table">
-            <Card>
+            <Card title="Pending orders">
                 <Table<CartModel>
                     ref={tableRef}
                     className="cart-table-profile"
                     columns={columns}
-                    dataSource={getUserOrder.map((item) => ({ ...item, key: item.id }))}
+                    dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
                     
                     expandable={{
                         expandedRowRender,
