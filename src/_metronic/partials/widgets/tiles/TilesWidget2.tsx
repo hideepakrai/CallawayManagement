@@ -56,12 +56,12 @@ const TilesWidget2 = ({
     const seconds = time.getSeconds();
   
     return (
-      <div className='d-flex mt-3 text-center calendar'>
-        <h4 className='text-secondary mb-1 mx-1 pro-time digital-font'>
-          <span className='time-title'>HRS</span> <span className='time'>{formatTime(hours)[0]}</span> <span className='time'>{formatTime(hours)[1]}</span> : 
-          <span className='time-min'>MIN</span> <span className='time'>{formatTime(minutes)[0]}</span> <span className='time'>{formatTime(minutes)[1]}</span> : 
+      <div className='d-flex mt-3 text-center calendar text-secondary '>
+        <div className=' mb-1 digital-font '>
+          <span className='time-title'>HRS</span><span className='time'> {formatTime(hours)[0]}</span> <span className='time'>{formatTime(hours)[1]}</span> <span className='dot-time'>:</span> 
+          <span className='time-min'>MIN</span> <span className='time'>{formatTime(minutes)[0]}</span> <span className='time'>{formatTime(minutes)[1]}</span> <span className='dot-time'>:</span> 
           <span className='time-sec'>SEC</span> <span className='time'>{formatTime(seconds)[0]}</span> <span className='time'>{formatTime(seconds)[1]}</span>
-        </h4>
+        </div>
       </div>
     );
   };
@@ -83,13 +83,13 @@ const TilesWidget2 = ({
            <h4 className='text-white fw-bold mb-0 fs-1 day-cart'> {dayOfWeek}</h4>
         </div>
 
-        <h2 className='text-white time-date'>
-          <div className='text-white mb-6 time-date mt-3 pt-2'>
+     
+          <div className='text-white mb-3 time-date digital-font mt-0 pt-2'>
          
-              <span className='date digital-font'>0</span><span className='date digital-font'>5</span> : <span className='calendar-day digital-font'>{day[0]}</span><span className='calendar-day digital-font'>{day[1]}</span> : <span className='date digital-font'>{year[0]}</span><span className='date digital-font'>{year[1]}</span><span className='date digital-font'>{year[2]}</span><span className='date digital-font'>{year[3]}</span> 
+              <span className='date digital-font'>0</span><span className='date digital-font'>5</span><span className='dots'>:</span><span className='calendar-day digital-font'>{day[0]}</span><span className='calendar-day digital-font'>{day[1]}</span><span className='dots'>:</span><span className='date digital-font'>{year[0]}</span><span className='date digital-font'>{year[1]}</span><span className='date digital-font'>{year[2]}</span><span className='date digital-font'>{year[3]}</span> 
 
           </div>
-        </h2>
+      
         <Timer />
       </div>
     </div>
