@@ -1241,11 +1241,11 @@ const TravisTable = () => {
   const handleQtyImport = () => {
     setIsQtyImport(true);
   };
-
-
   const handleCloseQtyImport = () => {
     setIsQtyImport(false);
   };
+
+  
   const [allQtyXlxData, setQtyAllXlxData] = useState<ExcelModelTravis[]>([])
   const handleTravisQtyData = (allDatat: ExcelModelTravis[]) => {
     const table = tableRef.current;
@@ -1296,7 +1296,7 @@ debugger
 
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
              onClick={handleImport}
-          > <i className="bi bi-file-earmark-arrow-down fs-3"></i>  Import Products</Button>
+          > <i className="bi bi-file-earmark-arrow-down fs-3"></i>Import Products</Button>
 
 
 
@@ -1307,17 +1307,14 @@ debugger
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
              onClick={handleProduct} 
             //  onClick={handleSampleExcel}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
-
-
-
-
-
-
-         
-          
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>        
         </div>
 
+
+        <div className='show-prodect-section' >
+          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
+        
+        </div>
 
         <Table className='cart-table-profile'
           ref={tableRef}
@@ -1371,13 +1368,13 @@ resetQtyData={handleReseyQtyData}
 />
 
 
-<TravisUpdateQty
+      <TravisUpdateQty
          isUpdate={isUpdate}
         onClose={handleCloseUpdateQty}
         allGoodsData={handleTravisData}
-      
-   
       />
+
+
 
       <TravisImportProduct
          isProduct={isProduct}

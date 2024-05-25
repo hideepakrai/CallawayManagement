@@ -59,7 +59,7 @@ const AllPendingOrder = () => {
         {
             title: "Order Id",
             dataIndex: "id",
-            width: 100,
+            width: 50,
         },
         {
             title: 'Brand',
@@ -78,15 +78,23 @@ const AllPendingOrder = () => {
             },
           },
         {
-            title: "Retailer name",
+            title: "Retailer name ",
             dataIndex: "retailer_name",
-            width: 100,
+            width: 150,
         },
         {
             title: "Order date",
             dataIndex: "created_at",
             width: 100,
         },
+
+        {
+            title: "Last Update",
+            // dataIndex: "total_value",
+            width: 100,
+        },
+
+
         {
             title: "Amount",
             dataIndex: "total_value",
@@ -94,7 +102,7 @@ const AllPendingOrder = () => {
         },
         {
             title: "Action",
-            width: 100,
+            width: 50,
             render: (_, record) => (
                 <>
                     <span>
@@ -206,11 +214,11 @@ const AllPendingOrder = () => {
     };
 
     return (
-        <div className="cart-table">
-            <Card title="Pending orders">
+        <div className="cart-table mb-5 ">
+            <Card title="Pending orders ">
                 <Table<CartModel>
                     ref={tableRef}
-                    className="cart-table-profile"
+                    className="cart-table-profile pb-6"
                     columns={columns}
                     dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
                     
@@ -221,11 +229,11 @@ const AllPendingOrder = () => {
 
                     bordered
                     size="middle"
-                    scroll={{ x: "100%", y: "auto" }}
-                    pagination={{
-                        position: ["topRight", "bottomRight"],
-                        defaultPageSize: 20,
-                    }}
+                    
+
+                    pagination={
+                       false
+                    }
                 />
             </Card>
 

@@ -60,13 +60,13 @@ const AllOrders = () => {
         {
             title: "Order Id",
             dataIndex: "id",
-            width: 100,
+            width: 40,
         },
         {
             title: 'Brand',
             dataIndex: 'brand_id',
             key: 'brand_id',
-            width: 100,
+            width: 80,
             render: (value) => {
               let brandName;
               if (value === 3) {
@@ -81,7 +81,7 @@ const AllOrders = () => {
         {
             title: "Retailer name",
             dataIndex: "retailer_name",
-            width: 100,
+            width: 120,
         },
         {
             title: "Order date",
@@ -91,11 +91,11 @@ const AllOrders = () => {
         {
             title: "Amount",
             dataIndex: "total_value",
-            width: 100,
+            width: 80,
         },
         {
             title: "Action",
-            width: 100,
+            width: 40,
             render: (_, record) => (
                 <>
                     <span>
@@ -212,7 +212,7 @@ const AllOrders = () => {
                
                 <Table<CartModel>
                     ref={tableRef}
-                    className="cart-table-profile"
+                    className="cart-table-profile pb-3"
                     columns={columns}
                     dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
                     
@@ -223,11 +223,10 @@ const AllOrders = () => {
 
                     bordered
                     size="middle"
-                    scroll={{ x: "100%", y: "auto" }}
-                    pagination={{
-                        position: ["topRight", "bottomRight"],
-                        defaultPageSize: 20,
-                    }}
+                  
+                    pagination={
+                    false
+                    }
                 />
             </Card>
 

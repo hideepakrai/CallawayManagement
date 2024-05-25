@@ -633,30 +633,8 @@ const OgioTable = () => {
 
 
         <div className='show-prodect-section' >
-          <label style={{ marginRight: 10, color: "#000", }}>Show</label>
-          <Select className="input-dropdown show-prodect"
-            showSearch
-            placeholder="50"
-            optionFilterProp="children"
-
-            defaultValue="50"
-
-            options={[
-              {
-                value: "50",
-                label: "50",
-              },
-              {
-                value: "40",
-                label: "40",
-              },
-              {
-                value: "30",
-                label: "30",
-              },
-            ]}
-          />
-
+          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
+        
         </div>
 
 

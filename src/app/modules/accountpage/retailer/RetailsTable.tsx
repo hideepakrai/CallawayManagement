@@ -53,8 +53,8 @@ const RetailsTable = () => {
                     </div>
                   </th>
                   <th className='min-w-100px'>Name</th>
-                  <th className='min-w-100px'>Address</th>
                   <th className='min-w-120px'>GSTIN</th>
+                  <th className='min-w-100px'>Address</th>
                   <th className='min-w-100px'>Manager Name</th>
                   <th className='min-w-100px'>Actions</th>
                 </tr>
@@ -79,6 +79,8 @@ const RetailsTable = () => {
                             />
                           </div>
                         </td>
+
+                        
                         <td style={{ width: '300px' }}>
                           <div className='d-flex align-items-center'>
                             <div className='d-flex justify-content-start flex-column'>
@@ -94,10 +96,7 @@ const RetailsTable = () => {
                             </div>
                           </div>
                         </td>
-                        <td style={{ width: '380px' }}>
-                          <span className='text-gray-900 fw-bold fs-7'>{item.address}</span>
-                          <span className='text-muted fw-semibold text-muted d-block fs-7'></span>
-                        </td>
+
                         <td style={{ width: '270px' }}>
                           <div
                             className='d-flex justify-content-start flex-column'
@@ -131,6 +130,12 @@ const RetailsTable = () => {
                             </span>
                           </div>
                         </td>
+                        
+                        <td style={{ width: '380px' }}>
+                          <span className='text-gray-900 fw-bold fs-7'>{item.address}</span>
+                          <span className='text-muted fw-semibold text-muted d-block fs-7'></span>
+                        </td>
+                     
                         <td>
                           <div className='d-flex flex-column w-100 me-2'>
                             <div className='d-flex flex-stack mb-2'>

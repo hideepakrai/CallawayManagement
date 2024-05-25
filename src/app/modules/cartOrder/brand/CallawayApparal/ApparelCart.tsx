@@ -452,7 +452,7 @@ const columns: TableColumnsType<BasicModelApparel> = [
 
   return (
     <div>
-    <h3> goods</h3>
+   
 {isLoadingStart && <Loading />}
 
       {allApparel &&

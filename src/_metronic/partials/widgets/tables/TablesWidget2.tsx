@@ -35,7 +35,7 @@ const TablesWidget2: FC<Props> = ({className}) => {
       {/* begin::Body */}
       <div className='card-body py-3'>
         {/* begin::Table container */}
-        <div className='table-responsive'>
+        <div className='table-responsive '>
           {/* begin::Table */}
           <table className='table align-middle gs-0 gy-5'>
             {/* begin::Table head */}

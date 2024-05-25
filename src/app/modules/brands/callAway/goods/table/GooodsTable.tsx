@@ -12,8 +12,10 @@ import ImportExcel from '../excel/importExcel/ImportExcel';
 import { ExcelModelGoods } from "../../../../model/goods/CallawayGoodsExcel"
 import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB";
 import * as XLSX from 'xlsx';
-
-
+import GoodsImportExcel from "./GoodsImportExcel"
+import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
+import GoodsQtyImport from "./GoodsQtyImport"
+import TravisExportProduct from "./GoodsExportProduct"
  import type { RadioChangeEvent, SelectProps } from 'antd';
 import { getCategory, getGoodsProducts, getProductModel, getProductType, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
 type SelectCommonPlacement = SelectProps['placement'];
@@ -27,9 +29,14 @@ const GooodsTable = () => {
   const tableRef = useRef(null);
   const navigate = useNavigate()
   const [isImport, setIsImport] = useState(false);
+  const [isProduct, setIsProduct] = useState(false);
+  const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
+  const [isPDF, setIspdf] = useState<boolean>(false)
+  const [isQtyImport, setIsQtyImport] = useState(false);
   const dispatch = useDispatch()
   const searchInput = useRef<InputRef>(null);
   const getCategorys = useSelector(getCategory);
+  
   const getProductTypes = useSelector(getProductType);
   const getProductModels = useSelector(getProductModel);
   const getGoodsProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
@@ -41,6 +48,23 @@ const GooodsTable = () => {
   const filteredOptions1 = getProductModels.filter((o) => !selectedItems.includes(o));
   const filteredOptions2 = getProductTypes.filter((o) => !selectedItems.includes(o));
 
+
+  const [allQtyXlxData, setQtyAllXlxData] = useState<ExcelModelTravis[]>([])
+  const handleOgioQtyData = (allDatat: ExcelModelTravis[]) => {
+    const table = tableRef.current;
+    handleCloseQtyImport()
+
+    setQtyAllXlxData(allDatat)
+  }
+
+
+  const handleTravisData = (allDatat: ExcelModelTravis[]) => {
+    const table = tableRef.current;
+    handleCloseImport()
+
+    setAllXlxData(allDatat)
+  }
+
   const columns: TableColumnsType<BasicModelGoods> = [
     {
       dataIndex: "primary_image_url",
@@ -50,8 +74,6 @@ const GooodsTable = () => {
       // record={record} />
 
     },
-
-
 
     {
       title: "SKU ",
@@ -175,7 +197,8 @@ const GooodsTable = () => {
       title: "Product model",
       dataIndex: "product_model",
       key: "product_model",
-      width: 100,
+      width: 140,
+
 
       sorter: (a, b) => {
         // Extract and compare Season values, handling null or undefined cases
@@ -223,12 +246,11 @@ const GooodsTable = () => {
     },
 
 
-
     {
       title: "Product type",
       dataIndex: "product_type",
       key: "product_type",
-      width: 85,
+      width: 140,
 
       sorter: (a, b) => {
         // Extract and compare StyleCode values, handling null or undefined cases
@@ -237,6 +259,7 @@ const GooodsTable = () => {
 
         return styleCodeA.localeCompare(styleCodeB);
       },
+
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
         <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
           <Select
@@ -259,6 +282,7 @@ const GooodsTable = () => {
 
         </div>
       ),
+
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
           setTimeout(() => {
@@ -275,14 +299,11 @@ const GooodsTable = () => {
       filterSearch: true,
     },
 
-
-
-
     {
       title: "life cycle",
       dataIndex: "life_cycle",
       key: "life_cycle",
-      width: 75,
+      width: 100,
 
       sorter: (a, b) => {
         // Extract and compare StyleCode values, handling null or undefined cases
@@ -296,7 +317,7 @@ const GooodsTable = () => {
       title: "Orientation",
       dataIndex: "orientation",
       key: "orientation",
-      width: 65,
+      width: 100,
 
       sorter: (a, b) => {
         // Extract and compare StyleCode values, handling null or undefined cases
@@ -312,14 +333,15 @@ const GooodsTable = () => {
       title: "Qty90",
       dataIndex: "stock_90",
       key: "stock_90",
-      width: 150,
+      width: 110,
       fixed: 'right',
       render: (value, record) => (
+
 
         <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
-            className='mx-5 number-input'
+            className=' number-input'
             addonBefore={record.stock_90 || 0}
             value={record.Quantity90?.toString()}
             onChange={(value) => {
@@ -338,13 +360,13 @@ const GooodsTable = () => {
     },
 
 
-    {
-      title: "Qty",
-      dataIndex: "TotalQty",
-      key: "TotalQty",
-      width: 50,
-      fixed: 'right'
-    },
+    // {
+    //   title: "Qty",
+    //   dataIndex: "TotalQty",
+    //   key: "TotalQty",
+    //   width: 50,
+    //   fixed: 'right'
+    // },
 
 
     {
@@ -490,10 +512,89 @@ const GooodsTable = () => {
       }
     }
   }
+
+  
+
+  
+
   // navigate to card
     const handleViewCart = () => {
       navigate("/cart")
     }
+
+     // handle Excels Data
+  const handleImport = () => {
+    setIsImport(true);
+  };
+  
+  const handleCloseImport = () => {
+    setIsImport(false);
+  };
+
+  // handle update quantity Data
+  const handleQtyImport = () => {
+    setIsQtyImport(true);
+  };
+  const handleCloseQtyImport = () => {
+    setIsQtyImport(false);
+  };
+
+  // handle Excels product
+  const handleProduct = () => {
+    setIsProduct(true);
+  };
+  const handleCloseProduct = () => {
+    setIsProduct(false);
+  };
+
+  // show pd()
+  const handleShowPdf=()=>{
+    setIsProduct(false)
+    setIspdf(true)
+ }
+ const handleDownloadExcel=()=>{
+   handleExportToExcel()
+   setIsProduct(false)
+ }
+
+ //exportto excel
+ const handleExportToExcel = () => {
+  try {
+
+
+    
+
+    const table = tableRef.current as HTMLTableElement | null;
+
+    if (!table) {
+      console.error("Table element not found.");
+      return;
+    }
+
+    // Get the table's outerHTML
+    const tableHtml = table.outerHTML;
+
+    // Create a Blob object representing the data as an XLSX file
+    const blob = new Blob([tableHtml], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    // Create a temporary anchor element to download the Blob
+    const anchor = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    anchor.href = url;
+    anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+    anchor.click();
+
+    // Release the object URL
+    URL.revokeObjectURL(url);
+
+
+  } catch (error) {
+    console.error("Error exporting to Excel:", error);
+  }
+};
 
 
 
@@ -526,17 +627,16 @@ const GooodsTable = () => {
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
            <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            //  onClick={handleImport}
+             onClick={handleImport}
           > <i className="bi bi-file-earmark-arrow-down fs-3"></i>  Import Products</Button>
 
 
            <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            // onClick={handleUpdateQty} 
+            onClick={handleQtyImport} 
           > <i className="bi bi-arrow-repeat fs-2"></i> Update Qty </Button>
          
          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            //  onClick={handleProduct} 
-       
+            onClick={handleProduct} 
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
 
 
@@ -544,7 +644,10 @@ const GooodsTable = () => {
 
         </div>
 
-
+        <div className='show-prodect-section' >
+          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
+        
+        </div>
 
         <Table
           className='cart-table-profile'
@@ -566,6 +669,24 @@ const GooodsTable = () => {
         />
       </Card>
 
+      <GoodsImportExcel
+        isImport={isImport}
+        onClose={handleCloseImport}
+        allGoodsData={handleTravisData}
+      /> 
+
+      <GoodsQtyImport
+        isQtyImport={isQtyImport}
+        onClose={handleCloseQtyImport}
+        travisQtyData={handleOgioQtyData}
+      />
+     <TravisExportProduct
+         isProduct={isProduct}
+        onClose={handleCloseProduct}
+        allGoodsData={handleTravisData}
+        printPdf={handleShowPdf}
+        excelExport={handleDownloadExcel}
+      />
 
 
 

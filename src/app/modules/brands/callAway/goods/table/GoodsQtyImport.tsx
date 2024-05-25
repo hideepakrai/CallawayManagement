@@ -10,14 +10,14 @@ import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelTravis } from "../../../../model/travis/TravisMethewModel";
 import type { ColumnProps } from 'antd/lib/table';
-import SampleExcelTravis from "../SampleExcelTravis";
+
 
 const { Dragger } = Upload;
 
 type Props = {
   onClose: () => void;
-  isImport: boolean;
-  allGoodsData: (allData: ExcelModelTravis[]) => void
+  isQtyImport: boolean;
+  travisQtyData: (allData: ExcelModelTravis[]) => void
 }
 
 const props: UploadProps = {
@@ -25,7 +25,7 @@ const props: UploadProps = {
   multiple: false,
 
 };
-const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
+const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -64,7 +64,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
   const handleOk = () => {
     //setIsModalOpen(false);
     console.log("ok")
-    allGoodsData(allXlxData)
+    travisQtyData(allXlxData)
     // onClose();
   };
   const handleCancel = () => {
@@ -85,74 +85,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: 'sku',
       width: 150,
     },
-    {
-      title: 'name',
-      dataIndex: 'name',
-      key: 'name',
-      width: 70,
-    },
-    {
-      title: 'description',
-      dataIndex: 'description',
-      key: 'description',
-      width: 115,
-    },
-    {
-      title: 'category',
-      dataIndex: 'category',
-      key: 'category',
-      width: 115,
-    },
-    {
-      title: 'season',
-      dataIndex: 'season',
-      key: 'season',
-      width: 115,
-    },
-    {
-      title: 'style_code',
-      dataIndex: 'style_code',
-      key: 'style_code',
-      width: 115,
-    },
-    {
-      title: 'length',
-      dataIndex: 'length',
-      key: 'length',
-      width: 115,
-    },
-    {
-      title: 'line',
-      dataIndex: 'line',
-      key: 'line',
-      width: 115,
-    },
-    {
-      title: 'color',
-      dataIndex: 'color',
-      key: 'color',
-      width: 115,
-    },
-    {
-      title: 'color_code',
-      dataIndex: 'color_code',
-      key: 'color_code',
-      width: 115,
-    },
-    {
-      title: 'size',
-      dataIndex: 'size',
-      key: 'size',
-      width: 115,
-    },
-    {
-      title: 'gender',
-      dataIndex: 'gender',
-      key: 'gender',
-      width: 115,
-    },
-   
-    
+  
     
     {
       title: 'stock_88',
@@ -166,91 +99,28 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: 'stock_90',
       width: 80,
     },
-    {
-      title: 'mrp',
-      dataIndex: 'mrp',
-      key: 'mrp',
-      width: 80,
-    },
-    {
-      title: 'gst',
-      dataIndex: 'gst',
-      key: 'gst',
-      width: 80,
-    },
-    {
-      title: 'variation_sku',
-      dataIndex: 'variation_sku',
-      key: 'variation_sku',
-      width: 80,
-    },
+   
   ];
   const excelData: BasicModelTravis[] = [
     {
       brand: "Travismathew",
       sku: 'TM001',
-      name: 'Cool Belt',
-      category: 'Belts',
-      season: 'SS22',
-      style_code: '4MT044',
-      length: 'NA',
-      line: 'In_Line',
-      gender:"Mens",
-      color: 'Heather_Purple_Velvet',
-      color_code: '5HPR',
-      size: 'M',
-     
-      description: 'This is a cool belt from Travis Mathew.',
-      mrp: 50,
-   
       stock_88: 100,
       stock_90: 100,
-      gst:12,
+      
       
     },
     {
         brand: "Travismathew",
       sku: 'TM002',
-      name: 'Stylish Cap',
-      category: 'Headwear',
-      season: 'SS22',
-      style_code: '4MT045',
-      length: 'NA',
-      line: 'In_Line',
-      color: 'Black',
-      color_code: 'BLK',
-      size: 'L',
-     
-      description: 'A stylish cap from Travis Mathew.',
-      mrp: 30,
-    
-     
-      gender:"Mens",
       stock_88: 100,
       stock_90: 100,
-      gst:12,
     },
     {
         brand: "Travismathew",
       sku: 'TM003',
-      name: 'Classic Polo',
-      category: 'Tops',
-      season: 'SS22',
-      style_code: '4MT046',
-      length: 'NA',
-      line: 'In_Line',
-      color: 'Navy Blue',
-      color_code: 'NVBL',
-      size: 'XL',
-     
-      description: 'A classic polo shirt from Travis Mathew.',
-      mrp: 70,
-      
-    
-      gender:"Mens",
       stock_88: 100,
       stock_90: 100,
-      gst:12,
     },
   ];
 
@@ -291,7 +161,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
   
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "TravisSample.xlsx");
+    XLSX.writeFile(wb, "TravisQtyUpdateSample.xlsx");
   
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);
@@ -303,11 +173,11 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     <div>
       <Modal
         // title="Basic Modal"
-        open={isImport}
+        open={isQtyImport}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3>Import Products</h3>
+        <h3>Update Qty</h3>
         <Dragger
           multiple={false}
           onChange={(info) => handleInput(info)}
@@ -343,4 +213,4 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 }
 
 
-export default TravisImportExcel
+export default GoodsQtyImport
