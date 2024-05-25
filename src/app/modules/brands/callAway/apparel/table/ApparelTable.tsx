@@ -33,7 +33,7 @@ const ApparelTable = () => {
 
   const dispatch = useDispatch()
 
- const getApparelProduct = useSelector(getApparelProducts)
+  const getApparelProduct = useSelector(getApparelProducts)
   const [amount, setAmount] = useState<number>()
   const searchInput = useRef<InputRef>(null);
 
@@ -43,22 +43,22 @@ const ApparelTable = () => {
 
   const filteredOptionsOne = OPTIONS1.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = OPTIONS2.filter((o) => !selectedItems.includes(o));
-  const [ allApparel, setAllApparel]= useState<BasicModelApparel[]>([])
-//get Apparel product 
+  const [allApparel, setAllApparel] = useState<BasicModelApparel[]>([])
+  //get Apparel product 
 
-useEffect(()=>{
+  useEffect(() => {
 
-  const apparelItem:BasicModelApparel[]=[]
-  if(getApparelProduct &&
-    getApparelProduct.length > 0
-  ){
-    getApparelProduct.map(item=>{
-      apparelItem.push(item)
-      
-    })
-  }
-  setAllApparel(apparelItem)
-},[getApparelProduct])
+    const apparelItem: BasicModelApparel[] = []
+    if (getApparelProduct &&
+      getApparelProduct.length > 0
+    ) {
+      getApparelProduct.map(item => {
+        apparelItem.push(item)
+
+      })
+    }
+    setAllApparel(apparelItem)
+  }, [getApparelProduct])
   const columns: TableColumnsType<BasicModelApparel> = [
     {
       dataIndex: "primary_image_url",
@@ -92,7 +92,7 @@ useEffect(()=>{
 
             style={{ width: 188, marginBottom: 8, display: "block" }}
           />
-          
+
         </div>
       ),
       onFilterDropdownVisibleChange: (visible) => {
@@ -307,7 +307,7 @@ useEffect(()=>{
     },
 
 
-  
+
     {
       title: "Size",
       dataIndex: "size",
@@ -323,18 +323,18 @@ useEffect(()=>{
       },
     },
 
-{
-  title: "Gender",
-  dataIndex: "gender",
-  key: "gender",
-  width: 150,
-},
-{
-  title: "Sleeves",
-  dataIndex: "sleeves",
-  key: "sleeves",
-  width: 150,
-},
+    {
+      title: "Gender",
+      dataIndex: "gender",
+      key: "gender",
+      width: 150,
+    },
+    {
+      title: "Sleeves",
+      dataIndex: "sleeves",
+      key: "sleeves",
+      width: 150,
+    },
 
     {
       title: "Qty88",
@@ -572,47 +572,69 @@ useEffect(()=>{
 
   return (
     <>
-   
 
 
-    <div className='container content-pro'>
 
-    
-      <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
-        <div id="kt_toolbar_container" className=" d-flex flex-stack">
-          <div className="page-title d-flex flex-column">
-            <h1 className="d-flex text-white fw-bold my-1 fs-3">
-              Callaway Apparel
-            </h1>
+      <div className='container content-pro'>
+
+
+        <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
+          <div id="kt_toolbar_container" className=" d-flex flex-stack">
+            <div className="page-title d-flex flex-column">
+              <h1 className="d-flex text-white fw-bold my-1 fs-3">
+                Callaway Apparel
+              </h1>
+            </div>
+
           </div>
-
         </div>
-      </div>
 
 
-      {/* <SliderApprel /> */}
+        {/* <SliderApprel /> */}
 
-      <Card className='travish-mat-section' style={{ marginTop: '80px', padding: "10px", }}
-        title="CALLAWAY APPAREL"
-        extra={
-          <div >
-            <Breadcrumb separator=">">
-              <Breadcrumb.Item>
-                <span className="gx-link">Home</span>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <span className="gx-link">Products</span>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Callaway Apparel</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
-        }
+        <Card className='travish-mat-section' style={{ marginTop: '80px', padding: "10px", }}
+          title="CALLAWAY APPAREL"
+          extra={
+            <div >
+              <Breadcrumb separator=">">
+                <Breadcrumb.Item>
+                  <span className="gx-link">Home</span>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <span className="gx-link">Products</span>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>Callaway Apparel</Breadcrumb.Item>
+              </Breadcrumb>
+            </div>
+          }
 
-      >
-        <div style={{ float: "right", marginBottom: "12px" }}>
+        >
+          <div style={{ float: "right", marginBottom: "12px" }}>
 
-{/* active class ="active-btn" */}
-  <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+            {/* active class ="active-btn" */}
+
+
+            <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+
+            // onClick={handleViewCart}
+            > <i className="bi bi-bag fs-3"></i> View Cart</Button>
+
+            <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            //  onClick={handleImport}
+            > <i className="bi bi-file-earmark-arrow-down fs-3"></i>  Import Products</Button>
+
+
+            <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            // onClick={handleUpdateQty} 
+            > <i className="bi bi-arrow-repeat fs-2"></i> Update Qty </Button>
+
+            <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            //  onClick={handleProduct} 
+
+            > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
+
+
+            {/* <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
   //  onClick={handleViewCard}
   > <i className="bi bi-bag-check fs-3"></i> View Cart</Button>
@@ -629,48 +651,48 @@ useEffect(()=>{
   <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
     // onClick={handleProduct} 
     //  onClick={handleSampleExcel}
-  > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
+  > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button> */}
 
 
 
 
 
- 
-  
-</div>
-      
-
-<Table className='cart-table-profile'
-          ref={tableRef}
-          columns={columns}
-          dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
-          // rowSelection={{
-          //   onSelect: (record) => { handleSelctRow(record) }
-          // }}
-          // expandable={{
-          //   expandedRowRender,
-            
-          //   onExpand: (expanded, record) => handleExpand(expanded, record),
-
-          // }}
-          bordered
-          size="middle"
-          scroll={{ x: "100%", y: "auto" }}
-
-          pagination={{
-            position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-            defaultPageSize: 20
-          }}
-        />
-       
 
 
-      </Card>
+          </div>
 
 
-    
+          <Table className='cart-table-profile'
+            ref={tableRef}
+            columns={columns}
+            dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
+            // rowSelection={{
+            //   onSelect: (record) => { handleSelctRow(record) }
+            // }}
+            // expandable={{
+            //   expandedRowRender,
 
-    </div>
+            //   onExpand: (expanded, record) => handleExpand(expanded, record),
+
+            // }}
+            bordered
+            size="middle"
+            scroll={{ x: "100%", y: "auto" }}
+
+            pagination={{
+              position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+              defaultPageSize: 20
+            }}
+          />
+
+
+
+        </Card>
+
+
+
+
+      </div>
 
     </>
   )

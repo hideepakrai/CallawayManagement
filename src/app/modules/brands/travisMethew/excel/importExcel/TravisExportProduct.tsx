@@ -83,6 +83,7 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelE
     <div>
       <Modal
         // title="Basic Modal"
+        className="export-product"
         open={isProduct}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -113,7 +114,7 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelE
         <button className="export-button excel" 
         onClick={handleExcel}
         >
-          <i className="bi bi-file-earmark-arrow-down fs-2"></i> Export to Excel</button>
+         <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
         </div>
       </Modal>
     </div>

@@ -608,7 +608,7 @@ const[isNote, setIsnote]= useState<boolean>(false)
         note={handleNote}
         />}
 
-    <Table className='card-table-travis'
+    <Table className='card-table-travis cart-table-profile'
     ref={tableRef}
     columns={columns}
     dataSource={allOrder?.map((item) => ({ ...item, key: item?.sku }))}
@@ -737,6 +737,7 @@ const[isNote, setIsnote]= useState<boolean>(false)
        resetSubmitOrder={handleResetSubmitOrder}
        note={notes}
        />}
+
 
 {isUpdateStrapi &&  <TravisUpdateOrderToDB
     resetUpdateOrder={handleUpdateStrapi}

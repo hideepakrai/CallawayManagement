@@ -11,7 +11,7 @@ import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
 import TravisImportProduct from "../excel/importExcel/TravisExportProduct"
 import { ExcelModelTravis } from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
-
+import TravisUpdateQty from "../excel/importExcel/TravisUpdateQty"
 
 import {
   updateQuantity90, updateQuantity88,
@@ -46,6 +46,7 @@ const TravisTable = () => {
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
   const [isProduct, setIsProduct] = useState(false);
+  const [isUpdate, setIsUpdateQty] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const searchInput = useRef<InputRef>(null);
@@ -1102,6 +1103,14 @@ const TravisTable = () => {
     setIsProduct(false);
   };
 
+    // handle Excels product
+    const  handleUpdateQty = () => {
+      setIsUpdateQty(true);
+    };
+    const handleCloseUpdateQty = () => {
+      setIsUpdateQty(false);
+    };
+
 
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const handleTravisData = (allDatat: ExcelModelTravis[]) => {
@@ -1212,6 +1221,7 @@ const TravisTable = () => {
     navigate("/cart")
   }
 
+
   // show pd()
   const handleShowPdf=()=>{
      setIsProduct(false)
@@ -1250,21 +1260,24 @@ const TravisTable = () => {
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
             onClick={handleViewCard}
-          > <i className="bi bi-bag-check fs-3"></i> View Cart</Button>
+          > <i className="bi bi-bag fs-3"></i> View Cart</Button>
+
 
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
              onClick={handleImport}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>  Import Products</Button>
+          > <i className="bi bi-file-earmark-arrow-down fs-3"></i>  Import Products</Button>
+
 
 
            <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-             onClick={handleImport}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
+            onClick={handleUpdateQty} 
+          > <i className="bi bi-arrow-repeat fs-2"></i> Update Qty </Button>
 
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
              onClick={handleProduct} 
             //  onClick={handleSampleExcel}
-          > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
+
 
 
 
@@ -1321,6 +1334,16 @@ const TravisTable = () => {
         isImport={isImport}
         onClose={handleCloseImport}
         allGoodsData={handleTravisData}
+      />
+
+
+
+<TravisUpdateQty
+         isUpdate={isUpdate}
+        onClose={handleCloseUpdateQty}
+        allGoodsData={handleTravisData}
+      
+   
       />
 
       <TravisImportProduct

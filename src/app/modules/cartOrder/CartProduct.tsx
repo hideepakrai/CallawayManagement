@@ -49,6 +49,24 @@ const CartProduct = () => {
         <div className="card-header">
           <ul className="nav nav-tabs nav-line-tabs nav-link-tab border-0 mb-5 fs-6 mt-6 ">
           
+{/* 
+          <li className="nav-item hover-elevate-up">
+              <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} href="#kt_tab_pane_Goods" onClick={() => setActiveTab('ogio')}>
+              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
+              Callaway Hardgoods
+              </a>
+            </li> */}
+
+
+          <li className="nav-item hover-elevate-up">
+              <a className={`nav-link active-tab ${activeTab === 'goods' ? 'active' : ''}`} href="#kt_tab_pane_Goods" onClick={() => setActiveTab('ogio')}>
+              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
+              Callaway Hardgoods
+              </a>
+            </li>
+
+
+
           
            <li className="nav-item hover-elevate-up">
               <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} href="#kt_tab_pane_Ogio" onClick={() => setActiveTab('ogio')}>
@@ -77,10 +95,14 @@ const CartProduct = () => {
             <div className={`tab-pane fade ${activeTab === 'goods' ? 'show active' : ''}`} id="kt_tab_pane_Goods" role="tabpanel">
               <CalawayGoodsCarts />
             </div>
+
+            
             <div className={`tab-pane fade ${activeTab === 'ogio' ? 'show active' : ''}`} id="kt_tab_pane_Ogio" role="tabpanel">
               {/* Render Ogio component here */}
               <OgioCart/>
             </div>
+
+
             <div className={`tab-pane fade ${activeTab === 'travis' ? 'show active' : ''}`} id="kt_tab_pane_Travis" role="tabpanel">
               <TravisCart />
             </div>

@@ -38,3 +38,5 @@
 
 .export-button i{color: #707070; margin-right: 5px;}
 .export-button:hover i{color: #fff; }
+
+.export-product .ant-btn-primary{ background-color: #000!important;}

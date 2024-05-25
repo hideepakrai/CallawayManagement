@@ -7,7 +7,7 @@ import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
 import {updateOgioInclusiveDiscount,updateOgioExclusiveDiscount,updateOgioFlatDiscount} from "../../../../slice/allProducts/OgioSlice"
 import {getOgioProducts,updateQuantity90} from "../../../../slice/allProducts/OgioSlice"
 import Loading from '../../../loading/Loading';
-
+import "./OgioCart.css";
 import {LoadingStart, LoadingStop, getLoading} from "../../../../slice/loading/LoadingSlice"
 import CartHeader from '../../CartHeader';
 import OgioCartPdf from './OgioCartPdf';
@@ -665,6 +665,7 @@ const handleUpdateRedux=()=>{
 
 
        <Table
+            className='cart-table-profile ogio-table-cart'
             ref={tableRef}
             columns={columns}
             dataSource={allOgioOrders?.map((item) => ({ ...item, key: item.sku }))}
@@ -689,7 +690,7 @@ const handleUpdateRedux=()=>{
                 }}
               >
                 <div className='cart-sec' style={{ width: "78%", display:"flex",}}>
-                  <a style={{ marginRight: 10, color: "#000", }}>Discount</a>
+                  <a style={{ marginRight: 10, color: "#000", paddingTop:"4px" }}>Discount</a>
                   <Select  className="input-dropdown"
           style={{width:"150px"}}
                     showSearch
