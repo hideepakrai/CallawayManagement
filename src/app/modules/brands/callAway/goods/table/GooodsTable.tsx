@@ -5,18 +5,17 @@ import type { InputRef, TableColumnsType } from 'antd';
 import { BasicModelGoods } from "../../../../model/goods/CallawayGoodsModel"
 import { useDispatch, useSelector } from "react-redux"
 import "./GooodsTable.css"
-
+import { useNavigate } from 'react-router-dom';
 import SampleExcel from '../excel/SampleExcel';
 import { number } from 'yup';
 import ImportExcel from '../excel/importExcel/ImportExcel';
 import { ExcelModelGoods } from "../../../../model/goods/CallawayGoodsExcel"
-import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB"
-import { useNavigate } from 'react-router-dom';
+import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB";
 import * as XLSX from 'xlsx';
 
 
-import type { RadioChangeEvent, SelectProps } from 'antd';
-import { getCategory, getGoodsProducts, getProductModel, getProductType } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
+ import type { RadioChangeEvent, SelectProps } from 'antd';
+import { getCategory, getGoodsProducts, getProductModel, getProductType, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
 type SelectCommonPlacement = SelectProps['placement'];
 
 const OPTIONS = ['Accessory',];
@@ -35,7 +34,7 @@ const GooodsTable = () => {
   const getProductModels = useSelector(getProductModel);
   const getGoodsProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
   const [amount, setAmount] = useState<number>()
-  console.log("callawayGooodsProduct", getGoodsProduct)
+  
 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
@@ -400,65 +399,69 @@ const GooodsTable = () => {
     }
   }, [qty90ToolMesage])
 
-  const handleQuantity90 = (value: string, record: BasicModelGoods) => {
-
-    const intValue = parseInt(value, 10);
-
-    setQty90Message("");
-    setIsQty90ToolTip(false);
-    setQty90SKU("")
-    record.Quantity90 = intValue;
-    if (intValue > 0) {
-      if (record && record.stock_90 && record.stock_90 >= intValue) {
-
-        // Dispatch an action to update the quantity for the SKU
-
-        // dispatch(updateQuantity90({
-        //   sku: record.sku,
-        //   qty90: intValue,
-        //   MRP: record.mrp,
-
-        // }));
+  
 
 
-      }
-      else {
-        // alert("Quantity is not available")
-        const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
-        setQty90Message("The quantity should not exceed the available stock")
+    
+  
+    const handleQuantity90 = (value: string, record: BasicModelGoods) => {
+  
+      const intValue = parseInt(value, 10);
+  
+      setQty90Message("");
+      setIsQty90ToolTip(false);
+      setQty90SKU("")
+      record.Quantity90 = intValue;
+      if (intValue > 0) {
+        if (record && record.stock_90 && record.stock_90 >= intValue) {
+  
+          // Dispatch an action to update the quantity for the SKU
+  
+          dispatch(updateQuantity90({
+            sku: record.sku,
+            qty90: intValue,
+            MRP: record.mrp,
+  
+          }));
+  
+  
+        }
+        else {
+          // alert("Quantity is not available")
+          const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
+          setQty90Message("The quantity should not exceed the available stock")
+          setIsQty90ToolTip(true)
+          setQty90SKU(record.sku)
+          
+          dispatch(updateQuantity90({
+            sku: record.sku,
+            qty90: st90,
+            MRP: record.mrp
+  
+  
+          }));
+  
+  
+  
+        }
+      } else if (intValue < 0) {
+  
+        // alert("Quantity cannot be negative")
+        setQty90Message("Quantity cannot be negative")
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
-        //setQuantity90(0)
-        // dispatch(updateQuantity90({
-        //   sku: record.sku,
-        //   qty90: st90,
-        //   MRP: record.mrp
-
-
-        // }));
-
-
-
+        console.log("Quantity cannot be negative")
+      } else if (intValue === 0) {
+        dispatch(updateQuantity90({
+          sku: record.sku,
+          qty90: intValue,
+          MRP: record.mrp,
+  
+        }));
+  
+  
       }
-    } else if (intValue < 0) {
-
-      // alert("Quantity cannot be negative")
-      setQty90Message("Quantity cannot be negative")
-      setIsQty90ToolTip(true)
-      setQty90SKU(record.sku)
-      console.log("Quantity cannot be negative")
-    } else if (intValue === 0) {
-      // dispatch(updateQuantity90({
-      //   sku: record.sku,
-      //   qty90: intValue,
-      //   MRP: record.mrp,
-
-      // }));
-
-
-    }
-
-    // Log the record for debugging or tracking purposes
+    
 
   };
 
@@ -486,39 +489,35 @@ const GooodsTable = () => {
         setSelectedRow(prev => [...prev, record]);
       }
     }
-
-  };
-
-
-  // view cart
-  const handleViewCart = () => {
-    navigate("/cart")
   }
-  
-
+  // navigate to card
+    const handleViewCart = () => {
+      navigate("/cart")
+    }
 
 
 
   return (
     <div className='container'>
 
-      <Card style={{ marginTop: '80px' }}
-        title="CALLAWAY HARDGOODS "
-        extra={
-          <div >
-            <Breadcrumb separator=">">
-              <Breadcrumb.Item>
-                <span className="gx-link">Home</span>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <span className="gx-link">Products</span>
-              </Breadcrumb.Item>
-
-              <Breadcrumb.Item>Callaway HardGoods</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
-        }
-      >
+<Card style={{ marginTop:'80px'}}
+          title="CALLAWAY HARDGOODS"
+          extra={
+            <div >
+              <Breadcrumb separator=">">
+                <Breadcrumb.Item>
+                  <span className="gx-link">Home</span>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>   
+                  <span className="gx-link">Products</span>
+                </Breadcrumb.Item>
+              
+                <Breadcrumb.Item>Callaway HardGoods</Breadcrumb.Item>
+              </Breadcrumb>
+            </div>
+          }
+        >
+          
         <div style={{ float: "right", marginBottom: "12px" }}>
      
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
@@ -541,15 +540,7 @@ const GooodsTable = () => {
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
 
 
-          {/* <Button className='mx-3 select-btn-detail'
-          // onClick={handleExportToPDF} 
-          > <i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button>
-          <Button className='mx-3 select-btn-detail'
-          //onClick={handleExportToExcel}
-          > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
-          <Button className='mx-3 select-btn-detail'
-          // onClick={handleSampleExcel}
-          > <i className="bi bi-file-spreadsheet"></i> Sample Excel</Button> */}
+  
 
         </div>
 
@@ -577,21 +568,6 @@ const GooodsTable = () => {
 
 
 
-      {/* <SampleExcel
-         isSample={isSample}
-        resetIsSample={handleResetIsSample}
-        />
-
-        <ImportExcel
-        isImport={isImport}
-        onClose={handleCloseImport}
-        allGoodsData={handleGoodsData}
-        />
-
-       <ExcelUploadDB
-       xlData={allXlxData}
-       resetXls={handleResetXlData}
-       /> */}
 
     </div>
   )

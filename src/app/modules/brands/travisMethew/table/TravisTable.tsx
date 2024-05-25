@@ -31,6 +31,7 @@ import { Image } from 'antd';
 import ImageRenderer from "./column/gallery";
 import { getCategory, getStyleCode } from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
+import TravisQtyImport from '../excel/importExcel/TravisQtyImport';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
@@ -45,6 +46,7 @@ const TravisTable = () => {
   const placement: SelectCommonPlacement = 'topLeft';
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
+  const [isQtyImport, setIsQtyImport] = useState(false);
   const [isProduct, setIsProduct] = useState(false);
   const [isUpdate, setIsUpdateQty] = useState(false);
   const navigate = useNavigate()
@@ -806,7 +808,7 @@ const TravisTable = () => {
         setQty90Message("The quantity should not exceed the available stock")
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
-        //setQuantity90(0)
+        
         dispatch(updateQuantity90({
           sku: record.sku,
           qty90: st90,
@@ -1091,6 +1093,7 @@ const TravisTable = () => {
   const handleImport = () => {
     setIsImport(true);
   };
+  
   const handleCloseImport = () => {
     setIsImport(false);
   };
@@ -1232,6 +1235,24 @@ const TravisTable = () => {
     setIsProduct(false)
   }
 
+  // handle update quantity Data
+  const handleQtyImport = () => {
+    setIsQtyImport(true);
+  };
+
+
+  const handleCloseQtyImport = () => {
+    setIsQtyImport(false);
+  };
+  const [allQtyXlxData, setQtyAllXlxData] = useState<ExcelModelTravis[]>([])
+  const handleTravisQtyData = (allDatat: ExcelModelTravis[]) => {
+    const table = tableRef.current;
+    handleCloseQtyImport()
+
+    setQtyAllXlxData(allDatat)
+  }
+
+
   return (
     <div className='container'>
 
@@ -1270,8 +1291,8 @@ const TravisTable = () => {
 
 
            <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleUpdateQty} 
-          > <i className="bi bi-arrow-repeat fs-2"></i> Update Qty </Button>
+             onClick={handleQtyImport}
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
 
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
              onClick={handleProduct} 
@@ -1284,17 +1305,7 @@ const TravisTable = () => {
 
 
          
-          {/* <Button className='mx-3 select-btn-detail'
-            onClick={handleExportToPDF}
-          ><i className="bi bi-file-earmark-pdf"></i> Export to PDF</Button> */}
-
           
-          {/* <Button className='mx-3 select-btn-detail'
-            onClick={handleExportToExcel}
-          > <i className="bi bi-file-earmark-spreadsheet"></i> Export to Excel</Button>
-          <Button className='mx-3 select-btn-detail'
-            onClick={handleSampleExcel}
-          ><i className="bi bi-file-spreadsheet"></i> Sample Excel</Button> */}
         </div>
 
 
@@ -1334,6 +1345,11 @@ const TravisTable = () => {
         isImport={isImport}
         onClose={handleCloseImport}
         allGoodsData={handleTravisData}
+      />
+      <TravisQtyImport
+        isQtyImport={isQtyImport}
+        onClose={handleCloseQtyImport}
+        travisQtyData={handleTravisQtyData}
       />
 
 

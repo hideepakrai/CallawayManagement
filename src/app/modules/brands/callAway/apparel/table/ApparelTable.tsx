@@ -18,8 +18,8 @@ import "../TravisTable.css"
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel';
-import { getApparelProducts } from '../../../../../slice/allProducts/CallawayApparelSlice';
-
+import { getApparelProducts, updateQuantity88, updateQuantity90 } from '../../../../../slice/allProducts/CallawayApparelSlice';
+import { useNavigate } from 'react-router-dom';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20	'];
@@ -32,7 +32,7 @@ const ApparelTable = () => {
   const [isImport, setIsImport] = useState(false);
 
   const dispatch = useDispatch()
-
+  const navigate= useNavigate()
   const getApparelProduct = useSelector(getApparelProducts)
   const [amount, setAmount] = useState<number>()
   const searchInput = useRef<InputRef>(null);
@@ -451,11 +451,11 @@ const ApparelTable = () => {
       if (record && record.stock_88 && record.stock_88 >= intValue) {
 
 
-        // dispatch(updateQuantity88({
-        //   sku: record.sku,
-        //   qty88: intValue,
-        //   MRP: record.mrp,
-        // }));
+        dispatch(updateQuantity88({
+          sku: record.sku,
+          qty88: intValue,
+          MRP: record.mrp,
+        }));
 
       }
       else if (record && record.stock_88 && record.stock_88) {
@@ -464,11 +464,11 @@ const ApparelTable = () => {
         setIsQty88ToolTip(true)
         setQty88SKU(record.sku)
         const st88 = (record && record.stock_88) ? record.stock_88 : 0;
-        // dispatch(updateQuantity88({
-        //   sku: record.sku,
-        //   qty88: st88,
-        //   MRP: record.mrp
-        // }));
+        dispatch(updateQuantity88({
+          sku: record.sku,
+          qty88: st88,
+          MRP: record.mrp
+        }));
 
 
       }
@@ -479,11 +479,11 @@ const ApparelTable = () => {
       setQty88SKU(record.sku)
       console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
-      // dispatch(updateQuantity88({
-      //   sku: record.sku,
-      //   qty88: intValue,
-      //   MRP: record.mrp,
-      // }));
+      dispatch(updateQuantity88({
+        sku: record.sku,
+        qty88: intValue,
+        MRP: record.mrp,
+      }));
 
 
     }
@@ -521,12 +521,12 @@ const ApparelTable = () => {
 
         // Dispatch an action to update the quantity for the SKU
 
-        // dispatch(updateQuantity90({
-        //   sku: record.sku,
-        //   qty90: intValue,
-        //   MRP: record.mrp,
+        dispatch(updateQuantity90({
+          sku: record.sku,
+          qty90: intValue,
+          MRP: record.mrp,
 
-        // }));
+        }));
 
 
       }
@@ -536,14 +536,14 @@ const ApparelTable = () => {
         setQty90Message("The quantity should not exceed the available stock")
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
-        //setQuantity90(0)
-        // dispatch(updateQuantity90({
-        //   sku: record.sku,
-        //   qty90: st90,
-        //   MRP: record.mrp
+        
+        dispatch(updateQuantity90({
+          sku: record.sku,
+          qty90: st90,
+          MRP: record.mrp
 
 
-        // }));
+        }));
 
 
 
@@ -556,12 +556,12 @@ const ApparelTable = () => {
       setQty90SKU(record.sku)
       console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
-      // dispatch(updateQuantity90({
-      //   sku: record.sku,
-      //   qty90: intValue,
-      //   MRP: record.mrp,
+      dispatch(updateQuantity90({
+        sku: record.sku,
+        qty90: intValue,
+        MRP: record.mrp,
 
-      // }));
+      }));
 
 
     }
@@ -569,6 +569,12 @@ const ApparelTable = () => {
     // Log the record for debugging or tracking purposes
 
   };
+
+  // navigate to card
+  const handleViewCart = () => {
+    navigate("/cart")
+  }
+
 
   return (
     <>
@@ -616,7 +622,7 @@ const ApparelTable = () => {
 
             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
-            // onClick={handleViewCart}
+            onClick={handleViewCart}
             > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '

@@ -107,7 +107,7 @@ if(getRetailerDetail &&
   const handleCreateOrder = () => {
     
       dispatch(LoadingStart());
-      const orderId = generateUniqueNumeric();
+      //const orderId = generateUniqueNumeric();
       const now = new Date();
       if (Array.isArray(allTravisOrders) &&orderId) {
         const data={

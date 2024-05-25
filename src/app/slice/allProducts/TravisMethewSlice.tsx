@@ -9,6 +9,7 @@ interface ProductState {
     uniqueStyleCode: string[]; 
     uniqueSeason: string[]; 
     isStartLoading : boolean;
+    preOrderId:number;
     
 }
 
@@ -18,7 +19,8 @@ const initialState: ProductState = {
     uniqueCategories:[],
     uniqueStyleCode:[],
     uniqueSeason:[],
-    isStartLoading:false
+    isStartLoading:false,
+    preOrderId:0,
 
 };
 const TravisMethewSlice = createSlice({
@@ -38,6 +40,9 @@ const TravisMethewSlice = createSlice({
        reloadTravisProduct:(state, action)=>{
         state.travisMethew=action.payload.reloadTravis
        
+       },
+       addPreOrderId:(state,action)=>{
+        state.preOrderId=action.payload.preOrderId;
        },
         addTravisProduct: (state, action) => {
             const { travisProduct} = action.payload;
@@ -629,6 +634,10 @@ export const getStyleCode = (state: { travisMethew: ProductState }): string[] =>
 };
 export const getTravisStartLoading = (state: { travisMethew: ProductState }): boolean => {
     return state.travisMethew?.isStartLoading;
+};
+export const getPreOrderId = (state: { travisMethew: ProductState }): number => {
+    return state.travisMethew?.preOrderId;
+    
 };
 
 

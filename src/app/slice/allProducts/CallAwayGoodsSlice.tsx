@@ -277,54 +277,54 @@ const CallawayGoodsSlice = createSlice({
         //   }
         //   ,
 
-    //       updateQuantity90:(state,actions) => {
+          updateQuantity90:(state,actions) => {
         
-    //         const {sku, qty90,MRP}=actions.payload;
-    //         const travisIndex = state.travisMethew.findIndex(
-    //           (travisItem) => travisItem.sku === sku
-    //         );
-    //         if (travisIndex!== -1) {
-    //           state.travisMethew[travisIndex].Quantity90 = qty90;
+            const {sku, qty90,MRP}=actions.payload;
+            const goodsIndex = state.callawayGoods.findIndex(
+              (goodsItem) => goodsItem.sku === sku
+            );
+            if (goodsIndex!== -1) {
+              state.callawayGoods[goodsIndex].Quantity90 = qty90;
                
-    //           const quantity88 = state.travisMethew[travisIndex]?.Quantity88 ?? 0;
-    //           const quantity90 = state.travisMethew[travisIndex]?.Quantity90 ?? 0;
-    //           state.travisMethew[travisIndex].TotalQty = quantity88+quantity90;
+      
+              const quantity90 = state.callawayGoods[goodsIndex]?.Quantity90 ?? 0;
+              state.callawayGoods[goodsIndex].TotalQty = quantity90;
 
               
-    //           state.travisMethew[travisIndex].Amount = MRP*(quantity88+quantity90)
-    //           state.travisMethew[travisIndex].ordered = true;
-    //           const gst=state.travisMethew[travisIndex].gst;
-    //            const mrp=state.travisMethew[travisIndex].mrp;
-    //            const amount=state.travisMethew[travisIndex].Amount;
-    //            if(mrp &&gst && amount){
-    //             const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
+              state.callawayGoods[goodsIndex].Amount = MRP*(quantity90)
+              state.callawayGoods[goodsIndex].ordered = true;
+              const gst=state.callawayGoods[goodsIndex].gst;
+               const mrp=state.callawayGoods[goodsIndex].mrp;
+               const amount=state.callawayGoods[goodsIndex].Amount;
+               if(mrp &&gst && amount){
+                const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
 
 
-    //           const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
+              const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
 
-    //           const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
+              const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
 
 
-    //           const netBillings = parseFloat((amount - (qty90 * gst * mrp / 100)).toFixed(2));
+              const netBillings = parseFloat((amount - (qty90 * gst * mrp / 100)).toFixed(2));
 
-    //           const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+              const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
 
-    //           state.travisMethew[travisIndex].LessGST = gstdiscount;
-    //           state.travisMethew[travisIndex].LessDiscountAmount = lessDiscountAmount;
-    //           state.travisMethew[travisIndex].NetBillings = netBillings;
-    //           state.travisMethew[travisIndex].FinalBillValue = finalBillValue;
-    //         } if(travisIndex!== -1 &&qty90==0 &&quantity88===0) {
-    //           state.travisMethew[travisIndex].Quantity90 = 0;
-    //           state.travisMethew[travisIndex].Quantity88 = 0;
-    //           state.travisMethew[travisIndex].Amount = 0;
-    //           state.travisMethew[travisIndex].ordered = false;
+              state.callawayGoods[goodsIndex].LessGST = gstdiscount;
+              state.callawayGoods[goodsIndex].LessDiscountAmount = lessDiscountAmount;
+              state.callawayGoods[goodsIndex].NetBillings = netBillings;
+              state.callawayGoods[goodsIndex].FinalBillValue = finalBillValue;
+            } if(goodsIndex!== -1 &&qty90==0 ) {
+             
+              state.callawayGoods[goodsIndex].Quantity88 = 0;
+              state.callawayGoods[goodsIndex].Amount = 0;
+              state.callawayGoods[goodsIndex].ordered = false;
 
-    //       }
+          }
        
           
             
-    //         }
-    //       },
+            }
+          },
         
     //       addOtherProduct:(state,action)=>{
     //         state.otherProduct=action.payload;
@@ -484,7 +484,8 @@ const CallawayGoodsSlice = createSlice({
 
 export const {
     resetCallayGoods,
-    addCallawayGoodsProduct
+    addCallawayGoodsProduct,
+    updateQuantity90
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {

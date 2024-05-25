@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
  import {getOgioOrder} from "../../slice/orderSlice/ogio/OgioCartOrderSlice"
  import { NoProdect } from './NoProdect'
 import { getOgioProducts } from '../../slice/allProducts/OgioSlice';
+import { getGoodsProducts } from '../../slice/allProducts/CallAwayGoodsSlice';
+import { getApparelProducts } from '../../slice/allProducts/CallawayApparelSlice';
 
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState(''); // Default to 'apparel' tab
@@ -21,9 +23,16 @@ const CartProduct = () => {
 
   //get travis order
   const getTravisOrders= useSelector(getTravisOrder)
-  // const getOgioOrders= useSelector(getOgioOrder)
+ 
+  // get ogio order
   const getOgioProduct= useSelector(getOgioProducts)
-  // console.log("getOgioOrders",getOgioOrders)
+
+  // get goods order
+  const getGoodsProduct= useSelector(getGoodsProducts)
+
+  // get apparel order
+  const getApparelProduct= useSelector(getApparelProducts)
+
 
   useEffect(() => {
     if (getTravisOrders && getTravisOrders.length > 0) {
@@ -34,11 +43,25 @@ const CartProduct = () => {
           setActiveTab('ogio');
         }
       })
+      
       setActiveTab('ogio');
-    } else {
-      setActiveTab('apparel'); // Default to 'apparel' tab if no orders found
+    } else if (getGoodsProduct &&getGoodsProduct.length>0){
+       getGoodsProduct.map(item=>{
+        if(item.ordered){
+          setActiveTab('goods');
+        }
+       })    
+      
+         
+    } else if (getApparelProduct && getApparelProduct.length>0){
+      getApparelProduct.map(item=>{
+        if(item.ordered){
+          setActiveTab('apparel');
+        }
+       })
     }
-  }, [getTravisOrders, getOgioProduct]);
+    
+  }, [getTravisOrders, getOgioProduct,getGoodsProduct,getApparelProduct]);
   return (
     < div className='container'>
    {activeTab===""?
@@ -49,17 +72,17 @@ const CartProduct = () => {
         <div className="card-header">
           <ul className="nav nav-tabs nav-line-tabs nav-link-tab border-0 mb-5 fs-6 mt-6 ">
           
-{/* 
+
           <li className="nav-item hover-elevate-up">
-              <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} href="#kt_tab_pane_Goods" onClick={() => setActiveTab('ogio')}>
+              <a className={`nav-link active-tab ${activeTab === 'apparel' ? 'active' : ''}`}  onClick={() => setActiveTab('apparel')}>
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
-              Callaway Hardgoods
+              Callaway Apparel
               </a>
-            </li> */}
+            </li>
 
 
           <li className="nav-item hover-elevate-up">
-              <a className={`nav-link active-tab ${activeTab === 'goods' ? 'active' : ''}`} href="#kt_tab_pane_Goods" onClick={() => setActiveTab('ogio')}>
+              <a className={`nav-link active-tab ${activeTab === 'goods' ? 'active' : ''}`} onClick={() => setActiveTab('goods')}>
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
               Callaway Hardgoods
               </a>
@@ -69,7 +92,7 @@ const CartProduct = () => {
 
           
            <li className="nav-item hover-elevate-up">
-              <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} href="#kt_tab_pane_Ogio" onClick={() => setActiveTab('ogio')}>
+              <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} onClick={() => setActiveTab('ogio')}>
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
                 Ogio
               </a>
@@ -78,7 +101,7 @@ const CartProduct = () => {
 
          
              <li className="nav-item hover-elevate-up">
-              <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} href="#kt_tab_pane_Travis" onClick={() => setActiveTab('travis')}>
+              <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} onClick={() => setActiveTab('travis')}>
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' cart-img'></img>
                 Travis Mathew 
               </a>
@@ -89,9 +112,9 @@ const CartProduct = () => {
 
         <div className="card-body">
           <div className="tab-content" id="myTabContent">
-            {/* <div className={`tab-pane fade ${activeTab === 'apparel' ? 'show active' : ''}`} id="kt_tab_pane_Apperal" role="tabpanel">
+            <div className={`tab-pane fade ${activeTab === 'apparel' ? 'show active' : ''}`} id="kt_tab_pane_Apperal" role="tabpanel">
               <ApparelCart />
-            </div> */}
+            </div>
             <div className={`tab-pane fade ${activeTab === 'goods' ? 'show active' : ''}`} id="kt_tab_pane_Goods" role="tabpanel">
               <CalawayGoodsCarts />
             </div>

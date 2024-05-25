@@ -25,7 +25,7 @@ const TravisMAthewHome = () => {
 {/* 
 <TravisHeader/> */}
  <TravisTable/>
- <TravisImage />
+ {/* <TravisImage /> */}
  <Reload/>
  </div>
     </div>
