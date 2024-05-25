@@ -200,7 +200,7 @@ export const {
     addCallawayApparelProduct
     
 } = CallawayGoodsSlice.actions;
-export const getGoodsProducts = (state: { callawayApparel: ProductState }): BasicModelApparel[] => {
+export const getApparelProducts = (state: { callawayApparel: ProductState }): BasicModelApparel[] => {
     return state.callawayApparel?.callawayApparel || [];
 };
 export const getOtherProducts = (state: { callawayApparel: ProductState }): BasicModelApparel[] => {
