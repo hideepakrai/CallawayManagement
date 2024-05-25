@@ -113,8 +113,9 @@ if(getRetailerDetail &&
       //const orderId = generateUniqueNumeric();
       const now = new Date();
       const formattedTimestamp = now.toISOString();
-      if (Array.isArray(allTravisOrders) &&orderId) {
+      if (Array.isArray(allTravisOrders)) {
         const data={
+          id:getPreOrderIds,
           order_date:formattedTimestamp,
           note:note,
           brand_id:brandId,
@@ -131,7 +132,7 @@ if(getRetailerDetail &&
         
 
         }
-
+  console.log("data",data)
         createOrder(data)
        }
     }

@@ -54,6 +54,10 @@ useEffect(()=>{
         console.log("progress submited")
         submitorder()
     }
+
+    const  handleApproveOrder = ()=>{
+        handleApproveOrder()
+    }
     return (
         <>
             <Steps current={current}
@@ -96,6 +100,7 @@ useEffect(()=>{
                         <>
                             Step 3
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+                            onClick={handleApproveOrder}
                             >        <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-check travis-icon"></i>
                            Approve Order
                              </Button>

@@ -547,6 +547,7 @@ const handleRefetch=()=>{
 const handleResetRefetch=()=>{
   setIsRefetch(false)
   dispatch(LoadingStop())
+ 
 }
 
 // submite order
@@ -584,6 +585,7 @@ const handleUpdateStrapi=(message:string)=>{
     progressStep:2
 
   }))
+  dispatch(LoadingStop())
 } 
 
 

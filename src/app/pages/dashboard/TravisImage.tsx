@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Image } from 'antd';
 import { list } from 'aws-amplify/storage';
 
@@ -8,6 +8,7 @@ import { BasicModelTravis } from '../../modules/model/travis/TravisMethewModel';
 
 const TravisImage = () => {
    const dispatch= useDispatch()
+   const renderedProductsRef = useRef<Set<string>>(new Set());
     const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
     
     const [primaryImage, setPrimaryImage] = useState<string | null>(null);
@@ -17,7 +18,10 @@ const TravisImage = () => {
     useEffect(()=>{
         if(getProduct && getProduct.length > 0) {
             getProduct.map((record) => {
+              if ( record.sku &&!renderedProductsRef.current.has(record.sku)) {
+                renderedProductsRef.current.add(record.sku);
               renderImage(record)
+              }
             })
           }
           //renderImage(record)
@@ -74,10 +78,10 @@ const TravisImage = () => {
       }))
      
     } else {
-    //  console.log(`No images found in folder ${bucketName}.`);
+   console.log(`No images found in folder ${bucketName}.`);
     }
     } else {
-   // console.log(`Folder ${bucketName} does not exist.`);
+   console.log(`Folder ${bucketName} does not exist.`);
     }
         
       } catch (error) {
