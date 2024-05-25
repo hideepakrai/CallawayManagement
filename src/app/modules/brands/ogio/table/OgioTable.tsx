@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { checkIsActive } from '../../../../../_metronic/helpers';
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel';
 import OgioProdPdf from "../ogioPdf/OgioProdPdf"
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle', ];
@@ -655,6 +656,7 @@ onClick={handleViewCart}
 
   </div>
   
+
           <Table
           className='cart-table-profile'
             ref={tableRef}

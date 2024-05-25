@@ -583,10 +583,27 @@ const handleRefetch=()=>{
   dispatch(LoadingStart())
 }
 
+
+
+const handleRejectOrder=()=>{
+  console.log("reject button")
+  
+}
+
 const handleResetRefetch=()=>{
   setIsRefetch(false)
   dispatch(LoadingStop())
 }
+
+const[isNote, setIsnote]= useState<boolean>(false)
+ const handleNote=()=>{
+  setIsnote(true)
+ }
+
+ const handleCancelNote=()=>{
+  setIsnote(false)
+ }
+ 
 
 const [retailerId, setRetailerId] = useState<number>(0);
  
@@ -635,13 +652,17 @@ const handleUpdateRedux=()=>{
     <div>
 
 {isLoadingStart && <Loading />}
-      {/* {allOgioOrders &&
+      {allOgioOrders &&
         allOgioOrders.length > 0 &&
         <CartHeader
           
         reviewOrder={handleRefetch}
         submitOrder={hanldeSubmitOrder}
-        />} */}
+        rejectOrder={handleRejectOrder}
+        note={handleNote}
+        />}
+
+
 
        <Table
             ref={tableRef}
@@ -667,9 +688,10 @@ const handleUpdateRedux=()=>{
   
                 }}
               >
-                <div style={{ width: "78%" }}>
+                <div className='cart-sec' style={{ width: "78%", display:"flex",}}>
                   <a style={{ marginRight: 10, color: "#000", }}>Discount</a>
-                  <Select className="input-dropdown"
+                  <Select  className="input-dropdown"
+          style={{width:"150px"}}
                     showSearch
                     placeholder="Select discount"
                     optionFilterProp="children"
@@ -691,9 +713,9 @@ const handleUpdateRedux=()=>{
                       },
                     ]}
                   />
-                  
+                   <div>
                   {isDiscount && (
-                    <Space className='number-input' direction="vertical">
+                    <Space className='number-input' direction="vertical" style={{width:"125px"}}>
   
                      
                       <InputNumber
@@ -712,7 +734,7 @@ const handleUpdateRedux=()=>{
 
   
                   )}
-  
+                   </div>
   
                 </div>
 

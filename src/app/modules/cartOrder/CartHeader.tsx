@@ -7,6 +7,7 @@ import {RetailerModel,Retailer}  from "../model/AccountType/retailer/RetailerMod
 import {getCurrentUser, getUserAccount, getUserRetailer} from "../.../../../slice/UserSlice/UserSlice"
 import {RetailerData,UserAccountModel,RetailerModels,retailerData } from "../../modules/model/useAccount/UserAccountModel"
 import "./CartHeader.css"
+import ProgressCart from "./ProgressCart"
 
 import {addTravisOrderDetails} from "../../slice/orderSlice/travis/Orderdetails"
 type Props={
@@ -107,7 +108,7 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
   return (
     <div>
     <div className='row'>
-        <div className='col-8 ' >
+        <div className='col-12 ' >
             <div className="retailer_select row">
                 <div className="col-6">
                     <h4 className=' pt-3 fs-6' style={{ width: "100px", minWidth: "100px" }}>
@@ -151,7 +152,7 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
 
             </div>
 
-            <div className="retailer_details d-grid">
+            <div className="retailer_details mb-5 mt-3">
                 <span style={{ marginRight: 10, marginTop: "6px" }}>
                     {" "}
                     <a style={{ color: "#000", fontSize: "14px" }}> <span style={{ fontWeight: 600, }}>Address City :</span> {retailerAddres} </a>
@@ -163,12 +164,16 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
             </div>
         </div>
 
-        <div className='col-4 mb-3 ' style={{ paddingLeft:"120px", }}>
+        <div className='col-11 mb-3  pro-bar-list mt-4' >
 
-            <span className='mx-3'  >
+    <ProgressCart></ProgressCart>
+
+            {/* <span className='mx-3'  >
                 <Button className="select-btn">
                     <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
                         className="bi bi-bag travis-icon"></i>View Pdf</Button>
+
+                        
 
             </span>
             
@@ -205,17 +210,9 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
             >
                 <Button className="select-btn mt-3 user-cart-btn"> <i style={{ paddingRight: "6px", verticalAlign: "inherit", }}
                     className="bi bi-file-earmark-text travis-icon"></i>Checking for availability</Button>
-            </span>
+            </span> */}
 
         </div>
-
-
-
-
-
-
-
-
 
 
     </div>

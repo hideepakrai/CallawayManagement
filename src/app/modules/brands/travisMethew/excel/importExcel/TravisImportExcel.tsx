@@ -10,6 +10,8 @@ import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelTravis } from "../../../../model/travis/TravisMethewModel";
 import type { ColumnProps } from 'antd/lib/table';
+import SampleExcelTravis from "../SampleExcelTravis";
+
 const { Dragger } = Upload;
 
 type Props = {
@@ -327,8 +329,18 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
           <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
         </div>
       </Modal>
+
+      
+      {/* <SampleExcelTravis
+        isSample={isSample}
+        resetIsSample={handleResetIsSample}
+      /> */}
+
     </div>
+
+    
   )
 }
+
 
 export default TravisImportExcel

@@ -13,4 +13,18 @@
  .select-btn:hover span{color:#fff!important;}
  .select-btn:hover i{color:#fff!important;} */
 
+ /* .ant-steps-item-content{width: 150px;} */
  
+
+ /* :where(.css-dev-only-do-not-override-1r287do).pro-bar-list .ant-steps.ant-steps-label-vertical .ant-steps-item-content{
+    width: 190px!important;
+ } */
+
+ .pro-bar-list .ant-steps-item-description{width: 190px!important; font-size: 14px;}
+
+ :where(.css-dev-only-do-not-override-1r287do).ant-steps.ant-steps-label-vertical .ant-steps-item-content{
+    margin-left: -35px!important; margin-top: 5px!important;
+ }
+ .pro-bar-list{margin-left: 33px;}
+ /* .pro-bar-list .ant-steps-item-title{text-align: ;} */
+ .step{margin-left: -42px;}

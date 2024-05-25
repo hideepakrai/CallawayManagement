@@ -1323,7 +1323,7 @@ const TravisTable = () => {
         allGoodsData={handleTravisData}
       />
 
-<TravisImportProduct
+      <TravisImportProduct
          isProduct={isProduct}
         onClose={handleCloseProduct}
         allGoodsData={handleTravisData}
