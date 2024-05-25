@@ -1,73 +1,71 @@
 import React, { useEffect, useState } from 'react'
-import { UseDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getOgioProducts } from '../../../../slice/allProducts/OgioSlice'
 import { UpdateStockQuantity } from '../../../brands/ogio/api/OgioAPI';
 import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../model/travis/TravisMethewModel"
-import {getTravisProducts,getOtherProducts} from "../../../../slice/allProducts/TravisMethewSlice"
+import {getTravisProducts,getOtherProducts, updateTravisQty} from "../../../../slice/allProducts/TravisMethewSlice"
+import { UpDateTravisQty } from '../../../brands/travisMethew/api/UpdateProductData';
 
 type props={
-    resetUpdateOrder:()=>void
+    resetUpdateData:(updatedate:string)=>void
 }
 
 
-const TravisUpdateOrderToDB = ({resetUpdateOrder}:props) => {
+const TravisUpdateOrderToDB = ({resetUpdateData}:props) => {
 
-
+   const dispatch=useDispatch()
     const getTravisProduct= useSelector(getTravisProducts);
    const [updatestock, setUpdateStock]= useState<BasicModelTravis[]>([])
     useEffect(()=>{
+        const newtravis: BasicModelTravis[] = [];
         if(getTravisProduct &&
             getTravisProduct.length>0){
-                const newData: BasicModelTravis[] = [];
+               
                 getTravisProduct.map(item=>{
                     if(item.ordered && item.error88 =="" && item.error90===""){
                          
-                        if(item.stock_90 && item.Quantity90){
+                        if(item.stock_90 && item.Quantity90 &&item.stock_88 &&item.Quantity88){
                             const data={
                                 sku:item.sku,
-                                stock_90:item.stock_90-item.Quantity90
+                                stock_90:item.stock_90-item.Quantity90,
+                                stock_88:item.stock_88-item.Quantity88
                             }
-                            newData.push(data)
+                            newtravis.push(data)
                         }
                         
                     }
                 })
-                setUpdateStock(newData)
+                
             }
+            updateQtyApi(newtravis)
             
     },[getTravisProduct])
 
-    // call API function
-
-    useEffect(() => {
-        if(updatestock &&
-            updatestock.length>0){
-                
-                //updateStock(updatestock)
-                }
-        
-        
-    },[updatestock])
+  
 
 
-    // const updateStock= async (allData:BasicModelTravis[]) => {
-    //     try {
-
-    //         const response = await UpdateStockQuantity(allData)
+    const updateQtyApi=async(data:BasicModelTravis[])=>{
 
 
-    //         console.log("updated quantity",response)
-    //         if(response.message==="Products stock quantity updated successfully"){
-    //             resetUpdateOrder()
-    //         }else{
-    //             alert("Error updating stock quantity");
-    //             resetUpdateOrder()
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //         resetUpdateOrder()
-    //     }
-    // }
+        try{
+
+
+            const response= await UpDateTravisQty(data);
+            console.log("update qty",response);
+            if(response.status==200 && response.data){
+                dispatch(updateTravisQty({
+                    allQtyTravis: data
+                }))
+                resetUpdateData(response.data.message)
+            }
+            
+        }catch(e){
+            console.log(e);
+            alert("Error updating travis stock quantity");
+            resetUpdateData("")
+        }
+    }
+ 
 
   return (
     <div></div>

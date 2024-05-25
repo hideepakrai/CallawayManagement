@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addPreOrderId, getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
+import { CartModel } from '../../../model/CartOrder/CartModel'
+import { CreateOrder } from '../../../cartOrder/orderApi/OrderAPi'
 
-const CreatedOrder = () => {
 
+type Props={
+    resetCreatedOrder:()=>void;
+}
+const CreatedOrder = ({resetCreatedOrder}:Props) => {
+  const dispatch= useDispatch()
     const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
   const getUserAccounts= useSelector(getUserAccount)
   const [ typeOfAccount, settypeOfAccount]= useState<string>("")
@@ -63,6 +69,51 @@ const [brandId, setBrandId]= useState<number>()
      setGetAllTravisOrders(ogio)
    }
  },[getProduct]);
+
+
+
+ /// after getting product create order
+
+ useEffect(()=>{
+   if(allTravisOrders && allTravisOrders.length>0){
+    const now = new Date();
+      const formattedTimestamp = now.toISOString();
+     const data={
+      order_date:formattedTimestamp,
+      brand_id:brandId,
+      user_id:getCurrentUsers.id,
+      items:JSON.stringify(allTravisOrders),
+      status:"Pending",
+      created_at:formattedTimestamp,
+      updated_at:formattedTimestamp
+
+    }
+    createOrder(data)
+   }
+ },[allTravisOrders])
+
+
+ const createOrder = async (data: CartModel) => {
+  try {
+    const response = await CreateOrder(data);
+     console.log("order created  first time", response)
+     if(response.status === 200) {
+     const orderId= response?.data?.insertId
+     dispatch(addPreOrderId({
+       preOrderId: orderId,
+     }))
+     }
+     resetCreatedOrder()
+  
+  }
+  catch (err) {
+    console.log(err);
+    //dispatch(LoadingStop())
+    alert("Error on creating order")
+    resetCreatedOrder()
+    
+  }
+}
 
   return (
     <div>

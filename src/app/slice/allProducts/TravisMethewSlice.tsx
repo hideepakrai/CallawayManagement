@@ -10,6 +10,7 @@ interface ProductState {
     uniqueSeason: string[]; 
     isStartLoading : boolean;
     preOrderId:number;
+    progressStep:number
     
 }
 
@@ -21,6 +22,7 @@ const initialState: ProductState = {
     uniqueSeason:[],
     isStartLoading:false,
     preOrderId:0,
+    progressStep:0,
 
 };
 const TravisMethewSlice = createSlice({
@@ -40,6 +42,9 @@ const TravisMethewSlice = createSlice({
        reloadTravisProduct:(state, action)=>{
         state.travisMethew=action.payload.reloadTravis
        
+       },
+       updateProgressStep:(state, action)=>{
+        state.progressStep=action.payload.progressStep;
        },
        addPreOrderId:(state,action)=>{
         state.preOrderId=action.payload.preOrderId;
@@ -595,6 +600,19 @@ const TravisMethewSlice = createSlice({
             state.travisMethew[travisIndex].primaryImage=primaryImage;
             state.travisMethew[travisIndex].secondaryImage=secondaryImage;
           }
+     },
+     updateTravisQty:(state,action)=>{
+      const {allQtyTravis}= action.payload
+      if(allQtyTravis && allQtyTravis.length>0){
+        allQtyTravis.map((item:BasicModelTravis)=>{
+          const travisIndex= state.travisMethew.findIndex(trvis=>trvis.sku==item.sku);
+          if(travisIndex!=-1){
+            state.travisMethew[travisIndex].stock_88=item.stock_88;
+            state.travisMethew[travisIndex].stock_90=item.stock_90;
+          }
+        })
+      }
+      
      }
 
           
@@ -618,7 +636,10 @@ export const {
     updateTravisInclusiveDiscount,updaterTravisExclusiveDiscount,
     updateTravisFlatDiscount,
     resetTravisOrder,
-    updatePrimarySeondaryImage
+    updatePrimarySeondaryImage,
+    updateTravisQty,
+    addPreOrderId,
+    updateProgressStep
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];
@@ -637,6 +658,10 @@ export const getTravisStartLoading = (state: { travisMethew: ProductState }): bo
 };
 export const getPreOrderId = (state: { travisMethew: ProductState }): number => {
     return state.travisMethew?.preOrderId;
+    
+};
+export const getPregressStep = (state: { travisMethew: ProductState }): number => {
+    return state.travisMethew?.progressStep;
     
 };
 

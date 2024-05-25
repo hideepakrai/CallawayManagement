@@ -166,7 +166,10 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
 
         <div className='col-11 mb-3  pro-bar-list mt-4' >
 
-    <ProgressCart></ProgressCart>
+    <ProgressCart
+    checkAvailability={handleReview}
+    submitorder={handleSubmit}
+    />
 
             {/* <span className='mx-3'  >
                 <Button className="select-btn">

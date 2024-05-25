@@ -16,3 +16,16 @@ export function CreateOrder(data: CartModel) {
             throw err;
         });
 }
+export function UpdateOrder(data: CartModel) {
+    
+
+    return axios.post(`${serverUrl}/update-order`, data)
+        .then(response => {
+           
+            return response;
+        })
+        .catch(err => {
+            console.error("Error creating order:", err);
+            throw err;
+        });
+}

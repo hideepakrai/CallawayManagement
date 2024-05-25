@@ -49,7 +49,7 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
       const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
       //console.log("json ", data)
       // Use the extracted JSON data here
-      //console.log(jsonData);
+      console.log(jsonData);
       setAllXlxData(jsonData)
       setLoading(false);
     };
@@ -65,6 +65,7 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
     //setIsModalOpen(false);
     console.log("ok")
     travisQtyData(allXlxData)
+    setAllXlxData([]);
     // onClose();
   };
   const handleCancel = () => {

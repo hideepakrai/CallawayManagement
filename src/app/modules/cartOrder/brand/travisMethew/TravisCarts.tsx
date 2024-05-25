@@ -4,7 +4,7 @@ import { Card, Table, Carousel, Breadcrumb, Tooltip, Select, Space } from "antd"
 import { Input, Radio,InputNumber, Button } from "antd";
 import type { InputRef, SelectProps, TableColumnsType } from 'antd';
 import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../model/travis/TravisMethewModel"
-import {getTravisProducts,getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount, resetTravisOrder} from "../../../../slice/allProducts/TravisMethewSlice"
+import {getTravisProducts,getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount, resetTravisOrder, updateProgressStep} from "../../../../slice/allProducts/TravisMethewSlice"
 import {updateQuantity90,updateQuantity88,
   addOtherProduct,updateOtherQuantity90,
   updateOtherQuantity88,removeOtherProduct} from "../../../../slice/allProducts/TravisMethewSlice";
@@ -537,6 +537,10 @@ useEffect(() => {
 const [ isRefetch, setIsRefetch]= useState<boolean>(false)
 const handleRefetch=()=>{
   setIsRefetch(true)
+  dispatch(updateProgressStep({
+    progressStep:1
+
+  }))
   dispatch(LoadingStart())
 }
 
@@ -565,10 +569,21 @@ const handleResetSubmitOrder=()=>{
   
 }
 
-const handleUpdateStrapi=()=>{
+const handleUpdateStrapi=(message:string)=>{
   console.log("updated in DB")
   setIsUpdateStrapi(false)
   setIsUpdateRedux(true)
+  if(message===""){
+    alert("some went wrong")
+  }
+  else if(message!=``){
+    alert(message)
+  }
+
+  dispatch(updateProgressStep({
+    progressStep:2
+
+  }))
 } 
 
 
@@ -728,10 +743,10 @@ const[isNote, setIsnote]= useState<boolean>(false)
        
        />}
 
-{ totalNetBillAmount&&
+{ 
       isSubmitOrder&&
       <TravisSubmitOrder
-       totalNetBillAmount={totalNetBillAmount}
+       totalNetBillAmount={totalNetBillAmount??0}
        discountType={discountType}
        discountValue={discountValue}
        resetSubmitOrder={handleResetSubmitOrder}
@@ -739,8 +754,9 @@ const[isNote, setIsnote]= useState<boolean>(false)
        />}
 
 
-{isUpdateStrapi &&  <TravisUpdateOrderToDB
-    resetUpdateOrder={handleUpdateStrapi}
+{isUpdateStrapi && 
+ <TravisUpdateOrderToDB
+ resetUpdateData={handleUpdateStrapi}
    />} 
 
    <Note

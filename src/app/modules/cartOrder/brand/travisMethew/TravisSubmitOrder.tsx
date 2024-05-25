@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {BasicModelTravis,BasicModelTravisGraph,ImageType} from "../../../model/travis/TravisMethewModel"
-import {getTravisProducts,getOtherProducts} from "../../../../slice/allProducts/TravisMethewSlice"
+import {getTravisProducts,getOtherProducts, getPreOrderId} from "../../../../slice/allProducts/TravisMethewSlice"
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
@@ -8,7 +8,7 @@ import { CurentUser } from '../../../model/useAccount/CurrentUser';
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 import {getRetailerDetails} from "../../../../slice/orderSlice/travis/Orderdetails"
 import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
-import { CreateOrder } from '../../orderApi/OrderAPi';
+import { CreateOrder, UpdateOrder } from '../../orderApi/OrderAPi';
 
 import GetAllorder from '../../../orderPage/GetAllorder';
 
@@ -28,7 +28,7 @@ const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetS
   const [userId, setUserId] = useState<number>();
   const [isOrder, setIsOrder]= useState(false);
   const dispatch= useDispatch()
-
+  const getPreOrderIds= useSelector(getPreOrderId)
    // update user Id
    const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
      console.log("getCurrentUsers",getCurrentUsers)
@@ -61,6 +61,8 @@ const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetS
     
   useEffect(()=>{
     const ogio:BasicModelTravis[]=[];
+    // eslint-disable-next-line no-debugger
+    debugger
     if(getProduct &&getProduct.length>0){
       getProduct.map((item)=>{
         if(item.ordered && item.error88===""  && item.error90===""&&item.brand_id){
@@ -85,33 +87,35 @@ const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetS
   //getAlll retailer detail 
   const getRetailerDetail= useSelector(getRetailerDetails)
   useEffect(()=>{
-   // eslint-disable-next-line no-debugger
-   debugger
+  
     
 if(getRetailerDetail && 
-   
+  allTravisOrders &&allTravisOrders.length>0 &&
     getRetailerDetail.retailerId&&
    
     totalNetBillAmount&&
     discountValue&&
     discountType &&
-    brandId
+    brandId &&
+    getPreOrderIds
     
 ){
         handleCreateOrder()
     }
 
-  },[allTravisOrders,getRetailerDetail,totalNetBillAmount,discountType,discountValue,managerUserId,brandId])
+  },[allTravisOrders,getRetailerDetail,totalNetBillAmount,discountType,discountValue,managerUserId,brandId,getPreOrderIds])
     
 
   const handleCreateOrder = () => {
-    
+
+    console.log("reached handleCreateOrder")
       dispatch(LoadingStart());
       //const orderId = generateUniqueNumeric();
       const now = new Date();
+      const formattedTimestamp = now.toISOString();
       if (Array.isArray(allTravisOrders) &&orderId) {
         const data={
-          order_date:"",
+          order_date:formattedTimestamp,
           note:note,
           brand_id:brandId,
           user_id:getCurrentUsers.id,
@@ -119,11 +123,11 @@ if(getRetailerDetail &&
           discount_type:discountType,
           discount_percent:discountValue,
           total_value:totalNetBillAmount,
-          status:"Pending",
+          status:"submitted",
           manager_id:managerUserId,
           retailer_id:getRetailerDetail.retailerId,
-          salesrep_id:111
-    
+          salesrep_id:111,
+          updated_at:formattedTimestamp
         
 
         }
@@ -145,15 +149,14 @@ if(getRetailerDetail &&
   const [reLoadUserAccount, setReloadUserAccount] = useState(false)
   const createOrder = async (data: CartModel) => {
     try {
-      const response = await CreateOrder(data);
-       console.log("order created ", response)
-      // if (response==="order created successfully") {
-      //   setReloadUserAccount(true)
-      //   setIsOrder(true)
-      // }
+      const response = await UpdateOrder(data);
+       console.log("order submitted ", response)
+      if (response) {
+        //setReloadUserAccount(true)
+        setIsOrder(true)
+      }
 
-      setReloadUserAccount(true)
-      setIsOrder(true)
+    
     }
     catch (err) {
       console.log(err);

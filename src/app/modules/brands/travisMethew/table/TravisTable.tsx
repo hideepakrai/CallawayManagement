@@ -32,6 +32,8 @@ import ImageRenderer from "./column/gallery";
 import { getCategory, getStyleCode } from "../../../../slice/allProducts/TravisMethewSlice"
 import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
 import TravisQtyImport from '../excel/importExcel/TravisQtyImport';
+import TravisUpdateQtyDb from '../excel/importExcel/TravisUpdateQtyDb';
+import PreOrder from '../preOrder/PreOrder';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
@@ -1248,11 +1250,19 @@ const TravisTable = () => {
   const handleTravisQtyData = (allDatat: ExcelModelTravis[]) => {
     const table = tableRef.current;
     handleCloseQtyImport()
-
+// eslint-disable-next-line no-debugger
+debugger
     setQtyAllXlxData(allDatat)
   }
 
-
+ const handleReseyQtyData=(message:string) => {
+  if(message!=""){
+    alert(message)
+  }else{
+    alert("something went wrong")
+  }
+  setQtyAllXlxData([])
+ }
   return (
     <div className='container'>
 
@@ -1353,6 +1363,13 @@ const TravisTable = () => {
       />
 
 
+<TravisUpdateQtyDb
+allQtyXlxData={allQtyXlxData}
+resetQtyData={handleReseyQtyData}
+
+
+/>
+
 
 <TravisUpdateQty
          isUpdate={isUpdate}
@@ -1379,6 +1396,8 @@ const TravisTable = () => {
         selectedRow={selectedRow}
         resetSelectedRow={handleResetSelectedRow}
       />}
+
+      <PreOrder/>
     </div>
   )
 }

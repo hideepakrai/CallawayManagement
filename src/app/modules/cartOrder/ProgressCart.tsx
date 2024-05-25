@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Steps, Popover, Button } from 'antd';
 import type { StepsProps } from 'antd';
+import { getPregressStep } from '../../slice/allProducts/TravisMethewSlice';
+import { useSelector } from 'react-redux';
 
-const ProgressCart: React.FC = () => {
+
+type Props={
+ 
+    checkAvailability:()=>void
+    submitorder:()=>void
+}
+const ProgressCart = ({checkAvailability,submitorder}:Props) => {
     const [current, setCurrent] = useState(0);
 
     const onChange = (value: number) => {
@@ -10,11 +18,20 @@ const ProgressCart: React.FC = () => {
         setCurrent(value);
     };
 
+    const getPregressSteps= useSelector (getPregressStep)
+// update progress step
+useEffect(()=>{
+    if(getPregressSteps){
+        setCurrent(getPregressSteps) 
+    }
+},[getPregressSteps])
+
+
     const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
         <Popover
             content={
                 <span>
-                    step {index + 1} status: {status}
+                    step {index} status: {status}
                 </span>
             }
         >
@@ -27,9 +44,19 @@ const ProgressCart: React.FC = () => {
     const description3 = ' Reject Order';
     const description4 = 'Payment Done / Pending';
 
+
+    const handelCheckAvailability=()=>{
+    checkAvailability()
+       
+    }
+
+    const  handleSubmit = ()=>{
+        console.log("progress submited")
+        submitorder()
+    }
     return (
         <>
-            <Steps current={1}
+            <Steps current={current}
 
                 labelPlacement="vertical"
             >
@@ -38,7 +65,9 @@ const ProgressCart: React.FC = () => {
                         <>
                              <span className='step'>Step 1</span>
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-                            >     <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-clipboard2-check"></i> 
+                           
+                           onClick={handelCheckAvailability}
+                           >     <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-clipboard2-check"></i> 
                            Check Live Availability 
                              </Button>
                         
@@ -53,7 +82,9 @@ const ProgressCart: React.FC = () => {
                             Step 2
                           
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-                            >      <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-file-earmark-text travis-icon"></i>
+                           
+                           onClick={handleSubmit}
+                           >      <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-file-earmark-text travis-icon"></i>
                              Submit Order
                              </Button>
                         </>
