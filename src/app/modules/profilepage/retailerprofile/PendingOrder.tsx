@@ -222,10 +222,10 @@ const AllRetialerPendingOrder = () => {
                     bordered
                     size="middle"
                     scroll={{ x: "100%", y: "auto" }}
-                    pagination={{
-                        position: ["topRight", "bottomRight"],
-                        defaultPageSize: 20,
-                    }}
+                    // pagination={{
+                    //     position: ["topRight", "bottomRight"],
+                    //     defaultPageSize: 20,
+                    // }}
                 />
             </Card>
 

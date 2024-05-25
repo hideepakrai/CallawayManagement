@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { getOgioProducts } from '../../slice/allProducts/OgioSlice';
 import { getGoodsProducts } from '../../slice/allProducts/CallAwayGoodsSlice';
 import { getApparelProducts } from '../../slice/allProducts/CallawayApparelSlice';
-
+import  Callawaygoods from "../../../../public/media/logos/icon-profile.png"
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState(''); // Default to 'apparel' tab
 
@@ -73,17 +73,17 @@ const CartProduct = () => {
           <ul className="nav nav-tabs nav-line-tabs nav-link-tab border-0 mb-5 fs-6 mt-6 ">
           
 
-          <li className="nav-item hover-elevate-up">
+          <li className="nav-item hover-elevate-up cursor-pointer">
               <a className={`nav-link active-tab ${activeTab === 'apparel' ? 'active' : ''}`}  onClick={() => setActiveTab('apparel')}>
-              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
+              <img src={Callawaygoods} className='cart-img'></img>
               Callaway Apparel
               </a>
             </li>
 
 
-          <li className="nav-item hover-elevate-up">
+          <li className="nav-item hover-elevate-up cursor-pointer">
               <a className={`nav-link active-tab ${activeTab === 'goods' ? 'active' : ''}`} onClick={() => setActiveTab('goods')}>
-              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
+              <img src={Callawaygoods} className='  cart-img'></img>
               Callaway Hardgoods
               </a>
             </li>
@@ -91,7 +91,7 @@ const CartProduct = () => {
 
 
           
-           <li className="nav-item hover-elevate-up">
+           <li className="nav-item hover-elevate-up cursor-pointer">
               <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} onClick={() => setActiveTab('ogio')}>
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
                 Ogio
@@ -100,7 +100,7 @@ const CartProduct = () => {
 
 
          
-             <li className="nav-item hover-elevate-up">
+             <li className="nav-item hover-elevate-up cursor-pointer">
               <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} onClick={() => setActiveTab('travis')}>
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' cart-img'></img>
                 Travis Mathew 

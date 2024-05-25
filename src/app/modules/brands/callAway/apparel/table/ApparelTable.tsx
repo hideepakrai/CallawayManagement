@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Card, Table, Carousel, Breadcrumb, Slider, Tooltip } from "antd";
+import { Card, Table, Carousel, Breadcrumb, Tooltip } from "antd";
 import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
 
@@ -8,7 +8,7 @@ import { number } from 'yup';
 import "../CallAwayApprelProducts.css";
 
 import * as XLSX from 'xlsx';
-
+import Slider from '../../../../model/slider/Slider';
 import { Cascader, Select, Space } from 'antd';
 
 import { message } from "antd";
@@ -20,6 +20,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel';
 import { getApparelProducts, updateQuantity88, updateQuantity90 } from '../../../../../slice/allProducts/CallawayApparelSlice';
 import { useNavigate } from 'react-router-dom';
+import TravisImportProduct from "./ApparelImportProduct"
+import ApparelUpdateQty from "./ApparelUpdateQty"
+import AppareImportProduct from "./ApparelExportProduct"
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20	'];
@@ -27,12 +30,14 @@ const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
 
 
 const ApparelTable = () => {
+  const [isUpdate, setIsUpdateQty] = useState(false);
+  const [isProduct, setIsProduct] = useState(false);
   const placement: SelectCommonPlacement = 'topLeft';
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
 
   const dispatch = useDispatch()
-  const navigate= useNavigate()
+  const navigate = useNavigate()
   const getApparelProduct = useSelector(getApparelProducts)
   const [amount, setAmount] = useState<number>()
   const searchInput = useRef<InputRef>(null);
@@ -143,6 +148,7 @@ const ApparelTable = () => {
 
         return categoryA.localeCompare(categoryB);
       },
+
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
         <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
           <Select
@@ -490,7 +496,7 @@ const ApparelTable = () => {
 
   };
 
-
+  const [isPDF, setIspdf] = useState<boolean>(false)
   const [qty90ToolMesage, setQty90Message] = useState<string>("")
   const [qty90ToolSKU, setQty90SKU] = useState<string | undefined>("")
   const [isQty90ToolTip, setIsQty90ToolTip] = useState<boolean>(false)
@@ -536,7 +542,7 @@ const ApparelTable = () => {
         setQty90Message("The quantity should not exceed the available stock")
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
-        
+
         dispatch(updateQuantity90({
           sku: record.sku,
           qty90: st90,
@@ -570,10 +576,93 @@ const ApparelTable = () => {
 
   };
 
+  const [allXlxData, setAllXlxData] = useState<BasicModelApparel[]>([])
+  const handleApparelData = (allDatat: BasicModelApparel[]) => {
+    const table = tableRef.current;
+    handleCloseImport()
+
+    setAllXlxData(allDatat)
+  }
+
+
+ 
+
+
+  //exportto excel
+  const handleExportToExcel = () => {
+    try {
+      const table = tableRef.current as HTMLTableElement | null;
+
+      if (!table) {
+        console.error("Table element not found.");
+        return;
+      }
+
+      // Get the table's outerHTML
+      const tableHtml = table.outerHTML;
+
+      // Create a Blob object representing the data as an XLSX file
+      const blob = new Blob([tableHtml], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      // Create a temporary anchor element to download the Blob
+      const anchor = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+
+      anchor.href = url;
+      anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+      anchor.click();
+
+      // Release the object URL
+      URL.revokeObjectURL(url);
+
+
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+    }
+  };
+
   // navigate to card
   const handleViewCart = () => {
     navigate("/cart")
   }
+
+  // handle Excels Data
+  const handleImportProduct = () => {
+    setIsImport(true);
+  };
+
+  const handleCloseImport = () => {
+    setIsImport(false);
+  };
+
+
+    // handle Excels product
+    const  handleUpdateQty = () => {
+      setIsUpdateQty(true);
+    };
+    const handleCloseUpdateQty = () => {
+      setIsUpdateQty(false);
+    };
+
+    // handle Excels product
+  const handleProduct = () => {
+    setIsProduct(true);
+  };
+  const handleCloseProduct = () => {
+    setIsProduct(false);
+  };
+
+
+  const handleShowPdf=()=>{
+    setIsProduct(false)
+    setIspdf(true)
+ }
+ const handleDownloadExcel=()=>{
+   handleExportToExcel()
+   setIsProduct(false)
+ }
 
 
   return (
@@ -581,23 +670,9 @@ const ApparelTable = () => {
 
 
 
-      <div className='container content-pro'>
 
-
-        <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
-          <div id="kt_toolbar_container" className=" d-flex flex-stack">
-            <div className="page-title d-flex flex-column">
-              <h1 className="d-flex text-white fw-bold my-1 fs-3">
-                Callaway Apparel
-              </h1>
-            </div>
-
-          </div>
-        </div>
-
-
+      <div className='container content-pro mt-3'>
         {/* <SliderApprel /> */}
-
         <Card className='travish-mat-section' style={{ marginTop: '80px', padding: "10px", }}
           title="CALLAWAY APPAREL"
           extra={
@@ -622,22 +697,25 @@ const ApparelTable = () => {
 
             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
-            onClick={handleViewCart}
+              onClick={handleViewCart}
             > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
+          
+
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            //  onClick={handleImport}
+              onClick={handleImportProduct}
             > <i className="bi bi-file-earmark-arrow-down fs-3"></i>  Import Products</Button>
 
 
             <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            // onClick={handleUpdateQty} 
+                onClick={handleUpdateQty} 
             > <i className="bi bi-arrow-repeat fs-2"></i> Update Qty </Button>
 
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
             //  onClick={handleProduct} 
-
+            onClick={handleProduct} 
             > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
+
 
 
             {/* <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
@@ -668,6 +746,10 @@ const ApparelTable = () => {
           </div>
 
 
+          <div className='show-prodect-section' >
+          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
+          </div>
+
           <Table className='cart-table-profile'
             ref={tableRef}
             columns={columns}
@@ -690,13 +772,28 @@ const ApparelTable = () => {
               defaultPageSize: 20
             }}
           />
-
-
-
         </Card>
 
 
+        <TravisImportProduct
+          isImport={isImport}
+          onClose={handleCloseImport}
+          allGoodsData={handleApparelData}
+        />
 
+     <ApparelUpdateQty
+         isUpdate={isUpdate}
+        onClose={handleCloseUpdateQty}
+        allGoodsData={handleApparelData}
+      />
+
+    <AppareImportProduct
+        isProduct={isProduct}
+        onClose={handleCloseProduct}
+        allGoodsData={handleApparelData}
+        printPdf={handleShowPdf}
+        excelExport={handleDownloadExcel}
+      />
 
       </div>
 

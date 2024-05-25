@@ -17,7 +17,7 @@ const SampleRetailerExcel = ({isSample,resetIsSample}:Props) => {
    
     const columns: ColumnProps<RetailerExcelModal>[] = [
         {
-          title: 'Name',
+          title: 'Name ',
           dataIndex: 'Name',
           key: 'Name',
           width: 150,

@@ -343,7 +343,7 @@ useEffect(()=>{
 
   return (
     <div>
-    <h3> goods</h3>
+    
 {isLoadingStart && <Loading />}
 
       {allOrder &&

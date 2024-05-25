@@ -3,21 +3,22 @@ import { Button, Modal } from "antd";
 import { Input } from "antd";
 import { Select } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
-import type { UploadProps } from 'antd';
+import type { TableColumnsType, UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
 import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelTravis } from "../../../../model/travis/TravisMethewModel";
 import type { ColumnProps } from 'antd/lib/table';
-import SampleExcelTravis from "../SampleExcelTravis";
+import { BasicModelApparel } from "../../../../model/apparel/CallawayApparelModel";
+// import SampleExcelTravis from "../SampleExcelTravis";
 
 const { Dragger } = Upload;
 
 type Props = {
   onClose: () => void;
   isImport: boolean;
-  allGoodsData: (allData: ExcelModelTravis[]) => void
+  allGoodsData: (allData: BasicModelApparel[]) => void
 }
 
 const props: UploadProps = {
@@ -26,7 +27,7 @@ const props: UploadProps = {
 
 };
 const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
-  const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
+  const [allXlxData, setAllXlxData] = useState<BasicModelApparel[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -72,132 +73,151 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     onClose();
   };
 
-  const columns: ColumnProps<BasicModelTravis>[] = [
-    {
-      title: 'brand',
-      dataIndex: 'brand',
-      key: 'brand',
-      width: 150,
-    },
-    {
-      title: 'sku',
-      dataIndex: 'sku',
-      key: 'sku',
-      width: 150,
-    },
-    {
-      title: 'name',
-      dataIndex: 'name',
-      key: 'name',
-      width: 70,
-    },
-    {
-      title: 'description',
-      dataIndex: 'description',
-      key: 'description',
-      width: 115,
-    },
-    {
-      title: 'category',
-      dataIndex: 'category',
-      key: 'category',
-      width: 115,
-    },
-    {
-      title: 'season',
-      dataIndex: 'season',
-      key: 'season',
-      width: 115,
-    },
-    {
-      title: 'style_code',
-      dataIndex: 'style_code',
-      key: 'style_code',
-      width: 115,
-    },
-    {
-      title: 'length',
-      dataIndex: 'length',
-      key: 'length',
-      width: 115,
-    },
-    {
-      title: 'line',
-      dataIndex: 'line',
-      key: 'line',
-      width: 115,
-    },
-    {
-      title: 'color',
-      dataIndex: 'color',
-      key: 'color',
-      width: 115,
-    },
-    {
-      title: 'color_code',
-      dataIndex: 'color_code',
-      key: 'color_code',
-      width: 115,
-    },
-    {
-      title: 'size',
-      dataIndex: 'size',
-      key: 'size',
-      width: 115,
-    },
-    {
-      title: 'gender',
-      dataIndex: 'gender',
-      key: 'gender',
-      width: 115,
-    },
+  const columns: TableColumnsType<BasicModelApparel> = [
    
+
+
+    {
+      title: "SKU ",
+      dataIndex: "sku",
+      width: 100,
+      fixed: "left",
+
     
+
+
+    },
+
+    {
+      title: "Description ",
+      dataIndex: "description",
+      key: "description",
+      width: 150,
+
+    },
+
+
+    {
+      title: "Category ",
+      dataIndex: "category",
+      key: "category",
+      width: 110,
+    },
+
+
+
+
+    {
+      title: "Season",
+      dataIndex: "season",
+      key: "season",
+      width: 100,
+
+  
+     
+    },
+    {
+      title: "Color",
+      dataIndex: "color",
+      key: "color",
+      width: 75,
+
     
+    },
+
+
     {
-      title: 'stock_88',
-      dataIndex: 'stock_88',
-      key: 'stock_88',
-      width: 80,
+      title: "Style",
+      dataIndex: "style_id",
+      key: "style_id",
+      width: 85,
+      
+    },
+
+
+
+    {
+      title: "Size",
+      dataIndex: "size",
+      key: "size",
+      width: 65,
+
+     
+    },
+
+    {
+      title: "Gender",
+      dataIndex: "gender",
+      key: "gender",
+      width: 150,
     },
     {
-      title: 'stock_90',
-      dataIndex: 'stock_90',
-      key: 'stock_90',
-      width: 80,
+      title: "Sleeves",
+      dataIndex: "sleeves",
+      key: "sleeves",
+      width: 150,
+    },
+
+    {
+      title: "Qty88",
+      dataIndex: "stock_88",
+      key: "stock_88",
+      width: 150,
+      fixed: 'right',
+     
     },
     {
-      title: 'mrp',
-      dataIndex: 'mrp',
-      key: 'mrp',
-      width: 80,
+      title: "Qty90",
+      dataIndex: "stock_90",
+      key: "stock_90",
+      width: 150,
+      fixed: 'right',
+    
     },
+
+
     {
-      title: 'gst',
-      dataIndex: 'gst',
-      key: 'gst',
-      width: 80,
+      title: "Qty",
+      dataIndex: "TotalQty",
+      key: "TotalQty",
+      width: 50,
+      fixed: 'right'
     },
+
+
     {
-      title: 'variation_sku',
-      dataIndex: 'variation_sku',
-      key: 'variation_sku',
+      title: "MRP",
+      dataIndex: "mrp",
+      key: "mrp",
       width: 80,
+      fixed: 'right'
     },
+
+
+    {
+      title: "Amount ",
+      dataIndex: "Amount",
+      key: "Amount",
+      width: 100,
+      fixed: 'right'
+    },
+
+
   ];
-  const excelData: BasicModelTravis[] = [
+
+  const excelData: BasicModelApparel[] = [
     {
       brand: "Travismathew",
       sku: 'TM001',
       name: 'Cool Belt',
       category: 'Belts',
       season: 'SS22',
-      style_code: '4MT044',
-      length: 'NA',
-      line: 'In_Line',
+      style_id: '4MT044',
+      series: 'NA',
+      sleeves: 'In_Line',
       gender:"Mens",
       color: 'Heather_Purple_Velvet',
-      color_code: '5HPR',
+    
       size: 'M',
      
       description: 'This is a cool belt from Travis Mathew.',
@@ -214,11 +234,10 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       name: 'Stylish Cap',
       category: 'Headwear',
       season: 'SS22',
-      style_code: '4MT045',
-      length: 'NA',
-      line: 'In_Line',
+      style_id: '4MT045',
+      series: 'NA',
+      sleeves: 'NA',
       color: 'Black',
-      color_code: 'BLK',
       size: 'L',
      
       description: 'A stylish cap from Travis Mathew.',
@@ -236,11 +255,10 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       name: 'Classic Polo',
       category: 'Tops',
       season: 'SS22',
-      style_code: '4MT046',
-      length: 'NA',
-      line: 'In_Line',
+      style_id: '4MT046',
+      series: 'NA',
+      sleeves: 'In_Line',
       color: 'Navy Blue',
-      color_code: 'NVBL',
       size: 'XL',
      
       description: 'A classic polo shirt from Travis Mathew.',
@@ -280,7 +298,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       const tr = document.createElement("tr");
       columns.forEach((column) => {
         const td = document.createElement("td");
-        td.innerText = String(rowData[column.dataIndex as keyof BasicModelTravis]) ;
+        // td.innerText = String(rowData[column.dataIndex as keyof BasicModelApparel]) ;
         tr.appendChild(td);
       });
       tbody.appendChild(tr);

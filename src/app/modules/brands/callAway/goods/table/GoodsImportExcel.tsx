@@ -10,7 +10,7 @@ import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelTravis } from "../../../../model/travis/TravisMethewModel";
 import type { ColumnProps } from 'antd/lib/table';
-import SampleExcelTravis from "../SampleExcelTravis";
+// import SampleExcelTravis from "../SampleExcelTravis";
 
 const { Dragger } = Upload;
 
@@ -25,7 +25,7 @@ const props: UploadProps = {
   multiple: false,
 
 };
-const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
+const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -185,6 +185,8 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       width: 80,
     },
   ];
+
+  
   const excelData: BasicModelTravis[] = [
     {
       brand: "Travismathew",
@@ -315,6 +317,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
+          
           <p className="ant-upload-text">
             Click or drag file to this area to upload
           </p>
@@ -324,9 +327,9 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
           </p>
         </Dragger>
         <div className="mt-5 downlaod-excel "
-        onClick={handleExportToExcel}
+        
         >
-          <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+          <h4 >Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3" onClick={handleExportToExcel} ></i> </span></h4>
         </div>
       </Modal>
 
@@ -343,4 +346,4 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 }
 
 
-export default TravisImportExcel
+export default GoodsImportExcel
