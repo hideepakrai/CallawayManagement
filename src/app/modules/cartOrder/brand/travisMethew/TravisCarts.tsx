@@ -20,7 +20,11 @@ import TravisUpdateOrderToDB from "./TravisUpdateOrderToDB"
 import TravisGallery from "../../../brands/travisMethew/table/column/gallery"
 import Note from "../../Note"
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
-  const TravisCarts = () => {
+import ApproveOrderTravis from './ApproveOrderTravis';
+
+ import AlertTravis from "./AlertTravis"
+
+const TravisCarts = () => {
     const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
     const tableRef = useRef(null);
     const navigate = useNavigate()
@@ -588,7 +592,41 @@ const handleUpdateStrapi=(message:string)=>{
   dispatch(LoadingStop())
 } 
 
+// Approve order
+const [message, setMessages]= useState<string>("")
+const [messageType, setMessagesType]= useState<string>("")
+const[isstatusUpdate, setIsStatusUpdate]= useState<boolean>(false)
+ const[statusUpdate, setStatusUpdate]= useState<string>("")
+const handleApproveOrder=()=>{
+  setIsStatusUpdate(true)
+  setStatusUpdate("Approved")
+  dispatch(LoadingStart())
 
+}
+
+const handleResetStatus=(status:string)=>{
+  if(status==="Approved"){
+  dispatch(updateProgressStep({
+    progressStep:4
+
+  }))
+   
+  setMessages("Order successfully approved")
+  setMessagesType("success")
+  } if(status==="Rejected"){
+    dispatch(updateProgressStep({
+      progressStep:4
+  
+    }))
+
+    setMessages("Order Rejected")
+    setMessagesType("success")
+  }
+  setIsStatusUpdate(false)
+  dispatch(LoadingStop())
+}
+
+// reject order
 const handleRejectOrder=()=>{
   console.log("reject button")
   dispatch(resetTravisOrder())
@@ -621,6 +659,7 @@ const[isNote, setIsnote]= useState<boolean>(false)
           
         reviewOrder={handleRefetch}
         submitOrder={hanldeSubmitOrder}
+        approveorder={handleApproveOrder}
         rejectOrder={handleRejectOrder}
         note={handleNote}
         />}
@@ -761,11 +800,24 @@ const[isNote, setIsnote]= useState<boolean>(false)
  resetUpdateData={handleUpdateStrapi}
    />} 
 
+ {/* approve order */}
+{isstatusUpdate && <ApproveOrderTravis
+ resetStatus={handleResetStatus}
+ statusUpdate={statusUpdate}/>}
+
+
    <Note
   isModalOpen ={isNote}
   handleOk={handleOkNote}
   handleCancel={handleCancelNote}
    />
+
+<AlertTravis
+message={message}
+messageType={messageType}
+
+/>
+
     </div>
   )
 }

@@ -14,12 +14,13 @@ type Props={
     reviewOrder: ()=>void,
     submitOrder:()=>void
     rejectOrder:()=>void,
+    approveorder:()=>void
     note:()=>void
     
    
     
 }
-const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
+const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note,approveorder}:Props) => {
     const dispatch= useDispatch()
     const [isNote, setIsNote] = useState(false);
     const handleNote = () => {
@@ -105,6 +106,9 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
         rejectOrder()
     }
      
+    const handleApproveSubmit=()=>{
+        approveorder()
+    }
   return (
     <div>
     <div className='row'>
@@ -169,6 +173,7 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note}:Props) => {
     <ProgressCart
     checkAvailability={handleReview}
     submitorder={handleSubmit}
+    approveOrder={handleApproveSubmit}
     />
 
             {/* <span className='mx-3'  >

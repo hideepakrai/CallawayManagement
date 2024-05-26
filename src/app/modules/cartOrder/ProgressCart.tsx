@@ -9,8 +9,9 @@ type Props={
  
     checkAvailability:()=>void
     submitorder:()=>void
+    approveOrder:()=>void
 }
-const ProgressCart = ({checkAvailability,submitorder}:Props) => {
+const ProgressCart = ({checkAvailability,submitorder,approveOrder}:Props) => {
     const [current, setCurrent] = useState(0);
 
     const onChange = (value: number) => {
@@ -56,7 +57,7 @@ useEffect(()=>{
     }
 
     const  handleApproveOrder = ()=>{
-        handleApproveOrder()
+        approveOrder()
     }
     return (
         <>

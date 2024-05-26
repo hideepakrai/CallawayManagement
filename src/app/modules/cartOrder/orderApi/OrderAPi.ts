@@ -29,3 +29,17 @@ export function UpdateOrder(data: CartModel) {
             throw err;
         });
 }
+export function ApproveOrder(data: CartModel) {
+    
+
+    return axios.post(`${serverUrl}/approve-order`, data)
+        .then(response => {
+           
+            return response;
+        })
+        .catch(err => {
+            console.error("Error on Approving order:", err);
+            
+            throw err;
+        });
+}
