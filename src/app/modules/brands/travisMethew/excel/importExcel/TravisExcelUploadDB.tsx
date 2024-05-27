@@ -68,7 +68,6 @@ const id:number= travispr?.id??0;
                 sku: item.sku,
                  mrp: item.mrp,
                  gst:item.gst,
-               
                     style_code:item.style_code,
                     length:item.length,
                     category:item.category,
@@ -85,9 +84,7 @@ const id:number= travispr?.id??0;
   
               };
   
-              dispatch(updateReduxData({
-                travisProduct:sdd  
-              }))
+             
               saveData(sdd,index)
               
         }
@@ -103,6 +100,9 @@ const id:number= travispr?.id??0;
       const response = await AddNewProduct( products);
       if (response.status === 200) {
         console.log("newly upload",response);
+        dispatch(updateReduxData({
+          travisProduct:products  
+        }))
         resetXls();
       }
 

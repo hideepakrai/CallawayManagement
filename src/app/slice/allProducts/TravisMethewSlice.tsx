@@ -238,6 +238,15 @@ const TravisMethewSlice = createSlice({
                           variation_sku: travisProduct.variation_sku,
                           stock_90:travisProduct.stock_90,
                           stock_88:travisProduct.stock_88,
+                          size:travisProduct.size,
+                          style_code:travisProduct.style_code,
+                          length:travisProduct.length,
+                          season:travisProduct.season,
+                          line:travisProduct.line,
+                          color:travisProduct.color,
+                          color_code:travisProduct.color_code,
+                          gender:travisProduct.gender,
+                         
                           Quantity90:0,
                           Quantity88:0,
                           Amount:0,
@@ -281,6 +290,12 @@ const TravisMethewSlice = createSlice({
                   }
                   if(travisProduct.gst!==undefined){
                     rdx.gst=travisProduct.gst
+                  }
+                  if(travisProduct.size!==undefined){
+                    rdx.size=travisProduct.size
+                  }
+                  if(travisProduct.length!==undefined){
+                    rdx.length=travisProduct.length
                   }
                   if(travisProduct.primary_image_url!==undefined){
                     rdx.primary_image_url=travisProduct.primary_image_url

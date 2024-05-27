@@ -77,7 +77,9 @@ const OgioSlice = createSlice({
                                 Discount:0,
                                 NetBillings:0,
                                 FinalBillValue:0,
-                                error:""
+                                error:"",
+                                primaryImage:"",
+                                secondaryImage:""
               
                             })
                           }
@@ -158,7 +160,8 @@ const OgioSlice = createSlice({
                                             Discount:0,
                                             NetBillings:0,
                                             FinalBillValue:0,
-                                            error:""
+                                            error:"",
+                                            secondaryImage:""
                                            
             
             
@@ -208,7 +211,10 @@ const OgioSlice = createSlice({
                             Discount:0,
                             NetBillings:0,
                             FinalBillValue:0,
-                            error:""
+                            error:"",
+                            secondaryImage:"",
+                            primaryImage:"",
+
                            
 
 
@@ -392,6 +398,20 @@ const OgioSlice = createSlice({
                 }
             }
 
+        },
+        updateOgioStock:(state,action)=>{
+            const {ogioProduct}= action.payload;
+              if(ogioProduct &&ogioProduct.length>0){
+                ogioProduct.map((newOgio:OgioBasicModel)=>{
+                    const ogioIndex= state.ogio.findIndex(item=>item.sku===newOgio.sku);
+                    // eslint-disable-next-line no-debugger
+                    debugger
+                    if(ogioIndex!=-1){
+                        state.ogio[ogioIndex].stock_90=newOgio.stock_90
+                    }
+                })
+              }
+          
         }
 
 
@@ -410,7 +430,8 @@ export const { addOgioProduct,
     updateOgioExclusiveDiscount,
     updateOgioInclusiveDiscount,
     resetOgioOrder,
-    updateQunatityAfterOrder
+    updateQunatityAfterOrder,
+    updateOgioStock
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];

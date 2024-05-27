@@ -9,9 +9,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType } from "../../../../slice/allProducts/OgioSlice"
 import SampleOgioExcel from '../excel/SampleOgioExcel';
 import OgioImportExcel from "../excel/importExcel/OgioImportExcel"
-import OgioUploadExcelDB from "../excel/importExcel/OgioUploadExcel"
-import OgioUpdateExcel from "../excel/UpdateData/ImportExcel"
-import UploadDB from '../excel/UpdateData/UpdateDB';
+import OgioExcelUploadDB from "../excel/importExcel/OgioUploadExcel"
+
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import OgioGallery from "./column/OgioGallery"
 import { addOgioOrder, removeOgioOrder } from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice"
@@ -20,6 +19,8 @@ import { useNavigate } from 'react-router-dom';
 import { checkIsActive } from '../../../../../_metronic/helpers';
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel';
 import OgioProdPdf from "../ogioPdf/OgioProdPdf"
+import UpdateOgioQty from '../excel/importExcel/UpdateOgioQty';
+import OgioUpdateQtyDb from '../excel/importExcel/OgioUpdateQtyDb';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -512,30 +513,32 @@ const OgioTable = () => {
     setAllXlxData([])
   }
   const [isUpdate, setIsUpdate] = useState<boolean>(false)
+  const [isQtyImport, setIsQtyImport] = useState<boolean>(false)
 
-  // handle Uppdate Excel data
-  const handleUpdateExcel = () => {
-    setIsUpdate(true)
+
+   // handle update quantity import
+   const handleQtyImport = () => {
+    setIsQtyImport(true);
+  };
+  const handleCloseQtyImport = () => {
+    setIsQtyImport(false);
+  };
+// update qty in Db
+  const [allQtyXlxData, setQtyAllXlxData] = useState<OgioExcelModel[]>([])
+  const handleOgioQtyData=(allDatat:OgioExcelModel[])=>{
+    setQtyAllXlxData(allDatat)
+    handleCloseQtyImport()
   }
 
-  const handleCloseUpdate = () => {
-    setIsUpdate(false)
-  }
 
-  const [updateXlsData, setUpdateXlsData] = useState<OgioExcelModel[]>([])
-  const handleUpdateOgioData = (updateData: OgioExcelModel[]) => {
-    setUpdateXlsData(updateData)
-    handleCloseUpdate()
+  const handleReseyQtyData=(message:string) => {
+    if(message!=""){
+      alert(message)
+    }else{
+      alert("something went wrong")
+    }
+    setQtyAllXlxData([])
   }
-
-  const handleResetUpdateXls = () => {
-    setUpdateXlsData([])
-  }
-
-  const handleViewCart = () => {
-    navigate("/cart")
-  }
-
 
   const [selectedRow, setSelectedRow] = useState<OgioBasicModel[]>([])
   const handleSelctRow = (record: OgioBasicModel) => {
@@ -608,7 +611,7 @@ const OgioTable = () => {
        
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
-            onClick={handleViewCart}
+           // onClick={handleViewCart}
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
@@ -618,7 +621,7 @@ const OgioTable = () => {
 
 
           <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleImport}
+            onClick={handleQtyImport}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
 
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
@@ -674,25 +677,24 @@ const OgioTable = () => {
         allOgioData={handleUploadExcel}
       />
 
-      <OgioUploadExcelDB
+      <OgioExcelUploadDB
         xlData={allXlxData}
         resetXls={handleReseAllXlData}
       />
 
 
-      {/* {isUpdate &&
-<OgioUpdateExcel
-isUpdate={isUpdate}
-onClose={handleCloseUpdate}
-updateOgioData={handleUpdateOgioData}
-/>}
+      <UpdateOgioQty
+         isUpdate={isQtyImport}
+        onClose={handleCloseQtyImport}
+        allOgioData={handleOgioQtyData}
+      />
+ 
+   
 
-<UploadDB
-updateXlsData={updateXlsData}
-resetUpdateXs={handleResetUpdateXls}
-
-/> */}
-
+          <OgioUpdateQtyDb
+          allQtyXlxData={allQtyXlxData}
+          resetQtyData={handleReseyQtyData}
+          />
 
       {isPDF && <OgioProdPdf
         selectedRow={selectedRow}

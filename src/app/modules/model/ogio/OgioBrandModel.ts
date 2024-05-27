@@ -16,8 +16,9 @@ export interface OgioBasicModel {
   category?:string;
   product_model?:string;
   Brand?:string|undefined
-
-
+  brand?:string|undefined
+ primaryImage?:string,
+ secondaryImage?:string|undefined;
 
   SKU?: string|undefined;
       
