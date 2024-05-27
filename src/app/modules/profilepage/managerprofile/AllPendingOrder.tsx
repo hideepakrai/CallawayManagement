@@ -86,6 +86,10 @@ const AllPendingOrder = () => {
             title: "Order date",
             dataIndex: "created_at",
             width: 100,
+            render: (value) => {
+                const date = new Date(value);
+                return date.toUTCString();
+            },
         },
 
         {
@@ -113,7 +117,9 @@ const AllPendingOrder = () => {
                                     paddingRight: "9px",
                                     borderRight: "1px solid rgb(221, 221, 221)",
                                     cursor: "pointer",
-                                }}></i>
+                                }}
+                                onClick={()=>handleDownload(record)}
+                                ></i>
                         </Tooltip>
                         <Tooltip title="View" placement="bottom">
                             <i
@@ -141,6 +147,12 @@ const AllPendingOrder = () => {
         },
     ];
 
+
+    const handleDownload=(record:CartModel)=>{
+
+        console.log("record", record);
+
+    }
     const expandedRowRender = (record: CartModel) => {
         const subcolumns: TableColumnsType<BasicModelTravis> = [
             {
@@ -214,7 +226,8 @@ const AllPendingOrder = () => {
     };
 
     return (
-        <div className="cart-table mb-5 ">
+        <>
+         <div className="cart-table mb-5 ">
             <Card title="Pending orders ">
                 <Table<CartModel>
                     ref={tableRef}
@@ -249,7 +262,11 @@ const AllPendingOrder = () => {
                     orderId={orderId}
                 />
             )}
+
+
         </div>
+        </>
+       
     );
 };
 

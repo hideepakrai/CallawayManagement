@@ -90,6 +90,7 @@ export function Login() {
           currentUser: response.user,
           UserRetailer: response.accountType,
           adminToken: response.token,
+          profile:response.profile
           
         }))
 

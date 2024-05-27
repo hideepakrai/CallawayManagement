@@ -1,15 +1,25 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import {Badge, Button} from "antd";
 import { color } from 'html2canvas/dist/types/css/types/color';
+import { getUserProfile } from '../../../slice/UserSlice/UserSlice';
+import { useSelector } from 'react-redux';
 const UserList = () => {
+
+
+  const getUserProfiles= useSelector(getUserProfile)
+
   return (
     <div className='d-flex row'>
 
-<div className="card card-custom card-user-list mx-1" style={{width:"260px", padding:"0"}}  >
+{getUserProfiles &&
+getUserProfiles.length>0 &&
+getUserProfiles.map((item)=>{
+  return (
+    <div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}}  >
           <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Alok Singh</h1>
-            <h4 className=" text-center text-white">MANAGER </h4>
+            <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >{item.name}</h1>
+            <h4 className=" text-center text-white">{item.role} </h4>
 
           </div>
 
@@ -18,11 +28,11 @@ const UserList = () => {
             <ul className="card-list m-0" >
               <li>
                 <i className="bi bi-person-lines-fill"></i>
-                <span>+9114829659</span>
+                <span>{item.phone}</span>
               </li>
               <li>
                 <i className="bi bi-envelope"></i>
-                <span>hell0@aloksingh.com</span>
+                <span>{item.email}</span>
               </li>
            
 
@@ -34,6 +44,13 @@ const UserList = () => {
         
 </div>
 
+  )
+  
+})
+
+}
+
+{/* 
 <div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}}  >
           <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
@@ -144,7 +161,7 @@ const UserList = () => {
 
 
         
-</div>
+</div> */}
 
 
 
@@ -160,3 +177,4 @@ const UserList = () => {
 }
 
 export default UserList
+

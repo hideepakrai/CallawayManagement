@@ -20,10 +20,11 @@ import ManagerSlider from './ManagerSlider';
 import GetAllorder from '../../orderPage/GetAllorder';
 import profilelogo from "../../../../../public/media/logos/favicon-icon.png"
 import AllPendingOrder from './AllPendingOrder';
+import { CurentUser } from '../../model/useAccount/CurrentUser';
 const ManagerProfile = () => {
   const dispatch = useDispatch();
   const getLoadings = useSelector(getLoading)
-  const getCurrentUsers = useSelector(getCurrentUser)
+  const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
 
   const [userRoleId, setUseRoleId] = useState<number | null>(null)
 
@@ -62,15 +63,15 @@ const ManagerProfile = () => {
 
 
               <div className='pt-3 mx-6'>
-                <h1 className="d-flex text-white fw-light my-1 fs-1 pb-2 fw-bold"> Shashi Kiranshetty</h1>
-                <a href='#'><span className="gx-mb-0  fw-semibold text-hover-secondary  text-gray-400 fs-4">shashi.kiranshetty@gmail.com <i className="bi bi-copy text-gray-400 text-hover-secondary cursor-pointer"></i></span></a>
+                <h1 className="d-flex text-white fw-light my-1 fs-1 pb-2 fw-bold"> {getCurrentUsers?.name}</h1>
+                <a href='#'><span className="gx-mb-0  fw-semibold text-hover-secondary  text-gray-400 fs-4">{getCurrentUsers?.email} <i className="bi bi-copy text-gray-400 text-hover-secondary cursor-pointer"></i></span></a>
                 {/* <span className="d-flex text-white  my-1 fs-7">Lorem Ipsum is simply dummy text  of the printing and <br></br> typesetting industry.</span> */}
-                <div className='pt-2'>
+                {/* <div className='pt-2'>
                   <span className="gx-mb-0 text-white fw-semibold fs-5">GSTIN</span>
 
                   <p className='gx-mb-0 text-gray-400 fw-bold  text-hover-secondary fs-5 '>22AAAAA0000A1Z5  <i className="bi bi-copy text-gray-400 text-hover-secondary cursor-pointer"></i></p>
 
-                </div>
+                </div> */}
 
 
                 {/* <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">{getUserAccountDetails?.attributes?.username} </h1>
@@ -92,7 +93,7 @@ sa
 
                 <div className='user-address'>
                   <span className="gx-mb-0 text-white fw-semibold fs-5">Address</span>
-                  <p><a href="#" className="gx-mb-0 text-gray-400 fw-bold text-hover-secondary fs-6"> 68/255 Sector 6, Pratap Nagar, Saganer, Jaipur, Rajasthan. 302030</a></p>
+                  <p><a href="#" className="gx-mb-0 text-gray-400 fw-bold text-hover-secondary fs-6"> {getCurrentUsers?.address}</a></p>
                 </div>
 
 <div className='d-flex'>
@@ -102,7 +103,7 @@ sa
                   <div>
                     <span className="gx-mb-0 text-white fw-semibold fs-5">Phone</span>
 
-                    <p className='gx-mb-0 text-gray-400 fw-bold  text-hover-secondary fs-6'>9891188566</p>
+                    <p className='gx-mb-0 text-gray-400 fw-bold  text-hover-secondary fs-6'>{getCurrentUsers?.phone}</p>
                   </div>
 
                   {/* <div>
@@ -118,7 +119,7 @@ sa
                 <div>
                     <span className="gx-mb-0 text-white fw-semibold fs-5">Phone2</span>
 
-                    <p className='gx-mb-0 text-gray-400 fw-bold  text-hover-secondary fs-6'>+08700839572</p>
+                    <p className='gx-mb-0 text-gray-400 fw-bold  text-hover-secondary fs-6'>{getCurrentUsers?.phone2}</p>
                   </div>
 
 

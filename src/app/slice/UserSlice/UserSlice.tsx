@@ -10,6 +10,7 @@ interface UserState {
     UserRetailer:RetailerModel[]
     adminToken: null | string,
     userOrders: unknown[],
+    userProfile: CurentUser[]
 }
 
 
@@ -20,7 +21,8 @@ const UserSlice = createSlice({
         UserAccount: null,
         UserRetailer:[],
         adminToken: null,
-        userOrders:[]
+        userOrders:[],
+        userProfile:[]
     } as UserState, 
     reducers: {
         resetUserAccount:(state)=>{
@@ -34,7 +36,8 @@ const UserSlice = createSlice({
             state.currentUser = action.payload.currentUser;
             state.UserRetailer=action.payload.UserRetailer;
             state.adminToken=action.payload.adminToken;
-            
+            state.userProfile= action.payload.profile
+
 
         },
         addUserRetailer:(state,action)=>{
@@ -67,6 +70,7 @@ export const { addUser, addUserAccount,
 
 
 export const getCurrentUser = (state: { user: UserState }) => state.user.currentUser;
+export const getUserProfile = (state: { user: UserState }) => state.user.userProfile;
 export const getAdminToken = (state: { user: UserState }) => state.user.adminToken;
 export const getUserAccount = (state: { user: UserState }) => state.user.UserAccount
 export const getUserRetailer = (state: { user: UserState }) => state.user.UserRetailer

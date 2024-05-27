@@ -87,6 +87,10 @@ const AllOrders = () => {
             title: "Order date",
             dataIndex: "created_at",
             width: 100,
+            render: (value) => {
+                const date = new Date(value);
+                return date.toUTCString();
+            },
         },
         {
             title: "Amount",

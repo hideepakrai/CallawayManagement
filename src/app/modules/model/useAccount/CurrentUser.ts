@@ -7,7 +7,11 @@ export interface CurentUser{
    status?:string;
    created_at?:string;
    updated_at?:string;
-   manager_id?:number
+   manager_id?:number;
+   name?:string;
+   address?:string;
+   phone?:number;
+   phone2?:number;
 
 }
 
