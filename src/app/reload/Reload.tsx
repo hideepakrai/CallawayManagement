@@ -81,8 +81,7 @@ useEffect(()=>{
     getUserRetailers.length===0
 
   ){
-    // eslint-disable-next-line no-debugger
-    debugger
+   
      
     const  allretailer=JSON.parse(localStorage.getItem('getUserRetailers') as string) 
     dispatch(addUserRetailer({

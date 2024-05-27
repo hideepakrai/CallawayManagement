@@ -26,8 +26,8 @@ type Props = {
       ) {
         console.log(xlData);
         dispatch(LoadingStart())
-         // eslint-disable-next-line no-debugger
-         debugger
+         
+         
          dispatch(updateNewData({
           ogioProduct:xlData
          }));

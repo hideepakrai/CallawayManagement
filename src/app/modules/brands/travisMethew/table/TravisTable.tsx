@@ -34,6 +34,7 @@ import GetAllProduct from "../../../../api/allProduct/GetAllProduct"
 import TravisQtyImport from '../excel/importExcel/TravisQtyImport';
 import TravisUpdateQtyDb from '../excel/importExcel/TravisUpdateQtyDb';
 import PreOrder from '../preOrder/PreOrder';
+import UploadTravisImages from './UploadTravisImages';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
@@ -1250,8 +1251,8 @@ const TravisTable = () => {
   const handleTravisQtyData = (allDatat: ExcelModelTravis[]) => {
     const table = tableRef.current;
     handleCloseQtyImport()
-// eslint-disable-next-line no-debugger
-debugger
+
+
     setQtyAllXlxData(allDatat)
   }
 
@@ -1278,7 +1279,16 @@ useEffect(()=>{
   }
 
 },[getPregressSteps])
+ 
+const[isStartSearch, setIsStartSearch]= useState<boolean>(false)
+const handelUploadImage=()=>{
+  setIsStartSearch(true)
+}
 
+
+const handleResetUploadImages=()=>{
+  setIsStartSearch(false)
+}
   return (
     <div className='container'>
 
@@ -1302,7 +1312,10 @@ useEffect(()=>{
       >
 
         <div style={{ float: "right", marginBottom: "12px" }}>
-
+        <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+             onClick={handelUploadImage} 
+            //  onClick={handleSampleExcel}
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>        
         {/* active class ="active-btn" */}
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
@@ -1324,11 +1337,12 @@ useEffect(()=>{
              onClick={handleProduct} 
             //  onClick={handleSampleExcel}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>        
+          
         </div>
 
 
         <div className='show-prodect-section' >
-          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
+          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>{getProduct.length}</span></i> products</h4>
         
         </div>
 
@@ -1410,6 +1424,11 @@ resetQtyData={handleReseyQtyData}
         resetSelectedRow={handleResetSelectedRow}
       />}
 
+
+{isStartSearch &&
+<UploadTravisImages
+resetUploadImages={handleResetUploadImages}
+/>}
       <PreOrder/>
     </div>
   )

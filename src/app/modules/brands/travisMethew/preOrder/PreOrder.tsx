@@ -30,8 +30,7 @@ const PreOrder = () => {
 // check the PreOrderId and create else update order
 useEffect(()=>{
 
-    // eslint-disable-next-line no-debugger
-    debugger
+   
     if(getPreOrderIds===0 &&
          allPreOrderTravis && 
          allPreOrderTravis.length>0){

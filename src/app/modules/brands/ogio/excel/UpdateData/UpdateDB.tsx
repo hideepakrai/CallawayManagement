@@ -24,8 +24,8 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
     ) {
       console.log(updateXlsData);
       dispatch(LoadingStart())
-       // eslint-disable-next-line no-debugger
-       debugger
+       
+     
       const newData: OgioExcelModel[] = [];
       updateXlsData.forEach((item:OgioBasicModel, index)=>{
         const ogioIndex= getOgioProduct.findIndex(ogio=>ogio.sku===item.sku);

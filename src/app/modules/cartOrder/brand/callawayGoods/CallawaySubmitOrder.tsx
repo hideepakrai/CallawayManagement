@@ -33,8 +33,8 @@ const CallawaySubmitOrder = ({totalNetBillAmount,discountValue,discountType,rese
    const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
      console.log("getCurrentUsers",getCurrentUsers)
    useEffect(() => {
-     // eslint-disable-next-line no-debugger
-     debugger
+     
+     
     if (getCurrentUsers &&
       getCurrentUsers.role &&
       getCurrentUsers.id 
@@ -85,8 +85,8 @@ const CallawaySubmitOrder = ({totalNetBillAmount,discountValue,discountType,rese
   //getAlll retailer detail 
   const getRetailerDetail= useSelector(getRetailerDetails)
   useEffect(()=>{
-   // eslint-disable-next-line no-debugger
-   debugger
+   
+
     
 if(getRetailerDetail && 
    

@@ -33,8 +33,8 @@ const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetS
    const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
      console.log("getCurrentUsers",getCurrentUsers)
    useEffect(() => {
-     // eslint-disable-next-line no-debugger
-     debugger
+     
+     
     if (getCurrentUsers &&
       getCurrentUsers.role &&
       getCurrentUsers.id 
@@ -61,8 +61,7 @@ const TravisSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetS
     
   useEffect(()=>{
     const ogio:BasicModelTravis[]=[];
-    // eslint-disable-next-line no-debugger
-    debugger
+   
     if(getProduct &&getProduct.length>0){
       getProduct.map((item)=>{
         if(item.ordered && item.error88===""  && item.error90===""&&item.brand_id){

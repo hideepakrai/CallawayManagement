@@ -11,15 +11,27 @@ const ImageRenderer = ({record}:Props) => {
   const [imagePaths, setImagePaths] = useState<string[]>([]);
   const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
 
+   const[secondaryImage, setSecondaryImage]= useState<string[]>([])
+  useEffect(()=>{
+    if(record.primary_image_url &&record.gallery_images_url){
+      if(record.primary_image_url.startsWith("public/productimg/TRAVIS")){
+        const imagePathsArray = record.gallery_images_url.split(',');
+        setSecondaryImage(imagePathsArray)
+        setPrimaryImage(record.primary_image_url)
+      }
+      
+    }
+  },[record])
   return (
     <div>
- {record.primaryImage?(
+ {primaryImage
+  &&secondaryImage ?(
             <Image.PreviewGroup
-            items={record.secondaryImage?.map(path => `${s3_url}${path}`)}
+            items={secondaryImage.map(path => `${s3_url}${path}`)}
             >
               <Image
                 width={42}
-                src={`${s3_url}${record.primaryImage}`}
+                src={`${s3_url}${primaryImage}`}
               />
             </Image.PreviewGroup>
           ) : (

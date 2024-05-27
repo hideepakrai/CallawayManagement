@@ -22,8 +22,7 @@ const CreatedOrder = ({resetCreatedOrder}:Props) => {
     const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
     console.log("getCurrentUsers",getCurrentUsers)
   useEffect(() => {
-    // eslint-disable-next-line no-debugger
-    debugger
+   
    if (getCurrentUsers &&
      getCurrentUsers.role &&
      getCurrentUsers.id 

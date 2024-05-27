@@ -68,6 +68,8 @@ const TravisImage = () => {
      
     if (imagePaths.length > 0) {
      const primary_image = imagePaths[0];
+//      const parts = primary_image.split('/');
+// const fileName = parts[parts.length - 1];
      setPrimaryImage(primary_image)
       //const secondary_image = imagePaths.slice(1);
       setImagePaths(imagePaths)

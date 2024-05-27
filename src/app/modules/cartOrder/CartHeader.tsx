@@ -39,8 +39,8 @@ const CartHeader = ({reviewOrder,submitOrder,rejectOrder,note,approveorder,compl
   const [GST, setGST]= useState<string>()
 
     const handleReview=()=>{
-        // eslint-disable-next-line no-debugger
-        debugger
+        
+        
         if(retailerId!==0){
             reviewOrder()
             setIsAvailable(true)

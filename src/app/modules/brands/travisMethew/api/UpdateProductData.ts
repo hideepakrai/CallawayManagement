@@ -59,3 +59,20 @@ export function UpdateTravisProduct(data:BasicModelTravis, id:number){
   });
 
   }
+  export function UpDateTravisImages(data: BasicModelTravis[]){
+    
+    return axios.post(`${serverUrl}/update-travis-images`,data,
+    {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then(response=>{
+      console.log("update Qty Images",response)
+      return response
+  }).catch(error=>{
+      throw error;
+  });
+
+  }
