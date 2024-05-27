@@ -1136,7 +1136,6 @@ const TravisTable = () => {
     try {
 
 
-      
 
       const table = tableRef.current as HTMLTableElement | null;
 

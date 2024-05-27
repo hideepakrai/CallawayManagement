@@ -48,7 +48,7 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
             product_model:item.product_model
     
            }
-           updateNewData(data,index)
+          // updateNewData(data,index)
         }else if(ogioIndex==-1){
           const data={
             sku:item.sku,
@@ -66,7 +66,7 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
             product_model:item.product_model
     
            }
-           addOgioData(data, index)
+          // addOgioData(data, index)
         }
  
 
@@ -78,50 +78,8 @@ const UploadDB: React.FC<Props> = ({ updateXlsData, resetUpdateXs }) => {
     }
   }, [updateXlsData,getOgioProduct]);
 
-  const updateNewData = async (data:OgioBasicModel,index:number) => {
-   
 
-    try {
-      const response = await UpdateOgioProduct(data)
-      
-      if (response.status === 200) {
-        console.log(response);
-        
-      }
 
-      if(index===(updateXlsData.length-1)) {
-        alert ("Data is upData successfully")
-        dispatch(LoadingStop())
-        resetUpdateXs();
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Error saving data");
-      resetUpdateXs();
-    }
-  };
-  const addOgioData = async (data:OgioBasicModel,index:number) => {
-   
-
-    try {
-      const response = await AddOgioProduct(data)
-      
-      if (response.status === 200) {
-        console.log(response);
-        
-      }
-
-      if(index===(updateXlsData.length-1)) {
-        alert ("Data is upData successfully")
-        dispatch(LoadingStop())
-        resetUpdateXs();
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Error saving data");
-      resetUpdateXs();
-    }
-  };
 
   return <></>;
 };

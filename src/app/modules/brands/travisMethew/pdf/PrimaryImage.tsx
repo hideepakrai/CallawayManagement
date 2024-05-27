@@ -11,11 +11,11 @@ const PrimaryImage = ({record}:Props) => {
   const [imagePaths, setImagePaths] = useState<string[]>([]);
   const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
 
-  
+    console.log("primanry", record.primaryImage)
 
   return (
     <div>
-       {record.primaryImage ? 
+       {record.primary_image_url ? 
      (  <img
                             alt="Special Edition Party Spas"
                             style={{
@@ -23,7 +23,7 @@ const PrimaryImage = ({record}:Props) => {
                               borderRadius: "10px",
                               width: "225px"
                             }}
-                            src={`${s3_url}${record.primaryImage}`}
+                            src={`${s3_url}${record.primary_image_url}`}
                           />):(
                             <img
                                alt="Special Edition Party Spas"

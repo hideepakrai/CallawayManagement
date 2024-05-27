@@ -323,7 +323,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
                           <div
                             className="prodect-info-img" >
-                            {(
+                            
                                 <>
                                   <div
                                     className="prodect-images-pdf"
@@ -332,7 +332,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                    <SecondaryImage
                                    record={callout}
                                    />
-                                    {/* <span style={{ width: "150px" }} className="">
+                                     {/* <span style={{ width: "150px" }} className="">
                                       <img
                                         alt="Special Edition Party Spas"
                                         style={{
@@ -381,11 +381,11 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                         src={ productimg3}
 
                                       />
-                                    </span> */}
+                                    </span>  */}
 
                                   </div>
                                 </>
-                              )}
+                              
                           </div>
 
 
