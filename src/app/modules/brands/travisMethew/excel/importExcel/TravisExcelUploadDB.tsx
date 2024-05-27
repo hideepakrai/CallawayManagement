@@ -31,7 +31,8 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
   const travispr= getTravisProduct[travisIndex];
 const id:number= travispr?.id??0;
 
-    const update={       
+    const update={  
+      sku:item.sku ,    
         name: item.name!==undefined?item.name:travispr.name,
         description: item.description!=undefined?item.description:travispr.description,
          brand_id:3,

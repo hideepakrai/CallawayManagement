@@ -1341,10 +1341,10 @@ const handleResetUploadImages=()=>{
         </div>
 
 
-        <div className='show-prodect-section' >
+       {/* <div className='show-prodect-section' >
           <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>{getProduct.length}</span></i> products</h4>
         
-        </div>
+        </div>  */}
 
         <Table className='cart-table-profile'
           ref={tableRef}

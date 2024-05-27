@@ -36,7 +36,7 @@ export function UpdateTravisProduct(data:BasicModelTravis, id:number){
     )
     .then(response=>{
       console.log(response)
-      return response.data
+      return response
   }).catch(error=>{
       throw error;
   });
