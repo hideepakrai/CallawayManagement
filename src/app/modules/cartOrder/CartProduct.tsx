@@ -13,9 +13,13 @@ import { getOgioProducts } from '../../slice/allProducts/OgioSlice';
 import { getGoodsProducts } from '../../slice/allProducts/CallAwayGoodsSlice';
 import { getApparelProducts } from '../../slice/allProducts/CallawayApparelSlice';
 import  Callawaygoods from "../../../../public/media/logos/icon-profile.png"
+import { Route, Routes } from 'react-router-dom';
+import { getPreOrderId } from '../../slice/allProducts/TravisMethewSlice';
+import { useNavigate } from 'react-router-dom';
+
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState(''); // Default to 'apparel' tab
-
+   const navigate = useNavigate()
   useEffect(() => {
     // Set the default active tab when the component mounts
     setActiveTab('');
@@ -33,10 +37,12 @@ const CartProduct = () => {
   // get apparel order
   const getApparelProduct= useSelector(getApparelProducts)
 
-
+  const travisorderId= useSelector(getPreOrderId)
+  const [travisId, setTravisId]= useState<number>()
   useEffect(() => {
-    if (getTravisOrders && getTravisOrders.length > 0) {
+    if (travisorderId&&getTravisOrders && getTravisOrders.length > 0) {
       setActiveTab('travis');
+      setTravisId(travisorderId)
     } else if (getOgioProduct && getOgioProduct.length > 0) {
       getOgioProduct.map(item=>{
         if(item.ordered){
@@ -61,7 +67,15 @@ const CartProduct = () => {
        })
     }
     
-  }, [getTravisOrders, getOgioProduct,getGoodsProduct,getApparelProduct]);
+  }, [getTravisOrders, getOgioProduct,getGoodsProduct,getApparelProduct,travisorderId]);
+
+
+  const gettravisPreOrderId= useSelector(getPreOrderId)
+const handleTravisCart=() => {
+  setActiveTab('travis');
+
+ 
+}
   return (
     < div className='container'>
    {activeTab===""?
@@ -101,7 +115,11 @@ const CartProduct = () => {
 
          
              <li className="nav-item hover-elevate-up cursor-pointer">
-              <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} onClick={() => setActiveTab('travis')}>
+              <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} 
+              
+              // onClick={() => setActiveTab('travis')}
+              onClick={handleTravisCart}
+              >
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' cart-img'></img>
                 Travis Mathew 
               </a>
@@ -121,7 +139,7 @@ const CartProduct = () => {
 
             
             <div className={`tab-pane fade ${activeTab === 'ogio' ? 'show active' : ''}`} id="kt_tab_pane_Ogio" role="tabpanel">
-              {/* Render Ogio component here */}
+            
               <OgioCart/>
             </div>
 
@@ -130,7 +148,12 @@ const CartProduct = () => {
               <TravisCart />
             </div>
           </div>
-        
+            {/* <Routes>
+         <Route path="apparel" element={<ApparelCart />} />
+                <Route path="goods" element={<CalawayGoodsCarts />} />
+                <Route path="ogio" element={<OgioCart />} />
+                <Route path="travis/:id" element={<TravisCart />} />
+              </Routes> */}
         </div>
 
       </div>

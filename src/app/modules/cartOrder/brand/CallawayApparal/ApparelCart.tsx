@@ -450,6 +450,13 @@ const columns: TableColumnsType<BasicModelApparel> = [
 
   };
 
+  const handleApproveOrder=()=>{
+    console.log("approve button")
+  }
+   // complete order
+  const handleCompletedOrder=()=>{
+   
+  }
   return (
     <div>
    
@@ -460,8 +467,10 @@ const columns: TableColumnsType<BasicModelApparel> = [
         <CartHeader
           
         reviewOrder={handleRefetch}
+        approveorder={handleApproveOrder}
         submitOrder={hanldeSubmitOrder}
         rejectOrder={handleRejectOrder}
+        completedOrder={handleCompletedOrder}
         note={handleNote}
         />}
 

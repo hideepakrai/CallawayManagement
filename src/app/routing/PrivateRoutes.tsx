@@ -65,7 +65,8 @@ const PrivateRoutes = () => {
 
       {/* cart page */}
 
-      <Route path='/cart' element={<Cart />} />
+      <Route path='/cart/*' element={<Cart />} />
+      
 
 
         {/* <Route

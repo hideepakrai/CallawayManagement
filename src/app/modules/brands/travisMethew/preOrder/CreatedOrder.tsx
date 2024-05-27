@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { addPreOrderId, getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addPreOrderId, getTravisProducts, updateProgressStep } from '../../../../slice/allProducts/TravisMethewSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { CartModel } from '../../../model/CartOrder/CartModel'
 import { CreateOrder } from '../../../cartOrder/orderApi/OrderAPi'
@@ -98,10 +98,15 @@ const [brandId, setBrandId]= useState<number>()
     const response = await CreateOrder(data);
      console.log("order created  first time", response)
      if(response.status === 200) {
+
      const orderId= response?.data?.insertId
      dispatch(addPreOrderId({
        preOrderId: orderId,
      }))
+     dispatch(updateProgressStep({
+      progressStep:0
+  
+    }))
      }
      resetCreatedOrder()
   

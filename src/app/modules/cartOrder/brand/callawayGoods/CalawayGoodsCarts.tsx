@@ -339,7 +339,13 @@ useEffect(()=>{
 
   };
 
-
+  const handleApproveOrder=()=>{
+    console.log("approve button")
+  }
+   // complete order
+  const handleCompletedOrder=()=>{
+   
+  }
 
   return (
     <div>
@@ -351,8 +357,10 @@ useEffect(()=>{
         <CartHeader
           
         reviewOrder={handleRefetch}
+        approveorder={handleApproveOrder}
         submitOrder={hanldeSubmitOrder}
         rejectOrder={handleRejectOrder}
+        completedOrder={handleCompletedOrder}
         note={handleNote}
         />}
 

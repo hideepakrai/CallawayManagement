@@ -586,6 +586,7 @@ const TravisMethewSlice = createSlice({
         item.NetBillings=0;
         item.FinalBillValue=0;
         item.Discount=0;
+
       })
      }, 
 
@@ -654,14 +655,14 @@ export const getStyleCode = (state: { travisMethew: ProductState }): string[] =>
     return state.travisMethew?.uniqueStyleCode || [];
 };
 export const getTravisStartLoading = (state: { travisMethew: ProductState }): boolean => {
-    return state.travisMethew?.isStartLoading;
+    return state.travisMethew?.isStartLoading|| false;
 };
 export const getPreOrderId = (state: { travisMethew: ProductState }): number => {
-    return state.travisMethew?.preOrderId;
+    return state.travisMethew?.preOrderId||0;
     
 };
 export const getPregressStep = (state: { travisMethew: ProductState }): number => {
-    return state.travisMethew?.progressStep;
+    return state.travisMethew?.progressStep|| 0;
     
 };
 

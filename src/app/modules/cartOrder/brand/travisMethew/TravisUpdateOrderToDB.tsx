@@ -46,7 +46,7 @@ const TravisUpdateOrderToDB = ({resetUpdateData}:props) => {
 
     const updateQtyApi=async(data:BasicModelTravis[])=>{
 
-
+       console.log("update to db data",data)
         try{
 
 

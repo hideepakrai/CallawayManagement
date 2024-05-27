@@ -648,6 +648,16 @@ const handleUpdateRedux=()=>{
     dispatch(LoadingStop())
     setGetAllOgioOrders([])
 }
+
+//approve 
+const handleApproveOrder=()=>{
+  console.log("approve button")
+}
+ // complete order
+const handleCompletedOrder=()=>{
+ 
+}
+
   return (
     <div>
 
@@ -657,8 +667,10 @@ const handleUpdateRedux=()=>{
         <CartHeader
           
         reviewOrder={handleRefetch}
+        approveorder={handleApproveOrder}
         submitOrder={hanldeSubmitOrder}
         rejectOrder={handleRejectOrder}
+        completedOrder={handleCompletedOrder}
         note={handleNote}
         />}
 

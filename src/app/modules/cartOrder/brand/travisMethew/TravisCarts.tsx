@@ -23,7 +23,8 @@ import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import ApproveOrderTravis from './ApproveOrderTravis';
 
  import AlertTravis from "./AlertTravis"
-
+import RejectOrderTravis from "./RejectOrderTravis"
+import CompletedOrderTravis from './CompletedOrderTravis';
 const TravisCarts = () => {
     const getProduct:BasicModelTravis[]=useSelector(getTravisProducts)
     const tableRef = useRef(null);
@@ -596,6 +597,8 @@ const handleUpdateStrapi=(message:string)=>{
 const [message, setMessages]= useState<string>("")
 const [messageType, setMessagesType]= useState<string>("")
 const[isstatusUpdate, setIsStatusUpdate]= useState<boolean>(false)
+const[isRejectedorder, setIsRejectedorder]= useState<boolean>(false)
+const[isCompletedorder, setIsCompletedorder]= useState<boolean>(false)
  const[statusUpdate, setStatusUpdate]= useState<string>("")
 const handleApproveOrder=()=>{
   setIsStatusUpdate(true)
@@ -607,20 +610,10 @@ const handleApproveOrder=()=>{
 const handleResetStatus=(status:string)=>{
   if(status==="Approved"){
   dispatch(updateProgressStep({
-    progressStep:4
+    progressStep:3
 
   }))
-   
-  setMessages("Order successfully approved")
-  setMessagesType("success")
-  } if(status==="Rejected"){
-    dispatch(updateProgressStep({
-      progressStep:4
-  
-    }))
 
-    setMessages("Order Rejected")
-    setMessagesType("success")
   }
   setIsStatusUpdate(false)
   dispatch(LoadingStop())
@@ -628,8 +621,30 @@ const handleResetStatus=(status:string)=>{
 
 // reject order
 const handleRejectOrder=()=>{
-  console.log("reject button")
+  setIsRejectedorder(true)
+  dispatch(LoadingStart())
+}
+
+const handleResetRejectedOrder=()=>{
+  setIsRejectedorder(false)
+  dispatch(LoadingStop())
+}
+
+const handleCompletedOrder=()=>{
+  setIsCompletedorder(true)
+  dispatch(LoadingStart())
+}
+
+const handleResetCompletedOrder=()=>{
+  setIsCompletedorder(false)
+  dispatch(LoadingStop())
+  dispatch(updateProgressStep({
+    progressStep:4
+
+  }))
+
   dispatch(resetTravisOrder())
+  alert("Your order is suceessfully completed")
 }
 const[isNote, setIsnote]= useState<boolean>(false)
  const handleNote=()=>{
@@ -661,6 +676,7 @@ const[isNote, setIsnote]= useState<boolean>(false)
         submitOrder={hanldeSubmitOrder}
         approveorder={handleApproveOrder}
         rejectOrder={handleRejectOrder}
+        completedOrder={handleCompletedOrder}
         note={handleNote}
         />}
 
@@ -805,6 +821,18 @@ const[isNote, setIsnote]= useState<boolean>(false)
  resetStatus={handleResetStatus}
  statusUpdate={statusUpdate}/>}
 
+ {/* reject order */}
+
+ {isRejectedorder &&
+ <RejectOrderTravis
+ resetReject={handleResetRejectedOrder}
+ />}
+
+
+{isCompletedorder && <CompletedOrderTravis
+resetCompleted={handleResetCompletedOrder}
+
+/>}
 
    <Note
   isModalOpen ={isNote}

@@ -4,7 +4,7 @@ import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
 import { useDispatch, useSelector } from "react-redux"
-import { getTravisProducts, getOtherProducts } from "../../../../slice/allProducts/TravisMethewSlice"
+import { getTravisProducts, getOtherProducts, getPreOrderId, getPregressStep, updateProgressStep, addPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 import travishtham from "../../../../../../public/media/logos/tm-logo.png"
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
@@ -1220,7 +1220,7 @@ const TravisTable = () => {
     // setIsCard(true)
   }
 
-
+ const getPreOrderIds= useSelector(getPreOrderId)
   // view cart
   const handleViewCard = () => {
     navigate("/cart")
@@ -1262,7 +1262,23 @@ debugger
     alert("something went wrong")
   }
   setQtyAllXlxData([])
- }
+}
+
+// update progress step
+const getPregressSteps=useSelector(getPregressStep)
+useEffect(()=>{
+  if(getPregressSteps===4){
+      dispatch(updateProgressStep({
+        progressStep:0
+      }))
+
+      dispatch(addPreOrderId({
+        preOrderId:0
+      }))
+  }
+
+},[getPregressSteps])
+
   return (
     <div className='container'>
 
