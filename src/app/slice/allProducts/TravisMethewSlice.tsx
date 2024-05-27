@@ -84,6 +84,7 @@ const TravisMethewSlice = createSlice({
                               style_code:item.style_code,
                               color: item.color,
                               gst: item.gst,
+                              size:item.size,
                               brand_id: item.brand_id,
                               primary_image_url: item.primary_image_url,
                               gallery_images_url: item.gallery_images_url,
