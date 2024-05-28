@@ -1,5 +1,5 @@
-import {useIntl} from 'react-intl'
-import {PageTitle} from '../../../_metronic/layout/core'
+import { useIntl } from 'react-intl'
+import { PageTitle } from '../../../_metronic/layout/core'
 import {
   ListsWidget2,
   ListsWidget3,
@@ -31,159 +31,159 @@ import { Content } from '../../../_metronic/layout/components/Content'
 import { useEffect } from 'react'
 import GetAllProduct from '../../api/allProduct/GetAllProduct';
 import Loading from '../../modules/loading/Loading'
-import {getLoading,LoadingStop} from "../../slice/loading/LoadingSlice"
-import {useSelector, useDispatch} from "react-redux";
+import { getLoading, LoadingStop } from "../../slice/loading/LoadingSlice"
+import { useSelector, useDispatch } from "react-redux";
 
-import {getTravisProducts} from "../../slice/allProducts/TravisMethewSlice.tsx"
-import {getOgioProducts} from "../../slice/allProducts/OgioSlice.tsx"
-import {getAllBrands} from "../../slice/brand/BrandSlice.tsx"
-import {BrandModel} from "../../modules/model/brand/AllBrands.ts"
+import { getTravisProducts } from "../../slice/allProducts/TravisMethewSlice.tsx"
+import { getOgioProducts } from "../../slice/allProducts/OgioSlice.tsx"
+import { getAllBrands } from "../../slice/brand/BrandSlice.tsx"
+import { BrandModel } from "../../modules/model/brand/AllBrands.ts"
 import Reload from '../../reload/Reload.tsx'
 import Slider from '../../modules/model/slider/Slider.tsx'
 import "./DashboardWrapper.css";
 import { Card, Table, Carousel, Breadcrumb } from "antd";
-import {startTravisLoading} from "../../slice/allProducts/TravisMethewSlice.tsx"
+import { startTravisLoading } from "../../slice/allProducts/TravisMethewSlice.tsx"
 import { addUserRetailer, getCurrentUser, getUserAccount } from '../../slice/UserSlice/UserSlice.tsx'
 import { GetUserRetailer } from '../../modules/auth/core/_requests.ts'
 import TravisImage from './TravisImage.tsx'
 const DashboardPage = () => (
 
-  
+
   <>
 
 
 
-<Slider/>
+    <Slider />
 
 
-<div className='content-dashboard'>
+    <div className='content-dashboard'>
 
-    <Toolbar />
- 
-    <Content>
-      <div className='row g-5 g-xl-8'>
+      <Toolbar />
 
-      <div className='col-xl-4'>
-              <TilesWidget2 className='card-xl-stretch mb-5 mb-xl-8' />
-              <div className='row gx-5 mb-5 gx-xl-8'>
-                <div className='col-xl-6'>
+      <Content>
+        <div className='row g-5 g-xl-8'>
+
+          <div className='col-xl-4'>
+            <TilesWidget2 className='card-xl-stretch mb-5 mb-xl-8' />
+            <div className='row gx-5 mb-5 gx-xl-8'>
+              <div className='col-xl-6'>
                 {/* callaway Appareal */}
-                  <TilesWidget5
-                    className='card-xxl-stretch bg-primary'
-                    svgIcon='element-11'
-                    titleClass='text-white'
-                    descriptionClass='text-white'
-                    iconClass='text-white'
-                    title='790'
-                    description='New Products'
-                  />
-                </div>
- {/* callaway haed good */}
-                <div className='col-xl-6'>
-                  <TilesWidget6
-                    className='card-xxl-stretch bg-body'
-                    svgIcon='rocket'
-                    titleClass='text-gray-900'
-                    descriptionClass='text-muted'
-                    iconClass='text-success'
-                    title='8,600'
-                    description='New Customers'
-                  />
-                </div>
+                <TilesWidget5
+                  className='card-xxl-stretch bg-primary'
+                  svgIcon='element-11'
+                  titleClass='text-white'
+                  descriptionClass='text-white'
+                  iconClass='text-white'
+                  title='790'
+                  description='New Products'
+                />
+              </div>
+              {/* callaway haed good */}
+              <div className='col-xl-6'>
+                <TilesWidget6
+                  className='card-xxl-stretch bg-body'
+                  svgIcon='rocket'
+                  titleClass='text-gray-900'
+                  descriptionClass='text-muted'
+                  iconClass='text-success'
+                  title='8,600'
+                  description='New Customers'
+                />
+              </div>
 
               {/* ogio  */}
-                <div className='col-xl-6 mt-3'>
-                  <TilesWidget7
-                    className='card-xxl-stretch  bg-body'
-                    svgIcon='element-11'
-                    titleClass='text-gray-900'
-                    descriptionClass='text-muted'
-                    iconClass='text-white'
-                    title='790'
-                    description='New Products'
-                  />
-                </div>
-                {/* travis  */}
-                <div className='col-xl-6 mt-3'>
-                  <TilesWidget8
-                    className='card-xxl-stretch '
-                    svgIcon='element-11'
-                    titleClass='text-gray-900'
-                    descriptionClass='text-muted'
-                    iconClass='text-white'
-                    title='790'
-                    description='New Products'
-                  />
-                </div>
-
-               
+              <div className='col-xl-6 mt-3'>
+                <TilesWidget7
+                  className='card-xxl-stretch  bg-body'
+                  svgIcon='element-11'
+                  titleClass='text-gray-900'
+                  descriptionClass='text-muted'
+                  iconClass='text-white'
+                  title='790'
+                  description='New Products'
+                />
               </div>
+              {/* travis  */}
+              <div className='col-xl-6 mt-3'>
+                <TilesWidget8
+                  className='card-xxl-stretch '
+                  svgIcon='element-11'
+                  titleClass='text-gray-900'
+                  descriptionClass='text-muted'
+                  iconClass='text-white'
+                  title='790'
+                  description='New Products'
+                />
+              </div>
+
+
             </div>
+          </div>
 
-            <div className='col-xl-4'>
+          <div className='col-xl-4'>
             <MixedWidget2
-            className='card-xl-stretch mb-xl-8'
-            chartColor='danger'
-            chartHeight='200px'
-            strokeColor='#fff'
-          />
+              className='card-xl-stretch mb-xl-8'
+              chartColor='danger'
+              chartHeight='200px'
+              strokeColor='#fff'
+            />
+          </div>
+
+
+          <div className='col-xl-4'>
+            <MixedWidget16
+              className='card-xl-stretch mb-xl-8'
+              chartColor='danger'
+              chartHeight='200px'
+              strokeColor='#fff'
+            />
+          </div>
+
+
+
+
+
+
         </div>
 
 
-        <div className='col-xl-4'>
-        <MixedWidget16
-            className='card-xl-stretch mb-xl-8'
-            chartColor='danger'
-            chartHeight='200px'
-            strokeColor='#fff'
-          />
+
+        {/* begin::Row */}
+        <div className='row gy-5  g-xl-8'>
+
+          <div className='col-xxl-4'>
+            <MixedWidget17
+              className='card-xl-stretch mb-xl-8'
+              chartColor='danger'
+              chartHeight='200px'
+              strokeColor='#fff'
+            />
+          </div>
+
+          <div className='col-xxl-4'>
+            <MixedWidget18
+              className='card-xl-stretch mb-xl-8'
+              chartColor='danger'
+              chartHeight='200px'
+              strokeColor='#fff'
+            />
+          </div>
+
+          <div className='col-xxl-4'>
+            <MixedWidget8
+              className='card-xxl-stretch mb-xl-3'
+              chartColor='success'
+              chartHeight='150px'
+            />
+          </div>
+
+
+
         </div>
+        {/* end::Row */}
 
-       
-
-
-
-      
-      </div>
-
-   
-
-      {/* begin::Row */}
-      <div className='row gy-5  g-xl-8'>
-   
-        <div className='col-xxl-4'>
-          <MixedWidget17
-            className='card-xl-stretch mb-xl-8'
-            chartColor='danger'
-            chartHeight='200px'
-            strokeColor='#fff'
-          />
-        </div>
-
-        <div className='col-xxl-4'>
-        <MixedWidget18
-            className='card-xl-stretch mb-xl-8'
-            chartColor='danger'
-            chartHeight='200px'
-            strokeColor='#fff'
-          />
-        </div>
-
-        <div className='col-xxl-4'>
-        <MixedWidget8
-            className='card-xxl-stretch mb-xl-3'
-            chartColor='success'
-            chartHeight='150px'
-          />
-        </div>
-     
-      
-
-      </div>
-      {/* end::Row */}
-
-      {/* begin::Row */}
-      {/* <div className='row gy-5 gx-xl-8'>
+        {/* begin::Row */}
+        {/* <div className='row gy-5 gx-xl-8'>
       <div className='col-xl-4'>
           
       <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-8' items={5} />
@@ -193,10 +193,10 @@ const DashboardPage = () => (
            <TablesWidget10 className='card-xxl-stretch mb-5 mb-xl-8' /> 
         </div>
       </div> */}
-      {/* end::Row */}
+        {/* end::Row */}
 
-      {/* begin::Row */}
-      {/* <div className='row gy-5 g-xl-8'>
+        {/* begin::Row */}
+        {/* <div className='row gy-5 g-xl-8'>
         <div className='col-xl-4'>
         <ListsWidget5 className='card-xxl-stretch' />
       
@@ -213,81 +213,75 @@ const DashboardPage = () => (
 
      
       </div> */}
-      {/* end::Row */}
-    </Content>
+        {/* end::Row */}
+      </Content>
     </div>
 
   </>
 )
 
 const DashboardWrapper = () => {
-  useEffect(()=>{},[])
+  useEffect(() => { }, [])
   const intl = useIntl()
- const dispatch= useDispatch()
-  const getLoadings=useSelector(getLoading)
-  console.log("loading ",getLoadings)
-  const getTravisProduct= useSelector(getTravisProducts)
-  const getOgioProduct= useSelector(getOgioProducts)
+  const dispatch = useDispatch()
+  const getLoadings = useSelector(getLoading)
+  const getTravisProduct = useSelector(getTravisProducts)
+  const getOgioProduct = useSelector(getOgioProducts)
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
 
-  useEffect(()=>{
-    if(getTravisProduct && getTravisProduct.length>0 &&
-      
-      getOgioProduct && getOgioProduct.length>0  &&
-       getAllBrand && getAllBrand.length>0
-    ){
-      dispatch(LoadingStop ())
-    } else if(getTravisProduct && getTravisProduct.length===0){
-        dispatch(startTravisLoading())
+  useEffect(() => {
+    if (getTravisProduct && getTravisProduct.length > 0 &&
+
+      getOgioProduct && getOgioProduct.length > 0 &&
+      getAllBrand && getAllBrand.length > 0
+    ) {
+      dispatch(LoadingStop())
+    } else if (getTravisProduct && getTravisProduct.length === 0) {
+      dispatch(startTravisLoading())
     }
-  },[getTravisProduct,getOgioProduct,getAllBrand])
+  }, [getTravisProduct, getOgioProduct, getAllBrand])
 
-  
+
   // "getRetailer-associated""
-const getUserAccounts= useSelector(getUserAccount);
-const getCurrentUsers= useSelector(getCurrentUser);
-// console.log("getRetailer-associated",getUserAccounts)
-useEffect(()=>{
-  if(getUserAccounts && getUserAccounts.id &&getUserAccounts.role!="Retailer"){
-    console.log("hello")
-    getUserRetailer(getUserAccounts.id )
-  } else if (getUserAccounts && getUserAccounts.id &&getUserAccounts.role==="Retailer"){
-    console.log("hello")
-    dispatch(addUserRetailer({
-      UserRetailer:getUserAccounts
-    }))
-  }
-},[getUserAccounts,getCurrentUsers]);
+  const getUserAccounts = useSelector(getUserAccount);
+  const getCurrentUsers = useSelector(getCurrentUser);
+  useEffect(() => {
+    if (getUserAccounts && getUserAccounts.id && getUserAccounts.role != "Retailer") {
+      getUserRetailer(getUserAccounts.id)
+    } else if (getUserAccounts && getUserAccounts.id && getUserAccounts.role === "Retailer") {
+      dispatch(addUserRetailer({
+        UserRetailer: getUserAccounts
+      }))
+    }
+  }, [getUserAccounts, getCurrentUsers]);
 
-const getUserRetailer =async(id:number)=>{
-   try{
-  const response= await GetUserRetailer(id)
-  console.log("get etailer",response)
-  if(response){
-    dispatch(addUserRetailer({
-      UserRetailer:response
-  
-    }))
+  const getUserRetailer = async (id: number) => {
+    try {
+      const response = await GetUserRetailer(id)
+      if (response) {
+        dispatch(addUserRetailer({
+          UserRetailer: response
+
+        }))
+      }
+
+    } catch (error) {
+    }
   }
-  
-   }catch(error){
-     console.log("error",error)
-   }
-}
 
   return (
     <>
-      <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
-      
-      {getLoadings &&<Loading/>}
+      <PageTitle breadcrumbs={[]}>{intl.formatMessage({ id: 'MENU.DASHBOARD' })}</PageTitle>
+
+      {getLoadings && <Loading />}
       <DashboardPage />
-      <GetAllProduct/>
+      <GetAllProduct />
 
-     <Reload/>
+      <Reload />
 
-     
+
     </>
   )
 }
 
-export {DashboardWrapper}
+export { DashboardWrapper }

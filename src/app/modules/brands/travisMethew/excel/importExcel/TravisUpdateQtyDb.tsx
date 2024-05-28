@@ -1,33 +1,34 @@
-import React ,{useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { BasicModelTravis } from '../../../../model/travis/TravisMethewModel';
 import { UpDateTravisQty } from '../../api/UpdateProductData';
 
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux"
 import { updateTravisQty } from '../../../../../slice/allProducts/TravisMethewSlice';
 
-type Props={
-    allQtyXlxData:BasicModelTravis[];
-    resetQtyData:(allresponse:string)=>void
+type Props = {
+    allQtyXlxData: BasicModelTravis[];
+    resetQtyData: (allresponse: string) => void
 }
-const TravisUpdateQtyDb = ({allQtyXlxData,resetQtyData}:Props) => {
-  
-const dispatch=useDispatch()
-    useEffect(()=>{
-        if(allQtyXlxData &&
-            allQtyXlxData.length>0){
-            updateQty(allQtyXlxData)}
-        
-    },[allQtyXlxData])
+const TravisUpdateQtyDb = ({ allQtyXlxData, resetQtyData }: Props) => {
 
-    const updateQty= (allQtyXlxData:BasicModelTravis[])=>{
-   const allQtData:BasicModelTravis[]=[]
-        if(allQtyXlxData && allQtyXlxData.length>0){
-            allQtyXlxData.map(item=>{
-                
-                const updateQuantity={
-                    sku:item.sku,
-                    stock_88:item.stock_88,
-                    stock_90:item.stock_90
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (allQtyXlxData &&
+            allQtyXlxData.length > 0) {
+            updateQty(allQtyXlxData)
+        }
+
+    }, [allQtyXlxData])
+
+    const updateQty = (allQtyXlxData: BasicModelTravis[]) => {
+        const allQtData: BasicModelTravis[] = []
+        if (allQtyXlxData && allQtyXlxData.length > 0) {
+            allQtyXlxData.map(item => {
+
+                const updateQuantity = {
+                    sku: item.sku,
+                    stock_88: item.stock_88,
+                    stock_90: item.stock_90
                 }
                 allQtData.push(updateQuantity)
             })
@@ -35,33 +36,31 @@ const dispatch=useDispatch()
         updateQtyApi(allQtData)
     }
 
-    const updateQtyApi=async(data:BasicModelTravis[])=>{
+    const updateQtyApi = async (data: BasicModelTravis[]) => {
 
 
-        try{
+        try {
 
 
-            const response= await UpDateTravisQty(data);
-            console.log("update qty",response);
-            if(response.status==200 && response.data){
+            const response = await UpDateTravisQty(data);
+            if (response.status == 200 && response.data) {
                 dispatch(updateTravisQty({
                     allQtyTravis: data
                 }))
                 resetQtyData(response.data.message)
             }
-            
-        }catch(e){
-            console.log(e);
+
+        } catch (e) {
             alert("Error updating travis stock quantity");
             resetQtyData("")
         }
     }
-  
-  
-  return (
 
-    <div></div>
-  )
+
+    return (
+
+        <div></div>
+    )
 }
 
 export default TravisUpdateQtyDb

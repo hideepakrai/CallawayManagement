@@ -34,7 +34,6 @@ const PendingOrder = () => {
     const [isView, setIsView] = useState(false);
     const handleView = (allProduct: unknown) => {
         setIsView(true);
-        console.log(allProduct)
         //setAllProducts(allProduct);
 
         dispatch(addPendingOrder({
@@ -49,13 +48,11 @@ const PendingOrder = () => {
 
 
     const handleview = () => {
-        console.log("I am here");
 
     };
 
     const [status, setStatus] = useState<string>("")
     const handleUpdateStatus = (status: string) => {
-        console.log(status)
         setStatus(status)
     }
 
@@ -126,7 +123,7 @@ const PendingOrder = () => {
 
                                                         <span style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleEdit(item.id)}
-                                                           
+
                                                         >
                                                             <Tooltip title="Edit" placement="bottom">
                                                                 <i className="bi bi-pencil-fill" ></i>
@@ -136,7 +133,7 @@ const PendingOrder = () => {
 
 
 
-                                                     
+
 
 
 

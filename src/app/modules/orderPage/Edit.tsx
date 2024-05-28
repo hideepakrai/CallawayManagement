@@ -3,11 +3,11 @@ import { Button, Modal } from "antd";
 import { Input } from "antd";
 import { Select } from "antd";
 
-type Props={
-    isEdit:boolean
-    onClose:() => void,
+type Props = {
+  isEdit: boolean
+  onClose: () => void,
 }
-const Edit = ({ isEdit, onClose }:Props) => {
+const Edit = ({ isEdit, onClose }: Props) => {
   const handleOk = () => {
     //setIsModalOpen(false);
     onClose();
@@ -17,8 +17,7 @@ const Edit = ({ isEdit, onClose }:Props) => {
     onClose();
   };
 
-  const onChange = (value:unknown) => {
-    // console.log(`selected ${value}`);
+  const onChange = (value: unknown) => {
   };
   return (
     <div>

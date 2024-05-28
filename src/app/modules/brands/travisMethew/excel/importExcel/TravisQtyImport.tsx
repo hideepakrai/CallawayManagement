@@ -47,9 +47,6 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
-      //console.log("json ", data)
-      // Use the extracted JSON data here
-      console.log(jsonData);
       setAllXlxData(jsonData)
       setLoading(false);
     };
@@ -62,8 +59,7 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
   }
 
   const handleOk = () => {
-    //setIsModalOpen(false);
-    console.log("ok")
+
     travisQtyData(allXlxData)
     setAllXlxData([]);
     // onClose();
@@ -86,8 +82,8 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
       key: 'sku',
       width: 150,
     },
-  
-    
+
+
     {
       title: 'stock_88',
       dataIndex: 'stock_88',
@@ -100,7 +96,7 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
       key: 'stock_90',
       width: 80,
     },
-   
+
   ];
   const excelData: BasicModelTravis[] = [
     {
@@ -108,17 +104,17 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
       sku: 'TM001',
       stock_88: 100,
       stock_90: 100,
-      
-      
+
+
     },
     {
-        brand: "Travismathew",
+      brand: "Travismathew",
       sku: 'TM002',
       stock_88: 100,
       stock_90: 100,
     },
     {
-        brand: "Travismathew",
+      brand: "Travismathew",
       sku: 'TM003',
       stock_88: 100,
       stock_90: 100,
@@ -130,10 +126,10 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
     const ws = XLSX.utils.json_to_sheet(excelData, { header: headerTitles });
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-  
+
     const hiddenTable = document.createElement("table");
     hiddenTable.style.visibility = "hidden";
-  
+
     // Add the table headers
     const thead = document.createElement("thead");
     const trHead = document.createElement("tr");
@@ -144,31 +140,31 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
     });
     thead.appendChild(trHead);
     hiddenTable.appendChild(thead);
-  
+
     // Add the table body (rows)
     const tbody = document.createElement("tbody");
     excelData.forEach((rowData) => {
       const tr = document.createElement("tr");
       columns.forEach((column) => {
         const td = document.createElement("td");
-        td.innerText = String(rowData[column.dataIndex as keyof BasicModelTravis]) ;
+        td.innerText = String(rowData[column.dataIndex as keyof BasicModelTravis]);
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
     });
     hiddenTable.appendChild(tbody);
-  
+
     // Append the hidden table to the body
     document.body.appendChild(hiddenTable);
-  
+
     // Generate and download the Excel file
     XLSX.writeFile(wb, "TravisQtyUpdateSample.xlsx");
-  
+
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);
-  
+
     // Reset the sample state
-    
+
   };
   return (
     <div>
@@ -195,13 +191,13 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
           </p>
         </Dragger>
         <div className="mt-5 downlaod-excel "
-        onClick={handleExportToExcel}
+          onClick={handleExportToExcel}
         >
           <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
         </div>
       </Modal>
 
-      
+
       {/* <SampleExcelTravis
         isSample={isSample}
         resetIsSample={handleResetIsSample}
@@ -209,7 +205,7 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
 
     </div>
 
-    
+
   )
 }
 

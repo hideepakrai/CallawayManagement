@@ -60,7 +60,6 @@ const TravisTable = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const filteredOptionsOne = OPTIONS1.filter((o) => !selectedItems.includes(o));
   const [isCard, setIsCard] = useState<boolean>(true)
-  //console.log(" travis Product",getProduct)
   const getStyleCodes = useSelector(getStyleCode)
   const getCategorys = useSelector(getCategory);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
@@ -78,49 +77,6 @@ const TravisTable = () => {
     }
     setAllTravisProduct(allTr)
   }, [getProduct])
-  // (async () => {
-  //   try {
-  //     const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
-  //     const result = await list({
-  //       path: 'public/productimg/TRAVIS-Images/',
-  //       // Alternatively, path: ({identityId}) => `album/{identityId}/photos/`
-  //     });
-  //     console.log("result =>", result);
-  //     console.log("items =>", result.items); // Accessing the items array
-
-  //     const originalString: string = "1MAA007_0HLG_11";
-  //     const derivedString: string = originalString.split('_').slice(0, 2).join('_');
-  //     console.log(derivedString); // Output: 1BR118_0BLK
-
-  //     const folderPath = `public/productimg/TRAVIS-Images/${derivedString}/`;
-
-  //     const folderExists = result.items.some((item) => {
-  //       return item.path.startsWith(folderPath);
-  //     });
-
-  //     console.log(`Folder ${derivedString} exists:`, folderExists);
-
-  //     if (folderExists) {
-  //       const imagePaths = result.items
-  //         .filter((item) => item.path.startsWith(folderPath))
-  //         .map((item) => item.path);
-
-  //       if (imagePaths.length > 0) {
-  //         const primary_image = imagePaths[0];
-  //         const secondary_image = imagePaths.slice(1);
-
-  //         console.log(`Primary image:`, primary_image);
-  //         console.log(`Secondary images:`, secondary_image);
-  //       } else {
-  //         console.log(`No images found in folder ${derivedString}.`);
-  //       }
-  //     } else {
-  //       console.log(`Folder ${derivedString} does not exist.`);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // })();
 
 
 
@@ -526,13 +482,11 @@ const TravisTable = () => {
   const [expandedKeys, setExpandedKeys] = useState<string>('');
 
   const handleExpand = (expanded: boolean, record: BasicModelTravis) => {
-    console.log("handleExpand", record)
     setExpandedRowKeys([])
     dispatch(removeOtherProduct())
     if (record.sku && record.variation_sku != "" && record.variation_sku != undefined) {
       const inputString = record.variation_sku
       const stringArray = inputString.split(',');
-      console.log(stringArray)
       const varskuArray: BasicModelTravis[] = [];
       const keys: string = "";
       getProduct.map((item) => {
@@ -561,7 +515,6 @@ const TravisTable = () => {
 
   const expandedRowRender = (record: BasicModelTravis) => {
 
-    console.log("expandedRowRender", record)
     if (record) {
 
       const subcolumns: TableColumnsType<BasicModelTravis> = [
@@ -776,13 +729,6 @@ const TravisTable = () => {
 
   const onSelectChange = (newSelectedRowKeys: Key[], record: BasicModelTravis) => {
 
-
-
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    // Check if the record is selected by checking if its key is included in newSelectedRowKeys
-    //const isSelected = newSelectedRowKeys.includes(record.SKU);
-    // Update the selectedRowKeys state based on the toggle state
-    // setSelectedRowKeys(isSelected ? [record.SKU] : []);
   };
 
 
@@ -847,7 +793,6 @@ const TravisTable = () => {
       setQty90Message("Quantity cannot be negative")
       setIsQty90ToolTip(true)
       setQty90SKU(record.sku)
-      console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
       dispatch(updateQuantity90({
         sku: record.sku,
@@ -877,7 +822,6 @@ const TravisTable = () => {
 
   useEffect(() => {
     if (qty90ToolMesage) {
-      console.log("qty90ToolMesage", qty90ToolMesage)
       const timeout = setTimeout(() => {
         setQty90Message("");
         //setQty90SKU("");
@@ -934,7 +878,6 @@ const TravisTable = () => {
       setQty90Message("Quantity cannot be negative")
       setIsQty90ToolTip(true)
       setQty90SKU(record.sku)
-      console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
       dispatch(updateQuantity90({
         sku: record.sku,
@@ -956,7 +899,6 @@ const TravisTable = () => {
 
   useEffect(() => {
     if (qty88ToolMesage) {
-      console.log("qty90ToolMesage", qty88ToolMesage)
       const timeout = setTimeout(() => {
         setQty88Message("");
         //setQty90SKU("");
@@ -1004,7 +946,6 @@ const TravisTable = () => {
       setQty88Message("Quantity cannot be negative")
       setIsQty88ToolTip(true)
       setQty88SKU(record.sku)
-      console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
       dispatch(updateQuantity88({
         sku: record.sku,
@@ -1031,9 +972,7 @@ const TravisTable = () => {
     setQty881Message("");
     setIsQty881ToolTip(false);
     setQty881SKU("")
-    console.log("881", record)
     const intValue = parseInt(value, 10);
-    console.log("intValue", intValue)
 
     if (intValue > 0) {
 
@@ -1076,7 +1015,6 @@ const TravisTable = () => {
       setQty88Message("Quantity cannot be negative")
       setIsQty88ToolTip(true)
       setQty88SKU(record.sku)
-      console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
       dispatch(updateQuantity88({
         sku: record.sku,
@@ -1242,7 +1180,6 @@ const TravisTable = () => {
 
   const [selectedRow, setSelectedRow] = useState<BasicModelTravis[]>([])
   const handleSelctRow = (record: BasicModelTravis) => {
-    console.log("record", record);
     if (selectedRow && selectedRow.length > 0) {
       const updatedSelectedRow = [...selectedRow];
       const index = selectedRow.findIndex(row => row.sku === record.sku);
@@ -1269,7 +1206,6 @@ const TravisTable = () => {
   const [isPDF, setIspdf] = useState<boolean>(false)
   useEffect(() => {
     if (selectedRow) {
-      console.log("selectedrow", selectedRow)
     }
   }, [selectedRow])
 

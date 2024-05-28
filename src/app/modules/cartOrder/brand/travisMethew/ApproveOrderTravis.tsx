@@ -4,43 +4,40 @@ import { getPreOrderId } from '../../../../slice/allProducts/TravisMethewSlice'
 import { ApproveOrder, UpdateOrder } from '../../orderApi/OrderAPi'
 
 
-type Props={
-    resetStatus:(status:string)=> void,
-    statusUpdate:string
+type Props = {
+    resetStatus: (status: string) => void,
+    statusUpdate: string
 }
- const ApproveOrderTravis = ({resetStatus,statusUpdate}:Props) => {
-    const getPreOrderIds= useSelector(getPreOrderId)
-  
-    useEffect(()=>{
-        if(getPreOrderIds &&statusUpdate!=""){
-           console.log("getPreOrderIds",getPreOrderIds) 
-       approveOrderTravis (getPreOrderIds,statusUpdate)
+const ApproveOrderTravis = ({ resetStatus, statusUpdate }: Props) => {
+    const getPreOrderIds = useSelector(getPreOrderId)
+
+    useEffect(() => {
+        if (getPreOrderIds && statusUpdate != "") {
+            approveOrderTravis(getPreOrderIds, statusUpdate)
 
         }
 
-    },[getPreOrderIds,statusUpdate]
+    }, [getPreOrderIds, statusUpdate]
     )
 
 
-    const approveOrderTravis =async(ordreId:number,statusUpdate:string)=>{
+    const approveOrderTravis = async (ordreId: number, statusUpdate: string) => {
         const now = new Date();
-      const formattedTimestamp = now.toISOString();
-     const order={
-        id:ordreId,
-        status:statusUpdate,
-        updated_at:formattedTimestamp
-     }
-        try{
-  const response = await ApproveOrder(order);
-  console.log("sttaus ",statusUpdate,response)
-  resetStatus(statusUpdate)
-        }catch(err){
-            console.log(err)
+        const formattedTimestamp = now.toISOString();
+        const order = {
+            id: ordreId,
+            status: statusUpdate,
+            updated_at: formattedTimestamp
+        }
+        try {
+            const response = await ApproveOrder(order);
+            resetStatus(statusUpdate)
+        } catch (err) {
             resetStatus("Approved failed")
         }
     }
     return (
-    <div></div>
-  )
+        <div></div>
+    )
 }
 export default ApproveOrderTravis;

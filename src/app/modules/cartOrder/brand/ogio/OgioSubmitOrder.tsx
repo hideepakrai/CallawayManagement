@@ -5,170 +5,163 @@ import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
-import {getRetailerDetails} from "../../../../slice/orderSlice/travis/Orderdetails"
+import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails"
 import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
 import { CreateOrder } from '../../orderApi/OrderAPi';
 
 import GetAllorder from '../../../orderPage/GetAllorder';
 
-type Props={
-    totalNetBillAmount:number;
-    discountType:string;
-    discountValue:number;
-    resetSubmitOrder:()=>void
+type Props = {
+  totalNetBillAmount: number;
+  discountType: string;
+  discountValue: number;
+  resetSubmitOrder: () => void
 }
 
-const OgioSubmitOrder = ({totalNetBillAmount,discountValue,discountType,resetSubmitOrder}:Props) => {
-  const getOgioProduct= useSelector(getOgioProducts)
-  const getUserAccounts= useSelector(getUserAccount)
-  const [ typeOfAccount, settypeOfAccount]= useState<string>("")
-  const [ managerUserId, setManagerUserId]= useState<number|null>()
+const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder }: Props) => {
+  const getOgioProduct = useSelector(getOgioProducts)
+  const getUserAccounts = useSelector(getUserAccount)
+  const [typeOfAccount, settypeOfAccount] = useState<string>("")
+  const [managerUserId, setManagerUserId] = useState<number | null>()
   const [userId, setUserId] = useState<number>();
-  const [isOrder, setIsOrder]= useState(false);
-  const dispatch= useDispatch()
+  const [isOrder, setIsOrder] = useState(false);
+  const dispatch = useDispatch()
 
-   // update user Id
-   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
-     console.log("getCurrentUsers",getCurrentUsers)
-   useEffect(() => {
-    
+  // update user Id
+  const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
+  useEffect(() => {
+
     if (getUserAccounts &&
       getUserAccounts.role &&
       getUserAccounts.user_id) {
- 
-        if(getUserAccounts.role==="Manager"){
-          settypeOfAccount(getUserAccounts.role)
-          setManagerUserId(getUserAccounts.user_id)
-          setUserId(getUserAccounts.user_id)
-        }
-        console.log("getUserAccounts,",getUserAccounts)
-     
+
+      if (getUserAccounts.role === "Manager") {
+        settypeOfAccount(getUserAccounts.role)
+        setManagerUserId(getUserAccounts.user_id)
+        setUserId(getUserAccounts.user_id)
+      }
+
     }
   }, [getUserAccounts])
-  
+
   // getAll Order
-  const [ allOgioOrders, setGetAllOgioOrders]= useState<OgioBasicModel[]>([])
- const [brandId, setBrandId]= useState<number>()
-    
-  useEffect(()=>{
-    const ogio:OgioBasicModel[]=[];
-    if(getOgioProduct &&getOgioProduct.length>0){
-      getOgioProduct.map((item)=>{
-        if(item.ordered && item.error==="" &&item.brand_id){
+  const [allOgioOrders, setGetAllOgioOrders] = useState<OgioBasicModel[]>([])
+  const [brandId, setBrandId] = useState<number>()
+
+  useEffect(() => {
+    const ogio: OgioBasicModel[] = [];
+    if (getOgioProduct && getOgioProduct.length > 0) {
+      getOgioProduct.map((item) => {
+        if (item.ordered && item.error === "" && item.brand_id) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
-            stock_90: item.Quantity90?item.Quantity90:0,
-            
+            stock_90: item.Quantity90 ? item.Quantity90 : 0,
+
           })
           setBrandId(item.brand_id)
-          
+
         }
       })
-     
 
-       setGetAllOgioOrders(ogio)
+
+      setGetAllOgioOrders(ogio)
     }
-  },[getOgioProduct]);
+  }, [getOgioProduct]);
 
 
   //getAlll retailer detail 
-  const getRetailerDetail= useSelector(getRetailerDetails)
-  useEffect(()=>{
-   
-    
-if(getRetailerDetail && 
-    getRetailerDetail.retailerUserId &&
-    getRetailerDetail.retailerId&&
-   
-    totalNetBillAmount&&
-    discountValue&&
-    discountType  &&
-    managerUserId
-){
-        handleCreateOrder()
+  const getRetailerDetail = useSelector(getRetailerDetails)
+  useEffect(() => {
+
+
+    if (getRetailerDetail &&
+      getRetailerDetail.retailerUserId &&
+      getRetailerDetail.retailerId &&
+
+      totalNetBillAmount &&
+      discountValue &&
+      discountType &&
+      managerUserId
+    ) {
+      handleCreateOrder()
     }
 
-  },[allOgioOrders,getRetailerDetail,totalNetBillAmount,discountType,discountValue,managerUserId])
-    
+  }, [allOgioOrders, getRetailerDetail, totalNetBillAmount, discountType, discountValue, managerUserId])
+
 
   const handleCreateOrder = () => {
-    
-      dispatch(LoadingStart());
-      const orderId = generateUniqueNumeric();
-      const now = new Date();
-      if (Array.isArray(allOgioOrders) &&orderId) {
-        const data={
-          order_date:"",
-          brand_id:brandId,
-          user_id:managerUserId?managerUserId:0,
-          items:JSON.stringify(allOgioOrders),
-          discount_type:discountType,
-          discount_percent:discountValue,
-          total_value:totalNetBillAmount,
-          status:"Pending",
-          manager_id:managerUserId,
-          retailer_id:getRetailerDetail.retailerUserId,
-          salesrep_id:111,
-        
 
-        }
+    dispatch(LoadingStart());
+    const orderId = generateUniqueNumeric();
+    const now = new Date();
+    if (Array.isArray(allOgioOrders) && orderId) {
+      const data = {
+        order_date: "",
+        brand_id: brandId,
+        user_id: managerUserId ? managerUserId : 0,
+        items: JSON.stringify(allOgioOrders),
+        discount_type: discountType,
+        discount_percent: discountValue,
+        total_value: totalNetBillAmount,
+        status: "Pending",
+        manager_id: managerUserId,
+        retailer_id: getRetailerDetail.retailerUserId,
+        salesrep_id: 111,
 
-        createOrder(data)
-       }
-    }
 
-    function generateUniqueNumeric(): string {
-        const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
-        const randomDigits = Math.floor(Math.random() * 100000); // Generate random 5-digit number
-        const paddedRandomDigits = String(randomDigits).padStart(5, '0'); // Pad random number with leading zeros if necessary
-        const uniqueId = timestamp + paddedRandomDigits; // Combine timestamp and random number
-        return uniqueId;
       }
 
+      createOrder(data)
+    }
+  }
 
-  const [orderId, setOrderId]= useState<number>(0)
+  function generateUniqueNumeric(): string {
+    const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
+    const randomDigits = Math.floor(Math.random() * 100000); // Generate random 5-digit number
+    const paddedRandomDigits = String(randomDigits).padStart(5, '0'); // Pad random number with leading zeros if necessary
+    const uniqueId = timestamp + paddedRandomDigits; // Combine timestamp and random number
+    return uniqueId;
+  }
+
+
+  const [orderId, setOrderId] = useState<number>(0)
   const [reLoadUserAccount, setReloadUserAccount] = useState(false)
   const createOrder = async (data: CartModel) => {
     try {
       const response = await CreateOrder(data);
-       console.log("order created ", response)
-      // if (response==="order created successfully") {
-      //   setReloadUserAccount(true)
-      //   setIsOrder(true)
-      // }
+
       resetSubmitOrder()
 
     }
     catch (err) {
-      console.log(err);
       dispatch(LoadingStop())
       alert("Error on creating order")
       resetSubmitOrder()
-      
+
     }
   }
 
- 
+
   // reset order Id
-  const handleResetOrder=() => {
+  const handleResetOrder = () => {
     setIsOrder(false);
     setManagerUserId(null);
     settypeOfAccount("")
     setGetAllOgioOrders([])
     resetSubmitOrder()
   }
-   
-  
+
+
   return (
     <div>
 
-{isOrder  &&
-    <GetAllorder
-   
-    
-    resetOrder={handleResetOrder}
-    />} 
+      {isOrder &&
+        <GetAllorder
+
+
+          resetOrder={handleResetOrder}
+        />}
     </div>
   )
 }

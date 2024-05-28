@@ -33,7 +33,6 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
   };
 
   const handleNoteOk = (note: string) => {
-    console.log("Note added:", note);
     setIsNoteModalOpen(false);
   };
 
@@ -64,11 +63,11 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
         </div>
 
         <Note
-        isModalOpen={isNoteModalOpen}
-        handleOk={handleNoteOk}
-        handleCancel={handleNoteCancel}
-      />
-      
+          isModalOpen={isNoteModalOpen}
+          handleOk={handleNoteOk}
+          handleCancel={handleNoteCancel}
+        />
+
         <div className="d-flex">
           <h3 className="pb-1 fs-3 text-gray-900">Status</h3>
           <Select
@@ -88,7 +87,7 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
         </div>
       </Modal>
 
-      
+
 
     </>
   );

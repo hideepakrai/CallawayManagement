@@ -85,7 +85,7 @@ export function Login() {
 
         saveAuth(response?.token)
         setCurrentUser(response)
-       sessionStorage.setItem('refreshAuth',response)
+        sessionStorage.setItem('refreshAuth', response)
         dispatch(addUser({
           currentUser: response.user,
           UserRetailer: response.accountType,

@@ -34,7 +34,6 @@ const AllPendingOrder = () => {
     const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
     const handleUpdateStatus = (status: string) => {
-        console.log(status);
         setStatus(status);
     };
 
@@ -50,7 +49,6 @@ const AllPendingOrder = () => {
     };
 
     const handleExpand = (record: CartModel) => {
-        console.log("handleExpand", record);
         if (record && record.items && record.items.length > 0 && record.id) {
             const allarray = JSON.parse(record.items);
             setExpandedRowKeys(allarray);
@@ -69,16 +67,16 @@ const AllPendingOrder = () => {
             key: 'brand_id',
             width: 100,
             render: (value) => {
-              let brandName;
-              if (value === 3) {
-                brandName = "Travis Mathew";
-              } else {
-                brandName = "Other Brand"; // Default value or other brand name
-              }
-        
-              return <span>{brandName}</span>; // Render the brand name inside a span
+                let brandName;
+                if (value === 3) {
+                    brandName = "Travis Mathew";
+                } else {
+                    brandName = "Other Brand"; // Default value or other brand name
+                }
+
+                return <span>{brandName}</span>; // Render the brand name inside a span
             },
-          },
+        },
         {
             title: "Retailer name ",
             dataIndex: "retailer_name",
@@ -116,10 +114,10 @@ const AllPendingOrder = () => {
             title: "Status	",
             // dataIndex: "created_at",
             width: 100,
-            
+
         },
 
-        
+
         {
             title: "Action",
             width: 70,
@@ -163,7 +161,7 @@ const AllPendingOrder = () => {
         },
     ];
 
- 
+
 
     const expandedRowRender = (record: CartModel) => {
         const subcolumns: TableColumnsType<BasicModelTravis> = [
@@ -237,14 +235,13 @@ const AllPendingOrder = () => {
         );
     };
 
-    const [recordPdf, setRecordPdf] = useState<AccountOrder|null>(null);
+    const [recordPdf, setRecordPdf] = useState<AccountOrder | null>(null);
 
     const handleDownload = (record: AccountOrder) => {
-        console.log("record", record);
         setRecordPdf(record);
     };
 
-    const handleRecordPdf=()=>{
+    const handleRecordPdf = () => {
         setRecordPdf(null)
     }
 
@@ -283,7 +280,7 @@ const AllPendingOrder = () => {
                     />
                 )}
             </div>
-            { recordPdf && <OrderPdfFormate
+            {recordPdf && <OrderPdfFormate
                 recordPdf={recordPdf}
                 resetSelectedRow={handleRecordPdf}
             />}
