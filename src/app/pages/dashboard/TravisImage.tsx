@@ -49,7 +49,7 @@ const TravisImage = () => {
     
     const checkFolderExists = async (bucketName: string,sku:string) => {
       try {
-         
+        
         const result = await list({
           path: 'public/productimg/TRAVIS-Images/',
         

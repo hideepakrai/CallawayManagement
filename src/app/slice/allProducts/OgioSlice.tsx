@@ -412,7 +412,16 @@ const OgioSlice = createSlice({
                 })
               }
           
-        }
+        },
+         updateOgioImages:(state,action)=>{
+            const {sku,primaryImage,secondaryImage}=action.payload
+
+            const ogioIndex= state.ogio.findIndex(item=>item.sku===sku);
+            if (ogioIndex!=-1){
+                state.ogio[ogioIndex].primaryImage=primaryImage;
+                state.ogio[ogioIndex].secondaryImage=secondaryImage;
+            }
+         }
 
 
        
@@ -431,7 +440,8 @@ export const { addOgioProduct,
     updateOgioInclusiveDiscount,
     resetOgioOrder,
     updateQunatityAfterOrder,
-    updateOgioStock
+    updateOgioStock,
+    updateOgioImages
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];

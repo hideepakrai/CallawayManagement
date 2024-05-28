@@ -17,10 +17,11 @@ import { addOgioOrder, removeOgioOrder } from "../../../../slice/orderSlice/ogio
 import GetAllProduct from '../../../../api/allProduct/GetAllProduct';
 import { useNavigate } from 'react-router-dom';
 import { checkIsActive } from '../../../../../_metronic/helpers';
-import { BasicModelTravis } from '../../../model/travis/TravisMethewModel';
+
 import OgioProdPdf from "../ogioPdf/OgioProdPdf"
 import UpdateOgioQty from '../excel/importExcel/UpdateOgioQty';
 import OgioUpdateQtyDb from '../excel/importExcel/OgioUpdateQtyDb';
+import UploadOgioImages from './UploadOgioImages';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -64,7 +65,8 @@ const OgioTable = () => {
       dataIndex: "PrimaryImage",
       // fixed: "left",
       width: 50,
-      render: (value) => <OgioGallery value={value} />,
+      render: (value, record) => 
+      <OgioGallery record={record} />,
     },
 
 
@@ -548,10 +550,7 @@ const OgioTable = () => {
 
   // export to pdf 
   const [isPDF, setIspdf] = useState<boolean>(false)
-  useEffect(() => {
-    if (selectedRow) {
-    }
-  }, [selectedRow])
+  
 
 
   const handleExportToPDF = () => {
@@ -568,6 +567,22 @@ const OgioTable = () => {
   }
 
 
+
+  const [isStartuploadImages, setiStartuploadImages]= useState(false)
+
+   const handleUploadImages=()=>{
+    console.log("upload button")
+    setiStartuploadImages(true)
+    
+   }
+
+   const handleResetUploadImages=()=>{
+    setiStartuploadImages(false)
+   }
+
+   const handleViewCart = () => {
+    navigate("/cart")
+  }
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}
@@ -591,7 +606,11 @@ const OgioTable = () => {
 
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
-          // onClick={handleViewCart}
+           onClick={handleUploadImages}
+          > <i className="bi bi-bag fs-3"></i> UploadImages</Button>
+          <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+
+         onClick={handleViewCart}
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
@@ -614,11 +633,11 @@ const OgioTable = () => {
 
 
 
-
+{/* 
         <div className='show-prodect-section' >
           <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
 
-        </div>
+        </div> */}
 
 
         <Table
@@ -681,6 +700,12 @@ const OgioTable = () => {
         resetSelectedRow={handleResetSelectedRow}
       />}
 
+
+{isStartuploadImages &&
+        <UploadOgioImages
+        resetOgioImages={handleResetUploadImages}
+        />}
+      {/* <PreOrder /> */}
     </div>
   )
 }

@@ -46,6 +46,7 @@ import { startTravisLoading } from "../../slice/allProducts/TravisMethewSlice.ts
 import { addUserRetailer, getCurrentUser, getUserAccount } from '../../slice/UserSlice/UserSlice.tsx'
 import { GetUserRetailer } from '../../modules/auth/core/_requests.ts'
 import TravisImage from './TravisImage.tsx'
+import OgioImage from './OgioImage.tsx'
 const DashboardPage = () => (
 
 
@@ -266,6 +267,7 @@ const DashboardWrapper = () => {
       }
 
     } catch (error) {
+      console.log(error)
     }
   }
 
@@ -276,7 +278,7 @@ const DashboardWrapper = () => {
       {getLoadings && <Loading />}
       <DashboardPage />
       <GetAllProduct />
-
+    
       <Reload />
 
 

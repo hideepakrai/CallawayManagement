@@ -70,3 +70,19 @@ export function UpDateOgioQty(data: OgioBasicModel[]) {
     });
 
 }
+export function UpDateOgioImages(data: OgioBasicModel[]) {
+
+  return axios.post(`${serverUrl}/update-ogio-images`, data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then(response => {
+      return response
+    }).catch(error => {
+      throw error;
+    });
+
+}

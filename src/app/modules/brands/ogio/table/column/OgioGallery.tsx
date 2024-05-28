@@ -1,79 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../../model/travis/TravisMethewModel"
+import React, { useEffect, useState } from 'react'
 import { Image } from 'antd';
-import { getAllBrands } from "../../../../../slice/brand/BrandSlice"
-import { useSelector } from 'react-redux';
-import { BrandModel } from "../../../../model/brand/AllBrands"
-type Props = {
-  value: ImageType
+import { list } from 'aws-amplify/storage';
+import { OgioBasicModel } from '../../../../model/ogio/OgioBrandModel';
+
+type Props={
+  record:OgioBasicModel
 }
+const OgioGallery = ({record}:Props) => {
+  const [primaryImage, setPrimaryImage] = useState<string | null>(null);
+  const [imagePaths, setImagePaths] = useState<string[]>([]);
+   const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
+  //const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/";
 
-
-const OgioGallery = ({ value }: Props) => {
-
-  const getAllBrand = useSelector(getAllBrands) as BrandModel[]
-  const [imagePath, setImagePath] = useState<string | undefined>("")
-  useEffect(() => {
-    if (getAllBrand &&
-      getAllBrand.length > 0
-    ) {
-
-      const image: BrandModel[] = getAllBrand.filter(brand => brand.attributes?.Name === "Ogio");
-      if (image && image.length > 0)
-        setImagePath(image[0].attributes?.Logo?.data.attributes?.formats?.thumbnail?.url)
+   const[secondaryImage, setSecondaryImage]= useState<string[]>([])
+  useEffect(()=>{
+    if(record.primary_image_url &&record.gallery_images_url){
+      if(record.primary_image_url.startsWith("public/productimg/OGIO")){
+        const imagePathsArray = record.gallery_images_url.split(',');
+        setSecondaryImage(imagePathsArray)
+        setPrimaryImage(record.primary_image_url)
+      }
+      
     }
-  }, [getAllBrand])
+  },[record])
+  return (
+    <div>
+ {primaryImage
+  &&secondaryImage ?(
+            <Image.PreviewGroup
+            items={secondaryImage.map(path => `${s3_url}${path}`)}
+            >
+              <Image
+                width={42}
+                src={`${s3_url}${primaryImage}`}
+              />
+            </Image.PreviewGroup>
+          ) : (
+            <span>
 
-  if (value && value.data &&
-    value?.data[0]?.attributes &&
-    value?.data[0]?.attributes?.formats &&
-    value?.data[0]?.attributes?.formats?.medium &&
-    value?.data[0]?.attributes?.formats?.medium?.url
+              <img
+                src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png"
+                alt="Primary Image"
+                style={{ maxWidth: "30px", marginRight: "5px" }}
+                width={30}
+              />
+            </span>
+          )}
 
-  ) {
-    const mediumUrls = [
-      value?.data[0]?.attributes?.formats?.medium?.url,
-      value?.data[1]?.attributes?.formats?.medium?.url,
-      value?.data[2]?.attributes?.formats?.medium?.url
-    ].filter(Boolean);
-    const previewItems = mediumUrls.map((url) => `https://admin.callawayindiaoms.com${url}`);
-    return (
-      <span>
-        <Image.PreviewGroup
-          items={previewItems}
-        >
-          {value &&
-            value?.data[0] &&
-            value?.data[0]?.attributes &&
-            value?.data[0]?.attributes?.formats &&
-            value?.data[0]?.attributes?.formats?.medium &&
-            value?.data[0]?.attributes?.formats?.medium?.url &&
-            <Image
-              src={`https://admin.callawayindiaoms.com${value.data[0].attributes.formats.medium.url}`}
-              alt="Primary Image"
-              style={{ maxWidth: "50px", marginRight: "5px" }}
-              width={42}
-            />}
-        </Image.PreviewGroup>
-      </span>
-    );
-  } else {
-
-
-    return (
-      <span>
-        {imagePath && <img
-          src={`https://admin.callawayindiaoms.com${imagePath}`}
-          alt="Primary Image"
-          style={{ maxWidth: "30px", marginRight: "5px" }}
-          width={30}
-        />}
-      </span>
-    )
-
-  }
-
+    </div>
+  )
 }
 
-
-export default OgioGallery;
+export default OgioGallery
