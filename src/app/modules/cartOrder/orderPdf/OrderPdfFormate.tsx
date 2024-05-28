@@ -1,10 +1,24 @@
 
-import React ,{useRef} from 'react'
+import React ,{useEffect, useRef, useState} from 'react'
 import { Button, Card, Table } from 'antd'
+import { AccountOrder, CartModel, ItemModel } from '../../model/CartOrder/CartModel'
+import { PdfModel } from '../../model/pdf/PdfModel'
 
 
-const OrderPdfFormate = () => {
+type Props={
+    recordPdf:AccountOrder
+  // discountAmount:number,
+}
+
+const OrderPdfFormate = ({recordPdf}:Props) => {
     const contentToPrint = useRef(null);
+    const [orderItem, setOrderItem]= useState<ItemModel[]>([])
+    useEffect(()=>{
+        if(recordPdf && recordPdf.items ){
+            const parsedItems= JSON.parse(recordPdf.items);
+            setOrderItem(parsedItems)
+        }
+    },[recordPdf])
   return (
     <div>
          <div>
@@ -30,16 +44,16 @@ const OrderPdfFormate = () => {
 
        <div style={{width:"81%"}}>
          <h4>Retailer Details:</h4>
-         {/* <h1>{retailerName}</h1> */}
-         {/* <p>{retailerAddres}</p> */}
-         <p>+123-456-789</p>
+         <h1>{recordPdf.retailer_name}</h1>
+         <p>{recordPdf.retailer_address}</p>
+         <p>{recordPdf.retailer_phone}</p>
        </div>
        <div style={{float:"left"}}>
-       <p>Date: 16/01/2024 </p>
+       <p>{recordPdf.created_at}</p>
         <p>Company: Callaway Golf India</p>
-        <p>Brand: Ogio</p>
-        <p>Manager: Manish Sharma </p>
-        <p>Sales Rep: Mukesh Kumar</p>
+        <p>Brand: {recordPdf.brand_id===3?"Travismathew":(recordPdf.brand_id===4)?"Ogio":"callaway Goods"}</p>
+        <p>Manager: {recordPdf.manager_name} </p>
+        <p>Sales Rep: {recordPdf.salesrep_name}</p>
         </div>
        </div>
 
@@ -56,12 +70,12 @@ const OrderPdfFormate = () => {
             
             <h4 style={{ color:"#545454", display:"flex", borderBottom:"1px solid #ddd", paddingBottom:"5px",fontSize:"14px"}}>
                 {" "}
-                {/* <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{totalAmount} */}
+                <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{recordPdf.total_val_pre_discount}
               </h4>
               {/* ₹ */}
               <h4 style={{ color:"#545454", display:"flex", borderBottom:"1px solid #ddd", paddingBottom:"5px", fontSize:"14px"}}>
                 {" "}
-                {/* <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{discountAmount} */}
+                <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{recordPdf.discount_amount}
               </h4>
               
              
@@ -74,7 +88,7 @@ const OrderPdfFormate = () => {
              
 
               <h4 style={{color:"#545454",  padding:"8px 0px", backgroundColor:"#ddd",fontSize:"14px"}}>
-                {/* <a style={{ color:"#545454", paddingRight:"109px", paddingLeft:"10px",}}>Total : </a>{totalNetBillAmount} */}
+                <a style={{ color:"#545454", paddingRight:"109px", paddingLeft:"10px",}}>Total : </a>{recordPdf.total_value}
               </h4>
             </div>
             </div>

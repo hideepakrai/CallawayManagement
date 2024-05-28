@@ -5,8 +5,8 @@ import {BasicModelTravis,UpdateTravisModel} from "../../../model/travis/TravisMe
 const STRAPI_URL= import.meta.env.VITE_APP_STRAPI_URL;
 export  const serverUrl= import.meta.env.VITE_APP_MY_SERVER_URL;
 // get USer Role 
-export function UpdateTravisProduct(data:BasicModelTravis, id:number){
-  const update=[data]
+export function UpdateTravisProduct(data:BasicModelTravis[]){
+  const update=data
     return axios.post(`${serverUrl}/update-travis`,update,
     {
         headers: {
@@ -16,7 +16,7 @@ export function UpdateTravisProduct(data:BasicModelTravis, id:number){
     )
     .then(response=>{
       console.log(response)
-      return response.data
+      return response
   }).catch(error=>{
       throw error;
   });
@@ -25,8 +25,8 @@ export function UpdateTravisProduct(data:BasicModelTravis, id:number){
   }
 
 
-  export function AddNewProduct(data: BasicModelTravis){
-    const newData=[data]
+  export function AddNewProduct(data: BasicModelTravis[]){
+    const newData=data
     return axios.post(`${serverUrl}/add-travis`,newData,
     {
         headers: {

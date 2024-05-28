@@ -8,7 +8,7 @@ import {getTravisProducts,getOtherProducts, updateTravisInclusiveDiscount, updat
 import {updateQuantity90,updateQuantity88,
   addOtherProduct,updateOtherQuantity90,
   updateOtherQuantity88,removeOtherProduct} from "../../../../slice/allProducts/TravisMethewSlice";
-
+  import { message } from 'antd';
   import {useDispatch, useSelector} from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../../loading/Loading';
@@ -21,7 +21,7 @@ import TravisGallery from "../../../brands/travisMethew/table/column/gallery"
 import Note from "../../Note"
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import ApproveOrderTravis from './ApproveOrderTravis';
-
+import { message as antdMessage } from 'antd';
  import AlertTravis from "./AlertTravis"
 import RejectOrderTravis from "./RejectOrderTravis"
 import CompletedOrderTravis from './CompletedOrderTravis';
@@ -517,7 +517,7 @@ if (record && record.sku) {
   const [totalAmount, setTotalAmount] = useState<number>()
 const [discountAmount, setDiscountAmount] = useState<number>()
 const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
-
+const [messageApi, contextHolder] = antdMessage.useMessage();
 useEffect(() => {
   let tAmount: number = 0;
   let totalBillAmount: number = 0;
@@ -580,10 +580,12 @@ const handleUpdateStrapi=(message:string)=>{
   setIsUpdateStrapi(false)
   setIsUpdateRedux(true)
   if(message===""){
-    alert("some went wrong")
+    messageApi.info('some went wrong');
+    // alert("some went wrong")
   }
   else if(message!=``){
     alert(message)
+    messageApi.info(message);
   }
 
   dispatch(updateProgressStep({
@@ -628,6 +630,9 @@ const handleRejectOrder=()=>{
 const handleResetRejectedOrder=()=>{
   setIsRejectedorder(false)
   dispatch(LoadingStop())
+  messageApi.info('Your order is rejected');
+  //alert("Your order is rejected")
+  dispatch(resetTravisOrder())
 }
 
 const handleCompletedOrder=()=>{
@@ -645,6 +650,8 @@ const handleResetCompletedOrder=()=>{
 
   dispatch(resetTravisOrder())
   alert("Your order is suceessfully completed")
+  // messageApi.info('Your order is suceessfully completed');
+ 
 }
 const[isNote, setIsnote]= useState<boolean>(false)
  const handleNote=()=>{

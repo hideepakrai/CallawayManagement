@@ -219,12 +219,13 @@ const TravisMethewSlice = createSlice({
         updateReduxData: (state, action) => {
             const { travisProduct } = action.payload;
 
-            if (travisProduct) {
-              
+            if (travisProduct.length>0) {
+
+              travisProduct.map((item:BasicModelTravis)=>{
                 const travisIndex = state.travisMethew.findIndex(
-                  (travisItem) => travisItem.sku === travisProduct.sku
+                  (travisItem) => travisItem.sku === item.sku
                 );
-          
+
                 if (travisIndex===-1) {
                   state.travisMethew.push({
                     sku: travisProduct.sku,
@@ -326,6 +327,10 @@ const TravisMethewSlice = createSlice({
 
 
                 }
+              })
+                
+          
+               
               
             }
           }

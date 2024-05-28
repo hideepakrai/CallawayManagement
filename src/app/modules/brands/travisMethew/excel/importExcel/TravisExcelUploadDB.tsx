@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { ExcelModelTravis } from "../../../../model/travis/TravisExcel";
 import {useDispatch, useSelector} from "react-redux"
@@ -14,11 +14,16 @@ type Props = {
 };
 
 
-
+ 
 const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
   const dispatch= useDispatch()
+  const [isUpdate, setIsUpdate]= useState(false)
+  const [isAdd, setIsAdd]= useState(false)
   const getTravisProduct= useSelector(getTravisProducts)
   useEffect(() => {
+
+    const addTravisData:BasicModelTravis[]=[]
+    const updateTravisData:BasicModelTravis[]=[]
     if (xlData && xlData.length > 0) {
       console.log(xlData);
 
@@ -53,10 +58,11 @@ const id:number= travispr?.id??0;
              variation_sku: item.variation_sku!==undefined? item.variation_sku:travispr.variation_sku,
    
     }
-    dispatch(updateReduxData({
-      travisProduct:update  
-    }))
-    updateData(update,id,index)
+    updateTravisData.push(update)
+    // dispatch(updateReduxData({
+    //   travisProduct:update  
+    // }))
+    // updateData(update,id,index)
    
 
         }else if(travisIndex===-1){
@@ -85,19 +91,26 @@ const id:number= travispr?.id??0;
   
               };
   
-             
-              saveData(sdd,index)
+              addTravisData.push(sdd)
+              
               
         }
        
       })
     }
+    if(addTravisData.length>0 &&!isAdd){
+      saveData(addTravisData)
+    }
+    if(updateTravisData.length>0 && isUpdate){
+      updateData(updateTravisData)
+    }
   }, [xlData]);
 
-  const saveData = async (products: BasicModelTravis,index:number) => {
+  const saveData = async (products: BasicModelTravis[]) => {
     
 
     try {
+    setIsAdd(true)
       const response = await AddNewProduct( products);
       if (response.status === 200) {
         console.log("newly upload",response);
@@ -105,31 +118,25 @@ const id:number= travispr?.id??0;
           travisProduct:products  
         }))
         resetXls();
+        alert ("Data is uploaded successfully")
       }
 
-      if(index===xlData.length-1){
-        alert ("Data is uploaded successfully")
-      
-      }
     } catch (err) {
       console.log(err);
       alert("Error saving data");
       resetXls();
     }
   };
-  const updateData = async (products:BasicModelTravis , id:number, index:number) => {
+  const updateData = async (products:BasicModelTravis []) => {
    
     try {
-      const response = await UpdateTravisProduct( products, id);
+      const response = await UpdateTravisProduct( products);
       if (response.status === 200) {
-        console.log(`update ${id}`,response);
+        alert ("Data is uploaded successfully")
         resetXls();
       }
 
-      if(index===xlData.length-1){
-        alert ("Data is uploaded successfully")
-      
-      }
+     
     } catch (err) {
       console.log(err);
       alert("Error saving data");

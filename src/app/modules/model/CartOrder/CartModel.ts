@@ -12,10 +12,64 @@ status?:string,
  retailer_id?:number,
 salesrep_id?:number,
 user_id?:number,
-item?:BasicModelTravis[]
+item?:string
+brand_id?: number;
+created_at?: string;
+key?: number;
+manager_name?: string;
+note?: string;
+
+retailer_address?: string;
+retailer_gstin?: string;
+
+retailer_name?: string;
+retailer_phone?: string;
+
+salesrep_name?: string;
+
+updated_at?: string;
+total_val_pre_discount?:number,
+discount_amount?:number
   
     }
+    export interface AccountOrder{
+      id?:number,
+      order_date?:string,
+    items?:string,
+    discount_type?:string,
+     discount_percent?:number,
+    total_value?:number,
+    status?:string,
+     manager_id?:number|null,
+     retailer_id?:number,
+    salesrep_id?:number,
+    user_id?:number,
+    item?:string
+    brand_id?: number;
+    created_at?: string;
     
+    manager_name?: string;
+    note?: string;
+    
+    retailer_address?: string;
+    retailer_gstin?: string;
+    
+    retailer_name?: string;
+    retailer_phone?: string;
+    
+    salesrep_name?: string;
+    
+    updated_at?: string;
+    total_val_pre_discount?:number,
+    discount_amount?:number
+      
+    }
+   export  interface ItemModel {
+      sku: string;
+      mrp: number;
+      stock_90: number;
+      stock_88: number;
+    }
  export interface ConnectData{
   
     id?:number |undefined,
@@ -60,22 +114,7 @@ export interface ProductData{
   }
 }
 
-export interface AccountOrder{
-  id?:number,
-  brand_id?:number,
-  order_date?:string,
-items?:string,
-discount_type?:string,
- discount_percent?:number,
-total_value?:number,
-status?:string,
- manager_id?:number|null,
- retailer_id?:number,
-salesrep_id?:number,
-user_id?:number,
-created_at?:string,
-  
-}
+
 export interface AttributesData{
   
   OrderId?:string ;

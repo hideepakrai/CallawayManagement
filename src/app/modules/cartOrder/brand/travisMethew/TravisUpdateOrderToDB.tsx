@@ -16,30 +16,38 @@ const TravisUpdateOrderToDB = ({resetUpdateData}:props) => {
    const dispatch=useDispatch()
     const getTravisProduct= useSelector(getTravisProducts);
    const [updatestock, setUpdateStock]= useState<BasicModelTravis[]>([])
-    useEffect(()=>{
-        const newtravis: BasicModelTravis[] = [];
-        if(getTravisProduct &&
-            getTravisProduct.length>0){
-               
-                getTravisProduct.map(item=>{
-                    if(item.ordered && item.error88 =="" && item.error90===""){
-                         
-                        if(item.stock_90 && item.Quantity90 &&item.stock_88 &&item.Quantity88){
-                            const data={
-                                sku:item.sku,
-                                stock_90:item.stock_90-item.Quantity90,
-                                stock_88:item.stock_88-item.Quantity88
-                            }
-                            newtravis.push(data)
-                        }
-                        
-                    }
-                })
-                
+   const [isUpdating, setIsUpdating] = useState(false); 
+   useEffect(() => {
+    const newtravis: BasicModelTravis[] = [];
+    if (getTravisProduct && getTravisProduct.length > 0) {
+        getTravisProduct.forEach(item => {
+            if (item.ordered && item.error88 === "" && item.error90 === "") {
+                if (
+                    item.stock_90 !== undefined &&
+                    item.Quantity90 !== undefined && // Add null check here
+                    item.stock_88 !== undefined &&
+                    item.Quantity88 !== undefined && // Add null check here
+                    item.Quantity88 !== null  &&
+                    item.Quantity90 !== null// Add null check here
+                ) {
+                    const data = {
+                        sku: item.sku,
+                        stock_90: item.stock_90 - item.Quantity90,
+                        stock_88: item.stock_88 - item.Quantity88
+                    };
+                    newtravis.push(data);
+                }
             }
-            updateQtyApi(newtravis)
-            
-    },[getTravisProduct])
+        });
+    }
+
+    if (newtravis.length > 0 && !isUpdating) {
+        // Check if there's data to update and no update process is ongoing
+        updateQtyApi(newtravis);
+    }
+    // updateQtyApi(newtravis);
+}, [getTravisProduct]);
+
 
   
 
@@ -49,7 +57,7 @@ const TravisUpdateOrderToDB = ({resetUpdateData}:props) => {
        console.log("update to db data",data)
         try{
 
-
+            setIsUpdating(true);
             const response= await UpDateTravisQty(data);
             console.log("update qty",response);
             if(response.status==200 && response.data){

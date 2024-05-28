@@ -7,7 +7,8 @@ import { BasicModelTravis } from "../../model/travis/TravisMethewModel";
 import { AccountOrder, CartModel } from "../../model/CartOrder/CartModel";
 import "./AllPendingOrder.css";
 import Edit from "./Edit";
-import UpdateStatus from "./UpdateStatus.tsx";
+import UpdateStatus from "./UpdateStatus";
+import OrderPdfFormate from "../../cartOrder/orderPdf/OrderPdfFormate";
 
 const AllPendingOrder = () => {
     const [status, setStatus] = useState<string>("");
@@ -15,20 +16,21 @@ const AllPendingOrder = () => {
     const [isEdit, setIsEdit] = useState(false);
     const tableRef = useRef(null);
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
-    const[allPending,setAllPendingOrder]= useState<AccountOrder[]>([]);
+    const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
 
     // get All pending orders
-    useEffect(()=>{
-        const allpend:AccountOrder[]=[]
-        if(getUserOrder && getUserOrder.length>0){
-            getUserOrder.map(item=>{
-                if(item.status === "Pending"){
-                    allpend.push(item)
+    useEffect(() => {
+        const allpend: AccountOrder[] = [];
+        if (getUserOrder && getUserOrder.length > 0) {
+            getUserOrder.forEach(item => {
+                if (item.status === "Pending") {
+                    allpend.push(item);
                 }
-            })
+            });
         }
-        setAllPendingOrder(allpend)
-    },[getUserOrder])
+        setAllPendingOrder(allpend);
+    }, [getUserOrder]);
+
     const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
     const handleUpdateStatus = (status: string) => {
@@ -91,14 +93,11 @@ const AllPendingOrder = () => {
                 return date.toUTCString();
             },
         },
-
         {
             title: "Last Update",
             // dataIndex: "total_value",
             width: 100,
         },
-
-
         {
             title: "Amount",
             dataIndex: "total_value",
@@ -118,8 +117,8 @@ const AllPendingOrder = () => {
                                     borderRight: "1px solid rgb(221, 221, 221)",
                                     cursor: "pointer",
                                 }}
-                                onClick={()=>handleDownload(record)}
-                                ></i>
+                                onClick={() => handleDownload(record)}
+                            ></i>
                         </Tooltip>
                         <Tooltip title="View" placement="bottom">
                             <i
@@ -130,9 +129,9 @@ const AllPendingOrder = () => {
                                     borderRight: "1px solid rgb(221, 221, 221)",
                                     cursor: "pointer",
                                 }}
-                                onClick={() => handleExpand(record)}></i>
+                                onClick={() => handleExpand(record)}
+                            ></i>
                         </Tooltip>
-
                         <Tooltip title="Edit" placement="bottom">
                             <span
                                 style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
@@ -147,12 +146,8 @@ const AllPendingOrder = () => {
         },
     ];
 
+ 
 
-    const handleDownload=(record:CartModel)=>{
-
-        console.log("record", record);
-
-    }
     const expandedRowRender = (record: CartModel) => {
         const subcolumns: TableColumnsType<BasicModelTravis> = [
             {
@@ -215,7 +210,7 @@ const AllPendingOrder = () => {
             <Table
                 className="table-profile"
                 columns={subcolumns}
-                dataSource={expandedRowKeys?.map((item) => ({
+                dataSource={expandedRowKeys.map((item) => ({
                     ...item,
                     key: item.sku,
                 }))}
@@ -225,48 +220,52 @@ const AllPendingOrder = () => {
         );
     };
 
+    const [recordPdf, setRecordPdf] = useState<AccountOrder>();
+
+    const handleDownload = (record: AccountOrder) => {
+        console.log("record", record);
+        setRecordPdf(record);
+    };
+
     return (
         <>
-         <div className="cart-table mb-5 ">
-            <Card title="Pending orders ">
-                <Table<CartModel>
-                    ref={tableRef}
-                    className="cart-table-profile pb-6"
-                    columns={columns}
-                    dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
-                    
-                    expandable={{
-                        expandedRowRender,
-                        onExpand: (expanded, record) => handleExpand(record),
-                    }}
+            <div className="cart-table mb-5">
+                <Card title="Pending orders">
+                    <Table<CartModel>
+                        ref={tableRef}
+                        className="cart-table-profile pb-6"
+                        columns={columns}
+                        dataSource={allPending.map((item) => ({
+                            ...item,
+                            key: item.id !== undefined ? item.id : -1, // Ensure key is always a number
+                        }))}
+                        expandable={{
+                            expandedRowRender,
+                            onExpand: (expanded, record) => handleExpand(record),
+                        }}
+                        bordered
+                        size="middle"
+                        pagination={false}
+                    />
+                </Card>
 
-                    bordered
-                    size="middle"
-                    
-
-                    pagination={
-                       false
-                    }
+                <Edit
+                    isEdit={isEdit}
+                    onClose={handleCloseEdit}
+                    changeStatus={handleUpdateStatus}
                 />
-            </Card>
 
-            <Edit
-                isEdit={isEdit}
-                onClose={handleCloseEdit}
-                changeStatus={handleUpdateStatus}
-            />
-
-            {status != null && orderId && (
-                <UpdateStatus
-                    status={status}
-                    orderId={orderId}
-                />
-            )}
-
-
-        </div>
+                {status != null && orderId && (
+                    <UpdateStatus
+                        status={status}
+                        orderId={orderId}
+                    />
+                )}
+            </div>
+           { recordPdf && <OrderPdfFormate
+                recordPdf={recordPdf}
+            />}
         </>
-       
     );
 };
 
