@@ -48,9 +48,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
-      //console.log("json ", data)
-      // Use the extracted JSON data here
-      //console.log(jsonData);
+
       setAllXlxData(jsonData)
       setLoading(false);
     };
@@ -64,7 +62,6 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
   const handleOk = () => {
     //setIsModalOpen(false);
-    console.log("ok")
     allGoodsData(allXlxData)
     // onClose();
   };
@@ -74,7 +71,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
   };
 
   const columns: TableColumnsType<BasicModelApparel> = [
-   
+
 
 
     {
@@ -83,7 +80,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       width: 100,
       fixed: "left",
 
-    
+
 
 
     },
@@ -113,8 +110,8 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: "season",
       width: 100,
 
-  
-     
+
+
     },
     {
       title: "Color",
@@ -122,7 +119,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: "color",
       width: 75,
 
-    
+
     },
 
 
@@ -131,7 +128,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       dataIndex: "style_id",
       key: "style_id",
       width: 85,
-      
+
     },
 
 
@@ -142,7 +139,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: "size",
       width: 65,
 
-     
+
     },
 
     {
@@ -164,7 +161,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: "stock_88",
       width: 150,
       fixed: 'right',
-     
+
     },
     {
       title: "Qty90",
@@ -172,7 +169,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: "stock_90",
       width: 150,
       fixed: 'right',
-    
+
     },
 
 
@@ -215,21 +212,21 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       style_id: '4MT044',
       series: 'NA',
       sleeves: 'In_Line',
-      gender:"Mens",
+      gender: "Mens",
       color: 'Heather_Purple_Velvet',
-    
+
       size: 'M',
-     
+
       description: 'This is a cool belt from Travis Mathew.',
       mrp: 50,
-   
+
       stock_88: 100,
       stock_90: 100,
-      gst:12,
-      
+      gst: 12,
+
     },
     {
-        brand: "Travismathew",
+      brand: "Travismathew",
       sku: 'TM002',
       name: 'Stylish Cap',
       category: 'Headwear',
@@ -239,18 +236,18 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'NA',
       color: 'Black',
       size: 'L',
-     
+
       description: 'A stylish cap from Travis Mathew.',
       mrp: 30,
-    
-     
-      gender:"Mens",
+
+
+      gender: "Mens",
       stock_88: 100,
       stock_90: 100,
-      gst:12,
+      gst: 12,
     },
     {
-        brand: "Travismathew",
+      brand: "Travismathew",
       sku: 'TM003',
       name: 'Classic Polo',
       category: 'Tops',
@@ -260,15 +257,15 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'In_Line',
       color: 'Navy Blue',
       size: 'XL',
-     
+
       description: 'A classic polo shirt from Travis Mathew.',
       mrp: 70,
-      
-    
-      gender:"Mens",
+
+
+      gender: "Mens",
       stock_88: 100,
       stock_90: 100,
-      gst:12,
+      gst: 12,
     },
   ];
 
@@ -277,10 +274,10 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     const ws = XLSX.utils.json_to_sheet(excelData, { header: headerTitles });
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-  
+
     const hiddenTable = document.createElement("table");
     hiddenTable.style.visibility = "hidden";
-  
+
     // Add the table headers
     const thead = document.createElement("thead");
     const trHead = document.createElement("tr");
@@ -291,7 +288,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     });
     thead.appendChild(trHead);
     hiddenTable.appendChild(thead);
-  
+
     // Add the table body (rows)
     const tbody = document.createElement("tbody");
     excelData.forEach((rowData) => {
@@ -304,18 +301,18 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       tbody.appendChild(tr);
     });
     hiddenTable.appendChild(tbody);
-  
+
     // Append the hidden table to the body
     document.body.appendChild(hiddenTable);
-  
+
     // Generate and download the Excel file
     XLSX.writeFile(wb, "TravisSample.xlsx");
-  
+
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);
-  
+
     // Reset the sample state
-    
+
   };
   return (
     <div>
@@ -342,13 +339,13 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
           </p>
         </Dragger>
         <div className="mt-5 downlaod-excel "
-        onClick={handleExportToExcel}
+          onClick={handleExportToExcel}
         >
           <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
         </div>
       </Modal>
 
-      
+
       {/* <SampleExcelTravis
         isSample={isSample}
         resetIsSample={handleResetIsSample}
@@ -356,7 +353,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
     </div>
 
-    
+
   )
 }
 

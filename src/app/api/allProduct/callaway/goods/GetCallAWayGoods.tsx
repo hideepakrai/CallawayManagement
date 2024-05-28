@@ -1,48 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery,useApolloClient } from "@apollo/client";
+import { useQuery, useApolloClient } from "@apollo/client";
 
 import { useDispatch } from 'react-redux';
-import {GetAllCallawayGoodsProduct} from "../../../../api/allProduct/callaway/goods/GetCallawayGoodsApi"
-import {addCallawayGoodsProduct} from "../../../../slice/allProducts/CallAwayGoodsSlice"
+import { GetAllCallawayGoodsProduct } from "../../../../api/allProduct/callaway/goods/GetCallawayGoodsApi"
+import { addCallawayGoodsProduct } from "../../../../slice/allProducts/CallAwayGoodsSlice"
 import { BasicModelGoods } from '../../../../modules/model/goods/CallawayGoodsModel';
 type Props = {
-  
-    resetGoods:()=>void
+
+    resetGoods: () => void
 }
 
-const GetCallawayGoodsProduct = ({ resetGoods}: Props) => {
+const GetCallawayGoodsProduct = ({ resetGoods }: Props) => {
 
-    const dispatch= useDispatch()  ;
-    useEffect(()=>{
+    const dispatch = useDispatch();
+    useEffect(() => {
         getAllGoodsProduct()
-    },[])
+    }, [])
 
-    const getAllGoodsProduct =async()=>{
-//   console.log("Getting")
- try{
-       const response= await GetAllCallawayGoodsProduct ();
-    //  console.log("goods product",response)
-      
-       if(response && response.productId){
-          dispatch(addCallawayGoodsProduct({
-            goodsProduct: response.productId
+    const getAllGoodsProduct = async () => {
+        try {
+            const response = await GetAllCallawayGoodsProduct();
 
-          }))
-          resetGoods();
-       }
-       
-                
-       
+            if (response && response.productId) {
+                dispatch(addCallawayGoodsProduct({
+                    goodsProduct: response.productId
 
- } catch(err){
-    // alert("Error in getting ogio product")
-    resetGoods()
- }
-        
+                }))
+                resetGoods();
+            }
+
+
+
+
+        } catch (err) {
+            // alert("Error in getting ogio product")
+            resetGoods()
+        }
+
     }
-   
 
-      
+
+
 
 
 

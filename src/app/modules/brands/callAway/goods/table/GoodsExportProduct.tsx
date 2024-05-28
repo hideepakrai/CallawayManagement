@@ -14,8 +14,8 @@ const { Dragger } = Upload;
 type Props = {
   onClose: () => void;
   isProduct: boolean;
-  printPdf:()=> void;
-  excelExport:()=> void;
+  printPdf: () => void;
+  excelExport: () => void;
   allGoodsData: (allData: ExcelModelTravis[]) => void
 }
 
@@ -25,7 +25,7 @@ const props: UploadProps = {
 
 
 };
-const OgioExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelExport}: Props) => {
+const OgioExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport }: Props) => {
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -47,9 +47,7 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelExp
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
-      console.log("json ", data)
-      // Use the extracted JSON data here
-      //console.log(jsonData);
+
       setAllXlxData(jsonData)
       setLoading(false);
     };
@@ -63,7 +61,6 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelExp
 
   const handleOk = () => {
     //setIsModalOpen(false);
-    console.log("ok")
     allGoodsData(allXlxData)
     // onClose();
   };
@@ -72,11 +69,11 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelExp
     onClose();
   };
 
-  const handlePdf=()=>{
+  const handlePdf = () => {
     printPdf()
   }
 
-  const handleExcel=()=>{
+  const handleExcel = () => {
     excelExport()
   }
   return (
@@ -107,14 +104,14 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData,printPdf ,excelExp
 
 
         <div className="mt-5 downlaod-excel ">
-        <button className="export-button pdf"
-        onClick={handlePdf}
-        > <i className="bi bi-file-pdf fs-2"></i>Export to PDF</button>
-        
-        <button className="export-button excel" 
-        onClick={handleExcel}
-        >
-         <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
+          <button className="export-button pdf"
+            onClick={handlePdf}
+          > <i className="bi bi-file-pdf fs-2"></i>Export to PDF</button>
+
+          <button className="export-button excel"
+            onClick={handleExcel}
+          >
+            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
         </div>
       </Modal>
     </div>

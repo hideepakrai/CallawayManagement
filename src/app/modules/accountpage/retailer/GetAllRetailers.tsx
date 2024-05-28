@@ -27,8 +27,6 @@ const Manager = ({resetRetailers}:Props) => {
       
 
 useEffect(() => {
-    //  console.log("All retailers",data);
-    // console.log(loading);
     if (data && !loading) {
 
        

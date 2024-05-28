@@ -16,24 +16,23 @@ const AllRetailerOrders = () => {
     const [isEdit, setIsEdit] = useState(false);
     const tableRef = useRef(null);
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
-    const[allPending,setAllPendingOrder]= useState<AccountOrder[]>([]);
+    const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
 
     // get All pending orders
-    useEffect(()=>{
-        const allpend:AccountOrder[]=[]
-        if(getUserOrder && getUserOrder.length>0){
-            getUserOrder.map(item=>{
-                if(item.status != "Pending"){
+    useEffect(() => {
+        const allpend: AccountOrder[] = []
+        if (getUserOrder && getUserOrder.length > 0) {
+            getUserOrder.map(item => {
+                if (item.status != "Pending") {
                     allpend.push(item)
                 }
             })
         }
         setAllPendingOrder(allpend)
-    },[getUserOrder])
+    }, [getUserOrder])
     const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
     const handleUpdateStatus = (status: string) => {
-        console.log(status);
         setStatus(status);
     };
 
@@ -49,7 +48,6 @@ const AllRetailerOrders = () => {
     };
 
     const handleExpand = (record: CartModel) => {
-        console.log("handleExpand", record);
         if (record && record.items && record.items.length > 0 && record.id) {
             const allarray = JSON.parse(record.items);
             setExpandedRowKeys(allarray);
@@ -63,20 +61,20 @@ const AllRetailerOrders = () => {
             width: 100,
         },
         {
-          title: 'Brand',
-          dataIndex: 'brand_id',
-          key: 'brand_id',
-          width: 100,
-          render: (value) => {
-            let brandName;
-            if (value === 3) {
-              brandName = "Travis Mathew";
-            } else {
-              brandName = "Other Brand"; // Default value or other brand name
-            }
-      
-            return <span>{brandName}</span>; // Render the brand name inside a span
-          },
+            title: 'Brand',
+            dataIndex: 'brand_id',
+            key: 'brand_id',
+            width: 100,
+            render: (value) => {
+                let brandName;
+                if (value === 3) {
+                    brandName = "Travis Mathew";
+                } else {
+                    brandName = "Other Brand"; // Default value or other brand name
+                }
+
+                return <span>{brandName}</span>; // Render the brand name inside a span
+            },
         },
         {
             title: "Retailer name",
@@ -209,13 +207,13 @@ const AllRetailerOrders = () => {
     return (
         <div className="cart-table">
             <Card title="All orders">
-               
+
                 <Table<CartModel>
                     ref={tableRef}
                     className="cart-table-profile"
                     columns={columns}
                     dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
-                    
+
                     expandable={{
                         expandedRowRender,
                         onExpand: (expanded, record) => handleExpand(record),

@@ -16,7 +16,7 @@ import GoodsImportExcel from "./GoodsImportExcel"
 import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import GoodsQtyImport from "./GoodsQtyImport"
 import TravisExportProduct from "./GoodsExportProduct"
- import type { RadioChangeEvent, SelectProps } from 'antd';
+import type { RadioChangeEvent, SelectProps } from 'antd';
 import { getCategory, getGoodsProducts, getProductModel, getProductType, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
 type SelectCommonPlacement = SelectProps['placement'];
 
@@ -36,12 +36,12 @@ const GooodsTable = () => {
   const dispatch = useDispatch()
   const searchInput = useRef<InputRef>(null);
   const getCategorys = useSelector(getCategory);
-  
+
   const getProductTypes = useSelector(getProductType);
   const getProductModels = useSelector(getProductModel);
   const getGoodsProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
   const [amount, setAmount] = useState<number>()
-  
+
 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
@@ -410,7 +410,6 @@ const GooodsTable = () => {
 
   useEffect(() => {
     if (qty90ToolMesage) {
-      console.log("qty90ToolMesage", qty90ToolMesage)
       const timeout = setTimeout(() => {
         setQty90Message("");
         //setQty90SKU("");
@@ -421,69 +420,68 @@ const GooodsTable = () => {
     }
   }, [qty90ToolMesage])
 
-  
 
 
-    
-  
-    const handleQuantity90 = (value: string, record: BasicModelGoods) => {
-  
-      const intValue = parseInt(value, 10);
-  
-      setQty90Message("");
-      setIsQty90ToolTip(false);
-      setQty90SKU("")
-      record.Quantity90 = intValue;
-      if (intValue > 0) {
-        if (record && record.stock_90 && record.stock_90 >= intValue) {
-  
-          // Dispatch an action to update the quantity for the SKU
-  
-          dispatch(updateQuantity90({
-            sku: record.sku,
-            qty90: intValue,
-            MRP: record.mrp,
-  
-          }));
-  
-  
-        }
-        else {
-          // alert("Quantity is not available")
-          const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
-          setQty90Message("The quantity should not exceed the available stock")
-          setIsQty90ToolTip(true)
-          setQty90SKU(record.sku)
-          
-          dispatch(updateQuantity90({
-            sku: record.sku,
-            qty90: st90,
-            MRP: record.mrp
-  
-  
-          }));
-  
-  
-  
-        }
-      } else if (intValue < 0) {
-  
-        // alert("Quantity cannot be negative")
-        setQty90Message("Quantity cannot be negative")
-        setIsQty90ToolTip(true)
-        setQty90SKU(record.sku)
-        console.log("Quantity cannot be negative")
-      } else if (intValue === 0) {
+
+
+
+  const handleQuantity90 = (value: string, record: BasicModelGoods) => {
+
+    const intValue = parseInt(value, 10);
+
+    setQty90Message("");
+    setIsQty90ToolTip(false);
+    setQty90SKU("")
+    record.Quantity90 = intValue;
+    if (intValue > 0) {
+      if (record && record.stock_90 && record.stock_90 >= intValue) {
+
+        // Dispatch an action to update the quantity for the SKU
+
         dispatch(updateQuantity90({
           sku: record.sku,
           qty90: intValue,
           MRP: record.mrp,
-  
+
         }));
-  
-  
+
+
       }
-    
+      else {
+        // alert("Quantity is not available")
+        const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
+        setQty90Message("The quantity should not exceed the available stock")
+        setIsQty90ToolTip(true)
+        setQty90SKU(record.sku)
+
+        dispatch(updateQuantity90({
+          sku: record.sku,
+          qty90: st90,
+          MRP: record.mrp
+
+
+        }));
+
+
+
+      }
+    } else if (intValue < 0) {
+
+      // alert("Quantity cannot be negative")
+      setQty90Message("Quantity cannot be negative")
+      setIsQty90ToolTip(true)
+      setQty90SKU(record.sku)
+    } else if (intValue === 0) {
+      dispatch(updateQuantity90({
+        sku: record.sku,
+        qty90: intValue,
+        MRP: record.mrp,
+
+      }));
+
+
+    }
+
 
   };
 
@@ -491,7 +489,6 @@ const GooodsTable = () => {
 
   const [selectedRow, setSelectedRow] = useState<BasicModelGoods[]>([])
   const handleSelectRow = (record: BasicModelGoods) => {
-    console.log("record", record);
     if (selectedRow && selectedRow.length > 0) {
       const updatedSelectedRow = [...selectedRow];
       const index = selectedRow.findIndex(row => row.sku === record.sku);
@@ -513,20 +510,20 @@ const GooodsTable = () => {
     }
   }
 
-  
 
-  
+
+
 
   // navigate to card
-    const handleViewCart = () => {
-      navigate("/cart")
-    }
+  const handleViewCart = () => {
+    navigate("/cart")
+  }
 
-     // handle Excels Data
+  // handle Excels Data
   const handleImport = () => {
     setIsImport(true);
   };
-  
+
   const handleCloseImport = () => {
     setIsImport(false);
   };
@@ -548,105 +545,105 @@ const GooodsTable = () => {
   };
 
   // show pd()
-  const handleShowPdf=()=>{
+  const handleShowPdf = () => {
     setIsProduct(false)
     setIspdf(true)
- }
- const handleDownloadExcel=()=>{
-   handleExportToExcel()
-   setIsProduct(false)
- }
-
- //exportto excel
- const handleExportToExcel = () => {
-  try {
-
-
-    
-
-    const table = tableRef.current as HTMLTableElement | null;
-
-    if (!table) {
-      console.error("Table element not found.");
-      return;
-    }
-
-    // Get the table's outerHTML
-    const tableHtml = table.outerHTML;
-
-    // Create a Blob object representing the data as an XLSX file
-    const blob = new Blob([tableHtml], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    });
-
-    // Create a temporary anchor element to download the Blob
-    const anchor = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-
-    anchor.href = url;
-    anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
-    anchor.click();
-
-    // Release the object URL
-    URL.revokeObjectURL(url);
-
-
-  } catch (error) {
-    console.error("Error exporting to Excel:", error);
   }
-};
+  const handleDownloadExcel = () => {
+    handleExportToExcel()
+    setIsProduct(false)
+  }
+
+  //exportto excel
+  const handleExportToExcel = () => {
+    try {
+
+
+
+
+      const table = tableRef.current as HTMLTableElement | null;
+
+      if (!table) {
+        console.error("Table element not found.");
+        return;
+      }
+
+      // Get the table's outerHTML
+      const tableHtml = table.outerHTML;
+
+      // Create a Blob object representing the data as an XLSX file
+      const blob = new Blob([tableHtml], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      // Create a temporary anchor element to download the Blob
+      const anchor = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+
+      anchor.href = url;
+      anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+      anchor.click();
+
+      // Release the object URL
+      URL.revokeObjectURL(url);
+
+
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+    }
+  };
 
 
 
   return (
     <div className='container'>
 
-<Card style={{ marginTop:'80px'}}
-          title="CALLAWAY HARDGOODS"
-          extra={
-            <div >
-              <Breadcrumb separator=">">
-                <Breadcrumb.Item>
-                  <span className="gx-link">Home</span>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>   
-                  <span className="gx-link">Products</span>
-                </Breadcrumb.Item>
-              
-                <Breadcrumb.Item>Callaway HardGoods</Breadcrumb.Item>
-              </Breadcrumb>
-            </div>
-          }
-        >
-          
+      <Card style={{ marginTop: '80px' }}
+        title="CALLAWAY HARDGOODS"
+        extra={
+          <div >
+            <Breadcrumb separator=">">
+              <Breadcrumb.Item>
+                <span className="gx-link">Home</span>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <span className="gx-link">Products</span>
+              </Breadcrumb.Item>
+
+              <Breadcrumb.Item>Callaway HardGoods</Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+        }
+      >
+
         <div style={{ float: "right", marginBottom: "12px" }}>
-     
+
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
             onClick={handleViewCart}
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
-           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-             onClick={handleImport}
+          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            onClick={handleImport}
           > <i className="bi bi-file-earmark-arrow-down fs-3"></i>  Import Products</Button>
 
 
-           <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleQtyImport} 
+          <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            onClick={handleQtyImport}
           > <i className="bi bi-arrow-repeat fs-2"></i> Update Qty </Button>
-         
-         <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleProduct} 
+
+          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            onClick={handleProduct}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
 
 
-  
+
 
         </div>
 
         <div className='show-prodect-section' >
           <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
-        
+
         </div>
 
         <Table
@@ -673,15 +670,15 @@ const GooodsTable = () => {
         isImport={isImport}
         onClose={handleCloseImport}
         allGoodsData={handleTravisData}
-      /> 
+      />
 
       <GoodsQtyImport
         isQtyImport={isQtyImport}
         onClose={handleCloseQtyImport}
         travisQtyData={handleOgioQtyData}
       />
-     <TravisExportProduct
-         isProduct={isProduct}
+      <TravisExportProduct
+        isProduct={isProduct}
         onClose={handleCloseProduct}
         allGoodsData={handleTravisData}
         printPdf={handleShowPdf}

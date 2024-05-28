@@ -7,24 +7,22 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import {WithChildren} from '../../helpers'
+import { WithChildren } from '../../helpers'
 
 const MetronicSplashScreenContext = createContext<Dispatch<SetStateAction<number>> | undefined>(
   undefined
 )
 
-const MetronicSplashScreenProvider: FC<WithChildren> = ({children}) => {
+const MetronicSplashScreenProvider: FC<WithChildren> = ({ children }) => {
   const [count, setCount] = useState(0)
   const visible = count > 0
 
   useEffect(() => {
     // Show SplashScreen
     if (visible) {
-      // console.log('remove loading')
       document.body.classList.remove('page-loading')
 
       return () => {
-        // console.log('add loading')
         document.body.classList.add('page-loading')
       }
     }
@@ -33,7 +31,6 @@ const MetronicSplashScreenProvider: FC<WithChildren> = ({children}) => {
     let timeout: number
     if (!visible) {
       timeout = window.setTimeout(() => {
-        // console.log('add loading')
         document.body.classList.add('page-loading')
       }, 3000)
     }
@@ -50,7 +47,7 @@ const MetronicSplashScreenProvider: FC<WithChildren> = ({children}) => {
   )
 }
 
-const LayoutSplashScreen: FC<{visible?: boolean}> = ({visible = true}) => {
+const LayoutSplashScreen: FC<{ visible?: boolean }> = ({ visible = true }) => {
   // Everything are ready - remove splashscreen
   const setCount = useContext(MetronicSplashScreenContext)
 
@@ -77,4 +74,4 @@ const LayoutSplashScreen: FC<{visible?: boolean}> = ({visible = true}) => {
   return null
 }
 
-export {MetronicSplashScreenProvider, LayoutSplashScreen}
+export { MetronicSplashScreenProvider, LayoutSplashScreen }

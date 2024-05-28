@@ -435,10 +435,8 @@ const ApparelTable = () => {
 
   useEffect(() => {
     if (qty88ToolMesage) {
-      console.log("qty90ToolMesage", qty88ToolMesage)
       const timeout = setTimeout(() => {
         setQty88Message("");
-        //setQty90SKU("");
         setIsQty88ToolTip(false)
       }, 3000); // 3 seconds
 
@@ -483,7 +481,6 @@ const ApparelTable = () => {
       setQty88Message("Quantity cannot be negative")
       setIsQty88ToolTip(true)
       setQty88SKU(record.sku)
-      console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
       dispatch(updateQuantity88({
         sku: record.sku,
@@ -503,7 +500,6 @@ const ApparelTable = () => {
 
   useEffect(() => {
     if (qty90ToolMesage) {
-      console.log("qty90ToolMesage", qty90ToolMesage)
       const timeout = setTimeout(() => {
         setQty90Message("");
         //setQty90SKU("");
@@ -560,7 +556,6 @@ const ApparelTable = () => {
       setQty90Message("Quantity cannot be negative")
       setIsQty90ToolTip(true)
       setQty90SKU(record.sku)
-      console.log("Quantity cannot be negative")
     } else if (intValue === 0) {
       dispatch(updateQuantity90({
         sku: record.sku,
@@ -585,7 +580,7 @@ const ApparelTable = () => {
   }
 
 
- 
+
 
 
   //exportto excel
@@ -638,15 +633,15 @@ const ApparelTable = () => {
   };
 
 
-    // handle Excels product
-    const  handleUpdateQty = () => {
-      setIsUpdateQty(true);
-    };
-    const handleCloseUpdateQty = () => {
-      setIsUpdateQty(false);
-    };
+  // handle Excels product
+  const handleUpdateQty = () => {
+    setIsUpdateQty(true);
+  };
+  const handleCloseUpdateQty = () => {
+    setIsUpdateQty(false);
+  };
 
-    // handle Excels product
+  // handle Excels product
   const handleProduct = () => {
     setIsProduct(true);
   };
@@ -655,14 +650,14 @@ const ApparelTable = () => {
   };
 
 
-  const handleShowPdf=()=>{
+  const handleShowPdf = () => {
     setIsProduct(false)
     setIspdf(true)
- }
- const handleDownloadExcel=()=>{
-   handleExportToExcel()
-   setIsProduct(false)
- }
+  }
+  const handleDownloadExcel = () => {
+    handleExportToExcel()
+    setIsProduct(false)
+  }
 
 
   return (
@@ -700,7 +695,7 @@ const ApparelTable = () => {
               onClick={handleViewCart}
             > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
-          
+
 
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
               onClick={handleImportProduct}
@@ -708,12 +703,12 @@ const ApparelTable = () => {
 
 
             <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-                onClick={handleUpdateQty} 
+              onClick={handleUpdateQty}
             > <i className="bi bi-arrow-repeat fs-2"></i> Update Qty </Button>
 
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            //  onClick={handleProduct} 
-            onClick={handleProduct} 
+              //  onClick={handleProduct} 
+              onClick={handleProduct}
             > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
 
 
@@ -747,7 +742,7 @@ const ApparelTable = () => {
 
 
           <div className='show-prodect-section' >
-          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
+            <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
           </div>
 
           <Table className='cart-table-profile'
@@ -781,19 +776,19 @@ const ApparelTable = () => {
           allGoodsData={handleApparelData}
         />
 
-     <ApparelUpdateQty
-         isUpdate={isUpdate}
-        onClose={handleCloseUpdateQty}
-        allGoodsData={handleApparelData}
-      />
+        <ApparelUpdateQty
+          isUpdate={isUpdate}
+          onClose={handleCloseUpdateQty}
+          allGoodsData={handleApparelData}
+        />
 
-    <AppareImportProduct
-        isProduct={isProduct}
-        onClose={handleCloseProduct}
-        allGoodsData={handleApparelData}
-        printPdf={handleShowPdf}
-        excelExport={handleDownloadExcel}
-      />
+        <AppareImportProduct
+          isProduct={isProduct}
+          onClose={handleCloseProduct}
+          allGoodsData={handleApparelData}
+          printPdf={handleShowPdf}
+          excelExport={handleDownloadExcel}
+        />
 
       </div>
 

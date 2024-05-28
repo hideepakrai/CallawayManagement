@@ -10,33 +10,32 @@ type Props = {
 const ExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
   useEffect(() => {
     if (xlData && xlData.length > 0) {
-      console.log(xlData);
 
       const newData: ExcelModelGoods[] = [];
-      xlData.map((item:ExcelModelGoods)=>{
+      xlData.map((item: ExcelModelGoods) => {
         const sdd = {
-              Name: item.Name,
-              Description: item.Description,
-              SetType: item.SetType,
-              Brand: item.Brand,
-              SKU: item.SKU,
-              StockAvailable: item.StockAvailable,
-              StockManagement: true,
-              StockStatus: "In Stock",
-              MRP: item.MRP,
-              AttributeSet: [
-                {
-                  "__component": "attribute-set.equipment",
-                  "ProductType":item.ProductType,
-                   "ProductModel":item.ProductModel,
-                    "Category":item.Category,
-                    "Orientation":item.Orientation,
-                    "LifeCycle":item.LifeCycle,
+          Name: item.Name,
+          Description: item.Description,
+          SetType: item.SetType,
+          Brand: item.Brand,
+          SKU: item.SKU,
+          StockAvailable: item.StockAvailable,
+          StockManagement: true,
+          StockStatus: "In Stock",
+          MRP: item.MRP,
+          AttributeSet: [
+            {
+              "__component": "attribute-set.equipment",
+              "ProductType": item.ProductType,
+              "ProductModel": item.ProductModel,
+              "Category": item.Category,
+              "Orientation": item.Orientation,
+              "LifeCycle": item.LifeCycle,
 
-                },
-              ],
-            };
-            saveData(sdd)
+            },
+          ],
+        };
+        saveData(sdd)
       })
     }
   }, [xlData]);
@@ -57,11 +56,9 @@ const ExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
         }
       );
       if (response.status === 200) {
-        console.log(response);
         resetXls();
       }
     } catch (err) {
-      console.log(err);
       alert("Error saving data");
       resetXls();
     }

@@ -6,63 +6,60 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
-import {OgioExcelModel} from"../../../../model/ogio/OgioExcelModel";
+import { OgioExcelModel } from "../../../../model/ogio/OgioExcelModel";
 import type { UploadChangeParam } from "antd/lib/upload";
 
 const { Dragger } = Upload;
 
-type Props={
-    onClose: () =>void;
-    isUpdate:boolean;
-    updateOgioData:(allData:OgioExcelModel[])=>void
+type Props = {
+  onClose: () => void;
+  isUpdate: boolean;
+  updateOgioData: (allData: OgioExcelModel[]) => void
 }
 
 const props: UploadProps = {
-    name: 'file',
-    multiple: false,
-    
-  };
-const ImportExcel = ({onClose,isUpdate,updateOgioData}:Props) => {
-    const [allXlxData, setAllXlxData]=useState<OgioExcelModel[]>([])
-    const [loading, setLoading] = useState<boolean>(false);
+  name: 'file',
+  multiple: false,
+
+};
+const ImportExcel = ({ onClose, isUpdate, updateOgioData }: Props) => {
+  const [allXlxData, setAllXlxData] = useState<OgioExcelModel[]>([])
+  const [loading, setLoading] = useState<boolean>(false);
 
 
-     // handle input xls
-   const handleInput=(info:UploadChangeParam)=>{
+  // handle input xls
+  const handleInput = (info: UploadChangeParam) => {
 
     const file = info.file.originFileObj;
-    if (!file||file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    if (!file || file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       message.error('You can only upload Excel files!');
       return;
     }
     const reader = new FileReader();
     reader.onload = (e) => {
-        const data = e.target?.result as string;
-     
-       
+      const data = e.target?.result as string;
+
+
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<OgioExcelModel>(worksheet) as OgioExcelModel[];
-    console.log("json ", data)
-      // Use the extracted JSON data here
-      //console.log(jsonData);
+
       setAllXlxData(jsonData)
       setLoading(false);
     };
     reader.onerror = () => {
-        message.error("File reading failed!");
-        setLoading(false);
-      };
+      message.error("File reading failed!");
+      setLoading(false);
+    };
     reader.readAsBinaryString(file);
-   // 
+    // 
   }
 
   const handleOk = () => {
     //setIsModalOpen(false);
-    console.log("ok")
-   updateOgioData(allXlxData)
-   // onClose();
+    updateOgioData(allXlxData)
+    // onClose();
   };
   const handleCancel = () => {
     // setIsModalOpen(false);
@@ -70,16 +67,16 @@ const ImportExcel = ({onClose,isUpdate,updateOgioData}:Props) => {
   };
   return (
     <div>
-         <Modal
+      <Modal
         // title="Basic Modal"
         open={isUpdate}
         onOk={handleOk}
-       onCancel={handleCancel}
+        onCancel={handleCancel}
       >
         <h3>Update Ogio products</h3>
-        <Dragger 
-         multiple={false}
-        onChange={(info)=>handleInput(info)}
+        <Dragger
+          multiple={false}
+          onChange={(info) => handleInput(info)}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />

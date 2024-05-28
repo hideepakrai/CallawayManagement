@@ -65,19 +65,19 @@ const TravisTable = () => {
   const getCategorys = useSelector(getCategory);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
-const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
+  const [allTravisProduct, setAllTravisProduct] = useState<BasicModelTravis[]>([])
 
   // get Trvis data
-  useEffect(()=>{
+  useEffect(() => {
 
-    const allTr:BasicModelTravis[]=[]
-    if(getProduct && getProduct.length > 0){
-      getProduct.map(item=>{
+    const allTr: BasicModelTravis[] = []
+    if (getProduct && getProduct.length > 0) {
+      getProduct.map(item => {
         allTr.push(item)
       })
     }
     setAllTravisProduct(allTr)
-  },[getProduct])
+  }, [getProduct])
   // (async () => {
   //   try {
   //     const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
@@ -87,28 +87,28 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
   //     });
   //     console.log("result =>", result);
   //     console.log("items =>", result.items); // Accessing the items array
-  
+
   //     const originalString: string = "1MAA007_0HLG_11";
   //     const derivedString: string = originalString.split('_').slice(0, 2).join('_');
   //     console.log(derivedString); // Output: 1BR118_0BLK
-  
+
   //     const folderPath = `public/productimg/TRAVIS-Images/${derivedString}/`;
-  
+
   //     const folderExists = result.items.some((item) => {
   //       return item.path.startsWith(folderPath);
   //     });
-  
+
   //     console.log(`Folder ${derivedString} exists:`, folderExists);
-  
+
   //     if (folderExists) {
   //       const imagePaths = result.items
   //         .filter((item) => item.path.startsWith(folderPath))
   //         .map((item) => item.path);
-  
+
   //       if (imagePaths.length > 0) {
   //         const primary_image = imagePaths[0];
   //         const secondary_image = imagePaths.slice(1);
-  
+
   //         console.log(`Primary image:`, primary_image);
   //         console.log(`Secondary images:`, secondary_image);
   //       } else {
@@ -123,14 +123,14 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
   // })();
 
 
-  
+
   const columns: TableColumnsType<BasicModelTravis> = [
     {
       dataIndex: "primary_image_url",
 
       width: 50,
-      render: (value, record) => <ImageRenderer 
-      record={record} />
+      render: (value, record) => <ImageRenderer
+        record={record} />
 
     },
 
@@ -157,7 +157,7 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
 
             style={{ width: 188, marginBottom: 8, display: "block" }}
           />
-          
+
         </div>
       ),
       onFilterDropdownVisibleChange: (visible) => {
@@ -534,13 +534,13 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
       const stringArray = inputString.split(',');
       console.log(stringArray)
       const varskuArray: BasicModelTravis[] = [];
-      const keys:string="";
+      const keys: string = "";
       getProduct.map((item) => {
         if (stringArray && stringArray.length > 0) {
           stringArray.map(varSku => {
             if (item.sku === varSku) {
               varskuArray.push(item)
-              
+
             }
           })
 
@@ -823,7 +823,7 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
         setQty90Message("The quantity should not exceed the available stock")
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
-        
+
         dispatch(updateQuantity90({
           sku: record.sku,
           qty90: st90,
@@ -1108,7 +1108,7 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
   const handleImport = () => {
     setIsImport(true);
   };
-  
+
   const handleCloseImport = () => {
     setIsImport(false);
   };
@@ -1121,13 +1121,13 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
     setIsProduct(false);
   };
 
-    // handle Excels product
-    const  handleUpdateQty = () => {
-      setIsUpdateQty(true);
-    };
-    const handleCloseUpdateQty = () => {
-      setIsUpdateQty(false);
-    };
+  // handle Excels product
+  const handleUpdateQty = () => {
+    setIsUpdateQty(true);
+  };
+  const handleCloseUpdateQty = () => {
+    setIsUpdateQty(false);
+  };
 
 
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
@@ -1273,7 +1273,7 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
     }
   }, [selectedRow])
 
- 
+
 
   const handleResetSelectedRow = () => {
     setSelectedRowKeys([]);
@@ -1282,7 +1282,7 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
     // setIsCard(true)
   }
 
- const getPreOrderIds= useSelector(getPreOrderId)
+  const getPreOrderIds = useSelector(getPreOrderId)
   // view cart
   const handleViewCard = () => {
     navigate("/cart")
@@ -1290,11 +1290,11 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
 
 
   // show pd()
-  const handleShowPdf=()=>{
-     setIsProduct(false)
-     setIspdf(true)
+  const handleShowPdf = () => {
+    setIsProduct(false)
+    setIspdf(true)
   }
-  const handleDownloadExcel=()=>{
+  const handleDownloadExcel = () => {
     handleExportToExcel(selectedRow)
     setIsProduct(false)
   }
@@ -1307,7 +1307,7 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
     setIsQtyImport(false);
   };
 
-  
+
   const [allQtyXlxData, setQtyAllXlxData] = useState<ExcelModelTravis[]>([])
   const handleTravisQtyData = (allDatat: ExcelModelTravis[]) => {
     const table = tableRef.current;
@@ -1317,39 +1317,39 @@ const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
     setQtyAllXlxData(allDatat)
   }
 
- const handleReseyQtyData=(message:string) => {
-  if(message!=""){
-    alert(message)
-  }else{
-    alert("something went wrong")
+  const handleReseyQtyData = (message: string) => {
+    if (message != "") {
+      alert(message)
+    } else {
+      alert("something went wrong")
+    }
+    setQtyAllXlxData([])
   }
-  setQtyAllXlxData([])
-}
 
-// update progress step
-const getPregressSteps=useSelector(getPregressStep)
-useEffect(()=>{
-  if(getPregressSteps===4){
+  // update progress step
+  const getPregressSteps = useSelector(getPregressStep)
+  useEffect(() => {
+    if (getPregressSteps === 4) {
       dispatch(updateProgressStep({
-        progressStep:0
+        progressStep: 0
       }))
 
       dispatch(addPreOrderId({
-        preOrderId:0
+        preOrderId: 0
       }))
+    }
+
+  }, [getPregressSteps])
+
+  const [isStartSearch, setIsStartSearch] = useState<boolean>(false)
+  const handelUploadImage = () => {
+    setIsStartSearch(true)
   }
 
-},[getPregressSteps])
- 
-const[isStartSearch, setIsStartSearch]= useState<boolean>(false)
-const handelUploadImage=()=>{
-  setIsStartSearch(true)
-}
 
-
-const handleResetUploadImages=()=>{
-  setIsStartSearch(false)
-}
+  const handleResetUploadImages = () => {
+    setIsStartSearch(false)
+  }
   return (
     <div className='container'>
 
@@ -1373,36 +1373,36 @@ const handleResetUploadImages=()=>{
       >
 
         <div style={{ float: "right", marginBottom: "12px" }}>
-        <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-             onClick={handelUploadImage} 
-            //  onClick={handleSampleExcel}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>        
-        {/* active class ="active-btn" */}
+          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            onClick={handelUploadImage}
+          //  onClick={handleSampleExcel}
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>
+          {/* active class ="active-btn" */}
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
             onClick={handleViewCard}
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
-            <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-             onClick={handleImport}
+          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            onClick={handleImport}
           > <i className="bi bi-file-earmark-arrow-down fs-3"></i>Import Products</Button>
 
 
 
-           <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-             onClick={handleQtyImport}
+          <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+            onClick={handleQtyImport}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
 
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-             onClick={handleProduct} 
-            //  onClick={handleSampleExcel}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>        
-          
+            onClick={handleProduct}
+          //  onClick={handleSampleExcel}
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
+
         </div>
 
 
-       {/* <div className='show-prodect-section' >
+        {/* <div className='show-prodect-section' >
           <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>{getProduct.length}</span></i> products</h4>
         
         </div>  */}
@@ -1416,7 +1416,7 @@ const handleResetUploadImages=()=>{
           }}
           expandable={{
             expandedRowRender,
-            
+
             onExpand: (expanded, record) => handleExpand(expanded, record),
 
           }}
@@ -1451,16 +1451,16 @@ const handleResetUploadImages=()=>{
       />
 
 
-<TravisUpdateQtyDb
-allQtyXlxData={allQtyXlxData}
-resetQtyData={handleReseyQtyData}
+      <TravisUpdateQtyDb
+        allQtyXlxData={allQtyXlxData}
+        resetQtyData={handleReseyQtyData}
 
 
-/>
+      />
 
 
       <TravisUpdateQty
-         isUpdate={isUpdate}
+        isUpdate={isUpdate}
         onClose={handleCloseUpdateQty}
         allGoodsData={handleTravisData}
       />
@@ -1468,7 +1468,7 @@ resetQtyData={handleReseyQtyData}
 
 
       <TravisImportProduct
-         isProduct={isProduct}
+        isProduct={isProduct}
         onClose={handleCloseProduct}
         allGoodsData={handleTravisData}
         printPdf={handleShowPdf}
@@ -1486,11 +1486,11 @@ resetQtyData={handleReseyQtyData}
       />}
 
 
-{isStartSearch &&
-<UploadTravisImages
-resetUploadImages={handleResetUploadImages}
-/>}
-      <PreOrder/>
+      {isStartSearch &&
+        <UploadTravisImages
+          resetUploadImages={handleResetUploadImages}
+        />}
+      <PreOrder />
     </div>
   )
 }

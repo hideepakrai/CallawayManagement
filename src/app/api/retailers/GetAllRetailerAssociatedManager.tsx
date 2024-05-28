@@ -33,10 +33,8 @@ const GetAllRetailerAssociatedManager = ({resetRetailer}:Props) => {
                     retailer:response
                 }))
             }
-            //  console.log("getAllRetailersAssociatedManager",response)
              resetRetailer()
         } catch(error){
-            // console.log("GetAllRetailersAssociatedManager",error)
             resetRetailer()
         }
 

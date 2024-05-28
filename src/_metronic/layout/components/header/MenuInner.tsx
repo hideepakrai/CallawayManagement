@@ -17,8 +17,6 @@ export function MenuInner() {
     }
   }, [currentUser]);
 
-  console.log("role account ->", role);
-
   return (
     <>
       <MenuItem title={intl.formatMessage({ id: 'MENU.DASHBOARD' })} to='/dashboard' />

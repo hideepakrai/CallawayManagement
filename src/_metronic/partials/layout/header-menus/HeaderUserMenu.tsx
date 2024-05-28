@@ -49,7 +49,6 @@ const HeaderUserMenu: FC = () => {
 
   const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
   const getCurrentUsers = useSelector(getCurrentUser) as UserAccountModel;
-  console.log("<<<<------getCurrentUsers------->>>>", getCurrentUsers)
   useEffect(() => {
     if (getCurrentUsers &&
       getCurrentUsers &&
@@ -58,7 +57,6 @@ const HeaderUserMenu: FC = () => {
     }
   }
     , [getCurrentUsers])
-  console.log("getUserAccounts------------>>>>>>", getUserAccounts)
   const handleProfile = () => {
     if (role === "Manager") {
       navigate("/profilepage/managerprofile")

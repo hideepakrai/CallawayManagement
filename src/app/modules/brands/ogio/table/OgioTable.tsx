@@ -205,7 +205,6 @@ const OgioTable = () => {
       onFilter: (value, record) => {
         const category = record?.product_type;
 
-        console.log("Filtering:", value, "Category:", category);
         return category === value;
       },
       filterSearch: true,
@@ -259,7 +258,6 @@ const OgioTable = () => {
       onFilter: (value, record) => {
         const category = record?.category;
 
-        console.log("Filtering:", value, "Category:", category);
         return category === value;
       },
       filterSearch: true,
@@ -315,7 +313,6 @@ const OgioTable = () => {
       onFilter: (value, record) => {
         const category = record?.product_model;
 
-        console.log("Filtering:", value, "Category:", category);
         return category === value;
       },
       filterSearch: true,
@@ -386,7 +383,6 @@ const OgioTable = () => {
 
   useEffect(() => {
     if (qty90ToolMesage) {
-      console.log("qty90ToolMesage", qty90ToolMesage)
       const timeout = setTimeout(() => {
         setQty90Message("");
         //setQty90SKU("");
@@ -442,7 +438,6 @@ const OgioTable = () => {
       setQty90Message("Quantity cannot be negative")
       setIsQty90ToolTip(true)
       setQty90SKU(record.sku)
-      console.log("Quantity cannot be negative")
     }
     else if (intValue === 0) {
       dispatch(updateQuantity90({
@@ -465,24 +460,12 @@ const OgioTable = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState();
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: OgioBasicModel[]) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+
     },
     onSelect: (record: OgioBasicModel, selected: boolean, selectedRows: OgioBasicModel[]) => {
-      console.log(
-        "record",
-        record,
-        "selected",
-        selected,
-        "selectedRows",
-        selectedRows
-      );
+
     },
     onSelectAll: (selected: boolean, selectedRows: OgioBasicModel[], changeRows: OgioBasicModel[]) => {
-      console.log(selected, selectedRows, changeRows);
     },
 
     columnWidth: 40,
@@ -505,7 +488,6 @@ const OgioTable = () => {
   const handleUploadExcel = (allData: OgioExcelModel[]) => {
     setAllXlxData(allData);
     handleCloseImport();
-    console.log("all ogio data", allData)
 
   }
 
@@ -516,25 +498,25 @@ const OgioTable = () => {
   const [isQtyImport, setIsQtyImport] = useState<boolean>(false)
 
 
-   // handle update quantity import
-   const handleQtyImport = () => {
+  // handle update quantity import
+  const handleQtyImport = () => {
     setIsQtyImport(true);
   };
   const handleCloseQtyImport = () => {
     setIsQtyImport(false);
   };
-// update qty in Db
+  // update qty in Db
   const [allQtyXlxData, setQtyAllXlxData] = useState<OgioExcelModel[]>([])
-  const handleOgioQtyData=(allDatat:OgioExcelModel[])=>{
+  const handleOgioQtyData = (allDatat: OgioExcelModel[]) => {
     setQtyAllXlxData(allDatat)
     handleCloseQtyImport()
   }
 
 
-  const handleReseyQtyData=(message:string) => {
-    if(message!=""){
+  const handleReseyQtyData = (message: string) => {
+    if (message != "") {
       alert(message)
-    }else{
+    } else {
       alert("something went wrong")
     }
     setQtyAllXlxData([])
@@ -542,7 +524,6 @@ const OgioTable = () => {
 
   const [selectedRow, setSelectedRow] = useState<OgioBasicModel[]>([])
   const handleSelctRow = (record: OgioBasicModel) => {
-    console.log("record", record);
     if (selectedRow && selectedRow.length > 0) {
       const updatedSelectedRow = [...selectedRow];
       const index = selectedRow.findIndex(row => row.sku === record.sku);
@@ -569,7 +550,6 @@ const OgioTable = () => {
   const [isPDF, setIspdf] = useState<boolean>(false)
   useEffect(() => {
     if (selectedRow) {
-      console.log("selectedrow", selectedRow)
     }
   }, [selectedRow])
 
@@ -608,10 +588,10 @@ const OgioTable = () => {
 
       >
         <div style={{ float: "right", marginBottom: "12px" }}>
-       
+
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
-           // onClick={handleViewCart}
+          // onClick={handleViewCart}
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
@@ -637,7 +617,7 @@ const OgioTable = () => {
 
         <div className='show-prodect-section' >
           <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
-        
+
         </div>
 
 
@@ -684,17 +664,17 @@ const OgioTable = () => {
 
 
       <UpdateOgioQty
-         isUpdate={isQtyImport}
+        isUpdate={isQtyImport}
         onClose={handleCloseQtyImport}
         allOgioData={handleOgioQtyData}
       />
- 
-   
 
-          <OgioUpdateQtyDb
-          allQtyXlxData={allQtyXlxData}
-          resetQtyData={handleReseyQtyData}
-          />
+
+
+      <OgioUpdateQtyDb
+        allQtyXlxData={allQtyXlxData}
+        resetQtyData={handleReseyQtyData}
+      />
 
       {isPDF && <OgioProdPdf
         selectedRow={selectedRow}

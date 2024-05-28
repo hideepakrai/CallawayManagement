@@ -81,24 +81,23 @@ export function Login() {
 
       try {
         const response = await login(data)
-     
-      
+
+
         saveAuth(response?.token)
         setCurrentUser(response)
-       
+
         dispatch(addUser({
           currentUser: response.user,
           UserRetailer: response.accountType,
           adminToken: response.token,
-          profile:response.profile
-          
+          profile: response.profile
+
         }))
 
         setLoading(false)
- 
+
 
       } catch (error) {
-        // console.log(error)
         if (error) {
           alert("check your username and password")
         }
@@ -112,44 +111,6 @@ export function Login() {
 
 
   const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
-  // console.log(getUserAccounts)
-  //get user Sale and retailer associated with 
-  // useEffect(()=>{
-
-  //   if(getUserAccounts &&
-  //     getUserAccounts.attributes &&
-  //     getUserAccounts.attributes.role &&
-  //     getUserAccounts.attributes.role.data &&
-  //     getUserAccounts.attributes.role.data.attributes  &&
-  //     getUserAccounts.attributes.role.data.attributes.name
-
-  //   ){
-  //     const userRole:string= getUserAccounts.attributes.role.data.attributes.name
-  //     if(userRole==="manager"){
-
-  //       const id=getUserAccounts?.attributes?.manager?.data?.id
-  //       if (id ) {
-
-  //         setUserRoleId(id);
-  //         setGrpqlManager(true)
-  //         setGrpqlRetailer(false)
-  //         setGrpqlSalesRep(false)
-  //       }
-  //     }
-  //     else if(userRole==="retailer"){
-  //       const id=getUserAccounts?.attributes?.retailer?.data?.id
-  //       if (id ) {
-  //         setUserRoleId(id);
-  //         setGrpqlManager(false)
-  //         setGrpqlRetailer(true)
-  //         setGrpqlSalesRep(false)
-  //       }
-
-  //     }
-
-  //   }
-  // },[getUserAccounts]) 
-
 
 
   const handleResetRoleId = () => {

@@ -27,12 +27,8 @@ const GetAllOrdersRetailer = ({userRoleId,resetmanagerid}:Props) => {
       
 
 useEffect(() => {
-    
-    // console.log(loading);
-    // console.log("user Order",data);
     if (data && !loading) {
 
-        // console.log("user Order",data?.usersPermissionsUsers?.data[0]?.attributes?.data);
         dispatch(addUserOrders({
             userOrders:data?.usersPermissionsUsers?.data[0]?.attributes?.orders.data
 
