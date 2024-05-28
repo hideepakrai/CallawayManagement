@@ -220,12 +220,16 @@ const AllPendingOrder = () => {
         );
     };
 
-    const [recordPdf, setRecordPdf] = useState<AccountOrder>();
+    const [recordPdf, setRecordPdf] = useState<AccountOrder|null>(null);
 
     const handleDownload = (record: AccountOrder) => {
         console.log("record", record);
         setRecordPdf(record);
     };
+
+    const handleRecordPdf=()=>{
+        setRecordPdf(null)
+    }
 
     return (
         <>
@@ -264,6 +268,7 @@ const AllPendingOrder = () => {
             </div>
            { recordPdf && <OrderPdfFormate
                 recordPdf={recordPdf}
+                resetSelectedRow={handleRecordPdf}
             />}
         </>
     );

@@ -8,6 +8,7 @@ import { AccountOrder, CartModel } from "../../model/CartOrder/CartModel";
 import "./AllPendingOrder.css";
 import Edit from "./Edit";
 import UpdateStatus from "./UpdateStatus.tsx";
+import OrderPdfFormate from "../../cartOrder/orderPdf/OrderPdfFormate.tsx";
 
 const AllOrders = () => {
     const [status, setStatus] = useState<string>("");
@@ -110,7 +111,9 @@ const AllOrders = () => {
                                     paddingRight: "9px",
                                     borderRight: "1px solid rgb(221, 221, 221)",
                                     cursor: "pointer",
-                                }}></i>
+                                }}
+                                onClick={()=>handleDownload(record)}
+                                ></i>
                         </Tooltip>
                         <Tooltip title="View" placement="bottom">
                             <i
@@ -210,6 +213,16 @@ const AllOrders = () => {
         );
     };
 
+    const [recordPdf, setRecordPdf] = useState<AccountOrder|null>(null);
+
+    const handleDownload = (record: AccountOrder) => {
+        console.log("record", record);
+        setRecordPdf(record);
+    };
+
+    const handleRecordPdf=()=>{
+        setRecordPdf(null)
+    }
     return (
         <div className="cart-table">
             <Card title="All orders">
@@ -240,6 +253,11 @@ const AllOrders = () => {
                     orderId={orderId}
                 />
             )}
+
+{ recordPdf && <OrderPdfFormate
+                recordPdf={recordPdf}
+                resetSelectedRow={handleRecordPdf}
+            />}
         </div>
     );
 };
