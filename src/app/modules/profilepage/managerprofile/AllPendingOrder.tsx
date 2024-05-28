@@ -244,7 +244,6 @@ const AllPendingOrder = () => {
         setRecordPdf(record);
     };
 
-    
     const handleRecordPdf=()=>{
         setRecordPdf(null)
     }
