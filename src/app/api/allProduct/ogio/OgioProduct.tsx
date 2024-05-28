@@ -32,9 +32,6 @@ const OgioProduct = ({ resetOgio, isRefetch }: Props) => {
 
         } catch (err) {
             // alert("Error in getting ogio product")
-            console.log("error", err
-
-            )
         }
 
     }

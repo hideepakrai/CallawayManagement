@@ -34,7 +34,6 @@ const AllOrders = () => {
     const [expandedRowKeys, setExpandedRowKeys] = useState<BasicModelTravis[]>([]);
 
     const handleUpdateStatus = (status: string) => {
-        console.log(status);
         setStatus(status);
     };
 
@@ -50,7 +49,6 @@ const AllOrders = () => {
     };
 
     const handleExpand = (record: CartModel) => {
-        console.log("handleExpand", record);
         if (record && record.items && record.items.length > 0 && record.id) {
             const allarray = JSON.parse(record.items);
             setExpandedRowKeys(allarray);
@@ -98,14 +96,14 @@ const AllOrders = () => {
             title: "Last Update	",
             // dataIndex: "created_at",
             width: 100,
-            
+
         },
 
         {
             title: "Discount	",
             // dataIndex: "created_at",
             width: 100,
-            
+
         },
 
 
@@ -119,7 +117,7 @@ const AllOrders = () => {
             title: "Status	",
             // dataIndex: "created_at",
             width: 100,
-            
+
         },
 
         {
@@ -136,8 +134,8 @@ const AllOrders = () => {
                                     borderRight: "1px solid rgb(221, 221, 221)",
                                     cursor: "pointer",
                                 }}
-                                onClick={()=>handleDownload(record)}
-                                ></i>
+                                onClick={() => handleDownload(record)}
+                            ></i>
                         </Tooltip>
                         <Tooltip title="View" placement="bottom">
                             <i
@@ -237,14 +235,13 @@ const AllOrders = () => {
         );
     };
 
-    const [recordPdf, setRecordPdf] = useState<AccountOrder|null>(null);
+    const [recordPdf, setRecordPdf] = useState<AccountOrder | null>(null);
 
     const handleDownload = (record: AccountOrder) => {
-        console.log("record", record);
         setRecordPdf(record);
     };
 
-    const handleRecordPdf=()=>{
+    const handleRecordPdf = () => {
         setRecordPdf(null)
     }
     return (
@@ -278,7 +275,7 @@ const AllOrders = () => {
                 />
             )}
 
-{ recordPdf && <OrderPdfFormate
+            {recordPdf && <OrderPdfFormate
                 recordPdf={recordPdf}
                 resetSelectedRow={handleRecordPdf}
             />}

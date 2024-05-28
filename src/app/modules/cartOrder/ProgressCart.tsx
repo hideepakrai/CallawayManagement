@@ -5,29 +5,28 @@ import { getPregressStep } from '../../slice/allProducts/TravisMethewSlice';
 import { useSelector } from 'react-redux';
 import "./ProgressCart.css";
 
-type Props={
- 
-    checkAvailability:()=>void
-    submitorder:()=>void
-    approveOrder:()=>void
-    rejectedOrder:()=>void
-    completedOrder:()=>void
+type Props = {
+
+    checkAvailability: () => void
+    submitorder: () => void
+    approveOrder: () => void
+    rejectedOrder: () => void
+    completedOrder: () => void
 }
-const ProgressCart = ({checkAvailability,submitorder,approveOrder,rejectedOrder,completedOrder}:Props) => {
+const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOrder, completedOrder }: Props) => {
     const [current, setCurrent] = useState(0);
 
     const onChange = (value: number) => {
-        console.log('onChange:', value);
         setCurrent(value);
     };
 
-    const getPregressSteps= useSelector (getPregressStep)
-// update progress step
-useEffect(()=>{
-    if(getPregressSteps){
-        setCurrent(getPregressSteps) 
-    }
-},[getPregressSteps])
+    const getPregressSteps = useSelector(getPregressStep)
+    // update progress step
+    useEffect(() => {
+        if (getPregressSteps) {
+            setCurrent(getPregressSteps)
+        }
+    }, [getPregressSteps])
 
 
     const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
@@ -48,25 +47,24 @@ useEffect(()=>{
     const description4 = 'Payment Done / Pending';
 
 
-    const handelCheckAvailability=()=>{
-    checkAvailability()
-       
+    const handelCheckAvailability = () => {
+        checkAvailability()
+
     }
 
-    const  handleSubmit = ()=>{
-        console.log("progress submited")
+    const handleSubmit = () => {
         submitorder()
     }
 
-    const  handleApproveOrder = ()=>{
+    const handleApproveOrder = () => {
         approveOrder()
     }
 
-    const handleRejectedOrder=()=>{
-rejectedOrder()
+    const handleRejectedOrder = () => {
+        rejectedOrder()
     }
 
-    const handleCompletedOrder=()=>{
+    const handleCompletedOrder = () => {
         completedOrder()
 
     }
@@ -79,15 +77,15 @@ rejectedOrder()
                 <Steps.Step className='progress-step'
                     title={
                         <>
-                             <span className='step'>Step 1</span>
+                            <span className='step'>Step 1</span>
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-                           
-                           onClick={handelCheckAvailability}
-                           disabled={current !== 0}
-                           >     <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-clipboard2-check"></i> 
-                           Check Live Availability 
-                             </Button>
-                        
+
+                                onClick={handelCheckAvailability}
+                                disabled={current !== 0}
+                            >     <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-clipboard2-check"></i>
+                                Check Live Availability
+                            </Button>
+
                         </>
                     }
                     description={description1}
@@ -99,63 +97,63 @@ rejectedOrder()
                             Step 2
                             <i className="bi bi-pencil-fill"></i>
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-                           
-                           onClick={handleSubmit}
-                           disabled={current !== 1}
-                           >      <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-file-earmark-text travis-icon"></i>
-                             Submit Order  
-                             </Button>
-                             
+
+                                onClick={handleSubmit}
+                                disabled={current !== 1}
+                            >      <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-file-earmark-text travis-icon"></i>
+                                Submit Order
+                            </Button>
+
                         </>
                     }
-                    
-                    description={description2} 
+
+                    description={description2}
                 />
                 <Steps.Step className='progress-step'
                     title={
                         <>
                             Step 3
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-                            onClick={handleApproveOrder}
-                            disabled={current !== 2}
+                                onClick={handleApproveOrder}
+                                disabled={current !== 2}
                             >        <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-check travis-icon"></i>
-                           Approve Order
-                             </Button>
-                             <Button className=' btn   px-6 p-0   mx-3  fs-5 cancel-order-btn'
-                          onClick={handleRejectedOrder}
-                          
-                          disabled={current !== 2}
-                          
-                          >        <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-x travis-icon"></i>
-                            Reject Order
-                             </Button>
-                        
-                            
+                                Approve Order
+                            </Button>
+                            <Button className=' btn   px-6 p-0   mx-3  fs-5 cancel-order-btn'
+                                onClick={handleRejectedOrder}
+
+                                disabled={current !== 2}
+
+                            >        <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-x travis-icon"></i>
+                                Reject Order
+                            </Button>
+
+
                         </>
                     }
-            
-                 
+
+
                 />
                 <Steps.Step className='progress-step'
                     title={
                         <>
                             Step 4
-                            
+
 
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-                            onClick={handleCompletedOrder}
-                            disabled={current !== 3}
+                                onClick={handleCompletedOrder}
+                                disabled={current !== 3}
                             >        <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-cart-check travis-icon"></i>
-                             Complete Order
-                             </Button>
-                      
+                                Complete Order
+                            </Button>
+
                         </>
                     }
                     description={description4}
                 />
             </Steps>
 
-            
+
         </>
     );
 };

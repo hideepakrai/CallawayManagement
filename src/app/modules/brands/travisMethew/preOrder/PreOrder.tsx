@@ -34,7 +34,6 @@ useEffect(()=>{
     if(getPreOrderIds===0 &&
          allPreOrderTravis && 
          allPreOrderTravis.length>0){
-        console.log("getPreOrderIds",getPreOrderIds)
     setIscreateOrder(true)
 
     }else if(getPreOrderIds!=0){
