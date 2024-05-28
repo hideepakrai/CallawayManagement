@@ -8,6 +8,7 @@ import { AccountOrder, CartModel } from "../../model/CartOrder/CartModel";
 import "./AllPendingOrder.css";
 import Edit from "./Edit";
 import UpdateStatus from "./UpdateStatus.tsx";
+import OrderPdfFormate from "../../cartOrder/orderPdf/OrderPdfFormate.tsx";
 
 const AllOrders = () => {
     const [status, setStatus] = useState<string>("");
@@ -60,13 +61,13 @@ const AllOrders = () => {
         {
             title: "Order Id",
             dataIndex: "id",
-            width: 40,
+            width: 50,
         },
         {
             title: 'Brand',
             dataIndex: 'brand_id',
             key: 'brand_id',
-            width: 80,
+            width: 100,
             render: (value) => {
                 let brandName;
                 if (value === 3) {
@@ -81,25 +82,49 @@ const AllOrders = () => {
         {
             title: "Retailer name",
             dataIndex: "retailer_name",
-            width: 120,
+            width: 150,
         },
         {
             title: "Order date",
             dataIndex: "created_at",
-            width: 100,
+            width: 150,
             render: (value) => {
                 const date = new Date(value);
                 return date.toUTCString();
             },
         },
+
+        {
+            title: "Last Update	",
+            // dataIndex: "created_at",
+            width: 100,
+            
+        },
+
+        {
+            title: "Discount	",
+            // dataIndex: "created_at",
+            width: 100,
+            
+        },
+
+
         {
             title: "Amount",
             dataIndex: "total_value",
-            width: 80,
+            width: 100,
         },
+
+        {
+            title: "Status	",
+            // dataIndex: "created_at",
+            width: 100,
+            
+        },
+
         {
             title: "Action",
-            width: 40,
+            width: 70,
             render: (_, record) => (
                 <>
                     <span>
@@ -110,7 +135,9 @@ const AllOrders = () => {
                                     paddingRight: "9px",
                                     borderRight: "1px solid rgb(221, 221, 221)",
                                     cursor: "pointer",
-                                }}></i>
+                                }}
+                                onClick={()=>handleDownload(record)}
+                                ></i>
                         </Tooltip>
                         <Tooltip title="View" placement="bottom">
                             <i
@@ -210,9 +237,19 @@ const AllOrders = () => {
         );
     };
 
+    const [recordPdf, setRecordPdf] = useState<AccountOrder|null>(null);
+
+    const handleDownload = (record: AccountOrder) => {
+        console.log("record", record);
+        setRecordPdf(record);
+    };
+
+    const handleRecordPdf=()=>{
+        setRecordPdf(null)
+    }
     return (
         <div className="cart-table">
-            <Card title="All orders">
+            <Card title="All Orders">
                 <Table<CartModel>
                     ref={tableRef}
                     className="cart-table-profile pb-3"
@@ -240,6 +277,11 @@ const AllOrders = () => {
                     orderId={orderId}
                 />
             )}
+
+{ recordPdf && <OrderPdfFormate
+                recordPdf={recordPdf}
+                resetSelectedRow={handleRecordPdf}
+            />}
         </div>
     );
 };

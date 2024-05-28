@@ -23,7 +23,7 @@ const Friends = ({friendList}: Props) => {
  
       
 
-      <div className="card card-custom  mb-6 border support-section">
+      <div className="card card-custom  mt-6 border support-section">
   <div className="card-header bg-black">
       <h3 className="card-title text-white">Support </h3>
      

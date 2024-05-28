@@ -98,14 +98,31 @@ const AllPendingOrder = () => {
             // dataIndex: "total_value",
             width: 100,
         },
+
+        {
+            title: "Discount",
+            // dataIndex: "total_value",
+            width: 100,
+        },
+
+
         {
             title: "Amount",
             dataIndex: "total_value",
             width: 100,
         },
+
+        {
+            title: "Status	",
+            // dataIndex: "created_at",
+            width: 100,
+            
+        },
+
+        
         {
             title: "Action",
-            width: 50,
+            width: 70,
             render: (_, record) => (
                 <>
                     <span>
@@ -220,17 +237,21 @@ const AllPendingOrder = () => {
         );
     };
 
-    const [recordPdf, setRecordPdf] = useState<AccountOrder>();
+    const [recordPdf, setRecordPdf] = useState<AccountOrder|null>(null);
 
     const handleDownload = (record: AccountOrder) => {
         console.log("record", record);
         setRecordPdf(record);
     };
 
+    const handleRecordPdf=()=>{
+        setRecordPdf(null)
+    }
+
     return (
         <>
             <div className="cart-table mb-5">
-                <Card title="Pending orders">
+                <Card title="Pending Orders">
                     <Table<CartModel>
                         ref={tableRef}
                         className="cart-table-profile pb-6"
@@ -262,8 +283,9 @@ const AllPendingOrder = () => {
                     />
                 )}
             </div>
-           { recordPdf && <OrderPdfFormate
+            { recordPdf && <OrderPdfFormate
                 recordPdf={recordPdf}
+                resetSelectedRow={handleRecordPdf}
             />}
         </>
     );

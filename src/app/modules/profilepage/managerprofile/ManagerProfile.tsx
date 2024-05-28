@@ -145,23 +145,24 @@ sa
         <Row className='container'>
 
           <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
-            <Friends friendList={friendList} />
+        
+          <AllPendingOrder />
             {/* <PendingOrder /> */}
 
           </Col>
 
 
           <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
-
+          <AllOrder />
             {/* <PendingOrder />  */}
-            <AllPendingOrder />
+           
           </Col>
 
 
           <Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
 
-            <AllOrder />
-
+           
+            <Friends friendList={friendList} />
           </Col>
 
 
