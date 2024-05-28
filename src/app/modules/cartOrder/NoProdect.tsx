@@ -27,7 +27,7 @@ const NoProdect = ({
       <div className='card-body mt-8 mb-6 d-flex flex-column' style={{justifyContent:'space-around'}}>
       <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/no_prodect_e1c5895009.png' className='cart-no-product-image' style={{margin:"0 auto"}}></img>
       
-        <h2 className='text-muted   fs-2 fw-light mb-0 pt-4'>
+        <h2 className='text-muted   fs-2 fw-light mb-0 pt-4 text-center justify-content-center'>
         Your cart is empty. Please create an order by selecting the below categories. 
         </h2>
 
