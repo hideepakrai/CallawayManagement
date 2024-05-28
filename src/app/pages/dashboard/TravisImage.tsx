@@ -13,7 +13,7 @@ const TravisImage = () => {
     
     const [primaryImage, setPrimaryImage] = useState<string | null>(null);
     const [imagePaths, setImagePaths] = useState<string[]>([]);
-    const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
+    const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/";
   
     useEffect(()=>{
         if(getProduct && getProduct.length > 0) {

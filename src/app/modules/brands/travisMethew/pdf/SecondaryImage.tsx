@@ -6,7 +6,7 @@ type Props = {
 };
 
 const SecondaryImage = ({ record }: Props) => {
-  const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
+  const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/";
 
   // Use optional chaining to handle possibly undefined `gallery_images_url`
   const imagePathsArray = record.gallery_images_url?.split(',') ?? [];
