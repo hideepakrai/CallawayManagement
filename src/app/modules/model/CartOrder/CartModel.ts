@@ -69,6 +69,7 @@ discount_amount?:number
       mrp: number;
       stock_90: number;
       stock_88: number;
+      
     }
  export interface ConnectData{
   
