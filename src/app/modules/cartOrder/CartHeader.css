@@ -25,6 +25,7 @@
  :where(.css-dev-only-do-not-override-1r287do).ant-steps.ant-steps-label-vertical .ant-steps-item-content{
     margin-left: -35px!important; margin-top: 5px!important;
  }
- .pro-bar-list{margin-left: 33px;}
+ .pro-bar-list{margin-left: 33px!important;}
  /* .pro-bar-list .ant-steps-item-title{text-align: ;} */
  .step{margin-left: -42px;}
+ .pro-bar-list .ant-steps-item-container .ant-steps-item-content{margin-left: -35px!important} 

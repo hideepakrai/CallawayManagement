@@ -60,13 +60,13 @@ const AllOrders = () => {
         {
             title: "Order Id",
             dataIndex: "id",
-            width: 40,
+            width: 50,
         },
         {
             title: 'Brand',
             dataIndex: 'brand_id',
             key: 'brand_id',
-            width: 80,
+            width: 100,
             render: (value) => {
                 let brandName;
                 if (value === 3) {
@@ -81,25 +81,49 @@ const AllOrders = () => {
         {
             title: "Retailer name",
             dataIndex: "retailer_name",
-            width: 120,
+            width: 150,
         },
         {
             title: "Order date",
             dataIndex: "created_at",
-            width: 100,
+            width: 150,
             render: (value) => {
                 const date = new Date(value);
                 return date.toUTCString();
             },
         },
+
+        {
+            title: "Last Update	",
+            // dataIndex: "created_at",
+            width: 100,
+            
+        },
+
+        {
+            title: "Discount	",
+            // dataIndex: "created_at",
+            width: 100,
+            
+        },
+
+
         {
             title: "Amount",
             dataIndex: "total_value",
-            width: 80,
+            width: 100,
         },
+
+        {
+            title: "Status	",
+            // dataIndex: "created_at",
+            width: 100,
+            
+        },
+
         {
             title: "Action",
-            width: 40,
+            width: 70,
             render: (_, record) => (
                 <>
                     <span>
@@ -212,7 +236,7 @@ const AllOrders = () => {
 
     return (
         <div className="cart-table">
-            <Card title="All orders">
+            <Card title="All Orders">
                 <Table<CartModel>
                     ref={tableRef}
                     className="cart-table-profile pb-3"

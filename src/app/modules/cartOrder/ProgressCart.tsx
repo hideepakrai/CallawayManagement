@@ -97,17 +97,19 @@ rejectedOrder()
                     title={
                         <>
                             Step 2
-                          
+                            <i className="bi bi-pencil-fill"></i>
                             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
                            
                            onClick={handleSubmit}
                            disabled={current !== 1}
                            >      <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-file-earmark-text travis-icon"></i>
-                             Submit Order
+                             Submit Order  
                              </Button>
+                             
                         </>
                     }
-                    description={description2}
+                    
+                    description={description2} 
                 />
                 <Steps.Step className='progress-step'
                     title={
@@ -152,6 +154,8 @@ rejectedOrder()
                     description={description4}
                 />
             </Steps>
+
+            
         </>
     );
 };

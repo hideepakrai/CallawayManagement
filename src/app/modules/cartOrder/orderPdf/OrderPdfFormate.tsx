@@ -3,22 +3,48 @@ import React ,{useEffect, useRef, useState} from 'react'
 import { Button, Card, Table, TableColumnsType } from 'antd'
 import { AccountOrder, CartModel, ItemModel } from '../../model/CartOrder/CartModel'
 import { PdfModel } from '../../model/pdf/PdfModel'
+import { useReactToPrint } from 'react-to-print'
 
 
 type Props={
     recordPdf:AccountOrder
-  // discountAmount:number,
+   resetSelectedRow:()=>void,
 }
 
-const OrderPdfFormate = ({recordPdf}:Props) => {
+const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
     const contentToPrint = useRef(null);
     const [orderItem, setOrderItem]= useState<ItemModel[]>([])
-    useEffect(()=>{
-        if(recordPdf && recordPdf.items ){
-            const parsedItems= JSON.parse(recordPdf.items);
-            setOrderItem(parsedItems)
+    const [orderId, setOrderId]= useState<string|undefined>()
+    const [orderDate, setOrderDate]= useState<string|undefined>()
+    useEffect(() => {
+      if (recordPdf && recordPdf.items) {
+        const parsedItems = JSON.parse(recordPdf.items);
+        setOrderItem(parsedItems);
+        setOrderId(recordPdf.id?.toString());
+        if (recordPdf.created_at) {
+          const date = new Date(recordPdf.created_at);
+          const readableDate = date.toUTCString();
+          setOrderDate(readableDate);
+        } else {
+          setOrderDate(undefined);
         }
-    },[recordPdf])
+      }
+    }, [recordPdf])
+
+
+    const handlePrint = useReactToPrint({
+      documentTitle: orderId,
+      onBeforePrint: () => console.log("before printing..."),
+      onAfterPrint: () => resetSelectedRow(),
+      removeAfterPrint: true,
+  
+    });
+
+    useEffect(()=>{
+      if(orderItem && orderItem.length>0){
+        handlePrint(null, () => contentToPrint.current); 
+      }
+    },[orderItem])
 
     const columns: TableColumnsType<ItemModel>= [
    
@@ -58,6 +84,8 @@ const OrderPdfFormate = ({recordPdf}:Props) => {
          
     
     ];
+
+
   return (
     <div>
          <div>
@@ -65,9 +93,9 @@ const OrderPdfFormate = ({recordPdf}:Props) => {
             
       <Card style={{marginLeft:"20px", marginTop:"30px", marginRight:"20px", paddingLeft:"30px"}}>
         <Button 
-        // onClick={() => {
-        //   handlePrint(null, () => contentToPrint.current);
-        // }}
+        onClick={() => {
+          handlePrint(null, () => contentToPrint.current);
+        }}
         
         >Download PDF</Button>
        
@@ -88,7 +116,7 @@ const OrderPdfFormate = ({recordPdf}:Props) => {
          <p>{recordPdf.retailer_phone}</p>
        </div>
        <div style={{float:"left"}}>
-       <p>{recordPdf.created_at}</p>
+       <p>{orderDate}</p>
         <p>Company: Callaway Golf India</p>
         <p>Brand: {recordPdf.brand_id===3?"Travismathew":(recordPdf.brand_id===4)?"Ogio":"callaway Goods"}</p>
         <p>Manager: {recordPdf.manager_name} </p>
@@ -111,7 +139,7 @@ const OrderPdfFormate = ({recordPdf}:Props) => {
                 {" "}
                 <a style={{color:"#545454", paddingRight:"88px",paddingLeft:"10px", }}>Sub Total:</a>₹{recordPdf.total_val_pre_discount}
               </h4>
-              {/* ₹ */}
+              { "₹ "}
               <h4 style={{ color:"#545454", display:"flex", borderBottom:"1px solid #ddd", paddingBottom:"5px", fontSize:"14px"}}>
                 {" "}
                 <a style={{color:"#545454", paddingRight:"90px", paddingLeft:"10px",}}>Discount:</a> ₹{recordPdf.discount_amount}
