@@ -70,7 +70,7 @@ const AllOrders = () => {
             render: (value) => {
               let brandName;
               if (value === 3) {
-                brandName = "Travismathew";
+                brandName = "Travis Mathew";
               } else {
                 brandName = "Other Brand"; // Default value or other brand name
               }

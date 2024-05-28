@@ -3,7 +3,7 @@ import { Steps, Popover, Button } from 'antd';
 import type { StepsProps } from 'antd';
 import { getPregressStep } from '../../slice/allProducts/TravisMethewSlice';
 import { useSelector } from 'react-redux';
-
+import "./ProgressCart.css";
 
 type Props={
  
@@ -76,7 +76,7 @@ rejectedOrder()
 
                 labelPlacement="vertical"
             >
-                <Steps.Step
+                <Steps.Step className='progress-step'
                     title={
                         <>
                              <span className='step'>Step 1</span>
@@ -93,7 +93,7 @@ rejectedOrder()
                     description={description1}
                 />
 
-                <Steps.Step
+                <Steps.Step className='progress-step'
                     title={
                         <>
                             Step 2
@@ -109,7 +109,7 @@ rejectedOrder()
                     }
                     description={description2}
                 />
-                <Steps.Step
+                <Steps.Step className='progress-step'
                     title={
                         <>
                             Step 3
@@ -119,8 +119,9 @@ rejectedOrder()
                             >        <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-check travis-icon"></i>
                            Approve Order
                              </Button>
-                             <Button className=' btn   px-6 p-0   mx-3    fs-5'
+                             <Button className=' btn   px-6 p-0   mx-3  fs-5 cancel-order-btn'
                           onClick={handleRejectedOrder}
+                          
                           disabled={current !== 2}
                           
                           >        <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-x travis-icon"></i>
@@ -133,7 +134,7 @@ rejectedOrder()
             
                  
                 />
-                <Steps.Step
+                <Steps.Step className='progress-step'
                     title={
                         <>
                             Step 4

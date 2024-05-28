@@ -1,0 +1,4 @@
+.list-support{display: inline-block; width: 100%;}
+.list-icon{width: 10%; display: inline-block; vertical-align: top;}
+.list-text{width: 82%; display: inline-block; vertical-align: top; margin-top: -4px;}
+.card-list span{font-size: 14px!important;}

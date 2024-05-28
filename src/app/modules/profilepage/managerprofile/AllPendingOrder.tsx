@@ -57,7 +57,7 @@ const AllPendingOrder = () => {
 
     const columns: TableColumnsType<CartModel> = [
         {
-            title: "Order Id",
+            title: "Order Id ",
             dataIndex: "id",
             width: 50,
         },
@@ -69,7 +69,7 @@ const AllPendingOrder = () => {
             render: (value) => {
               let brandName;
               if (value === 3) {
-                brandName = "Travismathew";
+                brandName = "Travis Mathew";
               } else {
                 brandName = "Other Brand"; // Default value or other brand name
               }
@@ -85,7 +85,7 @@ const AllPendingOrder = () => {
         {
             title: "Order date",
             dataIndex: "created_at",
-            width: 100,
+            width: 150,
             render: (value) => {
                 const date = new Date(value);
                 return date.toUTCString();

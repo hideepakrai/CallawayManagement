@@ -1,4 +1,9 @@
 .note-modal .ant-btn-primary{ background-color: #000!important;}
 .status-select .ant-select-selection-item{font-weight: 500!important;}
 .status-select .ant-select-item
+
 {font-weight: 500!important;}
+.note-modal .ant-modal-content{width: 700px!important; left: -90px!important;}
+.note-text{font-size: 20px;}
+
+.note-modal .ant-modal-title{font-size: 18px!important;}

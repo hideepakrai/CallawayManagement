@@ -191,37 +191,69 @@ const [retailerCty, setRetailerCity]= useState<string>()
         
       });
   return (
+
+    
     <div>
-      <Card style={{marginLeft:"20px", marginTop:"30px", marginRight:"20px", paddingLeft:"30px"}}>
-        <Button 
+        <Button  className="mt-12"
         onClick={() => {
           handlePrint(null, () => contentToPrint.current);
         }}
         
         >Download PDF</Button>
+
+      <Card style={{ marginTop:"10px",  paddingLeft:"30px"}}>
+      
        
       <div className=" ant-card ant-card-bordered gx-card" style={{marginTop:"40px"}} ref={contentToPrint}>
         <div className="ant-card-body"> 
-       <div><img width={150} src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/callaway_logo_da080f1136_e19022b0ce.png"></img></div>
-       <div style={{textAlign:"right", }}>
-        <h1 style={{fontSize:"60px", color:"#038fde"}}>ORDER PDF</h1> 
-        </div>
+       <div className="text-center"><img width={200} src="https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/callaway_logo_da080f1136_e19022b0ce.png"></img></div>
+       {/* <div style={{textAlign:"right", }}>
+        <h1 style={{fontSize:"60px", color:"#038fde"}}>ORDER PDF </h1> 
+        </div> */}
       
 
-       <div style={{display:"flex", marginBottom:"40px"}}> 
+       <div style={{display:"flex", marginBottom:"40px", marginTop:"100px"}}> 
 
        <div style={{width:"81%"}}>
-         <h4>Retailer Details:</h4>
-         <h1>{retailerName}</h1>
-         <p>{retailerAddres}</p>
-         <p>+123-456-789</p>
+        
+
+
+         <h1 className=" d-flex font-gray-800 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{retailerName} Shashi Kiranshetty </h1>
+        
+
+        <div className="d-flex">
+                 <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN:</span>
+
+                 <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'>22AAAAA0000A1Z5  <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
+
+               </div>
+
+               <div className="user-address pt-2 d-flex">
+         <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:</span>
+         <p  className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
+         +123-456-789
+           </p>
+           </div>
+
+        <div  className="user-address pt-2 ">
+         <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
+         <p  className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
+         {retailerAddres}  68/255 Sector 6, Pratap Nagar, Saganer, Jaipur, Rajasthan. 302030
+           </p>
+           </div>
        </div>
+
+
+
        <div style={{float:"left"}}>
-       <p>Date: 16/01/2024 </p>
-        <p>Company: Callaway Golf India</p>
-        <p>Brand: Ogio</p>
-        <p>Manager: Manish Sharma </p>
-        <p>Sales Rep: Mukesh Kumar</p>
+       <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> 16/01/2024 </p>
+        
+          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India</p>
+       
+        <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Ogio</p>
+        <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span> Manish Sharma</p>
+        <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span> Mukesh Kumar</p>
+      
         </div>
        </div>
 

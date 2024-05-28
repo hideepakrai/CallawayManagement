@@ -1,0 +1,3 @@
+.progress-step .ant-steps-item-title  button:disabled{background-color: #d7d7d7;}
+.progress-step .ant-steps-item-title button:disabled i{    color: #6a6a6a !important;}
+.cancel-order-btn{background-color: transparent!important;}

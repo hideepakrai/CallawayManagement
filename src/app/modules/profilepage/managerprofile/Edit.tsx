@@ -37,6 +37,7 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
         
         <Modal
           // title="Basic Modal"
+         
           open={isEdit}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -48,16 +49,25 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
  <div className="mt-8">
             {/* <h3 className="pb-4">Note <i className="bi bi-pencil-fill"></i></h3>  */}
             <Timeline>
-              <Timeline.Item color="gray">
-              <h3 className="fs-1">Cras non dolor. Praesent ac massa at ligula laoreet iaculis. </h3>
+              <Timeline.Item color="black">
+              <h3 className="note-text">Cras non dolor. Praesent ac massa at ligula laoreet iaculis. </h3>
                 {/* <h3 > <span className="fs-1"> Note</span>  <span className="fs-6">by</span> <span className=" fs-5 text-black">Deepak Rai</span> <span className="fs-6 ">on</span><span className="fs-6"><i className=" text-black"> 21-01-2024 01:00AM</i> </span></h3> */}
-                <p className="text-gray-600 fs-4">Note by Deepak Rai on 21-01-2024 01:00AM</p>
+                <p className="text-gray-600 fs-5 note-details">Note by <i>Deepak Rai</i> on 21-01-2024 01:00AM</p>
               </Timeline.Item>
+              <Timeline.Item color="gray">
+              <h3 className="note-text">Cras non dolor. Praesent ac massa at ligula laoreet iaculis. </h3>
+                {/* <h3 > <span className="fs-1"> Note</span>  <span className="fs-6">by</span> <span className=" fs-5 text-black">Deepak Rai</span> <span className="fs-6 ">on</span><span className="fs-6"><i className=" text-black"> 21-01-2024 01:00AM</i> </span></h3> */}
+                <p className="text-gray-600 fs-5 note-details">Note by <i>Manish Sharma</i> on 22-01-2024 01:00AM</p>
+              </Timeline.Item>
+
             </Timeline>
+
+           
+
           </div>
 
           <div className="d-flex">
-          <h3 className=" pb-1 fs-4 text-gray-900"> Status </h3>
+          <h3 className=" pb-1 fs-3 text-gray-900"> Status </h3>
 
           <Select className="status-select" style={{ width: '35%', marginLeft:"20px", marginTop:"-5px" }}
             showSearch
