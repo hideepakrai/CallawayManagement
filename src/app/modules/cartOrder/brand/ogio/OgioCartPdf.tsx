@@ -83,13 +83,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
     }
   },[getOgioProduct]);
   const columns: TableColumnsType<OgioBasicModel>= [
-    // {
-    //   // title: "Image",
-    //   dataIndex: "PrimaryImage",
-    //   // fixed: "left",
-    //   width: 50,
-    //   render: (value) => <OgioGallery value={value} />,
-    // },
+   
 
     {
       title: "SKU",

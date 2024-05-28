@@ -1,6 +1,6 @@
 
 import React ,{useEffect, useRef, useState} from 'react'
-import { Button, Card, Table } from 'antd'
+import { Button, Card, Table, TableColumnsType } from 'antd'
 import { AccountOrder, CartModel, ItemModel } from '../../model/CartOrder/CartModel'
 import { PdfModel } from '../../model/pdf/PdfModel'
 
@@ -19,6 +19,45 @@ const OrderPdfFormate = ({recordPdf}:Props) => {
             setOrderItem(parsedItems)
         }
     },[recordPdf])
+
+    const columns: TableColumnsType<ItemModel>= [
+   
+
+      {
+        title: "SKU",
+        dataIndex: "sku",
+        width: 100,
+        fixed: "left",
+  
+       
+      },
+
+  
+        
+            { title: " Qty90",
+            dataIndex: "stock_90",
+            key: "stock_90", 
+            width: 150,
+    
+          },
+            { title: " Qty90",
+            dataIndex: "stock_88",
+            key: "stock_88", 
+            width: 150,
+    
+          },
+          {
+            title: "MRP",
+            dataIndex: "mrp",
+            key: "mrp", 
+            width: 100,
+            fixed:'right'
+           
+          },
+      
+         
+    
+    ];
   return (
     <div>
          <div>
@@ -58,8 +97,8 @@ const OrderPdfFormate = ({recordPdf}:Props) => {
        </div>
 
        <Table  
-       //columns={columns} 
-      /// dataSource={allOgioOrders?.map((item) => ({ ...item, key: item.sku }))}
+       columns={columns} 
+      dataSource={orderItem?.map((item) => ({ ...item, key: item.sku }))}
           
        size="middle" 
        pagination={false} />
