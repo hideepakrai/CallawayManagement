@@ -659,10 +659,12 @@ const TravisCarts = () => {
   }
 
   const handleOkNote = (note: string) => {
+  
     const userNote = {
-      user_Name: getUserAccounts?.name,
-      date_time: new Date().toISOString(),
-      note: note
+      message:note,
+      name: getUserAccounts?.name,
+      date: new Date().toISOString(),
+      access: "all"
     }
     setNotes(JSON.stringify(userNote))
   }

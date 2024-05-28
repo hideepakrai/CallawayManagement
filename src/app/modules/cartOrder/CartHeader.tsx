@@ -24,9 +24,7 @@ type Props = {
 const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder, completedOrder }: Props) => {
     const dispatch = useDispatch()
     const [isNote, setIsNote] = useState(false);
-    const handleNote = () => {
-        note()
-    };
+   
 
     const getCurrentUsers = useSelector(getCurrentUser)
     const [isAvailable, setIsAvailable] = useState(false)
@@ -109,6 +107,11 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const handleCompletedOrder = () => {
         completedOrder()
     }
+
+    const handleNote=()=>{
+        note()
+
+    }
     return (
         <div>
             <div className='row'>
@@ -140,7 +143,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                             </span>
 
                             <h3 className=' fs-2 user-title' >
-                                Shashi Kiran
+                              {getCurrentUsers?.name}
                             </h3>
                         </div>
 
@@ -176,6 +179,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                         approveOrder={handleApproveSubmit}
                         rejectedOrder={handleRejectOrder}
                         completedOrder={handleCompletedOrder}
+                        note={handleNote}
                     />
 
                     {/* <span className='mx-3'  >

@@ -4,6 +4,7 @@ import type { StepsProps } from 'antd';
 import { getPregressStep } from '../../slice/allProducts/TravisMethewSlice';
 import { useSelector } from 'react-redux';
 import "./ProgressCart.css";
+import Note from './Note';
 
 type Props = {
 
@@ -12,8 +13,9 @@ type Props = {
     approveOrder: () => void
     rejectedOrder: () => void
     completedOrder: () => void
+    note: () => void
 }
-const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOrder, completedOrder }: Props) => {
+const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOrder, completedOrder,note }: Props) => {
     const [current, setCurrent] = useState(0);
 
     const onChange = (value: number) => {
@@ -68,6 +70,10 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         completedOrder()
 
     }
+
+    const handleNote=()=>{
+       note()
+    }
     return (
         <>
             <Steps current={current}
@@ -85,10 +91,12 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                             >     <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-clipboard2-check"></i>
                                 Check Live Availability
                             </Button>
+                            <a onClick={handleNote}>Add a note</a>
 
                         </>
                     }
-                    description={description1}
+                     description={description1}
+                    
                 />
 
                 <Steps.Step className='progress-step'
@@ -153,7 +161,8 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                 />
             </Steps>
 
-
+         
+         
         </>
     );
 };

@@ -1204,10 +1204,7 @@ const TravisTable = () => {
 
   // export to pdf 
   const [isPDF, setIspdf] = useState<boolean>(false)
-  useEffect(() => {
-    if (selectedRow) {
-    }
-  }, [selectedRow])
+
 
 
 
