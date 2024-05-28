@@ -3,10 +3,10 @@
 
 const awsmobile = {
     "aws_project_region": "ap-south-1",
-    "aws_cognito_identity_pool_id": "ap-south-1:f1cdc203-2e14-4446-8494-ecc73351fcfb",
+    "aws_cognito_identity_pool_id": "ap-south-1:f2cbe70a-d5f2-44c9-8927-72387a8c8f58",
     "aws_cognito_region": "ap-south-1",
-    "aws_user_pools_id": "ap-south-1_kk0cdv0AU",
-    "aws_user_pools_web_client_id": "79v7fq9o4s9io87te0q5sjjq83",
+    "aws_user_pools_id": "ap-south-1_kVbhKySRc",
+    "aws_user_pools_web_client_id": "6f73ciiqo7iedq2rfl7895eahv",
     "oauth": {},
     "aws_cognito_username_attributes": [
         "EMAIL"
@@ -26,7 +26,7 @@ const awsmobile = {
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
     ],
-    "aws_user_files_s3_bucket": "callaways3bucketd3cd9-dev",
+    "aws_user_files_s3_bucket": "callaways3bucketcc001-prod",
     "aws_user_files_s3_bucket_region": "ap-south-1"
 };
 

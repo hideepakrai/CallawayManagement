@@ -19,5 +19,26 @@
         "callawayamplifydev": {}
       }
     }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-callawayamplify-prod-cc001-authRole",
+      "UnauthRoleArn": "arn:aws:iam::637423417012:role/amplify-callawayamplify-prod-cc001-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::637423417012:role/amplify-callawayamplify-prod-cc001-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-callawayamplify-prod-cc001-deployment",
+      "UnauthRoleName": "amplify-callawayamplify-prod-cc001-unauthRole",
+      "StackName": "amplify-callawayamplify-prod-cc001",
+      "StackId": "arn:aws:cloudformation:ap-south-1:637423417012:stack/amplify-callawayamplify-prod-cc001/de07a830-1cca-11ef-b712-0accc7ac1733",
+      "AmplifyAppId": "d2d7t0ccb9710u"
+    },
+    "categories": {
+      "auth": {
+        "callawayamplify8f58794f": {}
+      },
+      "storage": {
+        "callawayamplifydev": {}
+      }
+    }
   }
 }
