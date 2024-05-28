@@ -98,10 +98,10 @@ const id:number= travispr?.id??0;
        
       })
     }
-    if(addTravisData.length>0 &&!isAdd){
+    if(addTravisData.length>0 ){
       saveData(addTravisData)
     }
-    if(updateTravisData.length>0 && isUpdate){
+    if(updateTravisData.length>0){
       updateData(updateTravisData)
     }
   }, [xlData]);
@@ -119,6 +119,7 @@ const id:number= travispr?.id??0;
         }))
         resetXls();
         alert ("Data is uploaded successfully")
+        setIsAdd(false)
       }
 
     } catch (err) {
@@ -128,12 +129,16 @@ const id:number= travispr?.id??0;
     }
   };
   const updateData = async (products:BasicModelTravis []) => {
-   
+     setIsUpdate(true)
     try {
       const response = await UpdateTravisProduct( products);
       if (response.status === 200) {
+         dispatch(updateReduxData({
+      travisProduct:products  
+    }))
         alert ("Data is uploaded successfully")
         resetXls();
+        setIsUpdate(false)
       }
 
      

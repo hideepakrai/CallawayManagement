@@ -65,7 +65,19 @@ const TravisTable = () => {
   const getCategorys = useSelector(getCategory);
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
+const [allTravisProduct, setAllTravisProduct]= useState<BasicModelTravis[]>([])
 
+  // get Trvis data
+  useEffect(()=>{
+
+    const allTr:BasicModelTravis[]=[]
+    if(getProduct && getProduct.length > 0){
+      getProduct.map(item=>{
+        allTr.push(item)
+      })
+    }
+    setAllTravisProduct(allTr)
+  },[getProduct])
   // (async () => {
   //   try {
   //     const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/";
@@ -1398,7 +1410,7 @@ const handleResetUploadImages=()=>{
         <Table className='cart-table-profile'
           ref={tableRef}
           columns={columns}
-          dataSource={getProduct?.map((item) => ({ ...item, key: item?.sku }))}
+          dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
           rowSelection={{
             onSelect: (record) => { handleSelctRow(record) }
           }}
