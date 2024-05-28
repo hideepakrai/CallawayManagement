@@ -464,23 +464,23 @@ const TravisCarts = () => {
     if (value === "Inclusive") {
       setDiscountType(value)
       setDiscountValue(22)
-      // dispatch(updateOgioInclusiveDiscount({
-      //   discount: 22
-      // }))
+      dispatch(updateTravisInclusiveDiscount({
+        discount: 22
+      }))
     }
     if (value === "Exclusive") {
       setDiscountValue(23)
       setDiscountType(value)
-      // dispatch(updateOgioExclusiveDiscount({
-      //   discount: 23
-      // }))
+      dispatch(updaterTravisExclusiveDiscount({
+        discount: 23
+      }))
     }
     if (value === "Flat") {
       setDiscountValue(0)
       setDiscountType(value)
-      // dispatch(updateOgioFlatDiscount({
-      //   discount: 0
-      // }))
+      dispatch(updateTravisFlatDiscount({
+        discount: 0
+      }))
     }
   }
 
@@ -719,7 +719,7 @@ const TravisCarts = () => {
                   placeholder="Select discount"
                   optionFilterProp="children"
                   onChange={handleDiscount}
-
+                  defaultValue="Inclusive" 
 
                   options={[
                     {
@@ -751,6 +751,7 @@ const TravisCarts = () => {
                       className='mx-3 number-input'
                       addonAfter="%"
                       value={discountValue}
+                    
                       onChange={(value) => {
                         if (value !== null) {
                           handleChangeDiscount(value);

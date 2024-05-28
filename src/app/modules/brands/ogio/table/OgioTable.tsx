@@ -22,6 +22,7 @@ import OgioProdPdf from "../ogioPdf/OgioProdPdf"
 import UpdateOgioQty from '../excel/importExcel/UpdateOgioQty';
 import OgioUpdateQtyDb from '../excel/importExcel/OgioUpdateQtyDb';
 import UploadOgioImages from './UploadOgioImages';
+import OgioPreOrder from '../preOrder/OgioPreOrder';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -705,7 +706,7 @@ const OgioTable = () => {
         <UploadOgioImages
         resetOgioImages={handleResetUploadImages}
         />}
-      {/* <PreOrder /> */}
+      <OgioPreOrder />
     </div>
   )
 }

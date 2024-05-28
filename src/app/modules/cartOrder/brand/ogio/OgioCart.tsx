@@ -13,7 +13,7 @@ import CartHeader from '../../CartHeader';
 import OgioCartPdf from './OgioCartPdf';
 import SubmitHomePage from '../../../submitReview/SubmitHomePage';
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
-import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
+import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
 import { CreateOrder } from '../../orderApi/OrderAPi';
 import GetUserAccount from '../../../auth/components/GetUserAccount';
@@ -23,6 +23,7 @@ import OgioSubmitOrder from './OgioSubmitOrder';
 import UpdateOrderToDB from "./updateOrderToDB"
 // import { InfoCircleOutlined } from '@ant-design/icons';
 import UpdateReduxOgio from "./UpdateReduxOgio"
+import Note from '../../Note';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -37,7 +38,7 @@ const OgioCart = () => {
   // const getOgioOrders=useSelector(getOgioOrder);
   const getOgioProduct = useSelector(getOgioProducts);
 
-
+  const getUserAccounts = useSelector(getUserAccount)
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
@@ -45,14 +46,8 @@ const OgioCart = () => {
   const filteredOptions2 = OPTIONS2.filter((o) => !selectedItems.includes(o));
   const [allOgioOrders, setGetAllOgioOrders] = useState<OgioBasicModel[]>([])
   const [userId, setUserId] = useState<number>();
-
-  const handleconfirm = () => {
-
-  }
-
-  const handlecancel = () => {
-
-  }
+  const [notes, setNotes] = useState<string>('');
+  
 
   // update user Id
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
@@ -573,33 +568,24 @@ const OgioCart = () => {
 
   // check start submit for Review
   // csubmit fro review
-  const [isRefetch, setIsRefetch] = useState<boolean>(false)
-  const handleRefetch = () => {
-    setIsRefetch(true)
-    dispatch(LoadingStart())
-  }
-
+ 
 
 
   const handleRejectOrder = () => {
 
   }
-
-  const handleResetRefetch = () => {
-    setIsRefetch(false)
-    dispatch(LoadingStop())
-  }
+ 
 
   const [isNote, setIsnote] = useState<boolean>(false)
-  const handleNote = () => {
-    setIsnote(true)
+  
+
+  const handleconfirm = () => {
+
   }
 
-  const handleCancelNote = () => {
-    setIsnote(false)
+  const handlecancel = () => {
+
   }
-
-
   const [retailerId, setRetailerId] = useState<number>(0);
 
 
@@ -608,8 +594,25 @@ const OgioCart = () => {
   const [isUpdateStrapi, setIsUpdateStrapi] = useState(false)
   const [isSubmitOrder, setIsSubmitOrder] = useState(false)
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
+  
+  //refetch
+  
+  const [isRefetch, setIsRefetch] = useState<boolean>(false)
+  const handleRefetch = () => {
+    setIsRefetch(true)
+    dispatch(LoadingStart())
+  }
+
+  const handleResetRefetch = () => {
+    setIsRefetch(false)
+    dispatch(LoadingStop())
+  }
+
+
+  // submit order
   const hanldeSubmitOrder = () => {
     setIsSubmitOrder(true)
+    dispatch(LoadingStart())
   }
 
   const handleResetSubmitOrder = () => {
@@ -646,6 +649,25 @@ const OgioCart = () => {
   // complete order
   const handleCompletedOrder = () => {
 
+  }
+
+  // notes 
+  const handleNote = () => {
+    setIsnote(true)
+  }
+
+  const handleCancelNote = () => {
+    setIsnote(false)
+  }
+  const handleOkNote = (note: string) => {
+  
+    const userNote = {
+      message:note,
+      name: getUserAccounts?.name,
+      date: new Date().toISOString(),
+      access: "all"
+    }
+    setNotes(JSON.stringify(userNote))
   }
 
   return (
@@ -788,7 +810,7 @@ const OgioCart = () => {
       />}
 
 
-
+{/* check for Availibilty */}
       {isRefetch && <OgioProduct
         resetOgio={handleResetRefetch}
         isRefetch={isRefetch}
@@ -812,6 +834,12 @@ const OgioCart = () => {
 
         resetReducOgio={handleUpdateRedux}
       />}
+
+<Note
+        isModalOpen={isNote}
+        handleOk={handleOkNote}
+        handleCancel={handleCancelNote}
+      />
     </div>
   )
 }

@@ -11,7 +11,7 @@ export function GetOgioProduct() {
 
     return axios.get(`${serverApi}/get-ogio`,)
         .then(response => {
-            return response.data
+            return response
         }).catch(error => {
             throw error;
         });

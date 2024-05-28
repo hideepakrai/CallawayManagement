@@ -8,8 +8,9 @@ interface ProductState {
     isLoadingStart: boolean;
     uniqueCategories: string[]; 
     uniqueProductType: string[]; 
-    uniqueProductModel: string[]; 
-
+    uniqueProductModel: string[];
+    preOrderId:number;
+    progressStep:number
 }
 
 const initialState: ProductState = {
@@ -18,6 +19,8 @@ const initialState: ProductState = {
     uniqueCategories:[],
     uniqueProductType:[],
     uniqueProductModel:[],
+    preOrderId:0,
+    progressStep:0,
   
 
 };
@@ -36,7 +39,12 @@ const OgioSlice = createSlice({
        stopOgioLoading:(state)=>{
         state.isLoadingStart=false;
        },
-       
+       updateProgressStep:(state, action)=>{
+        state.progressStep=action.payload.progressStep;
+       },
+       addPreOrderId:(state,action)=>{
+        state.preOrderId=action.payload.preOrderId;
+       },
 
         addOgioProduct: (state, action) => {
             const { ogioProduct, id } = action.payload;
@@ -135,8 +143,8 @@ const OgioSlice = createSlice({
                            
                         }
                         else if(ogioIndex===-1){
-                            if(ogioProduct && ogioProduct.length > 0) {
-                                ogioProduct.map((item:OgioBasicModel)=>{
+                            if(item) {
+                               
                                     if(item.stock_90!=0){
                                         state.ogio.push({
                                             sku: item.sku,
@@ -168,7 +176,7 @@ const OgioSlice = createSlice({
                                         })
                                     }
                                    
-                                })
+                              
                             } 
                         }
 
@@ -441,7 +449,9 @@ export const { addOgioProduct,
     resetOgioOrder,
     updateQunatityAfterOrder,
     updateOgioStock,
-    updateOgioImages
+    updateOgioImages,
+    updateProgressStep,
+    addPreOrderId
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];
@@ -460,6 +470,14 @@ export const getProductType = (state: { Ogio: ProductState }): string[] => {
     return state.Ogio.uniqueProductType || [];
 };
 
+export const getPreOrderId = (state: { Ogio: ProductState }): number => {
+    return state.Ogio?.preOrderId||0;
+    
+};
+export const getPregressStep = (state: { Ogio: ProductState }): number => {
+    return state.Ogio?.progressStep|| 0;
+    
+};
 
 
 export default OgioSlice.reducer;

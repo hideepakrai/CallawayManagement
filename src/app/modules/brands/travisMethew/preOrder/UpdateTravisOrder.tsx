@@ -18,9 +18,9 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
     const ogio: BasicModelTravis[] = [];
-    if (getProduct && getProduct.length > 0) {
+    if (getProduct && getProduct.length > 0 &&preorderId) {
       getProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id) {
+        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id ) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -36,7 +36,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
 
       setGetAllTravisOrders(ogio)
     }
-  }, [getProduct]);
+  }, [getProduct,preorderId]);
 
 
 
