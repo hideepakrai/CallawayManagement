@@ -82,6 +82,7 @@ const AllPendingOrder = () => {
             dataIndex: "retailer_name",
             width: 150,
         },
+
         {
             title: "Order date",
             dataIndex: "created_at",
@@ -91,15 +92,23 @@ const AllPendingOrder = () => {
                 return date.toUTCString();
             },
         },
-        {
-            title: "Last Update",
-            // dataIndex: "total_value",
-            width: 100,
-        },
 
         {
+            title: "Last Update",
+            dataIndex: "updated_at",
+            width: 100,
+            render: (value) => {
+                const date = new Date(value);
+                return date.toUTCString();
+            },
+        },
+
+      
+
+        
+        {
             title: "Discount",
-            // dataIndex: "total_value",
+            dataIndex: "discount_amount",
             width: 100,
         },
 
@@ -112,7 +121,7 @@ const AllPendingOrder = () => {
 
         {
             title: "Status	",
-            // dataIndex: "created_at",
+            dataIndex: "status",
             width: 100,
 
         },
@@ -250,7 +259,7 @@ const AllPendingOrder = () => {
     return (
         <>
             <div className="cart-table mb-5">
-                <Card title="Pending Orders">
+                <Card title="Pending Orders ">
                     <Table<CartModel>
                         ref={tableRef}
                         className="cart-table-profile pb-6"

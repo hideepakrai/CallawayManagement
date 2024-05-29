@@ -262,10 +262,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                     paddingLeft: "10px",
                                   }}
                                 >
-                                  Color code
+                                 Qty
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  {callout.color_code}
+                                {Number(callout.stock_88) + Number(callout.stock_90)}
                                 </td>
                               </tr>
 
@@ -284,7 +284,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                   MRP
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  1500
+                                ₹ {callout.mrp}
                                 </td>
                               </tr>
 

@@ -92,18 +92,23 @@ const AllOrders = () => {
             },
         },
 
+       
         {
-            title: "Last Update	",
-            // dataIndex: "created_at",
+            title: "Last Update",
+            dataIndex: "updated_at",
             width: 100,
-
+            render: (value) => {
+                const date = new Date(value);
+                return date.toUTCString();
+            },
         },
+        
+
 
         {
-            title: "Discount	",
-            // dataIndex: "created_at",
+            title: "Discount",
+            dataIndex: "discount_amount",
             width: 100,
-
         },
 
 
@@ -115,10 +120,12 @@ const AllOrders = () => {
 
         {
             title: "Status	",
-            // dataIndex: "created_at",
+            dataIndex: "status",
             width: 100,
 
         },
+
+      
 
         {
             title: "Action",
@@ -214,7 +221,8 @@ const AllOrders = () => {
             },
             {
                 title: "Amount",
-                dataIndex: "Amount",
+            
+                dataIndex: "total_value",
                 key: "Amount",
                 width: 100,
                 fixed: "right",

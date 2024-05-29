@@ -223,9 +223,9 @@ const [retailerCty, setRetailerCity]= useState<string>()
                </div>
 
                <div className="user-address pt-2 d-flex">
-         <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:</span>
-         <p  className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
-         +123-456-789
+            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone: </span>
+             <p  className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
+          +123-456-789
            </p>
            </div>
 
@@ -246,7 +246,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
        
         <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Ogio</p>
         <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span> Manish Sharma</p>
-        <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span> Mukesh Kumar</p>
+        <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span>Mukesh Gupta</p>
       
         </div>
        </div>

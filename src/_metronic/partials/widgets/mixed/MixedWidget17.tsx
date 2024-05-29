@@ -115,7 +115,7 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
               {/* <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold text-danger'>233 </span> <br></br> Complete Orders  
+              <span className='fs-1 fw-bold text-danger'>0 </span> <br></br> Complete Orders  
               </a>
             </div>
             {/* end::Col */}
@@ -124,7 +124,7 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
               {/* <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold text-success'>12 </span> <br></br> Pending Orders  
+              <span className='fs-1 fw-bold text-success'>0 </span> <br></br> Pending Orders  
               </a>
             </div>
             {/* end::Col */}
