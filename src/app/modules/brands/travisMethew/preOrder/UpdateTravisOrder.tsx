@@ -70,7 +70,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
     }
     catch (err) {
       //dispatch(LoadingStop())
-      alert("Error on creating order")
+      // alert("Error on creating order")
       resetUpdateOrder()
 
     }

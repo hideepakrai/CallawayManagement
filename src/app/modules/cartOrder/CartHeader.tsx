@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BasicModelTravis } from "../model/travis/TravisMethewModel"
 import { getRetailers } from "../../slice/retailer/RetailerSlice"
 import { RetailerModel, Retailer } from "../model/AccountType/retailer/RetailerModel"
-import { getCurrentUser, getUserAccount, getUserRetailer } from "../.../../../slice/UserSlice/UserSlice"
+import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../slice/UserSlice/UserSlice"
 import { RetailerData, UserAccountModel, RetailerModels, retailerData } from "../../modules/model/useAccount/UserAccountModel"
 import "./CartHeader.css"
 import ProgressCart from "./ProgressCart"
@@ -25,7 +25,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const dispatch = useDispatch()
     const [isNote, setIsNote] = useState(false);
    
-
+   const getUserProfiles= useSelector(getUserProfile)
     const getCurrentUsers = useSelector(getCurrentUser)
     const [isAvailable, setIsAvailable] = useState(false)
     const [isSubmit, setIsSubmit] = useState<boolean>(false)
