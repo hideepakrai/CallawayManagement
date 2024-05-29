@@ -639,7 +639,7 @@ const TravisTable = () => {
                 }}
 
 
-                disabled={value.stock_88 === 0}
+                disabled={value !== null &&value?.stock_88 === 0}
               />
             </Tooltip>
 
@@ -667,7 +667,7 @@ const TravisTable = () => {
 
                 }}
 
-                disabled={value.stock_90 === 0}
+                disabled={value !== null && value?.stock_90 === 0}
                 style={{ width: 100 }}
               />
             </Tooltip>

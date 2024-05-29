@@ -4,7 +4,7 @@ import { Card, Table, Carousel, Breadcrumb, Tooltip, Select, Space } from "antd"
 import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, SelectProps, TableColumnsType } from 'antd';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
-import { getTravisProducts, getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount, resetTravisOrder, updateProgressStep } from "../../../../slice/allProducts/TravisMethewSlice"
+import { getTravisProducts, getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount, resetTravisOrder, updateProgressStep, addPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
 import {
   updateQuantity90, updateQuantity88,
   addOtherProduct, updateOtherQuantity90,
@@ -206,7 +206,7 @@ const TravisCarts = () => {
             }}
 
 
-            disabled={value.stock_88 === 0}
+            disabled={value?.stock_88 === 0}
           />
         </Tooltip>
 
@@ -233,7 +233,7 @@ const TravisCarts = () => {
 
             }}
 
-            disabled={value.stock_90 === 0}
+            disabled={value?.stock_90 === 0}
             style={{ width: 100 }}
           />
         </Tooltip>
@@ -629,6 +629,14 @@ const TravisCarts = () => {
     messageApi.info('Your order is rejected');
     //alert("Your order is rejected")
     dispatch(resetTravisOrder())
+
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
+    dispatch(addPreOrderId({
+      preOrderId:0
+    }))
   }
 
   const handleCompletedOrder = () => {
