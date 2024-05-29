@@ -23,7 +23,7 @@ import UpdateOgioQty from '../excel/importExcel/UpdateOgioQty';
 import OgioUpdateQtyDb from '../excel/importExcel/OgioUpdateQtyDb';
 import UploadOgioImages from './UploadOgioImages';
 import OgioPreOrder from '../preOrder/OgioPreOrder';
-
+import * as XLSX from 'xlsx';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle',];
@@ -42,9 +42,7 @@ const OgioTable = () => {
   const handleImport = () => {
     setIsImport(true);
   };
-  const handleCloseImport = () => {
-    setIsImport(false);
-  };
+ 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
 
@@ -59,6 +57,19 @@ const OgioTable = () => {
 
 
   const ogioProducts: OgioBasicModel[] = useSelector(getOgioProducts)
+  const [allOgioData, setAllOgioData] =useState<OgioBasicModel[]>([])
+
+  useEffect(()=>{
+    if(ogioProducts && ogioProducts.length>0){
+      const newData: OgioBasicModel[] = [];
+      ogioProducts.map(item => {
+        if ( item.stock_90!=0) {
+          newData.push(item)
+        }
+      })
+      setAllOgioData(newData)
+    }
+  },[ogioProducts])
 
   const columns: TableColumnsType<OgioBasicModel> = [
     {
@@ -460,19 +471,8 @@ const OgioTable = () => {
     // Update the state or dispatch an action to update the data source
   };
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState();
-  const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: OgioBasicModel[]) => {
 
-    },
-    onSelect: (record: OgioBasicModel, selected: boolean, selectedRows: OgioBasicModel[]) => {
 
-    },
-    onSelectAll: (selected: boolean, selectedRows: OgioBasicModel[], changeRows: OgioBasicModel[]) => {
-    },
-
-    columnWidth: 40,
-  };
 
   const [isSample, setIsSample] = useState<boolean>(false)
   const handleSampleExcel = () => {
@@ -526,44 +526,56 @@ const OgioTable = () => {
   }
 
   const [selectedRow, setSelectedRow] = useState<OgioBasicModel[]>([])
-  const handleSelctRow = (record: OgioBasicModel) => {
-    if (selectedRow && selectedRow.length > 0) {
-      const updatedSelectedRow = [...selectedRow];
-      const index = selectedRow.findIndex(row => row.sku === record.sku);
-      if (index !== -1) {
-        updatedSelectedRow.splice(index, 1);
-        setSelectedRow(updatedSelectedRow);
+  // const handleSelctRow = (record: OgioBasicModel,selected:boolean) => {
+  //   console.log("selected row: " ,selected)
+  //   console.log("selected row: " ,selectedRow)
+  //   console.log("record " ,record)
+  //   if(selected){
+      
+  //     setSelectedRow(prev => [...prev, record]);
+  //   }
+  //   else if(!selected){
+  //     const updatedSelectedRow = [...selectedRow];
+  //     const index = selectedRow.findIndex(row => row.sku === record.sku);
+  //        if (index !== -1) {
+  //        updatedSelectedRow.splice(index, 1);
+  //         setSelectedRow(updatedSelectedRow);
+  
+  //       }
+  //   }
+ 
 
-      } else if (index === -1) {
-        //setSelectedRowKeys([record]);
-        if (record) {
-          setSelectedRow(prev => [...prev, record]);
-        }
+  // };
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+  const handleSelectRow = (record: OgioBasicModel, selected: boolean) => {
+    console.log("selected row:", selected);
+    console.log("record:", record);
+    if (selected) {
+      setSelectedRow(prev => [...prev, record]);
+      if (record.sku) {
+        setSelectedRowKeys(prev => [...prev, record.sku!]);
       }
     } else {
-      //setSelectedRowKeys([record]);
-      if (record) {
-        setSelectedRow(prev => [...prev, record]);
-      }
+      const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
+      setSelectedRow(updatedSelectedRow);
+  
+      const updatedSelectedRowKeys = selectedRowKeys.filter(key => key !== record.sku);
+      setSelectedRowKeys(updatedSelectedRowKeys);
     }
-
   };
+// useEffect(()=>{
+//   console.log("selected row",selectedRow)
+// },[selectedRow])
+
 
   // export to pdf 
   const [isPDF, setIspdf] = useState<boolean>(false)
-  
-
-
-  const handleExportToPDF = () => {
-    setIspdf(true)
-    //setIsCard(false)
-
-  }
 
   const handleResetSelectedRow = () => {
     //setSelectedRowKeys([]);
     setSelectedRow([])
     setIspdf(false)
+    setIsExport(false)
     // setIsCard(true)
   }
 
@@ -590,11 +602,101 @@ const OgioTable = () => {
     const handleProduct = () => {
       setIsExport(true);
     };
-    const handleCloseProduct = () => {
+    const handleCloseImport = () => {
       setIsExport(false);
+     setSelectedRow([])
     };
   
 
+
+// show pd()
+  const handleShowPdf = () => {
+    setIspdf(true)
+  }
+
+
+  // download excel
+  const handleDownloadExcel = () => {
+    handleExportToExcel(selectedRow)
+    setIsExport(false)
+  }
+  //export to excel 
+  const handleExportToExcel = (selectedRow: OgioBasicModel[]) => {
+    try {
+      if (!selectedRow) {
+        console.error("No row selected.");
+        return;
+      }
+
+      const worksheetData = selectedRow.map(row => ({
+        "sku": row.sku,
+        "description": row.description,
+        "product_type": row.product_type,
+        "category": row.category,
+        "product_model": row.product_model,
+        "stock_90": row.stock_90,
+        "gst": row.gst,
+        "mrp": row.mrp,
+        // Add more columns as needed
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+      // Create a new workbook and append the worksheet
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+      // Generate a binary string representation of the workbook
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+      // Create a Blob object from the binary string
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+
+      // Create a temporary anchor element to download the Blob
+      const anchor = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+
+      anchor.href = url;
+      anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+      anchor.click();
+
+      // Release the object URL
+      URL.revokeObjectURL(url);
+
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+    }
+  };
+
+
+   // const rowSelection = {
+  //   onChange: (selectedRowKeys: React.Key[], selectedRows: OgioBasicModel[]) => {
+
+  //   },
+  //   onSelect: (record: OgioBasicModel, selected: boolean, selectedRows: OgioBasicModel[]) => {
+
+  //   },
+  //   onSelectAll: (selected: boolean, selectedRows: OgioBasicModel[], changeRows: OgioBasicModel[]) => {
+  //   },
+
+  //   columnWidth: 40,
+  // };
+
+  const handleRowSelectionChange = (selectedKeys: React.Key[], selectedRows: OgioBasicModel[]) => {
+    const validKeys = selectedKeys.filter((key): key is string => typeof key === 'string');
+    setSelectedRowKeys(validKeys);
+    setSelectedRow(selectedRows);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: handleRowSelectionChange, // Synchronize state with table selections
+    onSelect: handleSelectRow,
+    onSelectAll: (selected: boolean, selectedRows: OgioBasicModel[]) => {
+      const keys = selectedRows.map((row: OgioBasicModel) => row.sku).filter((sku): sku is string => !!sku);
+      setSelectedRowKeys(keys);
+      setSelectedRow(selectedRows);
+    },
+  };
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}
@@ -656,10 +758,12 @@ const OgioTable = () => {
           className='cart-table-profile'
           ref={tableRef}
           columns={columns}
-          dataSource={ogioProducts?.map((item) => ({ ...item, key: item.sku }))}
-          rowSelection={{
-            onSelect: (record) => { handleSelctRow(record) }
-          }}
+          dataSource={allOgioData?.map((item) => ({ ...item, key: item.sku }))}
+          rowSelection={rowSelection}
+          // rowSelection={{
+          //   onSelect: (record, selected: boolean,selectedRows: OgioBasicModel[]) => { handleSelctRow(record,selected) },
+            
+          // }}
           //   expandable={{ expandedRowRender,
           //  onExpand: (expanded, record) => handleExpand(expanded, record),
 
@@ -683,9 +787,12 @@ const OgioTable = () => {
       />
 
       <OgioImportExcel
-        isImport={isImport}
+        isImport={isExport}
         onClose={handleCloseImport}
-        allOgioData={handleUploadExcel}
+        printPdf={handleShowPdf}
+        excelExport={handleDownloadExcel}
+        selectedRow={selectedRow}
+        
       />
 
       <OgioExcelUploadDB

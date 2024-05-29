@@ -18,6 +18,8 @@ import productimg from "../../../../../../public/media/product/Pro-img (1).png";
 import productimg1 from "../../../../../../public/media/product/Pro-img (2).png";
 import productimg2 from "../../../../../../public/media/product/Pro-img (3).png";
 import productimg3 from "../../../../../../public/media/product/Pro-img (4).png";
+import OgioPrimaryImages from './OgioPrimaryImages';
+import OgioSecondaryImages from './OgioSecondaryImages';
 
 type Props = {
   selectedRow: OgioBasicModel[];
@@ -25,7 +27,7 @@ type Props = {
 };
 
 const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
-  const getAllBrand = useSelector(getAllBrands) as BrandModel[];
+ 
   const contentToPrint = useRef(null);
   const handlePrint = useReactToPrint({
     documentTitle: "Print This Document",
@@ -35,6 +37,11 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
   });
 
+  useEffect(() => {
+    if (selectedRow && selectedRow.length > 0) {
+      handlePrint(null, () => contentToPrint.current);
+    }
+  }, [selectedRow]);
 
 
   return (<div>
@@ -42,13 +49,13 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
       <Row >
         <Col xs={24} >
           <div style={{ textAlign: "left", marginTop: "40px", marginBottom: "6px" }}>
-            {/* <Button 
+            <Button 
                         onClick={() => {
                           handlePrint(null, () => contentToPrint.current);
                         }}
                         >
                           
-                        </Button> */}
+                        </Button>
 
             <button onClick={() => {
               handlePrint(null, () => contentToPrint.current);
@@ -285,46 +292,25 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
                         <div style={{ width: "45%", borderRadius: "5px", display: "flex" }}>
                           <div className='prodect-images'>
-                            <img
-                              alt="Special Edition Party Spas"
-                              style={{
-                                backgroundColor: "#eee",
-                                borderRadius: "10px",
-                                width: "225px"
-                              }}
-                              src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
-                            />
+                          {callout.primary_image_url !== null ? (
+                              <OgioPrimaryImages
+                                record={callout} />
+                            ) : (
+                              <img
+                                alt="Special Edition Party Spas"
+                                style={{
+                                  backgroundColor: "#eee",
+                                  borderRadius: "10px",
+                                  width: "225px"
+                                }}
+                                src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
+                              />
+                            )
+
+                            }
                           </div>
 
-                          {/* <div
-                            className="prodect-info-img">
-                            {callout?.Gallery &&
-                              callout?.Gallery.data.length > 0 &&
-                              callout?.Gallery.data.map((item) => (
-                                <>
-                                  <div
-                                    className="prodect-images-pdf"
-                                    style={{ marginRight: "10px" }}
-                                  >
-                                    <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
-
-                                        src={`https://admin.callawayindiaoms.com${item?.attributes?.formats?.medium?.url}`}
-                                      />
-                                    </span>
-                                  </div>
-                                </>
-                              ))}
-                          </div> */}
+                        
 
                           <div
                             className="prodect-info-img" >
@@ -334,72 +320,9 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                   className="prodect-images-pdf"
                                   style={{ marginRight: "10px" }}
                                 >
-                                  <span style={{ width: "150px" }} className="">
-                                    <img
-                                      alt="Special Edition Party Spas"
-                                      style={{
-                                        backgroundColor: "#eee",
-                                        borderRadius: "10px",
-                                        width: "70px",
-                                        border: "1px solid #ddd",
-                                        marginBottom: "5px",
-                                        height: "70px",
-                                      }}
-
-                                      src={productimg}
-
-                                    />
-                                  </span>
-                                  <span style={{ width: "150px" }} className="">
-                                    <img
-                                      alt="Special Edition Party Spas"
-                                      style={{
-                                        backgroundColor: "#eee",
-                                        borderRadius: "10px",
-                                        width: "70px",
-                                        border: "1px solid #ddd",
-                                        marginBottom: "5px",
-                                        height: "70px",
-                                      }}
-
-                                      src={productimg1}
-
-                                    />
-                                  </span>
-
-                                  <span style={{ width: "150px" }} className="">
-                                    <img
-                                      alt="Special Edition Party Spas"
-                                      style={{
-                                        backgroundColor: "#eee",
-                                        borderRadius: "10px",
-                                        width: "70px",
-                                        border: "1px solid #ddd",
-                                        marginBottom: "5px",
-                                        height: "70px",
-                                      }}
-
-                                      src={productimg2}
-
-                                    />
-                                  </span>
-
-                                  <span style={{ width: "150px" }} className="">
-                                    <img
-                                      alt="Special Edition Party Spas"
-                                      style={{
-                                        backgroundColor: "#eee",
-                                        borderRadius: "10px",
-                                        width: "70px",
-                                        border: "1px solid #ddd",
-                                        marginBottom: "5px",
-                                        height: "70px",
-                                      }}
-
-                                      src={productimg3}
-
-                                    />
-                                  </span>
+                                 < OgioSecondaryImages
+                                 record={callout}
+                                 />
 
                                 </div>
                               </>

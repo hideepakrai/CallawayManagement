@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "antd";
 import { Input } from "antd";
 import { Select } from "antd";
@@ -13,9 +13,13 @@ import type { ColumnProps } from 'antd/lib/table';
 const { Dragger } = Upload;
 
 type Props = {
+  printPdf: () => void;
+  excelExport: () => void;
   onClose: () => void;
-  isImport: boolean;
-  allOgioData: (allData: OgioBasicModel[]) => void
+  
+  isImport:boolean,
+  selectedRow:OgioBasicModel[]
+  
 }
 
 const props: UploadProps = {
@@ -23,7 +27,7 @@ const props: UploadProps = {
   multiple: false,
 
 };
-const OgioImportExcel = ({ onClose, isImport, allOgioData }: Props) => {
+const OgioImportExcel = ({ onClose, isImport,excelExport,printPdf ,selectedRow }: Props) => {
   const [allXlxData, setAllXlxData] = useState<OgioBasicModel[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -57,11 +61,7 @@ const OgioImportExcel = ({ onClose, isImport, allOgioData }: Props) => {
     // 
   }
 
-  const handleOk = () => {
-    //setIsModalOpen(false);
-    allOgioData(allXlxData)
-    // onClose();
-  };
+ 
   const handleCancel = () => {
     // setIsModalOpen(false);
     onClose();
@@ -223,34 +223,41 @@ const OgioImportExcel = ({ onClose, isImport, allOgioData }: Props) => {
     // Reset the sample state
 
   };
+
+  
+  const handlePdf = () => {
+    if(selectedRow &&selectedRow.length>0){
+      printPdf()
+    } else{
+      alert("Please select the rows that you want to make PDF")
+      onClose();
+    }
+    
+  }
+
+  const handleExcel = () => {
+    excelExport()
+  }
   return (
     <div>
       <Modal
         // title="Basic Modal"
+        className="export-product"
         open={isImport}
-        onOk={handleOk}
+       
         onCancel={handleCancel}
       >
-        <h3>Import Products</h3>
-        <Dragger
-          multiple={false}
-          onChange={(info) => handleInput(info)}
-        >
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibited from
-            uploading company data or other banned files.
-          </p>
-        </Dragger>
-        <div className="mt-5 downlaod-excel "
-          onClick={handleExportToExcel}
-        >
-          <h4>Click to  Download Ogio Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+      
+        
+        <div className="mt-5 downlaod-excel ">
+          <button className="export-button pdf"
+            onClick={handlePdf}
+          > <i className="bi bi-file-pdf fs-2"></i>Export to PDF</button>
+
+          <button className="export-button excel"
+            onClick={handleExcel}
+          >
+            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
         </div>
       </Modal>
     </div>

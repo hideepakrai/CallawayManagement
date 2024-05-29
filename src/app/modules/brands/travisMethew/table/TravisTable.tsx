@@ -19,8 +19,7 @@ import {
   updateOtherQuantity88, removeOtherProduct
 } from "../../../../slice/allProducts/TravisMethewSlice"
 import { Cascader, Select, Space } from 'antd';
-import { addTravisOrder, removeTravisOrder } from "../../../../slice/orderSlice/travis/CartOrder"
-import { message } from "antd";
+
 import { Key } from 'antd/lib/table/interface';
 
 import "./TravisTable.css"
@@ -150,46 +149,6 @@ const TravisTable = () => {
       width: 150,
 
     },
-
-
-
-    // {
-    //   title: "Name",
-    //   dataIndex: "name",
-    //   key: "name",
-    //   width: 90 ,
-    //    fixed: "left",
-    //    filterMode: 'tree',
-    //    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-    //     <div style={{ padding: 8 }}>
-    //       <Input
-    //         placeholder="Search Name"
-    //         value={selectedKeys[0]}
-    //         onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-    //         onPressEnter={() => confirm()}
-    //         style={{ width: 188, marginBottom: 8, display: "block" }}
-    //       />
-    //     </div>
-    //   ),
-    //   onFilterDropdownVisibleChange: (visible) => {
-    //     if (visible) {
-    //       setTimeout(() => {
-    //         // Trigger the search input to focus when the filter dropdown is opened
-    //       });
-    //     }
-    //   },
-    //   onFilter: (value, record) => {
-    //     const name =
-    //       record &&
-    //       record.name;
-
-
-    //     return  name=== value;
-    //   },
-    //   filterSearch: true,
-
-    // },
-
 
 
     {
