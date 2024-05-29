@@ -88,7 +88,8 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
 
-
+     // eslint-disable-next-line no-debugger
+     debugger
     if (getRetailerDetail &&
       allTravisOrders && allTravisOrders.length > 0 &&
       getRetailerDetail.retailerId &&
@@ -98,8 +99,8 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       discountType &&
       totalAmount&&
       brandId &&
-      getPreOrderIds &&
-      note
+      getPreOrderIds
+  
 
     ) {
       handleCreateOrder()

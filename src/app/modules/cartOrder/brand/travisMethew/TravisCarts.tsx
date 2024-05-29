@@ -675,6 +675,7 @@ const TravisCarts = () => {
       access: "all"
     }
     setNotes(JSON.stringify(userNote))
+    setIsnote(false)
   }
   return (
     <div>

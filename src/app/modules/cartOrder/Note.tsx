@@ -24,22 +24,22 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
             <div className='row mt-8'>
                 <div className='col-7'>
 
-                    <Timeline>
+                    {/* <Timeline>
                         <Timeline.Item color="black ">
-                            {/* <h3 className="note-text fs-4">Cras non dolor. Praesent ac massa at </h3> */}
+                          
                             <p className="text-gray-800 fs-5 fw-semibold">Note by <i>Deepak Rai</i> on 21-01-2024 01:00AM</p>
                         </Timeline.Item>
                         <Timeline.Item color="black ">
-                            {/* <h3 className="note-text fs-4">Cras non dolor. Praesent ac massa at </h3> */}
+                            
                             <p className="text-gray-800 fs-5 fw-semibold ">Note by <i>Deepak Rai</i> on 21-01-2024 01:00AM</p>
                         </Timeline.Item>
 
                         <Timeline.Item color="gray" className='p-0'>
-                            {/* <h3 className="fs-4">Cras non dolor. Praesent ac massa at</h3> */}
+                           
                             <p className="text-gray-800 fs-5 fw-semibold ">Note by <i>Manish Sharma</i> on 22-01-2024 01:00AM</p>
                             
                         </Timeline.Item>
-                    </Timeline>
+                    </Timeline> */}
                 </div>
 
                 <div className='col-5'>
