@@ -3,6 +3,8 @@ import { Button, Modal } from 'antd';
 import { Timeline } from "antd";
 import TextArea from 'antd/es/input/TextArea';
 import "./Note.css"
+import { getCurrentUser } from '../../slice/UserSlice/UserSlice';
+import { useSelector } from 'react-redux';
 type Props = {
     isModalOpen: boolean;
     handleOk: (note: string) => void;
@@ -11,35 +13,52 @@ type Props = {
 
 const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
     const [addNotes, setAddNotes] = useState<string>('');
-
+    const getCurrentUsers = useSelector(getCurrentUser)
+    const date= new Date();
     const onOkHandler = () => {
-        handleOk(addNotes);
+        const data1={
+            message: "Order Initiated",
+            name: getCurrentUsers?.name,
+            date: date,
+            user_id:getCurrentUsers?.id,
+            access:"all",
+            type:"system"
+}
+        
+        const data2={
+            message:addNotes ,
+            name: getCurrentUsers?.name,
+            date: date,
+            user_id:getCurrentUsers?.id,
+            access:"all",
+            type:"user"
+        }
+        const combinedDataObject = {
+            data1: data1,
+            data2: data2
+        };
+
+        handleOk(JSON.stringify(combinedDataObject));
         setAddNotes(''); // Optionally reset the notes after confirming
         
     };
 
+    
+   
     return (
         <div>
             <Modal className='timeline' title="Add Note" open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
             <div className='row mt-8'>
                 <div className='col-7'>
 
-                    {/* <Timeline>
+                    <Timeline>
                         <Timeline.Item color="black ">
                           
-                            <p className="text-gray-800 fs-5 fw-semibold">Note by <i>Deepak Rai</i> on 21-01-2024 01:00AM</p>
+                            <p className="text-gray-800 fs-5 fw-semibold">Note by <i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
                         </Timeline.Item>
-                        <Timeline.Item color="black ">
-                            
-                            <p className="text-gray-800 fs-5 fw-semibold ">Note by <i>Deepak Rai</i> on 21-01-2024 01:00AM</p>
-                        </Timeline.Item>
-
-                        <Timeline.Item color="gray" className='p-0'>
-                           
-                            <p className="text-gray-800 fs-5 fw-semibold ">Note by <i>Manish Sharma</i> on 22-01-2024 01:00AM</p>
-                            
-                        </Timeline.Item>
-                    </Timeline> */}
+                       
+                        
+                    </Timeline>
                 </div>
 
                 <div className='col-5'>
