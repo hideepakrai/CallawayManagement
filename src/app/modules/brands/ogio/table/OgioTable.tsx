@@ -584,6 +584,17 @@ const OgioTable = () => {
    const handleViewCart = () => {
     navigate("/cart")
   }
+  const [isExport , setIsExport]= useState<boolean>(false)
+  // export pdf and excel on selection 
+    // handle Excels product
+    const handleProduct = () => {
+      setIsExport(true);
+    };
+    const handleCloseProduct = () => {
+      setIsExport(false);
+    };
+  
+
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}
@@ -625,7 +636,7 @@ const OgioTable = () => {
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
 
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleSampleExcel}
+            onClick={handleProduct}
           > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
 
         </div>

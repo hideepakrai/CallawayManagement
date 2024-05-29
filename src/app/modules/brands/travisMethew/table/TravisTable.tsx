@@ -486,9 +486,10 @@ const TravisTable = () => {
     dispatch(removeOtherProduct())
     if (record.sku && record.variation_sku != "" && record.variation_sku != undefined) {
       const inputString = record.variation_sku
-      const stringArray = inputString.split(',');
+      const stringArray =  inputString.split(',').map(item => item.trim());
       const varskuArray: BasicModelTravis[] = [];
       const keys: string = "";
+      console.log("vartion sku",stringArray)
       getProduct.map((item) => {
         if (stringArray && stringArray.length > 0) {
           stringArray.map(varSku => {
@@ -501,6 +502,18 @@ const TravisTable = () => {
         }
 
       })
+
+      // if (stringArray && stringArray.length > 0){
+      //   stringArray.map(item=>{
+      //     const findTravis= getProduct.find(travis=>travis.sku===item);
+      //     console.log("findTravis",findTravis)
+      //     if(findTravis){
+      //       varskuArray.push(findTravis)
+      //     }
+
+      //   })
+      // }
+      console.log("new array",varskuArray)
       // Expand only the clicked row
       setExpandedKeys(record.sku)
       setExpandedRowKeys(varskuArray);
@@ -779,7 +792,7 @@ const TravisTable = () => {
         }));
         dispatch(updateOtherQuantity90({
           sku: record.sku,
-          qty90: intValue,
+          qty90: st90,
           MRP: record.mrp,
 
         }));
@@ -1004,7 +1017,7 @@ const TravisTable = () => {
         }));
         dispatch(updateOtherQuantity88({
           sku: record.sku,
-          qty88: intValue,
+          qty88: st88,
           MRP: record.mrp,
         }))
 
