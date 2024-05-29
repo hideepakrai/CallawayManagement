@@ -35,7 +35,17 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [retailerCity, setRetailerCity] = useState<string>()
     const [retailerUserId, setRetailerUserId] = useState<number>(0)
     const [GST, setGST] = useState<string>()
+    const [salesRepName, setSalesRepName] = useState<string>()
 
+    useEffect(()=>{
+        if(getUserProfiles && getUserProfiles.length > 0){
+            getUserProfiles.map(item=>{
+                if(item.role==="Sales Representative"){
+                    setSalesRepName(item.name)
+                }
+            })
+        }
+    },[getUserProfiles])
     const handleReview = () => {
 
 
@@ -153,7 +163,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                             </span>
 
                             <h3 className=' fs-2 user-title' >
-                                Manish Gupta
+                               {salesRepName}
                             </h3>
                         </div>
 

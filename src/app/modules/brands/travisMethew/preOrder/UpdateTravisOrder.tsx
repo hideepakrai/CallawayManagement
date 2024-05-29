@@ -48,12 +48,19 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
         id: preorderId,
         order_date: formattedTimestamp,
         brand_id: brandId,
+        note:"",
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),
         status: "Pending",
-
-        updated_at: formattedTimestamp
-
+        discount_type:"",
+        discount_percent:0,
+        total_value:0,
+        discount_amount:0,
+        total_val_pre_discount:0,
+        updated_at: formattedTimestamp,
+        manager_id: 0,
+        retailer_id: 0,
+        salesrep_id: 0,
       }
       updateOrder(update)
     }
