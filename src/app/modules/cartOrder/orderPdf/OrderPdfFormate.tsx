@@ -130,7 +130,7 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
          <h1>{recordPdf.retailer_name}</h1>
          
          
-         <p>{recordPdf.retailer_phone}</p>
+         {/* <p>{recordPdf.retailer_phone}</p> */}
 
          <div className="user-address pt-2 d-flex">
             <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:</span>
