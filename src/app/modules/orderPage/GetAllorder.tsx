@@ -44,6 +44,8 @@ const GetAllorder = ({ resetOrder }: Props) => {
             }
 
         } catch (error) {
+            console.log("Error", error)
+            
         }
     }
     const getRetailerOrder = async (user_id: number) => {
@@ -60,6 +62,7 @@ const GetAllorder = ({ resetOrder }: Props) => {
             }
 
         } catch (error) {
+            console.log("error", error)
         }
     }
     return (

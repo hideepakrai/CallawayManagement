@@ -39,7 +39,7 @@ export function UpdateOgioProduct(data: OgioBasicModel) {
 
 export function UpdateStockQuantity(allData: OgioBasicModel[]) {
 
-  return axios.post(`${serverUrl}/ogio-update-stock`, allData,
+  return axios.post(`${serverUrl}/ogio-update-qty`, allData,
     {
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export function UpdateStockQuantity(allData: OgioBasicModel[]) {
     }
   )
     .then(response => {
-      return response.data
+      return response
     }).catch(error => {
       throw error;
     });

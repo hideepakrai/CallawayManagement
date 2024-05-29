@@ -657,7 +657,7 @@ const OgioTable = () => {
       const url = URL.createObjectURL(blob);
 
       anchor.href = url;
-      anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+      anchor.download = `TravisMathewProducts.xlsx`;
       anchor.click();
 
       // Release the object URL

@@ -16,10 +16,12 @@ import  Callawaygoods from "../../../../public/media/logos/icon-profile.png"
 import { Route, Routes } from 'react-router-dom';
 import { getPreOrderId } from '../../slice/allProducts/TravisMethewSlice';
 import { useNavigate } from 'react-router-dom';
-
+import { setActiveOrderTab } from '../../slice/activeTabsSlice/ActiveTabSlice';
+import {useDispatch} from "react-redux"
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState(''); // Default to 'apparel' tab
    const navigate = useNavigate()
+   const dispatch = useDispatch()
   useEffect(() => {
     // Set the default active tab when the component mounts
     setActiveTab('');
@@ -47,6 +49,9 @@ const CartProduct = () => {
       getOgioProduct.map(item=>{
         if(item.ordered){
           setActiveTab('ogio');
+          dispatch(setActiveOrderTab({
+            activeOrderTab:"Ogio"
+           })) 
         }
       })
       
@@ -73,8 +78,17 @@ const CartProduct = () => {
   const gettravisPreOrderId= useSelector(getPreOrderId)
 const handleTravisCart=() => {
   setActiveTab('travis');
-
+   dispatch(setActiveOrderTab({
+    activeOrderTab:"Travis"
+   }))
  
+}
+
+const handleOgioCart=() => {
+  setActiveTab('ogio');
+  dispatch(setActiveOrderTab({
+   activeOrderTab:"Ogio"
+  })) 
 }
   return (
     < div className='container'>
@@ -106,7 +120,7 @@ const handleTravisCart=() => {
 
           
            <li className="nav-item hover-elevate-up cursor-pointer">
-              <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} onClick={() => setActiveTab('ogio')}>
+              <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} onClick={handleOgioCart}>
               <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/o_1_566cb577f8.png' className='  cart-img'></img>
                 Ogio
               </a>

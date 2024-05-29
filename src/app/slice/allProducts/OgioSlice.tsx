@@ -474,7 +474,7 @@ export const getPreOrderId = (state: { Ogio: ProductState }): number => {
     return state.Ogio?.preOrderId||0;
     
 };
-export const getPregressStep = (state: { Ogio: ProductState }): number => {
+export const getOgioProgressStep = (state: { Ogio: ProductState }): number => {
     return state.Ogio?.progressStep|| 0;
     
 };

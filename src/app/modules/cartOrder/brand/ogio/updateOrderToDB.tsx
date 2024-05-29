@@ -6,33 +6,39 @@ import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 
 
 type props = {
-    resetUpdateOrder: () => void
+    resetUpdateData: (updatedate: string) => void
 }
 
 
-const UpdateOrderToDB = ({ resetUpdateOrder }: props) => {
+const UpdateOrderToDB = ({ resetUpdateData }: props) => {
 
-
+    const [isUpdating, setIsUpdating] = useState(false);
     const getOgioProduct = useSelector(getOgioProducts);
     const [updatestock, setUpdateStock] = useState<OgioBasicModel[]>([])
     useEffect(() => {
+        const newOgio: OgioBasicModel[] = [];
         if (getOgioProduct &&
             getOgioProduct.length > 0) {
-            const newData: OgioBasicModel[] = [];
+         
             getOgioProduct.map(item => {
                 if (item.ordered && item.error == "") {
 
-                    if (item.stock_90 && item.Quantity90) {
+                    if (
+                        item.stock_90 !== undefined &&
+                        item.Quantity90 !== undefined && // Add null check here
+                        item.Quantity90 !== null// Add null check here
+                    ) {
                         const data = {
                             sku: item.sku,
-                            stock_90: item.stock_90 - item.Quantity90
-                        }
-                        newData.push(data)
+                            stock_90: item.stock_90 - item.Quantity90,
+                           
+                        };
+                        newOgio.push(data);
                     }
 
                 }
             })
-            setUpdateStock(newData)
+            setUpdateStock(newOgio)
         }
 
     }, [getOgioProduct])
@@ -41,7 +47,8 @@ const UpdateOrderToDB = ({ resetUpdateOrder }: props) => {
 
     useEffect(() => {
         if (updatestock &&
-            updatestock.length > 0) {
+            updatestock.length > 0 &&
+            !isUpdating) {
 
             updateStock(updatestock)
         }
@@ -56,19 +63,21 @@ const UpdateOrderToDB = ({ resetUpdateOrder }: props) => {
             const response = await UpdateStockQuantity(allData)
 
 
-            if (response.message === "Products stock quantity updated successfully") {
-                resetUpdateOrder()
-            } else {
-                alert("Error updating stock quantity");
-                resetUpdateOrder()
-            }
+            if(response && response.status===200)
+            console.log("ogio qty ipdate response", response)
+            if (response.status == 200 && response.data) {
+                // dispatch(updateTravisQty({
+                //     allQtyTravis: data
+                // }))
+                resetUpdateData(response.data.message)}
+            
         } catch (error) {
-            resetUpdateOrder()
+            resetUpdateData("")
         }
     }
 
     return (
-        <div>UpdateOrderToDB</div>
+        <div></div>
     )
 }
 

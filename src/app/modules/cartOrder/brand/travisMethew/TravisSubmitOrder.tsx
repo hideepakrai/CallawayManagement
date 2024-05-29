@@ -3,7 +3,7 @@ import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../mod
 import { getTravisProducts, getOtherProducts, getPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
-import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
+import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails"
@@ -30,7 +30,20 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   const [userId, setUserId] = useState<number>();
   const [isOrder, setIsOrder] = useState(false);
   const dispatch = useDispatch()
-  const getPreOrderIds = useSelector(getPreOrderId)
+  const getPreOrderIds = useSelector(getPreOrderId);
+ const getAllUsers=useSelector(getUserProfile)
+  const [salesRepId, setSalesRepId]= useState<number>(0)
+ useEffect(()=>{
+  if(getAllUsers &&getAllUsers){
+    getAllUsers.map(item=>{
+      if( item.id &&item.role==="Sales Representative"){
+
+        setSalesRepId(item.id)
+      }
+    })
+  }
+ },[getAllUsers])
+
   // update user Id
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
@@ -99,14 +112,15 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       discountType &&
       totalAmount&&
       brandId &&
-      getPreOrderIds
+      getPreOrderIds &&
+      salesRepId
   
 
     ) {
       handleCreateOrder()
     }
 
-  }, [allTravisOrders, getRetailerDetail, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note])
+  }, [allTravisOrders, getRetailerDetail, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note,salesRepId])
 
 
   const handleCreateOrder = () => {
@@ -139,7 +153,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
         status: "submitted",
         manager_id: managerUserId,
         retailer_id: getRetailerDetail.retailerId,
-        salesrep_id: 111,
+        salesrep_id: salesRepId,
         updated_at: formattedTimestamp,
         retailer_details:JSON.stringify(retailer_details)
       

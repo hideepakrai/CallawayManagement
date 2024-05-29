@@ -682,7 +682,7 @@ export const getPreOrderId = (state: { travisMethew: ProductState }): number => 
     return state.travisMethew?.preOrderId||0;
     
 };
-export const getPregressStep = (state: { travisMethew: ProductState }): number => {
+export const getTravisProgressStep = (state: { travisMethew: ProductState }): number => {
     return state.travisMethew?.progressStep|| 0;
     
 };

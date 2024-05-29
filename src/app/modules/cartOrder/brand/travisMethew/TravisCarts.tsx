@@ -578,16 +578,21 @@ const TravisCarts = () => {
     if (message === "") {
       messageApi.info('some went wrong');
       // alert("some went wrong")
+      dispatch(updateProgressStep({
+        progressStep: 1
+  
+      }))
     }
     else if (message != ``) {
       alert(message)
-      messageApi.info(message);
+      //messageApi.info(message);
+      dispatch(updateProgressStep({
+        progressStep: 2
+  
+      }))
     }
 
-    dispatch(updateProgressStep({
-      progressStep: 2
-
-    }))
+   
     dispatch(LoadingStop())
   }
 

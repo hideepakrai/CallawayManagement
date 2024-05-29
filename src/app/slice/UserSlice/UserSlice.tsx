@@ -10,7 +10,8 @@ interface UserState {
     UserRetailer:RetailerModel[]
     adminToken: null | string,
     userOrders: unknown[],
-    userProfile: CurentUser[]
+    userProfile: CurentUser[],
+    
 }
 
 

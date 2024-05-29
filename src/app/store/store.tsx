@@ -18,7 +18,9 @@ import OgioOrderReducer from "../slice/orderSlice/ogio/OgioCartOrderSlice"
 
 import TravisOrderDetailReducer from "../slice/orderSlice/travis/Orderdetails"
  import CallawayApparelReducer from "../slice/allProducts/CallawayApparelSlice.tsx"
-export default configureStore({
+
+import ActiveOrderTabReducer from "../slice/activeTabsSlice/ActiveTabSlice.tsx"
+ export default configureStore({
 
 
     reducer: {
@@ -34,5 +36,6 @@ export default configureStore({
         travisOrderDetail:TravisOrderDetailReducer,
 
         callawayApparel:CallawayApparelReducer,
+        activeOrderTab:ActiveOrderTabReducer
     }
 })

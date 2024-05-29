@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel"
 import { Input, InputNumber, InputRef, Popconfirm, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
 import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
-import { updateOgioInclusiveDiscount, updateOgioExclusiveDiscount, updateOgioFlatDiscount } from "../../../../slice/allProducts/OgioSlice"
+import { updateOgioInclusiveDiscount, updateOgioExclusiveDiscount, updateOgioFlatDiscount, updateProgressStep } from "../../../../slice/allProducts/OgioSlice"
 import { getOgioProducts, updateQuantity90 } from "../../../../slice/allProducts/OgioSlice"
 import Loading from '../../../loading/Loading';
 import "./OgioCart.css";
@@ -601,11 +601,17 @@ const OgioCart = () => {
   const handleRefetch = () => {
     setIsRefetch(true)
     dispatch(LoadingStart())
+   
   }
 
   const handleResetRefetch = () => {
+    console.log("refetch")
     setIsRefetch(false)
     dispatch(LoadingStop())
+    dispatch(updateProgressStep({
+      progressStep: 1
+
+    }))
   }
 
 
@@ -630,9 +636,25 @@ const OgioCart = () => {
 
   }
 
-  const handleUpdateStrapi = () => {
+  const handleUpdateStrapi = (message:string) => {
     setIsUpdateStrapi(false)
     setIsUpdateRedux(true)
+    if (message === "") {
+    //  messageApi.info('some went wrong');
+       alert("some went wrong")
+       dispatch(updateProgressStep({
+        progressStep: 1
+  
+      }))
+    }
+    else if (message != ``) {
+      alert(message)
+     // messageApi.info(message);
+     dispatch(updateProgressStep({
+      progressStep: 2
+
+    }))
+    }
   }
 
   const handleUpdateRedux = () => {
@@ -660,14 +682,9 @@ const OgioCart = () => {
     setIsnote(false)
   }
   const handleOkNote = (note: string) => {
-  
-    const userNote = {
-      message:note,
-      name: getUserAccounts?.name,
-      date: new Date().toISOString(),
-      access: "all"
-    }
-    setNotes(JSON.stringify(userNote))
+ 
+    setNotes(note)
+    setIsnote(false)
   }
 
   return (
@@ -817,17 +834,20 @@ const OgioCart = () => {
 
       />}
 
-      {totalNetBillAmount != 0 &&
+      {
         isSubmitOrder &&
         <OgioSubmitOrder
           totalNetBillAmount={totalNetBillAmount}
           discountType={discountType}
           discountValue={discountValue}
           resetSubmitOrder={handleResetSubmitOrder}
+          discountAmount={discountAmount??0}
+          totalAmount={totalAmount??0}
+          notes={notes}
         />}
 
       {isUpdateStrapi && <UpdateOrderToDB
-        resetUpdateOrder={handleUpdateStrapi}
+        resetUpdateData={handleUpdateStrapi}
       />}
 
       {isUpdateRedux && <UpdateReduxOgio

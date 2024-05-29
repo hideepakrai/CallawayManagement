@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Steps, Popover, Button } from 'antd';
 import type { StepsProps } from 'antd';
-import { getPregressStep } from '../../slice/allProducts/TravisMethewSlice';
+import { getTravisProgressStep } from '../../slice/allProducts/TravisMethewSlice';
+import { getOgioProgressStep } from '../../slice/allProducts/OgioSlice';
 import { useSelector } from 'react-redux';
 import "./ProgressCart.css";
 import Note from './Note';
+import { getActiveOrdertab } from '../../slice/activeTabsSlice/ActiveTabSlice';
 
 type Props = {
     checkAvailability: () => void;
@@ -22,13 +24,30 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         setCurrent(value);
     };
 
-    const getPregressSteps = useSelector(getPregressStep);
 
-    useEffect(() => {
-        if (getPregressSteps) {
-            setCurrent(getPregressSteps);
+    const getActiveOrdertabs = useSelector(getActiveOrdertab)
+    const getPregressStepstravis = useSelector(getTravisProgressStep);
+    const getPregressStepsogio = useSelector(getOgioProgressStep);
+
+    useEffect(()=>{
+        if(getActiveOrdertabs==="Travis"){
+            setCurrent(getPregressStepstravis);
+        } else if (getActiveOrdertabs==="Ogio"){
+            setCurrent(getPregressStepsogio)
         }
-    }, [getPregressSteps]);
+
+    },[getActiveOrdertabs])
+  
+    // useEffect(() => {
+    //     if (getPregressSteps) {
+    //         setCurrent(getPregressSteps);
+    //     }
+    // }, [getPregressSteps]);
+    // useEffect(() => {
+    //     if (getPregressStepsogio) {
+    //         setCurrent(getPregressStepsogio);
+    //     }
+    // }, [getPregressStepsogio]);
 
     const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
         <Popover

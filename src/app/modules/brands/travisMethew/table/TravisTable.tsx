@@ -4,7 +4,7 @@ import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
 import { useDispatch, useSelector } from "react-redux"
-import { getTravisProducts, getOtherProducts, getPreOrderId, getPregressStep, updateProgressStep, addPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
+import { getTravisProducts, getOtherProducts, getPreOrderId, getTravisProgressStep, updateProgressStep, addPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 import travishtham from "../../../../../../public/media/logos/tm-logo.png"
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
@@ -936,10 +936,6 @@ const TravisTable = () => {
 
 
 
-
-
-
-
   const handleQuantity881 = (value: string, record: BasicModelTravis) => {
     setQty881Message("");
     setIsQty881ToolTip(false);
@@ -1232,7 +1228,7 @@ const TravisTable = () => {
   }
 
   // update progress step
-  const getPregressSteps = useSelector(getPregressStep)
+  const getPregressSteps = useSelector(getTravisProgressStep)
   useEffect(() => {
     if (getPregressSteps === 4) {
       dispatch(updateProgressStep({
