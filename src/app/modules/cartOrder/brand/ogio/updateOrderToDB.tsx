@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { UseDispatch, useSelector } from 'react-redux'
-import { getOgioProducts } from '../../../../slice/allProducts/OgioSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { getOgioProducts, updateOgioStock } from '../../../../slice/allProducts/OgioSlice'
 import { UpdateStockQuantity } from '../../../brands/ogio/api/OgioAPI';
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 
@@ -11,7 +11,7 @@ type props = {
 
 
 const UpdateOrderToDB = ({ resetUpdateData }: props) => {
-
+  const dispatch= useDispatch()
     const [isUpdating, setIsUpdating] = useState(false);
     const getOgioProduct = useSelector(getOgioProducts);
     const [updatestock, setUpdateStock] = useState<OgioBasicModel[]>([])
@@ -66,9 +66,9 @@ const UpdateOrderToDB = ({ resetUpdateData }: props) => {
             if(response && response.status===200)
             console.log("ogio qty ipdate response", response)
             if (response.status == 200 && response.data) {
-                // dispatch(updateTravisQty({
-                //     allQtyTravis: data
-                // }))
+                dispatch(updateOgioStock({
+                    ogioProduct: allData
+                }))
                 resetUpdateData(response.data.message)}
             
         } catch (error) {

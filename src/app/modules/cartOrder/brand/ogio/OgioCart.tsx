@@ -24,6 +24,8 @@ import UpdateOrderToDB from "./updateOrderToDB"
 // import { InfoCircleOutlined } from '@ant-design/icons';
 import UpdateReduxOgio from "./UpdateReduxOgio"
 import Note from '../../Note';
+import ApproveOrderOgio from './ApproveOrderOgio';
+import CompletedOgioOrder from './CompletedOgioOrder';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -666,13 +668,62 @@ const OgioCart = () => {
   }
 
   //approve 
+  const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
+  const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
+  const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
+  const [statusUpdate, setStatusUpdate] = useState<string>("")
   const handleApproveOrder = () => {
+    setIsStatusUpdate(true)
+    setStatusUpdate("Approved")
+    dispatch(LoadingStart())
   }
+
+
+  const handleResetStatus = (status: string) => {
+    if (status === "Approved") {
+      dispatch(updateProgressStep({
+        progressStep: 3
+
+      }))
+      alert(" your order is approved")
+    } else if(status === "Approved failed"){
+      dispatch(updateProgressStep({
+        progressStep: 2
+
+      }))
+      alert("Approved failed")
+    }
+    setIsStatusUpdate(false)
+    dispatch(LoadingStop())
+  }
+
   // complete order
   const handleCompletedOrder = () => {
+    setIsCompletedorder(true)
+    dispatch(LoadingStart())
 
   }
 
+  const handleResetCompletedOrder = (message:string) => {
+    setIsCompletedorder(false)
+    dispatch(LoadingStop())
+    if(message==="Completed"){
+      dispatch(updateProgressStep({
+        progressStep: 4
+
+      }))
+      alert("Your order is suceessfully completed")
+    } else if(message==="Failed to Complete order"){
+      dispatch(updateProgressStep({
+        progressStep: 3
+
+      }))
+      alert("Failed to Complete order")
+    }
+    
+
+    
+  }
   // notes 
   const handleNote = () => {
     setIsnote(true)
@@ -850,9 +901,17 @@ const OgioCart = () => {
         resetUpdateData={handleUpdateStrapi}
       />}
 
-      {isUpdateRedux && <UpdateReduxOgio
+    {/* approve order */}
+    {isstatusUpdate && <ApproveOrderOgio
+        resetStatus={handleResetStatus}
+        />}
 
-        resetReducOgio={handleUpdateRedux}
+
+      {/* complted order */}
+
+      {isCompletedorder && <CompletedOgioOrder
+        resetCompleted={handleResetCompletedOrder}
+
       />}
 
 <Note

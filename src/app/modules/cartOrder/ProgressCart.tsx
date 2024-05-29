@@ -30,13 +30,13 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
     const getPregressStepsogio = useSelector(getOgioProgressStep);
 
     useEffect(()=>{
-        if(getActiveOrdertabs==="Travis"){
+        if(getActiveOrdertabs==="Travis" &&getPregressStepstravis){
             setCurrent(getPregressStepstravis);
-        } else if (getActiveOrdertabs==="Ogio"){
+        } else if (getActiveOrdertabs==="Ogio" &&getPregressStepsogio){
             setCurrent(getPregressStepsogio)
         }
 
-    },[getActiveOrdertabs])
+    },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio])
   
     // useEffect(() => {
     //     if (getPregressSteps) {

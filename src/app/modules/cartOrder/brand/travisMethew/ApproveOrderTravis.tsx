@@ -31,7 +31,10 @@ const ApproveOrderTravis = ({ resetStatus, statusUpdate }: Props) => {
         }
         try {
             const response = await ApproveOrder(order);
-            resetStatus(statusUpdate)
+            if(response){
+                resetStatus(statusUpdate)
+            }
+           
         } catch (err) {
             resetStatus("Approved failed")
         }

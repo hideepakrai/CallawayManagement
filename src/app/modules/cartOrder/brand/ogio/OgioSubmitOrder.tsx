@@ -36,8 +36,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
   const getAllUsers=useSelector(getUserProfile)
   const [salesRepId, setSalesRepId]= useState<number>(0)
  useEffect(()=>{
-  // eslint-disable-next-line no-debugger
-  debugger
+
   if(getAllUsers &&getAllUsers){
     getAllUsers.map(item=>{
       if( item.id &&item.role==="Sales Representative"){
@@ -50,8 +49,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
   // update user Id
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
- // eslint-disable-next-line no-debugger
- debugger
+
     if (getCurrentUsers &&
       getCurrentUsers.role &&
       getCurrentUsers.id) {
@@ -74,20 +72,19 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
  
 
   useEffect(() => {
-     // eslint-disable-next-line no-debugger
-  debugger
+
     const ogio: OgioBasicModel[] = [];
     if (getOgioProduct && getOgioProduct.length > 0) {
-      getOgioProduct.map((item) => {
-        if (item.ordered && item.error === "" ) {
+      getOgioProduct.map((item:OgioBasicModel) => {
+        if (item.ordered && item.error === "" &&item.Quantity90 ) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
-            stock_90: item.Quantity90 ? item.Quantity90 : 0,
+            stock_90: item.Quantity90
 
           })
          
-
+          console.log("item",item)
         }
       })
 
@@ -101,9 +98,10 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
 
-
+     // eslint-disable-next-line no-debugger
+     debugger
     if (getRetailerDetail &&
-      getRetailerDetail.retailerUserId &&
+     
       getRetailerDetail.retailerId &&
       totalAmount&&
       totalNetBillAmount &&

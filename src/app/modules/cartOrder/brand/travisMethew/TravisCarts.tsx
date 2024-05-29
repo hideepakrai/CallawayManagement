@@ -540,16 +540,17 @@ const TravisCarts = () => {
   const [isRefetch, setIsRefetch] = useState<boolean>(false)
   const handleRefetch = () => {
     setIsRefetch(true)
-    dispatch(updateProgressStep({
-      progressStep: 1
-
-    }))
-    dispatch(LoadingStart())
+    
   }
 
   const handleResetRefetch = () => {
     setIsRefetch(false)
     dispatch(LoadingStop())
+    dispatch(updateProgressStep({
+      progressStep: 1
+
+    }))
+   
 
   }
 
