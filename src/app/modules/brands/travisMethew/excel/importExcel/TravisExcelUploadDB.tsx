@@ -106,7 +106,7 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
   }, [xlData]);
 
   const saveData = async (products: BasicModelTravis[]) => {
-
+    console.log("add new data travis", products);
 
     try {
       setIsAdd(true)
@@ -125,7 +125,10 @@ const TravisExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
       resetXls();
     }
   };
+
+
   const updateData = async (products: BasicModelTravis[]) => {
+    console.log("Update travis", products);
     setIsUpdate(true)
     try {
       const response = await UpdateTravisProduct(products);

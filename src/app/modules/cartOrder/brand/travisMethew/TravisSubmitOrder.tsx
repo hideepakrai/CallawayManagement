@@ -116,6 +116,14 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
     const now = new Date();
     const formattedTimestamp = now.toISOString();
     if (Array.isArray(allTravisOrders)) {
+      const   retailer_details={
+        name:getRetailerDetail.retailerName,
+        gstin:getRetailerDetail.retailersGst,
+        email:getRetailerDetail.retailerEmail,
+        address:getRetailerDetail.retailerAddres,
+        phone:getRetailerDetail.retailerPhone
+        }
+
       const data = {
         id: getPreOrderIds,
         order_date: formattedTimestamp,
@@ -132,7 +140,9 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
         manager_id: managerUserId,
         retailer_id: getRetailerDetail.retailerId,
         salesrep_id: 111,
-        updated_at: formattedTimestamp
+        updated_at: formattedTimestamp,
+        retailer_details:JSON.stringify(retailer_details)
+      
 
 
       }

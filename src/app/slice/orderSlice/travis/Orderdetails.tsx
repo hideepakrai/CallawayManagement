@@ -9,7 +9,11 @@ interface TravisOrderDetailState {
   retailerCity:string,
   retailerUserId:number,
   retailerId:number,
-  pendingOrders:unknown[]
+  pendingOrders:unknown[],
+  retailersGst:string,
+  retailerEmail:string
+  retailerPhone:number,
+
 }
 
 const initialState: TravisOrderDetailState = {
@@ -21,7 +25,10 @@ const initialState: TravisOrderDetailState = {
   retailerCity:"",
   pendingOrders:[],
   retailerId:0,
-  retailerUserId:0
+  retailerUserId:0,
+  retailersGst:"",
+  retailerEmail:"",
+  retailerPhone:0
 };
 
 const TravisOrderDetailSlice = createSlice({
@@ -29,13 +36,16 @@ const TravisOrderDetailSlice = createSlice({
     initialState,
     reducers: {
         addTravisOrderDetails:(state,action)=>{
-            const {totalNetBillAmount,retailerName,retailerAddres,retailerCity,retailerId,retailerUserId}=action.payload;
+            const {totalNetBillAmount,retailerName,retailerAddres,retailerCity,retailerId,retailerUserId,retailerGSt,retailerEmail,retailerPhone}=action.payload;
            
             state.retailerName=retailerName;
             state.retailerAddres=retailerAddres;
             state.retailerCity=retailerCity;
             state.retailerId=retailerId;
             state.retailerUserId=retailerUserId;
+            state.retailersGst=retailerGSt;
+            state.retailerEmail=retailerEmail,
+            state.retailerPhone=retailerPhone;
         }, 
         addPendingOrder:(state, action)=>{
             const {pendingOrders}=action.payload;

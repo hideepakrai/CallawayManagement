@@ -79,9 +79,11 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             dispatch(addTravisOrderDetails({
 
                 retailerAddres: allData[0]?.address,
-
+                retailersGSt:allData[0]?.gstin,
                 retailerName: allData[0]?.name ?? "",
                 retailerId: allData[0]?.id,
+                retailerEmail:allData[0]?.email,
+                retailerPhone:allData[0]?.phone
                 // retailerUserId:allData[0].user_id
             }))
 

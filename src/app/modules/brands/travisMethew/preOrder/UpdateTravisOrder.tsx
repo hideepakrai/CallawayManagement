@@ -61,6 +61,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
         manager_id: 0,
         retailer_id: 0,
         salesrep_id: 0,
+        retailer_details:""
       }
       updateOrder(update)
     }

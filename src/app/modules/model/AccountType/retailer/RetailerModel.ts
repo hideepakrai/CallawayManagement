@@ -1,4 +1,5 @@
 export interface RetailerModel{
+    phone?: number;
     id?:number,
    user_id?:number,
    name?:string,
