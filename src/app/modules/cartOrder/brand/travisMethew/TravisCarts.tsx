@@ -822,6 +822,8 @@ const TravisCarts = () => {
           discountValue={discountValue}
           resetSubmitOrder={handleResetSubmitOrder}
           note={notes}
+          discountAmount={discountAmount??0}
+          totalAmount={totalAmount??0}
         />}
 
 

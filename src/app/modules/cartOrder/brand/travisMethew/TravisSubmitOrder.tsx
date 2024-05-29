@@ -17,10 +17,12 @@ type Props = {
   discountType: string;
   discountValue: number;
   resetSubmitOrder: () => void,
-  note: string
+  note: string,
+  totalAmount:number,
+  discountAmount:number
 }
 
-const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder, note }: Props) => {
+const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder, note }: Props) => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")
@@ -90,18 +92,20 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, re
     if (getRetailerDetail &&
       allTravisOrders && allTravisOrders.length > 0 &&
       getRetailerDetail.retailerId &&
-
+      discountAmount&&
       totalNetBillAmount &&
       discountValue &&
       discountType &&
+      totalAmount&&
       brandId &&
-      getPreOrderIds
+      getPreOrderIds &&
+      note
 
     ) {
       handleCreateOrder()
     }
 
-  }, [allTravisOrders, getRetailerDetail, totalNetBillAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds])
+  }, [allTravisOrders, getRetailerDetail, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note])
 
 
   const handleCreateOrder = () => {
@@ -120,7 +124,9 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, re
         items: JSON.stringify(allTravisOrders),
         discount_type: discountType,
         discount_percent: discountValue,
-        total_value: totalNetBillAmount,
+        total_value:  totalNetBillAmount,
+        discount_amount: discountAmount,
+        total_val_pre_discount:totalAmount,
         status: "submitted",
         manager_id: managerUserId,
         retailer_id: getRetailerDetail.retailerId,

@@ -18,7 +18,8 @@ created_at?: string;
 key?: number;
 manager_name?: string;
 note?: string;
-
+totalAmount?:number,
+discountAmount?:number
 retailer_address?: string;
 retailer_gstin?: string;
 
