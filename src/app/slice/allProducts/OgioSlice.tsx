@@ -379,8 +379,8 @@ const OgioSlice = createSlice({
                 item.FinalBillValue=0;
                 item.Discount=0;
                 item.ordered=false;
-                item.error="",
-                item.ordered=false
+                item.error=""
+               
             })
         },
         updateQunatityAfterOrder:(state,action)=>{

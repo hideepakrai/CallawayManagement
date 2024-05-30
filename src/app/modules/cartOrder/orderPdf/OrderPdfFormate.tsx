@@ -15,7 +15,12 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
     const contentToPrint = useRef(null);
     const [orderItem, setOrderItem]= useState<ItemModel[]>([])
     const [orderId, setOrderId]= useState<string|undefined>()
-    const [orderDate, setOrderDate]= useState<string|undefined>()
+    const [orderDate, setOrderDate]= useState<string>()
+    const [retailerName, setRetailerName]= useState<string>()
+    const [retailerEmail, setRetailerEmail]= useState<string>()
+    const [retailerAddress, setRetailerAddress]= useState<string>()
+    const [retailerGstin, setRetailerGstin]= useState<string>()
+    const [retailerphone, setRetailerphone]= useState<number>()
     useEffect(() => {
       if (recordPdf && recordPdf.items) {
         const parsedItems = JSON.parse(recordPdf.items);
@@ -25,8 +30,13 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
           const date = new Date(recordPdf.created_at);
           const readableDate = date.toUTCString();
           setOrderDate(readableDate);
-        } else {
-          setOrderDate(undefined);
+        } 
+        if(recordPdf.retailer_details){
+          const retailerDetail=JSON.parse(recordPdf.retailer_details);
+          setRetailerName(retailerDetail.name)
+          setRetailerAddress(retailerDetail.address)
+          setRetailerEmail(retailerDetail.email)
+          setRetailerphone(retailerDetail.phone)
         }
       }
     }, [recordPdf])
@@ -127,7 +137,7 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
 
        <div style={{width:"78%"}}>
          <h4>Retailer Details:</h4>
-         <h1>{recordPdf.retailer_name}</h1>
+         <h1>{retailerName}</h1>
          
          
          {/* <p>{recordPdf.retailer_phone}</p> */}
@@ -135,7 +145,7 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
          <div className="user-address pt-2 d-flex">
             <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:</span>
              <p  className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
-             {recordPdf.retailer_phone}
+            {retailerphone}
            </p>
            </div>
 
@@ -143,7 +153,7 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
          <div  className="user-address pt-2 ">
          <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
          <p  className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
-         {recordPdf.retailer_address}   
+          {retailerAddress}
            </p> 
        </div>
 

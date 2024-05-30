@@ -48,7 +48,7 @@ discount_amount?:number
     item?:string
     brand_id?: number;
     created_at?: string;
-    
+    retailer_details?:string;
     manager_name?: string;
     note?: string;
     

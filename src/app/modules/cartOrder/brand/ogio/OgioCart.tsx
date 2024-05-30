@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel"
 import { Input, InputNumber, InputRef, Popconfirm, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
 import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
-import { updateOgioInclusiveDiscount, updateOgioExclusiveDiscount, updateOgioFlatDiscount, updateProgressStep } from "../../../../slice/allProducts/OgioSlice"
+import { updateOgioInclusiveDiscount, updateOgioExclusiveDiscount, updateOgioFlatDiscount, updateProgressStep, resetOgioOrder, addPreOrderId } from "../../../../slice/allProducts/OgioSlice"
 import { getOgioProducts, updateQuantity90 } from "../../../../slice/allProducts/OgioSlice"
 import Loading from '../../../loading/Loading';
 import "./OgioCart.css";
@@ -26,6 +26,7 @@ import UpdateReduxOgio from "./UpdateReduxOgio"
 import Note from '../../Note';
 import ApproveOrderOgio from './ApproveOrderOgio';
 import CompletedOgioOrder from './CompletedOgioOrder';
+import RejectedOgioOrder from './RejectedOgioOrder';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -570,13 +571,7 @@ const OgioCart = () => {
 
   // check start submit for Review
   // csubmit fro review
- 
 
-
-  const handleRejectOrder = () => {
-
-  }
- 
 
   const [isNote, setIsnote] = useState<boolean>(false)
   
@@ -657,6 +652,7 @@ const OgioCart = () => {
 
     }))
     }
+     dispatch(LoadingStop())
   }
 
   const handleUpdateRedux = () => {
@@ -713,6 +709,8 @@ const OgioCart = () => {
 
       }))
       alert("Your order is suceessfully completed")
+
+      dispatch(resetOgioOrder())
     } else if(message==="Failed to Complete order"){
       dispatch(updateProgressStep({
         progressStep: 3
@@ -720,10 +718,33 @@ const OgioCart = () => {
       }))
       alert("Failed to Complete order")
     }
-    
-
-    
+ 
   }
+
+
+  // rejet order
+
+  const handleRejectOrder = () => {
+    setIsRejectedorder(true)
+    dispatch(LoadingStart())
+  }
+  const handleResetRejectedOrder = () => {
+    setIsRejectedorder(false)
+    dispatch(LoadingStop())
+    //messageApi.info('Your order is rejected');
+    alert("Your order is rejected")
+    dispatch(resetOgioOrder())
+
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
+    dispatch(addPreOrderId({
+      preOrderId:0
+    }))
+  }
+
+
   // notes 
   const handleNote = () => {
     setIsnote(true)
@@ -913,6 +934,13 @@ const OgioCart = () => {
         resetCompleted={handleResetCompletedOrder}
 
       />}
+
+       {/* reject order */}
+
+       {isRejectedorder &&
+        <RejectedOgioOrder
+          resetReject={handleResetRejectedOrder}
+        />}
 
 <Note
         isModalOpen={isNote}
