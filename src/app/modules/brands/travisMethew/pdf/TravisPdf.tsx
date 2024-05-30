@@ -126,7 +126,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                             fontSize: "20px",
                             //fontweight: "500" 
                           }}>
-                            {callout?.name}
+                            {callout?.description}
                           </h2>
                           {/* <p
                             style={{

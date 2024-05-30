@@ -29,6 +29,7 @@ export interface PdfModel{
 }
 
 export interface TravisPdfPrint{
+    description?: string;
  name?:string;
  variation_sku?:string,
  variation_sku_data?:Variation_sku_data[],

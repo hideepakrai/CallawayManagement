@@ -1224,6 +1224,7 @@ const makePdfPring=(variationSku:string,record:BasicModelTravis)=>{
         primary_image_url:record.primary_image_url,
         gallery_images_url:record.gallery_images_url,
         name:record.name,
+        description:record.description,
         variation_sku: variationSku,
         otherInfo: otherInfo,
         variation_sku_data: totalVarSkuData
@@ -1233,9 +1234,9 @@ const makePdfPring=(variationSku:string,record:BasicModelTravis)=>{
   
 }
   
- useEffect(()=>{
-  console.log("uniqueSku",selectedRowVartionSku) 
- },[selectedRowVartionSku])
+//  useEffect(()=>{
+//   console.log("uniqueSku",selectedRowVartionSku) 
+//  },[selectedRowVartionSku])
 
 
 // export to pdf 
@@ -1244,6 +1245,7 @@ const [isPDF, setIspdf] = useState<boolean>(false)
     setSelectedRowKeys([]);
     setSelectedRow([])
     setIspdf(false)
+    setSelectedRowVartionSku([])
     // setIsCard(true)
   }
 

@@ -24,6 +24,7 @@ import OgioUpdateQtyDb from '../excel/importExcel/OgioUpdateQtyDb';
 import UploadOgioImages from './UploadOgioImages';
 import OgioPreOrder from '../preOrder/OgioPreOrder';
 import * as XLSX from 'xlsx';
+import ImportAllOgioProduct from '../excel/importExcel/ImportAllOgioProduct';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle',];
@@ -39,10 +40,7 @@ const OgioTable = () => {
   const [isImport, setIsImport] = useState(false);
   const dispatch = useDispatch()
   const [isUploadData, setUploadData] = useState()
-  const handleImport = () => {
-    setIsImport(true);
-  };
- 
+  
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
 
@@ -599,6 +597,8 @@ const OgioTable = () => {
   const [isExport , setIsExport]= useState<boolean>(false)
   // export pdf and excel on selection 
     // handle Excels product
+    
+   
     const handleProduct = () => {
       setIsExport(true);
     };
@@ -607,7 +607,20 @@ const OgioTable = () => {
      setSelectedRow([])
     };
   
+// import all ogio product
 
+    const handleImport = () => {
+      setIsImport(true);
+    };
+
+    const handleCloseImportModal=()=>{
+      setIsImport(false);
+
+    }
+
+    const handleOgioData=(allOgioData:OgioBasicModel[])=>{
+
+    }
 
 // show pd()
   const handleShowPdf = () => {
@@ -786,8 +799,10 @@ const OgioTable = () => {
         resetIsSample={handleResetIsSample}
       />
 
+      {/* open modal for excel and pdf */}
+
       <OgioImportExcel
-        isImport={isExport}
+        isExport={isExport}
         onClose={handleCloseImport}
         printPdf={handleShowPdf}
         excelExport={handleDownloadExcel}
@@ -795,6 +810,12 @@ const OgioTable = () => {
         
       />
 
+{/* open modal for upload all ogio products */}
+<ImportAllOgioProduct
+        isImport={isImport}
+        onClose={handleCloseImportModal}
+        allOgioData={handleOgioData}
+      />
       <OgioExcelUploadDB
         xlData={allXlxData}
         resetXls={handleReseAllXlData}

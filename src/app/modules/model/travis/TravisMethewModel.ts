@@ -36,7 +36,9 @@ export interface BasicModelTravis {
        error88?:string;
        error90?:string;
        primaryImage?: string;
-       secondaryImage?:[]
+       secondaryImage?:[],
+       family?: string,
+        has_image?:number,
 
 
 

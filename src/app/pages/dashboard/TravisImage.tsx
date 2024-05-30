@@ -29,20 +29,11 @@ const TravisImage = () => {
       ,[getProduct])
     const renderImage=(record:BasicModelTravis)=>{
      
-      let newSKU
-    
-    
-      if (record &&record?.sku ) {
-        const removeLastUnderscore = (str: string) => {
-          const lastUnderscoreIndex = str.lastIndexOf('_');
-          if (lastUnderscoreIndex !== -1) {
-            return str.substring(0, lastUnderscoreIndex);
-          }
-          return str;
-        };
-        newSKU = removeLastUnderscore(record?.sku);
+      if (record &&record?.sku  && record.family) {
+       
+       
         const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
-       checkFolderExists(newSKU,record.sku)
+       checkFolderExists( record.family,record.sku)
       }
     
     }
@@ -70,6 +61,9 @@ const TravisImage = () => {
      const primary_image = imagePaths[0];
 //      const parts = primary_image.split('/');
 // const fileName = parts[parts.length - 1];
+
+ console.log("primary_image",primary_image)
+ console.log("allImages",imagePaths)
      setPrimaryImage(primary_image)
       //const secondary_image = imagePaths.slice(1);
       setImagePaths(imagePaths)

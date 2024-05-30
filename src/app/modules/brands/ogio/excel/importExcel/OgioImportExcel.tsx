@@ -17,7 +17,7 @@ type Props = {
   excelExport: () => void;
   onClose: () => void;
   
-  isImport:boolean,
+  isExport:boolean,
   selectedRow:OgioBasicModel[]
   
 }
@@ -27,7 +27,7 @@ const props: UploadProps = {
   multiple: false,
 
 };
-const OgioImportExcel = ({ onClose, isImport,excelExport,printPdf ,selectedRow }: Props) => {
+const OgioImportExcel = ({ onClose, isExport,excelExport,printPdf ,selectedRow }: Props) => {
   const [allXlxData, setAllXlxData] = useState<OgioBasicModel[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -243,7 +243,7 @@ const OgioImportExcel = ({ onClose, isImport,excelExport,printPdf ,selectedRow }
       <Modal
         // title="Basic Modal"
         className="export-product"
-        open={isImport}
+        open={isExport}
        
         onCancel={handleCancel}
       >

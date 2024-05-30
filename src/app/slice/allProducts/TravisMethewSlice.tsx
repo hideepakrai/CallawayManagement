@@ -104,7 +104,9 @@ const TravisMethewSlice = createSlice({
                               error88:"",
                               error90:"",
                               primaryImage:"",
-                              secondaryImage:[]
+                              secondaryImage:[],
+                              family:item.family,
+                              has_image:item.has_image,
                               
                           
                           
