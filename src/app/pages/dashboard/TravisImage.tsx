@@ -3,8 +3,11 @@ import { Image } from 'antd';
 import { list } from 'aws-amplify/storage';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getTravisProducts, updatePrimarySeondaryImage } from '../../slice/allProducts/TravisMethewSlice';
+import { getTravisFamily, getTravisProducts, stopUploadTravisImage, updatePrimarySeondaryImage } from '../../slice/allProducts/TravisMethewSlice';
 import { BasicModelTravis } from '../../modules/model/travis/TravisMethewModel';
+import { UploadImageModel } from '../../modules/model/uploadImage/UploadImageModel';
+import { NoTravisImages, UpDateTravisImages } from '../../modules/brands/travisMethew/api/UpdateProductData';
+import { LoadingStop } from '../../slice/loading/LoadingSlice';
 
 const TravisImage = () => {
    const dispatch= useDispatch()
@@ -15,30 +18,36 @@ const TravisImage = () => {
     const [imagePaths, setImagePaths] = useState<string[]>([]);
     const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/";
   
+
+    const getTravisFamilys= useSelector(getTravisFamily)
+    // useEffect(()=>{
+    //     if(getProduct && getProduct.length > 0) {
+    //         getProduct.map((record) => {
+    //           if ( record.sku &&!renderedProductsRef.current.has(record.sku)) {
+    //             renderedProductsRef.current.add(record.sku);
+    //           renderImage(record)
+    //           }
+    //         })
+    //       }
+    //       //renderImage(record)
+    //     }
+    //   ,[getProduct])
     useEffect(()=>{
-        if(getProduct && getProduct.length > 0) {
-            getProduct.map((record) => {
-              if ( record.sku &&!renderedProductsRef.current.has(record.sku)) {
-                renderedProductsRef.current.add(record.sku);
-              renderImage(record)
+        if(getTravisFamilys && getTravisFamilys.length > 0) {
+          getTravisFamilys.map((record,index) => {
+              if ( record){
+                renderedProductsRef.current.add(record);
+              //renderImage(record)
+              checkFolderExists(record,index)
               }
             })
           }
           //renderImage(record)
         }
-      ,[getProduct])
-    const renderImage=(record:BasicModelTravis)=>{
-     
-      if (record &&record?.sku  && record.family) {
-       
-       
-        const folderPath = 'https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/productimg/TRAVIS-Images/';
-       checkFolderExists( record.family,record.sku)
-      }
+      ,[getTravisFamilys])
+  
     
-    }
-    
-    const checkFolderExists = async (bucketName: string,sku:string) => {
+    const checkFolderExists = async (bucketName: string, index:number) => {
       try {
         
         const result = await list({
@@ -59,24 +68,49 @@ const TravisImage = () => {
      
     if (imagePaths.length > 0) {
      const primary_image = imagePaths[0];
-//      const parts = primary_image.split('/');
-// const fileName = parts[parts.length - 1];
+ const newprimary= primary_image.split('/').pop();
+ console.log("newPrimaryImage",newprimary)
+ const nesSec:string[]=[];
 
- console.log("primary_image",primary_image)
- console.log("allImages",imagePaths)
-     setPrimaryImage(primary_image)
-      //const secondary_image = imagePaths.slice(1);
-      setImagePaths(imagePaths)
-      dispatch(updatePrimarySeondaryImage({
-        sku:sku,
-        primaryImage:primary_image,
-        secondaryImage:imagePaths
-      }))
+ imagePaths.map((item:string)=>{
+  const parts = item.split('/').pop();
+  if(parts){
+    nesSec.push(parts)
+  }
+ 
+ })
+ console.log("new secondary image",nesSec)
+    if(newprimary &&nesSec){
+      const data = {
+        family: bucketName,
+        primary_image_url:newprimary,
+        gallery_images_url: nesSec.toString(),
+        has_imge:1
+
+      }
+      const response= await UpDateTravisImages(data)
+      if(response.status===200){
+        console.log("update images",response)
+      }
+      if(index===getTravisFamilys.length-1){
+     
+        dispatch(stopUploadTravisImage())
+        dispatch(LoadingStop())
+      }
+      
+    }
+     
      
     } else {
    console.log(`No images found in folder ${bucketName}.`);
     }
     } else {
+      const data = {
+        family: bucketName, 
+        has_imge:0
+      }
+      const response= await NoTravisImages(data)
+      console.log("no images update", response)
    console.log(`Folder ${bucketName} does not exist.`);
     }
         
@@ -85,6 +119,20 @@ const TravisImage = () => {
         return false; // Return false in case of any error
       }
     }
+
+//  const UpDateTravisImages=async(data:UploadImageModel)=>{
+  
+//    try{
+//    const response= await UpDateTravisImages(data)
+//    if(response){
+//       console.log("response",response)
+//    }
+//    }catch(e){
+//     console.log("Error");
+//    }
+
+//  }
+
   return (
     <div></div>
   )

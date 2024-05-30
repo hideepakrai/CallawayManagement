@@ -7,10 +7,12 @@ interface ProductState {
     otherProduct:BasicModelTravis[],
     uniqueCategories: string[]; 
     uniqueStyleCode: string[]; 
+    uniqueFamily: string[]; 
     uniqueSeason: string[]; 
     isStartLoading : boolean;
     preOrderId:number;
-    progressStep:number
+    progressStep:number,
+    isUploadImge:boolean,
     
 }
 
@@ -20,9 +22,11 @@ const initialState: ProductState = {
     uniqueCategories:[],
     uniqueStyleCode:[],
     uniqueSeason:[],
+    uniqueFamily:[],
     isStartLoading:false,
     preOrderId:0,
     progressStep:0,
+    isUploadImge:false
 
 };
 const TravisMethewSlice = createSlice({
@@ -37,6 +41,12 @@ const TravisMethewSlice = createSlice({
        },
        stopTravisLoading:(state)=>{
          state.isStartLoading = false
+       },
+       startUploadTravisImage:(state)=>{
+        state.isUploadImge = true
+       },
+       stopUploadTravisImage:(state)=>{
+        state.isUploadImge = false
        },
        
        reloadTravisProduct:(state, action)=>{
@@ -54,6 +64,7 @@ const TravisMethewSlice = createSlice({
             const categoriesSet = new Set<string>();
             const seasonSet = new Set<string>();
             const styleCodesSet = new Set<string>();
+            const familySet = new Set<string>();
             const tarvisLength= state.travisMethew.length;
             if(tarvisLength===0){
               if (travisProduct && travisProduct.length > 0) {
@@ -62,13 +73,15 @@ const TravisMethewSlice = createSlice({
                     if (item &&
                         item?.category &&
                         item?.season &&
-                         item?.style_code)
+                         item?.style_code &&
+                        item.family
+                      ) 
                      { 
 
                             categoriesSet.add(item.category);
                             seasonSet.add(item.season);
                             styleCodesSet.add(item.style_code);
-                        
+                            familySet.add(item.family)
                          
                         
                     }
@@ -119,6 +132,7 @@ const TravisMethewSlice = createSlice({
                     state.uniqueCategories = Array.from(categoriesSet);
                     state.uniqueSeason = Array.from(seasonSet);
                     state.uniqueStyleCode = Array.from(styleCodesSet);
+                    state.uniqueFamily = Array.from(familySet);
                 });
             }
             }
@@ -662,7 +676,9 @@ export const {
     updatePrimarySeondaryImage,
     updateTravisQty,
     addPreOrderId,
-    updateProgressStep
+    updateProgressStep,
+    stopUploadTravisImage,
+    startUploadTravisImage
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];
@@ -685,6 +701,14 @@ export const getPreOrderId = (state: { travisMethew: ProductState }): number => 
 };
 export const getTravisProgressStep = (state: { travisMethew: ProductState }): number => {
     return state.travisMethew?.progressStep|| 0;
+    
+};
+export const getTravisFamily = (state: { travisMethew: ProductState }): string[] => {
+    return state.travisMethew?.uniqueFamily|| [];
+    
+};
+export const getTravisuploadImage = (state: { travisMethew: ProductState }): boolean => {
+    return state.travisMethew?.isUploadImge|| false;
     
 };
 

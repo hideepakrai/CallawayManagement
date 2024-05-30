@@ -4,7 +4,7 @@ import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
 import { useDispatch, useSelector } from "react-redux"
-import { getTravisProducts, getOtherProducts, getPreOrderId, getTravisProgressStep, updateProgressStep, addPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
+import { getTravisProducts, getOtherProducts, getPreOrderId, getTravisProgressStep, updateProgressStep, addPreOrderId, startUploadTravisImage, getTravisuploadImage } from "../../../../slice/allProducts/TravisMethewSlice"
 import SampleExcelTravis from '../excel/SampleExcelTravis';
 import travishtham from "../../../../../../public/media/logos/tm-logo.png"
 import TravisImportExcel from '../excel/importExcel/TravisImportExcel';
@@ -37,6 +37,8 @@ import UploadTravisImages from './UploadTravisImages';
 import * as XLSX from 'xlsx';
 import { TravisPdfPrint, Variation_sku_data } from '../../../model/pdf/PdfModel';
 import { exit } from 'process';
+import { LoadingStart } from '../../../../slice/loading/LoadingSlice';
+import TravisImage from '../../../../pages/dashboard/TravisImage';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
@@ -1310,13 +1312,17 @@ const [isPDF, setIspdf] = useState<boolean>(false)
 
   const [isStartSearch, setIsStartSearch] = useState<boolean>(false)
   const handelUploadImage = () => {
-    setIsStartSearch(true)
+    // setIsStartSearch(true)
+    dispatch(startUploadTravisImage())
+    dispatch(LoadingStart())
   }
 
 
   const handleResetUploadImages = () => {
     setIsStartSearch(false)
   }
+
+  const getTravisuploadImages= useSelector(getTravisuploadImage)
   return (
     <div className='container'>
 
@@ -1458,6 +1464,8 @@ const [isPDF, setIspdf] = useState<boolean>(false)
           resetUploadImages={handleResetUploadImages}
         />}
       <PreOrder />
+
+     { getTravisuploadImages && <TravisImage />}
     </div>
   )
 }

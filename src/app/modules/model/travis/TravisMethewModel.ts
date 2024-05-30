@@ -64,6 +64,8 @@ export interface BasicModelTravis {
       
 }
 
+
+
 export interface UpdateTravisModel{
   data?:BasicModelTravis
 }
