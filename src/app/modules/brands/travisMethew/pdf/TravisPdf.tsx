@@ -19,9 +19,11 @@ import productimg2 from "../../../../../../public/media/product/Pro-img (3).png"
 import productimg3 from "../../../../../../public/media/product/Pro-img (4).png";
 import PrimaryImage from "./PrimaryImage"
 import SecondaryImage from './SecondaryImage';
+import { TravisPdfPrint } from '../../../model/pdf/PdfModel';
+import VarationSkuInfo from './VarationSkuInfo';
 
 type Props = {
-  selectedRow: BasicModelTravis[];
+  selectedRow: TravisPdfPrint[];
   resetSelectedRow: () => void;
 };
 
@@ -126,16 +128,20 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                           }}>
                             {callout?.name}
                           </h2>
-                          <p
+                          {/* <p
                             style={{
                               fontSize: "14px",
                               paddingRight: "10px",
                             }}
                           >
                             {callout?.description}
-                          </p>
+                          </p> */}
 
                           <div>
+                          { callout &&callout.variation_sku_data &&
+                           <VarationSkuInfo
+                            variation_sku_data={callout.variation_sku_data}
+                            />}
                             <table
                               style={{
                                 border: "1px solid #ddd",
@@ -172,7 +178,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                   }}
                                 >
                                   {" "}
-                                  {callout?.sku}
+                                  {callout?.variation_sku}
                                 </th>
                               </tr>
                               <tr
@@ -190,7 +196,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                   Category
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  {callout.category}
+                                  {callout?.otherInfo?.category}
                                 </td>
                               </tr>
 
@@ -209,7 +215,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                   Season
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  {callout.season}{" "}
+                                  {callout.otherInfo.season}{" "}
                                 </td>
                               </tr>
 
@@ -228,7 +234,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                   Color
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  {callout.color}
+                                  {callout.otherInfo.color}
                                 </td>
                               </tr>
                               <tr
@@ -246,7 +252,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                   Style Code
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                  {callout.style_code}
+                                  {callout.otherInfo.style_code}
                                 </td>
                               </tr>
 
@@ -262,10 +268,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                     paddingLeft: "10px",
                                   }}
                                 >
-                                 Qty
+                                 Season
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                {Number(callout.stock_88) + Number(callout.stock_90)}
+                                {callout.otherInfo.season}
                                 </td>
                               </tr>
 
@@ -281,10 +287,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                     paddingLeft: "10px",
                                   }}
                                 >
-                                  MRP
+                                  gender
                                 </td>
                                 <td style={{ paddingLeft: "10px" }}>
-                                ₹ {callout.mrp}
+                                ₹ {callout.otherInfo.gender}
                                 </td>
                               </tr>
 

@@ -35,6 +35,8 @@ import TravisUpdateQtyDb from '../excel/importExcel/TravisUpdateQtyDb';
 import PreOrder from '../preOrder/PreOrder';
 import UploadTravisImages from './UploadTravisImages';
 import * as XLSX from 'xlsx';
+import { TravisPdfPrint, Variation_sku_data } from '../../../model/pdf/PdfModel';
+import { exit } from 'process';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
@@ -684,7 +686,7 @@ const TravisTable = () => {
             size="middle"
 
             rowSelection={{
-              onSelect: (record) => { handleSelctRow(record) }
+              onSelect: (record,selected) => { handleSelctRow(record,selected) }
             }}
           />
 
@@ -1146,36 +1148,98 @@ const TravisTable = () => {
 
 
 
+  const [uniqueSku, setUniqueSku] = useState<string[]>([])
+  const [uniqueVariationSku, setUniqueVariationSku] = useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<BasicModelTravis[]>([])
-  const handleSelctRow = (record: BasicModelTravis) => {
-    if (selectedRow && selectedRow.length > 0) {
-      const updatedSelectedRow = [...selectedRow];
-      const index = selectedRow.findIndex(row => row.sku === record.sku);
-      if (index !== -1) {
-        updatedSelectedRow.splice(index, 1);
-        setSelectedRow(updatedSelectedRow);
+  const [selectedRowVartionSku, setSelectedRowVartionSku] = useState<TravisPdfPrint[]>([])
+  const handleSelctRow = (record: BasicModelTravis, selected: boolean) => {
+    const skuSet = new Set<string>(uniqueSku);
+    const variationSkuSet = new Set<string>(uniqueVariationSku);
 
-      } else if (index === -1) {
-        setSelectedRowKeys([record]);
-        if (record) {
-          setSelectedRow(prev => [...prev, record]);
-        }
-      }
-    } else {
-      setSelectedRowKeys([record]);
-      if (record) {
+    if (selected) {
         setSelectedRow(prev => [...prev, record]);
-      }
+
+        if ( record &&record.variation_sku &&record.variation_sku!=undefined &&record.variation_sku !=="") {
+          const stringArray = record.variation_sku.split(',').map(item => item.trim());
+            if (uniqueVariationSku && uniqueVariationSku.length > 0) {
+                let check = false;
+
+                uniqueVariationSku.forEach(objVarSku => {
+                    const stringVar = objVarSku.split(',').map(item => item.trim());
+                 
+
+                    if (stringVar.length > 0 && stringArray.length > 0) {
+                        stringArray.forEach(item => {
+                            if (stringVar.includes(item)) {
+                                check = true;
+                            }
+                        });
+                    }
+                });
+
+                if (!check) {
+                    variationSkuSet.add(record.variation_sku);
+                    makePdfPring(record.variation_sku,record)
+                }
+            } else {
+                variationSkuSet.add(record.variation_sku);
+                makePdfPring(record.variation_sku,record)
+            }
+        }
+
+        setUniqueVariationSku(Array.from(variationSkuSet));
+    } else {
+        const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
+        setSelectedRow(updatedSelectedRow);
     }
-
-  };
-
-  // export to pdf 
-  const [isPDF, setIspdf] = useState<boolean>(false)
+};
 
 
+const makePdfPring=(variationSku:string,record:BasicModelTravis)=>{
+  const stringVar = variationSku.split(',').map(item => item.trim());
+    const totalVarSkuData: Variation_sku_data[] = [];
+    if (stringVar.length > 0) {
+      stringVar.map(varSku=>{
+       const travisData = allTravisProduct.find(travis => travis.sku === varSku);
+       if (travisData) {
+         const varSkuData = {
+           sku: travisData.sku,
+           size: travisData.size,
+           qty: (travisData.stock_88 || 0) + (travisData.stock_90 || 0),
+           mrp: travisData.mrp
+         };
+         totalVarSkuData.push(varSkuData);
+         
+       }
+       
+      })
+      const otherInfo = {
+        color: record.color,
+        style_code: record.style_code,
+        category: record.category,
+        gender: record.gender,
+        season: record.season,
+      };
+      const allVarSku = {
+        primary_image_url:record.primary_image_url,
+        gallery_images_url:record.gallery_images_url,
+        name:record.name,
+        variation_sku: variationSku,
+        otherInfo: otherInfo,
+        variation_sku_data: totalVarSkuData
+      };
+      setSelectedRowVartionSku(prev=>[...prev,allVarSku])
+   }
+  
+}
+  
+ useEffect(()=>{
+  console.log("uniqueSku",selectedRowVartionSku) 
+ },[selectedRowVartionSku])
 
 
+// export to pdf 
+const [isPDF, setIspdf] = useState<boolean>(false)
   const handleResetSelectedRow = () => {
     setSelectedRowKeys([]);
     setSelectedRow([])
@@ -1313,7 +1377,7 @@ const TravisTable = () => {
           columns={columns}
           dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
           rowSelection={{
-            onSelect: (record) => { handleSelctRow(record) }
+            onSelect: (record,selected) => { handleSelctRow(record,selected) }
           }}
           expandable={{
             expandedRowRender,
@@ -1382,7 +1446,7 @@ const TravisTable = () => {
       />
 
       {isPDF && <TravisPdf
-        selectedRow={selectedRow}
+        selectedRow={selectedRowVartionSku}
         resetSelectedRow={handleResetSelectedRow}
       />}
 

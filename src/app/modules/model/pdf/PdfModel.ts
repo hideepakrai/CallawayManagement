@@ -27,3 +27,29 @@ export interface PdfModel{
       
       
 }
+
+export interface TravisPdfPrint{
+ name?:string;
+ variation_sku?:string,
+ variation_sku_data?:Variation_sku_data[],
+ otherInfo:OtherInfoData;
+ gallery_images_url?:string,
+ primary_image_url?:string
+
+
+} 
+
+ export interface OtherInfoData{
+    color?:string;
+    style_code?:string;
+    category?:string;
+    gender?:string;
+    season?:string
+}
+
+ export interface Variation_sku_data{
+    sku?:string;
+        size?:string;
+        qty?:number;
+        mrp?:number
+}
