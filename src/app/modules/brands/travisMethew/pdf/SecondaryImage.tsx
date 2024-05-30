@@ -16,16 +16,16 @@ const SecondaryImage = ({ record }: Props) => {
       {record.primary_image_url &&
       imagePathsArray.length > 0 ? (
         imagePathsArray.map((path, index) => (
-          <span key={index} style={{ width: "150px" }}>
+          <span key={index} style={{ width: "180px", marginLeft:"10px",  }}>
             <img
               alt="Secondary"
               style={{
                 backgroundColor: "#eee",
                 borderRadius: "10px",
-                width: "70px",
+                width: "90px",
                 border: "1px solid #ddd",
                 marginBottom: "5px",
-                height: "70px",
+                height: "90px",
               }}
               src={`${s3_url}${path}`}
               onError={(e) => console.error(`Failed to load image at ${s3_url}${path}`)}

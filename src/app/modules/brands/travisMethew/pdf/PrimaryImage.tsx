@@ -18,16 +18,16 @@ const PrimaryImage = ({ record }: Props) => {
         (<img
           alt="Special Edition Party Spas"
           style={{
-            backgroundColor: "#eee",
+            backgroundColor: "#d1d3d4",
             borderRadius: "10px",
-            width: "225px"
+            width: "400px"
           }}
           src={`${s3_url}${record.primary_image_url}`}
         />) : (
           <img
             alt="Special Edition Party Spas"
             style={{
-              backgroundColor: "#eee",
+              backgroundColor: "#d1d3d4",
               borderRadius: "10px",
               width: "225px"
             }}

@@ -25,31 +25,35 @@ const VarationSkuInfo = ({variation_sku_data}:Props) => {
           
         },
         {
-          title: "Quantity",
+          title: "Qty",
           dataIndex: "qty",
           key: "qty",
           width: 100,
           
         },
-        {
-          title: "MRP",
-          dataIndex: "mrp",
-          key: "mrp",
-          width: 100,
+        // {
+        //   title: "MRP",
+        //   dataIndex: "mrp",
+        //   key: "mrp",
+        //   width: 100,
           
-        },
+        // },
     
     
       ];
   return (
     <div>
+      
         <Table
-        
+         className='table-product-list'
+        //  className='cart-table-profile'
+         style={{border:"1px solid #f1f1f4", borderRadius:"9px 9px 0 0"}}
         columns={columns}
         dataSource={variation_sku_data?.map((item) => ({ ...item, key: item?.sku }))}
         pagination={false}
       />
     </div>
+
   )
 }
 
