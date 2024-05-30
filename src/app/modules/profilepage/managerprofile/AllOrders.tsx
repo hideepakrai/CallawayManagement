@@ -68,11 +68,17 @@ const AllOrders = () => {
             width: 100,
             render: (value) => {
                 let brandName;
-                if (value === 3) {
-                    brandName = "Travismathew";
-                } else {
-                    brandName = "Other Brand"; // Default value or other brand name
+                if(value===1){
+                    brandName = "Callaway Hardgoods"; // Default value or other brand name
                 }
+                else if(value===2){
+                    brandName = "Callaway Apparel"; // Default value or other brand name
+                }
+                else if (value === 3) {
+                    brandName = "Travis Mathew";
+                } else  if(value===4){
+                    brandName = "Ogio"; // Default value or other brand name
+                }  
 
                 return <span>{brandName}</span>; // Render the brand name inside a span
             },
@@ -109,6 +115,12 @@ const AllOrders = () => {
             title: "Discount",
             dataIndex: "discount_amount",
             width: 100,
+            render(value, record, index) {
+                  console.log("value", value)
+                  const discount = parseFloat(value);
+                  const discountvalue=discount.toFixed(2)
+                return discountvalue
+            },
         },
 
 
@@ -180,9 +192,9 @@ const AllOrders = () => {
                 fixed: "left",
             },
             {
-                title: "Style",
-                dataIndex: "style_code",
-                key: "style_code",
+                title: "Color",
+                dataIndex: "color",
+                key: "color",
                 width: 200,
             },
             {
@@ -211,6 +223,18 @@ const AllOrders = () => {
                 key: "TotalQty",
                 width: 50,
                 fixed: "right",
+                render: (value, record, index) => {
+                    const qty88=record.stock_88;
+                    const qty90=record.stock_90;
+                    if(qty88 && qty90){
+                        return qty88+qty90;
+                    } else if(qty88 &&qty90===0){
+                        return qty88;
+                    }
+                    else if(qty90 &&qty88===0){
+                        return qty90;
+                    }
+                }
             },
             {
                 title: "MRP",
@@ -222,7 +246,7 @@ const AllOrders = () => {
             {
                 title: "Amount",
             
-                dataIndex: "total_value",
+                dataIndex: "Amount",
                 key: "Amount",
                 width: 100,
                 fixed: "right",

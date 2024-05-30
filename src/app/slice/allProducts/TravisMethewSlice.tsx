@@ -83,6 +83,7 @@ const TravisMethewSlice = createSlice({
                               season:item.season,
                               style_code:item.style_code,
                               color: item.color,
+                              color_code:item.color_code,
                               gst: item.gst,
                               size:item.size,
                               brand_id: item.brand_id,
@@ -433,12 +434,10 @@ const TravisMethewSlice = createSlice({
 
           },
           updateOtherQuantity90:(state,actions) => {
-          
-            
-            
+ 
             const {sku, qty90,MRP}=actions.payload;
             const otherIndex = state.otherProduct.findIndex(
-              (other) => other.SKU === sku
+              (other) => other.sku === sku
             );
             if (otherIndex!== -1) {
               state.otherProduct[otherIndex].Quantity90 = qty90;

@@ -7,14 +7,14 @@ type Props = {
   };
 const OgioSecondaryImages = ({ record }: Props) => {
 
-    const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/";
+  const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/public/productimg/OGIO-Images/";
 
   // Use optional chaining to handle possibly undefined `gallery_images_url`
   const imagePathsArray = record.gallery_images_url?.split(',') ?? [];
   return (
     <div>
     {record.primary_image_url &&
-    record.primary_image_url.startsWith("public/productimg/OGIO") &&
+   
     imagePathsArray.length > 0 ? (
       imagePathsArray.map((path, index) => (
         <span key={index} style={{ width: "150px" }}>

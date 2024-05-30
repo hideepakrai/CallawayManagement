@@ -20,7 +20,8 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
     const [retailerEmail, setRetailerEmail]= useState<string>()
     const [retailerAddress, setRetailerAddress]= useState<string>()
     const [retailerGstin, setRetailerGstin]= useState<string>()
-    const [retailerphone, setRetailerphone]= useState<number>()
+    const [retailerphone, setRetailerphone]= useState<string>()
+    const [discountAmount, setDiscountAmount]= useState<number>()
     useEffect(() => {
       if (recordPdf && recordPdf.items) {
         const parsedItems = JSON.parse(recordPdf.items);
@@ -38,6 +39,7 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
           setRetailerEmail(retailerDetail.email)
           setRetailerphone(retailerDetail.phone)
         }
+   
       }
     }, [recordPdf])
 
@@ -70,45 +72,47 @@ const OrderPdfFormate = ({recordPdf,resetSelectedRow}:Props) => {
 
   
         
-            { title: " Qty",
-            dataIndex: "stock_88+stock_90",
-            key: "stock_90", 
-            width: 150,
-    
-          },
+      {
+        title: "Qty",
+        dataIndex: "TotalQty",
+        key: "TotalQty",
+        width: 50,
+        fixed: "right",
+        render: (value, record, index) => {
+            const qty88=record.stock_88;
+            const qty90=record.stock_90;
+            if(qty88 && qty90){
+                return qty88+qty90;
+            } else if(qty88 &&qty90===0){
+                return qty88;
+            }
+            else if(qty90 &&qty88===0){
+                return qty90;
+            }
+        }
+    },
+    {
+      title: "MRP",
+      dataIndex: "mrp",
+      key: "mrp", 
+      width: 100,
+      fixed:'right'
+     
+    },
 
           {
             title: "Discount",
-            dataIndex: "discount_amount",
+            dataIndex: "LessDiscountAmount",
             width: 100,
             fixed: "left",      
           },
-
-          //   { title: " Qty90",
-          //   dataIndex: "stock_88",
-          //   key: "stock_88", 
-          //   width: 150,
-    
-          // },
-
-          {
-            title: "MRP",
-            dataIndex: "mrp",
-            key: "mrp", 
-            width: 100,
-            fixed:'right'
-           
-          },
-
           {
             title: "Amount",
-            dataIndex: "amount",
+            dataIndex: "Amount",
             width: 100,
             fixed: "left",      
           },
-      
-         
-    
+  
     ];
 
 

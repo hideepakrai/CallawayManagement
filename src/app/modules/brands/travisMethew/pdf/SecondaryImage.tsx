@@ -6,7 +6,7 @@ type Props = {
 };
 
 const SecondaryImage = ({ record }: Props) => {
-  const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/";
+  const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/";
 
   // Use optional chaining to handle possibly undefined `gallery_images_url`
   const imagePathsArray = record.gallery_images_url?.split(',') ?? [];
@@ -14,7 +14,6 @@ const SecondaryImage = ({ record }: Props) => {
   return (
     <div>
       {record.primary_image_url &&
-      record.primary_image_url.startsWith("public/productimg/TRAVIS") &&
       imagePathsArray.length > 0 ? (
         imagePathsArray.map((path, index) => (
           <span key={index} style={{ width: "150px" }}>

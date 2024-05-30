@@ -23,7 +23,8 @@ const HeaderUserMenu: FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleLogout = () => {
-
+    dispatch(resetTravisProduct())
+    dispatch(resetOgio())
     dispatch(resetOrder())
     dispatch(resetCallayGoods())
     dispatch(resetOgioOrder())

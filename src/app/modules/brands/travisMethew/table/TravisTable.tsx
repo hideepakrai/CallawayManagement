@@ -708,7 +708,7 @@ const TravisTable = () => {
   const [qty901ToolSKU, setQty901SKU] = useState<string | undefined>("")
   const [isQty901ToolTip, setIsQty901ToolTip] = useState<boolean>(false)
   const handleQuantity901 = (value: string, record: BasicModelTravis) => {
-
+    console.log("qunatity: handleQuantity 90",value,)
     const intValue = parseInt(value, 10);
     setQty901Message("");
     setIsQty901ToolTip(false);
@@ -805,7 +805,7 @@ const TravisTable = () => {
   }, [qty90ToolMesage])
 
   const handleQuantity90 = (value: string, record: BasicModelTravis) => {
-
+  
     const intValue = parseInt(value, 10);
 
     setQty90Message("");

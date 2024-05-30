@@ -21,9 +21,8 @@ const initialState: ProductState = {
     uniqueProductModel:[],
     preOrderId:0,
     progressStep:0,
-  
 
-};
+}
 
 const OgioSlice = createSlice({
     name: "Ogio",
@@ -31,7 +30,12 @@ const OgioSlice = createSlice({
     reducers: {
        resetOgio:(state)=>{
             state.ogio=[];
-            state.isLoadingStart=false;      
+            state.isLoadingStart=false;
+            state.uniqueCategories=[],
+            state.uniqueProductType=[],
+            state.uniqueProductModel=[],
+            state.preOrderId=0,
+            state.progressStep=0     
        },
        startOgioLoading:(state)=>{
         state.isLoadingStart=true;
@@ -442,7 +446,8 @@ const OgioSlice = createSlice({
 export const { addOgioProduct,
     updateNewData,
     updateQuantity90,stopOgioLoading,
-    startOgioLoading,resetOgio,
+    startOgioLoading,
+    resetOgio,
     updateOgioFlatDiscount,
     updateOgioExclusiveDiscount,
     updateOgioInclusiveDiscount,
