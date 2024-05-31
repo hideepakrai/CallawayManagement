@@ -110,22 +110,22 @@ const TravisImage = () => {
     family: bucketName, 
     has_image:0
   }
-  const response= await NoTravisImages(data)
-  if(response.status===200){
-    console.log("no images update", response)
+  //const response= await NoTravisImages(data)
+  // if(response.status===200){
+  //   console.log("no images update", response)
    
-  }
+  // }
     }
     } else {
       const data = {
         family: bucketName, 
         has_image:0
       }
-      const response= await NoTravisImages(data)
-      if(response.status===200){
-        console.log("no images update", response)
+      // const response= await NoTravisImages(data)
+      // if(response.status===200){
+      //   console.log("no images update", response)
        
-      }
+      // }
       console.log("no images update", response)
    console.log(`Folder ${bucketName} does not exist.`);
     }

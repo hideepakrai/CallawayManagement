@@ -3,7 +3,7 @@ import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
 import { getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
 import { useSelector } from 'react-redux'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
-import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice'
+import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { CartModel } from '../../../model/CartOrder/CartModel'
 import { UpdateOrder } from '../../../cartOrder/orderApi/OrderAPi'
 
@@ -16,6 +16,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
   const [brandId, setBrandId] = useState<number>()
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts);
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
+
   useEffect(() => {
     const ogio: BasicModelTravis[] = [];
     if (getProduct && getProduct.length > 0 &&preorderId) {
@@ -43,33 +44,114 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
   }, [getProduct,preorderId]);
 
 
-
+  const [typeOfAccount, settypeOfAccount] = useState<string>("")
+  const [managerUserId, setManagerUserId] = useState<number | null>()
+  const [userId, setUserId] = useState<number>();
+ 
   useEffect(() => {
-    if (allTravisOrders && allTravisOrders.length > 0) {
+
+
+    if (getCurrentUsers &&
+      getCurrentUsers.role &&
+      getCurrentUsers.id
+    ) {
+
+      if (getCurrentUsers.role === "Manager") {
+        settypeOfAccount(getCurrentUsers.role)
+        setManagerUserId(getCurrentUsers.id)
+        setUserId(getCurrentUsers.id)
+      } else if (getCurrentUsers.role === "Sales Representative" && getCurrentUsers.manager_id) {
+        settypeOfAccount(getCurrentUsers.role)
+
+        setManagerUserId(getCurrentUsers.manager_id)
+        setUserId(getCurrentUsers.id)
+      }
+
+
+    }
+  }, [getCurrentUsers])
+  const getAllUsers=useSelector(getUserProfile)
+  const [salesRepId, setSalesRepId]= useState<number>(0)
+ useEffect(()=>{
+  if(getAllUsers &&getAllUsers){
+    getAllUsers.map(item=>{
+      if( item.id &&item.role==="Sales Representative"){
+
+        setSalesRepId(item.id)
+      }
+    })
+  }
+ },[getAllUsers])
+
+
+
+ const [totalAmount, setTotalAmount] = useState<number>()
+ const [discountAmount, setDiscountAmount] = useState<number>()
+ const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+//  const [messageApi, contextHolder] = antdMessage.useMessage();
+ useEffect(() => {
+   let tAmount: number = 0;
+   let totalBillAmount: number = 0;
+   if (getProduct && getProduct.length > 0) {
+     getProduct.map((item: BasicModelTravis) => {
+       if (item.Amount && item.ordered) {
+         tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
+       }
+       if (item.FinalBillValue && item.ordered) {
+
+         totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+       }
+
+     })
+     setTotalAmount(tAmount)
+     setTotalNetBillAmount(totalBillAmount)
+     setDiscountAmount(tAmount - totalBillAmount)
+   }
+ }, [getProduct])
+  useEffect(() => {
+    if (allTravisOrders && 
+      allTravisOrders.length > 0 &&
+      salesRepId &&
+      managerUserId &&
+      getCurrentUsers &&
+      totalAmount&&
+      discountAmount &&
+      totalNetBillAmount
+    ) {
+      
       const now = new Date();
       const formattedTimestamp = now.toISOString();
+      const data1={
+        message: "Order Initiated",
+        name: getCurrentUsers?.name,
+        date: formattedTimestamp,
+        user_id:getCurrentUsers?.id,
+        access:"all",
+        type:"system"
+}
+     
       const update = {
         id: preorderId,
         order_date: formattedTimestamp,
         brand_id: brandId,
-        note:"",
+        note:JSON.stringify(data1),
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),
         status: "Pending",
-        discount_type:"",
-        discount_percent:0,
-        total_value:0,
-        discount_amount:0,
-        total_val_pre_discount:0,
+        discount_type:"Inclusive",
+        discount_percent:22,
+        total_value:totalNetBillAmount,
+        discount_amount:discountAmount,
+        total_val_pre_discount:totalAmount,
         updated_at: formattedTimestamp,
-        manager_id: 0,
+        manager_id: managerUserId,
         retailer_id: 0,
-        salesrep_id: 0,
+        salesrep_id: salesRepId,
         retailer_details:""
       }
       updateOrder(update)
     }
-  }, [allTravisOrders])
+  }, [allTravisOrders,salesRepId,managerUserId,getCurrentUsers,totalAmount,discountAmount,totalNetBillAmount])
 
   const updateOrder = async (data: CartModel) => {
     try {

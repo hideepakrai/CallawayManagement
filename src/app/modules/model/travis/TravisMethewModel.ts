@@ -9,6 +9,7 @@ export interface BasicModelTravis {
     mrp?:number;
     gst?:number;
     length?:string|null;
+  
       color_code?:string
       size?:string,
         stock_88?:number,

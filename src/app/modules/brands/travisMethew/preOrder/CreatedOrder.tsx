@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice'
+import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
 import { addPreOrderId, getTravisProducts, updateProgressStep } from '../../../../slice/allProducts/TravisMethewSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
@@ -19,8 +19,15 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
   const [managerUserId, setManagerUserId] = useState<number | null>()
   const [userId, setUserId] = useState<number>();
   const [isOrder, setIsOrder] = useState(false);
+ 
+  // getAll Order
+  const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
+  const [brandId, setBrandId] = useState<number>()
+
+
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
+
 
     if (getCurrentUsers &&
       getCurrentUsers.role &&
@@ -42,10 +49,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     }
   }, [getCurrentUsers])
 
-  // getAll Order
-  const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
-  const [brandId, setBrandId] = useState<number>()
-
+  
   useEffect(() => {
     const ogio: BasicModelTravis[] = [];
     if (getProduct && getProduct.length > 0) {
@@ -74,26 +78,53 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
   }, [getProduct]);
 
 
+  const getAllUsers=useSelector(getUserProfile)
+  const [salesRepId, setSalesRepId]= useState<number>(0)
+ useEffect(()=>{
+  if(getAllUsers &&getAllUsers){
+    getAllUsers.map(item=>{
+      if( item.id &&item.role==="Sales Representative"){
 
+        setSalesRepId(item.id)
+      }
+    })
+  }
+ },[getAllUsers])
   /// after getting product create order
 
   useEffect(() => {
-    if (allTravisOrders && allTravisOrders.length > 0) {
+    if (allTravisOrders && 
+      allTravisOrders.length > 0 &&
+      salesRepId &&
+      managerUserId
+    ) {
       const now = new Date();
       const formattedTimestamp = now.toISOString();
+      const data1={
+        message: "Order Initiated",
+        name: getCurrentUsers?.name,
+        date: formattedTimestamp,
+        user_id:getCurrentUsers?.id,
+        access:"all",
+        type:"system"
+}
+
       const data = {
+        note: JSON.stringify(data1),
         order_date: formattedTimestamp,
         brand_id: brandId,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),
         status: "Pending",
         created_at: formattedTimestamp,
-        updated_at: formattedTimestamp
+        updated_at: formattedTimestamp,
+        manager_id: managerUserId,
+        salesrep_id: salesRepId,
 
       }
       createOrder(data)
     }
-  }, [allTravisOrders])
+  }, [allTravisOrders,salesRepId,managerUserId])
 
 
   const createOrder = async (data: CartModel) => {
