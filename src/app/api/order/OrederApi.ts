@@ -57,6 +57,17 @@ export function GetAllSaleRepresentationOrder(user_id: number) {
 
 
 }
+export function GetAllAdminOrder() {
+   
+    return axios.get(`${serverApi}/get-allorders`)
+        .then(response => {
+            return response.data
+        }).catch(error => {
+            throw error;
+        });
+
+
+}
 
 
 

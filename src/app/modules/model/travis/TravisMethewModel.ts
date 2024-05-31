@@ -41,10 +41,6 @@ export interface BasicModelTravis {
        family?: string,
         has_image?:number,
 
-
-
-      // Quantity?: Quantity[];
-      
       products?:DataModel;
       
        id?:number,
@@ -57,11 +53,10 @@ export interface BasicModelTravis {
        
          SetType?: string;
          ProductType?: string | null;
-         PrimaryImage?: ImageType,
-          Gallery?:ImageType,
-          gallery?:ImageType,
-         AttributeSet?:TravisMathewAttribute[],
-         TravisAttributes?: TravisMathewAttribute[] ,
+
+
+       error?:string,
+       
       
 }
 
