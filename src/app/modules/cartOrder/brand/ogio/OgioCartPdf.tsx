@@ -8,11 +8,12 @@ import { useReactToPrint } from 'react-to-print';
 import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 import OgioGallery from "../../../brands/ogio/table/column/OgioGallery.tsx";
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel.ts";
-import { getOgioProducts } from "../../../../slice/allProducts/OgioSlice.tsx";
+import { getOgioProducts, getOgioRetailerDetail } from "../../../../slice/allProducts/OgioSlice.tsx";
 import { getOgioOrder } from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice.tsx";
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../../../slice/UserSlice/UserSlice"
 import "./OgioCartPdf.css"
+import { RetailerModel } from "../../../model/AccountType/retailer/RetailerModel.ts";
 type Props = {
   // totalAmount:number,
   // discountAmount:number,
@@ -25,9 +26,7 @@ type Props = {
 
 const OgioCartPdf = () => {
 
-  const getTravisOrderDetailss = useSelector(getRetailerDetails)
- 
-
+  
   const getUserProfiles= useSelector(getUserProfile)
   const getCurrentUsers = useSelector(getCurrentUser)
   const [retailerName, setRetailerName] = useState<string>()
@@ -52,23 +51,8 @@ const OgioCartPdf = () => {
 },[getUserProfiles])
 
 
-  useEffect(() => {
-    if (getTravisOrderDetailss.retailerName &&
-      getTravisOrderDetailss.retailerAddres &&
-      getTravisOrderDetailss.retailerCity
 
-    ) {
-      setRetailerName(getTravisOrderDetailss.retailerName)
-      setRetailerAddress(getTravisOrderDetailss.retailerAddres)
-      setRetailerCity(getTravisOrderDetailss.retailerCity)
-
-    }
-  }
-
-    , [
-      getTravisOrderDetailss
-    ])
-
+    const getOgioRetailerDetails= useSelector(getOgioRetailerDetail) as RetailerModel;
   const getOgioProduct: OgioBasicModel[] = useSelector(getOgioProducts)
   const [allOgioOrders, setGetAllOgioOrders] = useState<OgioBasicModel[]>([])
   const [totalAmount, setTotalAmount] = useState<number>()
@@ -228,11 +212,11 @@ const OgioCartPdf = () => {
 
         <div className="row px-10 mt-8 mb-18" >
           <div className="col-8">
-            <h1 className=" d-flex font-gray-800 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{retailerName} Shashi Kiranshetty </h1>
+            <h1 className=" d-flex font-gray-800 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{getOgioRetailerDetails.name} </h1>
 
             <div className="d-flex">
               <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN: </span>
-              <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> 22AAAAA0000A1Z5 <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
+              <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> {getOgioRetailerDetails.gstin} <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
             </div>
 
             <div className="user-address pt-2 d-flex">
@@ -240,7 +224,7 @@ const OgioCartPdf = () => {
               
                </span>
               <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
-                +123-456-789
+             {getOgioRetailerDetails.phone}
                 {/* {retailerphone}   */}
               </p>
             </div>
@@ -248,7 +232,7 @@ const OgioCartPdf = () => {
             <div className="user-address pt-2 ">
               <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
               <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
-                {retailerAddres}  
+                {getOgioRetailerDetails.address}  
               </p>
             </div>
           </div>

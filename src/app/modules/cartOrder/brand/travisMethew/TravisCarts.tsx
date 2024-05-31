@@ -27,6 +27,7 @@ import { message as antdMessage } from 'antd';
 import AlertTravis from "./AlertTravis"
 import RejectOrderTravis from "./RejectOrderTravis"
 import CompletedOrderTravis from './CompletedOrderTravis';
+import TravisOrderPdf from './TravisOrderPdf';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -200,7 +201,7 @@ const TravisCarts = () => {
             style={{ width: 100 }}
             onChange={(value) => {
               if (value !== null) {
-                handleQuantity88(value, record)
+               // handleQuantity88(value, record)
               }
 
             }}
@@ -228,7 +229,7 @@ const TravisCarts = () => {
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
-                handleQuantity90(value, record)
+                //handleQuantity90(value, record)
               }
 
             }}
@@ -863,6 +864,8 @@ const TravisCarts = () => {
         messageType={messageType}
 
       />
+
+      <TravisOrderPdf/>
 
     </div>
   )
