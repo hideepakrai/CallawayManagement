@@ -69,7 +69,9 @@ const TravisImage = () => {
     if (imagePaths.length > 0) {
      const primary_image = imagePaths[0];
  const newprimary= primary_image.split('/').pop();
+ console.log("primary_image",primary_image)
  console.log("newPrimaryImage",newprimary)
+ console.log("All images",imagePaths)
  const nesSec:string[]=[];
 
  imagePaths.map((item:string)=>{
@@ -85,12 +87,13 @@ const TravisImage = () => {
         family: bucketName,
         primary_image_url:newprimary,
         gallery_images_url: nesSec.toString(),
-        has_imge:1
+        has_image:1
 
       }
       const response= await UpDateTravisImages(data)
       if(response.status===200){
         console.log("update images",response)
+     
       }
       if(index===getTravisFamilys.length-1){
      
@@ -103,13 +106,26 @@ const TravisImage = () => {
      
     } else {
    console.log(`No images found in folder ${bucketName}.`);
+   const data = {
+    family: bucketName, 
+    has_image:0
+  }
+  const response= await NoTravisImages(data)
+  if(response.status===200){
+    console.log("no images update", response)
+   
+  }
     }
     } else {
       const data = {
         family: bucketName, 
-        has_imge:0
+        has_image:0
       }
       const response= await NoTravisImages(data)
+      if(response.status===200){
+        console.log("no images update", response)
+       
+      }
       console.log("no images update", response)
    console.log(`Folder ${bucketName} does not exist.`);
     }

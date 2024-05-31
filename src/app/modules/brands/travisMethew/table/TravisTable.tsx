@@ -1236,9 +1236,9 @@ const makePdfPring=(variationSku:string,record:BasicModelTravis)=>{
   
 }
   
-//  useEffect(()=>{
-//   console.log("uniqueSku",selectedRowVartionSku) 
-//  },[selectedRowVartionSku])
+ useEffect(()=>{
+  console.log("uniqueSku",selectedRowVartionSku) 
+ },[selectedRowVartionSku])
 
 
 // export to pdf 

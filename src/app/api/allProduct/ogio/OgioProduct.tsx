@@ -24,6 +24,7 @@ const OgioProduct = ({ resetOgio, isRefetch }: Props) => {
     const getAllOgioProduct = async () => {
         try {
             const response = await GetOgioProduct();
+            console.log("all ogio product recieved ", response)
             if(response.status === 200) {
                 dispatch(addOgioProduct({
                     ogioProduct: response.data

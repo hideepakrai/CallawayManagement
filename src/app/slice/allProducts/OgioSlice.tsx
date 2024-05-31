@@ -66,7 +66,7 @@ const OgioSlice = createSlice({
                             prodctModelSet.add(item.product_model);
                           }
 
-                          if(item.stock_90!=0){
+                          if(item.stock_90 ||item.stock_90===0){
                             state.ogio.push({
                                 sku: item.sku,
                                 name: item.name,
