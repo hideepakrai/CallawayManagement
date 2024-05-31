@@ -22,7 +22,8 @@ totalAmount?:number,
 discountAmount?:number
 retailer_address?: string;
 retailer_gstin?: string;
-
+stock_90?:number;
+stock_88?:number;
 retailer_name?: string;
 retailer_phone?: string;
 

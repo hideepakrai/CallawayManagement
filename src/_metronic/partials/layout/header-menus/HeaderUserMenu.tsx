@@ -59,10 +59,13 @@ const HeaderUserMenu: FC = () => {
   }
     , [getCurrentUsers])
   const handleProfile = () => {
-    if (role === "Manager") {
-      navigate("/profilepage/managerprofile")
-    } else if (role === "Retailer") {
-      navigate("/profilepage/retailerprofile")
+    if (role === "Manager" && getCurrentUsers&&getCurrentUsers.id) {
+      navigate(`/profilepage/managerprofile/${getCurrentUsers.id}`)
+    } else if (role === "Retailer" &&getCurrentUsers&&getCurrentUsers.id){
+      navigate(`/profilepage/retailerprofile/${getCurrentUsers.id}`)
+    }
+    else if (role==="Admin"  && getCurrentUsers&&getCurrentUsers.id){
+      navigate(`/profilepage/adminprofile/${getCurrentUsers.id}`)
     }
 
   }

@@ -22,6 +22,7 @@ import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
  import TravisPdf from '../modules/brands/travisMethew/pdf/TravisPdf.js'
 import Cart from '../pages/cart/Cart.js'
 import OrderPdf from '../modules/cartOrder/brand/travisMethew/OrderPdf.js'
+import AdminProfile from '../pages/profilepage/adminProfile/AdminProfile.js'
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -41,9 +42,10 @@ const PrivateRoutes = () => {
         <Route path='menu-test' element={<MenuTestPage />} />
         <Route path='order' element={<Order />} />
 
-        <Route path='/profilepage/retailerprofile' element={<RetailerProfile />} />
-        <Route path='/profilepage/managerprofile' element={<ManagerProfile />} />
-        <Route path='/profilepage/salesprofile' element={<SalesProfile />} />
+        <Route path='/profilepage/retailerprofile/:id' element={<RetailerProfile />} />
+        <Route path='/profilepage/managerprofile/:id' element={<ManagerProfile />} />
+        <Route path='/profilepage/salesprofile/:id' element={<SalesProfile />} />
+        <Route path='/profilepage/adminprofile/:id' element={<AdminProfile />} />
 
         <Route path='/account/cway-user' element={<SalesRepresentative />} />
         <Route path='/account/cway-manager' element={<Manager />} />

@@ -246,7 +246,7 @@ const AllOrders = () => {
             {
                 title: "Amount",
             
-                dataIndex: "Amount",
+                dataIndex: "total_value",
                 key: "Amount",
                 width: 100,
                 fixed: "right",
