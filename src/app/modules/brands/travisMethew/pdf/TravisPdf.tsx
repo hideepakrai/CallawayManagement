@@ -12,7 +12,7 @@ import { BrandModel } from "../../../model/brand/AllBrands"
 import { getAllBrands } from "../../../../slice/brand/BrandSlice";
 import { Link } from 'react-router-dom';
 import "./TravisPdf.css"
-import TravisLogo from "../../../../../../public/media/logos/tm-logo.png";
+import TravisLogo from "../../../../../../public/media/logos/travis-white.png";
 import productimg from "../../../../../../public/media/product/Pro-img (1).png";
 import productimg1 from "../../../../../../public/media/product/Pro-img (2).png";
 import productimg2 from "../../../../../../public/media/product/Pro-img (3).png";
@@ -31,11 +31,11 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
 
 
-  useEffect(() => {
-    if (selectedRow && selectedRow.length > 0) {
-      handlePrint(null, () => contentToPrint.current);
-    }
-  }, [selectedRow]);
+  // useEffect(() => {
+  //   if (selectedRow && selectedRow.length > 0) {
+  //     handlePrint(null, () => contentToPrint.current);
+  //   }
+  // }, [selectedRow]);
 
 
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
@@ -81,22 +81,19 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
           <Card id="catelog" ref={contentToPrint}>
             <div>
-              <div>
-                <div className='mb-18' style={{ textAlign: 'center' }}>
+           
+                <div className='mb-18' style={{ textAlign: 'center', height:"1122px", backgroundColor:"#000", paddingTop:"300px"}}>
 
                   <div >
-                    <img style={{ width: "230px", paddingTop: "60px" }} src={TravisLogo}></img>
+                    <img style={{ width: "200px", paddingTop: "60px" }} src={TravisLogo}></img>
                   </div>
-                  <h2 style={{ paddingTop: "35px", paddingBottom: "10px", fontSize: "28px", color: "#262626", fontWeight: "500" }}>Travis Mathew</h2>
+                  <h2 style={{ paddingTop: "40px", paddingBottom: "80px", fontSize: "45px", color: "#fff", fontWeight: "400", letterSpacing:"4px" }}>Travis Mathew</h2>
 
-                  <p style={{ fontSize: "14px", paddingLeft: "20px", paddingRight: "20px", }}>
+                  <p  style={{ fontSize: "16px", paddingLeft: "20px", color: "#fff", paddingRight: "20px", }}>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                   </p>
                 </div>
-
-
-
-              </div>
+   
 
               {/* prodect two  start*/}
             </div>
@@ -109,9 +106,11 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                   <>
                     <div
                       style={{
-                        borderBottom: "1px solid #ddd",
-                        paddingTop: "10px",
-                        paddingLeft: "50px",
+                        // borderBottom: "1px solid #ddd",
+                        paddingTop: "120px",
+                        paddingLeft: "25px",
+                        height:"1122px",
+                        paddingRight: "25px",
                       }}
                     >
                       <div
@@ -119,218 +118,49 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                         style={{ display: "flex", marginBottom: "60px", marginTop: "20px", }}
                       >
                         <div
-                          className="gx-product-col gx-product-content1"
-                          style={{ order: "0", width: "47%" }}
+                          // className="gx-product-col gx-product-content1"
+                          style={{ order: "0", }}
                         >
-                          <h2 style={{
-                            fontSize: "20px",
-                            //fontweight: "500" 
-                          }}>
+                          <h2 className='fs-1 mb-8'>
                             {callout?.description}
                           </h2>
-                          {/* <p
-                            style={{
-                              fontSize: "14px",
-                              paddingRight: "10px",
-                            }}
-                          >
-                            {callout?.description}
-                          </p> */}
-
-                          <div>
-                          { callout &&callout.variation_sku_data &&
-                           <VarationSkuInfo
-                            variation_sku_data={callout.variation_sku_data}
-                            />}
-                            <table
-                              style={{
-                                border: "1px solid #ddd",
-                                width: "280px",
-                                marginTop: "10px",
-                                marginRight: "50px"
-                              }}
-                            >
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <th
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    fontFamily: "'NoirPro',sans-serif",
-                                    fontSize: " 16px",
-                                    fontWeight: "500",
-                                    textAlign: "left",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  SKU
-                                </th>
-                                <th
-                                  style={{
-                                    fontFamily: "'NoirPro',sans-serif",
-                                    fontSize: " 16px",
-                                    fontWeight: "500",
-                                    textAlign: "left",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  {" "}
-                                  {callout?.variation_sku}
-                                </th>
-                              </tr>
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Category
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout?.otherInfo?.category}
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Season
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.otherInfo.season}{" "}
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Color
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.otherInfo.color}
-                                </td>
-                              </tr>
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Style Code
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.otherInfo.style_code}
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                 Season
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                {callout.otherInfo.season}
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  gender
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                ₹ {callout.otherInfo.gender}
-                                </td>
-                              </tr>
 
 
-                            </table>
-                          </div>
-                        </div>
+                          <div className='product-pdf row'>
+                            <div className=' col-7' style={{ borderRadius: "5px", }}>
 
-                        <div style={{ width: "45%", borderRadius: "5px", display: "flex" }}>
-                          <div className='prodect-images'>
-                            {callout.primary_image_url !== null ? (
-                              <PrimaryImage
-                                record={callout} />
-                            ) : (
-                              <img
-                                alt="Special Edition Party Spas"
-                                style={{
-                                  backgroundColor: "#eee",
-                                  borderRadius: "10px",
-                                  width: "225px"
-                                }}
-                                src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
-                              />
-                            )
+                              <div className='prodect-images'>
+                                {callout.primary_image_url !== null ? (
+                                  <PrimaryImage
+                                    record={callout} />
+                                ) : (
+                                  <img
+                                    alt="Special Edition Party Spas"
+                                    style={{
+                                      backgroundColor: "#d1d3d4",
+                                      borderRadius: "10px",
+                                      width: "290px"
+                                    }}
+                                    src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
+                                  />
+                                )
 
-                            }
+                                }
 
-                          </div>
-
-                          <div
-                            className="prodect-info-img" >
+                              </div>
+                              <div
+                            className="prodect-info-img mt-6" >
 
                             <>
                               <div
                                 className="prodect-images-pdf"
-                                style={{ marginRight: "10px" }}
+                                style={{ marginRight: "10px", marginLeft: "10", }}
                               >
                                 <SecondaryImage
                                   record={callout}
                                 />
+
+
                                 {/* <span style={{ width: "150px" }} className="">
                                       <img
                                         alt="Special Edition Party Spas"
@@ -388,7 +218,183 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                           </div>
 
 
+                            </div>
+
+                            <div className='product-right-section col-5'>
+                              {callout && callout.variation_sku_data &&
+                                <VarationSkuInfo
+                                  variation_sku_data={callout.variation_sku_data}
+                                />}
+                              <table
+                                style={{
+                                  border: "1px solid #ddd",
+                                  width: "300px",
+                                  marginTop: "10px",
+                                  borderRadius: "8px",
+                                  marginRight: "50px"
+                                }}
+                              >
+
+                                
+                                {/* <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <th
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                               
+                                      fontSize: " 14px",
+                                      fontWeight: "600",
+                                      textAlign: "left",
+                                      width:"120px",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    SKU
+                                  </th>
+                                  <th
+                                    style={{                                    
+                                      fontSize: " 14px",
+                                      fontWeight: "600",
+                                      textAlign: "left",
+                                      width:"120px",
+                                      color:"#000000e0",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    {" "}
+                                    {callout?.variation_sku}
+                                  </th>
+                                </tr> */}
+
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Category
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout?.otherInfo?.category}
+                                  </td>
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Season
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.season}{" "}
+                                  </td>
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Color
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.color}
+                                  </td>
+                                </tr>
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Style Code
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.style_code}
+                                  </td>
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Season
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.season}
+                                  </td>
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Gender
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                   {callout.otherInfo.gender}
+                                  </td>
+                                </tr>
+
+
+                              </table>
+                            </div>
+
+                          </div>
+
+                       
+
                         </div>
+
+
                       </div>
 
 
