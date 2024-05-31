@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {OgioBasicModel,OgioBasicModelGraph, OgioModel} from "../../modules/model/ogio/OgioBrandModel"
 import Item from "antd/es/list/Item";
+import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
 
 interface ProductState {
 
@@ -10,7 +11,9 @@ interface ProductState {
     uniqueProductType: string[]; 
     uniqueProductModel: string[];
     preOrderId:number;
-    progressStep:number
+    progressStep:number;
+    otherProduct:OgioBasicModel[]
+    ogioRetailerDetails:RetailerModel[]
 }
 
 const initialState: ProductState = {
@@ -21,6 +24,8 @@ const initialState: ProductState = {
     uniqueProductModel:[],
     preOrderId:0,
     progressStep:0,
+    otherProduct:[],
+    ogioRetailerDetails:[]
 
 }
 
@@ -28,14 +33,8 @@ const OgioSlice = createSlice({
     name: "Ogio",
     initialState, 
     reducers: {
-       resetOgio:(state)=>{
-            state.ogio=[];
-            state.isLoadingStart=false;
-            state.uniqueCategories=[],
-            state.uniqueProductType=[],
-            state.uniqueProductModel=[],
-            state.preOrderId=0,
-            state.progressStep=0     
+       resetOgio:()=>{
+           return initialState;    
        },
        startOgioLoading:(state)=>{
         state.isLoadingStart=true;
@@ -91,7 +90,9 @@ const OgioSlice = createSlice({
                                 FinalBillValue:0,
                                 error:"",
                                 primaryImage:"",
-                                secondaryImage:""
+                                secondaryImage:"",
+                                has_image:item.has_image,
+                                family:item.family
               
                             })
                           }
@@ -433,7 +434,18 @@ const OgioSlice = createSlice({
                 state.ogio[ogioIndex].primaryImage=primaryImage;
                 state.ogio[ogioIndex].secondaryImage=secondaryImage;
             }
-         }
+         }, 
+         addOtherProduct:(state,action)=>{
+            state.otherProduct=action.payload;
+
+          },
+          removeOtherProduct:(state)=>{
+            state.otherProduct=[]
+         },
+         addOgioReatailerDetails: (state, action)=>{
+            const {retailerDetails}= action.payload;
+            state.ogioRetailerDetails=retailerDetails
+        },
 
 
        
@@ -456,10 +468,16 @@ export const { addOgioProduct,
     updateOgioStock,
     updateOgioImages,
     updateProgressStep,
-    addPreOrderId
+    addPreOrderId,
+    addOtherProduct,
+    removeOtherProduct,
+    addOgioReatailerDetails
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];
+};
+export const getOgioOtherProduct = (state: { Ogio: ProductState }): OgioBasicModel[] => {
+    return state.Ogio?.otherProduct || [];
 };
 export const getOgioReload = (state: { Ogio: ProductState }): boolean => {
     return state.Ogio?.isLoadingStart;
@@ -484,5 +502,9 @@ export const getOgioProgressStep = (state: { Ogio: ProductState }): number => {
     
 };
 
+export const getOgioRetailerDetail = (state: { Ogio: ProductState }): RetailerModel[] => {
+    return state.Ogio?.ogioRetailerDetails|| [];
+    
+};
 
 export default OgioSlice.reducer;

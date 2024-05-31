@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
-import { getTravisProducts, getOtherProducts, getPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
+import { getTravisProducts, getOtherProducts, getPreOrderId, getTravisRetailerDetail } from "../../../../slice/allProducts/TravisMethewSlice"
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
@@ -11,6 +11,7 @@ import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlic
 import { CreateOrder, UpdateOrder } from '../../orderApi/OrderAPi';
 
 import GetAllorder from '../../../orderPage/GetAllorder';
+import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 
 type Props = {
   totalNetBillAmount: number;
@@ -100,7 +101,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
     }
   }, [getProduct]);
 
-
+  const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
@@ -109,7 +110,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
      debugger
     if (getRetailerDetail &&
       allTravisOrders && allTravisOrders.length > 0 &&
-      getRetailerDetail.retailerId &&
+      getTravisRetailerDetails&&
       discountAmount&&
       totalNetBillAmount &&
       discountValue &&
@@ -124,7 +125,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       handleCreateOrder()
     }
 
-  }, [allTravisOrders, getRetailerDetail, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note,salesRepId])
+  }, [allTravisOrders, getTravisRetailerDetails, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note,salesRepId])
 
 
   const handleCreateOrder = () => {
@@ -135,11 +136,11 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
     const formattedTimestamp = now.toISOString();
     if (Array.isArray(allTravisOrders)) {
       const   retailer_details={
-        name:getRetailerDetail.retailerName,
-        gstin:getRetailerDetail.retailersGst,
-        email:getRetailerDetail.retailerEmail,
-        address:getRetailerDetail.retailerAddres,
-        phone:getRetailerDetail.retailerPhone
+        name:getTravisRetailerDetails.name,
+        gstin:getTravisRetailerDetails.gstin,
+        email:getTravisRetailerDetails.email,
+        address:getTravisRetailerDetails.address,
+        phone:getTravisRetailerDetails.phone
         }
 
       const data = {

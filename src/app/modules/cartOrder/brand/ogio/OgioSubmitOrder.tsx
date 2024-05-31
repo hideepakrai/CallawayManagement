@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getOgioProducts, getPreOrderId, updateQunatityAfterOrder } from '../../../../slice/allProducts/OgioSlice'
+import { getOgioProducts, getOgioRetailerDetail, getPreOrderId, updateQunatityAfterOrder } from '../../../../slice/allProducts/OgioSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
@@ -10,6 +10,7 @@ import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlic
 import { CreateOrder, UpdateOrder } from '../../orderApi/OrderAPi';
 
 import GetAllorder from '../../../orderPage/GetAllorder';
+import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 
 type Props = {
   totalNetBillAmount: number;
@@ -96,13 +97,12 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
 
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
+  const getOgioRetailerDetails= useSelector(getOgioRetailerDetail) as RetailerModel;
   useEffect(() => {
 
      // eslint-disable-next-line no-debugger
      debugger
-    if (getRetailerDetail &&
-     
-      getRetailerDetail.retailerId &&
+    if (getOgioRetailerDetails &&
       totalAmount&&
       totalNetBillAmount &&
       discountValue &&
@@ -115,7 +115,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
       handleCreateOrder()
     }
 
-  }, [allOgioOrders, salesRepId,getRetailerDetail, totalNetBillAmount, discountType, discountValue, managerUserId])
+  }, [allOgioOrders, salesRepId,getOgioRetailerDetails, totalNetBillAmount, discountType, discountValue, managerUserId])
 
 
   const handleCreateOrder = () => {
@@ -125,11 +125,11 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
     const now = new Date();
     const formattedTimestamp = now.toISOString();
     const   retailer_details={
-      name:getRetailerDetail.retailerName,
-      gstin:getRetailerDetail.retailersGst,
-      email:getRetailerDetail.retailerEmail,
-      address:getRetailerDetail.retailerAddres,
-      phone:getRetailerDetail.retailerPhone
+      name:getOgioRetailerDetails.name,
+      gstin:getOgioRetailerDetails.gstin,
+      email:getOgioRetailerDetails.email,
+      address:getOgioRetailerDetails.address,
+      phone:getOgioRetailerDetails.phone
       }
     if (Array.isArray(allOgioOrders)) {
       const data = {

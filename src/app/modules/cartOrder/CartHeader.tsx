@@ -10,6 +10,11 @@ import "./CartHeader.css"
 import ProgressCart from "./ProgressCart"
 
 import { addTravisOrderDetails } from "../../slice/orderSlice/travis/Orderdetails"
+import { getActiveOrdertab } from "../../slice/activeTabsSlice/ActiveTabSlice";
+import { addTravisReatailerDetails, getTravisRetailerDetail } from "../../slice/allProducts/TravisMethewSlice";
+import { addOgioReatailerDetails, getOgioRetailerDetail } from "../../slice/allProducts/OgioSlice";
+import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetailerAddress";
+import UpdateOgioRetailerAddress from "./brand/ogio/UpdateOgioRetailerAddress";
 type Props = {
     reviewOrder: () => void,
     submitOrder: () => void
@@ -36,7 +41,8 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [retailerUserId, setRetailerUserId] = useState<number>(0)
     const [GST, setGST] = useState<string>()
     const [salesRepName, setSalesRepName] = useState<string>()
-
+    const [isTravis, setIsTravis] = useState<boolean>(false)
+    const [isOgio, setIsOgio] = useState<boolean>(false)
     useEffect(()=>{
         if(getUserProfiles && getUserProfiles.length > 0){
             getUserProfiles.map(item=>{
@@ -62,7 +68,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     }
 
     const getUserRetailers = useSelector(getUserRetailer);
-
+  const getActiveOrdertabs= useSelector(getActiveOrdertab)
     const getUserAccounts = useSelector(getUserAccount)
     const handleChange = (value: number) => {
         const allData = getUserRetailers?.filter(retailer => retailer.id == value)
@@ -71,12 +77,12 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             allData[0]?.gstin &&
             allData[0]?.id) {
 
-            setRetailerAddress(allData[0].address);
-            // setRetailerCity(allData[0]?.attributes?.Location ?? '');
-            setGST(allData[0]?.gstin);
-            setRetailerId(allData[0]?.id)
-            setRetailerName(allData[0]?.name)
-            // setRetailerUserId(allData[0]?.user_id)
+            // setRetailerAddress(allData[0].address);
+            // // setRetailerCity(allData[0]?.attributes?.Location ?? '');
+            // setGST(allData[0]?.gstin);
+            // setRetailerId(allData[0]?.id)
+            // setRetailerName(allData[0]?.name)
+            // // setRetailerUserId(allData[0]?.user_id)
             dispatch(addTravisOrderDetails({
 
                 retailerAddres: allData[0]?.address,
@@ -88,8 +94,21 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                 // retailerUserId:allData[0].user_id
             }))
 
-            //   if(allData[0]?.attributes?.users_permissions_user?.data?.id)
-            //     setRetailerUserId(allData[0]?.attributes?.users_permissions_user?.data?.id)
+            if(getActiveOrdertabs==="Travis"){
+                dispatch(addTravisReatailerDetails({
+                    retailerDetails:allData[0]
+                }))
+                setIsTravis(true)
+            }
+
+            else   if(getActiveOrdertabs==="Ogio"){
+                dispatch(addOgioReatailerDetails({
+                    retailerDetails:allData[0]
+                }))
+                setIsOgio(true)
+            }
+
+          
         } else {
 
             setRetailerAddress('');
@@ -103,6 +122,51 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
         //  sendRetailerData(allData[0]?.attributes?.users_permissions_user?.data?.id
         // )
     }
+
+
+    // manage retailer Address
+ const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
+ const getOgioRetailerDetails= useSelector(getOgioRetailerDetail) as RetailerModel;
+
+// set active tab adddress of retailer
+
+ useEffect(()=>{
+    
+if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerDetails){
+
+    console.log("getTravisRetailerDetails",getTravisRetailerDetails)
+     if(getTravisRetailerDetails.address &&
+        getTravisRetailerDetails.name &&getTravisRetailerDetails.id){
+            setRetailerAddress(getTravisRetailerDetails.address);
+            setGST(getTravisRetailerDetails.gstin);
+            setRetailerId(getTravisRetailerDetails.id)
+            setRetailerName(getTravisRetailerDetails.name)
+        }
+   
+
+}
+ else if(getActiveOrdertabs==='Ogio' &&getOgioRetailerDetails ){
+
+    console.log("getOgioRetailerDetails",getOgioRetailerDetails)
+     if(getOgioRetailerDetails.address &&
+        getOgioRetailerDetails.name &&getOgioRetailerDetails.id){
+            setRetailerAddress(getOgioRetailerDetails.address);
+            setGST(getOgioRetailerDetails.gstin);
+            setRetailerId(getOgioRetailerDetails.id)
+            setRetailerName(getOgioRetailerDetails.name)
+        }
+   
+
+} else {
+    setRetailerAddress('');
+    setRetailerCity('');
+    setGST("");
+    setRetailerId(0)
+    setRetailerName("")
+}
+ },[getActiveOrdertabs,getTravisRetailerDetails,getOgioRetailerDetails])
+
+
 
     const handleSubmit = () => {
         setIsSubmit(true)
@@ -125,6 +189,13 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
         note()
 
     }
+
+    const handleResetTravisAddress=()=>{
+   setIsTravis(false)
+    }
+    const handleResetOgioAddress=()=>{
+        setIsOgio(false)
+    }
     return (
         <div>
             <div className='row'>
@@ -142,6 +213,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                                 className="select-toogle"
                                 style={{ marginBottom: 10 }}
                                 onChange={handleChange}
+                                value={retailerId}
                                 options={getUserRetailers?.map((item: RetailerModel) => (
                                     {
                                         label: item.name ?? "",
@@ -243,6 +315,14 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 
 
             </div>
+           { isTravis &&
+           <UpdateTravisRetailerAddress
+           resetAddress={handleResetTravisAddress}
+           />}
+
+            {    isOgio &&<UpdateOgioRetailerAddress
+            resetOgioAddress={handleResetOgioAddress}
+                    />}
         </div>
     )
 }

@@ -6,7 +6,7 @@ import { OgioBasicModel, OgioBasicModelGraph, OgioModel, } from "../../../model/
 
 import { OgioExcelModel } from "../../../model/ogio/OgioExcelModel"
 import { useDispatch, useSelector } from "react-redux"
-import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType } from "../../../../slice/allProducts/OgioSlice"
+import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType, addOtherProduct, getOgioOtherProduct } from "../../../../slice/allProducts/OgioSlice"
 import SampleOgioExcel from '../excel/SampleOgioExcel';
 import OgioImportExcel from "../excel/importExcel/OgioImportExcel"
 import OgioExcelUploadDB from "../excel/importExcel/OgioUploadExcel"
@@ -705,32 +705,42 @@ const OgioTable = () => {
   // expannsion of family
 
     //get other product 
-    const getOtherProduct = useSelector(getOtherProducts)
+    const getOgioOtherProducts = useSelector(getOgioOtherProduct)
     const [expandedRowKeys, setExpandedRowKeys] = useState<OgioBasicModel[]>([]);
-    const [expandedKeys, setExpandedKeys] = useState<string>('');
+    const [expandedKeys, setExpandedKeys] = useState<string|null>(null);
   
     const handleExpand = (expanded: boolean, record: OgioBasicModel) => {
       setExpandedRowKeys([])
+      setExpandedKeys(null);
       console.log("expanded",expanded)
       //dispatch(removeOtherProduct())
-     // if (record.sku && record.variation_sku != "" && record.variation_sku != undefined ) {
-      if (record.sku && record.family != "" && record.family != undefined ) {
-       
+      if (record.sku && record.variation_sku != "" && record.variation_sku != undefined &&expanded ) {
+        const inputString = record.variation_sku
+        const stringArray =  inputString.split(',').map(item => item.trim());
         const varskuArray: OgioBasicModel[] = [];
-        const keys: string = "";
-        
-      const allData= allOgioData.filter(item=>item.family===record.family);
-      console.log("all data family ",allData)
+      
+        console.log("vartion sku",varskuArray)
+        allOgioData.map((item) => {
+          if (stringArray && stringArray.length > 0) {
+            stringArray.map(varSku => {
+              if (item.sku === varSku) {
+                varskuArray.push(item)
+  
+              }
+            })
+  
+          }
+  
+        })
 
-        console.log("new array",varskuArray)
         // Expand only the clicked row
         setExpandedKeys(record.sku)
         setExpandedRowKeys(varskuArray);
-        //dispatch(addOtherProduct(varskuArray))
+        dispatch(addOtherProduct(varskuArray))
         // expandedRowRender (record.products.data)  // Assuming SKU is a string
-      } else {
+      } else  {
         setExpandedRowKeys([])
-        setExpandedKeys("")
+        setExpandedKeys(null)
       }
     };
   
@@ -814,24 +824,22 @@ const OgioTable = () => {
           fixed: 'right'
         },
       ]
-
+      if (expandedKeys===record.sku && getOgioOtherProducts) {
 
       return (
         <Table className='cart-table-profile'
           columns={subcolumns}
-          //dataSource={getOtherProduct?.map((item) => ({ ...item, key: item.sku }))}
+          dataSource={getOgioOtherProducts?.map((item) => ({ ...item, key: item.sku }))}
           pagination={false}
 
           size="middle"
 
-          // rowSelection={{
-          //   onSelect: (record,selected) => { handleSelctRow(record,selected) }
-          // }}
+         
         />
 
 
       );
-
+    }
 
     }
   }

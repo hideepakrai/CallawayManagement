@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute ,ImageType} from "../../modules/model/travis/TravisMethewModel";
 import {ExcelModelTravis} from "../../modules/model/travis/TravisExcel"
 import { start } from "repl";
+import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
 interface ProductState {
     travisMethew: BasicModelTravis[],
     otherProduct:BasicModelTravis[],
@@ -13,6 +14,7 @@ interface ProductState {
     preOrderId:number;
     progressStep:number,
     isUploadImge:boolean,
+    travisRetailerDetails:RetailerModel[]
     
 }
 
@@ -26,7 +28,8 @@ const initialState: ProductState = {
     isStartLoading:false,
     preOrderId:0,
     progressStep:0,
-    isUploadImge:false
+    isUploadImge:false,
+    travisRetailerDetails:[]
 
 };
 const TravisMethewSlice = createSlice({
@@ -611,6 +614,11 @@ const TravisMethewSlice = createSlice({
 
 
     },
+
+    addTravisReatailerDetails: (state, action)=>{
+        const {retailerDetails}= action.payload;
+        state.travisRetailerDetails=retailerDetails
+    },
      resetTravisOrder:(state)=>{
       state.travisMethew.map(item=>{
         item.Quantity90=0;
@@ -623,7 +631,9 @@ const TravisMethewSlice = createSlice({
         item.FinalBillValue=0;
         item.Discount=0;
 
-      })
+      });
+      state.travisRetailerDetails=[];
+      state.otherProduct=[];
      }, 
 
      updatePrimarySeondaryImage:(state,action)=>{
@@ -678,7 +688,8 @@ export const {
     addPreOrderId,
     updateProgressStep,
     stopUploadTravisImage,
-    startUploadTravisImage
+    startUploadTravisImage,
+    addTravisReatailerDetails
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];
@@ -709,6 +720,10 @@ export const getTravisFamily = (state: { travisMethew: ProductState }): string[]
 };
 export const getTravisuploadImage = (state: { travisMethew: ProductState }): boolean => {
     return state.travisMethew?.isUploadImge|| false;
+    
+};
+export const getTravisRetailerDetail = (state: { travisMethew: ProductState }): RetailerModel[] => {
+    return state.travisMethew?.travisRetailerDetails|| [];
     
 };
 
