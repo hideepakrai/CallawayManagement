@@ -373,7 +373,7 @@ const TravisTable = () => {
             }}
 
 
-            disabled={value!=null &&value.stock_88 === 0}
+            disabled={value != null && value.stock_88 === 0}
           />
         </Tooltip>
 
@@ -400,7 +400,7 @@ const TravisTable = () => {
 
             }}
 
-            disabled={value != null &&value.stock_90 === 0}
+            disabled={value != null && value.stock_90 === 0}
             style={{ width: 100 }}
           />
         </Tooltip>
@@ -449,10 +449,10 @@ const TravisTable = () => {
     dispatch(removeOtherProduct())
     if (record.sku && record.variation_sku != "" && record.variation_sku != undefined) {
       const inputString = record.variation_sku
-      const stringArray =  inputString.split(',').map(item => item.trim());
+      const stringArray = inputString.split(',').map(item => item.trim());
       const varskuArray: BasicModelTravis[] = [];
       const keys: string = "";
-      console.log("vartion sku",stringArray)
+      console.log("vartion sku", stringArray)
       getProduct.map((item) => {
         if (stringArray && stringArray.length > 0) {
           stringArray.map(varSku => {
@@ -476,7 +476,7 @@ const TravisTable = () => {
 
       //   })
       // }
-      console.log("new array",varskuArray)
+      console.log("new array", varskuArray)
       // Expand only the clicked row
       setExpandedKeys(record.sku)
       setExpandedRowKeys(varskuArray);
@@ -615,7 +615,7 @@ const TravisTable = () => {
                 }}
 
 
-                disabled={value !== null &&value?.stock_88 === 0}
+                disabled={value !== null && value?.stock_88 === 0}
               />
             </Tooltip>
 
@@ -688,7 +688,7 @@ const TravisTable = () => {
             size="middle"
 
             rowSelection={{
-              onSelect: (record,selected) => { handleSelctRow(record,selected) }
+              onSelect: (record, selected) => { handleSelctRow(record, selected) }
             }}
           />
 
@@ -712,7 +712,7 @@ const TravisTable = () => {
   const [qty901ToolSKU, setQty901SKU] = useState<string | undefined>("")
   const [isQty901ToolTip, setIsQty901ToolTip] = useState<boolean>(false)
   const handleQuantity901 = (value: string, record: BasicModelTravis) => {
-    console.log("qunatity: handleQuantity 90",value,)
+    console.log("qunatity: handleQuantity 90", value,)
     const intValue = parseInt(value, 10);
     setQty901Message("");
     setIsQty901ToolTip(false);
@@ -809,7 +809,7 @@ const TravisTable = () => {
   }, [qty90ToolMesage])
 
   const handleQuantity90 = (value: string, record: BasicModelTravis) => {
-  
+
     const intValue = parseInt(value, 10);
 
     setQty90Message("");
@@ -1159,61 +1159,61 @@ const TravisTable = () => {
     const variationSkuSet = new Set<string>(uniqueVariationSku);
 
     if (selected) {
-        setSelectedRow(prev => [...prev, record]);
+      setSelectedRow(prev => [...prev, record]);
 
-        if ( record &&record.variation_sku &&record.variation_sku!=undefined &&record.variation_sku !=="") {
-          const stringArray = record.variation_sku.split(',').map(item => item.trim());
-            if (uniqueVariationSku && uniqueVariationSku.length > 0) {
-                let check = false;
+      if (record && record.variation_sku && record.variation_sku != undefined && record.variation_sku !== "") {
+        const stringArray = record.variation_sku.split(',').map(item => item.trim());
+        if (uniqueVariationSku && uniqueVariationSku.length > 0) {
+          let check = false;
 
-                uniqueVariationSku.forEach(objVarSku => {
-                    const stringVar = objVarSku.split(',').map(item => item.trim());
-                 
+          uniqueVariationSku.forEach(objVarSku => {
+            const stringVar = objVarSku.split(',').map(item => item.trim());
 
-                    if (stringVar.length > 0 && stringArray.length > 0) {
-                        stringArray.forEach(item => {
-                            if (stringVar.includes(item)) {
-                                check = true;
-                            }
-                        });
-                    }
-                });
 
-                if (!check) {
-                    variationSkuSet.add(record.variation_sku);
-                    makePdfPring(record.variation_sku,record)
+            if (stringVar.length > 0 && stringArray.length > 0) {
+              stringArray.forEach(item => {
+                if (stringVar.includes(item)) {
+                  check = true;
                 }
-            } else {
-                variationSkuSet.add(record.variation_sku);
-                makePdfPring(record.variation_sku,record)
+              });
             }
+          });
+
+          if (!check) {
+            variationSkuSet.add(record.variation_sku);
+            makePdfPring(record.variation_sku, record)
+          }
+        } else {
+          variationSkuSet.add(record.variation_sku);
+          makePdfPring(record.variation_sku, record)
         }
+      }
 
-        setUniqueVariationSku(Array.from(variationSkuSet));
+      setUniqueVariationSku(Array.from(variationSkuSet));
     } else {
-        const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
-        setSelectedRow(updatedSelectedRow);
+      const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
+      setSelectedRow(updatedSelectedRow);
     }
-};
+  };
 
 
-const makePdfPring=(variationSku:string,record:BasicModelTravis)=>{
-  const stringVar = variationSku.split(',').map(item => item.trim());
+  const makePdfPring = (variationSku: string, record: BasicModelTravis) => {
+    const stringVar = variationSku.split(',').map(item => item.trim());
     const totalVarSkuData: Variation_sku_data[] = [];
     if (stringVar.length > 0) {
-      stringVar.map(varSku=>{
-       const travisData = allTravisProduct.find(travis => travis.sku === varSku);
-       if (travisData) {
-         const varSkuData = {
-           sku: travisData.sku,
-           size: travisData.size,
-           qty: (travisData.stock_88 || 0) + (travisData.stock_90 || 0),
-           mrp: travisData.mrp
-         };
-         totalVarSkuData.push(varSkuData);
-         
-       }
-       
+      stringVar.map(varSku => {
+        const travisData = allTravisProduct.find(travis => travis.sku === varSku);
+        if (travisData) {
+          const varSkuData = {
+            sku: travisData.sku,
+            size: travisData.size,
+            qty: (travisData.stock_88 || 0) + (travisData.stock_90 || 0),
+            mrp: travisData.mrp
+          };
+          totalVarSkuData.push(varSkuData);
+
+        }
+
       })
       const otherInfo = {
         color: record.color,
@@ -1223,26 +1223,26 @@ const makePdfPring=(variationSku:string,record:BasicModelTravis)=>{
         season: record.season,
       };
       const allVarSku = {
-        primary_image_url:record.primary_image_url,
-        gallery_images_url:record.gallery_images_url,
-        name:record.name,
-        description:record.description,
+        primary_image_url: record.primary_image_url,
+        gallery_images_url: record.gallery_images_url,
+        name: record.name,
+        description: record.description,
         variation_sku: variationSku,
         otherInfo: otherInfo,
         variation_sku_data: totalVarSkuData
       };
-      setSelectedRowVartionSku(prev=>[...prev,allVarSku])
-   }
-  
-}
-  
- useEffect(()=>{
-  console.log("uniqueSku",selectedRowVartionSku) 
- },[selectedRowVartionSku])
+      setSelectedRowVartionSku(prev => [...prev, allVarSku])
+    }
+
+  }
+
+  useEffect(() => {
+    console.log("uniqueSku", selectedRowVartionSku)
+  }, [selectedRowVartionSku])
 
 
-// export to pdf 
-const [isPDF, setIspdf] = useState<boolean>(false)
+  // export to pdf 
+  const [isPDF, setIspdf] = useState<boolean>(false)
   const handleResetSelectedRow = () => {
     setSelectedRowKeys([]);
     setSelectedRow([])
@@ -1322,7 +1322,7 @@ const [isPDF, setIspdf] = useState<boolean>(false)
     setIsStartSearch(false)
   }
 
-  const getTravisuploadImages= useSelector(getTravisuploadImage)
+  const getTravisuploadImages = useSelector(getTravisuploadImage)
   return (
     <div className='container'>
 
@@ -1385,7 +1385,7 @@ const [isPDF, setIspdf] = useState<boolean>(false)
           columns={columns}
           dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
           rowSelection={{
-            onSelect: (record,selected) => { handleSelctRow(record,selected) }
+            onSelect: (record, selected) => { handleSelctRow(record, selected) }
           }}
           expandable={{
             expandedRowRender,
@@ -1465,7 +1465,7 @@ const [isPDF, setIspdf] = useState<boolean>(false)
         />}
       <PreOrder />
 
-     { getTravisuploadImages && <TravisImage />}
+      {getTravisuploadImages && <TravisImage />}
     </div>
   )
 }
