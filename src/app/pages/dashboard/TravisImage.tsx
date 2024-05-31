@@ -106,10 +106,10 @@ const TravisImage = () => {
      
     } else {
    console.log(`No images found in folder ${bucketName}.`);
-   const data = {
-    family: bucketName, 
-    has_image:0
-  }
+  //  const data = {
+  //   family: bucketName, 
+  //   has_image:0
+  // }
   //const response= await NoTravisImages(data)
   // if(response.status===200){
   //   console.log("no images update", response)
@@ -117,16 +117,16 @@ const TravisImage = () => {
   // }
     }
     } else {
-      const data = {
-        family: bucketName, 
-        has_image:0
-      }
+      // const data = {
+      //   family: bucketName, 
+      //   has_image:0
+      // }
       // const response= await NoTravisImages(data)
       // if(response.status===200){
       //   console.log("no images update", response)
        
       // }
-      console.log("no images update", response)
+      // console.log("no images update", response)
    console.log(`Folder ${bucketName} does not exist.`);
     }
         
@@ -136,18 +136,7 @@ const TravisImage = () => {
       }
     }
 
-//  const UpDateTravisImages=async(data:UploadImageModel)=>{
-  
-//    try{
-//    const response= await UpDateTravisImages(data)
-//    if(response){
-//       console.log("response",response)
-//    }
-//    }catch(e){
-//     console.log("Error");
-//    }
 
-//  }
 
   return (
     <div></div>

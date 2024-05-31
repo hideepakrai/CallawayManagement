@@ -19,11 +19,7 @@ export interface OgioBasicModel {
   brand?:string|undefined
  primaryImage?:string,
  secondaryImage?:string|undefined;
-
   SKU?: string|undefined;
-      
-     
-      
       Amount?: number
       TotalQty?: number|null;
       Quantity88?: number|null;
@@ -35,6 +31,8 @@ export interface OgioBasicModel {
        NetBillings?:number|null,
        FinalBillValue?:number|null,
        error?:string,
+       has_image?:number,
+       family?:string,
 }
 
 export interface OgioBasicModelGraph {

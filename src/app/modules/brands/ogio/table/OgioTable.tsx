@@ -25,6 +25,7 @@ import UploadOgioImages from './UploadOgioImages';
 import OgioPreOrder from '../preOrder/OgioPreOrder';
 import * as XLSX from 'xlsx';
 import ImportAllOgioProduct from '../excel/importExcel/ImportAllOgioProduct';
+import { getOtherProducts } from '../../../../slice/allProducts/CallAwayGoodsSlice';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle',];
@@ -682,18 +683,7 @@ const OgioTable = () => {
   };
 
 
-   // const rowSelection = {
-  //   onChange: (selectedRowKeys: React.Key[], selectedRows: OgioBasicModel[]) => {
-
-  //   },
-  //   onSelect: (record: OgioBasicModel, selected: boolean, selectedRows: OgioBasicModel[]) => {
-
-  //   },
-  //   onSelectAll: (selected: boolean, selectedRows: OgioBasicModel[], changeRows: OgioBasicModel[]) => {
-  //   },
-
-  //   columnWidth: 40,
-  // };
+   
 
   const handleRowSelectionChange = (selectedKeys: React.Key[], selectedRows: OgioBasicModel[]) => {
     const validKeys = selectedKeys.filter((key): key is string => typeof key === 'string');
@@ -710,6 +700,142 @@ const OgioTable = () => {
       setSelectedRow(selectedRows);
     },
   };
+
+
+  // expannsion of family
+
+    //get other product 
+    const getOtherProduct = useSelector(getOtherProducts)
+    const [expandedRowKeys, setExpandedRowKeys] = useState<OgioBasicModel[]>([]);
+    const [expandedKeys, setExpandedKeys] = useState<string>('');
+  
+    const handleExpand = (expanded: boolean, record: OgioBasicModel) => {
+      setExpandedRowKeys([])
+      console.log("expanded",expanded)
+      //dispatch(removeOtherProduct())
+     // if (record.sku && record.variation_sku != "" && record.variation_sku != undefined ) {
+      if (record.sku && record.family != "" && record.family != undefined ) {
+       
+        const varskuArray: OgioBasicModel[] = [];
+        const keys: string = "";
+        
+      const allData= allOgioData.filter(item=>item.family===record.family);
+      console.log("all data family ",allData)
+
+        console.log("new array",varskuArray)
+        // Expand only the clicked row
+        setExpandedKeys(record.sku)
+        setExpandedRowKeys(varskuArray);
+        //dispatch(addOtherProduct(varskuArray))
+        // expandedRowRender (record.products.data)  // Assuming SKU is a string
+      } else {
+        setExpandedRowKeys([])
+        setExpandedKeys("")
+      }
+    };
+  
+  const expandedRowRender = (record: OgioBasicModel) => {
+
+    if (record) {
+
+      const subcolumns: TableColumnsType<OgioBasicModel> = [
+        {
+          title: "SKU",
+          dataIndex: "sku",
+          key: "sku",
+          width: 390,
+          fixed: "left",
+        },
+        {
+          title: "Product Model",
+          dataIndex: "product_model",
+          key: "product_model",
+          width: 390,
+          fixed: "left"
+
+        },
+        {
+          title: "Product Type",
+          dataIndex: "product_type",
+          key: "product_type",
+          width: 390,
+          fixed: "left"
+
+        },
+        {
+          title: "Qty90",
+          dataIndex: "stock_90",
+          key: "stock_90",
+          width: 150,
+          fixed: 'right',
+          render: (value, record) => (
+
+            <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+              <InputNumber
+                status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
+                className='mx-5 number-input'
+                addonBefore={record.stock_90 || 0}
+                value={record.Quantity90?.toString()}
+                onChange={(value) => {
+                  if (value !== null) {
+                   // handleQuantity901(value, record)
+                  }
+
+                }}
+
+                disabled={value !== null && value?.stock_90 === 0}
+                style={{ width: 100 }}
+              />
+            </Tooltip>
+
+          ),
+        },
+        {
+          title: "Qty",
+          dataIndex: "TotalQty",
+          key: "TotalQty",
+          width: 50,
+          fixed: 'right'
+        },
+
+        {
+          title: "MRP",
+          dataIndex: "mrp",
+          key: "mrp",
+          width: 80,
+          fixed: 'right',
+
+        },
+        {
+          title: "Amount ",
+          dataIndex: "Amount",
+          key: "Amount",
+          width: 100,
+          fixed: 'right'
+        },
+      ]
+
+
+      return (
+        <Table className='cart-table-profile'
+          columns={subcolumns}
+          //dataSource={getOtherProduct?.map((item) => ({ ...item, key: item.sku }))}
+          pagination={false}
+
+          size="middle"
+
+          // rowSelection={{
+          //   onSelect: (record,selected) => { handleSelctRow(record,selected) }
+          // }}
+        />
+
+
+      );
+
+
+    }
+  }
+
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}
@@ -776,11 +902,12 @@ const OgioTable = () => {
           // rowSelection={{
           //   onSelect: (record, selected: boolean,selectedRows: OgioBasicModel[]) => { handleSelctRow(record,selected) },
             
-          // }}
-          //   expandable={{ expandedRowRender,
-          //  onExpand: (expanded, record) => handleExpand(expanded, record),
+          expandable={{
+            expandedRowRender,
 
-          //    }}
+            onExpand: (expanded, record) => handleExpand(expanded, record),
+
+          }}
           bordered
           size="middle"
           scroll={{ x: "100%", y: "auto" }}

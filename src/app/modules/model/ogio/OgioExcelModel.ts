@@ -15,6 +15,9 @@ export interface OgioExcelModel {
       LifeCycle?:string | null;
       Stock90?:number|null;
       TotalQty?: number|null;
+     
+
+
       
      
 
