@@ -89,7 +89,7 @@ const TravisMethewSlice = createSlice({
                         
                     }
    
-                    if(item.stock_88 !=0 || item.stock_90!=0){
+                    if(item.stock_88|| item.stock_90 ||item.stock_88===0 || item.stock_90===0){
                       state.travisMethew.push({
                         sku: item.sku,
                               name: item.name,

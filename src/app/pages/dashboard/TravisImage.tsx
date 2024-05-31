@@ -39,9 +39,7 @@ const TravisImage = () => {
 
         if (record) {
           renderedProductsRef.current.add(record);
-          //renderImage(record)
-          // console.log("record ------>", record)
-          // console.log("index ------>", index)
+          
           checkFolderExists(record, index)
         }
       })
@@ -52,33 +50,30 @@ const TravisImage = () => {
 
 
   const checkFolderExists = async (bucketName: string, index: number) => {
-    // console.log("bucketName ------>", bucketName)
-    // console.log("index ------>", index)
+  
     try {
       const result = await list({
         path: 'public/productimg/TRAVIS-Images/',
       });
-      // console.log("result ------->", result)
+    
       const folderPath = `public/productimg/TRAVIS-Images/${bucketName}/`;
-      // console.log("folderPath ------->", folderPath)
+     
       const folderExists = result.items.some((item) => {
         return item.path.startsWith(folderPath);
       });
-      // console.log("folderExists ------->", folderExists)
+      
       if (folderExists) {
-        // console.log("folderExists inside if ------->", folderExists)
+       
         const imagePaths = result.items
           .filter((item) => item.path.startsWith(folderPath))
           .map((item) => item.path);
-        // console.log("imagePaths ------->", imagePaths)
+       
         if (imagePaths.length > 0) {
-          // console.log("imagePaths inside length ------->", imagePaths)
+         
           const primary_image = imagePaths[0];
-          // console.log("primary_image ------->", primary_image)
+        
           const newprimary = primary_image.split('/').pop();
-          // console.log("primary_image", primary_image)
-          // console.log("newPrimaryImage", newprimary)
-          // console.log("All images", imagePaths)
+         
           const nesSec: string[] = [];
           imagePaths.map((item: string) => {
             const parts = item.split('/').pop();
@@ -86,7 +81,7 @@ const TravisImage = () => {
               nesSec.push(parts)
             }
           })
-          // console.log("new secondary image", nesSec)
+         
           if (newprimary && nesSec) {
             const data = {
               family: bucketName,

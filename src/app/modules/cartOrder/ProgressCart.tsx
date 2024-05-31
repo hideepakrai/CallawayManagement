@@ -19,6 +19,8 @@ type Props = {
 
 const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOrder, completedOrder, note }: Props) => {
     const [current, setCurrent] = useState(0);
+    const [currentOgio, setCurrentOgio] = useState(0);
+    const [currentTravis, setCurrentTravis] = useState(0);
 
     const onChange = (value: number) => {
         setCurrent(value);
@@ -30,10 +32,14 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
     const getPregressStepsogio = useSelector(getOgioProgressStep);
 
     useEffect(()=>{
+        setCurrent(0)
         if(getActiveOrdertabs==="Travis" &&getPregressStepstravis){
             setCurrent(getPregressStepstravis);
+           // setCurrentTravis(getPregressStepstravis);
+            
         } else if (getActiveOrdertabs==="Ogio" &&getPregressStepsogio){
             setCurrent(getPregressStepsogio)
+            //setCurrentOgio(getPregressStepsogio)
         }
 
     },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio])
@@ -92,7 +98,9 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
 
     return (
         <>
-            <Steps current={current} labelPlacement="vertical">
+            <Steps 
+            current={current} 
+            labelPlacement="vertical">
                 <Steps.Step
                     className="progress-step"
                     title={
@@ -135,6 +143,17 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                 <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-file-earmark-text travis-icon"></i>
                                 Submit Order
                             </Button>
+                            <span className="note-title note-icon">
+                                {current === 1 ? (
+                                    <a onClick={handleNote} className="note-model">
+                                        <i className="bi bi-pencil-square"></i> Add a note
+                                    </a>
+                                ) : (
+                                    <span className="disabled-note">
+                                        <i className="bi bi-pencil-square"></i> Add a note
+                                    </span>
+                                )}
+                            </span>
                         </>
                     }
                     description={description2}
@@ -165,6 +184,17 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                     </span>
                                 )}
                             </span>
+                            <span className="note-title note-icon">
+                                {current === 2 ? (
+                                    <a onClick={handleNote} className="note-model">
+                                        <i className="bi bi-pencil-square"></i> Add a note
+                                    </a>
+                                ) : (
+                                    <span className="disabled-note">
+                                        <i className="bi bi-pencil-square"></i> Add a note
+                                    </span>
+                                )}
+                            </span>
                         </>
                     }
                 />
@@ -182,6 +212,17 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                 <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-cart-check travis-icon"></i>
                                 Complete Order
                             </Button>
+                            <span className="note-title note-icon">
+                                {current === 3 ? (
+                                    <a onClick={handleNote} className="note-model">
+                                        <i className="bi bi-pencil-square"></i> Add a note
+                                    </a>
+                                ) : (
+                                    <span className="disabled-note">
+                                        <i className="bi bi-pencil-square"></i> Add a note
+                                    </span>
+                                )}
+                            </span>
                         </>
                     }
                     description={description4}

@@ -134,6 +134,28 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
     //const orderId = generateUniqueNumeric();
     const now = new Date();
     const formattedTimestamp = now.toISOString();
+    const data1={
+      message: "Order Initiated",
+      name: getCurrentUsers?.name,
+      date: now,
+      user_id:getCurrentUsers?.id,
+      access:"all",
+      type:"system"
+}
+  
+  const data2={
+      message:"Order Submitted" ,
+      name: getCurrentUsers?.name,
+      date: now,
+      user_id:getCurrentUsers?.id,
+      access:"all",
+      type:"sytem"
+  }
+  const combinedDataObject = {
+      data1: data1,
+      data2: data2
+  };
+const systemNotes=JSON.stringify(combinedDataObject);
     if (Array.isArray(allTravisOrders)) {
       const   retailer_details={
         name:getTravisRetailerDetails.name,
@@ -146,7 +168,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       const data = {
         id: getPreOrderIds,
         order_date: formattedTimestamp,
-        note: note,
+        note: note===""?systemNotes:note,
         brand_id: brandId,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),

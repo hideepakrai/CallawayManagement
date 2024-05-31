@@ -201,7 +201,7 @@ const TravisCarts = () => {
             style={{ width: 100 }}
             onChange={(value) => {
               if (value !== null) {
-               // handleQuantity88(value, record)
+               handleQuantity88(value, record)
               }
 
             }}
@@ -229,7 +229,7 @@ const TravisCarts = () => {
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
-                //handleQuantity90(value, record)
+                handleQuantity90(value, record)
               }
 
             }}
@@ -457,7 +457,7 @@ const TravisCarts = () => {
   };
 
   const [discountType, setDiscountType] = useState<string>("Inclusive")
-  const [isDiscount, setIsDiscount] = useState<boolean>(false)
+  const [isDiscount, setIsDiscount] = useState<boolean>(true)
   const [discountValue, setDiscountValue] = useState<number>(22)
 
   const handleDiscount = (value: string) => {
@@ -541,6 +541,7 @@ const TravisCarts = () => {
   const [isRefetch, setIsRefetch] = useState<boolean>(false)
   const handleRefetch = () => {
     setIsRefetch(true)
+   
     
   }
 
