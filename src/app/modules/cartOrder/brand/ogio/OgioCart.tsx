@@ -516,7 +516,7 @@ const OgioCart = () => {
   // handle disount
 
   const [discountType, setDiscountType] = useState<string>("Inclusive")
-  const [isDiscount, setIsDiscount] = useState<boolean>(false)
+  const [isDiscount, setIsDiscount] = useState<boolean>(true)
   const [discountValue, setDiscountValue] = useState<number>(22)
 
   const handleDiscount = (value: string) => {

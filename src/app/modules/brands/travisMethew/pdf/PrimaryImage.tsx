@@ -17,7 +17,7 @@ const PrimaryImage = ({ record }: Props) => {
     <div>
       {record.primary_image_url ?
         (<img
-          alt="Special Edition Party Spas"
+          alt={record.name}
           style={{
             backgroundColor: "#d1d3d4",
             borderRadius: "10px",

@@ -46,12 +46,15 @@ export interface TravisPdfPrint{
     style_code?:string;
     category?:string;
     gender?:string;
-    season?:string
+    season?:string,
+    product_model?:string,
 }
 
  export interface Variation_sku_data{
     sku?:string;
         size?:string;
         qty?:number;
-        mrp?:number
+        mrp?:number;
+  product_type?:string;
+
 }

@@ -1,28 +1,24 @@
 import React, { useEffect, useRef } from 'react';
-import { BasicModelTravis } from '../../../model/travis/TravisMethewModel';
-import jsPDF from 'jspdf';
+
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import { Row, Col, Card, Button } from 'react-bootstrap';
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+
 import { useReactToPrint } from 'react-to-print';
-import { useSelector } from 'react-redux';
-import { BrandModel } from "../../../model/brand/AllBrands"
-import { getAllBrands } from "../../../../slice/brand/BrandSlice";
-import { Link } from 'react-router-dom';
+
+
 import "../../travisMethew/pdf/TravisPdf.css"
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 import OgioLogo from "../../../../../../public/media/logos/ogio-logo.png";
-import productimg from "../../../../../../public/media/product/Pro-img (1).png";
-import productimg1 from "../../../../../../public/media/product/Pro-img (2).png";
-import productimg2 from "../../../../../../public/media/product/Pro-img (3).png";
-import productimg3 from "../../../../../../public/media/product/Pro-img (4).png";
+
 import OgioPrimaryImages from './OgioPrimaryImages';
 import OgioSecondaryImages from './OgioSecondaryImages';
+import GioVarationSkuInfo from './GioVarationSkuInfo';
+import { TravisPdfPrint } from '../../../model/pdf/PdfModel';
+
 
 type Props = {
-  selectedRow: OgioBasicModel[];
+  selectedRow: TravisPdfPrint[];
   resetSelectedRow: () => void;
 };
 
@@ -37,11 +33,11 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
   });
 
-  useEffect(() => {
-    if (selectedRow && selectedRow.length > 0) {
-      handlePrint(null, () => contentToPrint.current);
-    }
-  }, [selectedRow]);
+  // useEffect(() => {
+  //   if (selectedRow && selectedRow.length > 0) {
+  //     handlePrint(null, () => contentToPrint.current);
+  //   }
+  // }, [selectedRow]);
 
 
   return (<div>
@@ -141,202 +137,420 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                   <>
                     <div
                       style={{
-                        borderBottom: "1px solid #ddd",
-                        paddingTop: "10px",
-                        paddingLeft: "50px",
+                        // borderBottom: "1px solid #ddd",
+                        paddingTop: "120px",
+                        paddingLeft: "25px",
+                        height: "1122px",
+                        paddingRight: "25px",
                       }}
                     >
                       <div
-                        className="prodect-pdf-section"
-                        style={{ display: "flex", marginBottom: "60px", marginTop: "20px", }}
-                      >
+                        className="prodect-pdf-section">
                         <div
-                          className="gx-product-col gx-product-content1"
-                          style={{ order: "0", width: "47%" }}
+                          style={{ order: "0", }}
                         >
-                          <h2 style={{
-                            fontSize: "20px",
-                            //fontweight: "500" 
-                          }}>
-                            {callout?.name}
-                          </h2>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              paddingRight: "10px",
-                            }}
-                          >
+                          <h2 className='fs-1 mb-8'>
                             {callout?.description}
-                          </p>
+                          </h2>
 
-                          <div>
-                            <table
-                              style={{
-                                border: "1px solid #ddd",
-                                width: "280px",
-                                marginTop: "10px",
-                                marginRight: "50px"
-                              }}
-                            >
-                              <tr
+
+                          <div className='product-pdf row'>
+                            <div className=' col-7' style={{ borderRadius: "5px", }}>
+
+                              <div className='prodect-images'>
+                                {callout.primary_image_url !== null ? (
+                                  <OgioPrimaryImages
+                                    record={callout} />
+                                ) : (
+                                  <img
+                                    alt="Special Edition Party Spas"
+                                    style={{
+                                      backgroundColor: "#d1d3d4",
+                                      borderRadius: "10px",
+                                      width: "290px"
+                                    }}
+                                    src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
+                                  />
+                                )
+
+                                }
+
+                              </div>
+                              <div
+                                className="prodect-info-img mt-6" >
+
+                                <>
+                                  <div
+                                    className="prodect-images-pdf"
+                                    style={{ marginRight: "10px", marginLeft: "10", }}
+                                  >
+                                    <OgioSecondaryImages
+                                      record={callout}
+                                    />
+
+
+                              
+
+                                  </div>
+                                </>
+
+                              </div>
+
+
+                            </div>
+
+                            <div className='product-right-section col-5'>
+                              {callout && callout?.variation_sku_data &&
+                                <GioVarationSkuInfo
+                                  variation_sku_data={callout.variation_sku_data}
+                                />}
+                              <table
                                 style={{
                                   border: "1px solid #ddd",
-                                  lineHeight: "40px",
+                                  width: "300px",
+                                  marginTop: "10px",
+                                  borderRadius: "8px",
+                                  marginRight: "50px"
                                 }}
                               >
-                                <th
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    fontFamily: "'NoirPro',sans-serif",
-                                    fontSize: " 16px",
-                                    fontWeight: "500",
-                                    textAlign: "left",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  SKU
-                                </th>
-                                <th
-                                  style={{
-                                    fontFamily: "'NoirPro',sans-serif",
-                                    fontSize: " 16px",
-                                    fontWeight: "500",
-                                    textAlign: "left",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  {" "}
-                                  {callout?.sku}
-                                </th>
-                              </tr>
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Category
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.category}
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Product Model
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.product_model}{" "}
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Product Type
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  {callout.product_type}
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  border: "1px solid #ddd",
-                                  lineHeight: "40px",
-                                }}
-                              >
-                                <td
-                                  style={{
-                                    borderRight: "1px solid #ddd",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  MRP
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
-                                  1500
-                                </td>
-                              </tr>
 
 
-                            </table>
+                                {/* <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <th
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                               
+                                      fontSize: " 14px",
+                                      fontWeight: "600",
+                                      textAlign: "left",
+                                      width:"120px",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    SKU
+                                  </th>
+                                  <th
+                                    style={{                                    
+                                      fontSize: " 14px",
+                                      fontWeight: "600",
+                                      textAlign: "left",
+                                      width:"120px",
+                                      color:"#000000e0",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    {" "}
+                                    {callout?.variation_sku}
+                                  </th>
+                                </tr> */}
+
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Category
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout?.otherInfo?.category}
+                                  </td>
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Season
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.season}{" "}
+                                  </td>
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Color
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.color}
+                                  </td>
+                                </tr>
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Style Code
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.style_code}
+                                  </td>
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    MRP
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {/* {callout.otherInfo.mrp} */}
+                                    ₹{callout.otherInfo.mrp}
+                                  </td>
+                                </tr>
+
+
+                              </table>
+                            </div>
+
                           </div>
+
+
+
                         </div>
 
-                        <div style={{ width: "45%", borderRadius: "5px", display: "flex" }}>
-                          <div className='prodect-images'>
-                          {callout.primary_image_url !== null ? (
-                              <OgioPrimaryImages
-                                record={callout} />
-                            ) : (
-                              <img
-                                alt="Special Edition Party Spas"
-                                style={{
-                                  backgroundColor: "#eee",
-                                  borderRadius: "10px",
-                                  width: "225px"
-                                }}
-                                src={`https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/large_51xntqlp_Sy_L_AC_SL_1500_a17350c6f1_d08da64450.jpg`}
-                              />
-                            )
 
-                            }
-                          </div>
-
-                        
-
-                          <div
-                            className="prodect-info-img" >
-                            {(
-                              <>
-                                <div
-                                  className="prodect-images-pdf"
-                                  style={{ marginRight: "10px" }}
-                                >
-                                 < OgioSecondaryImages
-                                 record={callout}
-                                 />
-
-                                </div>
-                              </>
-                            )}
-                          </div>
-
-
-                        </div>
                       </div>
 
 
 
 
                     </div>
+
+                    <div
+                      style={{
+                        paddingTop: "120px",
+                        height: "1122px",
+                        paddingRight: "25px",
+                      }}
+                    >
+                      <div
+                        className="prodect-pdf-section"
+                        style={{ display: "flex", marginBottom: "60px", marginTop: "20px", }}
+                      >
+                        <div style={{ order: "0", }} >
+                          <div className='row'>
+                            <div className=' col-7' style={{ borderRadius: "5px", }}>
+                              <div className='prodect-images product-img'>
+                                {callout.primary_image_url !== null ? (
+                                  <OgioPrimaryImages
+                                    record={callout} />
+                                ) : (
+                                  <img
+                                    alt="Special Edition Party Spas"
+                                    style={{
+                                      backgroundColor: "#d1d3d4",
+                                      borderRadius: "10px",
+                                      width: "420px",
+
+
+                                    }}
+                                    src={`https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/1MAA008_6HBS/1MAA008_6HBS_a.jpg`}
+                                  />
+                                )
+
+                                }
+
+                              </div>
+                            </div>
+
+                            <div className='col-5'>
+                              <h2 className='fs-1 mb-8 brand-title'>
+                                {callout?.description}
+                              </h2>
+                              <p className='fs-5 brand-title'> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                              {callout && callout.variation_sku_data &&
+                                <GioVarationSkuInfo
+                                  variation_sku_data={callout.variation_sku_data}
+                                />}
+                            </div>
+                          </div>
+
+                          <div className='product-pdf row'>
+
+                            <div className='product-right-section col-12 d-flex mt-6'>
+
+
+                              <table
+                                style={{
+                                  border: "2px dashed #ddd",
+                                  width: "100%",
+                                  marginTop: "10px",
+                                  borderRadius: "8px",
+                                  marginLeft: "24px",
+
+                                }}
+                              >
+                                <tr
+                                  style={{
+                                    border: "2px dashed #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Category
+                                  </th>
+                                  <th
+                                    style={{
+                                      borderRight: "1px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Season
+                                  </th>
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Color
+                                  </th>
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Style  Code
+                                  </th>
+
+
+
+
+
+
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    MRP
+                                  </th>
+
+
+
+
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout?.otherInfo?.category}
+                                  </td>
+
+
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.season}{" "}
+                                  </td>
+
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.color}
+                                  </td>
+
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.style_code}
+                                  </td>
+
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    ₹{callout.otherInfo.mrp}
+                                  </td>
+
+
+                                </tr>
+                              </table>
+
+
+
+                            </div>
+
+                            <div
+                              className="prodect-info-img mt-6" >
+
+                              <>
+                                <div
+                                  className="prodect-images-pdf"
+                                  style={{ marginRight: "10px", marginLeft: "15px", }}
+                                >
+                                  <OgioSecondaryImages
+                                    record={callout}
+                                  />
+                                </div>
+                              </>
+
+                            </div>
+
+                          </div>
+
+
+
+                        </div>
+
+
+                      </div>
+
+
+
+
+                    </div>
+
                   </>
                 )
               )}

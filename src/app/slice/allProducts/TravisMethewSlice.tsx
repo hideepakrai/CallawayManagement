@@ -644,6 +644,7 @@ const TravisMethewSlice = createSlice({
       });
       state.travisRetailerDetails=[];
       state.otherProduct=[];
+      state.note=[]
      }, 
 
      updatePrimarySeondaryImage:(state,action)=>{

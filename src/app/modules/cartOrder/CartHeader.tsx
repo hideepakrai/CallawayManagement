@@ -131,6 +131,11 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 // set active tab adddress of retailer
 
  useEffect(()=>{
+    setRetailerAddress('');
+    setRetailerCity('');
+    setGST("");
+    setRetailerId(null)
+    setRetailerName("")
     
 if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerDetails){
 

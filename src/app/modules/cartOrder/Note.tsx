@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
 import { Timeline } from "antd";
 import TextArea from 'antd/es/input/TextArea';
 import "./Note.css"
 import { getCurrentUser } from '../../slice/UserSlice/UserSlice';
 import { useSelector } from 'react-redux';
+import { getActiveOrdertab } from '../../slice/activeTabsSlice/ActiveTabSlice';
+import { NoteModel } from '../model/noteModel/NoteModel';
+import { getTravisNote } from '../../slice/allProducts/TravisMethewSlice';
+import { getOgioNotes } from '../../slice/allProducts/OgioSlice';
 type Props = {
     isModalOpen: boolean;
     handleOk: (note: string) => void;
     handleCancel: () => void;
 };
 
+
+
 const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
     const [addNotes, setAddNotes] = useState<string>('');
+    const [tabNotes, setTabNotes] = useState<NoteModel[]>([]);
     const getCurrentUsers = useSelector(getCurrentUser)
     const date= new Date();
+    const getTravisNotes= useSelector(getTravisNote)
+    const getOgioNote= useSelector(getOgioNotes)
+     const getActiveOrdertabs= useSelector(getActiveOrdertab);
+     useEffect(()=>{
+        setTabNotes([])
+            if(getActiveOrdertabs==='Travis' &&
+            getTravisNotes &&
+            getTravisNotes.length>0
+            ){
+                setTabNotes(getTravisNotes)
+            } else if(getActiveOrdertabs==='Ogio'){
+                setTabNotes(getOgioNote)
+            }
+
+     },[getActiveOrdertabs,getTravisNotes])
+    
+    
     const onOkHandler = () => {
         const data1={
             message: "Order Initiated",

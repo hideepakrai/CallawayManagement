@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice'
+import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel'
 import { addPreOrderId, getOgioProducts, updateProgressStep } from '../../../../slice/allProducts/OgioSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
@@ -45,6 +45,19 @@ const CreatedOrderOgio = ({ resetCreatedOrder }: Props) => {
         }
       }, [getCurrentUsers])
 
+      const getAllUsers=useSelector(getUserProfile)
+      const [salesRepId, setSalesRepId]= useState<number>(0)
+     useEffect(()=>{
+      if(getAllUsers &&getAllUsers){
+        getAllUsers.map(item=>{
+          if( item.id &&item.role==="Sales Representative"){
+    
+            setSalesRepId(item.id)
+          }
+        })
+      }
+     },[getAllUsers])
+
         // getAll Order
   const [allOgioOrders, setGetAllOgioOrders] = useState<OgioBasicModel[]>([])
   const [brandId, setBrandId] = useState<number>()
@@ -70,6 +83,7 @@ const CreatedOrderOgio = ({ resetCreatedOrder }: Props) => {
     }
   }, [ogioProduct]);
 
+ 
 
     /// after getting product create order
 
@@ -77,14 +91,25 @@ const CreatedOrderOgio = ({ resetCreatedOrder }: Props) => {
         if (allOgioOrders && allOgioOrders.length > 0) {
           const now = new Date();
           const formattedTimestamp = now.toISOString();
+          const data1={
+            message: "Order Initiated",
+            name: getCurrentUsers?.name,
+            date: formattedTimestamp,
+            user_id:getCurrentUsers?.id,
+            access:"all",
+            type:"system"
+    }
           const data = {
+            note: JSON.stringify(data1),
             order_date: formattedTimestamp,
             brand_id: 4,
             user_id: getCurrentUsers.id,
             items: JSON.stringify(allOgioOrders),
             status: "Pending",
             created_at: formattedTimestamp,
-            updated_at: formattedTimestamp
+            updated_at: formattedTimestamp,
+            manager_id: managerUserId,
+           salesrep_id: salesRepId,
     
           }
           createOrder(data)

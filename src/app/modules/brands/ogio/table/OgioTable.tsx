@@ -26,6 +26,7 @@ import OgioPreOrder from '../preOrder/OgioPreOrder';
 import * as XLSX from 'xlsx';
 import ImportAllOgioProduct from '../excel/importExcel/ImportAllOgioProduct';
 import { getOtherProducts } from '../../../../slice/allProducts/CallAwayGoodsSlice';
+import { TravisPdfPrint, Variation_sku_data } from '../../../model/pdf/PdfModel';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle',];
@@ -545,12 +546,49 @@ const OgioTable = () => {
  
 
   // };
+
+  const [selectedRowVartionSku, setSelectedRowVartionSku] = useState<TravisPdfPrint[]>([])
+  const [uniqueVariationSku, setUniqueVariationSku] = useState<string[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
   const handleSelectRow = (record: OgioBasicModel, selected: boolean) => {
     console.log("selected row:", selected);
     console.log("record:", record);
+    const variationSkuSet = new Set<string>(uniqueVariationSku);
     if (selected) {
       setSelectedRow(prev => [...prev, record]);
+
+      if (record && record.variation_sku && record.variation_sku != undefined && record.variation_sku !== "") {
+        const stringArray = record.variation_sku.split(',').map(item => item.trim());
+        if (uniqueVariationSku && uniqueVariationSku.length > 0) {
+          let check = false;
+
+          uniqueVariationSku.forEach(objVarSku => {
+            const stringVar = objVarSku.split(',').map(item => item.trim());
+
+
+            if (stringVar.length > 0 && stringArray.length > 0) {
+              stringArray.forEach(item => {
+                if (stringVar.includes(item)) {
+                  check = true;
+                }
+              });
+            }
+          });
+
+          if (!check) {
+            variationSkuSet.add(record.variation_sku);
+            makePdfPring(record.variation_sku, record)
+          }
+          
+        } else {
+          variationSkuSet.add(record.variation_sku);
+          makePdfPring(record.variation_sku, record)
+        }
+      }
+      setUniqueVariationSku(Array.from(variationSkuSet))
+
+
+
       if (record.sku) {
         setSelectedRowKeys(prev => [...prev, record.sku!]);
       }
@@ -562,6 +600,46 @@ const OgioTable = () => {
       setSelectedRowKeys(updatedSelectedRowKeys);
     }
   };
+
+
+
+  const makePdfPring = (variationSku: string, record: OgioBasicModel) => {
+    const stringVar = variationSku.split(',').map(item => item.trim());
+    const totalVarSkuData: Variation_sku_data[] = [];
+    if (stringVar.length > 0) {
+      stringVar.map(varSku => {
+        const ogioData = allOgioData.find(ogioo => ogioo.sku === varSku);
+        if (ogioData) {
+          const varSkuData = {
+            sku: ogioData.sku,
+            size: ogioData.product_type,
+            qty:  ogioData.stock_90 ||0,
+            mrp: ogioData.mrp||0
+          };
+          totalVarSkuData.push(varSkuData);
+
+        }
+
+      })
+      const otherInfo = {
+        product_model:record.product_model,
+        category: record.category,
+     
+      };
+      const allVarSku = {
+        family:record.sku,
+        primary_image_url: record.primary_image_url,
+        gallery_images_url: record.gallery_images_url,
+        name: record.name,
+        description: record.description,
+        variation_sku: variationSku,
+        otherInfo: otherInfo,
+        variation_sku_data: totalVarSkuData
+      };
+      setSelectedRowVartionSku(prev => [...prev, allVarSku])
+    }
+
+  }
 // useEffect(()=>{
 //   console.log("selected row",selectedRow)
 // },[selectedRow])
@@ -909,7 +987,7 @@ const OgioTable = () => {
           rowSelection={rowSelection}
           // rowSelection={{
           //   onSelect: (record, selected: boolean,selectedRows: OgioBasicModel[]) => { handleSelctRow(record,selected) },
-            
+          // }}
           expandable={{
             expandedRowRender,
 
@@ -971,7 +1049,7 @@ const OgioTable = () => {
       />
 
       {isPDF && <OgioProdPdf
-        selectedRow={selectedRow}
+        selectedRow={selectedRowVartionSku}
         resetSelectedRow={handleResetSelectedRow}
       />}
 
