@@ -140,6 +140,8 @@ sa
             </div>
           </div>
         </div>
+
+        
         {getLoadings && <Loading />}
 
         <Row className='container'>

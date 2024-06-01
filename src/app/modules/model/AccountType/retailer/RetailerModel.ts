@@ -1,5 +1,5 @@
 export interface RetailerModel{
-  role: string;
+    role?: string;
     phone?: number;
     id?:number,
    user_id?:number,

@@ -7,7 +7,7 @@ import { CurentUser } from '../../model/useAccount/CurrentUser'
 import Loading from '../../loading/Loading'
 import { getLoading } from '../../../slice/loading/LoadingSlice'
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
-
+import ManagerSlider from "../managerprofile/ManagerSlider"
 
 import GetAllorder from '../../orderPage/GetAllorder'
 import AllPendingOrder from '../managerprofile/AllPendingOrder'
@@ -33,14 +33,17 @@ const AdminHome = () => {
     
   return (
     <>
+        <ManagerSlider />
        <div className='content-pro'>
-        <div className="toolbar  pb-20 mb-3 " id="kt_toolbar">
+        <div className="toolbar pb-20 mb-3 " id="kt_toolbar">
           <div id="kt_toolbar_container" className="container d-flex flex-stack">
             <div className="d-flex ">
               <div className='profile-page'>
                 <img style={{ backgroundColor: "#ddd", }} src={profilelogo} alt="Profile"></img>
                 <span className="d-flex text-white  my-1 fs-5  profle-role">Manager </span>
               </div>
+
+
 
 
               <div className='pt-3 mx-6'>
@@ -121,6 +124,9 @@ sa
             </div>
           </div>
         </div>
+
+
+        
         {getLoadings && <Loading />}
 
         <Row className='container'>
