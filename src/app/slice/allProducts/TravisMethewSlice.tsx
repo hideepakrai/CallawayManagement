@@ -3,6 +3,12 @@ import { BasicModelTravis, BasicModelTravisGraph, TravisMathewAttribute ,ImageTy
 import {ExcelModelTravis} from "../../modules/model/travis/TravisExcel"
 import { start } from "repl";
 import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
+import { NoteModel } from "../../modules/model/noteModel/NoteModel";
+
+
+
+
+
 interface ProductState {
     travisMethew: BasicModelTravis[],
     otherProduct:BasicModelTravis[],
@@ -14,9 +20,12 @@ interface ProductState {
     preOrderId:number;
     progressStep:number,
     isUploadImge:boolean,
-    travisRetailerDetails:RetailerModel[]
+    travisRetailerDetails:RetailerModel[],
+    note:NoteModel[];
+    iSubmitModel:boolean,
     
 }
+
 
 const initialState: ProductState = {
     travisMethew: [],
@@ -29,7 +38,10 @@ const initialState: ProductState = {
     preOrderId:0,
     progressStep:0,
     isUploadImge:false,
-    travisRetailerDetails:[]
+    travisRetailerDetails:[],
+    note:[],
+    iSubmitModel:false
+  
 
 };
 const TravisMethewSlice = createSlice({
@@ -48,10 +60,15 @@ const TravisMethewSlice = createSlice({
        startUploadTravisImage:(state)=>{
         state.isUploadImge = true
        },
+       addNote:(state,action)=>{
+        state.note.push(action.payload.note)
+       },
        stopUploadTravisImage:(state)=>{
         state.isUploadImge = false
        },
-       
+       submitModel:(state,action)=>{
+        state.iSubmitModel= action.payload.isSubmitModel
+       },
        reloadTravisProduct:(state, action)=>{
         state.travisMethew=action.payload.reloadTravis
        
@@ -689,7 +706,9 @@ export const {
     updateProgressStep,
     stopUploadTravisImage,
     startUploadTravisImage,
-    addTravisReatailerDetails
+    addTravisReatailerDetails,
+    addNote,
+    submitModel
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];
@@ -724,6 +743,14 @@ export const getTravisuploadImage = (state: { travisMethew: ProductState }): boo
 };
 export const getTravisRetailerDetail = (state: { travisMethew: ProductState }): RetailerModel[] => {
     return state.travisMethew?.travisRetailerDetails|| [];
+    
+};
+export const getTravisNote = (state: { travisMethew: ProductState }): NoteModel[] => {
+    return state.travisMethew?.note|| [];
+    
+};
+export const getSubmitModel = (state: { travisMethew: ProductState }): boolean => {
+    return state.travisMethew?.iSubmitModel|| false;
     
 };
 

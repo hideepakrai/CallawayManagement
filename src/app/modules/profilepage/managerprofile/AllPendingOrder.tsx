@@ -23,7 +23,7 @@ const AllPendingOrder = () => {
         const allpend: AccountOrder[] = [];
         if (getUserOrder && getUserOrder.length > 0) {
             getUserOrder.forEach(item => {
-                if (item.status != "Completed") {
+                if (item.status != "Complete") {
                     allpend.push(item);
                 }
             });

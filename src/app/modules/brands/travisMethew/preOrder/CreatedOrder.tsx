@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { addPreOrderId, getTravisProducts, updateProgressStep } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addNote, addPreOrderId, getTravisProducts, updateProgressStep } from '../../../../slice/allProducts/TravisMethewSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { CartModel } from '../../../model/CartOrder/CartModel'
 import { CreateOrder } from '../../../cartOrder/orderApi/OrderAPi'
@@ -122,6 +122,9 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
         salesrep_id: salesRepId,
 
       }
+      dispatch(addNote({
+        note:data1
+      }))
       createOrder(data)
     }
   }, [allTravisOrders,salesRepId,managerUserId])

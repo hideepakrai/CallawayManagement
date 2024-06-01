@@ -114,7 +114,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             setRetailerAddress('');
             setRetailerCity('');
             setGST("");
-            setRetailerId(0)
+            setRetailerId(null)
             setRetailerName("")
         }
 
@@ -161,7 +161,7 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
     setRetailerAddress('');
     setRetailerCity('');
     setGST("");
-    setRetailerId(0)
+    setRetailerId(null)
     setRetailerName("")
 }
  },[getActiveOrdertabs,getTravisRetailerDetails,getOgioRetailerDetails])

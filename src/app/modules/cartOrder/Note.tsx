@@ -40,7 +40,7 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
 
         handleOk(JSON.stringify(combinedDataObject));
         setAddNotes(''); // Optionally reset the notes after confirming
-        
+       
     };
 
     

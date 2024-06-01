@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addNote, getTravisNote, getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
 import { useSelector } from 'react-redux'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { CartModel } from '../../../model/CartOrder/CartModel'
 import { UpdateOrder } from '../../../cartOrder/orderApi/OrderAPi'
-
+import {useDispatch} from "react-redux"
 type Props = {
   resetUpdateOrder: () => void,
   preorderId: number
@@ -16,7 +16,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
   const [brandId, setBrandId] = useState<number>()
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts);
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
-
+  const dispatch= useDispatch()
   useEffect(() => {
     const ogio: BasicModelTravis[] = [];
     if (getProduct && getProduct.length > 0 &&preorderId) {
@@ -84,7 +84,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
  },[getAllUsers])
 
 
-
+const getTravisNotes= useSelector(getTravisNote)
  const [totalAmount, setTotalAmount] = useState<number>()
  const [discountAmount, setDiscountAmount] = useState<number>()
  const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
@@ -116,25 +116,18 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
       getCurrentUsers &&
       totalAmount&&
       discountAmount &&
-      totalNetBillAmount
+      totalNetBillAmount &&
+      getTravisNotes
     ) {
       
       const now = new Date();
       const formattedTimestamp = now.toISOString();
-      const data1={
-        message: "Order Initiated",
-        name: getCurrentUsers?.name,
-        date: formattedTimestamp,
-        user_id:getCurrentUsers?.id,
-        access:"all",
-        type:"system"
-}
-     
+
       const update = {
         id: preorderId,
         order_date: formattedTimestamp,
         brand_id: brandId,
-        note:JSON.stringify(data1),
+        note:JSON.stringify(getTravisNotes),
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),
         status: "Pending",

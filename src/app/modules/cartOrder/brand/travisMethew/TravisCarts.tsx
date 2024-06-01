@@ -28,6 +28,7 @@ import AlertTravis from "./AlertTravis"
 import RejectOrderTravis from "./RejectOrderTravis"
 import CompletedOrderTravis from './CompletedOrderTravis';
 import TravisOrderPdf from './TravisOrderPdf';
+import SubmitModel from '../../SubmitModel';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -560,11 +561,26 @@ const TravisCarts = () => {
   const [isUpdateRedux, setIsUpdateRedux] = useState(false)
   const [isUpdateStrapi, setIsUpdateStrapi] = useState(false)
   const [isSubmitOrder, setIsSubmitOrder] = useState(false)
+  const [isSubmitModel, setIsSubmitModel] = useState(false)
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
   const hanldeSubmitOrder = () => {
-    setIsSubmitOrder(true)
+    // setIsSubmitOrder(true)
+    setIsSubmitModel(true)
+    console.log("submited")
+    // dispatch(submitModel({
+    //   isSubmitModel: true,
+    // }))
   }
 
+
+  const handleSumbitOk=() => {
+    setIsSubmitModel(false)
+
+    setIsSubmitOrder(true)
+  }
+  const handleSumbitCancel=() => {
+    setIsSubmitModel(false)
+  }
   const handleResetSubmitOrder = () => {
     setIsSubmitOrder(false)
     setIsUpdateStrapi(true)
@@ -818,6 +834,8 @@ const TravisCarts = () => {
 
       />}
 
+    
+
       {
         isSubmitOrder &&
         <TravisSubmitOrder
@@ -859,7 +877,14 @@ const TravisCarts = () => {
         handleOk={handleOkNote}
         handleCancel={handleCancelNote}
       />
-
+        {/* submit model */}
+        
+      <SubmitModel
+      isSubmit={isSubmitModel}
+      onOkHandler={handleSumbitOk}
+      handleCancel={handleSumbitCancel}
+      />
+           
       <AlertTravis
         message={message}
         messageType={messageType}
