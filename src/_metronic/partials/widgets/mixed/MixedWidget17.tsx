@@ -89,7 +89,7 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-warning px-4 pt-7 rounded-2 me-7 mb-7'>
+            <div className='col bg-light-warning px-4 pt-7 rounded-2 me-7 mb-7 cart-brand-section'>
               {/* <KTIcon iconName='chart-simple' className='fs-3x text-warning d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6' style={{color:"#141414"}} >
               <span className='fs-1 fw-bold text-warning' style={{lineHeight:"35px",}}>{ogioQuantity} </span> <br></br> Total Products     
@@ -98,7 +98,7 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
             {/* end::Col */}
             {/* begin::Col */}
 
-            <Link className ={ clsx ('col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7')} to={"/brand/callaway/goods"} > 
+            <Link className ={ clsx ('col bg-light-primary px-4 pt-4 pb-8 rounded-2 mb-7 cart-brand-section')} to={"/brand/callaway/goods"} > 
               <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
               <a href='#' className=' fw-semibold fs-6'style={{color:"#141414"}}  >
               Create Order
@@ -111,7 +111,7 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-danger px-4 py-8 rounded-2 me-7'>
+            <div className='col bg-light-danger px-4 py-8 rounded-2 me-7 cart-brand-section'>
               {/* <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
@@ -120,7 +120,7 @@ const MixedWidget17: FC<Props> = ({className, chartColor, chartHeight, strokeCol
             </div>
             {/* end::Col */}
             {/* begin::Col */}
-            <div className='col bg-light-success px-6 py-8 rounded-2'>
+            <div className='col bg-light-success px-6 py-8 rounded-2 cart-brand-section'>
               {/* <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                

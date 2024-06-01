@@ -20,7 +20,7 @@ const TilesWidget6 = (props: Props) => {
   const {className, svgIcon, titleClass, descriptionClass, iconClass, title, description} = props
   return (
     
-       <Link className ={clsx('card', className)} to={"/brand/callaway/goods" }>
+       <Link className ={clsx('card cart-brand-section', className)} to={"/brand/callaway/goods" }>
       <div className='card-body d-flex flex-column justify-content-between'>
 
         <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/icon_callway_f25555115b.png'></img>

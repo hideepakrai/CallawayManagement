@@ -247,7 +247,7 @@ const OgioImportExcel = ({ onClose, isExport,excelExport,printPdf ,selectedRow }
        
         onCancel={handleCancel}
       >
-      
+        <h3>Export  Products</h3>
         
         <div className="mt-5 downlaod-excel ">
           <button className="export-button pdf"
@@ -258,6 +258,11 @@ const OgioImportExcel = ({ onClose, isExport,excelExport,printPdf ,selectedRow }
             onClick={handleExcel}
           >
             <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
+
+            <button className="export-button pro-btn-table hover-scale"
+            // onClick={handlePdf}
+          > <i className="bi bi-file-earmark-arrow-up fs-2"></i>Export  ALL</button>
+
         </div>
       </Modal>
     </div>

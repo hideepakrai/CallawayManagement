@@ -4,6 +4,7 @@ import {KTIcon} from '../../../helpers'
 import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { getApparelProducts } from '../../../../app/slice/allProducts/CallawayApparelSlice'
+import "./TilesWidget5.css"
 type Props = {
   className?: string
   svgIcon?: string
@@ -19,7 +20,7 @@ const TilesWidget5 = (props: Props) => {
   const getApparelProduct= useSelector(getApparelProducts)
   const {className, svgIcon, titleClass, descriptionClass, iconClass, title, description} = props
   return (
-    <Link className ={clsx('card', className)} to={"/brand/callaway/apparel" }>
+    <Link className ={clsx('card cart-brand-section', className)} to={"/brand/callaway/apparel" }>
 
       <div className='card-body d-flex flex-column justify-content-between '>
 

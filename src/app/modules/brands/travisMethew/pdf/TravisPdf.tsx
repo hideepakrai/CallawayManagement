@@ -81,19 +81,19 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
           <Card id="catelog" ref={contentToPrint}>
             <div>
-           
-                <div className='mb-18' style={{ textAlign: 'center', height:"1122px", backgroundColor:"#000", paddingTop:"300px"}}>
 
-                  <div >
-                    <img style={{ width: "200px", paddingTop: "60px" }} src={TravisLogo}></img>
-                  </div>
-                  <h2 style={{ paddingTop: "40px", paddingBottom: "80px", fontSize: "45px", color: "#fff", fontWeight: "400", letterSpacing:"4px" }}>Travis Mathew</h2>
+              <div className='mb-18' style={{ textAlign: 'center', height: "1122px", backgroundColor: "#000", paddingTop: "300px" }}>
 
-                  <p  style={{ fontSize: "16px", paddingLeft: "20px", color: "#fff", paddingRight: "20px", }}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                  </p>
+                <div >
+                  <img style={{ width: "200px", paddingTop: "60px" }} src={TravisLogo}></img>
                 </div>
-   
+                <h2 style={{ paddingTop: "40px", paddingBottom: "40px", fontSize: "40px", color: "#fff", fontWeight: "400", letterSpacing: "4px", fontFamily:"Poppins" }}>Travis Mathew</h2>
+
+                <p style={{ fontSize: "16px", paddingLeft: "30px", color: "#fff", paddingRight: "30px", fontFamily:"Poppins",fontWeight:"100", }}>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                </p>
+              </div>
+
 
               {/* prodect two  start*/}
             </div>
@@ -109,7 +109,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                         // borderBottom: "1px solid #ddd",
                         paddingTop: "120px",
                         paddingLeft: "25px",
-                        height:"1122px",
+                        height: "1122px",
                         paddingRight: "25px",
                       }}
                     >
@@ -149,19 +149,19 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
                               </div>
                               <div
-                            className="prodect-info-img mt-6" >
+                                className="prodect-info-img mt-6" >
 
-                            <>
-                              <div
-                                className="prodect-images-pdf"
-                                style={{ marginRight: "10px", marginLeft: "10", }}
-                              >
-                                <SecondaryImage
-                                  record={callout}
-                                />
+                                <>
+                                  <div
+                                    className="prodect-images-pdf"
+                                    style={{ marginRight: "10px", marginLeft: "10", }}
+                                  >
+                                    <SecondaryImage
+                                      record={callout}
+                                    />
 
 
-                                {/* <span style={{ width: "150px" }} className="">
+                                    {/* <span style={{ width: "150px" }} className="">
                                       <img
                                         alt="Special Edition Party Spas"
                                         style={{
@@ -212,10 +212,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                       />
                                     </span>  */}
 
-                              </div>
-                            </>
+                                  </div>
+                                </>
 
-                          </div>
+                              </div>
 
 
                             </div>
@@ -235,7 +235,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                 }}
                               >
 
-                                
+
                                 {/* <tr
                                   style={{
                                     border: "1px solid #ddd",
@@ -358,29 +358,11 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                       paddingLeft: "10px",
                                     }}
                                   >
-                                    Season
+                                    MRP
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {callout.otherInfo.season}
-                                  </td>
-                                </tr>
-
-                                <tr
-                                  style={{
-                                    border: "1px solid #ddd",
-                                    lineHeight: "40px",
-                                  }}
-                                >
-                                  <td
-                                    style={{
-                                      borderRight: "1px solid #ddd",
-                                      paddingLeft: "10px",
-                                    }}
-                                  >
-                                    Gender
-                                  </td>
-                                  <td style={{ paddingLeft: "10px" }}>
-                                   {callout.otherInfo.gender}
+                                    {/* {callout.otherInfo.mrp} */}
+                                    ₹{callout.otherInfo.mrp}
                                   </td>
                                 </tr>
 
@@ -390,7 +372,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
                           </div>
 
-                       
+
 
                         </div>
 
@@ -401,6 +383,195 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
 
                     </div>
+
+                    <div
+                      style={{
+                        paddingTop: "120px",
+                        height: "1122px",
+                        paddingRight: "25px",
+                      }}
+                    >
+                      <div
+                        className="prodect-pdf-section"
+                        style={{ display: "flex", marginBottom: "60px", marginTop: "20px", }}
+                      >
+                        <div  style={{ order: "0", }} >
+                          <div className='row'>
+                          <div className=' col-7' style={{ borderRadius: "5px", }}>
+                            <div className='prodect-images product-img'>
+                              {callout.primary_image_url !== null ? (
+    <PrimaryImage
+      record={callout} />
+  ) : (
+                              <img
+                                alt="Special Edition Party Spas"
+                                style={{
+                                  backgroundColor: "#d1d3d4",
+                                  borderRadius: "10px",
+                                  width: "420px",
+                
+
+                                }}
+                                src={`https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/1MAA008_6HBS/1MAA008_6HBS_a.jpg`}
+                              />
+                              ) 
+
+                            } 
+
+                            </div>
+                          </div>
+
+                          <div className='col-5'>
+                          <h2 className='fs-1 mb-8'>
+                            {callout?.description}
+                          </h2>
+                          <p className='fs-5'> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                          {callout && callout.variation_sku_data &&
+                                <VarationSkuInfo
+                                  variation_sku_data={callout.variation_sku_data}
+                                />}
+                          </div>
+                          </div>
+
+                          <div className='product-pdf row'>
+
+                            <div className='product-right-section col-12 d-flex mt-6'>
+                        
+                              
+                             <table
+                                style={{
+                                  border: "2px dashed #ddd",
+                                   width: "100%",
+                                  marginTop: "10px",
+                                  borderRadius: "8px",
+                                   marginLeft: "24px",
+                          
+                                }}
+                              >
+                                <tr
+                                  style={{
+                                    border: "2px dashed #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Category
+                                  </th>
+                                  <th
+                                    style={{
+                                      borderRight: "1px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Season
+                                  </th>
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Color
+                                  </th>
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Style  Code
+                                  </th>
+
+                                
+
+
+                                
+
+                                  <th
+                                    style={{
+                                      borderRight: "2px dashed #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    MRP 
+                                  </th>
+
+
+
+                             
+                                </tr>
+
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                       <td style={{ paddingLeft: "10px" }}>
+                                    {callout?.otherInfo?.category}
+                                  </td>
+
+                               
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.season}{" "}
+                                  </td>
+
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.color}
+                                  </td>
+
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {callout.otherInfo.style_code}
+                                  </td>
+                              
+                                  <td style={{ paddingLeft: "10px" }}>
+                                  ₹{callout.otherInfo.mrp}
+                                  </td>
+
+                                  
+                                </tr>
+                              </table>
+              
+
+                       
+                            </div>
+
+                            <div
+                                className="prodect-info-img mt-6" >
+
+                                <>
+                                  <div
+                                    className="prodect-images-pdf"
+                                    style={{ marginRight: "10px", marginLeft: "15px", }}
+                                  >
+                                    <SecondaryImage
+                                      record={callout}
+                                    />
+                                  </div>
+                                </>
+
+                              </div>
+
+                          </div>
+
+
+
+                        </div>
+
+
+                      </div>
+
+
+
+
+                    </div>
+
                   </>
                 )
               )}

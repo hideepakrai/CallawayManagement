@@ -112,6 +112,11 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelEx
             onClick={handleExcel}
           >
             <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
+
+            <button className="export-button pro-btn-table hover-scale"
+            // onClick={handlePdf}
+          > <i className="bi bi-file-earmark-arrow-up fs-2"></i>Export  ALL</button>
+          
         </div>
       </Modal>
     </div>

@@ -16,6 +16,7 @@ const SecondaryImage = ({ record }: Props) => {
       {record.primary_image_url &&
       imagePathsArray.length > 0 ? (
         imagePathsArray.map((path, index) => (
+          // <span key={index} style={{ width: "180px", marginLeft:"10px",  }}>
           <span key={index} style={{ width: "180px", marginLeft:"10px",  }}>
             <img
               alt="Secondary"

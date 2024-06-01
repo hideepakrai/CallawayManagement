@@ -41,6 +41,7 @@ export interface TravisPdfPrint{
 } 
 
  export interface OtherInfoData{
+    mrp?: string;
     color?:string;
     style_code?:string;
     category?:string;

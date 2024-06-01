@@ -57,8 +57,8 @@ export function HeaderWrapper() {
             />
             <img
               alt='Logo'
-              src={toAbsoluteUrl('media/logos/logo-header.png')}
-              className='logo-sticky h-40px'
+              src={toAbsoluteUrl('media/logos/logo-white.png')}
+              className='logo-sticky h-50px'
             />
           </Link>
         </div>

@@ -27,7 +27,7 @@ const TilesWidget8 = (props: Props) => {
   },[getTravisProduct])
   return (
    
-      <Link className ={clsx('card', className)} to={"/brand/travis-methew"}>
+      <Link className ={clsx('card cart-brand-section', className)} to={"/brand/travis-methew"}>
       <div className='card-body d-flex flex-column justify-content-between'>
       {/* <KTIcon iconName={svgIcon || ''} className={clsx(iconClass, 'fs-2hx ms-n1 flex-grow-1')} /> */}
        <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/tm_thum_23fdeb8c29.png'></img>

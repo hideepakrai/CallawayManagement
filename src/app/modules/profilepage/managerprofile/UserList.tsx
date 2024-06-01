@@ -1,181 +1,141 @@
-import React,{useState, useEffect} from 'react'
-import {Badge, Button} from "antd";
-import { color } from 'html2canvas/dist/types/css/types/color';
+import React, { useEffect,useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Badge, Button } from "antd";
 import { getUserProfile } from '../../../slice/UserSlice/UserSlice';
-import { useSelector } from 'react-redux';
-import "./UserList.css"
+import { getRetailers } from '../../../slice/retailer/RetailerSlice';
+import { RetailerModel } from '../../model/AccountType/retailer/RetailerModel';
+import { KTIcon } from '../../../../_metronic/helpers';
+import { Tooltip } from 'antd';
+import "./UserList.css";
+
 const UserList = () => {
+  const dispatch = useDispatch();
+  const allRetailers = useSelector(getUserProfile); // Assuming this selector returns the retailers, update if needed
+ 
+  useEffect(() => {
+    // dispatch(getRetailers());
+  }, [dispatch]);
 
-
-  const getUserProfiles= useSelector(getUserProfile)
-
-  return (
-    <div className='d-flex row'>
-
-{getUserProfiles &&
-getUserProfiles.length>0 &&
-getUserProfiles.map((item)=>{
-  return (
-    <div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}}  >
-          <div className="card-header d-inline py-5 p-0 px-2 " style={{ backgroundColor: "#000", color: "#fff", border:"none", height:"107px",  }} >
-            
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"14px", lineHeight:"20px"}} >{item.name}</h1>
-            <h4 className=" text-center text-white">{item.role} </h4>
-
-          </div>
-
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
-
-            <ul className="card-list m-0" >
-              <li >
-                <i  className="bi bi-person-lines-fill "></i>
-                <span>{item.phone}</span>
-              </li>
-              <li className='list-support'>
-                <i className="bi bi-envelope list-icon"></i>
-                <span className='list-text'>{item.email}</span>
-              </li>
-           
-
-              
-            </ul>
-          </div>
-
-
-        
-</div>
-
-  )
   
-})
+  return (
+    <div className='card-body py-3'>
+      <div className='table-responsive'>
+        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
+          <thead>
+            <tr className='fw-bold text-muted'>
+              <th className='w-25px'>
+                <div className='form-check form-check-sm form-check-custom form-check-solid'>
+                  <input
+                    className='form-check-input'
+                    type='checkbox'
+                    value='1'
+                    data-kt-check='true'
+                    data-kt-check-target='.widget-9-check'
+                  />
+                </div>
+              </th>
+              <th className='min-w-100px'>Name</th>
+              <th className='min-w-100px'>Email</th>
+              <th className='min-w-100px'>Phone</th>
+              <th className='min-w-100px'>GSTIN</th>
+              <th className='min-w-100px'>Address</th>
 
-}
-
-{/* 
-<div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}}  >
-          <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
-            
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Ankur Shriv</h1>
-            <h4 className=" text-center text-white">MANAGER </h4>
-
-          </div>
-
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
-
-            <ul className="card-list m-0" >
-              <li>
-                <i className="bi bi-person-lines-fill"></i>
-                <span>+91142365478</span>
-              </li>
-              <li>
-                <i className="bi bi-envelope"></i>
-                <span>hello@ankurshriv.com</span>
-              </li>
            
-
-              
-            </ul>
-          </div>
-
-
-        
-</div>
-
-
-<div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}} >
-          <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
-            
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Manish Sharma</h1>
-            <h4 className=" text-center text-white">MANAGER </h4>
-
-          </div>
-
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
-
-            <ul className="card-list m-0" >
-              <li>
-                <i className="bi bi-person-lines-fill"></i>
-                <span>+9114829659</span>
-              </li>
-              <li>
-                <i className="bi bi-envelope"></i>
-                <span>hello@manishsharma.com</span>
-              </li>
            
-
-              
-            </ul>
-          </div>
-
-
-        
-</div>
-
-
-<div className="card card-custom    card-user-list " style={{width:"260px", padding:"0"}} >
-          <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
-            
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Manish Gupta</h1>
-            <h4 className=" text-center text-white">MANAGER </h4>
-
-          </div>
-
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
-
-            <ul className="card-list m-0" >
-              <li>
-                <i className="bi bi-person-lines-fill"></i>
-                <span>+9114829659</span>
-              </li>
-              <li>
-                <i className="bi bi-envelope"></i>
-                <span>hello@manishgupta.com</span>
-              </li>         
-            </ul>
-          </div>        
-</div>
-
-<div className="card card-custom    card-user-list col-lg-2" style={{width:"260px", padding:"0"}}  >
-          <div className="card-header d-inline py-5" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
-            
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"22px"}} >Deepak Sharma</h1>
-            <h4 className=" text-center text-white">MANAGER </h4>
-
-          </div>
-
-          <div className="card-body" style={{backgroundColor:"#fafafa", padding:"18px 0px 5px 0px"}}>
-
-            <ul className="card-list m-0" >
-              <li>
-                <i className="bi bi-person-lines-fill"></i>
-                <span>+9114829659</span>
-              </li>
-              <li>
-                <i className="bi bi-envelope"></i>
-                <span>hello@deepaksharma.com</span>
-              </li>
            
+            </tr>
+          </thead>
+          <tbody>
+            {allRetailers && allRetailers.length > 0 && allRetailers.map((item: RetailerModel) => {
+              return (
+                <tr key={item.id}>
+                  <td>
+                    <div className='form-check form-check-sm form-check-custom form-check-solid'>
+                      <input className='form-check-input widget-9-check' type='checkbox' value='1' />
+                    </div>
+                  </td>
+                  <td>
 
-              
-            </ul>
-          </div>
+                    <div className='d-flex align-items-center ' style={{ width: '250px' }}>
+                      <div className='d-flex justify-content-start flex-column'>
+                        <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-7'>
+                          {item.name}
+                        </a>
+                        <span className='text-muted fw-semibold text-muted d-block fs-6'>
+                        {item.role}
+                        </span>
+                      </div>
+                    </div>
+                  </td>
 
+                  <td style={{ width: '180px' }}>
+                    <span style={{ width: '250px' }}  className='text-gray-900 fw-bold  d-block fs-6'>
+                    {item.email}
 
-        
-</div> */}
+                    <i className="bi bi-copy mx-2 cursor-pointer"></i>
+                  
+                                  
+                                  
+                               
+                            
 
+                    </span>
+                    <span className='text-muted fw-semibold text-muted d-block fs-7'>  
+                    </span>
+                  </td>
 
+                  <td style={{ width: '220px' }}>
+                    <span  className='text-gray-900 fw-bold  d-block fs-5'>
+                    {item.phone}
+                    {/* +122 5855 58652 */}
+                    </span>
+                    <span className='text-muted fw-semibold text-muted d-block fs-7'>
+                  
+                    </span>
+                  </td>
 
+                  <td style={{ width: '220px' }}>
+                    <span   className='text-gray-900 fw-bold  d-block fs-6'>
+                    {item.gstin}
+                    <i className="bi bi-copy mx-2 cursor-pointer"></i>
+                    </span>
+                    <span className='text-muted fw-semibold text-muted d-block fs-7'>
+            
+                    </span>
+                  </td>
 
+                  <td style={{ width: '320px' }}>
+                    <span  className='text-gray-900 fw-bold  d-block fs-7'>
+                    {item.address}
+                    </span>
+                    <span className='text-muted fw-semibold text-muted d-block fs-7'>
+            
+                    </span>
+                  </td>
+                 
+               
 
-
-
-
-
-      
+                  {/* <td>
+                    <div className='d-flex justify-content-end flex-shrink-0'>
+                      <a href='#' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
+                        <KTIcon iconName='switch' className='fs-3' />
+                      </a>
+                      <a href='#' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
+                        <KTIcon iconName='pencil' className='fs-3' />
+                      </a>
+                      <a href='#' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'>
+                        <KTIcon iconName='trash' className='fs-3' />
+                      </a>
+                    </div>
+                  </td> */}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserList
-
+export default UserList;

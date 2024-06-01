@@ -102,15 +102,20 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excel
         </Dragger> */}
 
 
-        <div className="mt-5 downlaod-excel ">
-          <button className="export-button pdf"
+        <div className="mt-5 downlaod-excel text-center py-4">
+          <button className="export-button pdf hover-scale"
             onClick={handlePdf}
           > <i className="bi bi-file-pdf fs-2"></i>Export to PDF</button>
 
-          <button className="export-button excel"
+          <button className="export-button excel hover-scale"
             onClick={handleExcel}
           >
             <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
+
+            <button className="export-button pro-btn-table hover-scale"
+            // onClick={handlePdf}
+          > <i className="bi bi-file-earmark-arrow-up fs-2"></i>Export  ALL</button>
+          
         </div>
       </Modal>
     </div>

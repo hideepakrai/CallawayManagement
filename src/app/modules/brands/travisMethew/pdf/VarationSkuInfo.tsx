@@ -2,7 +2,7 @@ import React from 'react'
 import { Space, Table, Tag } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
 import { Variation_sku_data } from '../../../model/pdf/PdfModel';
-
+import "./VarationSkuInfo.css"
 type Props={
     variation_sku_data:Variation_sku_data[]
 }

@@ -27,7 +27,7 @@ const TilesWidget7 = (props: Props) => {
     }
   },[getOgioProduct])
   return (
-    <Link className ={clsx('card', className)} to={"/brand/ogio" }>      
+    <Link className ={clsx('card cart-brand-section', className)} to={"/brand/ogio" }>      
       <div className='card-body d-flex flex-column justify-content-between'>
        
         <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/ogio_favicon_ac591c347e_8de0fee6f4.png'></img>
