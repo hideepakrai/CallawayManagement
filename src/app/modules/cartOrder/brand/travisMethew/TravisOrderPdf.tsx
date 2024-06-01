@@ -164,7 +164,7 @@ const columns: TableColumnsType<BasicModelTravis> = [
          
         <div className="bg-black  py-12 mx-7 d-flex" style={{ borderRadius: "5px" }}>
         <div style={{ width: "100%", textAlign: "center" }} >
-          {/* <img width={200} src={BrandLogo}></img> */}
+          
         </div>
       </div>
 

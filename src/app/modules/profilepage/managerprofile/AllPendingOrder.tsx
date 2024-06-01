@@ -9,6 +9,8 @@ import "./AllPendingOrder.css";
 import Edit from "./Edit";
 import UpdateStatus from "./UpdateStatus";
 import OrderPdfFormate from "../../cartOrder/orderPdf/OrderPdfFormate";
+import { isNull } from "util";
+import TravisPdfPrintOrder from "../pdfformate/TravisPdfPrintOrder";
 
 const AllPendingOrder = () => {
     const [status, setStatus] = useState<string>("");
@@ -71,7 +73,7 @@ const AllPendingOrder = () => {
                 if (value === 3) {
                     brandName = "Travis Mathew";
                 } else {
-                    brandName = "Other Brand"; // Default value or other brand name
+                    brandName = "Ogio"; // Default value or other brand name
                 }
 
                 return <span>{brandName}</span>; // Render the brand name inside a span
@@ -245,10 +247,25 @@ const AllPendingOrder = () => {
     };
 
     const [recordPdf, setRecordPdf] = useState<AccountOrder | null>(null);
-
+     const [isTravis, setIsTravis]= useState<boolean>(false);
+     const [isOgio, setIsOgio]= useState<boolean>(false);
+     const [isOrder, setIsOrder]= useState<boolean>(false);
     const handleDownload = (record: AccountOrder) => {
+        console.log("record: " , record)
+        setRecordPdf(null)
+        setIsTravis(false)
+        setIsOgio(false)
+        if(record.brand_id  &&record.brand_id===3){
+            setIsOgio(false)
+            setIsTravis(true)
         setRecordPdf(record);
-    };
+    } 
+    else if(record.brand_id && record.brand_id===4){
+        setIsOgio(true)
+            setIsTravis(false)
+        setRecordPdf(record);
+    }
+    }
 
    
     
@@ -256,6 +273,10 @@ const AllPendingOrder = () => {
         setRecordPdf(null)
     }
 
+    const handleResetTravis=()=>{
+        setIsTravis(false)
+        setRecordPdf(null)
+    }
     return (
         <>
             <div className="cart-table mb-5">
@@ -291,10 +312,20 @@ const AllPendingOrder = () => {
                     />
                 )}
             </div>
-            {recordPdf && <OrderPdfFormate
+            {/* {recordPdf && <OrderPdfFormate
                 recordPdf={recordPdf}
                 resetSelectedRow={handleRecordPdf}
-            />}
+            />} */}
+
+            { isTravis &&
+            recordPdf &&
+            <TravisPdfPrintOrder
+            recordPdf={recordPdf}
+            resetTravisPdf={handleResetTravis}
+            />
+            }
+
+            
         </>
     );
 };
