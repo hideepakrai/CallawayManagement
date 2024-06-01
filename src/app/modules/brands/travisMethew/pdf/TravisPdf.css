@@ -20,3 +20,21 @@
 
 
 
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('/src/_metronic/RobbatFont/RobotoCondensed-Italic-VariableFont_wght.ttf');
+    src: url('/path-to-your-font/Digital-7.eot?#iefix') format('embedded-opentype'),
+         url('/path-to-your-font/Digital-7.woff2') format('woff2'),
+         url('/src/_metronic//RobbatFont/RobotoCondensed-VariableFont_wght.ttf'),
+         url('/src/_metronic/RobbatFont/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .brand-title {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+
+
+
