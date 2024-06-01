@@ -31,6 +31,7 @@ import TravisOrderPdf from './TravisOrderPdf';
 import SubmitModel from './SubmitModel';
 import TravisApproveModel from './TravisApproveModal';
 import TravisCompleteModel from './TraviscompleteModal';
+import TravisRejectedModel from './TravisRejectedModal';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -623,11 +624,12 @@ const TravisCarts = () => {
   const [isApproveModel, setIsApproveModel] = useState<boolean>(false)
   const [isCompletedModel, setIsCompletedModel] = useState<boolean>(false)
   const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
+  const [isRejectedModel, setIsRejectedModel] = useState<boolean>(false)
   const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
   const [statusUpdate, setStatusUpdate] = useState<string>("")
   const handleApproveOk=()=>{
     setIsApproveModel(false)
-    setIsApproveModel(true)
+    
     setIsStatusUpdate(true)
     setStatusUpdate("Approved")
     dispatch(LoadingStart())
@@ -654,9 +656,17 @@ const handleApproveModalCancel=()=>{
   }
 
   // reject order
+const handleRejectedOk=()=>{
+  setIsRejectedorder(true)
+  setIsRejectedModel(false)
+  dispatch(LoadingStart())
+}
+const handleRejectedModalCancel=()=>{
+  setIsRejectedModel(false)
+}
+
   const handleRejectOrder = () => {
-    setIsRejectedorder(true)
-    dispatch(LoadingStart())
+    setIsRejectedModel(true)
   }
 
   const handleResetRejectedOrder = () => {
@@ -901,7 +911,13 @@ const handleApproveModalCancel=()=>{
           resetReject={handleResetRejectedOrder}
         />}
 
+        
+<TravisRejectedModel
+          isReject={isRejectedModel}
+          onOkHandler={handleRejectedOk}
+          handleCancel={handleRejectedModalCancel}
 
+          />
 
        {/* completed modal */}
        <TravisCompleteModel

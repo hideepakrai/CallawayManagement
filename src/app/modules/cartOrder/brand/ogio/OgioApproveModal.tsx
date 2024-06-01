@@ -7,13 +7,14 @@ import "../../Note.css"
 import { Modal } from 'antd'
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
-import { addNote } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addNote } from '../../../../slice/allProducts/OgioSlice'
+
 type Props = {
     isApprove:boolean
     onOkHandler:() => void
     handleCancel:() => void
 }
-const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
+const OgioApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
 
     console.log("SubmitModel",isApprove)
     const dispatch = useDispatch()
@@ -86,4 +87,4 @@ const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
   )
 }
 
-export default TravisApproveModel
+export default OgioApproveModel

@@ -27,6 +27,9 @@ import Note from '../../Note';
 import ApproveOrderOgio from './ApproveOrderOgio';
 import CompletedOgioOrder from './CompletedOgioOrder';
 import RejectedOgioOrder from './RejectedOgioOrder';
+import OgioSubmitModel from './OgioSubmitModal';
+import OgioApproveModel from './OgioApproveModal';
+import OgioCompleteModel from './OgioCompltedmodal';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -576,13 +579,7 @@ const OgioCart = () => {
   const [isNote, setIsnote] = useState<boolean>(false)
   
 
-  const handleconfirm = () => {
 
-  }
-
-  const handlecancel = () => {
-
-  }
   const [retailerId, setRetailerId] = useState<number>(0);
 
 
@@ -590,6 +587,7 @@ const OgioCart = () => {
   const [isUpdateRedux, setIsUpdateRedux] = useState(false)
   const [isUpdateStrapi, setIsUpdateStrapi] = useState(false)
   const [isSubmitOrder, setIsSubmitOrder] = useState(false)
+  const [isSubmitModal, setIsSubmitModal] = useState(false)
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
   
   //refetch
@@ -613,9 +611,19 @@ const OgioCart = () => {
 
 
   // submit order
+const handleOkSubmit=()=>{
+  setIsSubmitModal(false)
+  setIsSubmitOrder(true)
+  dispatch(LoadingStart())
+}
+
   const hanldeSubmitOrder = () => {
-    setIsSubmitOrder(true)
-    dispatch(LoadingStart())
+    setIsSubmitModal(true)
+   
+  }
+  const handleCancelSubmit = () => {
+   setIsSubmitModal(false)
+   
   }
 
   const handleResetSubmitOrder = () => {
@@ -666,12 +674,22 @@ const OgioCart = () => {
   //approve 
   const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
   const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
+  const [isCompletedModal, setIsCompletedModal] = useState<boolean>(false)
   const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
+  const [isApproveModal, setIsApproveModal] = useState<boolean>(false)
   const [statusUpdate, setStatusUpdate] = useState<string>("")
-  const handleApproveOrder = () => {
+  
+  const handleOkApprove=() => {
     setIsStatusUpdate(true)
     setStatusUpdate("Approved")
     dispatch(LoadingStart())
+  }
+  
+  const handleApproveOrder = () => {
+    setIsApproveModal(true)
+  }
+  const handleCancelApprove = () => {
+    setIsApproveModal(true)
   }
 
 
@@ -694,10 +712,18 @@ const OgioCart = () => {
   }
 
   // complete order
-  const handleCompletedOrder = () => {
+
+  const handleOkCompleted=() => {
     setIsCompletedorder(true)
     dispatch(LoadingStart())
+  }
+  const handleCompletedOrder = () => {
+     setIsCompletedModal(true)
 
+  }
+
+  const handleCancelCompleted=() => {
+    setIsCompletedModal(false)
   }
 
   const handleResetCompletedOrder = (message:string) => {
@@ -906,6 +932,12 @@ const OgioCart = () => {
 
       />}
 
+<OgioSubmitModel
+isSubmit={isSubmitModal}
+onOkHandler={handleOkSubmit}
+handleCancel={handleCancelSubmit}
+/>
+
       {
         isSubmitOrder &&
         <OgioSubmitOrder
@@ -923,6 +955,12 @@ const OgioCart = () => {
       />}
 
     {/* approve order */}
+    <OgioApproveModel
+isApprove={isApproveModal}
+onOkHandler={handleOkApprove}
+handleCancel={handleCancelApprove}
+/>
+
     {isstatusUpdate && <ApproveOrderOgio
         resetStatus={handleResetStatus}
         />}
@@ -930,6 +968,12 @@ const OgioCart = () => {
 
       {/* complted order */}
 
+
+      <OgioCompleteModel
+iscompleted={isCompletedModal}
+onOkHandler={handleOkCompleted}
+handleCancel={handleCancelCompleted}
+/>
       {isCompletedorder && <CompletedOgioOrder
         resetCompleted={handleResetCompletedOrder}
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getOgioProducts, getOgioRetailerDetail, getPreOrderId, updateQunatityAfterOrder } from '../../../../slice/allProducts/OgioSlice'
+import { getOgioNotes, getOgioProducts, getOgioRetailerDetail, getPreOrderId, updateQunatityAfterOrder } from '../../../../slice/allProducts/OgioSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
@@ -70,7 +70,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
 
   // getAll Order
   const [allOgioOrders, setGetAllOgioOrders] = useState<OgioBasicModel[]>([])
- 
+  const getOgioNote =useSelector(getOgioNotes)
 
   useEffect(() => {
 
@@ -110,12 +110,13 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
       getPreOrderIds &&
       allOgioOrders &&
       allOgioOrders.length > 0  &&
-      salesRepId
+      salesRepId &&
+      getOgioNote
     ) {
       handleCreateOrder()
     }
 
-  }, [allOgioOrders, salesRepId,getOgioRetailerDetails, totalNetBillAmount, discountType, discountValue, managerUserId])
+  }, [allOgioOrders, getOgioNote,getOgioRetailerDetails, totalNetBillAmount, discountType, discountValue, managerUserId])
 
 
   const handleCreateOrder = () => {
@@ -136,7 +137,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
         id: getPreOrderIds,
         order_date: formattedTimestamp,
         brand_id: 4,
-        note:notes,
+        note:JSON.stringify(getOgioNote),
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allOgioOrders),
         discount_type: discountType,
@@ -159,13 +160,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
     }
   }
 
-  function generateUniqueNumeric(): string {
-    const timestamp = new Date().getTime().toString().substr(-5); // Get last 5 digits of timestamp
-    const randomDigits = Math.floor(Math.random() * 100000); // Generate random 5-digit number
-    const paddedRandomDigits = String(randomDigits).padStart(5, '0'); // Pad random number with leading zeros if necessary
-    const uniqueId = timestamp + paddedRandomDigits; // Combine timestamp and random number
-    return uniqueId;
-  }
+
 
 
 

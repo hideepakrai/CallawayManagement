@@ -15,8 +15,8 @@ const ImageRenderer = ({record}:Props) => {
    const[secondaryImage, setSecondaryImage]= useState<string[]>([])
   useEffect(()=>{
     if(record.primary_image_url &&record.gallery_images_url){
-
-        const imagePathsArray = record.gallery_images_url.split(',');
+      const updatedString: string = record.gallery_images_url.replace(/\s+/g, '');
+        const imagePathsArray = updatedString.split(',');
         setSecondaryImage(imagePathsArray)
         setPrimaryImage(record.primary_image_url)
       

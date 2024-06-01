@@ -3,9 +3,10 @@ import TextArea from 'antd/es/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
-import { addNote } from '../../../../slice/allProducts/TravisMethewSlice';
+
 import { Modal } from 'antd';
 import "../../Note.css";
+import { addNote } from '../../../../slice/allProducts/OgioSlice';
 
 type Props = {
   isSubmit: boolean;
@@ -13,7 +14,7 @@ type Props = {
   handleCancel: () => void;
 };
 
-const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
+const OgioSubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
   const dispatch = useDispatch();
   const [notes, setNotes] = useState<string>('');
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser;
@@ -78,4 +79,4 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
   );
 };
 
-export default SubmitModel;
+export default OgioSubmitModel;

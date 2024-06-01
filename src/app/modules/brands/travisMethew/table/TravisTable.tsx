@@ -1223,6 +1223,7 @@ const TravisTable = () => {
         season: record.season,
       };
       const allVarSku = {
+        family:record.family,
         primary_image_url: record.primary_image_url,
         gallery_images_url: record.gallery_images_url,
         name: record.name,

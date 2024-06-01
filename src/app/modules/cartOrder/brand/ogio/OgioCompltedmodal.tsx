@@ -7,15 +7,16 @@ import "../../Note.css"
 import { Modal } from 'antd'
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
-import { addNote } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addNote } from '../../../../slice/allProducts/OgioSlice'
+
 type Props = {
-    isApprove:boolean
+    iscompleted:boolean
     onOkHandler:() => void
     handleCancel:() => void
 }
-const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
+const OgioCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
 
-    console.log("SubmitModel",isApprove)
+    console.log("SubmitModel",iscompleted)
     const dispatch = useDispatch()
     const [addNotes, setAddNotes] = useState<string>('');
   const [notes, setnotes]= useState<string>("")
@@ -23,41 +24,44 @@ const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
 
 
   const handleOk=()=>{
-    const now = new Date();
-    const formattedTimestamp = now.toISOString();
-    if (notes !== '' && getCurrentUsers) {
-        const data1 = {
-          message: notes,
-          name: getCurrentUsers?.name,
-          date: formattedTimestamp,
-          user_id: getCurrentUsers?.id,
-          access: 'all',
-          type: 'user',
-        };
-        dispatch(addNote({
-          note: data1,
-        }));
-      
-      } else if (notes === '' && getCurrentUsers) {
-        const data1 = {
-          message: 'Order approve',
-          name: getCurrentUsers?.name,
-          date: formattedTimestamp,
-          user_id: getCurrentUsers?.id,
-          access: 'all',
-          type: 'system',
-        };
-        dispatch(addNote({
-          note: data1,
-        }));
-      
-      }
-    onOkHandler()
-    setnotes("")
+    
+        const now = new Date();
+        const formattedTimestamp = now.toISOString();
+        if (notes !== '' && getCurrentUsers) {
+            const data1 = {
+              message: notes,
+              name: getCurrentUsers?.name,
+              date: formattedTimestamp,
+              user_id: getCurrentUsers?.id,
+              access: 'all',
+              type: 'user',
+            };
+            dispatch(addNote({
+              note: data1,
+            }));
+          
+          } else if (notes === '' && getCurrentUsers) {
+            const data1 = {
+              message: 'Order submitted',
+              name: getCurrentUsers?.name,
+              date: formattedTimestamp,
+              user_id: getCurrentUsers?.id,
+              access: 'all',
+              type: 'system',
+            };
+            dispatch(addNote({
+              note: data1,
+            }));
+          
+          }
+        onOkHandler()
+        setnotes("")
+     
   }
-    return (
+
+   return (
     <div>
-           <Modal className='timeline submit-popup' title="Add Note" open={isApprove} onOk={handleOk} onCancel={handleCancel}>
+         <Modal className='timeline submit-popup' title="Add Note" open={iscompleted} onOk={handleOk} onCancel={handleCancel}>
             <div className='row mt-8'>
                 {/* <div className='col-7'>
 
@@ -70,7 +74,7 @@ const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
                         
                     </Timeline>
                 </div> */}
-                <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to approve Order</h4>
+                <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to complete Order</h4>
 
                 <div className='col-12'>
                     <TextArea
@@ -86,4 +90,4 @@ const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
   )
 }
 
-export default TravisApproveModel
+export default OgioCompleteModel

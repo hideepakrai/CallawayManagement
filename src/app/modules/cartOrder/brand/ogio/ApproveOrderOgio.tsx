@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { getPreOrderId } from '../../../../slice/allProducts/OgioSlice'
+import { getOgioNotes, getPreOrderId } from '../../../../slice/allProducts/OgioSlice'
 import { ApproveOrder } from '../../orderApi/OrderAPi'
 
 
@@ -10,15 +10,15 @@ type Props = {
 }
 const ApproveOrderOgio = ({resetStatus}:Props) => {
     const getPreOrderIds = useSelector(getPreOrderId)
-
+    const getOgioNote= useSelector(getOgioNotes)
 
     useEffect(() => {
-        if (getPreOrderIds ) {
+        if (getPreOrderIds &&getOgioNote ) {
             approveOrderOgio(getPreOrderIds)
 
         }
 
-    }, [getPreOrderIds, ])
+    }, [getPreOrderIds,getOgioNote ])
 
     const approveOrderOgio = async (ordreId: number) => {
         const now = new Date();
@@ -26,7 +26,8 @@ const ApproveOrderOgio = ({resetStatus}:Props) => {
         const order = {
             id: ordreId,
             status: "Approved",
-            updated_at: formattedTimestamp
+            updated_at: formattedTimestamp,
+            note:JSON.stringify(getOgioNote)
         }
         try {
             const response = await ApproveOrder(order);

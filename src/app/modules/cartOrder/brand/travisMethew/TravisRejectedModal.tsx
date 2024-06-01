@@ -8,12 +8,12 @@ import { Modal } from 'antd';
 import "../../Note.css";
 
 type Props = {
-  isSubmit: boolean;
+  isReject: boolean;
   onOkHandler: () => void;
   handleCancel: () => void;
 };
 
-const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
+const TravisRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) => {
   const dispatch = useDispatch();
   const [notes, setNotes] = useState<string>('');
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser;
@@ -44,7 +44,7 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
       
       } else if (notes === '' && getCurrentUsers) {
         const data1 = {
-          message: 'Order submitted',
+          message: 'Order Rejected',
           name: getCurrentUsers?.name,
           date: formattedTimestamp,
           user_id: getCurrentUsers?.id,
@@ -61,7 +61,7 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
   }
   return (
     <div>
-      <Modal className='timeline submit-popup' title="Add Note" open={isSubmit} onOk={handleOk} onCancel={handleCancel}>
+      <Modal className='timeline submit-popup' title="Add Note" open={isReject} onOk={handleOk} onCancel={handleCancel}>
         <div className='row mt-8'>
           <h4 className='mb-3 fs-4' style={{ fontWeight: '500' }}>Do you want to submit Order</h4>
           <div className='col-12'>
@@ -78,4 +78,4 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
   );
 };
 
-export default SubmitModel;
+export default TravisRejectedModel;

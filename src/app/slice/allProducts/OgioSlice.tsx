@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {OgioBasicModel,OgioBasicModelGraph, OgioModel} from "../../modules/model/ogio/OgioBrandModel"
 import Item from "antd/es/list/Item";
 import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
+import { NoteModel } from "../../modules/model/noteModel/NoteModel";
 
 interface ProductState {
 
@@ -14,6 +15,7 @@ interface ProductState {
     progressStep:number;
     otherProduct:OgioBasicModel[]
     ogioRetailerDetails:RetailerModel[]
+    note:NoteModel[];
 }
 
 const initialState: ProductState = {
@@ -25,7 +27,8 @@ const initialState: ProductState = {
     preOrderId:0,
     progressStep:0,
     otherProduct:[],
-    ogioRetailerDetails:[]
+    ogioRetailerDetails:[],
+    note:[],
 
 }
 
@@ -47,6 +50,9 @@ const OgioSlice = createSlice({
        },
        addPreOrderId:(state,action)=>{
         state.preOrderId=action.payload.preOrderId;
+       },
+       addNote:(state,action)=>{
+        state.note.push(action.payload.note)
        },
 
         addOgioProduct: (state, action) => {
@@ -471,7 +477,8 @@ export const { addOgioProduct,
     addPreOrderId,
     addOtherProduct,
     removeOtherProduct,
-    addOgioReatailerDetails
+    addOgioReatailerDetails,
+    addNote
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];
@@ -504,6 +511,10 @@ export const getOgioProgressStep = (state: { Ogio: ProductState }): number => {
 
 export const getOgioRetailerDetail = (state: { Ogio: ProductState }): RetailerModel[] => {
     return state.Ogio?.ogioRetailerDetails|| [];
+    
+};
+export const getOgioNotes = (state: { Ogio: ProductState }): NoteModel[] => {
+    return state.Ogio?.note|| [];
     
 };
 

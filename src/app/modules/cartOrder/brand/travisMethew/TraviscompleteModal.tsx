@@ -20,42 +20,42 @@ const TravisCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
     const [addNotes, setAddNotes] = useState<string>('');
   const [notes, setnotes]= useState<string>("")
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
-  useEffect(()=>{
-    const now = new Date();
-    const formattedTimestamp = now.toISOString();
-    if(notes!="" &&getCurrentUsers){
-        const data1={
-            message:notes,
-            name: getCurrentUsers?.name,
-            date: formattedTimestamp,
-            user_id:getCurrentUsers?.id,
-            access:"all",
-            type:"user"
-    }
-        dispatch(addNote({
-            note:data1
-        }))
-      
-    } else if(notes==="" &&getCurrentUsers){
-        const data1={
-            message:"Order Completed",
-            name: getCurrentUsers?.name,
-            date: formattedTimestamp,
-            user_id:getCurrentUsers?.id,
-            access:"all",
-            type:"system"
-    }
-        dispatch(addNote({
-            note:data1
-        }))
-     
-    }
-  },[notes,getCurrentUsers])
+
 
   const handleOk=()=>{
-    onOkHandler()
-    setnotes("")
-    setAddNotes("")
+    
+        const now = new Date();
+        const formattedTimestamp = now.toISOString();
+        if (notes !== '' && getCurrentUsers) {
+            const data1 = {
+              message: notes,
+              name: getCurrentUsers?.name,
+              date: formattedTimestamp,
+              user_id: getCurrentUsers?.id,
+              access: 'all',
+              type: 'user',
+            };
+            dispatch(addNote({
+              note: data1,
+            }));
+          
+          } else if (notes === '' && getCurrentUsers) {
+            const data1 = {
+              message: 'Order submitted',
+              name: getCurrentUsers?.name,
+              date: formattedTimestamp,
+              user_id: getCurrentUsers?.id,
+              access: 'all',
+              type: 'system',
+            };
+            dispatch(addNote({
+              note: data1,
+            }));
+          
+          }
+        onOkHandler()
+        setnotes("")
+     
   }
 
    return (
