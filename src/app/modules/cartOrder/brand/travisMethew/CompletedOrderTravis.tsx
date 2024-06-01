@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { getPreOrderId } from '../../../../slice/allProducts/TravisMethewSlice'
+import { getPreOrderId, getTravisNote } from '../../../../slice/allProducts/TravisMethewSlice'
 import { ApproveOrder, } from '../../orderApi/OrderAPi'
 
 
@@ -10,14 +10,14 @@ type Props = {
 const CompletedOrderTravis = ({ resetCompleted }: Props) => {
 
   const getPreOrderIds = useSelector(getPreOrderId)
-
+  const getTravisNotes= useSelector(getTravisNote)
   useEffect(() => {
-    if (getPreOrderIds) {
+    if (getPreOrderIds && getTravisNotes) {
       completedOrderTravis(getPreOrderIds)
 
     }
 
-  }, [getPreOrderIds]
+  }, [getPreOrderIds,getTravisNotes]
   )
 
 
@@ -27,7 +27,8 @@ const CompletedOrderTravis = ({ resetCompleted }: Props) => {
     const order = {
       id: ordreId,
       status: "Complete",
-      updated_at: formattedTimestamp
+      updated_at: formattedTimestamp,
+      note:JSON.stringify(getTravisNotes)
     }
     try {
       const response = await ApproveOrder(order);

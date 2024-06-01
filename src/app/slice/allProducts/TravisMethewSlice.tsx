@@ -355,14 +355,7 @@ const TravisMethewSlice = createSlice({
                     rdx.stock_88=travisProduct.stock_88
                   }
                   
-                 
-                  
-                 
-                  
-
-
-
-
+           
                 }
               })
                 

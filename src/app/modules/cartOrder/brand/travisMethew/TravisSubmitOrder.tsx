@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
-import { getTravisProducts, getOtherProducts, getPreOrderId, getTravisRetailerDetail } from "../../../../slice/allProducts/TravisMethewSlice"
+import { getTravisProducts, getOtherProducts, getPreOrderId, getTravisRetailerDetail, getTravisNote } from "../../../../slice/allProducts/TravisMethewSlice"
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
@@ -33,6 +33,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   const dispatch = useDispatch()
   const getPreOrderIds = useSelector(getPreOrderId);
  const getAllUsers=useSelector(getUserProfile)
+ const getTravisNotes= useSelector(getTravisNote)
   const [salesRepId, setSalesRepId]= useState<number>(0)
  useEffect(()=>{
   if(getAllUsers &&getAllUsers){
@@ -118,14 +119,15 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       totalAmount&&
       brandId &&
       getPreOrderIds &&
-      salesRepId
+      salesRepId &&
+      getTravisNotes
   
 
     ) {
       handleCreateOrder()
     }
 
-  }, [allTravisOrders, getTravisRetailerDetails, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note,salesRepId])
+  }, [allTravisOrders, getTravisNotes,getTravisRetailerDetails, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note,salesRepId])
 
 
   const handleCreateOrder = () => {
@@ -134,28 +136,8 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
     //const orderId = generateUniqueNumeric();
     const now = new Date();
     const formattedTimestamp = now.toISOString();
-    const data1={
-      message: "Order Initiated",
-      name: getCurrentUsers?.name,
-      date: now,
-      user_id:getCurrentUsers?.id,
-      access:"all",
-      type:"system"
-}
-  
-  const data2={
-      message:"Order Submitted" ,
-      name: getCurrentUsers?.name,
-      date: now,
-      user_id:getCurrentUsers?.id,
-      access:"all",
-      type:"sytem"
-  }
-  const combinedDataObject = {
-      data1: data1,
-      data2: data2
-  };
-const systemNotes=JSON.stringify(combinedDataObject);
+    
+
     if (Array.isArray(allTravisOrders)) {
       const   retailer_details={
         name:getTravisRetailerDetails.name,
@@ -168,7 +150,7 @@ const systemNotes=JSON.stringify(combinedDataObject);
       const data = {
         id: getPreOrderIds,
         order_date: formattedTimestamp,
-        note: note===""?systemNotes:note,
+        note: JSON.stringify(getTravisNotes),
         brand_id: brandId,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),

@@ -28,7 +28,9 @@ import AlertTravis from "./AlertTravis"
 import RejectOrderTravis from "./RejectOrderTravis"
 import CompletedOrderTravis from './CompletedOrderTravis';
 import TravisOrderPdf from './TravisOrderPdf';
-import SubmitModel from '../../SubmitModel';
+import SubmitModel from './SubmitModel';
+import TravisApproveModel from './TravisApproveModal';
+import TravisCompleteModel from './TraviscompleteModal';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -542,6 +544,7 @@ const TravisCarts = () => {
   const [isRefetch, setIsRefetch] = useState<boolean>(false)
   const handleRefetch = () => {
     setIsRefetch(true)
+    dispatch(LoadingStart())
    
     
   }
@@ -567,9 +570,7 @@ const TravisCarts = () => {
     // setIsSubmitOrder(true)
     setIsSubmitModel(true)
     console.log("submited")
-    // dispatch(submitModel({
-    //   isSubmitModel: true,
-    // }))
+   
   }
 
 
@@ -619,14 +620,25 @@ const TravisCarts = () => {
   const [message, setMessages] = useState<string>("")
   const [messageType, setMessagesType] = useState<string>("")
   const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
+  const [isApproveModel, setIsApproveModel] = useState<boolean>(false)
+  const [isCompletedModel, setIsCompletedModel] = useState<boolean>(false)
   const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
   const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
   const [statusUpdate, setStatusUpdate] = useState<string>("")
-  const handleApproveOrder = () => {
+  const handleApproveOk=()=>{
+    setIsApproveModel(false)
+    setIsApproveModel(true)
     setIsStatusUpdate(true)
     setStatusUpdate("Approved")
     dispatch(LoadingStart())
+  }
+const handleApproveModalCancel=()=>{
+  setIsApproveModel(false)
+}
 
+  const handleApproveOrder = () => {
+   
+  setIsApproveModel(true)
   }
 
   const handleResetStatus = (status: string) => {
@@ -663,9 +675,19 @@ const TravisCarts = () => {
     }))
   }
 
+
+   const handleCompltedOk=()=>{
+ setIsCompletedModel(false)
+ setIsCompletedorder(true)
+ dispatch(LoadingStart())
+   }
+
   const handleCompletedOrder = () => {
-    setIsCompletedorder(true)
-    dispatch(LoadingStart())
+    setIsCompletedModel(true)
+   
+  }
+  const handleCompltedModalCancel=()=>{
+    setIsCompletedModel(false)
   }
 
   const handleResetCompletedOrder = () => {
@@ -834,7 +856,13 @@ const TravisCarts = () => {
 
       />}
 
-    
+       {/* submit model */}
+        
+       <SubmitModel
+      isSubmit={isSubmitModel}
+      onOkHandler={handleSumbitOk}
+      handleCancel={handleSumbitCancel}
+      />
 
       {
         isSubmitOrder &&
@@ -854,6 +882,13 @@ const TravisCarts = () => {
           resetUpdateData={handleUpdateStrapi}
         />}
 
+          {/* Approve modal */}
+          <TravisApproveModel
+          isApprove={isApproveModel}
+          onOkHandler={handleApproveOk}
+          handleCancel={handleApproveModalCancel}
+
+          />
       {/* approve order */}
       {isstatusUpdate && <ApproveOrderTravis
         resetStatus={handleResetStatus}
@@ -867,6 +902,15 @@ const TravisCarts = () => {
         />}
 
 
+
+       {/* completed modal */}
+       <TravisCompleteModel
+          iscompleted={isCompletedModel}
+          onOkHandler={handleCompltedOk}
+          handleCancel={handleCompltedModalCancel}
+
+          />
+
       {isCompletedorder && <CompletedOrderTravis
         resetCompleted={handleResetCompletedOrder}
 
@@ -877,13 +921,7 @@ const TravisCarts = () => {
         handleOk={handleOkNote}
         handleCancel={handleCancelNote}
       />
-        {/* submit model */}
-        
-      <SubmitModel
-      isSubmit={isSubmitModel}
-      onOkHandler={handleSumbitOk}
-      handleCancel={handleSumbitCancel}
-      />
+     
            
       <AlertTravis
         message={message}

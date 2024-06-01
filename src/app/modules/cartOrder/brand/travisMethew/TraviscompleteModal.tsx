@@ -2,19 +2,20 @@ import TextArea from 'antd/es/input/TextArea'
 import React, { useEffect, useState } from 'react'
 
 import {useDispatch, useSelector} from "react-redux"
-import { getCurrentUser } from '../../slice/UserSlice/UserSlice'
-import { CurentUser } from '../model/useAccount/CurrentUser'
-import {addNote} from "../../slice/allProducts/TravisMethewSlice"
-import "./Note.css"
+
+import "../../Note.css"
 import { Modal } from 'antd'
+import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice'
+import { CurentUser } from '../../../model/useAccount/CurrentUser'
+import { addNote } from '../../../../slice/allProducts/TravisMethewSlice'
 type Props = {
-    isSubmit:boolean
+    iscompleted:boolean
     onOkHandler:() => void
     handleCancel:() => void
 }
-const SubmitModel = ({isSubmit,onOkHandler,handleCancel}:Props) => {
+const TravisCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
 
-    console.log("SubmitModel",isSubmit)
+    console.log("SubmitModel",iscompleted)
     const dispatch = useDispatch()
     const [addNotes, setAddNotes] = useState<string>('');
   const [notes, setnotes]= useState<string>("")
@@ -29,16 +30,37 @@ const SubmitModel = ({isSubmit,onOkHandler,handleCancel}:Props) => {
             date: formattedTimestamp,
             user_id:getCurrentUsers?.id,
             access:"all",
+            type:"user"
+    }
+        dispatch(addNote({
+            note:data1
+        }))
+      
+    } else if(notes==="" &&getCurrentUsers){
+        const data1={
+            message:"Order Completed",
+            name: getCurrentUsers?.name,
+            date: formattedTimestamp,
+            user_id:getCurrentUsers?.id,
+            access:"all",
             type:"system"
     }
         dispatch(addNote({
             note:data1
         }))
+     
     }
   },[notes,getCurrentUsers])
-    return (
+
+  const handleOk=()=>{
+    onOkHandler()
+    setnotes("")
+    setAddNotes("")
+  }
+
+   return (
     <div>
-          <Modal className='timeline submit-popup' title="Add Note" open={isSubmit} onOk={onOkHandler} onCancel={handleCancel}>
+         <Modal className='timeline submit-popup' title="Add Note" open={iscompleted} onOk={handleOk} onCancel={handleCancel}>
             <div className='row mt-8'>
                 {/* <div className='col-7'>
 
@@ -51,7 +73,7 @@ const SubmitModel = ({isSubmit,onOkHandler,handleCancel}:Props) => {
                         
                     </Timeline>
                 </div> */}
-                <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to submit the Order</h4>
+                <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to complete Order</h4>
 
                 <div className='col-12'>
                     <TextArea
@@ -67,4 +89,4 @@ const SubmitModel = ({isSubmit,onOkHandler,handleCancel}:Props) => {
   )
 }
 
-export default SubmitModel
+export default TravisCompleteModel
