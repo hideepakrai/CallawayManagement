@@ -207,7 +207,10 @@ const OgioCartPdf = () => {
           <div style={{ width: "100%", textAlign: "center" }} >
             <img width={200} src={BrandLogo}></img>
           </div>
-        </div>
+          {/* <div>
+            <h2>ORDER PDF</h2>
+          </div> */}
+          </div>
 
 
         <div className="row px-10 mt-8 mb-18" >
@@ -242,7 +245,7 @@ const OgioCartPdf = () => {
           <div className="col-4 user-details-pdf" >
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> 16/01/2024 </p>
 
-            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India</p>
+            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India </p>
 
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Ogio</p>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span> {getCurrentUsers?.name}</p>

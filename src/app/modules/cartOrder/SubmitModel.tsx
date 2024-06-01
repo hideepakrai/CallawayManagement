@@ -38,7 +38,7 @@ const SubmitModel = ({isSubmit,onOkHandler,handleCancel}:Props) => {
   },[notes,getCurrentUsers])
     return (
     <div>
-          <Modal className='timeline' title="Add Note" open={isSubmit} onOk={onOkHandler} onCancel={handleCancel}>
+          <Modal className='timeline submit-popup' title="Add Note" open={isSubmit} onOk={onOkHandler} onCancel={handleCancel}>
             <div className='row mt-8'>
                 {/* <div className='col-7'>
 
@@ -51,9 +51,9 @@ const SubmitModel = ({isSubmit,onOkHandler,handleCancel}:Props) => {
                         
                     </Timeline>
                 </div> */}
-                <h2>Do you want to submit the Order</h2>
+                <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to submit the Order</h4>
 
-                <div className='col-5'>
+                <div className='col-12'>
                     <TextArea
                         rows={5}
                         placeholder="Note"
