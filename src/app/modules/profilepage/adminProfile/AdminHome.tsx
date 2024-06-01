@@ -13,9 +13,9 @@ import GetAllorder from '../../orderPage/GetAllorder'
 import AllPendingOrder from '../managerprofile/AllPendingOrder'
 import AllOrders from '../managerprofile/AllOrders'
 
-
+import { Badge, Button, Tooltip } from 'antd';
 const AdminHome = () => {
-
+  const [copied, setCopied] = useState(false);
     const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
     const getLoadings = useSelector(getLoading);
     const [isOrder, setIsOrder] = useState(false);
@@ -30,6 +30,19 @@ const AdminHome = () => {
         setIsOrder(false)
     
       }
+
+      const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text).then(
+          () => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+          },
+          (err) => {
+            console.error('Could not copy text: ', err);
+          }
+        );
+      };
+    
     
   return (
     <>
@@ -48,7 +61,18 @@ const AdminHome = () => {
 
               <div className='pt-3 mx-6'>
                 <h1 className="d-flex text-white fw-light my-1 fs-1 pb-2 fw-bold"> {getCurrentUsers?.name}</h1>
-                <a href='#'><span className="gx-mb-0  fw-semibold text-hover-secondary  text-gray-400 fs-4">{getCurrentUsers?.email} <i className="bi bi-copy text-gray-400 text-hover-secondary cursor-pointer"></i></span></a>
+                <a href='#'><span className="gx-mb-0  fw-semibold text-hover-secondary  text-gray-400 fs-4">{getCurrentUsers?.email} 
+             
+
+                <Tooltip title={copied ? 'Copied!' : 'Copy'} overlayInnerStyle={{ backgroundColor: 'white', color: 'black' }}>
+                    <i
+                      className={`bi ${copied ? 'bi-copy' : 'bi-copy'} mx-2 cursor-pointer text-gray-500 text-hover-dark`}
+                      onClick={() => getCurrentUsers?.name && copyToClipboard(getCurrentUsers?.name)}
+                    ></i>
+                  </Tooltip>
+
+                </span>
+                </a>
                 {/* <span className="d-flex text-white  my-1 fs-7">Lorem Ipsum is simply dummy text  of the printing and <br></br> typesetting industry.</span> */}
                 {/* <div className='pt-2'>
                   <span className="gx-mb-0 text-white fw-semibold fs-5">GSTIN</span>

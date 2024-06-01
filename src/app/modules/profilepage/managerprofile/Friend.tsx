@@ -25,7 +25,7 @@ const Friends = ({friendList}: Props) => {
 
       <div className="card card-custom  mt-6 border support-section">
   <div className="card-header bg-black">
-      <h3 className="card-title text-white">Support </h3>
+      <h3 className="card-title text-white">Support</h3>
      
   </div>
   <div className="card-body py-7 mx-1">

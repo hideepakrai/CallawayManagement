@@ -203,13 +203,13 @@ const OgioCartPdf = () => {
         <div className=" ant-card ant-card-bordered gx-card mt-6"  ref={contentToPrint}>
           <div className="ant-card-body">
            
-          <div className="bg-black  py-12 mx-7 d-flex" style={{ borderRadius: "5px" }}>
-          <div style={{ width: "100%", textAlign: "center" }} >
-            <img width={200} src={BrandLogo}></img>
+          <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
+          <div className="col-7 text-end ">
+            <img className="pdf-image" width={200} src={BrandLogo}></img>
           </div>
-          {/* <div>
-            <h2>ORDER PDF</h2>
-          </div> */}
+          <div className="col-5 text-end px-6">
+            <h2 className="text-white pdf-title">ORDER PDF</h2>
+          </div>
           </div>
 
 

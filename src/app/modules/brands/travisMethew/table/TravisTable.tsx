@@ -1368,12 +1368,13 @@ const TravisTable = () => {
             onClick={handleQtyImport}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
 
-          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up'
             onClick={handleProduct}
           //  onClick={handleSampleExcel}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products </Button>
 
         </div>
+
 
 
         {/* <div className='show-prodect-section' >

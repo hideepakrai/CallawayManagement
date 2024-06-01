@@ -110,7 +110,9 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excel
           <button className="export-button excel hover-scale"
             onClick={handleExcel}
           >
-            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
+            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>
+            Export to Excel
+        </button>
 
             <button className="export-button pro-btn-table hover-scale"
             // onClick={handlePdf}
