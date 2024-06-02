@@ -4,14 +4,14 @@ import { Timeline } from "antd";
 import TextArea from 'antd/es/input/TextArea';
 import "./Note.css"
 import { getCurrentUser } from '../../slice/UserSlice/UserSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getActiveOrdertab } from '../../slice/activeTabsSlice/ActiveTabSlice';
 import { NoteModel } from '../model/noteModel/NoteModel';
-import { getTravisNote } from '../../slice/allProducts/TravisMethewSlice';
-import { getOgioNotes } from '../../slice/allProducts/OgioSlice';
+import { addTravisNote, getTravisNote } from '../../slice/allProducts/TravisMethewSlice';
+import { addNote, getOgioNotes } from '../../slice/allProducts/OgioSlice';
 type Props = {
     isModalOpen: boolean;
-    handleOk: (note: string) => void;
+    handleOk: () => void;
     handleCancel: () => void;
 };
 
@@ -20,34 +20,33 @@ type Props = {
 const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
     const [addNotes, setAddNotes] = useState<string>('');
     const [tabNotes, setTabNotes] = useState<NoteModel[]>([]);
+    const [tab, setTab] = useState<string>("");
     const getCurrentUsers = useSelector(getCurrentUser)
     const date= new Date();
     const getTravisNotes= useSelector(getTravisNote)
     const getOgioNote= useSelector(getOgioNotes)
+    const dispatch= useDispatch()
+
      const getActiveOrdertabs= useSelector(getActiveOrdertab);
      useEffect(()=>{
         setTabNotes([])
+        setTab("")
             if(getActiveOrdertabs==='Travis' &&
             getTravisNotes &&
             getTravisNotes.length>0
             ){
                 setTabNotes(getTravisNotes)
+                setTab("Travis")
             } else if(getActiveOrdertabs==='Ogio'){
                 setTabNotes(getOgioNote)
+                setTab("Ogio")
             }
 
      },[getActiveOrdertabs,getTravisNotes])
     
     
     const onOkHandler = () => {
-        const data1={
-            message: "Order Initiated",
-            name: getCurrentUsers?.name,
-            date: date,
-            user_id:getCurrentUsers?.id,
-            access:"all",
-            type:"system"
-}
+
         
         const data2={
             message:addNotes ,
@@ -57,12 +56,18 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
             access:"all",
             type:"user"
         }
-        const combinedDataObject = {
-            data1: data1,
-            data2: data2
-        };
+      if(tab==="travis"){
+        dispatch(addTravisNote({
+            note:data2,
+        }))
+      } else if (tab==="Ogio"){
+        dispatch(addNote({
+            note:data2,
+        }))
+      }
+       
 
-        handleOk(JSON.stringify(combinedDataObject));
+        handleOk();
         setAddNotes(''); // Optionally reset the notes after confirming
        
     };
@@ -76,10 +81,18 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
                 <div className='col-7'>
 
                     <Timeline>
-                        <Timeline.Item color="black ">
+                       { tabNotes &&
+                       tabNotes.length>0&&
+                       tabNotes.map((note, index) => {
+                        return (
+                            <Timeline.Item color="black ">
                           
-                            <p className="text-gray-800 fs-5 fw-semibold">Note by <i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
+                            <p className="text-gray-800 fs-5 fw-semibold">{note.message}<i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
                         </Timeline.Item>
+                        )
+                       })
+                    }
+                      
                        
                         
                     </Timeline>

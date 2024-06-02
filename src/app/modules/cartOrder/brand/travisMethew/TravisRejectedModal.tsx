@@ -3,7 +3,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
-import { addNote } from '../../../../slice/allProducts/TravisMethewSlice';
+import { addTravisNote } from '../../../../slice/allProducts/TravisMethewSlice';
 import { Modal } from 'antd';
 import "../../Note.css";
 
@@ -38,7 +38,7 @@ const TravisRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) => 
           access: 'all',
           type: 'user',
         };
-        dispatch(addNote({
+        dispatch(addTravisNote({
           note: data1,
         }));
       
@@ -51,7 +51,7 @@ const TravisRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) => 
           access: 'all',
           type: 'system',
         };
-        dispatch(addNote({
+        dispatch(addTravisNote({
           note: data1,
         }));
       

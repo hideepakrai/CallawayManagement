@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { addNote, getTravisNote, getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addTravisNote, getTravisNote, getTravisProducts } from '../../../../slice/allProducts/TravisMethewSlice'
 import { useSelector } from 'react-redux'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'

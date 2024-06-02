@@ -7,7 +7,7 @@ import "../../Note.css"
 import { Modal } from 'antd'
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
-import { addNote } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addTravisNote } from '../../../../slice/allProducts/TravisMethewSlice'
 type Props = {
     isApprove:boolean
     onOkHandler:() => void
@@ -34,7 +34,7 @@ const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
           access: 'all',
           type: 'user',
         };
-        dispatch(addNote({
+        dispatch(addTravisNote({
           note: data1,
         }));
       
@@ -47,7 +47,7 @@ const TravisApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
           access: 'all',
           type: 'system',
         };
-        dispatch(addNote({
+        dispatch(addTravisNote({
           note: data1,
         }));
       

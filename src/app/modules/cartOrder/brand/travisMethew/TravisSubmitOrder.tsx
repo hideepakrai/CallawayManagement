@@ -18,12 +18,12 @@ type Props = {
   discountType: string;
   discountValue: number;
   resetSubmitOrder: () => void,
-  note: string,
+ 
   totalAmount:number,
   discountAmount:number
 }
 
-const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder, note }: Props) => {
+const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder }: Props) => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")
@@ -127,7 +127,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       handleCreateOrder()
     }
 
-  }, [allTravisOrders, getTravisNotes,getTravisRetailerDetails, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,note,salesRepId])
+  }, [allTravisOrders, getTravisNotes,getTravisRetailerDetails, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,salesRepId])
 
 
   const handleCreateOrder = () => {

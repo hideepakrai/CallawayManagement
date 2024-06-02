@@ -722,10 +722,10 @@ const handleRejectedModalCancel=()=>{
     setIsnote(false)
   }
 
-  const handleOkNote = (note: string) => {
+  const handleOkNote = () => {
   
    
-    setNotes(JSON.stringify(note))
+    // setNotes(JSON.stringify(note))
     setIsnote(false)
   }
   return (
@@ -881,7 +881,7 @@ const handleRejectedModalCancel=()=>{
           discountType={discountType}
           discountValue={discountValue}
           resetSubmitOrder={handleResetSubmitOrder}
-          note={notes}
+       
           discountAmount={discountAmount??0}
           totalAmount={totalAmount??0}
         />}

@@ -781,9 +781,9 @@ const handleOkSubmit=()=>{
   const handleCancelNote = () => {
     setIsnote(false)
   }
-  const handleOkNote = (note: string) => {
+  const handleOkNote = () => {
  
-    setNotes(note)
+   
     setIsnote(false)
   }
 

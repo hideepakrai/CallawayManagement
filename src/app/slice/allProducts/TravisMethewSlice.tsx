@@ -60,7 +60,7 @@ const TravisMethewSlice = createSlice({
        startUploadTravisImage:(state)=>{
         state.isUploadImge = true
        },
-       addNote:(state,action)=>{
+       addTravisNote:(state,action)=>{
         state.note.push(action.payload.note)
        },
        stopUploadTravisImage:(state)=>{
@@ -717,7 +717,7 @@ export const {
     stopUploadTravisImage,
     startUploadTravisImage,
     addTravisReatailerDetails,
-    addNote,
+    addTravisNote,
     submitModel
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
