@@ -4,3 +4,5 @@
 .timeline .ant-btn-default:hover{border-color: #333!important; color: #333!important;}
 .timeline .ant-modal-title{font-size: 18px!important;}
 .submit-popup .ant-modal-content{width:auto!important; left: 0;}
+
+.submit-popup .ant-modal-title{font-size: 20px!important;}
