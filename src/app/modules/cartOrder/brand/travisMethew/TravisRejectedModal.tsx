@@ -63,7 +63,7 @@ const TravisRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) => 
     <div>
       <Modal className='timeline submit-popup' title="Add Note" open={isReject} onOk={handleOk} onCancel={handleCancel}>
         <div className='row mt-8'>
-          <h4 className='mb-3 fs-4' style={{ fontWeight: '500' }}>Do you want to submit Order</h4>
+          <h4 className='mb-3 fs-4' style={{ fontWeight: '500' }}>Do you want to submit Order </h4>
           <div className='col-12'>
             <TextArea
               rows={5}
