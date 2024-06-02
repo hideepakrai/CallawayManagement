@@ -612,7 +612,7 @@ const OgioTable = () => {
         if (ogioData) {
           const varSkuData = {
             sku: ogioData.sku,
-            size: ogioData.product_type,
+            product_type: ogioData.product_type,
             qty:  ogioData.stock_90 ||0,
             mrp: ogioData.mrp||0
           };
@@ -624,6 +624,8 @@ const OgioTable = () => {
       const otherInfo = {
         product_model:record.product_model,
         category: record.category,
+       // product_type:record.product_type,
+        mrp:record.mrp?record.mrp:0,
      
       };
       const allVarSku = {

@@ -10,7 +10,7 @@ type Props = {
 const OgioPrimaryImages = ({ record }: Props) => {
     const [primaryImage, setPrimaryImage] = useState<string | null>(null);
   const [imagePaths, setImagePaths] = useState<string[]>([]);
-  const s3_url = "https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/public/productimg/OGIO-Images/";
+  const s3_url = `https://callaways3bucketd3cd9-dev.s3.ap-south-1.amazonaws.com/public/productimg/OGIO-Images/${record.family}/`;
 
 
   return (

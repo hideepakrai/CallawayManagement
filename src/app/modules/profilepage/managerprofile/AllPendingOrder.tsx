@@ -11,6 +11,7 @@ import UpdateStatus from "./UpdateStatus";
 import OrderPdfFormate from "../../cartOrder/orderPdf/OrderPdfFormate";
 import { isNull } from "util";
 import TravisPdfPrintOrder from "../pdfformate/TravisPdfPrintOrder";
+import OgioPdfPrintOrder from "../pdfformate/OgioPdfPrintOrder";
 
 const AllPendingOrder = () => {
     const [status, setStatus] = useState<string>("");
@@ -175,6 +176,7 @@ const AllPendingOrder = () => {
 
 
     const expandedRowRender = (record: CartModel) => {
+        console.log("expandedRowRender", record)
         const subcolumns: TableColumnsType<BasicModelTravis> = [
             {
                 title: "SKU ",
@@ -276,6 +278,7 @@ const AllPendingOrder = () => {
     const handleResetTravis=()=>{
         setIsTravis(false)
         setRecordPdf(null)
+        setIsOgio(false)
     }
     return (
         <>
@@ -322,6 +325,13 @@ const AllPendingOrder = () => {
             <TravisPdfPrintOrder
             recordPdf={recordPdf}
             resetTravisPdf={handleResetTravis}
+            />
+            }
+            { isOgio &&
+            recordPdf &&
+            <OgioPdfPrintOrder
+            recordPdf={recordPdf}
+            resetOgioPdf={handleResetTravis}
             />
             }
 

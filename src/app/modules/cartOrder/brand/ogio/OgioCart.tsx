@@ -680,6 +680,7 @@ const handleOkSubmit=()=>{
   const [statusUpdate, setStatusUpdate] = useState<string>("")
   
   const handleOkApprove=() => {
+    setIsApproveModal(false)
     setIsStatusUpdate(true)
     setStatusUpdate("Approved")
     dispatch(LoadingStart())
@@ -689,7 +690,7 @@ const handleOkSubmit=()=>{
     setIsApproveModal(true)
   }
   const handleCancelApprove = () => {
-    setIsApproveModal(true)
+    setIsApproveModal(false)
   }
 
 
@@ -715,6 +716,7 @@ const handleOkSubmit=()=>{
 
   const handleOkCompleted=() => {
     setIsCompletedorder(true)
+    setIsCompletedModal(false)
     dispatch(LoadingStart())
   }
   const handleCompletedOrder = () => {

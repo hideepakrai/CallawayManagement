@@ -9,6 +9,10 @@ import "./AllPendingOrder.css";
 import Edit from "./Edit";
 import UpdateStatus from "./UpdateStatus.tsx";
 import OrderPdfFormate from "../../cartOrder/orderPdf/OrderPdfFormate.tsx";
+import TravisPdfPrintOrder from "../pdfformate/TravisPdfPrintOrder.tsx";
+import OgioPdfPrintOrder from "../pdfformate/OgioPdfPrintOrder.tsx";
+import TravisExpandedRowRender from "../table/TravisExpandedRowRender.tsx";
+import OgioExpandedRowRender from "../table/OgioExpandedRowRender.tsx";
 
 const AllOrders = () => {
     const [status, setStatus] = useState<string>("");
@@ -18,7 +22,7 @@ const AllOrders = () => {
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
     const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
 
-    // get All pending orders
+    // Get all pending orders
     useEffect(() => {
         const allpend: AccountOrder[] = [];
         if (getUserOrder && getUserOrder.length > 0) {
@@ -48,10 +52,18 @@ const AllOrders = () => {
         setIsEdit(false);
     };
 
-    const handleExpand = (record: CartModel) => {
-        if (record && record.items && record.items.length > 0 && record.id) {
+    const [expandedKeys, setExpandedKeys] = useState<number | null>(null);
+
+    const handleExpand = (expanded: boolean, record: CartModel) => {
+        setExpandedRowKeys([]);
+        setExpandedKeys(null);
+        if (record && record.items && record.items.length > 0 && record.id && expanded) {
             const allarray = JSON.parse(record.items);
             setExpandedRowKeys(allarray);
+            setExpandedKeys(record.id);
+        } else {
+            setExpandedRowKeys([]);
+            setExpandedKeys(null);
         }
     };
 
@@ -68,19 +80,23 @@ const AllOrders = () => {
             width: 100,
             render: (value) => {
                 let brandName;
-                if(value===1){
-                    brandName = "Callaway Hardgoods"; // Default value or other brand name
+                switch (value) {
+                    case 1:
+                        brandName = "Callaway Hardgoods";
+                        break;
+                    case 2:
+                        brandName = "Callaway Apparel";
+                        break;
+                    case 3:
+                        brandName = "Travis Mathew";
+                        break;
+                    case 4:
+                        brandName = "Ogio";
+                        break;
+                    default:
+                        brandName = "Unknown Brand";
                 }
-                else if(value===2){
-                    brandName = "Callaway Apparel"; // Default value or other brand name
-                }
-                else if (value === 3) {
-                    brandName = "Travis Mathew";
-                } else  if(value===4){
-                    brandName = "Ogio"; // Default value or other brand name
-                }  
-
-                return <span>{brandName}</span>; // Render the brand name inside a span
+                return <span>{brandName}</span>;
             },
         },
         {
@@ -97,8 +113,6 @@ const AllOrders = () => {
                 return date.toUTCString();
             },
         },
-
-       
         {
             title: "Last Update",
             dataIndex: "updated_at",
@@ -108,37 +122,25 @@ const AllOrders = () => {
                 return date.toUTCString();
             },
         },
-        
-
-
         {
             title: "Discount",
             dataIndex: "discount_amount",
             width: 100,
             render(value, record, index) {
-                  console.log("value", value)
-                  const discount = parseFloat(value);
-                  const discountvalue=discount.toFixed(2)
-                return discountvalue
+                const discount = parseFloat(value);
+                return discount.toFixed(2);
             },
         },
-
-
         {
             title: "Amount",
             dataIndex: "total_value",
             width: 100,
         },
-
         {
-            title: "Status	",
+            title: "Status",
             dataIndex: "status",
             width: 100,
-
         },
-
-      
-
         {
             title: "Action",
             width: 70,
@@ -165,13 +167,12 @@ const AllOrders = () => {
                                     borderRight: "1px solid rgb(221, 221, 221)",
                                     cursor: "pointer",
                                 }}
-                                onClick={() => handleExpand(record)}></i>
+                            ></i>
                         </Tooltip>
-
                         <Tooltip title="Edit" placement="bottom">
                             <span
                                 style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                onClick={() => handleEdit(record.id)} // Pass the id directly to handleEdit
+                                onClick={() => handleEdit(record.id)}
                             >
                                 <i className="bi bi-pencil-fill"></i>
                             </span>
@@ -183,99 +184,43 @@ const AllOrders = () => {
     ];
 
     const expandedRowRender = (record: CartModel) => {
-        const subcolumns: TableColumnsType<BasicModelTravis> = [
-            {
-                title: "SKU ",
-                dataIndex: "sku",
-                key: "sku",
-                width: 390,
-                fixed: "left",
-            },
-            {
-                title: "Color",
-                dataIndex: "color",
-                key: "color",
-                width: 200,
-            },
-            {
-                title: "Size",
-                dataIndex: "size",
-                key: "size",
-                width: 170,
-            },
-            {
-                title: "Qty88",
-                dataIndex: "stock_88",
-                key: "stock_88",
-                width: 150,
-                fixed: "right",
-            },
-            {
-                title: "Qty90",
-                dataIndex: "stock_90",
-                key: "stock_90",
-                width: 150,
-                fixed: "right",
-            },
-            {
-                title: "Qty",
-                dataIndex: "TotalQty",
-                key: "TotalQty",
-                width: 50,
-                fixed: "right",
-                render: (value, record, index) => {
-                    const qty88=record.stock_88;
-                    const qty90=record.stock_90;
-                    if(qty88 && qty90){
-                        return qty88+qty90;
-                    } else if(qty88 &&qty90===0){
-                        return qty88;
-                    }
-                    else if(qty90 &&qty88===0){
-                        return qty90;
-                    }
-                }
-            },
-            {
-                title: "MRP",
-                dataIndex: "mrp",
-                key: "mrp",
-                width: 80,
-                fixed: "right",
-            },
-            {
-                title: "Amount",
-            
-                dataIndex: "total_value",
-                key: "Amount",
-                width: 100,
-                fixed: "right",
-            },
-        ];
-
-        return (
-            <Table
-                className="table-profile"
-                columns={subcolumns}
-                dataSource={expandedRowKeys?.map((item) => ({
-                    ...item,
-                    key: item.sku,
-                }))}
-                pagination={false}
-                size="middle"
-            />
-        );
+        if (record && record.brand_id) {
+            switch (record.brand_id) {
+                case 3:
+                    return <TravisExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                case 4:
+                    return <OgioExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                default:
+                    return <div>No detailed view available</div>;
+            }
+        }
+        return null;
     };
 
     const [recordPdf, setRecordPdf] = useState<AccountOrder | null>(null);
-
+    const [isTravis, setIsTravis] = useState<boolean>(false);
+    const [isOgio, setIsOgio] = useState<boolean>(false);
     const handleDownload = (record: AccountOrder) => {
-        setRecordPdf(record);
+        setRecordPdf(null);
+        setIsTravis(false);
+        setIsOgio(false);
+        if (record.brand_id === 3) {
+            setIsOgio(false);
+            setIsTravis(true);
+            setRecordPdf(record);
+        } else if (record.brand_id === 4) {
+            setIsOgio(true);
+            setIsTravis(false);
+            setRecordPdf(record);
+        }
     };
 
-    const handleRecordPdf = () => {
-        setRecordPdf(null)
-    }
+    const handleResetTravis = () => {
+        setIsTravis(false);
+        setRecordPdf(null);
+        setIsOgio(false);
+    };
+
     return (
         <div className="cart-table">
             <Card title="All Orders">
@@ -286,7 +231,7 @@ const AllOrders = () => {
                     dataSource={allPending.map((item) => ({ ...item, key: item.id! }))}
                     expandable={{
                         expandedRowRender,
-                        onExpand: (expanded, record) => handleExpand(record),
+                        onExpand: (expanded, record) => handleExpand(expanded, record),
                     }}
                     bordered
                     size="middle"
@@ -294,23 +239,12 @@ const AllOrders = () => {
                 />
             </Card>
 
-            <Edit
-                isEdit={isEdit}
-                onClose={handleCloseEdit}
-                changeStatus={handleUpdateStatus}
-            />
+            <Edit isEdit={isEdit} onClose={handleCloseEdit} changeStatus={handleUpdateStatus} />
 
-            {status != null && orderId !== undefined && (
-                <UpdateStatus
-                    status={status}
-                    orderId={orderId}
-                />
-            )}
+            {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} />}
 
-            {recordPdf && <OrderPdfFormate
-                recordPdf={recordPdf}
-                resetSelectedRow={handleRecordPdf}
-            />}
+            {isTravis && recordPdf && <TravisPdfPrintOrder recordPdf={recordPdf} resetTravisPdf={handleResetTravis} />}
+            {isOgio && recordPdf && <OgioPdfPrintOrder recordPdf={recordPdf} resetOgioPdf={handleResetTravis} />}
         </div>
     );
 };

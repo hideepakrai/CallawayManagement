@@ -28,7 +28,9 @@ const UpdatePreOrderOgio = ({ resetUpdateOrder, preorderId }: Props) => {
                 sku: item.sku,
                 mrp: item.mrp,
                 stock_90: item.Quantity90 ? item.Quantity90 : 0,
-               
+                Amount:item.Amount,
+            LessDiscountAmount:item.LessDiscountAmount,
+            product_type:item.product_type
     
               })
              

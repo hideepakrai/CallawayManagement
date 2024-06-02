@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel'
-import { addPreOrderId, getOgioProducts, updateProgressStep } from '../../../../slice/allProducts/OgioSlice'
+import { addNote, addPreOrderId, getOgioProducts, updateProgressStep } from '../../../../slice/allProducts/OgioSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { CartModel } from '../../../model/CartOrder/CartModel'
 import { CreateOrder } from '../../../cartOrder/orderApi/OrderAPi'
@@ -71,6 +71,9 @@ const CreatedOrderOgio = ({ resetCreatedOrder }: Props) => {
             sku: item.sku,
             mrp: item.mrp,
             stock_90: item.Quantity90 ? item.Quantity90 : 0,
+            Amount:item.Amount,
+            LessDiscountAmount:item.LessDiscountAmount,
+            product_type:item.product_type
             
           })
           
@@ -112,6 +115,9 @@ const CreatedOrderOgio = ({ resetCreatedOrder }: Props) => {
            salesrep_id: salesRepId,
     
           }
+          dispatch(addNote({
+            note:data1
+          }))
           createOrder(data)
         }
       }, [allOgioOrders])

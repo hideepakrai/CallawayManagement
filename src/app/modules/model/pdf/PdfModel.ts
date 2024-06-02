@@ -41,13 +41,14 @@ export interface TravisPdfPrint{
 } 
 
  export interface OtherInfoData{
-    mrp?: string;
+    mrp?: number;
     color?:string;
     style_code?:string;
     category?:string;
     gender?:string;
     season?:string,
     product_model?:string,
+    
 }
 
  export interface Variation_sku_data{

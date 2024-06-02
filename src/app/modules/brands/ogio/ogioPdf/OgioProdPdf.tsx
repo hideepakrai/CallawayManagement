@@ -269,7 +269,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                   </td>
                                 </tr>
 
-                                <tr
+                                {/* <tr
                                   style={{
                                     border: "1px solid #ddd",
                                     lineHeight: "40px",
@@ -281,12 +281,12 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                       paddingLeft: "10px",
                                     }}
                                   >
-                                    Season
+                                    Product type
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {callout.otherInfo.season}{" "}
+                                    {callout.otherInfo.product_type}{" "}
                                   </td>
-                                </tr>
+                                </tr> */}
 
                                 <tr
                                   style={{
@@ -300,13 +300,13 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                       paddingLeft: "10px",
                                     }}
                                   >
-                                    Color
+                                    Product Model
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {callout.otherInfo.color}
+                                    {callout.otherInfo.product_model}
                                   </td>
                                 </tr>
-                                <tr
+                                {/* <tr
                                   style={{
                                     border: "1px solid #ddd",
                                     lineHeight: "40px",
@@ -323,7 +323,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                   <td style={{ paddingLeft: "10px" }}>
                                     {callout.otherInfo.style_code}
                                   </td>
-                                </tr>
+                                </tr> */}
 
                                 <tr
                                   style={{
@@ -341,7 +341,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
                                     {/* {callout.otherInfo.mrp} */}
-                                    ₹{callout.otherInfo.mrp}
+                                    ₹{callout.otherInfo.mrp?callout.otherInfo.mrp:0}
                                   </td>
                                 </tr>
 
