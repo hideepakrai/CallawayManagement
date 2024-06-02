@@ -1221,6 +1221,7 @@ const TravisTable = () => {
         category: record.category,
         gender: record.gender,
         season: record.season,
+        mrp:record.mrp?record.mrp:0,
       };
       const allVarSku = {
         family:record.family,

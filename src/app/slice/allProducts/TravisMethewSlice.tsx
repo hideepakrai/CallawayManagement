@@ -413,6 +413,15 @@ const TravisMethewSlice = createSlice({
           
             
             }
+            const otherIndex=state.otherProduct.findIndex(item=>item.sku===sku);
+            // eslint-disable-next-line no-debugger
+            debugger
+            if(otherIndex!=-1){
+              state.otherProduct[otherIndex].Quantity90=qty90;
+              const quantity88 = state.otherProduct[otherIndex]?.Quantity88 ?? 0;
+              state.otherProduct[otherIndex].TotalQty = quantity88+qty90;
+              state.otherProduct[otherIndex].Amount = MRP*(quantity88+qty90)
+            }
           },
           updateQuantity88:(state,actions) => {
             const {sku, qty88,MRP}=actions.payload;
@@ -456,6 +465,13 @@ const TravisMethewSlice = createSlice({
              state.travisMethew[travisIndex].ordered = false;
 
          }
+            }
+            const otherIndex=state.otherProduct.findIndex(item=>item.sku===sku);
+            if(otherIndex!==-1){
+              state.otherProduct[otherIndex].Quantity88=qty88;
+              const quantity90 = state.otherProduct[otherIndex]?.Quantity90 ?? 0;
+              state.otherProduct[otherIndex].TotalQty = quantity90+qty88;
+              state.otherProduct[otherIndex].Amount = MRP*(quantity90+qty88)
             }
           },
           addOtherProduct:(state,action)=>{

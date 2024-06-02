@@ -6,7 +6,7 @@ import { OgioBasicModel, OgioBasicModelGraph, OgioModel, } from "../../../model/
 
 import { OgioExcelModel } from "../../../model/ogio/OgioExcelModel"
 import { useDispatch, useSelector } from "react-redux"
-import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType, addOtherProduct, getOgioOtherProduct } from "../../../../slice/allProducts/OgioSlice"
+import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType, addOtherProduct, getOgioOtherProduct, updateOtherQuantity90 } from "../../../../slice/allProducts/OgioSlice"
 import SampleOgioExcel from '../excel/SampleOgioExcel';
 import OgioImportExcel from "../excel/importExcel/OgioImportExcel"
 import OgioExcelUploadDB from "../excel/importExcel/OgioUploadExcel"
@@ -868,7 +868,7 @@ const OgioTable = () => {
                 value={record.Quantity90?.toString()}
                 onChange={(value) => {
                   if (value !== null) {
-                   // handleQuantity901(value, record)
+                   handleQuantity901(value, record)
                   }
 
                 }}
@@ -924,6 +924,89 @@ const OgioTable = () => {
     }
   }
 
+  const [qty901ToolMesage, setQty901Message] = useState<string>("")
+  const [qty901ToolSKU, setQty901SKU] = useState<string | undefined>("")
+  const [isQty901ToolTip, setIsQty901ToolTip] = useState<boolean>(false)
+  const handleQuantity901 = (value: string, record: OgioBasicModel) => {
+    console.log("qunatity: handleQuantity 90", value,)
+    const intValue = parseInt(value, 10);
+    setQty901Message("");
+    setIsQty901ToolTip(false);
+    setQty901SKU("")
+
+    record.Quantity90 = intValue;
+    if (intValue > 0) {
+      if (record && record.stock_90 && record.stock_90 >= intValue) {
+
+        // Dispatch an action to update the quantity for the SKU
+
+        dispatch(updateQuantity90({
+          sku: record.sku,
+          qty90: intValue,
+          MRP: record.mrp,
+
+        }));
+        dispatch(updateOtherQuantity90({
+          sku: record.sku,
+          qty90: intValue,
+          MRP: record.mrp,
+
+        }));
+
+
+      }
+      else {
+        // alert("Quantity is not available")
+        const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
+        setQty90Message("The quantity should not exceed the available stock")
+        setIsQty90ToolTip(true)
+        setQty90SKU(record.sku)
+
+        dispatch(updateQuantity90({
+          sku: record.sku,
+          qty90: st90,
+          MRP: record.mrp
+
+
+        }));
+        dispatch(updateOtherQuantity90({
+          sku: record.sku,
+          qty90: st90,
+          MRP: record.mrp,
+
+        }));
+
+
+
+      }
+    } else if (intValue < 0) {
+
+      // alert("Quantity cannot be negative")
+      setQty90Message("Quantity cannot be negative")
+      setIsQty90ToolTip(true)
+      setQty90SKU(record.sku)
+    } else if (intValue === 0) {
+      dispatch(updateQuantity90({
+        sku: record.sku,
+        qty90: intValue,
+        MRP: record.mrp,
+
+      }));
+      dispatch(updateOtherQuantity90({
+        sku: record.sku,
+        qty90: intValue,
+        MRP: record.mrp,
+
+      }));
+
+    }
+
+
+
+
+    // Log the record for debugging or tracking purposes
+
+  };
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}

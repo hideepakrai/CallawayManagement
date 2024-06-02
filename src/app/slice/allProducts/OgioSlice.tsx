@@ -311,6 +311,13 @@ const OgioSlice = createSlice({
                 state.ogio[ogioIndex].ordered = false;
 
             }
+            const otherIndex=state.otherProduct.findIndex(item=>item.sku===sku);
+            if(otherIndex!==-1){
+              state.otherProduct[otherIndex].Quantity90=qty90;
+              const quantity88 = state.otherProduct[otherIndex]?.Quantity88 ?? 0;
+              state.otherProduct[otherIndex].TotalQty = quantity88+qty90;
+              state.otherProduct[otherIndex].Amount = MRP*(quantity88+qty90)
+            }
           },
           updateOgioInclusiveDiscount:(state,action)=>{
             const {discount}= action.payload;
@@ -393,6 +400,8 @@ const OgioSlice = createSlice({
                 item.error=""
                
             })
+            state.note=[],
+            state.ogioRetailerDetails=[]
         },
         updateQunatityAfterOrder:(state,action)=>{
             const {ogioProduct}= action.payload;
@@ -452,6 +461,54 @@ const OgioSlice = createSlice({
             const {retailerDetails}= action.payload;
             state.ogioRetailerDetails=retailerDetails
         },
+        updateOtherQuantity90:(state,actions) => {
+ 
+            const {sku, qty90,MRP}=actions.payload;
+            const otherIndex = state.otherProduct.findIndex(
+              (other) => other.sku === sku)
+            if (otherIndex!== -1) {
+              state.otherProduct[otherIndex].Quantity90 = qty90;
+               
+              
+              const quantity90 = state.otherProduct[otherIndex]?.Quantity90 ?? 0;
+              state.otherProduct[otherIndex].TotalQty = quantity90;
+
+              
+              state.otherProduct[otherIndex].Amount = MRP*(quantity90)
+              state.otherProduct[otherIndex].ordered = true;
+              const gst=state.otherProduct[otherIndex].gst;
+              const mrp=state.otherProduct[otherIndex].mrp;
+              const amount=state.otherProduct[otherIndex].Amount;
+              if(mrp &&gst && amount){
+               const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
+
+
+             const netbill = parseFloat((amount - ((amount * 22) / 100) - gstdiscount).toFixed(2));
+
+             const lessDiscountAmount = parseFloat(((amount * 22) / 100).toFixed(2));
+
+
+             const netBillings = parseFloat((amount - (qty90 * gst * mrp / 100)).toFixed(2));
+
+             const finalBillValue = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+
+             state.otherProduct[otherIndex].LessGST = gstdiscount;
+             state.otherProduct[otherIndex].LessDiscountAmount = lessDiscountAmount;
+             state.otherProduct[otherIndex].NetBillings = netBillings;
+             state.otherProduct[otherIndex].FinalBillValue = finalBillValue;
+           } 
+           if(otherIndex!== -1 &&qty90==0 ) {
+            state.otherProduct[otherIndex].Quantity90 = 0;
+            
+            state.otherProduct[otherIndex].Amount = 0;
+            state.otherProduct[otherIndex].ordered = false;
+
+        }
+
+
+            }
+
+          },
 
 
        
@@ -478,7 +535,8 @@ export const { addOgioProduct,
     addOtherProduct,
     removeOtherProduct,
     addOgioReatailerDetails,
-    addNote
+    addNote,
+    updateOtherQuantity90
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];
