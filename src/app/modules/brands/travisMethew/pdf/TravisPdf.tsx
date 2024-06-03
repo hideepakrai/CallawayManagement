@@ -31,11 +31,11 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
 
 
-  useEffect(() => {
-    if (selectedRow && selectedRow.length > 0) {
-      handlePrint(null, () => contentToPrint.current);
-    }
-  }, [selectedRow]);
+  // useEffect(() => {
+  //   if (selectedRow && selectedRow.length > 0) {
+  //     handlePrint(null, () => contentToPrint.current);
+  //   }
+  // }, [selectedRow]);
 
 
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
@@ -80,23 +80,22 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
           </div>
 
           <Card id="catelog" ref={contentToPrint}>
-            <div>
+      
 
               <div className='mb-18' style={{ textAlign: 'center', height: "1122px", backgroundColor: "#000", paddingTop: "300px" }}>
 
                 <div >
                   <img style={{ width: "200px", paddingTop: "60px" }} src={TravisLogo}></img>
                 </div>
+
                 <h2 className='brand-title'  style={{ paddingTop: "40px", paddingBottom: "40px", fontSize: "45px", color: "#fff", fontWeight: "500", letterSpacing: "4px", }}>Travis Mathew</h2>
 
                 <p style={{ fontSize: "18px", paddingLeft: "30px", color: "#fff", paddingRight: "30px", fontWeight: "100", }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                 </p>
               </div>
-
-
               {/* prodect two  start*/}
-            </div>
+           
 
 
             {selectedRow &&
