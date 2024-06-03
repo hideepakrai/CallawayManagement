@@ -1349,10 +1349,10 @@ const TravisTable = () => {
       >
 
         <div style={{ float: "right", marginBottom: "12px" }}>
-          { getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+          {/* { getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handelUploadImage}
-          //  onClick={handleSampleExcel}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>}
+      
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>} */}
           {/* active class ="active-btn" */}
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 

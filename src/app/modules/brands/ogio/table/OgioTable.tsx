@@ -1027,10 +1027,10 @@ const OgioTable = () => {
       >
         <div style={{ float: "right", marginBottom: "12px" }}>
 
-        {getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+        {/* {getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
            onClick={handleUploadImages}
-          > <i className="bi bi-bag fs-3"></i> UploadImages</Button>}
+          > <i className="bi bi-bag fs-3"></i> UploadImages</Button>} */}
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
          onClick={handleViewCart}

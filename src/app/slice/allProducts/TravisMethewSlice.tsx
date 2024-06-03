@@ -306,56 +306,22 @@ const TravisMethewSlice = createSlice({
                 } 
                 else if (travisIndex!==-1){
                   const rdx= state.travisMethew[travisIndex];
-                  if(travisProduct.name!==undefined){
-                    rdx.name=travisProduct.name
-                  } 
-                   if(travisProduct.description!==undefined){
-                    rdx.description=travisProduct.description
-                  }
-                   if(travisProduct.mrp!==undefined){
-                    rdx.mrp=travisProduct.mrp
-                  }
-                  if(travisProduct.category!==undefined){
-                    rdx.category=travisProduct.category
-                  }
-                  if(travisProduct.season!==undefined){
-                    rdx.season=travisProduct.season
-                  }
-                  if(travisProduct.style_code!==undefined){
-                    rdx.style_code=travisProduct.style_code
-                  }
-                  if(travisProduct.color!==undefined){
-                    rdx.color=travisProduct.color
-                  }
-                  if(travisProduct.gst!==undefined){
-                    rdx.gst=travisProduct.gst
-                  }
-                  if(travisProduct.size!==undefined){
-                    rdx.size=travisProduct.size
-                  }
-                  if(travisProduct.length!==undefined){
-                    rdx.length=travisProduct.length
-                  }
-                  if(travisProduct.primary_image_url!==undefined){
-                    rdx.primary_image_url=travisProduct.primary_image_url
-                  }
-                  if(travisProduct.gallery_images_url!==undefined){
-                    rdx.gallery_images_url=travisProduct.gallery_images_url
-                  }
-                  if(travisProduct.gallery_images_url!==undefined){
-                    rdx.gallery_images_url=travisProduct.gallery_images_url
-                  }
-                  if(travisProduct.variation_sku!==undefined){
-                    rdx.variation_sku=travisProduct.variation_sku
-                  }
-                  if(travisProduct.stock_90!==undefined){
-                    rdx.stock_90=travisProduct.stock_90
-                  }
-                  if(travisProduct.stock_88!==undefined){
-                    rdx.stock_88=travisProduct.stock_88
-                  }
-                  
-           
+                  state.travisMethew[travisIndex].name=item.name!=undefined ?item.name:rdx.name;
+                  state.travisMethew[travisIndex].description=item.description!=undefined ?item.description:rdx.description;
+                  state.travisMethew[travisIndex].mrp=item.mrp!=undefined ?item.mrp:rdx.mrp;
+                  state.travisMethew[travisIndex].category=item.category!=undefined ?item.category:rdx.category;
+                  state.travisMethew[travisIndex].style_code=item.style_code!=undefined ?item.style_code:rdx.style_code;
+                  state.travisMethew[travisIndex].color=item.color!=undefined ?item.color:rdx.color;
+                  state.travisMethew[travisIndex].gst=item.gst!=undefined ?item.gst:rdx.gst;
+                  state.travisMethew[travisIndex].size=item.size!=undefined ?item.size:rdx.size;
+                  state.travisMethew[travisIndex].length=item.length!=undefined ?item.length:rdx.length;
+                  state.travisMethew[travisIndex].primary_image_url=item.primary_image_url!=undefined ?item.primary_image_url:rdx.primary_image_url;
+                  state.travisMethew[travisIndex].gallery_images_url=item.gallery_images_url!=undefined ?item.gallery_images_url:rdx.gallery_images_url;
+                  state.travisMethew[travisIndex].stock_90=item.stock_90!=undefined ?item.stock_90:rdx.stock_90;
+                  state.travisMethew[travisIndex].stock_88=item.stock_88!=undefined ?item.stock_88:rdx.stock_88;
+                  state.travisMethew[travisIndex].variation_sku=item.variation_sku!=undefined ?item.variation_sku:rdx.variation_sku;
+                 
+          
                 }
               })
                 

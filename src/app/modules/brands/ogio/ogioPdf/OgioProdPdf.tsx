@@ -251,7 +251,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                       paddingLeft: "10px",
                                     }}
                                   >
-                                    Product Model
+                                  Model
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
                                     {callout.otherInfo.product_model}
