@@ -9,6 +9,8 @@ import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 const TravisOrderPdf = () => {
 
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-CA'); 
     const getCurrentUsers = useSelector(getCurrentUser)
     const [salesRepName, setSalesRepName] = useState<string>()
     const getUserProfiles= useSelector(getUserProfile)
@@ -203,7 +205,7 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
 
         <div className="col-4 user-details-pdf" >
-          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> 16/01/2024 </p>
+          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> {formattedDate} </p>
 
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India</p>
 

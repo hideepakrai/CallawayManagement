@@ -12,6 +12,7 @@ export interface CurentUser{
    address?:string;
    phone?:number;
    phone2?:number;
+   gstin?:string
 
 }
 

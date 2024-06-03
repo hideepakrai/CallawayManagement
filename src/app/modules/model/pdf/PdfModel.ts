@@ -35,7 +35,8 @@ export interface TravisPdfPrint{
  variation_sku_data?:Variation_sku_data[],
  otherInfo:OtherInfoData;
  gallery_images_url?:string,
- primary_image_url?:string
+ primary_image_url?:string,
+ family?:string,
 
 
 } 

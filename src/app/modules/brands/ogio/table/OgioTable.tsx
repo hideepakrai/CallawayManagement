@@ -46,7 +46,7 @@ const OgioTable = () => {
   
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-
+  const [allXlxData, setAllXlxData] = useState<OgioExcelModel[]>([])
   const getCategorys = useSelector(getCategory);
   const getProductModels = useSelector(getProductModel);
   const getProductTypes = useSelector(getProductType);
@@ -547,57 +547,6 @@ const OgioTable = () => {
   const [selectedRowVartionSku, setSelectedRowVartionSku] = useState<TravisPdfPrint[]>([])
   const [uniqueVariationSku, setUniqueVariationSku] = useState<string[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
-  const handleSelectRow = (record: OgioBasicModel, selected: boolean) => {
-    console.log("selected row:", selected);
-    console.log("record:", record);
-    const variationSkuSet = new Set<string>(uniqueVariationSku);
-    if (selected) {
-      setSelectedRow(prev => [...prev, record]);
-
-      if (record && record.variation_sku && record.variation_sku != undefined && record.variation_sku !== "") {
-        const stringArray = record.variation_sku.split(',').map(item => item.trim());
-        if (uniqueVariationSku && uniqueVariationSku.length > 0) {
-          let check = false;
-
-          uniqueVariationSku.forEach(objVarSku => {
-            const stringVar = objVarSku.split(',').map(item => item.trim());
-
-
-            if (stringVar.length > 0 && stringArray.length > 0) {
-              stringArray.forEach(item => {
-                if (stringVar.includes(item)) {
-                  check = true;
-                }
-              });
-            }
-          });
-
-          if (!check) {
-            variationSkuSet.add(record.variation_sku);
-            makePdfPring(record.variation_sku, record)
-          }
-          
-        } else {
-          variationSkuSet.add(record.variation_sku);
-          makePdfPring(record.variation_sku, record)
-        }
-      }
-      setUniqueVariationSku(Array.from(variationSkuSet))
-
-
-
-      if (record.sku) {
-        setSelectedRowKeys(prev => [...prev, record.sku!]);
-      }
-    } else {
-      const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
-      setSelectedRow(updatedSelectedRow);
-  
-      const updatedSelectedRowKeys = selectedRowKeys.filter(key => key !== record.sku);
-      setSelectedRowKeys(updatedSelectedRowKeys);
-    }
-  };
-
 
 
   const makePdfPring = (variationSku: string, record: OgioBasicModel) => {
@@ -639,6 +588,38 @@ const OgioTable = () => {
     }
 
   }
+
+  const handleSelectRow = (record: OgioBasicModel, selected: boolean) => {
+    console.log("selected row:", selected);
+    console.log("record:", record);
+    // const variationSkuSet = new Set<string>(uniqueVariationSku);
+    if (selected) {
+      setSelectedRow(prev => [...prev, record]);
+
+      if (record && record.variation_sku && record.variation_sku != undefined && record.variation_sku !== "") {
+       // const stringArray = record.variation_sku.split(',').map(item => item.trim());
+    
+
+      makePdfPring(record.variation_sku, record)
+
+   
+        setSelectedRowKeys(prev => [...prev, record.sku!]);
+      
+    } 
+  }else  if(!selected){
+      const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
+      setSelectedRow(updatedSelectedRow);
+  
+      const updatedSelectedRowKeys = selectedRowKeys.filter(key => key !== record.sku);
+      setSelectedRowKeys(updatedSelectedRowKeys);
+      const updatedselectedRowVartionSku = selectedRowVartionSku.filter(key => key.family!== record.sku);
+      setSelectedRowVartionSku(updatedselectedRowVartionSku);
+    }
+  };
+
+
+
+ 
 // useEffect(()=>{
 //   console.log("selected row",selectedRow)
 // },[selectedRow])
@@ -695,7 +676,7 @@ const OgioTable = () => {
       setIsImport(false);
 
     }
-    const [allXlxData, setAllXlxData] = useState<OgioExcelModel[]>([])
+
     const handleOgioData=(allOgioData:OgioBasicModel[])=>{
       setAllXlxData(allOgioData);
       setIsImport(false)

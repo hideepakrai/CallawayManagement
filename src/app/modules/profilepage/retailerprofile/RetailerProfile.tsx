@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
 
 import "./RetailerProfile.css";
-import PendingOrder from './PendingOrder';
-import AllOrders from './AllOrders';
+import PendingOrder from '../managerprofile/AllPendingOrder';
+import AllOrders from '../managerprofile/AllOrders';
 import { friendList } from "./FriendList";
 import Friends from './Friend';
 import { contactList } from './ContactList';
@@ -62,15 +62,20 @@ const RetailerProfile = () => {
 
       
       <Row className='container'>
-        <Col xl={16} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
+      <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
-      <AllOrders   />
+      {/* <AllOrders   /> */}
         </Col>
 
-        <Col xl={8} lg={10} md={10} sm={24} xs={24} >
+        {/* <Col xl={8} lg={10} md={10} sm={24} xs={24} >
         <Friends friendList={friendList} />
        <Contact contactList={contactList} />
-        </Col>
+        </Col> */}
+         <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
+            <AllOrders />
+            {/* <PendingOrder />  */}
+
+          </Col>
       </Row>
 
       {isOrder && 

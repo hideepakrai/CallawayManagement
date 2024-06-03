@@ -17,7 +17,7 @@ const OgioPrimaryImages = ({ record }: Props) => {
     <div>
     {record.primary_image_url ?
       (<img
-        alt="Special Edition Party Spas"
+        alt={record.family}
         style={{
           backgroundColor: "#eee",
           borderRadius: "10px",

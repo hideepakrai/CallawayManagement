@@ -36,7 +36,8 @@ const OgioCartPdf = () => {
   const [retailerId, setRetailerId] = useState<number>(0)
   const [retailerCty, setRetailerCity] = useState<string>()
   const [salesRepName, setSalesRepName] = useState<string>()
-
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-CA'); 
 
   const getAllTravisOrder = useSelector(getTravisOrder)
 
@@ -243,7 +244,7 @@ const OgioCartPdf = () => {
 
 
           <div className="col-4 user-details-pdf" >
-            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> 16/01/2024 </p>
+            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> {formattedDate} </p>
 
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India </p>
 

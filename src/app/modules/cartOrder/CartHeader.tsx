@@ -59,6 +59,21 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
                 setManagerName(getCurrentUsers.name)
             }
+            if(getCurrentUsers && getCurrentUsers.role==="Retailer"){
+                // eslint-disable-next-line no-debugger
+                debugger
+                if(getCurrentUsers.address &&getCurrentUsers.gstin && getCurrentUsers.id && getCurrentUsers.name){
+                    setRetailerAddress(getCurrentUsers.address);
+                    setGST(getCurrentUsers.gstin);
+                    setRetailerId(getCurrentUsers.id)
+                    setRetailerName(getCurrentUsers.name)
+                    dispatch(addTravisReatailerDetails({
+                        retailerDetails:getCurrentUsers
+                    }))
+                }
+               
+
+            }
         }
       
     },[getUserProfiles,getCurrentUsers])
