@@ -53,7 +53,7 @@ export interface BasicModelTravis {
        
          SetType?: string;
          ProductType?: string | null;
-
+          expansion?:BasicModelTravis[]
 
        error?:string,
        

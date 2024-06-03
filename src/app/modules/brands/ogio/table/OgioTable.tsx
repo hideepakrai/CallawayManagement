@@ -549,6 +549,8 @@ const OgioTable = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 
 
+
+
   const makePdfPring = (variationSku: string, record: OgioBasicModel) => {
     const stringVar = variationSku.split(',').map(item => item.trim());
     const totalVarSkuData: Variation_sku_data[] = [];
@@ -629,7 +631,7 @@ const OgioTable = () => {
   const [isPDF, setIspdf] = useState<boolean>(false)
 
   const handleResetSelectedRow = () => {
-    //setSelectedRowKeys([]);
+    setSelectedRowKeys([]);
     setSelectedRow([])
     setIspdf(false)
     setIsExport(false)
@@ -1114,7 +1116,7 @@ const OgioTable = () => {
       />
 
       {isPDF && <OgioProdPdf
-        selectedRow={selectedRowVartionSku}
+        selectedRow={selectedRow}
         resetSelectedRow={handleResetSelectedRow}
       />}
 

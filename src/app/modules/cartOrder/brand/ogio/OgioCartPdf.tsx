@@ -10,7 +10,7 @@ import OgioGallery from "../../../brands/ogio/table/column/OgioGallery.tsx";
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel.ts";
 import { getOgioProducts, getOgioRetailerDetail } from "../../../../slice/allProducts/OgioSlice.tsx";
 import { getOgioOrder } from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice.tsx";
-import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
+//import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../../../slice/UserSlice/UserSlice"
 import "./OgioCartPdf.css"
 import { RetailerModel } from "../../../model/AccountType/retailer/RetailerModel.ts";
@@ -206,7 +206,7 @@ const OgioCartPdf = () => {
            
           <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
           <div className="col-7 text-end ">
-            <img className="pdf-image" width={200} src={BrandLogo}></img>
+            {/* <img className="pdf-image" width={200} src={BrandLogo}></img> */}
           </div>
           <div className="col-5 text-end px-6">
             <h2 className="text-white pdf-title">ORDER PDF</h2>

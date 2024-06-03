@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
@@ -18,7 +18,7 @@ import { TravisPdfPrint } from '../../../model/pdf/PdfModel';
 
 
 type Props = {
-  selectedRow: TravisPdfPrint[];
+  selectedRow: OgioBasicModel[];
   resetSelectedRow: () => void;
 };
 
@@ -35,8 +35,9 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
   useEffect(() => {
     if (selectedRow && selectedRow.length > 0) {
-      // handlePrint(null, () => contentToPrint.current);
-       
+       handlePrint(null, () => contentToPrint.current);
+
+      // console.log("selectedRow",selectedRow)
     }
   }, [selectedRow]);
 
@@ -152,10 +153,10 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                             </div>
 
                             <div className='product-right-section col-5'>
-                              {callout && callout?.variation_sku_data &&
+                              {/* {callout &&  
                                 <GioVarationSkuInfo
-                                  variation_sku_data={callout.variation_sku_data}
-                                />}
+                                  variation_sku_data={callout}
+                                />} */}
                               <table
                                 style={{
                                   border: "1px solid #ddd",
@@ -217,7 +218,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                     Category
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {callout?.otherInfo?.category}
+                                    {callout?.category}
                                   </td>
                                 </tr>
 
@@ -255,7 +256,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                   Model
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {callout.otherInfo.product_model}
+                                    {callout.product_model}
                                   </td>
                                 </tr>
                                 {/* <tr
@@ -293,7 +294,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
                                     {/* {callout.otherInfo.mrp} */}
-                                    ₹{callout.otherInfo.mrp?callout.otherInfo.mrp:0}
+                                    ₹{callout.mrp}
                                   </td>
                                 </tr>
 

@@ -5,6 +5,7 @@ import { BasicModelTravis } from '../../model/travis/TravisMethewModel';
 import { AccountOrder } from '../../model/CartOrder/CartModel';
 
 import BrandLogo from "../../../../../public/media/logos/travis-white.png";
+// import BrandLogo from "../../../../../../../BrandLogopublic/media/logos/logo-white.png"
 type Props={
     recordPdf:AccountOrder;
     resetTravisPdf:()=>void;
@@ -142,7 +143,7 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
        
         <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
           <div className="col-7 text-end ">
-            <img className="pdf-image" width={200} src={BrandLogo}></img>
+            {/* <img className="pdf-image" width={200} src={BrandLogo}></img> */}
           </div>
           <div className="col-5 text-end px-6">
             <h2 className="text-white pdf-title">ORDER PDF</h2>

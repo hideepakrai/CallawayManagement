@@ -140,6 +140,7 @@ const TravisMethewSlice = createSlice({
                               secondaryImage:[],
                               family:item.family,
                               has_image:item.has_image,
+                              expansion:[]
                               
                           
                           
@@ -244,7 +245,34 @@ const TravisMethewSlice = createSlice({
             // }
             
         }
+        // state.travisMethew.map((item:BasicModelTravis)=>{
+        //   createExpansion(sku: item.sku, variation_sku: item.variation_sku );
+        // })
       },
+    // const   createExpansion= (sku, variation_sku ) => {
+       
+        
+    //         const expansionArray:BasicModelTravis[]=[];
+    //         const travisIndex= state.travisMethew.findIndex(skus=>skus.sku===sku)
+    //         const stringVar = variation_sku.split(',').map((item:string) => item.trim());
+    //         if (stringVar.length > 0 && travisIndex!=-1) {
+  
+    //     stringVar.map((varSku:string) => {
+    //       const travisdata= state.travisMethew.find(items=>items.sku===varSku);
+    //       if(travisdata){
+    //         expansionArray.push(travisdata)
+    //       }
+  
+    //     })
+    //     if(travisIndex!=-1){
+    //       state.travisMethew[travisIndex].expansion=expansionArray
+    //     }
+        
+    //    }
+  
+            
+  
+    //   },
            reloadCategory:(state,action)=>{
             state.uniqueCategories=action.payload.reloadCategory
 
@@ -654,9 +682,7 @@ const TravisMethewSlice = createSlice({
       }
       
      }
-
-          
-
+     
     }
 });
 
