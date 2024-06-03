@@ -33,7 +33,8 @@ const TilesWidget2 = ({
   const dayOfWeek = daysOfWeek[currentTime.getDay()];
   
   // Get the current month, day, and year
-  const month = currentTime.toLocaleString('default', { month: 'long' });
+  const month = currentTime.getMonth() + 1; // months are 0-indexed, add 1 to get 1-12 range
+  const monthStr = month.toString().padStart(2, '0'); // Ensure month is two digits
   const day = currentTime.getDate().toString().padStart(2, '0');
   const year = currentTime.getFullYear().toString();
   
@@ -85,9 +86,7 @@ const TilesWidget2 = ({
 
      
           <div className='text-white mb-3 time-date digital-font mt-0 pt-2'>
-         
-              <span className='date digital-font'>0</span><span className='date digital-font'>5</span><span className='dots'>:</span><span className='calendar-day digital-font'>{day[0]}</span><span className='calendar-day digital-font'>{day[1]}</span><span className='dots'>:</span><span className='date digital-font'>{year[0]}</span><span className='date digital-font'>{year[1]}</span><span className='date digital-font'>{year[2]}</span><span className='date digital-font'>{year[3]}</span> 
-
+              <span className='date digital-font'>{monthStr[0]}</span><span className='date digital-font'>{monthStr[1]}</span><span className='dots'>:</span><span className='calendar-day digital-font'>{day[0]}</span><span className='calendar-day digital-font'>{day[1]}</span><span className='dots'>:</span><span className='date digital-font'>{year[0]}</span><span className='date digital-font'>{year[1]}</span><span className='date digital-font'>{year[2]}</span><span className='date digital-font'>{year[3]}</span> 
           </div>
       
         <Timer />
