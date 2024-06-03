@@ -208,7 +208,7 @@ const OgioCartPdf = () => {
             <img className="pdf-image" width={200} src={BrandLogo}></img>
           </div>
           <div className="col-5 text-end px-6">
-            <h2 className="text-white pdf-title">ORDER PDF</h2>
+            <h2 className="text-white pdf-title">ORDER PDF </h2>
           </div>
           </div>
 
@@ -222,22 +222,25 @@ const OgioCartPdf = () => {
               <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> {getOgioRetailerDetails.gstin} <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
             </div>
 
-            <div className="user-address pt-2 d-flex">
-              <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:
-              
-               </span>
-              <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
-             {getOgioRetailerDetails.phone}
-                {/* {retailerphone}   */}
-              </p>
-            </div>
-
             <div className="user-address pt-2 ">
               <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
               <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
                 {getOgioRetailerDetails.address}  
               </p>
             </div>
+
+
+            {/* <div className="user-address pt-1 d-flex">
+              <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:
+               </span>
+              <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
+             {getOgioRetailerDetails.phone}
+               
+              </p>
+
+            </div> */}
+
+           
           </div>
 
 
@@ -248,7 +251,7 @@ const OgioCartPdf = () => {
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India </p>
 
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Ogio</p>
-            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span> {getCurrentUsers?.name}</p>
+            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span>{getCurrentUsers?.name}</p>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span>  {salesRepName}</p>
           </div>
         </div>

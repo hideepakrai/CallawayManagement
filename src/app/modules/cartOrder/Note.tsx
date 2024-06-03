@@ -76,7 +76,7 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
    
     return (
         <div>
-            <Modal className='timeline' title="Add Note" open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
+            <Modal className='timeline' title="Add Note " open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
             <div className='row mt-8'>
                 <div className='col-7'>
 
@@ -87,7 +87,8 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
                         return (
                             <Timeline.Item color="black ">
                           
-                            <p className="text-gray-800 fs-5 fw-semibold">{note.message}<i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
+                            <p className="text-gray-800 fs-5 m-0 fw-bold">{note.message}</p>
+                            <p className="text-gray-900 fs-6 "><i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
                         </Timeline.Item>
                         )
                        })

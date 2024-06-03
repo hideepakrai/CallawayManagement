@@ -6,6 +6,7 @@ import PendingOrder from './PendingOrder';
 import AllOrders from './AllOrders';
 import { friendList } from "./FriendList";
 import Friends from './Friend';
+import { Badge, Button, Tooltip } from 'antd';
 import { contactList } from './ContactList';
 import Contact from './Contact';
 import {getCurrentUser, getUserAccount} from "../../../slice/UserSlice/UserSlice";
@@ -15,7 +16,10 @@ import Loading from '../../../modules/loading/Loading';
 import {getLoading,LoadingStop,LoadingStart} from "../../../slice/loading/LoadingSlice"
 import GetAllOrdersRetailer from '../../../api/retailers/GetAllOrdersRetlr';
 import GetAllorder from '../../orderPage/GetAllorder';
+import profilelogo from "../../../../../public/media/logos/favicon-icon.png"
+import ManagerSlider from '../managerprofile/ManagerSlider';
 const RetailerProfile = () => {
+  const [copied, setCopied] = useState(false);
 
   const dispatch = useDispatch();
   const getLoadings=useSelector(getLoading)
@@ -35,26 +39,84 @@ const RetailerProfile = () => {
     setIsOrder(false)
     dispatch(LoadingStop())
   }
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      },
+      (err) => {
+        console.error('Could not copy text: ', err);
+      }
+    );
+  };
+
   return (
-    <div>
-      <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
-        <div id="kt_toolbar_container" className="container d-flex flex-stack">
+<div>
+<ManagerSlider/>
+
+    <div className='content-pro '>
+      <div className="toolbar pb-16 mb-0" id="kt_toolbar">
+        <div id="kt_toolbar_container " className="container d-flex flex-stack">
           <div className="d-flex ">
             <div className='profile-page'>
-              <img src='https://via.placeholder.com/150' alt="Profile"></img>
+            <img style={{ backgroundColor: "#ddd", }} src={profilelogo} alt="Profile"></img>
+            <span className="d-flex text-white  my-1 fs-5  profle-role">Retailer </span>
             </div>
-            <div className='pt-5 mx-6'>
-              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">Manish Gupta </h1>
-              <h2 className="d-flex text-white fw-bold my-1 fs-3"> Retailer</h2>
+            <div className='pt-3 mx-6'>
+
+              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-2 fw-bold"> {getCurrentUsers?.name}</h1>
+              {/* <h2 className="d-flex text-white fw-bold my-1 fs-3"> Retailer</h2> */}
+              
+              <a href='#'><span className="gx-mb-0  fw-semibold text-hover-secondary  text-gray-400 fs-4">
+                  {getCurrentUsers?.email}
+
+                  <Tooltip title={copied ? 'Copied!' : 'Copy'} overlayInnerStyle={{ backgroundColor: 'white', color: 'black' }}>
+                    <i
+                      className={`bi ${copied ? 'bi-copy' : 'bi-copy'} mx-2 cursor-pointer text-gray-500 text-hover-dark`}
+                      onClick={() => getCurrentUsers?.name && copyToClipboard(getCurrentUsers?.name)}
+                    ></i>
+                  </Tooltip>
+
+                </span>
+                </a>
+
             </div>
+
           </div>
+
+
           <div className="d-flex align-items-center py-1">
-            <div className="me-4">
-              <a href="#" className="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-white" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
-                <i className="bi bi-pencil-fill icon-order"></i>Edit
-              </a>
+
+              <div className="me-4 ">
+                <div className='user-web'>
+                  <span className="gx-mb-0 text-white fw-semibold fs-5">Web page</span>
+                  <p><a href="#" className="gx-mb-0 text-gray-400 fw-bold text-hover-secondary fs-6"> Callaway.com</a></p>
+                </div>
+
+                <div className='user-address'>
+                  <span className="gx-mb-0 text-white fw-semibold fs-5">Address</span>
+                  <p><a href="#" className="gx-mb-0 text-gray-400 fw-bold text-hover-secondary  fs-6"> {getCurrentUsers?.address}</a></p> 
+                </div> 
+
+                <div className='d-flex'>
+                  <div>
+                      <span className="gx-mb-0 text-white fw-semibold fs-5">Phone</span>
+                      <p className='gx-mb-0 text-gray-400 fw-bold  text-hover-secondary fs-6'> {getCurrentUsers?.phone}</p>
+                    </div>
+           
+
+                  <div className='mx-10'>
+                   
+                      <span className="gx-mb-0 text-white fw-semibold fs-5">Phone2</span>
+                      <p className='gx-mb-0 text-gray-400 fw-bold  text-hover-secondary fs-6'>{getCurrentUsers?.phone2}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+
+
         </div>
       </div>
 
@@ -62,15 +124,23 @@ const RetailerProfile = () => {
 
       
       <Row className='container'>
-        <Col xl={16} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
+          <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
         <PendingOrder />
+        </Col>
+
+        <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
       <AllOrders   />
         </Col>
 
-        <Col xl={8} lg={10} md={10} sm={24} xs={24} >
+        <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
+
+        <Friends friendList={friendList} />
+        </Col>
+
+        {/* <Col xl={8} lg={10} md={10} sm={24} xs={24} >
         <Friends friendList={friendList} />
        <Contact contactList={contactList} />
-        </Col>
+        </Col> */}
       </Row>
 
       {isOrder && 
@@ -78,6 +148,7 @@ const RetailerProfile = () => {
            
             resetOrder={handleResetOrder}
           />}
+    </div>
     </div>
   );
 };

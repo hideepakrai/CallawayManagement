@@ -79,7 +79,7 @@ const AllRetailerOrders = () => {
         {
             title: "Retailer name",
             dataIndex: "retailer_name",
-            width: 100,
+            width: 130,
         },
         {
             title: "Order date",
@@ -93,7 +93,7 @@ const AllRetailerOrders = () => {
         },
         {
             title: "Action",
-            width: 100,
+            width: 50,
             render: (_, record) => (
                 <>
                     <span>
@@ -205,12 +205,12 @@ const AllRetailerOrders = () => {
     };
 
     return (
-        <div className="cart-table">
+        <div className="cart-table mt-6">
             <Card title="All orders">
 
                 <Table<CartModel>
                     ref={tableRef}
-                    className="cart-table-profile"
+                    className="cart-table-profile pb-6"
                     columns={columns}
                     dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
 
@@ -221,11 +221,14 @@ const AllRetailerOrders = () => {
 
                     bordered
                     size="middle"
-                    scroll={{ x: "100%", y: "auto" }}
-                    pagination={{
-                        position: ["topRight", "bottomRight"],
-                        defaultPageSize: 20,
-                    }}
+                    // scroll={{ x: "100%", y: "auto" }}\
+                    pagination={
+             false
+                    }
+                    // pagination={{
+                    //     position: ["topRight", "bottomRight"],
+                    //     defaultPageSize: 20,
+                    // }}
                 />
             </Card>
 

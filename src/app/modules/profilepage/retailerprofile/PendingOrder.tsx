@@ -71,14 +71,13 @@ const AllRetialerPendingOrder = () => {
                 } else {
                     brandName = "Other Brand"; // Default value or other brand name
                 }
-
                 return <span>{brandName}</span>; // Render the brand name inside a span
             },
         },
         {
             title: "Retailer name",
             dataIndex: "retailer_name",
-            width: 100,
+            width: 130,
         },
         {
             title: "Order date",
@@ -92,7 +91,7 @@ const AllRetialerPendingOrder = () => {
         },
         {
             title: "Action",
-            width: 100,
+            width: 50,
             render: (_, record) => (
                 <>
                     <span>
@@ -191,12 +190,13 @@ const AllRetialerPendingOrder = () => {
 
         return (
             <Table
-                className="table-profile"
+                className="table-profile "
                 columns={subcolumns}
                 dataSource={expandedRowKeys?.map((item) => ({
                     ...item,
                     key: item.sku,
                 }))}
+
                 pagination={false}
                 size="middle"
             />
@@ -205,10 +205,10 @@ const AllRetialerPendingOrder = () => {
 
     return (
         <div className="cart-table">
-            <Card title="Pending orders">
+            <Card title="Pending orders ">
                 <Table<CartModel>
                     ref={tableRef}
-                    className="cart-table-profile"
+                    className="cart-table-profile pb-5"
                     columns={columns}
                     dataSource={allPending.map((item) => ({ ...item, key: item.id }))}
 
@@ -219,11 +219,9 @@ const AllRetialerPendingOrder = () => {
 
                     bordered
                     size="middle"
-                    scroll={{ x: "100%", y: "auto" }}
-                // pagination={{
-                //     position: ["topRight", "bottomRight"],
-                //     defaultPageSize: 20,
-                // }}
+                    // scroll={{ x: "100%", y: "auto" }}
+                    pagination={false}
+
                 />
             </Card>
 

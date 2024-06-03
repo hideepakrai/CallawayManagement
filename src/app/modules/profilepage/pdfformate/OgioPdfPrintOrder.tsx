@@ -146,7 +146,7 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
             <img className="pdf-image" width={200} src={BrandLogo}></img>
           </div>
           <div className="col-5 text-end px-6">
-            <h2 className="text-white pdf-title">ORDER PDF</h2>
+            <h2 className="text-white pdf-title">ORDER PDF 1</h2>
           </div>
           </div>
 
