@@ -64,6 +64,9 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
           setManagerUserId(getCurrentUsers.manager_id)
           setUserId(getCurrentUsers.id)
         }
+        else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
+          setManagerUserId(getCurrentUsers.manager_id);
+        }
 
     }
   }, [getCurrentUsers])

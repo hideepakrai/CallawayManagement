@@ -39,6 +39,7 @@ import { TravisPdfPrint, Variation_sku_data } from '../../../model/pdf/PdfModel'
 import { exit } from 'process';
 import { LoadingStart } from '../../../../slice/loading/LoadingSlice';
 import TravisImage from '../../../../pages/dashboard/TravisImage';
+import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
@@ -48,7 +49,7 @@ const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
 
 
 const TravisTable = () => {
-
+  const getCurrentUsers= useSelector(getCurrentUser)
   const placement: SelectCommonPlacement = 'topLeft';
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
@@ -1348,10 +1349,10 @@ const TravisTable = () => {
       >
 
         <div style={{ float: "right", marginBottom: "12px" }}>
-          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+          { getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handelUploadImage}
           //  onClick={handleSampleExcel}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>}
           {/* active class ="active-btn" */}
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
@@ -1359,15 +1360,15 @@ const TravisTable = () => {
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
-          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+{getCurrentUsers &&getCurrentUsers.role!=="Retailer" && <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handleImport}
           > <i className="bi bi-file-earmark-arrow-down fs-3"></i>Import Products</Button>
+}
 
 
-
-          <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+{getCurrentUsers &&getCurrentUsers.role!=="Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handleQtyImport}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
+          > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>}
 
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up'
             onClick={handleProduct}

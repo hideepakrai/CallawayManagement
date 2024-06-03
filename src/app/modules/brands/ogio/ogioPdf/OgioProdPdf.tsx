@@ -363,7 +363,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
                     </div>
 
-                    <div
+                    {/* <div
                       style={{
                         paddingTop: "120px",
                         height: "1122px",
@@ -549,7 +549,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
 
 
-                    </div>
+                    </div> */}
 
                   </>
                 )

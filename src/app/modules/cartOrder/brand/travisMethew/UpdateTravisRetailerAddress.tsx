@@ -92,7 +92,10 @@ const UpdateTravisRetailerAddress = ({resetAddress}:Props) => {
 
        setManagerUserId(getCurrentUsers.manager_id)
        setUserId(getCurrentUsers.id)
-     }
+     }else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
+      setManagerUserId(getCurrentUsers.manager_id);
+    }
+
 
 
    }
@@ -149,7 +152,7 @@ useEffect(()=>{
                     total_val_pre_discount:totalAmount,
                     manager_id: managerUserId,
                     retailer_id: getTravisRetailerDetails.id,
-                    salesrep_id: salesRepId,
+                    salesrep_id: salesRepId??0,
                   }
                   updateOrder(data)
         }

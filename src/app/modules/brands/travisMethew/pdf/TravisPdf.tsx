@@ -388,7 +388,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                         paddingRight: "25px",
                       }}
                     >
-                      <div
+                      {/* <div
                         className="prodect-pdf-section"
                         style={{ display: "flex", marginBottom: "60px", marginTop: "20px", }}
                       >
@@ -562,7 +562,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                         </div>
 
 
-                      </div>
+                      </div> */}
 
 
 

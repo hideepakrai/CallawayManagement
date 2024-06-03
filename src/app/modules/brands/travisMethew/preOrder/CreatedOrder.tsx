@@ -43,6 +43,8 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 
         setManagerUserId(getCurrentUsers.manager_id)
         setUserId(getCurrentUsers.id)
+      } else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
+        setManagerUserId(getCurrentUsers.manager_id);
       }
 
 
@@ -95,7 +97,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
   useEffect(() => {
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&
-      salesRepId &&
+     
       managerUserId
     ) {
       const now = new Date();
@@ -119,7 +121,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
         created_at: formattedTimestamp,
         updated_at: formattedTimestamp,
         manager_id: managerUserId,
-        salesrep_id: salesRepId,
+        salesrep_id: salesRepId??0,
 
       }
       dispatch(addTravisNote({

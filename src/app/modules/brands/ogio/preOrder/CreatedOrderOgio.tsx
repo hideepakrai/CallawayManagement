@@ -39,7 +39,10 @@ const CreatedOrderOgio = ({ resetCreatedOrder }: Props) => {
     
             setManagerUserId(getCurrentUsers.manager_id)
             setUserId(getCurrentUsers.id)
+          }else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
+            setManagerUserId(getCurrentUsers.manager_id);
           }
+    
     
     
         }

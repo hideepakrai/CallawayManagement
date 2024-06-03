@@ -27,13 +27,14 @@ import * as XLSX from 'xlsx';
 import ImportAllOgioProduct from '../excel/importExcel/ImportAllOgioProduct';
 import { getOtherProducts } from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import { TravisPdfPrint, Variation_sku_data } from '../../../model/pdf/PdfModel';
+import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle',];
 const OPTIONS2 = ['Og Rise', 'Og Pace Pro', 'Og Max', 'Og Al Convoy	'];
 
 const OgioTable = () => {
-
+  const getCurrentUsers= useSelector(getCurrentUser)
   const navigate = useNavigate()
   const searchInput = useRef<InputRef>(null);
   const placement: SelectCommonPlacement = 'topLeft';
@@ -1026,25 +1027,25 @@ const OgioTable = () => {
       >
         <div style={{ float: "right", marginBottom: "12px" }}>
 
-          <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+        {getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
            onClick={handleUploadImages}
-          > <i className="bi bi-bag fs-3"></i> UploadImages</Button>
+          > <i className="bi bi-bag fs-3"></i> UploadImages</Button>}
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
          onClick={handleViewCart}
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
-          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+{getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handleImport}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i>  Import Products</Button>
+}
 
-
-          <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+         {getCurrentUsers &&getCurrentUsers.role!=="Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handleQtyImport}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
-
+}
           <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handleProduct}
           > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Steps, Popover, Button } from 'antd';
+import { Steps, Popover, Button,Tooltip } from 'antd';
 import type { StepsProps } from 'antd';
 import { getTravisProgressStep } from '../../slice/allProducts/TravisMethewSlice';
 import { getOgioProgressStep } from '../../slice/allProducts/OgioSlice';
@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import "./ProgressCart.css";
 import Note from './Note';
 import { getActiveOrdertab } from '../../slice/activeTabsSlice/ActiveTabSlice';
+import { getCurrentUser } from '../../slice/UserSlice/UserSlice';
 
 type Props = {
     checkAvailability: () => void;
@@ -21,7 +22,15 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
     const [current, setCurrent] = useState(0);
     const [currentOgio, setCurrentOgio] = useState(0);
     const [currentTravis, setCurrentTravis] = useState(0);
+    const [role, setRole] = useState<string>("");
 
+     const getCurrentUsers= useSelector(getCurrentUser)
+   
+     useEffect(()=>{
+        if(getCurrentUsers && getCurrentUsers.role){
+            setRole(getCurrentUsers.role)
+        }
+     },[getCurrentUsers])
     const onChange = (value: number) => {
         setCurrent(value);
     };
@@ -35,6 +44,8 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         setCurrent(0)
         if(getActiveOrdertabs==="Travis" &&getPregressStepstravis){
             setCurrent(getPregressStepstravis);
+            console.log("getPregressStepstravis",getPregressStepstravis)
+            console.log("role",role)
            // setCurrentTravis(getPregressStepstravis);
             
         } else if (getActiveOrdertabs==="Ogio" &&getPregressStepsogio){
@@ -44,16 +55,6 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
 
     },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio])
   
-    // useEffect(() => {
-    //     if (getPregressSteps) {
-    //         setCurrent(getPregressSteps);
-    //     }
-    // }, [getPregressSteps]);
-    // useEffect(() => {
-    //     if (getPregressStepsogio) {
-    //         setCurrent(getPregressStepsogio);
-    //     }
-    // }, [getPregressStepsogio]);
 
     const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
         <Popover
@@ -106,6 +107,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                     title={
                         <>
                             <span className="step">Step 1</span>
+                            <Tooltip title="First check the availability of product quantity">
                             <Button
                                 className="btn px-6 p-0 btn-travis mx-3 hover-elevate-up"
                                 onClick={handelCheckAvailability}
@@ -114,6 +116,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                 <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-clipboard2-check"></i>
                                 Check Live Availability
                             </Button>
+                            </Tooltip>
 
                             <span className="note-title note-icon">
                                 {current === 0 ? (
@@ -135,6 +138,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                     title={
                         <>
                             Step 2
+                           < Tooltip title="Please submit order for further approval">
                             <Button
                                 className="btn px-6 p-0 btn-travis mx-3 hover-elevate-up"
                                 onClick={handleSubmit}
@@ -143,6 +147,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                 <i style={{ paddingRight: '6px', verticalAlign: 'initial' }} className="bi bi-file-earmark-text travis-icon"></i>
                                 Submit Order
                             </Button>
+                            </Tooltip>
                            
                         </>
                     }
@@ -154,17 +159,28 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                     title={
                         <>
                             Step 3
-                            <Button
+                            < Tooltip title="Your order will approved by manager">
+                           {role !== "Retailer"? (<Button
                                 className="btn px-6 p-0 btn-travis mx-3 hover-elevate-up"
                                 onClick={handleApproveOrder}
-                                disabled={current !== 2}
+                                disabled={current !== 2 }
                             >
                                 <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-check travis-icon"></i>
                                 Approve Order
-                            </Button>
+                            </Button>):(
+                                <Button className="btn px-6 p-0 btn-travis mx-3 hover-elevate-up"
+                                onClick={handleApproveOrder}
+                                disabled={current !== 5 }
+                            >
+                                <i style={{ paddingRight: '6px', verticalAlign: 'inherit' }} className="bi bi-bag-check travis-icon"></i>
+                                Approve Order
 
+                                </Button>
+                            )}
+                            </Tooltip>
                             <span className="note-title">
-                                {current === 2 ? (
+                            {role !== "Retailer" ? (
+                                current === 2 ? (
                                     <a onClick={handleRejectedOrder} className="note-model">
                                         <i className="bi bi-bag-x"></i> Reject Order
                                     </a>
@@ -172,8 +188,14 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                     <span className="disabled-note">
                                         <i className="bi bi-bag-x"></i> Reject Order
                                     </span>
-                                )}
+                                )
+                            ) : (
+                                <span className="disabled-note">
+                                    <i className="bi bi-bag-x"></i> Reject Order
+                                </span>
+                            )}
                             </span>
+
                            
                         </>
                     }
