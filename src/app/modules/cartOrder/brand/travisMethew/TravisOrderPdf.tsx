@@ -6,6 +6,7 @@ import { getTravisProducts, getTravisRetailerDetail } from '../../../../slice/al
 import { Button, Card, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
+import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 const TravisOrderPdf = () => {
 
     const getCurrentUsers = useSelector(getCurrentUser)
@@ -162,11 +163,14 @@ const columns: TableColumnsType<BasicModelTravis> = [
       <div className=" ant-card ant-card-bordered gx-card mt-6"  ref={contentToPrint}>
         <div className="ant-card-body">
          
-        <div className="bg-black  py-12 mx-7 d-flex" style={{ borderRadius: "5px" }}>
-        <div style={{ width: "100%", textAlign: "center" }} >
-          
-        </div>
-      </div>
+        <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
+          <div className="col-7 text-end ">
+            <img className="pdf-image" width={200} src={BrandLogo}></img>
+          </div>
+          <div className="col-5 text-end px-6">
+            <h2 className="text-white pdf-title">ORDER PDF</h2>
+          </div>
+          </div>
 
 
       <div className="row px-10 mt-8 mb-18" >

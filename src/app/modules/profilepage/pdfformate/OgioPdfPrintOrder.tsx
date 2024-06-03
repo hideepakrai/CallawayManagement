@@ -4,7 +4,8 @@ import { useReactToPrint } from 'react-to-print';
 import { BasicModelTravis } from '../../model/travis/TravisMethewModel';
 import { AccountOrder } from '../../model/CartOrder/CartModel';
 import { OgioBasicModel } from '../../model/ogio/OgioBrandModel';
-
+//import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
+import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 
 type Props={
     recordPdf:AccountOrder;
@@ -140,11 +141,14 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
        >
         <div className="ant-card-body">
          
-        <div className="bg-black  py-12 mx-7 d-flex" style={{ borderRadius: "5px" }}>
-        <div style={{ width: "100%", textAlign: "center" }} >
-          
-        </div>
-      </div>
+        <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
+          <div className="col-7 text-end ">
+            <img className="pdf-image" width={200} src={BrandLogo}></img>
+          </div>
+          <div className="col-5 text-end px-6">
+            <h2 className="text-white pdf-title">ORDER PDF</h2>
+          </div>
+          </div>
 
 
       <div className="row px-10 mt-8 mb-18" >

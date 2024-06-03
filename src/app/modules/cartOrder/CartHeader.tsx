@@ -41,6 +41,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [retailerUserId, setRetailerUserId] = useState<number>(0)
     const [GST, setGST] = useState<string>()
     const [salesRepName, setSalesRepName] = useState<string>()
+    const [MangerName, setManagerName] = useState<string>("")
     const [isTravis, setIsTravis] = useState<boolean>(false)
     const [isOgio, setIsOgio] = useState<boolean>(false)
     useEffect(()=>{
@@ -48,10 +49,19 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             getUserProfiles.map(item=>{
                 if(item.role==="Sales Representative"){
                     setSalesRepName(item.name)
-                }
+                } 
+                 if(item.role==="Manager" && item.name){
+                    setManagerName(item.name)
+
+                 }
             })
+
+            if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
+                setManagerName(getCurrentUsers.name)
+            }
         }
-    },[getUserProfiles])
+      
+    },[getUserProfiles,getCurrentUsers])
     
     const handleReview = () => {
 
@@ -233,7 +243,7 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
                             </span>
 
                             <h3 className=' fs-2 user-title' >
-                              {getCurrentUsers?.name}
+                             {MangerName}
                             </h3>
                         </div>
 
