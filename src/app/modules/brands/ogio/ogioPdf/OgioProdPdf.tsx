@@ -9,7 +9,7 @@ import { useReactToPrint } from 'react-to-print';
 
 import "../../travisMethew/pdf/TravisPdf.css"
 import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
-import OgioLogo from "../../../../../../public/media/logos/ogio-logo.png";
+import OgioLogo from "../../../../../../public/media/logos/ogio-white.png";
 
 import OgioPrimaryImages from './OgioPrimaryImages';
 import OgioSecondaryImages from './OgioSecondaryImages';
@@ -68,67 +68,18 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
           </div>
 
           <Card id="catelog" ref={contentToPrint}>
-            <div>
-              <div>
-                <div className='mb-18' style={{ textAlign: 'center' }}>
+          <div className='mb-18' style={{ textAlign: 'center', height: "1122px", backgroundColor: "#000", paddingTop: "300px" }}>
 
-                  <div >
-                    <img style={{ width: "230px", paddingTop: "60px" }} src={OgioLogo}></img>
-                  </div>
-                  <h2 style={{ paddingTop: "35px", paddingBottom: "10px", fontSize: "28px", color: "#262626", fontWeight: "500" }}>Ogio</h2>
+<div >
+  <img style={{ width: "300px", paddingTop: "60px" }} src={OgioLogo}></img>
+</div>
 
-                  <p style={{ fontSize: "14px", paddingLeft: "20px", paddingRight: "20px", }}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                  </p>
+<h2 className='brand-title' style={{ paddingTop: "40px", paddingBottom: "40px", fontSize: "45px", color: "#fff", fontWeight: "500", letterSpacing: "4px", }}>Ogio</h2>
 
-
-                  {/* <div
-                    style={{
-                      paddingBottom: "100px",
-                      textAlign: "center",
-                    }}
-                  >
-                  
-
-                    {getAllBrand &&
-                      getAllBrand.length > 0 &&
-                      getAllBrand.map((item: BrandModel) => {
-                        if (item && item.attributes && item.attributes.Name === "ogio") {
-                          return (
-                            <div key={item.id}>
-                              <div>
-                                <img
-                                  style={{ width: "300px", paddingTop: "80px" }}
-                                  src={`https://admin.callawayindiaoms.com${item.attributes.Logo?.data?.attributes?.formats?.thumbnail?.url}`}
-                                  alt="Callaway Logo"
-                                />
-                              </div>
-                              <div>
-                                <h2 style={{ paddingTop: "50px", paddingBottom: "10px", fontSize: "32px", color: "#262626", fontFamily: "'NoirPro',sans-serif", fontWeight: "500" }}>{item.attributes.Name}</h2>
-                                <p style={{
-                                  fontSize: "14px",
-                                  paddingLeft: "20px",
-                                  paddingRight: "20px",
-
-                                }}>
-                                  {item?.attributes?.Description}
-                                </p>
-                              </div>
-
-
-                            </div>
-                          );
-                        }
-                      })
-                    }
-
-                  </div> */}
-
-                </div>
-
-                {/* prodect two  start*/}
-              </div>
-            </div>
+<p style={{ fontSize: "18px", paddingLeft: "30px", color: "#fff", paddingRight: "30px", fontWeight: "100", }}>
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+</p>
+</div>
 
             {selectedRow &&
               selectedRow.length > 0 &&

@@ -16,6 +16,7 @@ type Props = {
 
 const OgioSubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
   const dispatch = useDispatch();
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const [notes, setNotes] = useState<string>('');
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser;
 
@@ -60,19 +61,39 @@ const OgioSubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
     onOkHandler()
     setNotes("")
   }
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  };
+
   return (
     <div>
-      <Modal className='timeline submit-popup' title="Add Note" open={isSubmit} onOk={handleOk} onCancel={handleCancel}>
-        <div className='row mt-8'>
-          <h4 className='mb-3 fs-4' style={{ fontWeight: '500' }}>Do you want to submit Order</h4>
-          <div className='col-12'>
-            <TextArea
-              rows={5}
-              placeholder="Note"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+      <Modal className='timeline submit-popup' title="Do you want to submit Order" open={isSubmit} onOk={handleOk} onCancel={handleCancel}>
+      <div className='row mt-6 mb-6 '>
+           {/* <h4 className='mb-3 fs-2 text-black' style={{ fontWeight: '500' }}>Do you want to submit Order</h4>  */}
+          <div className="form-check form-check-custom form-check-solid mx-3 mt-2 cursor-pointer">
+            <input
+              className="form-check-input submit-order"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
             />
+            <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
+              Add Note
+            </label>
           </div>
+          {isChecked && (
+            <div className='col-12 mt-4'>
+              <TextArea
+                rows={5}
+                placeholder="Note"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </div>
+          )}
         </div>
       </Modal>
     </div>
