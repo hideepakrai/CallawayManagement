@@ -5,7 +5,7 @@ import { BasicModelTravis } from '../../model/travis/TravisMethewModel';
 import { AccountOrder } from '../../model/CartOrder/CartModel';
 import { OgioBasicModel } from '../../model/ogio/OgioBrandModel';
 //import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
-import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
+import BrandLogo from "../../../../../public/media/logos/ogio-white.png"
 
 type Props={
     recordPdf:AccountOrder;

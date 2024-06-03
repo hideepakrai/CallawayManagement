@@ -4,7 +4,7 @@ import { useReactToPrint } from 'react-to-print';
 import { BasicModelTravis } from '../../model/travis/TravisMethewModel';
 import { AccountOrder } from '../../model/CartOrder/CartModel';
 
-import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
+import BrandLogo from "../../../../../public/media/logos/travis-white.png";
 type Props={
     recordPdf:AccountOrder;
     resetTravisPdf:()=>void;
