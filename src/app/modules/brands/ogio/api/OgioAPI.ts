@@ -20,8 +20,8 @@ export function AddOgioProduct(data: OgioBasicModel[]) {
 }
 
 
-export function UpdateOgioProduct(data: OgioBasicModel) {
-  const addData = [data]
+export function UpdateOgioProduct(data: OgioBasicModel[]) {
+  const addData = data
   return axios.post(`${serverUrl}/update-ogio`, addData,
     {
       headers: {
@@ -30,7 +30,7 @@ export function UpdateOgioProduct(data: OgioBasicModel) {
     }
   )
     .then(response => {
-      return response.data
+      return response
     }).catch(error => {
       throw error;
     });

@@ -87,6 +87,9 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
     if (newData && newData.length > 0) {
       addOgioData(newData)
     }
+    if(oldData && oldData.length>0){
+      updateOldData(oldData)
+    }
   }, [xlData, getOgioProduct]);
 
   
@@ -113,6 +116,32 @@ const OgioExcelUploadDB: React.FC<Props> = ({ xlData, resetXls }) => {
     }
     return <></>;
   };
+
+
+  const updateOldData=async (data: OgioBasicModel[]) => {
+
+
+    try {
+      const response = await UpdateOgioProduct(data)
+
+      if (response && response.status === 200) {
+        alert("Data is upData successfully")
+        dispatch(LoadingStop())
+        if (response) {
+          resetXls();
+        }
+
+      }
+
+
+    } catch (err) {
+      alert("Error saving data");
+      resetXls();
+
+    }
+    return <></>;
+  };
+
   return <></>;
 };
 

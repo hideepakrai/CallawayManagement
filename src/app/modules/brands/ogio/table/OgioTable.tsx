@@ -487,12 +487,8 @@ const OgioTable = () => {
 
 
   // upload data 
-  const [allXlxData, setAllXlxData] = useState<OgioExcelModel[]>([])
-  const handleUploadExcel = (allData: OgioExcelModel[]) => {
-    setAllXlxData(allData);
-    handleCloseImport();
+  //const [allXlxData, setAllXlxData] = useState<OgioExcelModel[]>([])
 
-  }
 
   const handleReseAllXlData = () => {
     setAllXlxData([])
@@ -698,10 +694,12 @@ const OgioTable = () => {
       setIsImport(false);
 
     }
-
+    const [allXlxData, setAllXlxData] = useState<OgioExcelModel[]>([])
     const handleOgioData=(allOgioData:OgioBasicModel[])=>{
-
+      setAllXlxData(allOgioData);
+      setIsImport(false)
     }
+  
 
 // show pd()
   const handleShowPdf = () => {

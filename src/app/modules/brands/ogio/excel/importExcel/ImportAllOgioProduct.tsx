@@ -236,7 +236,7 @@ const ImportAllOgioProduct = ({ onClose, isImport, allOgioData }: Props) => {
         <h3>Import Products</h3>
         <Dragger
           multiple={false}
-          //onChange={(info) => handleInput(info)}
+          onChange={(info) => handleInput(info)}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
