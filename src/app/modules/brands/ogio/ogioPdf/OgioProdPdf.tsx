@@ -18,7 +18,7 @@ import { TravisPdfPrint } from '../../../model/pdf/PdfModel';
 
 
 type Props = {
-  selectedRow: OgioBasicModel[];
+  selectedRow: TravisPdfPrint[];
   resetSelectedRow: () => void;
 };
 
@@ -33,15 +33,15 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
   });
 
-  useEffect(() => {
-    if (selectedRow && selectedRow.length > 0) {
-       handlePrint(null, () => contentToPrint.current);
+  // useEffect(() => {
+  //   if (selectedRow && selectedRow.length > 0) {
+  //     handlePrint(null, () => contentToPrint.current);
 
-      // console.log("selectedRow",selectedRow)
-    }
-  }, [selectedRow]);
+  //     console.log("selectedRow",selectedRow)
+  //   }
+  // }, [selectedRow]);
 
-
+  console.log("selectedRow",selectedRow)
   return (<div>
     <div className='pdf-info'>
       <Row >
@@ -153,10 +153,12 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                             </div>
 
                             <div className='product-right-section col-5'>
-                              {/* {callout &&  
+                              {callout && 
+                               callout.variation_sku_data &&
+                               callout.variation_sku_data.length>0 &&
                                 <GioVarationSkuInfo
-                                  variation_sku_data={callout}
-                                />} */}
+                                  variation_sku_data={callout.variation_sku_data}
+                                />}
                               <table
                                 style={{
                                   border: "1px solid #ddd",
@@ -218,7 +220,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                     Category
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {callout?.category}
+                                    {callout?.otherInfo.category}
                                   </td>
                                 </tr>
 
@@ -256,7 +258,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                   Model
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {callout.product_model}
+                                    {callout.otherInfo.product_model}
                                   </td>
                                 </tr>
                                 {/* <tr
@@ -293,8 +295,8 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                     MRP
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {/* {callout.otherInfo.mrp} */}
-                                    ₹{callout.mrp}
+                                   {callout.otherInfo.mrp} 
+                                   
                                   </td>
                                 </tr>
 

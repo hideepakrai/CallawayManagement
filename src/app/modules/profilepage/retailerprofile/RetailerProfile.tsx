@@ -124,14 +124,24 @@ const RetailerProfile = () => {
 
       
       <Row className='container'>
-        <Col xl={16} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
-        <PendingOrder />
-      <AllOrders   />
-        </Col>
+      <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
 
-        <Col xl={8} lg={10} md={10} sm={24} xs={24} >
+<PendingOrder />
+
+
+</Col>
+
+
+<Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
+<AllOrders />
+
+
+</Col>
+
+<Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
+
         <Friends friendList={friendList} />
-       <Contact contactList={contactList} />
+       
         </Col>
       </Row>
 

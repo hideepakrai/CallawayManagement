@@ -3,6 +3,7 @@ import { GetUserOrder } from './api/_orderRequest'
 import { addUserOrders, getCurrentUser, getUserAccount } from '../../slice/UserSlice/UserSlice'
 import { useDispatch, useSelector } from "react-redux"
 import { GetAllAdminOrder, GetAllManagerOrder, GetAllRetailerOrder, GetAllUserOrders } from '../../api/order/OrederApi'
+import { LoadingStart } from '../../slice/loading/LoadingSlice'
 
 
 type Props = {
@@ -20,12 +21,15 @@ const GetAllorder = ({ resetOrder }: Props) => {
   // eslint-disable-next-line no-debugger
   debugger
         if (getCurrentUsers && getCurrentUsers.role === "Manager" && getCurrentUsers.id) {
+            dispatch(LoadingStart())
             getManagerOrder(getCurrentUsers.id)
         }
         else if (getCurrentUsers && getCurrentUsers.role === "Retailer" && getCurrentUsers.id) {
+            dispatch(LoadingStart())
             getRetailerOrder(getCurrentUsers.id)
         }
         else if (getCurrentUsers && getCurrentUsers.role === "Admin") {
+              dispatch(LoadingStart())
             getAdminOrder()
         }
 

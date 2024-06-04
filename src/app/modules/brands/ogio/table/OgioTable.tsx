@@ -666,6 +666,7 @@ const OgioTable = () => {
     const handleCloseImport = () => {
       setIsExport(false);
      setSelectedRow([])
+     setSelectedRowVartionSku([])
     };
   
 // import all ogio product
@@ -688,6 +689,7 @@ const OgioTable = () => {
 // show pd()
   const handleShowPdf = () => {
     setIspdf(true)
+    setIsExport(false)
   }
 
 
@@ -1116,7 +1118,7 @@ const OgioTable = () => {
       />
 
       {isPDF && <OgioProdPdf
-        selectedRow={selectedRow}
+        selectedRow={selectedRowVartionSku}
         resetSelectedRow={handleResetSelectedRow}
       />}
 

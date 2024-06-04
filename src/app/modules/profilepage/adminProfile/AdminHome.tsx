@@ -5,20 +5,21 @@ import { getCurrentUser } from '../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { CurentUser } from '../../model/useAccount/CurrentUser'
 import Loading from '../../loading/Loading'
-import { getLoading } from '../../../slice/loading/LoadingSlice'
+import { LoadingStop, getLoading } from '../../../slice/loading/LoadingSlice'
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
 import ManagerSlider from "../managerprofile/ManagerSlider"
 
 import GetAllorder from '../../orderPage/GetAllorder'
 import AllPendingOrder from '../managerprofile/AllPendingOrder'
 import AllOrders from '../managerprofile/AllOrders'
-
+import {useDispatch} from "react-redux"
 import { Badge, Button, Tooltip } from 'antd';
 const AdminHome = () => {
   const [copied, setCopied] = useState(false);
     const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
     const getLoadings = useSelector(getLoading);
     const [isOrder, setIsOrder] = useState(false);
+    const dispatch= useDispatch()
     useEffect(() => {
         if (getCurrentUsers && getCurrentUsers.id) {
           
@@ -27,6 +28,7 @@ const AdminHome = () => {
       }, [])
 
       const handleResetOrder = () => {
+        dispatch(LoadingStop())
         setIsOrder(false)
     
       }
@@ -43,6 +45,8 @@ const AdminHome = () => {
         );
       };
     
+    
+
     
   return (
     <>
@@ -158,14 +162,14 @@ sa
           <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
         
           <AllPendingOrder/>
-            {/* <PendingOrder /> */}
+         
 
           </Col>
 
 
           <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
           <AllOrders />
-            {/* <PendingOrder />  */}
+          
            
           </Col>
 
@@ -193,6 +197,7 @@ sa
             resetOrder={handleResetOrder}
           />}
 
+              {  <Loading/>}
 
       </div>
     </>

@@ -42,6 +42,7 @@ const ManagerProfile = () => {
 
 
   const handleResetOrder = () => {
+    dispatch(LoadingStop())
     setIsOrder(false)
 
   }
