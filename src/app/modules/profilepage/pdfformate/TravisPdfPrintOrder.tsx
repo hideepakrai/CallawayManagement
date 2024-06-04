@@ -3,24 +3,45 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print';
 import { BasicModelTravis } from '../../model/travis/TravisMethewModel';
 import { AccountOrder } from '../../model/CartOrder/CartModel';
-
+import {useSelector} from "react-redux";
 import BrandLogo from "../../../../../public/media/logos/travis-white.png";
+import { getCurrentUser, getUserProfile } from '../../../slice/UserSlice/UserSlice';
+import {RetailerModel} from "../../model/AccountType/retailer/RetailerModel"
+
 // import BrandLogo from "../../../../../../../BrandLogopublic/media/logos/logo-white.png"
 type Props={
     recordPdf:AccountOrder;
     resetTravisPdf:()=>void;
 }
 const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
-
+   const [managerName, setmanagerName]= useState<string>("")
+   const [orderDate, setOrderdate]= useState<string>("")
   const[alldata, setAllData]= useState<BasicModelTravis[]>([])
-
+  const[retailerDetail, setRetailerDetail]= useState<RetailerModel>()
+   const getCurrentUsers = useSelector(getCurrentUser)
+  const getUserProfiles = useSelector(getUserProfile)
+         useEffect(()=>{
+        if(getCurrentUsers && getCurrentUsers.role==="Manager" && getCurrentUsers.name){
+          setmanagerName(getCurrentUsers.name) 
+        } 
+       },[getCurrentUsers,getUserProfiles])
 
    useEffect(()=>{
-    if(recordPdf &&recordPdf.items){
+    if(recordPdf &&recordPdf.items && recordPdf.retailer_details &&recordPdf.created_at &&recordPdf.manager_id){
       const orderData= JSON.parse(recordPdf.items)
       setAllData(orderData)
+      const retailer= JSON.parse(recordPdf.retailer_details)
+      setRetailerDetail(retailer)
+
+    //    if (getCurrentUsers && getCurrentUsers.role==="Admin"){
+    //     if(getUserProfiles && getUserProfiles.length>0){
+    //       getUserProfiles.map(item=>{
+    //         if(item.id==recordPdf.manager_id)
+    //       })
+    //     }
+    // }
     }
-   },[recordPdf])
+   },[recordPdf,getCurrentUsers])
     const columns: TableColumnsType<BasicModelTravis> = [
 
         {
@@ -190,7 +211,7 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
 
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Travis Mathew</p>
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span>
-        {recordPdf.manager_name}
+        {managerName}
            </p>
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span>  
          {recordPdf.salesrep_name}

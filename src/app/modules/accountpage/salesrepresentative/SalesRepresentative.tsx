@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Card, Breadcrumb } from 'antd'; // Import necessary components from Ant Design
-import Index from "./index";
+import SalesHome from "./SaleHome";
 import Slider from '../../model/slider/Slider';
 const SalesRepresentative = () => {
   return (
@@ -35,7 +35,7 @@ const SalesRepresentative = () => {
           </div>
         </div>
 
-        <Index />
+        <SalesHome />
       </div>
     </div>
   );

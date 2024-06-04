@@ -2,8 +2,15 @@ import React from "react";
 import { Button } from "antd";
 
 
+import { CurentUser } from "../../model/useAccount/CurrentUser";
 
-const ItemFirst = () => {
+type Props={
+  salesRep:CurentUser
+
+
+}
+
+const ItemFirst = ({salesRep}:Props) => {
 
     return (
        
@@ -11,7 +18,7 @@ const ItemFirst = () => {
         <div className="card card-custom mx-8 mb-3 pb-7 card-user-list" style={{ border:"none" }} >
           <div className="card-header d-inline py-7" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
             
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"28px"}} >Ashok Sharma</h1>
+            <h1 className=" text-center text-white pb-2" style={{fontSize:"28px"}} >{salesRep?.name}</h1>
             <h4 className=" text-center text-white">SALES REPRESENTATIVE</h4>
 
           </div>
@@ -21,11 +28,11 @@ const ItemFirst = () => {
             <ul className="card-list pt-3" >
               <li>
                 <i className="bi bi-person-lines-fill"></i>
-                <span>+91142365478</span>
+                <span>{salesRep?.phone}</span>
               </li>
               <li>
                 <i className="bi bi-envelope"></i>
-                <span>hello@ashoksharma.com</span>
+                <span>{salesRep?.email}</span>
               </li>
               <li>
                 <i className="bi bi-person-vcard"></i>
@@ -41,7 +48,7 @@ const ItemFirst = () => {
 
 
           <div style={{  textAlign:"center",}}>
-            <Button style={{ backgroundColor: "#000", color: "#fff", textAlign:"center", margin:"0 auto" }} >View</Button>
+            <Button style={{ backgroundColor: "#000", color: "#fff", textAlign:"center", margin:"0 auto" }} >Edit</Button>
           </div>
         </div>
 
