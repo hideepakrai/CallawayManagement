@@ -6,6 +6,7 @@ import { AccountOrder } from '../../model/CartOrder/CartModel';
 import { OgioBasicModel } from '../../model/ogio/OgioBrandModel';
 //import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import BrandLogo from "../../../../../public/media/logos/ogio-white.png"
+import { RetailerModel } from '../../model/AccountType/retailer/RetailerModel';
 
 type Props={
     recordPdf:AccountOrder;
@@ -14,12 +15,17 @@ type Props={
 const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
 
   const[alldata, setAllData]= useState<OgioBasicModel[]>([])
+  const[retailerDetail, setRetailerDetail]= useState<RetailerModel>()
 
 
    useEffect(()=>{
-    if(recordPdf &&recordPdf.items){
+    if(recordPdf &&recordPdf.items && recordPdf.retailer_details){
       const orderData= JSON.parse(recordPdf.items)
       setAllData(orderData)
+      console.log("recordPdf",recordPdf);
+      const retailer= JSON.parse(recordPdf.retailer_details)
+      setRetailerDetail(retailer)
+
     }
    },[recordPdf])
     const columns: TableColumnsType<OgioBasicModel> = [
@@ -121,7 +127,8 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
 
       useEffect(()=>{
         if(alldata && alldata.length > 0){
-          handlePrint(null, () => contentToPrint.current);
+          console.log("printing")
+         // handlePrint(null, () => contentToPrint.current);
         }
       },[alldata])
   return (
@@ -154,30 +161,30 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
       <div className="row px-10 mt-8 mb-18" >
         <div className="col-8">
           <h1 className=" d-flex font-gray-800 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >
-            {recordPdf.retailer_name} 
+            {retailerDetail?.name} 
             </h1>
 
           <div className="d-flex">
             <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN: </span>
             <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> 
-            {recordPdf.retailer_gstin}
+            {retailerDetail?.gstin}
              <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
           </div>
 
           <div className="user-address pt-2 d-flex">
-            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:
+            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:
             
              </span>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
-          {recordPdf.retailer_phone}
+          {retailerDetail?.address}
               
             </p>
           </div>
 
           <div className="user-address pt-2 ">
-            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
+            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:</span>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
-              {recordPdf.retailer_address}  
+              {retailerDetail?.phone}  
             </p>
           </div>
         </div>
