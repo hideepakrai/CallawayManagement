@@ -1,61 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "antd";
-import { RetailerModel } from "../../model/AccountType/retailer/RetailerModel";
 import { CurentUser } from "../../model/useAccount/CurrentUser";
-
- type Props={
-  manager:CurentUser
- }
-
-const FirstItem = ({manager}:Props) => {
-
-    return (
-       
+import "./FirstItem.css";
+import ManagerForm from "./ManagerFrom";
+type Props = {
+  manager: CurentUser;
+};
 
 
-        <div className="card card-custom mx-8 mb-3 pb-7 card-user-list" style={{ border:"none" }} >
-          <div className="card-header d-inline py-7" style={{ backgroundColor: "#000", color: "#fff", border:"none" }} >
-            
-            <h1 className=" text-center text-white pb-2" style={{fontSize:"28px"}} >{manager.name}</h1>
-            <h4 className=" text-center text-white">MANAGER </h4>
 
-          </div>
+const FirstItem = ({ manager }: Props) => {
+  const [isModalVisible, setisModelVisible] = useState(false);
 
-          <div className="card-body">
+  const showModal = () => {
+    setisModelVisible(true)
+  }
 
-            <ul className="card-list pt-3" >
-              <li>
-                <i className="bi bi-person-lines-fill"></i>
-                <span>+91{manager.phone}</span>
-              </li>
-              <li>
+  const handleModelOk = () => {
+    setisModelVisible(false)
+  }
+
+  const handleCancel = () => {
+    setisModelVisible(false)
+  }
+
+
+
+
+  return (
+
+    <>
+      <div className="card card-custom mx-8 mb-3 pb-7 card-user-list" style={{ border: "none" }}>
+        <div className="card-header d-inline py-7" style={{ backgroundColor: "#000", color: "#fff", border: "none" }}>
+          <h1 className="text-center text-white pb-2" style={{ fontSize: "22px" }}>{manager.name}</h1>
+          <h4 className="text-center text-white cart-text">MANAGER</h4>
+        </div>
+        <div className="card-body px-4">
+          <ul className="card-list pt-3">
+            <li>
+              <i className="bi bi-person-lines-fill"></i>
+              <span>+91{manager.phone}</span>
+            </li>
+
+            <li className="d-flex">
+              <div>
                 <i className="bi bi-envelope"></i>
-                <span>{manager.email}</span>
-              </li>
-              <li>
-                <i className="bi bi-person-vcard"></i>
-                <span>Active</span>
-              </li>
-
-              <li>
-                <i className="bi bi-calendar-event"></i>
-                <span>11-01-2022</span>
-              </li>
-            </ul>
-          </div>
+              </div>
+              <span className="email-manager user-cart-details">{manager.email}</span>
+            </li>
 
 
-          <div style={{  textAlign:"center",}}>
-            <Button style={{ backgroundColor: "#000", color: "#fff", textAlign:"center", margin:"0 auto" }} >Edit</Button>
-          </div>
+            {/* <li>
+              <i className="bi bi-person-vcard"></i>
+              <span>Mukesh 1</span>
+            </li> */}
+          </ul>
         </div>
 
 
- 
+        <div style={{ textAlign: "center" }}>
+          <Button style={{ backgroundColor: "#000", color: "#fff", textAlign: "center", margin: "0 auto" }} onClick={showModal}>Edit</Button>
+        </div>
+      </div>
 
+      <ManagerForm
+        handleOk={handleModelOk}
+        isModalVisible={isModalVisible}
+        handleCancel={handleCancel}
 
-    )
-  };
+      />
+    </>
+  );
+};
 
 export default FirstItem;
-

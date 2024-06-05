@@ -10,7 +10,7 @@ import OgioGallery from "../../../brands/ogio/table/column/OgioGallery.tsx";
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel.ts";
 import { getOgioProducts, getOgioRetailerDetail } from "../../../../slice/allProducts/OgioSlice.tsx";
 import { getOgioOrder } from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice.tsx";
-//import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
+import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../../../slice/UserSlice/UserSlice"
 import "./OgioCartPdf.css"
 import { RetailerModel } from "../../../model/AccountType/retailer/RetailerModel.ts";
@@ -206,7 +206,7 @@ const OgioCartPdf = () => {
            
           <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
           <div className="col-7 text-end ">
-            {/* <img className="pdf-image" width={200} src={BrandLogo}></img> */}
+            <img className="pdf-image" width={200} src={BrandLogo}></img>
           </div>
           <div className="col-5 text-end px-6">
             <h2 className="text-white pdf-title">ORDER PDF </h2>
@@ -252,7 +252,7 @@ const OgioCartPdf = () => {
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India </p>
 
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Ogio</p>
-            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span>{getCurrentUsers?.name}</p>
+            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span> {getCurrentUsers?.name}</p>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span>  {salesRepName}</p>
           </div>
         </div>
@@ -295,7 +295,7 @@ const OgioCartPdf = () => {
 
 
               <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
-                <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total : </a>{totalNetBillAmount}
+                <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total : </a>₹{totalNetBillAmount}
               </h4>
             </div>
           </div>

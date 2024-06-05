@@ -1,3 +1,5 @@
 /* .underline-from:hover{ background-color: #bfbfbf!important;} */
 
-.underline-from{color: #000; opacity: 0.4;}
+.underline-from{color: #000; opacity: 1;}
+.select-option {height: 40px;}
+.from-manager .ant-btn-primary{background-color: #000!important;}

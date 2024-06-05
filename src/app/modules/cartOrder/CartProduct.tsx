@@ -118,6 +118,17 @@ const handleOgioCart=() => {
 
 
 
+            <li className="nav-item hover-elevate-up cursor-pointer">
+              <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} 
+              
+              // onClick={() => setActiveTab('travis')}
+              onClick={handleTravisCart}
+              >
+              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' cart-img'></img>
+                Travis Mathew 
+              </a>
+            </li>
+            
           
            <li className="nav-item hover-elevate-up cursor-pointer">
               <a className={`nav-link active-tab ${activeTab === 'ogio' ? 'active' : ''}`} onClick={handleOgioCart}>
@@ -128,16 +139,7 @@ const handleOgioCart=() => {
 
 
          
-             <li className="nav-item hover-elevate-up cursor-pointer">
-              <a className={`nav-link active-tab ${activeTab === 'travis' ? 'active' : ''}`} 
-              
-              // onClick={() => setActiveTab('travis')}
-              onClick={handleTravisCart}
-              >
-              <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/white_tm_15bf456bbc.png' className=' cart-img'></img>
-                Travis Mathew 
-              </a>
-            </li>
+            
           </ul>
         </div>
 

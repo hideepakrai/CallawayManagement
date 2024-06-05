@@ -1,0 +1,6 @@
+/* .from-manager .ant-modal-footer{display: none;} */
+.from-manager{width: 600px!important; left: 20px;}
+.from-manager{width: 600px!important; max-width: 600px!important;}
+.from-manager .ant-modal-title{font-size: 18px!important; color: #071437!important;     font-weight: 600;}
+.from-manager .ant-modal-header{margin-bottom: 20px;}
+.user-cart-details{margin-top: -3px;}
