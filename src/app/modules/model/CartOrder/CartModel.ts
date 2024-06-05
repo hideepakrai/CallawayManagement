@@ -5,6 +5,7 @@ export interface CartModel{
   order_date?:string,
 items?:string,
 discount_type?:string,
+retailer_details?:string,
  discount_percent?:number,
 total_value?:number,
 status?:string,

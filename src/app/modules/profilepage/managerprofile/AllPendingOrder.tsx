@@ -81,9 +81,23 @@ const AllPendingOrder = () => {
             },
         },
         {
-            title: "Retailer name",
-            dataIndex: "retailer_name",
+            title: "Retailer name ",
+            dataIndex: "retailer_details",
             width: 150,
+            render:(value, record)=>{
+               
+             
+                  
+
+                    if (value !== "") {
+                        const retailer = JSON.parse(value);
+                        return (
+                            <h6>{retailer.name}</h6>
+                        );
+                    }
+            
+                    return "no record"
+            }
         },
 
         {
