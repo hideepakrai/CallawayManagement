@@ -6,7 +6,7 @@ import ImportRetailerModal from './importRetailer/ImportRetailerModal';
 import Retailerheader from './Retailerheader';
 import { getRetailers } from '../../../slice/retailer/RetailerSlice';
 import { RetailerModel } from '../../model/AccountType/retailer/RetailerModel';
-
+import FromRetail from './FromRetail';
 type Props = {
   className: string;
 };
@@ -112,6 +112,7 @@ const RetailsTable = () => {
                                   onClick={() => handleCopy(gstin, gstinId)}
                                 ></i>
                               </Tooltip>
+                            
                             </span>
 
                             
@@ -131,6 +132,7 @@ const RetailsTable = () => {
                           </div>
                         </td>
                         
+
                         <td style={{ width: '380px' }}>
                           <span className='text-gray-900 fw-bold fs-7'>{item.address}</span>
                           <span className='text-muted fw-semibold text-muted d-block fs-7'></span>
@@ -153,7 +155,8 @@ const RetailsTable = () => {
                               href='#'
                               className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                             >
-                              <KTIcon iconName='pencil' className='fs-3' />
+                              {/* <KTIcon iconName='pencil' className='fs-3' /> */}
+                              <FromRetail/>
                             </a>
                             <a
                               href='#'

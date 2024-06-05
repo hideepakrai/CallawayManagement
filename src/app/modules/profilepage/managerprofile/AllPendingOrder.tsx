@@ -81,7 +81,7 @@ const AllPendingOrder = () => {
             },
         },
         {
-            title: "Retailer name ",
+            title: "Retailer name",
             dataIndex: "retailer_name",
             width: 150,
         },
