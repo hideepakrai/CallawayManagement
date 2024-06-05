@@ -114,7 +114,7 @@ const FromRetail = ({retailerupdate,isEdit,resetIsEdit}:Props) => {
             onChange={(e) => {
                 const ret= e.target.value
                 setRetailerPhone(parseInt(ret));
-            }}
+            }}  
             />
           </Form.Item>
           <Form.Item label="Phone2">

@@ -30,6 +30,7 @@ import RejectedOgioOrder from './RejectedOgioOrder';
 import OgioSubmitModel from './OgioSubmitModal';
 import OgioApproveModel from './OgioApproveModal';
 import OgioCompleteModel from './OgioCompltedmodal';
+import { NoProdect } from '../../NoProdect';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -53,6 +54,7 @@ const OgioCart = () => {
   const [allOgioOrders, setGetAllOgioOrders] = useState<OgioBasicModel[]>([])
   const [userId, setUserId] = useState<number>();
   const [notes, setNotes] = useState<string>('');
+  const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
   
 
   // update user Id
@@ -410,7 +412,14 @@ const OgioCart = () => {
       })
 
 
+      // setGetAllOgioOrders(ogio)
+    }
+    if(ogio && ogio.length>0){
       setGetAllOgioOrders(ogio)
+      setIsShowPdf(true)
+    } else if(ogio && ogio.length===0){
+      setIsShowPdf(false)
+      setGetAllOgioOrders([])
     }
   }, [getOgioProduct]);
 
@@ -805,7 +814,8 @@ const handleOkSubmit=()=>{
 
 
 
-      <Table
+    { allOgioOrders && allOgioOrders.length>0 ?
+   (  <Table
         className='cart-table-profile ogio-table-cart'
         ref={tableRef}
         columns={columns}
@@ -913,10 +923,13 @@ const handleOkSubmit=()=>{
 
           </div>
         )}
-      />
+      />):(<>
+      <NoProdect/>
+      </>)
+    }
 
 
-      <OgioCartPdf />
+      { isShowPdf &&<OgioCartPdf />}
 
       {/* update the order from user 
  */}
