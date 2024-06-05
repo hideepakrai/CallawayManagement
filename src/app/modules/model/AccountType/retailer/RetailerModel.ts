@@ -1,6 +1,7 @@
 export interface RetailerModel{
     role?: string;
     phone?: number;
+    phone2?:number,
     id?:number,
    user_id?:number,
    name?:string,
@@ -13,7 +14,8 @@ export interface RetailerModel{
    type?:string,
    photo_url?:string,
    thumbnail_url?:string,
-   manager_name?:string
+   manager_name?:string,
+   password?:string
 }
 
 

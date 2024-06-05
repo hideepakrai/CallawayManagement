@@ -7,6 +7,7 @@ import Retailerheader from './Retailerheader';
 import { getRetailers } from '../../../slice/retailer/RetailerSlice';
 import { RetailerModel } from '../../model/AccountType/retailer/RetailerModel';
 import FromRetail from './FromRetail';
+
 type Props = {
   className: string;
 };
@@ -18,22 +19,38 @@ const RetailsTable = () => {
   const [copied, setCopied] = useState<string | null>(null);
 
   useEffect(() => {
-    if (getRetailer) {
+
+   console.log("getRetailer",getRetailer)
+    if (getRetailer ) {
+     
       setRetailers(getRetailer);
     }
   }, [getRetailer]);
 
-  const handleCopy = (text: string, id: string) => {
+ 
+
+  const handleCopy = (text: string, ) => {
     navigator.clipboard.writeText(text).then(() => {
-      setCopied(id);
+      setCopied(text);
       setTimeout(() => {
         setCopied(null);
       }, 2000); // Reset the state after 2 seconds
     });
   };
 
-  return (
-    <div className='container'>
+  const [updateReatiler, setUpdateRetailer] = useState<RetailerModel|null>();
+  const [isEdit , setIsEdit]= useState<boolean>(false)
+const handleEditRetailer=(data:RetailerModel)=>{
+  setIsEdit(true)
+  setUpdateRetailer(data)
+
+}
+const handleResetIsEdit=()=>{
+  setIsEdit(false)
+  setUpdateRetailer(null)
+}
+  return (<>
+   <div className='container'>
       <div className='card'>
         <Retailerheader />
         <div className='card-body py-3'>
@@ -63,13 +80,10 @@ const RetailsTable = () => {
                 {allRetailers &&
                   allRetailers.length > 0 &&
                   allRetailers.map((item: RetailerModel) => {
-                    const gstin = item.gstin ?? '';
-                    const email = item.email ?? '';
-                    const gstinId = `gstin-${gstin}`;
-                    const emailId = `email-${email}`;
+                  
 
                     return (
-                      <tr key={gstin}>
+                      <tr key={item.id}>
                         <td>
                           <div className='form-check form-check-sm form-check-custom form-check-solid'>
                             <input
@@ -88,10 +102,10 @@ const RetailsTable = () => {
                                 href='#'
                                 className='text-gray-900 fw-bold text-hover-primary fs-7'
                               >
-                                {item.name}
+                                {item?.name}
                               </a>
                               <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                                {item.code}
+                                {item?.code}
                               </span>
                             </div>
                           </div>
@@ -103,34 +117,27 @@ const RetailsTable = () => {
                             style={{ width: '270px' }}
                           >
                             <span className='text-gray-900 fw-bold text-hover-black fs-6'>
-                              {gstin}
-                              <Tooltip title={copied === gstinId ? 'Copied!' : 'Copy'}>
+                              {item?.gstin}
+                              <Tooltip title={copied === item?.gstin ? 'Copied!' : 'Copy'}>
                                 <i
-                                  className={`bi bi-copy ${
-                                    copied === gstinId ? 'text-black' : 'text-gray-500'
-                                  } text-hover-dark cursor-pointer mx-2`}
-                                  onClick={() => handleCopy(gstin, gstinId)}
+                                  className={`bi bi-copy ${copied === item?.gstin ? 'text-black' : 'text-gray-500'} text-hover-dark cursor-pointer mx-2`}
+                                  onClick={() => handleCopy(item.gstin??"")} // Wrap handleCopy call in an arrow function
                                 ></i>
                               </Tooltip>
-                            
                             </span>
 
-                            
                             <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                              {email}
-                              <Tooltip
-                                title={copied === emailId ? 'Copied!' : 'Copy '}
-                              >
+                              {item.email}
+                              <Tooltip title={copied === item.email ? 'Copied!' : 'Copy'}>
                                 <i
-                                  className={`bi bi-copy ${
-                                    copied === emailId ? 'text-black' : 'text-gray-500'
-                                  } text-hover-dark cursor-pointer mx-2`}
-                                  onClick={() => handleCopy(email, emailId)}
+                                  className={`bi bi-copy ${copied === item.email ? 'text-black' : 'text-gray-500'} text-hover-dark cursor-pointer mx-2`}
+                                  onClick={() => handleCopy(item.email??"")} // Wrap handleCopy call in an arrow function
                                 ></i>
                               </Tooltip>
                             </span>
                           </div>
                         </td>
+
                         
 
                         <td style={{ width: '380px' }}>
@@ -152,14 +159,15 @@ const RetailsTable = () => {
                         <td>
                           <div className='d-flex flex-shrink-0'>
                             <a
-                              href='#'
+                             onClick={()=>handleEditRetailer(item)}
+                             
                               className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                             >
-                              {/* <KTIcon iconName='pencil' className='fs-3' /> */}
-                              <FromRetail/>
+                               <KTIcon iconName='pencil' className='fs-3' />
+                          
                             </a>
                             <a
-                              href='#'
+                            
                               className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                             >
                               <KTIcon iconName='trash' className='fs-3' />
@@ -175,6 +183,18 @@ const RetailsTable = () => {
         </div>
       </div>
     </div>
+    {
+      isEdit &&
+      updateReatiler &&
+      <FromRetail
+      isEdit={isEdit}
+      retailerupdate={updateReatiler}
+      resetIsEdit={handleResetIsEdit}
+      />
+
+    }
+  </>
+   
   );
 };
 

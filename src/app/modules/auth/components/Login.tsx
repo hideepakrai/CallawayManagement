@@ -38,7 +38,7 @@ const loginSchema = Yup.object().shape({
 
 const initialValues = {
   email: 'shashi.kiranshetty@callawaygolf.com',
-  password: 'Callaway@1!',
+  password: '',
   role: 'manager'
 }
 
@@ -140,7 +140,7 @@ export function Login() {
     formik.setValues({
       ...formik.values,
       email: 'arjun.budidi@gmail.com',
-      password: 'Callaway@1!',
+      password: '',
       role: "retailer"
     });
   }
@@ -151,7 +151,7 @@ export function Login() {
     formik.setValues({
       ...formik.values,
       email: 'shashi.kiranshetty@callawaygolf.com',
-      password: 'Callaway@1!',
+      password: '',
       role: "retailer"
     });
   }
@@ -162,7 +162,7 @@ export function Login() {
     formik.setValues({
       ...formik.values,
       email: 'ankur.srivastava@callawaygolf.com',
-      password: 'Callaway@1!',
+      password: '',
       role: "sales-representtaive"
     });
   }
