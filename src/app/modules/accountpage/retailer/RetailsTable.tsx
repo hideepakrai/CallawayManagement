@@ -7,6 +7,7 @@ import Retailerheader from './Retailerheader';
 import { getRetailers } from '../../../slice/retailer/RetailerSlice';
 import { RetailerModel } from '../../model/AccountType/retailer/RetailerModel';
 import FromRetail from './FromRetail';
+import Loading from '../../loading/Loading';
 
 type Props = {
   className: string;
@@ -55,7 +56,8 @@ const handleResetIsEdit=()=>{
         <Retailerheader />
         <div className='card-body py-3'>
           <div className='table-responsive'>
-            <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
+           {allRetailers && allRetailers.length>0?
+            (<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
               <thead>
                 <tr className='fw-bold text-muted'>
                   <th className='w-25px'>
@@ -178,7 +180,9 @@ const handleResetIsEdit=()=>{
                     );
                   })}
               </tbody>
-            </table>
+            </table>):(
+              <Loading/>
+            )}
           </div>
         </div>
       </div>

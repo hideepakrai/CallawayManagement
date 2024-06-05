@@ -32,6 +32,7 @@ import SubmitModel from './SubmitModel';
 import TravisApproveModel from './TravisApproveModal';
 import TravisCompleteModel from './TraviscompleteModal';
 import TravisRejectedModel from './TravisRejectedModal';
+import { NoProdect } from '../../NoProdect';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -43,7 +44,8 @@ const TravisCarts = () => {
   const getLoadings = useSelector(getLoading)
   const [notes, setNotes] = useState<string>('');
   const [isLoadingStart, setIsLoadingStart] = useState<boolean>(false)
-
+  const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
+  
   const getUserAccounts = useSelector(getUserAccount)
   useEffect(() => {
     if (getLoadings) {
@@ -63,7 +65,14 @@ const TravisCarts = () => {
 
         }
       })
+    
+    }
+    if(order && order.length>0){
       setAllorder(order)
+      setIsShowPdf(true)
+    } else if(order && order.length==0){
+      setAllorder([])
+      setIsShowPdf(false)
     }
   },
     [getProduct])
@@ -745,7 +754,8 @@ const handleRejectedModalCancel=()=>{
           note={handleNote}
         />}
 
-      <Table className='card-table-travis cart-table-profile'
+     { allOrder && allOrder.length>0?
+    ( <Table className='card-table-travis cart-table-profile'
         ref={tableRef}
         columns={columns}
         dataSource={allOrder?.map((item) => ({ ...item, key: item?.sku }))}
@@ -858,7 +868,10 @@ const handleRejectedModalCancel=()=>{
 
           </div>
         )}
-      />
+      />):(
+        <NoProdect/>
+      )
+    }
 
       {isRefetch && <GetTravisMethewProduct
         resetTravis={handleResetRefetch}
@@ -945,7 +958,7 @@ const handleRejectedModalCancel=()=>{
 
       />
 
-      <TravisOrderPdf/>
+     {isShowPdf && <TravisOrderPdf/>}
 
     </div>
   )
