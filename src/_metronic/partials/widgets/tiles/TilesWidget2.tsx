@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import './TilesWidget2.css';
 import { Link } from 'react-router-dom';
-
 import { Space } from 'antd';
 
 type Props = {
@@ -51,18 +50,33 @@ const TilesWidget2 = ({
     }, []);
   
     const formatTime = (unit: number) => unit.toString().padStart(2, '0');
-    
+
     const hours = time.getHours();
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
-  
+
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 || 12;
+
     return (
       <div className='d-flex mt-3 text-center calendar text-secondary '>
-        <div className=' mb-1 digital-font '>
-          <span className='time-title'>HRS</span><span className='time'> {formatTime(hours)[0]}</span> <span className='time'>{formatTime(hours)[1]}</span> <span className='dot-time'>:</span> 
+        <div className='mb-1 digital-font'>
+           {/* <div>
+            <span className='time-title'>HRS</span> 
+            <span className='time-title'>MIN</span> 
+            <span className='time-title'>SEC</span>
+          </div> 
+          
+          <div>
+            <span className='time'> {formatTime(hours12)[0]}</span> <span className='time'>{formatTime(hours12)[1]}</span> <span className='dot-time'>:</span> 
+            <span className='time'>{formatTime(minutes)[0]}</span> <span className='time'>{formatTime(minutes)[1]}</span> <span className='dot-time'>:</span> 
+            <span className='time'>{formatTime(seconds)[0]}</span> <span className='time'>{formatTime(seconds)[1]}</span> <span className='ampm'>{ampm}</span>
+          </div> */}
+            <span className='time-title'>HRS</span><span className='time'> {formatTime(hours12)[0]}</span> <span className='time'>{formatTime(hours12)[1]}</span> <span className='dot-time'>:</span> 
           <span className='time-min'>MIN</span> <span className='time'>{formatTime(minutes)[0]}</span> <span className='time'>{formatTime(minutes)[1]}</span> <span className='dot-time'>:</span> 
-          <span className='time-sec'>SEC</span> <span className='time'>{formatTime(seconds)[0]}</span> <span className='time'>{formatTime(seconds)[1]}</span>
-        </div>
+          <span className='time-sec'>SEC</span> <span className='time'>{formatTime(seconds)[0]}</span> <span className='time'>{formatTime(seconds)[1]}</span> <span className='ampm'>{ampm}</span> 
+
+        </div> 
       </div>
     );
   };
@@ -77,10 +91,7 @@ const TilesWidget2 = ({
       }}
     >
       <div className='card-body d-flex flex-column justify-content-center text-center'>
-      
-
         <div className='text-white fw-bold mb-0 pt-0 fs-1 calendar-var mb-3 '>
-           
            <h4 className='text-white fw-bold mb-0 fs-1 day-cart'> {dayOfWeek}</h4>
         </div>
 

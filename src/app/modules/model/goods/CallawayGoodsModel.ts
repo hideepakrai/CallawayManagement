@@ -1,5 +1,6 @@
 
 export interface BasicModelGoods {
+    stock_88?: number;
 
   sku?:string;
   brand_id?:number|null;
@@ -37,7 +38,8 @@ export interface BasicModelGoods {
      error88?:string;
      error90?:string;
      primaryImage?: string;
-     secondaryImage?:[]
+     secondaryImage?:[];
+     brand?:string;
 
 
     

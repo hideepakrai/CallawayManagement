@@ -6,9 +6,9 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
-import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
+//import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
-import { BasicModelTravis } from "../../../../model/travis/TravisMethewModel";
+import { BasicModelGoods } from "../../../../model/goods/CallawayGoodsModel";
 import type { ColumnProps } from 'antd/lib/table';
 
 
@@ -17,7 +17,7 @@ const { Dragger } = Upload;
 type Props = {
   onClose: () => void;
   isQtyImport: boolean;
-  travisQtyData: (allData: ExcelModelTravis[]) => void
+  allGoodsData: (allData: BasicModelGoods[]) => void
 }
 
 const props: UploadProps = {
@@ -25,8 +25,8 @@ const props: UploadProps = {
   multiple: false,
 
 };
-const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
-  const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
+const GoodsQtyImport = ({ onClose, isQtyImport, allGoodsData }: Props) => {
+  const [allXlxData, setAllXlxData] = useState<BasicModelGoods[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -46,7 +46,7 @@ const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
+      const jsonData = XLSX.utils.sheet_to_json<BasicModelGoods>(worksheet) as BasicModelGoods[];
       setAllXlxData(jsonData)
       setLoading(false);
     };
@@ -59,16 +59,20 @@ const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
   }
 
   const handleOk = () => {
-    //setIsModalOpen(false);
-    travisQtyData(allXlxData)
+    console.log("ok1",allXlxData)
+
+    allGoodsData(allXlxData)
+    setAllXlxData([])
+
     // onClose();
   };
+ // console.log("ok1",allXlxData)
   const handleCancel = () => {
     // setIsModalOpen(false);
     onClose();
   };
 
-  const columns: ColumnProps<BasicModelTravis>[] = [
+  const columns: ColumnProps<BasicModelGoods>[] = [
     {
       title: 'brand',
       dataIndex: 'brand',
@@ -83,12 +87,12 @@ const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
     },
 
 
-    {
-      title: 'stock_88',
-      dataIndex: 'stock_88',
-      key: 'stock_88',
-      width: 80,
-    },
+    // {
+    //   title: 'stock_88',
+    //   dataIndex: 'stock_88',
+    //   key: 'stock_88',
+    //   width: 80,
+    // },
     {
       title: 'stock_90',
       dataIndex: 'stock_90',
@@ -97,25 +101,23 @@ const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
     },
 
   ];
-  const excelData: BasicModelTravis[] = [
+  const excelData: BasicModelGoods[] = [
     {
-      brand: "Travismathew",
+      brand: "HardGoods",
       sku: 'TM001',
-      stock_88: 100,
+     
       stock_90: 100,
 
 
     },
     {
-      brand: "Travismathew",
+      brand: "HardGoods",
       sku: 'TM002',
-      stock_88: 100,
       stock_90: 100,
     },
     {
-      brand: "Travismathew",
+      brand: "HardGoods",
       sku: 'TM003',
-      stock_88: 100,
       stock_90: 100,
     },
   ];
@@ -146,7 +148,7 @@ const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
       const tr = document.createElement("tr");
       columns.forEach((column) => {
         const td = document.createElement("td");
-        td.innerText = String(rowData[column.dataIndex as keyof BasicModelTravis]);
+        td.innerText = String(rowData[column.dataIndex as keyof BasicModelGoods]);
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
@@ -157,7 +159,7 @@ const GoodsQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
     document.body.appendChild(hiddenTable);
 
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "TravisQtyUpdateSample.xlsx");
+    XLSX.writeFile(wb, "HardGoodsQtyUpdateSample.xlsx");
 
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

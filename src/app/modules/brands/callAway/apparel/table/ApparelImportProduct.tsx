@@ -75,7 +75,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "SKU ",
+      title: "sku",
       dataIndex: "sku",
       width: 100,
       fixed: "left",
@@ -86,7 +86,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     },
 
     {
-      title: "Description ",
+      title: "description",
       dataIndex: "description",
       key: "description",
       width: 150,
@@ -95,7 +95,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "Category ",
+      title: "category",
       dataIndex: "category",
       key: "category",
       width: 110,
@@ -105,7 +105,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "Season",
+      title: "season",
       dataIndex: "season",
       key: "season",
       width: 100,
@@ -114,7 +114,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
     },
     {
-      title: "Color",
+      title: "color",
       dataIndex: "color",
       key: "color",
       width: 75,
@@ -124,7 +124,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "Style",
+      title: "style_id",
       dataIndex: "style_id",
       key: "style_id",
       width: 85,
@@ -134,7 +134,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "Size",
+      title: "size",
       dataIndex: "size",
       key: "size",
       width: 65,
@@ -143,20 +143,20 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     },
 
     {
-      title: "Gender",
+      title: "gender",
       dataIndex: "gender",
       key: "gender",
       width: 150,
     },
     {
-      title: "Sleeves",
+      title: "sleeves",
       dataIndex: "sleeves",
       key: "sleeves",
       width: 150,
     },
 
     {
-      title: "Qty88",
+      title: "stock_88",
       dataIndex: "stock_88",
       key: "stock_88",
       width: 150,
@@ -164,7 +164,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
     },
     {
-      title: "Qty90",
+      title: "stock_90",
       dataIndex: "stock_90",
       key: "stock_90",
       width: 150,
@@ -173,17 +173,11 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     },
 
 
-    {
-      title: "Qty",
-      dataIndex: "TotalQty",
-      key: "TotalQty",
-      width: 50,
-      fixed: 'right'
-    },
+   
 
 
     {
-      title: "MRP",
+      title: "mrp",
       dataIndex: "mrp",
       key: "mrp",
       width: 80,
@@ -192,7 +186,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "Amount ",
+      title: "Amount",
       dataIndex: "Amount",
       key: "Amount",
       width: 100,
@@ -204,7 +198,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
   const excelData: BasicModelApparel[] = [
     {
-      brand: "Travismathew",
+      brand: "callaway",
       sku: 'TM001',
       name: 'Cool Belt',
       category: 'Belts',
@@ -217,16 +211,17 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
       size: 'M',
 
-      description: 'This is a cool belt from Travis Mathew.',
+      description:'This is a cool belt from Travis Mathew.',
       mrp: 50,
 
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      Amount: 500,
 
     },
     {
-      brand: "Travismathew",
+      brand: "callaway",
       sku: 'TM002',
       name: 'Stylish Cap',
       category: 'Headwear',
@@ -237,7 +232,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       color: 'Black',
       size: 'L',
 
-      description: 'A stylish cap from Travis Mathew.',
+      description:'A stylish cap from Travis Mathew.',
       mrp: 30,
 
 
@@ -245,9 +240,10 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      Amount: 300,
     },
     {
-      brand: "Travismathew",
+      brand: "callaway",
       sku: 'TM003',
       name: 'Classic Polo',
       category: 'Tops',
@@ -258,7 +254,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       color: 'Navy Blue',
       size: 'XL',
 
-      description: 'A classic polo shirt from Travis Mathew.',
+      description:'A classic polo shirt from Travis Mathew.',
       mrp: 70,
 
 
@@ -266,6 +262,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      Amount: 700,
     },
   ];
 
@@ -306,7 +303,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
 
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "TravisSample.xlsx");
+    XLSX.writeFile(wb, "ApparelSample.xlsx");
 
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

@@ -28,6 +28,8 @@ import ImportAllOgioProduct from '../excel/importExcel/ImportAllOgioProduct';
 import { getOtherProducts } from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import { TravisPdfPrint, Variation_sku_data } from '../../../model/pdf/PdfModel';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
+import OgioProductsToExcel from '../excel/importExcel/ExportAllProduct';
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
 const OPTIONS1 = ['Moto', 'Lifestyle',];
@@ -59,6 +61,9 @@ const OgioTable = () => {
 
   const ogioProducts: OgioBasicModel[] = useSelector(getOgioProducts)
   const [allOgioData, setAllOgioData] =useState<OgioBasicModel[]>([])
+
+  const [isProduct, setIsProduct] = useState(false);
+
 
   useEffect(()=>{
     if(ogioProducts && ogioProducts.length>0){
@@ -735,7 +740,7 @@ const OgioTable = () => {
       const url = URL.createObjectURL(blob);
 
       anchor.href = url;
-      anchor.download = `TravisMathewProducts.xlsx`;
+      anchor.download = `OgioProducts.xlsx`;
       anchor.click();
 
       // Release the object URL
@@ -991,6 +996,17 @@ const OgioTable = () => {
     // Log the record for debugging or tracking purposes
 
   };
+
+  const [isExportAll, setIsExportAll] = useState<boolean>(false)
+  const handleDownloadAllExcel= () =>{
+    setIsExportAll(true)
+    setIsProduct(false)
+
+
+  }
+  const handleResetExportAll=() =>{
+    setIsExportAll(false)
+  }
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}
@@ -1089,6 +1105,8 @@ const OgioTable = () => {
         printPdf={handleShowPdf}
         excelExport={handleDownloadExcel}
         selectedRow={selectedRow}
+        excelAllExport={handleDownloadAllExcel}
+
         
       />
 
@@ -1127,7 +1145,13 @@ const OgioTable = () => {
         <UploadOgioImages
         resetOgioImages={handleResetUploadImages}
         />}
+
       <OgioPreOrder />
+
+      { isExportAll && <OgioProductsToExcel
+     resetExportAll={handleResetExportAll}
+   
+   />}
     </div>
   )
 }

@@ -68,6 +68,12 @@ const ImportAllOgioProduct = ({ onClose, isImport, allOgioData }: Props) => {
       key: 'category',
       width: 115,
     },
+    {
+      title: 'season',
+      dataIndex: 'season',
+      key: 'season',
+      width: 115,
+    },
   
 
   
@@ -104,6 +110,7 @@ const ImportAllOgioProduct = ({ onClose, isImport, allOgioData }: Props) => {
       mrp: 40,
       stock_90:100,
       gst:12,
+      season:"Summer",
       
       
       
@@ -119,6 +126,7 @@ const ImportAllOgioProduct = ({ onClose, isImport, allOgioData }: Props) => {
       mrp: 40,
       stock_90:100,
       gst:12,
+      season:"Winter",
 
       
       
@@ -134,6 +142,7 @@ const ImportAllOgioProduct = ({ onClose, isImport, allOgioData }: Props) => {
       mrp: 40,
       stock_90:100,
       gst:12,
+      season:"Winter",
 
       
       

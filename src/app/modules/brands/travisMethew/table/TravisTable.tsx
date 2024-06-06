@@ -40,6 +40,9 @@ import { exit } from 'process';
 import { LoadingStart } from '../../../../slice/loading/LoadingSlice';
 import TravisImage from '../../../../pages/dashboard/TravisImage';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
+
+import TravisProductsToExcel from '../excel/ExportAllProduct'
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
@@ -1326,6 +1329,18 @@ const TravisTable = () => {
   }
 
   const getTravisuploadImages = useSelector(getTravisuploadImage)
+const [isExportAll, setIsExportAll] = useState<boolean>(false)
+
+
+  const handleDownloadAllExcel= () =>{
+    setIsExportAll(true)
+    setIsProduct(false)
+
+
+  }
+  const handleResetExportAll=() =>{
+    setIsExportAll(false)
+  }
   return (
     <div className='container'>
 
@@ -1450,6 +1465,7 @@ const TravisTable = () => {
         allGoodsData={handleTravisData}
         printPdf={handleShowPdf}
         excelExport={handleDownloadExcel}
+        excelAllExport={handleDownloadAllExcel}
       />
 
       <TravisExcelUploadDB
@@ -1470,6 +1486,13 @@ const TravisTable = () => {
       <PreOrder />
 
       {getTravisuploadImages && <TravisImage />}
+
+
+   { isExportAll && <TravisProductsToExcel
+     resetExportAll={handleResetExportAll}
+   
+   />}
+
     </div>
   )
 }
