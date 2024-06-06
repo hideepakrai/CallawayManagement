@@ -177,29 +177,31 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
       <div className="row px-10 mt-8 mb-18" >
         <div className="col-8">
-          <h1 className=" d-flex font-gray-800 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{getTravisRetailerDetails.name} </h1>
+          <h1 className=" d-flex font-gray-900 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{getTravisRetailerDetails.name}</h1>
 
           <div className="d-flex">
             <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN: </span>
             <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> {getTravisRetailerDetails.gstin} <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
           </div>
 
-          <div className="user-address pt-2 d-flex">
-            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:
-            
-             </span>
-            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
-           {getTravisRetailerDetails.phone}
-              {/* {retailerphone}   */}
-            </p>
-          </div>
-
-          <div className="user-address pt-2 ">
+          <div className="user-address pt-3">
             <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
-            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
+            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mb-3">
               {getTravisRetailerDetails.address}  
             </p>
           </div>
+
+          {/* <div className="user-address  d-flex">
+            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:
+             </span>
+
+            <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
+           {getTravisRetailerDetails.phone}
+
+            </p>
+          </div> */}
+
+          
         </div>
 
 
@@ -253,7 +255,7 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
 
             <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
-              <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total : </a>{totalNetBillAmount}
+              <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total : </a>₹{totalNetBillAmount}
             </h4>
           </div>
         </div>

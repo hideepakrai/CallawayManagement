@@ -247,7 +247,7 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
 
             <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
               <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total : </a>
-              {recordPdf.total_value}
+              ₹{recordPdf.total_value}
             </h4>
           </div>
         </div>
