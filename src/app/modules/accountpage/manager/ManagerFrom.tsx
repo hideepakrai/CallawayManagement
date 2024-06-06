@@ -28,7 +28,7 @@ const handleSave = () => {
 
 
 
-const ManagerForm = ({ isModalVisible, managerdata }: Props) => {
+const ManagerForm = ({ isModalVisible, handleOk, handleCancel, managerdata }: Props) => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [managerName, setmanagerName] = useState<string>(managerdata.name || "");
