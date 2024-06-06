@@ -33,6 +33,7 @@ const FromRetail = ({ retailerupdate, isEdit, resetIsEdit }: Props) => {
 
   useEffect(() => {
 
+    
     if (getRetailer &&
       getRetailer.length > 0) {
       const allretdata: RetailerModel[] = []

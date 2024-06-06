@@ -11,10 +11,16 @@ type Props = {
 
 const FirstItem = ({ manager }: Props) => {
   const [isModalVisible, setisModelVisible] = useState(false);
+  
+
+
+  const [managerdata,setmanagerdata] = useState<CurentUser>();
 
   const showModal = () => {
+    setmanagerdata(manager)
     setisModelVisible(true)
   }
+
 
   const handleModelOk = () => {
     setisModelVisible(false)
@@ -23,7 +29,10 @@ const FirstItem = ({ manager }: Props) => {
   const handleCancel = () => {
     setisModelVisible(false)
   }
-
+  const resetIsEdit = () => {
+    // Add your reset logic here if needed
+    setisModelVisible(false);
+  };
 
 
 
@@ -33,7 +42,7 @@ const FirstItem = ({ manager }: Props) => {
       <div className="card card-custom mx-8 mb-3 pb-7 card-user-list" style={{ border: "none" }}>
         <div className="card-header d-inline py-7" style={{ backgroundColor: "#000", color: "#fff", border: "none" }}>
           <h1 className="text-center text-white pb-2" style={{ fontSize: "22px" }}>{manager.name}</h1>
-          <h4 className="text-center text-white cart-text">MANAGER</h4>
+          <h4 className="text-center text-white cart-text">MANAGER </h4>
         </div>
         <div className="card-body px-4">
           <ul className="card-list pt-3">
@@ -63,12 +72,15 @@ const FirstItem = ({ manager }: Props) => {
         </div>
       </div>
 
+    {managerdata&&
       <ManagerForm
+        managerdata={managerdata}
         handleOk={handleModelOk}
         isModalVisible={isModalVisible}
         handleCancel={handleCancel}
+        resetIsEdit={resetIsEdit} // Pass resetIsEdit as a prop
 
-      />
+      />}
     </>
   );
 };
