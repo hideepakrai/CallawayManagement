@@ -114,9 +114,9 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       width: 115,
     },
     {
-      title: 'Orientation',
-      dataIndex: 'Orientation',
-      key: 'Orientation',
+      title: 'orientation',
+      dataIndex: 'orientation',
+      key: 'orientation',
       width: 115,
     },
    
