@@ -75,7 +75,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "sku ",
+      title: "sku",
       dataIndex: "sku",
       width: 100,
       fixed: "left",
@@ -86,7 +86,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     },
 
     {
-      title: "description ",
+      title: "description",
       dataIndex: "description",
       key: "description",
       width: 150,
@@ -95,7 +95,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     {
-      title: "category ",
+      title: "category",
       dataIndex: "category",
       key: "category",
       width: 110,
