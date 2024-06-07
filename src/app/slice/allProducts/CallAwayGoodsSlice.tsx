@@ -490,7 +490,95 @@ const CallawayGoodsSlice = createSlice({
       }
       
       
+    },
+    updateReduxData: (state, action) => {
+      const { travisProduct } = action.payload;
+
+      if (travisProduct.length>0) {
+
+        travisProduct.map((item:BasicModelGoods)=>{
+          const goodsIndex = state.callawayGoods.findIndex(
+            (travisItem) => travisItem.sku === item.sku
+          );
+      // eslint-disable-next-line no-debugger
+      debugger
+          if (goodsIndex===-1) {
+            state.callawayGoods.push({
+              sku: travisProduct.sku,
+                    name: travisProduct.name,
+                    description: travisProduct.description,
+                    mrp: travisProduct.mrp,
+                    category: travisProduct.category,
+                    gst: travisProduct.gst,
+                    brand_id: travisProduct.brand_id,
+                    primary_image_url: travisProduct.primary_image_url,
+                    gallery_images_url: travisProduct.gallery_images_url,
+                    variation_sku: travisProduct.variation_sku,
+                    stock_90:travisProduct.stock_90,
+                    stock_88:travisProduct.stock_88,
+                   // size:travisProduct.size,
+                    // style_code:travisProduct.style_code,
+                   // length:travisProduct.length,
+                   // season:travisProduct.season,
+                   // line:travisProduct.line,
+                   // color:travisProduct.color,
+                   // color_code:travisProduct.color_code,
+                    //gender:travisProduct.gender,
+                   
+                    Quantity90:0,
+                    Quantity88:0,
+                    Amount:0,
+                    TotalQty:0,
+                    LessGST:0,
+                    LessDiscountAmount:0,
+                    Discount:0,
+                    NetBillings:0,
+                    FinalBillValue:0,
+                    error88:"",
+                    error90:"",
+                    product_type:travisProduct.product_type,
+                    product_model:travisProduct.product_model,
+                    orientation:travisProduct.travisProduct,
+                    
+            })
+          
+
+           
+        
+          } 
+          else if (goodsIndex!==-1){
+            const rdx= state.callawayGoods[goodsIndex];
+            state.callawayGoods[goodsIndex].name=item.name!=undefined ?item.name:rdx.name;
+            state.callawayGoods[goodsIndex].description=item.description!=undefined ?item.description:rdx.description;
+            state.callawayGoods[goodsIndex].mrp=item.mrp!=undefined ?item.mrp:rdx.mrp;
+            state.callawayGoods[goodsIndex].category=item.category!=undefined ?item.category:rdx.category;
+           // state.callawayGoods[goodsIndex].style_code=item.style_code!=undefined ?item.style_code:rdx.style_code;
+           // state.callawayGoods[goodsIndex].color=item.color!=undefined ?item.color:rdx.color;
+            state.callawayGoods[goodsIndex].gst=item.gst!=undefined ?item.gst:rdx.gst;
+           // state.callawayGoods[goodsIndex].size=item.size!=undefined ?item.size:rdx.size;
+           // state.callawayGoods[goodsIndex].length=item.length!=undefined ?item.length:rdx.length;
+            state.callawayGoods[goodsIndex].primary_image_url=item.primary_image_url!=undefined ?item.primary_image_url:rdx.primary_image_url;
+            state.callawayGoods[goodsIndex].gallery_images_url=item.gallery_images_url!=undefined ?item.gallery_images_url:rdx.gallery_images_url;
+            state.callawayGoods[goodsIndex].stock_90=item.stock_90!=undefined ?item.stock_90:rdx.stock_90;
+            state.callawayGoods[goodsIndex].stock_88=item.stock_88!=undefined ?item.stock_88:rdx.stock_88;
+            state.callawayGoods[goodsIndex].variation_sku=item.variation_sku!=undefined ?item.variation_sku:rdx.variation_sku;
+            state.callawayGoods[goodsIndex].product_type=item.product_type!=undefined ?item.product_type:rdx.product_type;
+            state.callawayGoods[goodsIndex].product_model=item.product_model!=undefined ?item.product_model:rdx.product_model;
+            state.callawayGoods[goodsIndex].orientation=item.orientation!=undefined ?item.orientation:rdx.orientation;
+
+
+
+           
+    
+          }
+        })
+          
+    
+         
+        
+      }
     }
+    ,
 
           
 
@@ -501,7 +589,8 @@ export const {
     resetCallayGoods,
     addCallawayGoodsProduct,
     updateQuantity90,
-    updateGoodsQty
+    updateGoodsQty,
+    updateReduxData
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {
@@ -518,6 +607,9 @@ export const getProductModel = (state: { callawayGoods: ProductState }): string[
 };
 export const getProductType = (state: { callawayGoods: ProductState }): string[] => {
     return state.callawayGoods?.uniqueProductType || [];
+};
+export const getHardGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {
+  return state.callawayGoods?.callawayGoods || [];
 };
 
 

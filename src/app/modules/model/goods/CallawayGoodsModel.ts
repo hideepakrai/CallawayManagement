@@ -43,7 +43,7 @@ export interface BasicModelGoods {
      error90?:string;
      primaryImage?: string;
      secondaryImage?:[];
-     brand?:string;
+    
 
 
     

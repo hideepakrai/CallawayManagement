@@ -22,6 +22,7 @@ import OgioProductsToExcel from '../excel/exportExcel/ExportAllProduct';
 import GoodsUpdateQtyDb from '../excel/importExcel/GoodsUpdateQtyDb';
 
 import Loading from '../../../../loading/Loading';
+import HardGoodsExcelUploadDb from '../excel/importExcel/ExcelUploadDB';
 
 
 
@@ -58,13 +59,13 @@ const GooodsTable = () => {
 
   const [allQtyXlxData, setQtyAllXlxData] = useState<BasicModelGoods[]>([])
 
-  console.log("tabo",allQtyXlxData)
+  //console.log("tabo",allQtyXlxData)
   const handleOgioQtyData = (allDatat: BasicModelGoods[]) => {
     const table = tableRef.current;
     handleCloseQtyImport()
 
     setQtyAllXlxData(allDatat)
-    console.log("tabi",allDatat)
+   // console.log("tabi",allDatat)
     setIsQtyImport(false)
   }
 
@@ -75,6 +76,9 @@ const GooodsTable = () => {
     handleCloseImport()
 
     setAllXlxData(allDatat)
+        console.log("tabi",allDatat)
+      
+
   }
 
   const columns: TableColumnsType<BasicModelGoods> = [
@@ -618,6 +622,9 @@ const GooodsTable = () => {
   const handeleResetQtyData=() =>{
     setAllXlxData([])
   }
+  const handleResetXlData = () => {
+    setAllXlxData([])
+  }
 
   return (
     <div className='container'>
@@ -720,6 +727,11 @@ const GooodsTable = () => {
       resetQtyData={handeleResetQtyData}
 
         />
+
+        <HardGoodsExcelUploadDb
+         xlData={allXlxData}
+         resetXls={handleResetXlData}
+          />
 
 
 { isExportAll && <OgioProductsToExcel

@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { BasicModelGoods } from "../../../../../model/goods/CallawayGoodsModel";
+import { BasicModelApparel } from "../../../../../model/apparel/CallawayApparelModel"
 
 import { useDispatch, useSelector } from "react-redux"
-import {updateReduxData} from "../../../../../../slice/allProducts/CallAwayGoodsSlice"
-import {getHardGoodsProducts} from "../../../../../../slice/allProducts/CallAwayGoodsSlice"
-import {UpdateGoodsProduct,AddNewProduct} from "../../api/UpdateProductData"
+import {updateReduxData} from "../../../../../../slice/allProducts/CallawayApparelSlice"
+import {getAppaProducts} from "../../../../../../slice/allProducts/CallawayApparelSlice"
+import {UpdateApparelProduct,AddNewProduct} from "../../api/UpdateProductData"
 //import { debug } from "console";
 
+//import { BasicModelApparel, UpdateTravisModel } from "../../../../model/travis/TravisMethewModel"
 
 const STRAPI_URL = import.meta.env.VITE_APP_STRAPI_URL;
 type Props = {
-  xlData: BasicModelGoods[];
+  xlData: BasicModelApparel[];
   resetXls: () => void;
 };
 
 
 
-const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
+const ApparelExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
   const dispatch = useDispatch()
   const [isUpdate, setIsUpdate] = useState(false)
   const [isAdd, setIsAdd] = useState(false)
-  const getTravisProduct = useSelector(getHardGoodsProducts)
+  const getTravisProduct = useSelector(getAppaProducts)
   
   useEffect(() => {
-    console.log("indb",xlData)
+    //console.log("indb",xlData)
     //debugger
 
-    const addTravisData: BasicModelGoods[] = []
-    const updateTravisData: BasicModelGoods[] = []
+    const addTravisData: BasicModelApparel[] = []
+    const updateTravisData: BasicModelApparel[] = []
     if (xlData && xlData.length > 0) {
 
-      const newData: BasicModelGoods[] = [];
-      xlData.forEach((item: BasicModelGoods, index) => {
+      const newData: BasicModelApparel[] = [];
+      xlData.forEach((item: BasicModelApparel, index) => {
 
         const travisIndex = getTravisProduct.findIndex(travis => travis.sku === item.sku);
 
@@ -50,22 +51,16 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
            // style_code: item.style_code !== undefined ? item.style_code : travispr.style_code,
            // length: item.length !== undefined ? item.length : travispr.length,
             category: item.category !== undefined ? item.category : travispr.category,
-            //season: item.season !== undefined ? item.season : travispr.season,
+            season: item.season !== undefined ? item.season : travispr.season,
            // line: item.line !== undefined ? item.line : travispr.line,
-           // color: item.color !== undefined ? item.color : travispr.color,
+            color: item.color !== undefined ? item.color : travispr.color,
            // color_code: item.color_code !== undefined ? item.color_code : travispr.color_code,
             // Size:item.Size?.toString(),
-           // size: item.size !== undefined ? item.size : travispr.size,
-           // gender: item.gender !== undefined ? item.gender : travispr.gender,
+            size: item.size !== undefined ? item.size : travispr.size,
+            gender: item.gender !== undefined ? item.gender : travispr.gender,
             stock_88: item.stock_88 !== undefined ? item.stock_88 : travispr.stock_88,
             stock_90: item.stock_90 !== undefined ? item.stock_90 : travispr.stock_90,
-            product_type: item.product_type !== undefined ? item.product_type : travispr.product_type,
-            product_model: item.product_model !== undefined ? item.product_model : travispr.product_model,
-            orientation: item.orientation !== undefined ? item.orientation : travispr.orientation,
-
-
-
-            //variation_sku: item.variation_sku !== undefined ? item.variation_sku : travispr.variation_sku,
+            variation_sku: item.variation_sku !== undefined ? item.variation_sku : travispr.variation_sku,
 
           }
           updateTravisData.push(update)
@@ -88,21 +83,15 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
            // style_code: item.style_code,
             //length: item.length,
             category: item.category,
-           // season: item.season,
+            season: item.season,
            // line: item.line,
-           // color: item.color,
+            color: item.color,
            // color_code: item.color_code,
-           // size: item.size?.toString(),
-           // gender: item.gender,
+            size: item.size?.toString(),
+            gender: item.gender,
             stock_88: item.stock_88,
             stock_90: item.stock_90,
-            product_type:item.product_type,
-            product_model:item.product_model,
-            orientation:item.orientation,
-
-
-      
-            //variation_sku: item.variation_sku != undefined ? item.variation_sku : ""
+            variation_sku: item.variation_sku != undefined ? item.variation_sku : ""
 
 
           };
@@ -123,8 +112,8 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
   }, [xlData]);
   console.log("use",xlData)
 
-  const saveData = async (products: BasicModelGoods[]) => {
-    console.log("add new data HardGoods", products);
+  const saveData = async (products: BasicModelApparel[]) => {
+    console.log("add new data apparel", products);
 
     try {
       setIsAdd(true)
@@ -145,11 +134,11 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
   };
 
 
-  const updateData = async (products: BasicModelGoods[]) => {
-    console.log("Update HardGoods", products);
+  const updateData = async (products: BasicModelApparel[]) => {
+    console.log("Update SoftGoods", products);
     setIsUpdate(true)
     try {
-      const response = await UpdateGoodsProduct(products);
+      const response = await UpdateApparelProduct(products);
       if (response.status === 200) {
         dispatch(updateReduxData({
           travisProduct: products
@@ -171,5 +160,5 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
   return <></>;
 };
 
-export default HardGoodsExcelUploadDb;
+export default ApparelExcelUploadDb;
                                 

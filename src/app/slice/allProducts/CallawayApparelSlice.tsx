@@ -108,7 +108,7 @@ const CallawayGoodsSlice = createSlice({
                   );
                   if(goodsIndex!==-1){
                     const trvsRedux=state.callawayApparel[goodsIndex];
-                    // const trvs= state.travisMethew[travisIndex].TravisAttributes
+                    // const trvs= state.callawayApparel[goodsIndex].TravisAttributes
                       
                       if(trvsRedux){
                         
@@ -140,7 +140,7 @@ const CallawayGoodsSlice = createSlice({
             
             })
           }
-            //else if(travisIndex===-1){
+            //else if(goodsIndex===-1){
                     
             //         // const att: TravisMathewAttribute[] = [
             //         //   {
@@ -162,7 +162,7 @@ const CallawayGoodsSlice = createSlice({
             
       
                    
-            //         // state.travisMethew.push({
+            //         // state.callawayApparel.push({
             //         //   brand: travisProduct.brand,
             //         //   Name: travisProduct.Name,
             //         //   Description: travisProduct.Description,
@@ -297,7 +297,85 @@ const CallawayGoodsSlice = createSlice({
             })
           }
           
-         }
+         },
+         updateReduxData: (state, action) => {
+          const { travisProduct } = action.payload;
+
+          if (travisProduct.length>0) {
+
+            travisProduct.map((item:BasicModelApparel)=>{
+              const goodsIndex = state.callawayApparel.findIndex(
+                (travisItem) => travisItem.sku === item.sku
+              );
+
+              if (goodsIndex===-1) {
+                state.callawayApparel.push({
+                  sku: travisProduct.sku,
+                        name: travisProduct.name,
+                        description: travisProduct.description,
+                        mrp: travisProduct.mrp,
+                        category: travisProduct.category,
+                        gst: travisProduct.gst,
+                        brand_id: travisProduct.brand_id,
+                        primary_image_url: travisProduct.primary_image_url,
+                        gallery_images_url: travisProduct.gallery_images_url,
+                        variation_sku: travisProduct.variation_sku,
+                        stock_90:travisProduct.stock_90,
+                        stock_88:travisProduct.stock_88,
+                        size:travisProduct.size,
+                        // style_code:travisProduct.style_code,
+                       // length:travisProduct.length,
+                        season:travisProduct.season,
+                       // line:travisProduct.line,
+                        color:travisProduct.color,
+                       // color_code:travisProduct.color_code,
+                        gender:travisProduct.gender,
+                       
+                        Quantity90:0,
+                        Quantity88:0,
+                        Amount:0,
+                        TotalQty:0,
+                        LessGST:0,
+                        LessDiscountAmount:0,
+                        Discount:0,
+                        NetBillings:0,
+                        FinalBillValue:0,
+                        error88:"",
+                        error90:"",
+                        
+                })
+              
+
+               
+            
+              } 
+              else if (goodsIndex!==-1){
+                const rdx= state.callawayApparel[goodsIndex];
+                state.callawayApparel[goodsIndex].name=item.name!=undefined ?item.name:rdx.name;
+                state.callawayApparel[goodsIndex].description=item.description!=undefined ?item.description:rdx.description;
+                state.callawayApparel[goodsIndex].mrp=item.mrp!=undefined ?item.mrp:rdx.mrp;
+                state.callawayApparel[goodsIndex].category=item.category!=undefined ?item.category:rdx.category;
+               // state.callawayApparel[goodsIndex].style_code=item.style_code!=undefined ?item.style_code:rdx.style_code;
+                state.callawayApparel[goodsIndex].color=item.color!=undefined ?item.color:rdx.color;
+                state.callawayApparel[goodsIndex].gst=item.gst!=undefined ?item.gst:rdx.gst;
+                state.callawayApparel[goodsIndex].size=item.size!=undefined ?item.size:rdx.size;
+               // state.callawayApparel[goodsIndex].length=item.length!=undefined ?item.length:rdx.length;
+                state.callawayApparel[goodsIndex].primary_image_url=item.primary_image_url!=undefined ?item.primary_image_url:rdx.primary_image_url;
+                state.callawayApparel[goodsIndex].gallery_images_url=item.gallery_images_url!=undefined ?item.gallery_images_url:rdx.gallery_images_url;
+                state.callawayApparel[goodsIndex].stock_90=item.stock_90!=undefined ?item.stock_90:rdx.stock_90;
+                state.callawayApparel[goodsIndex].stock_88=item.stock_88!=undefined ?item.stock_88:rdx.stock_88;
+                state.callawayApparel[goodsIndex].variation_sku=item.variation_sku!=undefined ?item.variation_sku:rdx.variation_sku;
+               
+        
+              }
+            })
+              
+        
+             
+            
+          }
+        }
+        ,
 
     }
     
@@ -309,7 +387,8 @@ export const {
     addCallawayApparelProduct,
     updateQuantity90,
     updateQuantity88,
-    updateApparelQty
+    updateApparelQty,
+    updateReduxData
 
     
 } = CallawayGoodsSlice.actions;
@@ -327,6 +406,10 @@ export const getSeries = (state: { callawayApparel: ProductState }): string[] =>
 };
 export const getType = (state: { callawayApparel: ProductState }): string[] => {
     return state.callawayApparel?.uniquetype || [];
+};
+
+export const getAppaProducts = (state: { callawayApparel: ProductState }): BasicModelApparel[] => {
+  return state.callawayApparel?.callawayApparel || [];
 };
 
 

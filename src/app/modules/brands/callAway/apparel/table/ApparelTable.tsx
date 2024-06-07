@@ -31,6 +31,7 @@ import ApparelUpdateQtyDb from '../excel/importExcel/ApparelUpdateQtyDb';
 
 import Loading from '../../../../loading/Loading';
 
+import ApparelExcelUploadDb from '../excel/importExcel/ApparelExcelUploadDb';
 type SelectCommonPlacement = SelectProps['placement'];
 
 const OPTIONS = ['Denim',];
@@ -742,6 +743,10 @@ const ApparelTable = () => {
     setAllXlxData([])
   }
 
+  const handleResetXlData = () => {
+    setAllXlxData([])
+  }
+
 
   return (
     <>
@@ -752,7 +757,7 @@ const ApparelTable = () => {
       <div className='container content-pro mt-3'>
         {/* <SliderApprel /> */}
         <Card className='travish-mat-section' style={{ marginTop: '80px', padding: "10px", }}
-          title="CALLAWAY APPAREL"
+          title="CALLAWAY SOFTGOODS"
           extra={
             <div >
               <Breadcrumb separator=">">
@@ -886,6 +891,11 @@ const ApparelTable = () => {
           excelAllExport={handleDownloadExcel} excelExport={function (): void {
             throw new Error('Function not implemented.');
           } }        />
+
+          <ApparelExcelUploadDb
+          xlData={allXlxData}
+          resetXls={handleResetXlData}
+          />
 
 
 {isPDF && <ApparelPdf

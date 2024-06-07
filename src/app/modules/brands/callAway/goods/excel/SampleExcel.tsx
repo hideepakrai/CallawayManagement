@@ -123,10 +123,6 @@ const SampleExcel = ({isSample,resetIsSample}:Props) => {
       ]
   const excelData:ExcelModelGoods[]=[
   
-      { Brand:'CALLAWAY',SKU: '001',ProductType:"DRIVER",Category:"EQUIPMENT",ProductModel:"product model1 ",LifeCycle:"In Line",Orientation:"RIGHT HANDED",Name: 'Product 1', Description: 'Description 1',SetType:"Callaway Goods", StockAvailable: 10, MRP: 100 ,StockManagement:true, },
-      { Brand:'CALLAWAY',SKU: '002',ProductType:"DRIVER",Category:"EQUIPMENT",ProductModel:"product model 2",LifeCycle:"In Line",Orientation:"LEFT HANDED",Name: 'Product 2', Description: 'Description 2', SetType:"Callaway Goods",StockAvailable: 20, MRP: 200  ,StockManagement:true,},
-      { Brand:'CALLAWAY',SKU: '003',ProductType:"DRIVER",Category:"EQUIPMENT",ProductModel:"product model 3",LifeCycle:"In Line",Orientation:"LEFT HANDED",Name: 'Product 3', Description: 'Description 3', SetType:"Callaway Goods",StockAvailable: 30, MRP: 300  ,StockManagement:true,},
-    
   ]
 
         useEffect(()=>{
