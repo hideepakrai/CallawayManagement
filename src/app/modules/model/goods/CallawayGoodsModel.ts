@@ -1,6 +1,6 @@
 
 export interface BasicModelGoods {
-
+  brand?:string,
   sku?:string;
   brand_id?:number|null;
   variation_sku?:string;
