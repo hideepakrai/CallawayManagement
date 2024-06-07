@@ -40,6 +40,7 @@ import { exit } from 'process';
 import { LoadingStart } from '../../../../slice/loading/LoadingSlice';
 import TravisImage from '../../../../pages/dashboard/TravisImage';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
+import Loading from '../../../loading/Loading';
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
@@ -1383,7 +1384,8 @@ const TravisTable = () => {
         
         </div>  */}
 
-        <Table className='cart-table-profile'
+       {  
+       allTravisProduct.length>0?(<Table className='cart-table-profile'
           ref={tableRef}
           columns={columns}
           dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
@@ -1405,7 +1407,7 @@ const TravisTable = () => {
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
             defaultPageSize: 20
           }}
-        />
+        />):(<Loading/>)}
 
 
       </Card>}

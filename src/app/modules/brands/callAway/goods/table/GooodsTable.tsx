@@ -18,6 +18,9 @@ import GoodsQtyImport from "./GoodsQtyImport"
 import TravisExportProduct from "./GoodsExportProduct"
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import { getCategory, getGoodsProducts, getProductModel, getProductType, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
+import Loading from '../../../../loading/Loading';
+
+
 type SelectCommonPlacement = SelectProps['placement'];
 
 const OPTIONS = ['Accessory',];
@@ -646,7 +649,8 @@ const GooodsTable = () => {
 
         </div>
 
-        <Table
+      { allGoodsProduct.length>0? 
+    (  <Table
           className='cart-table-profile'
           ref={tableRef}
           columns={columns}
@@ -663,7 +667,11 @@ const GooodsTable = () => {
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
             defaultPageSize: 20
           }}
-        />
+        
+        />):(
+          <Loading/>
+        )
+      }
       </Card>
 
       <GoodsImportExcel
