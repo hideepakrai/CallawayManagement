@@ -1,6 +1,10 @@
 
 export interface BasicModelGoods {
+
     stock_88?: number;
+
+
+  brand?:string,
 
   sku?:string;
   brand_id?:number|null;

@@ -23,11 +23,14 @@ import { useNavigate } from 'react-router-dom';
 import TravisImportProduct from "./ApparelImportProduct"
 import ApparelUpdateQty from "./ApparelUpdateQty"
 import AppareImportProduct from "./ApparelExportProduct"
-//ps
+
 import ApparelPdf from '../pdf/ApparelPdf';
 import { TravisPdfPrint } from '../../../../model/pdf/PdfModel';
 import OgioProductsToExcel from '../excel/ExportAllProduct';
 import ApparelUpdateQtyDb from '../excel/importExcel/ApparelUpdateQtyDb';
+
+import Loading from '../../../../loading/Loading';
+
 type SelectCommonPlacement = SelectProps['placement'];
 
 const OPTIONS = ['Denim',];
@@ -825,7 +828,8 @@ const ApparelTable = () => {
             <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
           </div>
 
-          <Table className='cart-table-profile'
+       { allApparel.length>0?  
+       (<Table className='cart-table-profile'
             ref={tableRef}
             columns={columns}
             dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
@@ -851,7 +855,8 @@ const ApparelTable = () => {
               position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
               defaultPageSize: 20
             }}
-          />
+          />):
+          (<Loading/>)}
         </Card>
 
 

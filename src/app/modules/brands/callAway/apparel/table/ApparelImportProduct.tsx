@@ -173,7 +173,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     },
 
 
-   
+
 
 
     {
@@ -185,20 +185,15 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     },
 
 
-    {
-      title: "Amount",
-      dataIndex: "Amount",
-      key: "Amount",
-      width: 100,
-      fixed: 'right'
-    },
 
 
   ];
 
   const excelData: BasicModelApparel[] = [
     {
-      brand: "callaway",
+
+      brand: "Callaway SoftGoods",
+
       sku: 'TM001',
       name: 'Cool Belt',
       category: 'Belts',
@@ -208,7 +203,8 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'In_Line',
       gender: "Mens",
       color: 'Heather_Purple_Velvet',
-
+       type:"Core",
+      
       size: 'M',
 
       description:'This is a cool belt from Travis Mathew.',
@@ -221,7 +217,9 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
     },
     {
-      brand: "callaway",
+
+      brand: "Callaway SoftGoods",
+
       sku: 'TM002',
       name: 'Stylish Cap',
       category: 'Headwear',
@@ -232,7 +230,10 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       color: 'Black',
       size: 'L',
 
-      description:'A stylish cap from Travis Mathew.',
+      type:"Core",
+    
+      description: 'A stylish cap from Travis Mathew.',
+
       mrp: 30,
 
 
@@ -243,7 +244,9 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       Amount: 300,
     },
     {
-      brand: "callaway",
+
+      brand: "Callaway SoftGoods",
+
       sku: 'TM003',
       name: 'Classic Polo',
       category: 'Tops',
@@ -254,7 +257,10 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       color: 'Navy Blue',
       size: 'XL',
 
-      description:'A classic polo shirt from Travis Mathew.',
+      type:"Core",
+     
+      description: 'A classic polo shirt from Travis Mathew.',
+
       mrp: 70,
 
 
@@ -303,7 +309,9 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
 
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "ApparelSample.xlsx");
+
+    XLSX.writeFile(wb, "CallawaySoftGoodsSample.xlsx");
+
 
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

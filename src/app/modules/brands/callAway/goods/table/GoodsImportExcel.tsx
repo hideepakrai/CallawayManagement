@@ -10,6 +10,7 @@ import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelTravis } from "../../../../model/travis/TravisMethewModel";
 import type { ColumnProps } from 'antd/lib/table';
+import { BasicModelGoods } from "../../../../model/goods/CallawayGoodsModel";
 // import SampleExcelTravis from "../SampleExcelTravis";
 
 const { Dragger } = Upload;
@@ -68,7 +69,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     onClose();
   };
 
-  const columns: ColumnProps<BasicModelTravis>[] = [
+  const columns: ColumnProps<BasicModelGoods>[] = [
     {
       title: 'brand',
       dataIndex: 'brand',
@@ -81,12 +82,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: 'sku',
       width: 150,
     },
-    {
-      title: 'name',
-      dataIndex: 'name',
-      key: 'name',
-      width: 70,
-    },
+    
     {
       title: 'description',
       dataIndex: 'description',
@@ -100,62 +96,32 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       width: 115,
     },
     {
-      title: 'season',
-      dataIndex: 'season',
-      key: 'season',
+      title: 'product_type',
+      dataIndex: 'product_type',
+      key: 'product_type',
       width: 115,
     },
     {
-      title: 'style_code',
-      dataIndex: 'style_code',
-      key: 'style_code',
+      title: 'product_model',
+      dataIndex: 'product_model',
+      key: 'product_model',
       width: 115,
     },
     {
-      title: 'length',
-      dataIndex: 'length',
-      key: 'length',
+      title: 'life_cycle',
+      dataIndex: 'life_cycle',
+      key: 'life_cycle',
       width: 115,
     },
     {
-      title: 'line',
-      dataIndex: 'line',
-      key: 'line',
+      title: 'orientation',
+      dataIndex: 'orientation',
+      key: 'orientation',
       width: 115,
     },
-    {
-      title: 'color',
-      dataIndex: 'color',
-      key: 'color',
-      width: 115,
-    },
-    {
-      title: 'color_code',
-      dataIndex: 'color_code',
-      key: 'color_code',
-      width: 115,
-    },
-    {
-      title: 'size',
-      dataIndex: 'size',
-      key: 'size',
-      width: 115,
-    },
-    {
-      title: 'gender',
-      dataIndex: 'gender',
-      key: 'gender',
-      width: 115,
-    },
+   
 
-
-
-    {
-      title: 'stock_88',
-      dataIndex: 'stock_88',
-      key: 'stock_88',
-      width: 80,
-    },
+   
     {
       title: 'stock_90',
       dataIndex: 'stock_90',
@@ -183,73 +149,63 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
   ];
 
 
-  const excelData: BasicModelTravis[] = [
+  const excelData: BasicModelGoods[] = [
     {
-      brand: "HARDGOODS",
+
+      brand: "Callaway SoftGoods",
       sku: 'TM001',
-      variation_sku: 'TM001',
-      name: 'Cool Belt',
-      category: 'Belts',
-      season: 'SS22',
-      style_code: '4MT044',
-      length: 'NA',
-      line: 'In_Line',
-      gender: "Mens",
-      color: 'Heather_Purple_Velvet',
-      color_code: '5HPR',
-      size: 'M',
+     
+      category: 'SOFT GOODS',
+      
+     product_model:"CG M595-364 CHV ACE",
+     product_type:"FOOTWEAR",
+     life_cycle:"In line",
+     orientation:"NA",
 
       description: 'This is a cool belt from Travis Mathew.',
       mrp: 50,
 
-      stock_88: 100,
+      
       stock_90: 100,
       gst: 12,
 
     },
     {
-      brand: "HARDGOODS",
-      sku: 'TM002',
-      variation_sku: 'TM002',
-      name: 'Stylish Cap',
-      category: 'Headwear',
-      season: 'SS22',
-      style_code: '4MT045',
-      length: 'NA',
-      line: 'In_Line',
-      color: 'Black',
-      color_code: 'BLK',
-      size: 'L',
 
-      description: 'A stylish cap from Travis Mathew.',
-      mrp: 30,
+      brand: "Callaway SoftGoods",
+      sku: 'TM001',
+     
+      category: 'SOFT GOODS',
+      
+     product_model:"CG M595-364 CHV ACE",
+     product_type:"FOOTWEAR",
+     life_cycle:"In line",
+     orientation:"NA",
 
+      description: 'This is a cool belt from Travis Mathew.',
+      mrp: 50,
 
-      gender: "Mens",
-      stock_88: 100,
+      
+
       stock_90: 100,
       gst: 12,
     },
     {
-      brand: "HARDGOODS",
-      sku: 'TM003',
-      variation_sku: 'TM003',
-      name: 'Classic Polo',
-      category: 'Tops',
-      season: 'SS22',
-      style_code: '4MT046',
-      length: 'NA',
-      line: 'In_Line',
-      color: 'Navy Blue',
-      color_code: 'NVBL',
-      size: 'XL',
 
-      description: 'A classic polo shirt from Travis Mathew.',
-      mrp: 70,
+      brand: "Callaway SoftGoods",
+      sku: 'TM001',
+     
+      category: 'SOFT GOODS',
+      
+     product_model:"CG M595-364 CHV ACE",
+     product_type:"FOOTWEAR",
+     life_cycle:"In line",
+     orientation:"NA",
 
+      description: 'This is a cool belt from Travis Mathew.',
+      mrp: 50,
+      
 
-      gender: "Mens",
-      stock_88: 100,
       stock_90: 100,
       gst: 12,
     },
@@ -281,7 +237,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       const tr = document.createElement("tr");
       columns.forEach((column) => {
         const td = document.createElement("td");
-        td.innerText = String(rowData[column.dataIndex as keyof BasicModelTravis]);
+        td.innerText = String(rowData[column.dataIndex as keyof BasicModelGoods]);
         tr.appendChild(td);
       });
       tbody.appendChild(tr);

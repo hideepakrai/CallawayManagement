@@ -31,11 +31,11 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
 
 
-  // useEffect(() => {
-  //   if (selectedRow && selectedRow.length > 0) {
-  //     handlePrint(null, () => contentToPrint.current);
-  //   }
-  // }, [selectedRow]);
+  useEffect(() => {
+    if (selectedRow && selectedRow.length > 0) {
+      handlePrint(null, () => contentToPrint.current);
+    }
+  }, [selectedRow]);
 
 
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];

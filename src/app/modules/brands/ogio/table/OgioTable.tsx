@@ -28,7 +28,11 @@ import ImportAllOgioProduct from '../excel/importExcel/ImportAllOgioProduct';
 import { getOtherProducts } from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import { TravisPdfPrint, Variation_sku_data } from '../../../model/pdf/PdfModel';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
+
 import OgioProductsToExcel from '../excel/importExcel/ExportAllProduct';
+
+
+import Loading from '../../../loading/Loading';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -1064,7 +1068,7 @@ const OgioTable = () => {
         </div> */}
 
 
-        <Table
+      {allOgioData.length>0? ( <Table
           className='cart-table-profile'
           ref={tableRef}
           columns={columns}
@@ -1087,7 +1091,7 @@ const OgioTable = () => {
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
             defaultPageSize: 20
           }}
-        />
+        />):(<Loading/>)}
 
 
       </Card>
