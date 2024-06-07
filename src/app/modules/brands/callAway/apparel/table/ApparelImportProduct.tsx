@@ -204,7 +204,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
   const excelData: BasicModelApparel[] = [
     {
-      brand: "Travismathew",
+      brand: "Callaway SoftGoods",
       sku: 'TM001',
       name: 'Cool Belt',
       category: 'Belts',
@@ -226,7 +226,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
     },
     {
-      brand: "Travismathew",
+      brand: "Callaway SoftGoods",
       sku: 'TM002',
       name: 'Stylish Cap',
       category: 'Headwear',
@@ -247,7 +247,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       gst: 12,
     },
     {
-      brand: "Travismathew",
+      brand: "Callaway SoftGoods",
       sku: 'TM003',
       name: 'Classic Polo',
       category: 'Tops',
@@ -306,7 +306,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
 
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "TravisSample.xlsx");
+    XLSX.writeFile(wb, "CallawaySoftGoodsSample.xlsx");
 
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

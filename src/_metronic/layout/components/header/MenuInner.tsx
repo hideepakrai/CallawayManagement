@@ -22,7 +22,7 @@ export function MenuInner() {
       <MenuItem title={intl.formatMessage({ id: 'MENU.DASHBOARD' })} to='/dashboard' />
 
       <MenuInnerWithSub title='Products' to='/Brand' menuPlacement='bottom-start' menuTrigger='click'>
-        <MenuItem icon='shield-tick' to='/brand/callaway/apparel' title='Callaway Apparel' />
+        <MenuItem icon='shield-tick' to='/brand/callaway/apparel' title='Callaway SoftGoods' />
         <MenuItem icon='shield-tick' to='/brand/callaway/goods' title='Callaway Hardgoods' />
         <MenuItem icon='shield-tick' to='/brand/ogio' title='Ogio' />
         <MenuItem icon='shield-tick' to='/brand/travis-methew' title='Travis Mathew' />

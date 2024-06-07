@@ -702,7 +702,8 @@ const TravisTable = () => {
 
     }
   }
-  const [selectedRowKeys, setSelectedRowKeys] = useState<BasicModelTravis[]>([]);
+  //const [selectedRowKeys, setSelectedRowKeys] = useState<BasicModelTravis[]>([]);
+  
 
   const onSelectChange = (newSelectedRowKeys: Key[], record: BasicModelTravis) => {
 
@@ -1090,7 +1091,7 @@ const TravisTable = () => {
   //   } catch (error) {
   //     console.error("Error exporting to Excel:", error);
   //   }
-  // };
+  // };selectedRowKeys
 
 
   const handleExportToExcel = (selectedRow: BasicModelTravis[]) => {
@@ -1143,14 +1144,10 @@ const TravisTable = () => {
     }
   };
 
-  //handle Show Order
-
-  const handleShowOrder = () => {
-
-  }
 
 
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [uniqueSku, setUniqueSku] = useState<string[]>([])
   const [uniqueVariationSku, setUniqueVariationSku] = useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<BasicModelTravis[]>([])
@@ -1159,9 +1156,10 @@ const TravisTable = () => {
     const skuSet = new Set<string>(uniqueSku);
     const variationSkuSet = new Set<string>(uniqueVariationSku);
 
-    if (selected) {
+    if (selected && record && record.sku ) {
       setSelectedRow(prev => [...prev, record]);
-
+      const key=record.sku
+      setSelectedRowKeys(prev => [...prev, key]);
       if (record && record.variation_sku && record.variation_sku != undefined && record.variation_sku !== "") {
         const stringArray = record.variation_sku.split(',').map(item => item.trim());
         if (uniqueVariationSku && uniqueVariationSku.length > 0) {
@@ -1189,11 +1187,12 @@ const TravisTable = () => {
           makePdfPring(record.variation_sku, record)
         }
       }
-
+      
       setUniqueVariationSku(Array.from(variationSkuSet));
     } else {
       const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
       setSelectedRow(updatedSelectedRow);
+      setSelectedRowKeys(prev => prev.filter(key => key !== record.sku));
     }
   };
 
@@ -1389,7 +1388,8 @@ const TravisTable = () => {
           columns={columns}
           dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
           rowSelection={{
-            onSelect: (record, selected) => { handleSelctRow(record, selected) }
+            selectedRowKeys,
+            onSelect: handleSelctRow,
           }}
           expandable={{
             expandedRowRender,
