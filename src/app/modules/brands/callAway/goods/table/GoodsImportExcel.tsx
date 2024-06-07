@@ -140,12 +140,12 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: 'gst',
       width: 80,
     },
-    {
-      title: 'variation_sku',
-      dataIndex: 'variation_sku',
-      key: 'variation_sku',
-      width: 80,
-    },
+    // {
+    //   title: 'variation_sku',
+    //   dataIndex: 'variation_sku',
+    //   key: 'variation_sku',
+    //   width: 80,
+    // },
   ];
 
 
@@ -282,6 +282,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
           </p>
         </Dragger>
         <div className="mt-5 downlaod-excel "
+        onClick={handleExportToExcel}
 
         >
           <h4 >Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3" onClick={handleExportToExcel} ></i> </span></h4>

@@ -1,4 +1,7 @@
-export interface ExcelModelGoods {   
+export interface ExcelModelGoods {
+  stock_88: undefined;
+  stock_90: undefined;
+  gst: undefined;   
      Brand?: string;
       SKU?: string;
       Name?: string;

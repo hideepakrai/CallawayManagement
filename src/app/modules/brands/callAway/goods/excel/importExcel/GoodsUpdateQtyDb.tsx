@@ -12,16 +12,16 @@ type props = {
     const dispatch = useDispatch()
     useEffect(() => {
         // eslint-disable-next-line no-debugger
-        debugger
+        //debugger
         if (allQtyXlxData && allQtyXlxData.length > 0){
             updateQty(allQtyXlxData)
-            console.log("up",allQtyXlxData)
+           // console.log("up",allQtyXlxData)
         }
     },[allQtyXlxData] )
-    console.log("db",allQtyXlxData)
+   // console.log("db",allQtyXlxData)
 
     const updateQty = (allQtyXlxData: BasicModelGoods[]) =>{
-        console.log("qt1",allQtyXlxData)
+        //console.log("qt1",allQtyXlxData)
         const allQtData: BasicModelGoods[] = []
         if (allQtyXlxData && allQtyXlxData.length > 0){
             allQtyXlxData.map(item => {
@@ -37,7 +37,7 @@ type props = {
     }
 
     const updateQtyApi = async (data : BasicModelGoods[]) => {
-        console.log("qt2",data)
+       // console.log("qt2",data)
 
         try {
             const response = await UpDateGoodsQty(data);
