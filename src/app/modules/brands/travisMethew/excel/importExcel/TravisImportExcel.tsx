@@ -203,6 +203,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      variation_sku: 'TM001',
 
     },
     {
@@ -226,6 +227,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      variation_sku: 'TM001',
     },
     {
       brand: "Travismathew",
@@ -248,6 +250,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      variation_sku: 'TM001',
     },
   ];
 

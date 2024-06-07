@@ -6,7 +6,7 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { TableColumnsType,UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
-import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
+//import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelApparel } from "../../../../model/apparel/CallawayApparelModel";
 import type { ColumnProps } from 'antd/lib/table';
@@ -17,7 +17,7 @@ const { Dragger } = Upload;
 type Props = {
   onClose: () => void;
   isUpdate: boolean;
-  allGoodsData: (allData: ExcelModelTravis[]) => void
+  allGoodsData: (allData: BasicModelApparel[]) => void
 }
 
 const props: UploadProps = {
@@ -46,7 +46,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
+      const jsonData = XLSX.utils.sheet_to_json<BasicModelApparel>(worksheet) as BasicModelApparel[];
 
       setAllXlxData(jsonData)
       setLoading(false);
@@ -60,9 +60,9 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
   }
 
   const handleOk = () => {
-    //setIsModalOpen(false);
-    // allGoodsData(allXlxData)
-    // onClose();
+   // setIsModalOpen(false);
+    allGoodsData(allXlxData)
+    //onClose();
   };
   const handleCancel = () => {
     // setIsModalOpen(false);
@@ -71,10 +71,20 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
 
   const columns: TableColumnsType<BasicModelApparel> = [
    
+    {
+      title: "brand",
+      dataIndex: "brand",
+      width: 100,
+      fixed: "left",
+
+    
+
+
+    },
 
 
     {
-      title: "SKU ",
+      title: "sku",
       dataIndex: "sku",
       width: 100,
       fixed: "left",
@@ -84,78 +94,78 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
 
     },
 
-    {
-      title: "Description ",
-      dataIndex: "description",
-      key: "description",
-      width: 150,
+    // {
+    //   title: "description",
+    //   dataIndex: "description",
+    //   key: "description",
+    //   width: 150,
 
-    },
-
-
-    {
-      title: "Category ",
-      dataIndex: "category",
-      key: "category",
-      width: 110,
-    },
+    // },
 
 
+    // {
+    //   title: "category",
+    //   dataIndex: "category",
+    //   key: "category",
+    //   width: 110,
+    // },
 
 
-    {
-      title: "Season",
-      dataIndex: "season",
-      key: "season",
-      width: 100,
+
+
+    // {
+    //   title: "season",
+    //   dataIndex: "season",
+    //   key: "season",
+    //   width: 100,
 
   
      
-    },
-    {
-      title: "Color",
-      dataIndex: "color",
-      key: "color",
-      width: 75,
+    // },
+    // {
+    //   title: "color",
+    //   dataIndex: "color",
+    //   key: "color",
+    //   width: 75,
 
     
-    },
+    // },
 
 
-    {
-      title: "Style",
-      dataIndex: "style_id",
-      key: "style_id",
-      width: 85,
+    // {
+    //   title: "style_id",
+    //   dataIndex: "style_id",
+    //   key: "style_id",
+    //   width: 85,
       
-    },
+    // },
 
 
 
-    {
-      title: "Size",
-      dataIndex: "size",
-      key: "size",
-      width: 65,
+    // {
+    //   title: "size",
+    //   dataIndex: "size",
+    //   key: "size",
+    //   width: 65,
 
      
-    },
+    // },
+
+    // {
+    //   title: "gender",
+    //   dataIndex: "gender",
+    //   key: "gender",
+    //   width: 150,
+    // },
+    // {
+    //   title: "sleeves",
+    //   dataIndex: "sleeves",
+    //   key: "sleeves",
+    //   width: 150,
+    // },
 
     {
-      title: "Gender",
-      dataIndex: "gender",
-      key: "gender",
-      width: 150,
-    },
-    {
-      title: "Sleeves",
-      dataIndex: "sleeves",
-      key: "sleeves",
-      width: 150,
-    },
-
-    {
-      title: "Qty88",
+      title: "stock_88",
       dataIndex: "stock_88",
       key: "stock_88",
       width: 150,
@@ -163,7 +173,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
      
     },
     {
-      title: "Qty90",
+      title: "stock_90",
       dataIndex: "stock_90",
       key: "stock_90",
       width: 150,
@@ -172,101 +182,101 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
     },
 
 
-    {
-      title: "Qty",
-      dataIndex: "TotalQty",
-      key: "TotalQty",
-      width: 50,
-      fixed: 'right'
-    },
+    // {
+    //   title: "TotalQty",
+    //   dataIndex: "TotalQty",
+    //   key: "TotalQty",
+    //   width: 50,
+    //   fixed: 'right'
+    // },
 
 
-    {
-      title: "MRP",
-      dataIndex: "mrp",
-      key: "mrp",
-      width: 80,
-      fixed: 'right'
-    },
+    // {
+    //   title: "mrp",
+    //   dataIndex: "mrp",
+    //   key: "mrp",
+    //   width: 80,
+    //   fixed: 'right'
+    // },
 
 
-    {
-      title: "Amount ",
-      dataIndex: "Amount",
-      key: "Amount",
-      width: 100,
-      fixed: 'right'
-    },
+    // {
+    //   title: "Amount ",
+    //   dataIndex: "Amount",
+    //   key: "Amount",
+    //   width: 100,
+    //   fixed: 'right'
+    // },
 
 
   ];
   
   const excelData: BasicModelApparel[] = [
     {
-      brand: "Travismathew",
+      brand: "Apparel",
       sku: 'TM001',
-      name: 'Cool Belt',
-      category: 'Belts',
-      season: 'SS22',
-      style_id: '4MT044',
-      series: 'NA',
-      sleeves: 'In_Line',
-      gender:"Mens",
-      color: 'Heather_Purple_Velvet',
+      // name: 'Cool Belt',
+      // category: 'Belts',
+      // season: 'SS22',
+      // style_id: '4MT044',
+      // series: 'NA',
+      // sleeves: 'In_Line',
+      // gender:"Mens",
+      // color: 'Heather_Purple_Velvet',
       
-      size: 'M',
+      // size: 'M',
      
-      description: 'This is a cool belt from Travis Mathew.',
-      mrp: 50,
+      // description: 'This is a cool belt from Travis Mathew.',
+      // mrp: 50,
    
       stock_88: 100,
       stock_90: 100,
-      gst:12,
+      //gst:12,
       
     },
     {
-        brand: "Travismathew",
+        brand: "Apparel",
       sku: 'TM002',
-      name: 'Stylish Cap',
-      category: 'Headwear',
-      season: 'SS22',
-      style_id: '4MT045',
-      series: 'NA',
-      sleeves: 'In_Line',
-      color: 'Black',
+      // name: 'Stylish Cap',
+      // category: 'Headwear',
+      // season: 'SS22',
+      // style_id: '4MT045',
+      // series: 'NA',
+      // sleeves: 'In_Line',
+      // color: 'Black',
       
-      size: 'L',
+      // size: 'L',
      
-      description: 'A stylish cap from Travis Mathew.',
-      mrp: 30,
+      // description: 'A stylish cap from Travis Mathew.',
+      // mrp: 30,
     
      
-      gender:"Mens",
+      // gender:"Mens",
       stock_88: 100,
       stock_90: 100,
-      gst:12,
+     // gst:12,
     },
     {
-        brand: "Travismathew",
+        brand: "Apparel",
       sku: 'TM003',
-      name: 'Classic Polo',
-      category: 'Tops',
-      season: 'SS22',
-      style_id: '4MT046',
-      series: 'NA',
-      sleeves: 'In_Line',
-      color: 'Navy Blue',
+      // name: 'Classic Polo',
+      // category: 'Tops',
+      // season: 'SS22',
+      // style_id: '4MT046',
+      // series: 'NA',
+      // sleeves: 'In_Line',
+      // color: 'Navy Blue',
       
-      size: 'XL',
+      // size: 'XL',
      
-      description: 'A classic polo shirt from Travis Mathew.',
-      mrp: 70,
+      // description: 'A classic polo shirt from Travis Mathew.',
+      // mrp: 70,
       
     
-      gender:"Mens",
+      // gender:"Mens",
       stock_88: 100,
       stock_90: 100,
-      gst:12,
+      //gst:12,
     },
   ];
 
@@ -307,7 +317,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
   
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "TravisSample.xlsx");
+    XLSX.writeFile(wb, "ApparelQtySample.xlsx");
   
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

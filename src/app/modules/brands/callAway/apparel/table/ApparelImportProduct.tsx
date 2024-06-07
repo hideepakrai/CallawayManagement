@@ -175,8 +175,9 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
 
+
     {
-      title: "MRP",
+      title: "mrp",
       dataIndex: "mrp",
       key: "mrp",
       width: 80,
@@ -190,7 +191,9 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
   const excelData: BasicModelApparel[] = [
     {
+
       brand: "Callaway SoftGoods",
+
       sku: 'TM001',
       name: 'Cool Belt',
       category: 'Belts',
@@ -204,16 +207,19 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       
       size: 'M',
 
-      description: 'This is a cool belt from Travis Mathew.',
+      description:'This is a cool belt from Travis Mathew.',
       mrp: 50,
 
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      Amount: 500,
 
     },
     {
+
       brand: "Callaway SoftGoods",
+
       sku: 'TM002',
       name: 'Stylish Cap',
       category: 'Headwear',
@@ -223,9 +229,11 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'NA',
       color: 'Black',
       size: 'L',
+
       type:"Core",
     
       description: 'A stylish cap from Travis Mathew.',
+
       mrp: 30,
 
 
@@ -233,9 +241,12 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      Amount: 300,
     },
     {
+
       brand: "Callaway SoftGoods",
+
       sku: 'TM003',
       name: 'Classic Polo',
       category: 'Tops',
@@ -245,9 +256,11 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'In_Line',
       color: 'Navy Blue',
       size: 'XL',
+
       type:"Core",
      
       description: 'A classic polo shirt from Travis Mathew.',
+
       mrp: 70,
 
 
@@ -255,6 +268,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       stock_88: 100,
       stock_90: 100,
       gst: 12,
+      Amount: 700,
     },
   ];
 
@@ -295,7 +309,9 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
 
     // Generate and download the Excel file
+
     XLSX.writeFile(wb, "CallawaySoftGoodsSample.xlsx");
+
 
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

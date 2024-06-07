@@ -23,8 +23,16 @@ import { useNavigate } from 'react-router-dom';
 import TravisImportProduct from "./ApparelImportProduct"
 import ApparelUpdateQty from "./ApparelUpdateQty"
 import AppareImportProduct from "./ApparelExportProduct"
+
+import ApparelPdf from '../pdf/ApparelPdf';
+import { TravisPdfPrint } from '../../../../model/pdf/PdfModel';
+import OgioProductsToExcel from '../excel/ExportAllProduct';
+import ApparelUpdateQtyDb from '../excel/importExcel/ApparelUpdateQtyDb';
+
 import Loading from '../../../../loading/Loading';
+
 type SelectCommonPlacement = SelectProps['placement'];
+
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20	'];
 const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
@@ -573,11 +581,14 @@ const ApparelTable = () => {
   };
 
   const [allXlxData, setAllXlxData] = useState<BasicModelApparel[]>([])
+  
   const handleApparelData = (allDatat: BasicModelApparel[]) => {
     const table = tableRef.current;
     handleCloseImport()
-
+    console.log("all81",allDatat)
     setAllXlxData(allDatat)
+    //setIsImport(false)
+    setIsUpdateQty(false)
   }
 
 
@@ -607,7 +618,7 @@ const ApparelTable = () => {
       const url = URL.createObjectURL(blob);
 
       anchor.href = url;
-      anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+      anchor.download = `ApparelProducts_${Date.now()}.xlsx`;
       anchor.click();
 
       // Release the object URL
@@ -658,6 +669,77 @@ const ApparelTable = () => {
   const handleDownloadExcel = () => {
     handleExportToExcel()
     setIsProduct(false)
+  }
+
+
+
+  //ps
+
+  const [uniqueSku, setUniqueSku] = useState<string[]>([])
+  const [uniqueVariationSku, setUniqueVariationSku] = useState<string[]>([]);
+  const [selectedRow, setSelectedRow] = useState<BasicModelApparel[]>([])
+  const [selectedRowVartionSku, setSelectedRowVartionSku] = useState<TravisPdfPrint[]>([])
+  const handleSelctRow = (record: BasicModelApparel, selected: boolean) => {
+    const skuSet = new Set<string>(uniqueSku);
+    const variationSkuSet = new Set<string>(uniqueVariationSku);
+
+    if (selected) {
+        setSelectedRow(prev => [...prev, record]);
+
+        if ( record &&record.variation_sku &&record.variation_sku!=undefined &&record.variation_sku !=="") {
+          const stringArray = record.variation_sku.split(',').map(item => item.trim());
+            if (uniqueVariationSku && uniqueVariationSku.length > 0) {
+                let check = false;
+
+                uniqueVariationSku.forEach(objVarSku => {
+                    const stringVar = objVarSku.split(',').map(item => item.trim());
+                 
+
+                    if (stringVar.length > 0 && stringArray.length > 0) {
+                        stringArray.forEach(item => {
+                            if (stringVar.includes(item)) {
+                                check = true;
+                            }
+                        });
+                    }
+                });
+
+                if (!check) {
+                    variationSkuSet.add(record.variation_sku);
+                   // makePdfPring(record.variation_sku,record)
+                }
+            } else {
+                variationSkuSet.add(record.variation_sku);
+               // makePdfPring(record.variation_sku,record)
+            }
+        }
+
+        setUniqueVariationSku(Array.from(variationSkuSet));
+    } else {
+        const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
+        setSelectedRow(updatedSelectedRow);
+    }
+};
+//const [isPDF, setIspdf] = useState<boolean>(false)
+  const handleResetSelectedRow = () => {
+    setSelectedRow([]);
+    setSelectedRow([])
+    setIspdf(false)
+    setSelectedRowVartionSku([])
+    // setIsCard(true)
+  }
+
+  const [isExportAll, setIsExportAll] = useState<boolean>(false)
+  const handleDownloadAllExcel= () =>{
+    setIsExportAll(true)
+    setIsProduct(false)
+  }
+  const handleResetExportAll=() =>{
+    setIsExportAll(false)
+  }
+
+  const handeleResetQtyData=() =>{
+    setAllXlxData([])
   }
 
 
@@ -751,6 +833,11 @@ const ApparelTable = () => {
             ref={tableRef}
             columns={columns}
             dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
+
+            //ps
+            rowSelection={{
+              onSelect: (record,selected) => { handleSelctRow(record,selected) }
+            }}
             // rowSelection={{
             //   onSelect: (record) => { handleSelctRow(record) }
             // }}
@@ -759,7 +846,7 @@ const ApparelTable = () => {
 
             //   onExpand: (expanded, record) => handleExpand(expanded, record),
 
-            // }}
+            //  }}
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
@@ -781,17 +868,35 @@ const ApparelTable = () => {
 
         <ApparelUpdateQty
           isUpdate={isUpdate}
+         
           onClose={handleCloseUpdateQty}
           allGoodsData={handleApparelData}
-        />
+
+    />
+    <ApparelUpdateQtyDb
+    allXlxData={allXlxData}
+    resetQtyData={handeleResetQtyData}
+    />
 
         <AppareImportProduct
           isProduct={isProduct}
           onClose={handleCloseProduct}
           allGoodsData={handleApparelData}
           printPdf={handleShowPdf}
-          excelExport={handleDownloadExcel}
-        />
+          excelAllExport={handleDownloadExcel} excelExport={function (): void {
+            throw new Error('Function not implemented.');
+          } }        />
+
+
+{isPDF && <ApparelPdf
+        selectedRow={selectedRowVartionSku}
+        resetSelectedRow={handleResetSelectedRow}
+      />}
+
+
+{ isExportAll && <OgioProductsToExcel
+     resetExportAll={handleResetExportAll}
+   />}
 
       </div>
 

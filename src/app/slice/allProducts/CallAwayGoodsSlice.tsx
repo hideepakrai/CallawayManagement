@@ -477,6 +477,21 @@ const CallawayGoodsSlice = createSlice({
     //       }
     //  }
 
+    updateGoodsQty:(state,action)=>{
+      const {allQtyGoods} = action.payload;
+      if(allQtyGoods && allQtyGoods.length>0){
+        allQtyGoods.map((item:BasicModelGoods)=>{
+          const goodsIndex= state.callawayGoods.findIndex(goods=>goods.sku==item.sku);
+          if(goodsIndex!=-1){
+            state.callawayGoods[goodsIndex].stock_90=item.stock_90;
+          }
+          
+        })
+      }
+      
+      
+    }
+
           
 
     }
@@ -485,7 +500,8 @@ const CallawayGoodsSlice = createSlice({
 export const {
     resetCallayGoods,
     addCallawayGoodsProduct,
-    updateQuantity90
+    updateQuantity90,
+    updateGoodsQty
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {

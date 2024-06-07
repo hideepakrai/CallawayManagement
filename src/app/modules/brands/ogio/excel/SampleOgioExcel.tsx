@@ -76,6 +76,74 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           key: 'mrp',
           width: 80
         },
+
+
+
+        //ps
+        {
+          title: 'season',
+          dataIndex: 'season',
+          key: 'season',
+          width: 115,
+        },
+        {
+          title: 'style_code',
+          dataIndex: 'style_code',
+          key: 'style_code',
+          width: 115,
+        },
+        {
+          title: 'length',
+          dataIndex: 'length',
+          key: 'length',
+          width: 115,
+        },
+        {
+          title: 'line',
+          dataIndex: 'line',
+          key: 'line',
+          width: 115,
+        },
+        {
+          title: 'color',
+          dataIndex: 'color',
+          key: 'color',
+          width: 115,
+        },
+        {
+          title: 'color_code',
+          dataIndex: 'color_code',
+          key: 'color_code',
+          width: 115,
+        },
+        {
+          title: 'size',
+          dataIndex: 'size',
+          key: 'size',
+          width: 115,
+        },
+        {
+          title: 'gender',
+          dataIndex: 'gender',
+          key: 'gender',
+          width: 115,
+        },
+        
+        {
+          title: 'stock_88',
+          dataIndex: 'stock_88',
+          key: 'stock_88',
+          width: 80,
+        },
+        {
+          title: 'variation_sku',
+          dataIndex: 'variation_sku',
+          key: 'variation_sku',
+          width: 80,
+        },
+        
+       
+        
         
       ];
       
@@ -84,42 +152,69 @@ const SampleOgioExcel = ({isSample,resetIsSample}:Props) => {
           Brand: "Ogio",
           sku: 'TM001',
           name: 'Cool Belt',
-          product_type:"Product Type 1",
           category: 'Belts',
-          product_model:"product model 1",
-          description: 'This is a cool belt from ogio.',
-          mrp: 40,
-          stock_90:100,
+          season: 'SS22',
+          //style_code: '4MT044',
+          // length: 'NA',
+          // line: 'In_Line',
+          // gender:"Mens",
+          // color: 'Heather_Purple_Velvet',
+          // color_code: '5HPR',
+          // size: 'M',
+         
+          description: 'This is a cool belt from Travis Mathew.',
+          mrp: 50,
+       
+          stock_88: 100,
+          stock_90: 100,
           gst:12,
           
           
           
         },
-        {
-          Brand: "Ogio",
+        { Brand: "Ogio",
           sku: 'TM002',
-          name: 'Cool Belt2',
-          product_type:"Product Type 1",
-          category: 'Belts',
-          product_model:"product model 2",
-          description: 'This is a cool belt from  ogio.',
-          mrp: 40,
-          stock_90:100,
+          name: 'Stylish Cap',
+          category: 'Headwear',
+          season: 'SS22',
+          // style_code: '4MT045',
+          // length: 'NA',
+          // line: 'In_Line',
+          // color: 'Black',
+          // color_code: 'BLK',
+          // size: 'L',
+         
+          description: 'A stylish cap from Travis Mathew.',
+          mrp: 30,
+        
+         
+         // gender:"Mens",
+          stock_88: 100,
+          stock_90: 100,
           gst:12,
-
           
           
         },
         {
           Brand: "Ogio",
           sku: 'TM003',
-          name: 'Cool Belt3',
-          product_type:"Product Type 3",
-          category: 'Belts',
-          product_model:"product model 3",
-          description: 'This is a cool belt from  ogio.',
-          mrp: 40,
-          stock_90:100,
+          name: 'Classic Polo',
+          category: 'Tops',
+          season: 'SS22',
+          // style_code: '4MT046',
+          // length: 'NA',
+          // line: 'In_Line',
+          // color: 'Navy Blue',
+          // color_code: 'NVBL',
+          // size: 'XL',
+         
+          description: 'A classic polo shirt from Travis Mathew.',
+          mrp: 70,
+          
+        
+         // gender:"Mens",
+          stock_88: 100,
+          stock_90: 100,
           gst:12,
 
           

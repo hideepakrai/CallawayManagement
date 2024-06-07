@@ -9,6 +9,11 @@ import * as XLSX from "xlsx";
 import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import type { UploadChangeParam } from "antd/lib/upload";
 import "./TravisExportProduct.css"
+
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
+
 const { Dragger } = Upload;
 
 type Props = {
@@ -17,6 +22,9 @@ type Props = {
   printPdf: () => void;
   excelExport: () => void;
   allGoodsData: (allData: ExcelModelTravis[]) => void
+  excelAllExport: () => void
+
+  
 }
 
 const props: UploadProps = {
@@ -25,7 +33,7 @@ const props: UploadProps = {
 
 
 };
-const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport }: Props) => {
+const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport ,excelAllExport}: Props) => {
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -75,6 +83,16 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excel
   const handleExcel = () => {
     excelExport()
   }
+
+  const handleExportAll =() =>{
+    excelAllExport()
+  }
+
+ 
+
+
+  
+  
   return (
     <div>
       <Modal
@@ -116,7 +134,9 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excel
 
             <button className="export-button pro-btn-table hover-scale"
             // onClick={handlePdf}
-          > <i className="bi bi-file-earmark-arrow-up fs-2"></i>Export  ALL</button>
+             onClick={handleExportAll} 
+          > 
+          <i className="bi bi-file-earmark-arrow-up fs-2"></i>Export  ALL</button>
           
         </div>
       </Modal>
@@ -125,3 +145,4 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excel
 }
 
 export default TravisExportProduct;
+

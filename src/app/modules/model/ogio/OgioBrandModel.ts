@@ -19,6 +19,24 @@ export interface OgioBasicModel {
   brand?:string|undefined
  primaryImage?:string,
  secondaryImage?:string|undefined;
+
+//ps
+ season?:string
+//  style_code?:string,
+//  length?:string|null;
+//  line?:string,
+//  gender?:string
+//  color?:string,
+//  color_code?:string
+//  size?:string,
+
+
+
+
+
+
+
+
   SKU?: string|undefined;
       Amount?: number
       TotalQty?: number|null;

@@ -151,6 +151,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
   const excelData: BasicModelGoods[] = [
     {
+
       brand: "Callaway SoftGoods",
       sku: 'TM001',
      
@@ -170,6 +171,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
     },
     {
+
       brand: "Callaway SoftGoods",
       sku: 'TM001',
      
@@ -184,10 +186,12 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       mrp: 50,
 
       
+
       stock_90: 100,
       gst: 12,
     },
     {
+
       brand: "Callaway SoftGoods",
       sku: 'TM001',
      
@@ -201,6 +205,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       description: 'This is a cool belt from Travis Mathew.',
       mrp: 50,
       
+
       stock_90: 100,
       gst: 12,
     },

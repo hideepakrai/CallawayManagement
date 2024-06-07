@@ -9,16 +9,20 @@ import { useNavigate } from 'react-router-dom';
 import SampleExcel from '../excel/SampleExcel';
 import { number } from 'yup';
 import ImportExcel from '../excel/importExcel/ImportExcel';
-import { ExcelModelGoods } from "../../../../model/goods/CallawayGoodsExcel"
 import ExcelUploadDB from "../excel/importExcel/ExcelUploadDB";
 import * as XLSX from 'xlsx';
 import GoodsImportExcel from "./GoodsImportExcel"
-import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
+//import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
 import GoodsQtyImport from "./GoodsQtyImport"
 import TravisExportProduct from "./GoodsExportProduct"
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import { getCategory, getGoodsProducts, getProductModel, getProductType, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
+
+import OgioProductsToExcel from '../excel/exportExcel/ExportAllProduct';
+import GoodsUpdateQtyDb from '../excel/importExcel/GoodsUpdateQtyDb';
+
 import Loading from '../../../../loading/Loading';
+
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -33,7 +37,7 @@ const GooodsTable = () => {
   const navigate = useNavigate()
   const [isImport, setIsImport] = useState(false);
   const [isProduct, setIsProduct] = useState(false);
-  const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
+  const [allXlxData, setAllXlxData] = useState<BasicModelGoods[]>([])
   const [isPDF, setIspdf] = useState<boolean>(false)
   const [isQtyImport, setIsQtyImport] = useState(false);
   const dispatch = useDispatch()
@@ -52,16 +56,21 @@ const GooodsTable = () => {
   const filteredOptions2 = getProductTypes.filter((o) => !selectedItems.includes(o));
 
 
-  const [allQtyXlxData, setQtyAllXlxData] = useState<ExcelModelTravis[]>([])
-  const handleOgioQtyData = (allDatat: ExcelModelTravis[]) => {
+  const [allQtyXlxData, setQtyAllXlxData] = useState<BasicModelGoods[]>([])
+
+  console.log("tabo",allQtyXlxData)
+  const handleOgioQtyData = (allDatat: BasicModelGoods[]) => {
     const table = tableRef.current;
     handleCloseQtyImport()
 
     setQtyAllXlxData(allDatat)
+    console.log("tabi",allDatat)
+    setIsQtyImport(false)
   }
 
 
-  const handleTravisData = (allDatat: ExcelModelTravis[]) => {
+
+  const handleTravisData = (allDatat: BasicModelGoods[]) => {
     const table = tableRef.current;
     handleCloseImport()
 
@@ -584,7 +593,7 @@ const GooodsTable = () => {
       const url = URL.createObjectURL(blob);
 
       anchor.href = url;
-      anchor.download = `TravisMathewProducts_${Date.now()}.xlsx`;
+      anchor.download = `HardGoodsProducts_${Date.now()}.xlsx`;
       anchor.click();
 
       // Release the object URL
@@ -595,8 +604,20 @@ const GooodsTable = () => {
       console.error("Error exporting to Excel:", error);
     }
   };
+  const [isExportAll, setIsExportAll] = useState<boolean>(false)
+  const handleDownloadAllExcel= () =>{
+    setIsExportAll(true)
+    setIsProduct(false)
 
 
+  }
+  const handleResetExportAll=() =>{
+    setIsExportAll(false)
+  }
+
+  const handeleResetQtyData=() =>{
+    setAllXlxData([])
+  }
 
   return (
     <div className='container'>
@@ -683,7 +704,7 @@ const GooodsTable = () => {
       <GoodsQtyImport
         isQtyImport={isQtyImport}
         onClose={handleCloseQtyImport}
-        travisQtyData={handleOgioQtyData}
+        allGoodsData={handleOgioQtyData}
       />
       <TravisExportProduct
         isProduct={isProduct}
@@ -691,9 +712,20 @@ const GooodsTable = () => {
         allGoodsData={handleTravisData}
         printPdf={handleShowPdf}
         excelExport={handleDownloadExcel}
+        excelAllExport={handleDownloadAllExcel}
+
       />
+      <GoodsUpdateQtyDb
+      allQtyXlxData = {allQtyXlxData}
+      resetQtyData={handeleResetQtyData}
+
+        />
 
 
+{ isExportAll && <OgioProductsToExcel
+     resetExportAll={handleResetExportAll}
+   
+   />}
 
     </div>
   )

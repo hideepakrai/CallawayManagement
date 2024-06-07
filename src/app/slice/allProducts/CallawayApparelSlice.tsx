@@ -282,16 +282,35 @@ const CallawayGoodsSlice = createSlice({
            state.callawayApparel[goodsIndex].ordered = false;
 
        }
+
           }
         },
+        updateApparelQty:(state,action)=>{
+          const {apparelProduct}= action.payload
+          if(apparelProduct && apparelProduct.length>0){
+            apparelProduct.map((newApparel:BasicModelApparel)=>{
+              const goodsIndex= state.callawayApparel.findIndex(item=>item.sku==newApparel.sku);
+              if(goodsIndex!=-1){
+                state.callawayApparel[goodsIndex].stock_88=newApparel.stock_88;
+                state.callawayApparel[goodsIndex].stock_90=newApparel.stock_90;
+              }
+            })
+          }
+          
+         }
+
     }
+    
+
 })
 
 export const {
     resetCallayApparel,
     addCallawayApparelProduct,
     updateQuantity90,
-    updateQuantity88
+    updateQuantity88,
+    updateApparelQty
+
     
 } = CallawayGoodsSlice.actions;
 export const getApparelProducts = (state: { callawayApparel: ProductState }): BasicModelApparel[] => {
