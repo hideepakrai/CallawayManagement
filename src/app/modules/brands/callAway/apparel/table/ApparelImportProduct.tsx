@@ -214,7 +214,8 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'In_Line',
       gender: "Mens",
       color: 'Heather_Purple_Velvet',
-
+       type:"Core",
+      
       size: 'M',
 
       description: 'This is a cool belt from Travis Mathew.',
@@ -236,7 +237,8 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'NA',
       color: 'Black',
       size: 'L',
-
+      type:"Core",
+    
       description: 'A stylish cap from Travis Mathew.',
       mrp: 30,
 
@@ -257,7 +259,8 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       sleeves: 'In_Line',
       color: 'Navy Blue',
       size: 'XL',
-
+      type:"Core",
+     
       description: 'A classic polo shirt from Travis Mathew.',
       mrp: 70,
 
