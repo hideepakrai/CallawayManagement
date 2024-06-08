@@ -290,29 +290,30 @@ const TravisMethewSlice = createSlice({
                 const travisIndex = state.travisMethew.findIndex(
                   (travisItem) => travisItem.sku === item.sku
                 );
-
+                     // eslint-disable-next-line no-debugger
+                     debugger
                 if (travisIndex===-1) {
                   state.travisMethew.push({
-                    sku: travisProduct.sku,
-                          name: travisProduct.name,
-                          description: travisProduct.description,
-                          mrp: travisProduct.mrp,
-                          category: travisProduct.category,
-                          gst: travisProduct.gst,
-                          brand_id: travisProduct.brand_id,
-                          primary_image_url: travisProduct.primary_image_url,
-                          gallery_images_url: travisProduct.gallery_images_url,
-                          variation_sku: travisProduct.variation_sku,
-                          stock_90:travisProduct.stock_90,
-                          stock_88:travisProduct.stock_88,
-                          size:travisProduct.size,
-                          style_code:travisProduct.style_code,
-                          length:travisProduct.length,
-                          season:travisProduct.season,
-                          line:travisProduct.line,
-                          color:travisProduct.color,
-                          color_code:travisProduct.color_code,
-                          gender:travisProduct.gender,
+                    sku: item.sku,
+                          name: item.name,
+                          description: item.description,
+                          mrp: item.mrp,
+                          category: item.category,
+                          gst: item.gst,
+                          brand_id: item.brand_id,
+                          primary_image_url: item.primary_image_url,
+                          gallery_images_url: item.gallery_images_url,
+                          variation_sku: item.variation_sku,
+                          stock_90:item.stock_90,
+                          stock_88:item.stock_88,
+                          size:item.size,
+                          style_code:item.style_code,
+                          length:item.length,
+                          season:item.season,
+                          line:item.line,
+                          color:item.color,
+                          color_code:item.color_code,
+                          gender:item.gender,
                          
                           Quantity90:0,
                           Quantity88:0,
