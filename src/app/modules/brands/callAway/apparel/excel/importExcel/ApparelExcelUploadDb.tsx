@@ -45,7 +45,7 @@ const ApparelExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
             sku: item.sku,
             name: item.name !== undefined ? item.name : travispr.name,
             description: item.description != undefined ? item.description : travispr.description,
-            brand_id: 3,
+            //brand_id: 3,
             mrp: item.mrp !== undefined ? item.mrp : travispr.mrp,
             gst: item.gst != undefined ? item.gst : travispr.gst,
            // style_code: item.style_code !== undefined ? item.style_code : travispr.style_code,
@@ -61,6 +61,15 @@ const ApparelExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
             stock_88: item.stock_88 !== undefined ? item.stock_88 : travispr.stock_88,
             stock_90: item.stock_90 !== undefined ? item.stock_90 : travispr.stock_90,
             variation_sku: item.variation_sku !== undefined ? item.variation_sku : travispr.variation_sku,
+            brand_id: item.brand_id !== undefined ? item.brand_id : travispr.brand_id,
+            style_id: item.style_id !== undefined ? item.style_id : travispr.style_id,
+            series: item.series !== undefined ? item.series : travispr.series,
+            type: item.type !== undefined ? item.type : travispr.type,
+
+
+            
+
+
 
           }
           updateTravisData.push(update)
@@ -76,7 +85,7 @@ const ApparelExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
 
             name: item.name,
             description: item.description,
-            brand_id: 3,
+            brand_id: item.brand_id,
             sku: item.sku,
             mrp: item.mrp,
             gst: item.gst,
@@ -91,7 +100,13 @@ const ApparelExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
             gender: item.gender,
             stock_88: item.stock_88,
             stock_90: item.stock_90,
-            variation_sku: item.variation_sku != undefined ? item.variation_sku : ""
+            variation_sku: item.variation_sku != undefined ? item.variation_sku : "",
+            style_id: item.style_id,
+            series: item.series,
+            type: item.type,
+
+
+
 
 
           };

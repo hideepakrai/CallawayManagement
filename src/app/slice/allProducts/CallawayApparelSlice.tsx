@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { start } from "repl";
-import { BasicModelGoods } from "../../modules/model/goods/CallawayGoodsModel";
 import { BasicModelApparel } from "../../modules/model/apparel/CallawayApparelModel";
 interface ProductState {
     callawayApparel: BasicModelApparel[],
@@ -317,6 +316,7 @@ const CallawayGoodsSlice = createSlice({
                         category: item.category,
                         gst: item.gst,
                         brand_id: item.brand_id,
+                        style_id:item.style_id,
                         primary_image_url: item.primary_image_url,
                         gallery_images_url: item.gallery_images_url,
                         variation_sku: item.variation_sku,
@@ -330,6 +330,9 @@ const CallawayGoodsSlice = createSlice({
                         color:item.color,
                        // color_code:item.color_code,
                         gender:item.gender,
+                        series:item.series,
+                        type:item.type,
+
                        
                         Quantity90:0,
                         Quantity88:0,
@@ -342,6 +345,8 @@ const CallawayGoodsSlice = createSlice({
                         FinalBillValue:0,
                         error88:"",
                         error90:"",
+                        
+
                         
                 })
               
@@ -365,6 +370,14 @@ const CallawayGoodsSlice = createSlice({
                 state.callawayApparel[goodsIndex].stock_90=item.stock_90!=undefined ?item.stock_90:rdx.stock_90;
                 state.callawayApparel[goodsIndex].stock_88=item.stock_88!=undefined ?item.stock_88:rdx.stock_88;
                 state.callawayApparel[goodsIndex].variation_sku=item.variation_sku!=undefined ?item.variation_sku:rdx.variation_sku;
+                state.callawayApparel[goodsIndex].brand_id=item.brand_id!=undefined ?item.brand_id:rdx.brand_id;
+                state.callawayApparel[goodsIndex].style_id=item.style_id!=undefined ?item.style_id:rdx.style_id;
+                state.callawayApparel[goodsIndex].series=item.series!=undefined ?item.series:rdx.series;
+                state.callawayApparel[goodsIndex].type=item.type!=undefined ?item.type:rdx.type;
+
+
+
+
                
         
               }

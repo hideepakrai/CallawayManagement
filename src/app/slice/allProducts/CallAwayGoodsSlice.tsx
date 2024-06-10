@@ -531,7 +531,7 @@ const CallawayGoodsSlice = createSlice({
                     error90:"",
                     product_type:item.product_type,
                     product_model:item.product_model,
-                    orientation:item.travisProduct,
+                    orientation:item.orientation,
                     
             })
           

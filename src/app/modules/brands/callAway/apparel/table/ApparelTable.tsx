@@ -582,6 +582,7 @@ const ApparelTable = () => {
   };
 
   const [allXlxData, setAllXlxData] = useState<BasicModelApparel[]>([])
+
   
   const handleApparelData = (allDatat: BasicModelApparel[]) => {
     const table = tableRef.current;
@@ -590,6 +591,18 @@ const ApparelTable = () => {
     setAllXlxData(allDatat)
     //setIsImport(false)
     setIsUpdateQty(false)
+
+
+  }
+  const [allXData, setAllXData] = useState<BasicModelApparel[]>([])
+  const handleAppaData = (allDatat: BasicModelApparel[]) => {
+    const table = tableRef.current;
+    handleCloseImport()
+   // console.log("all81",allDatat)
+    setAllXData(allDatat)
+    setIsImport(false)
+
+
   }
 
 
@@ -744,7 +757,7 @@ const ApparelTable = () => {
   }
 
   const handleResetXlData = () => {
-    setAllXlxData([])
+    setAllXData([])
   }
 
 
@@ -868,7 +881,7 @@ const ApparelTable = () => {
         <TravisImportProduct
           isImport={isImport}
           onClose={handleCloseImport}
-          allGoodsData={handleApparelData}
+          allApparelData={handleAppaData}
         />
 
         <ApparelUpdateQty
@@ -886,6 +899,7 @@ const ApparelTable = () => {
         <AppareImportProduct
           isProduct={isProduct}
           onClose={handleCloseProduct}
+          //
           allGoodsData={handleApparelData}
           printPdf={handleShowPdf}
           excelAllExport={handleDownloadExcel} excelExport={function (): void {
@@ -893,7 +907,7 @@ const ApparelTable = () => {
           } }        />
 
           <ApparelExcelUploadDb
-          xlData={allXlxData}
+          xlData={allXData}
           resetXls={handleResetXlData}
           />
 
