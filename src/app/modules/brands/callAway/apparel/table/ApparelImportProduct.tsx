@@ -18,7 +18,7 @@ const { Dragger } = Upload;
 type Props = {
   onClose: () => void;
   isImport: boolean;
-  allGoodsData: (allData: BasicModelApparel[]) => void
+  allApparelData: (allData: BasicModelApparel[]) => void
 }
 
 const props: UploadProps = {
@@ -26,8 +26,8 @@ const props: UploadProps = {
   multiple: false,
 
 };
-const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
-  const [allXlxData, setAllXlxData] = useState<BasicModelApparel[]>([])
+const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
+  const [allXData, setAllXData] = useState<BasicModelApparel[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -49,7 +49,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
 
-      setAllXlxData(jsonData)
+      setAllXData(jsonData)
       setLoading(false);
     };
     reader.onerror = () => {
@@ -62,7 +62,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
   const handleOk = () => {
     //setIsModalOpen(false);
-    allGoodsData(allXlxData)
+    allApparelData(allXData)
     // onClose();
   };
   const handleCancel = () => {
@@ -121,6 +121,14 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
 
     },
+    {
+      title: "name",
+      dataIndex: "name",
+      key: "name",
+      width: 75,
+
+
+    },
 
 
     {
@@ -128,6 +136,15 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       dataIndex: "style_id",
       key: "style_id",
       width: 85,
+
+    },
+    {
+      title: "brand_id",
+      dataIndex: "brand_id",
+      key: "brand_id",
+      width: 85,
+      fixed: 'right',
+
 
     },
 
@@ -148,12 +165,12 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       key: "gender",
       width: 150,
     },
-    {
-      title: "sleeves",
-      dataIndex: "sleeves",
-      key: "sleeves",
-      width: 150,
-    },
+    // {
+    //   title: "sleeves",
+    //   dataIndex: "sleeves",
+    //   key: "sleeves",
+    //   width: 150,
+    // },
 
     {
       title: "stock_88",
@@ -172,9 +189,13 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
     },
 
-
-
-
+    {
+      title: "gst",
+      dataIndex: "gst",
+      key: "gst",
+      width: 80,
+      fixed: 'right'
+    },
 
     {
       title: "mrp",
@@ -183,6 +204,23 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       width: 80,
       fixed: 'right'
     },
+    {
+      title: " series",
+      dataIndex: "series",
+      key: "series",
+      width: 80,
+      fixed: 'right'
+    },
+    {
+      title: "type",
+      dataIndex: "type",
+      key: "type",
+      width: 80,
+      fixed: 'right'
+    },
+
+
+
 
 
 
@@ -193,14 +231,14 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     {
 
       brand: "Callaway SoftGoods",
-
+      brand_id:1,
       sku: 'TM001',
       name: 'Cool Belt',
       category: 'Belts',
       season: 'SS22',
       style_id: '4MT044',
       series: 'NA',
-      sleeves: 'In_Line',
+     // sleeves: 'In_Line',
       gender: "Mens",
       color: 'Heather_Purple_Velvet',
        type:"Core",
@@ -212,13 +250,15 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
       stock_88: 100,
       stock_90: 100,
-      gst: 12,
-      Amount: 500,
+      gst:10,
+      //mrp: 12,
+     // Amount: 500,
 
     },
     {
 
       brand: "Callaway SoftGoods",
+      brand_id:2,
 
       sku: 'TM002',
       name: 'Stylish Cap',
@@ -226,7 +266,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       season: 'SS22',
       style_id: '4MT045',
       series: 'NA',
-      sleeves: 'NA',
+      //sleeves: 'NA',
       color: 'Black',
       size: 'L',
 
@@ -240,12 +280,15 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       gender: "Mens",
       stock_88: 100,
       stock_90: 100,
-      gst: 12,
-      Amount: 300,
+      gst:10,
+
+      //mrp: 12,
+      //Amount: 300,
     },
     {
 
       brand: "Callaway SoftGoods",
+      brand_id:3,
 
       sku: 'TM003',
       name: 'Classic Polo',
@@ -253,7 +296,7 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       season: 'SS22',
       style_id: '4MT046',
       series: 'NA',
-      sleeves: 'In_Line',
+      //sleeves: 'In_Line',
       color: 'Navy Blue',
       size: 'XL',
 
@@ -267,8 +310,10 @@ const TravisImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       gender: "Mens",
       stock_88: 100,
       stock_90: 100,
-      gst: 12,
-      Amount: 700,
+      gst:10,
+
+     // mrp: 12,
+      //Amount: 700,
     },
   ];
 

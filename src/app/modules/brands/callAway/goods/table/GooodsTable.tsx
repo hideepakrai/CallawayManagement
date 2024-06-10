@@ -673,7 +673,7 @@ const GooodsTable = () => {
         </div>
 
         <div className='show-prodect-section' >
-          <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
+          {/* <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4> */}
 
         </div>
 

@@ -6,7 +6,9 @@ import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import * as XLSX from "xlsx";
-import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
+//import { ExcelModelTravis } from "../../../../model/travis/TravisExcel"
+import { BasicModelApparel } from "../../../../model/apparel/CallawayApparelModel";
+
 import type { UploadChangeParam } from "antd/lib/upload";
 import "./ApparelExportProduct.css"
 
@@ -17,7 +19,7 @@ type Props = {
   isProduct: boolean;
   printPdf: () => void;
   excelExport: () => void;
-  allGoodsData: (allData: ExcelModelTravis[]) => void
+  allGoodsData: (allData: BasicModelApparel[]) => void
   excelAllExport: () => void
 
 }
@@ -29,7 +31,7 @@ const props: UploadProps = {
 
 };
 const ApparelExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport,excelAllExport }: Props) => {
-  const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
+  const [allXlxData, setAllXlxData] = useState<BasicModelApparel[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -49,7 +51,7 @@ const ApparelExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, exce
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
+      const jsonData = XLSX.utils.sheet_to_json<BasicModelApparel>(worksheet) as BasicModelApparel[];
       setAllXlxData(jsonData)
       setLoading(false);
     };
