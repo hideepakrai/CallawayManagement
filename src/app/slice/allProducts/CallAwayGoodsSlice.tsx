@@ -2,6 +2,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { start } from "repl";
 import { BasicModelGoods } from "../../modules/model/goods/CallawayGoodsModel";
+
+import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
+import { NoteModel } from "../../modules/model/noteModel/NoteModel";
+
 interface ProductState {
     callawayGoods: BasicModelGoods[],
     otherProduct:BasicModelGoods[],
@@ -9,6 +13,10 @@ interface ProductState {
     uniqueProductModel: string[]; 
     uniqueProductType: string[]; 
     isStartLoading : boolean;
+    hardGoodsRetailerDetails:RetailerModel[],
+    preOrderId:number;
+    note:NoteModel[];
+
     
 }
 
@@ -18,7 +26,12 @@ const initialState: ProductState = {
     uniqueCategories:[],
     uniqueProductModel:[],
     uniqueProductType:[],
-    isStartLoading:false
+    isStartLoading:false,
+    hardGoodsRetailerDetails:[],
+    preOrderId:0,
+    note:[],
+
+
 
 };
 const CallawayGoodsSlice = createSlice({
@@ -570,8 +583,13 @@ const CallawayGoodsSlice = createSlice({
          
         
       }
-    }
-    ,
+    },
+
+    
+    addHardGoodsReatailerDetails: (state, action)=>{
+      const {retailerDetails}= action.payload;
+      state.hardGoodsRetailerDetails=retailerDetails
+  },
 
           
 
@@ -583,7 +601,8 @@ export const {
     addCallawayGoodsProduct,
     updateQuantity90,
     updateGoodsQty,
-    updateReduxData
+    updateReduxData,
+    addHardGoodsReatailerDetails,
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {
@@ -604,6 +623,22 @@ export const getProductType = (state: { callawayGoods: ProductState }): string[]
 export const getHardGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {
   return state.callawayGoods?.callawayGoods || [];
 };
+
+export const getHardGoodsRetailerDetail = (state: { callawayGoods: ProductState }): RetailerModel[] => {
+  return state.callawayGoods?.hardGoodsRetailerDetails|| [];
+  
+};
+export const getPreOrderId = (state: { callawayGoods: ProductState }): number => {
+  return state.callawayGoods?.preOrderId||0;
+  
+};
+export const getHardGoodsNote = (state: { callawayGoods: ProductState }): NoteModel[] => {
+  return state.callawayGoods?.note|| [];
+  
+};
+
+
+
 
 
 

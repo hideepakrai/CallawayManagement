@@ -46,6 +46,10 @@ import TravisProductsToExcel from '../excel/ExportAllProduct'
 
 import Loading from '../../../loading/Loading';
 
+import { addTravisReatailerDetails, getTravisRetailerDetail } from "../../../../slice/allProducts/TravisMethewSlice";
+import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
+
+
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Denim',];
 const OPTIONS1 = ['SS19', 'SS20'];
@@ -1343,6 +1347,10 @@ const [isExportAll, setIsExportAll] = useState<boolean>(false)
   const handleResetExportAll=() =>{
     setIsExportAll(false)
   }
+
+
+ 
+
   return (
     <div className='container'>
 

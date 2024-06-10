@@ -4,7 +4,7 @@ import { Card, Table, Carousel, Breadcrumb, Tooltip, Select, Space } from "antd"
 import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, SelectProps, TableColumnsType } from 'antd';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
-import { getTravisProducts, getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount, resetTravisOrder, updateProgressStep, addPreOrderId } from "../../../../slice/allProducts/TravisMethewSlice"
+import { getTravisProducts, getOtherProducts, updateTravisInclusiveDiscount, updaterTravisExclusiveDiscount, updateTravisFlatDiscount, resetTravisOrder, updateProgressStep, addPreOrderId, getTravisRetailerDetail } from "../../../../slice/allProducts/TravisMethewSlice"
 import {
   updateQuantity90, updateQuantity88,
   addOtherProduct, updateOtherQuantity90,
@@ -33,6 +33,7 @@ import TravisApproveModel from './TravisApproveModal';
 import TravisCompleteModel from './TraviscompleteModal';
 import TravisRejectedModel from './TravisRejectedModal';
 import { NoProdect } from '../../NoProdect';
+import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -45,8 +46,10 @@ const TravisCarts = () => {
   const [notes, setNotes] = useState<string>('');
   const [isLoadingStart, setIsLoadingStart] = useState<boolean>(false)
   const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
-  
+  const getTravisRetailerDetails = useSelector(getTravisRetailerDetail);
+
   const getUserAccounts = useSelector(getUserAccount)
+
   useEffect(() => {
     if (getLoadings) {
       setIsLoadingStart(true)
@@ -555,6 +558,7 @@ const TravisCarts = () => {
   const handleRefetch = () => {
     setIsRefetch(true)
     dispatch(LoadingStart())
+    console.log("fetch")
    
     
   }
@@ -737,6 +741,20 @@ const handleRejectedModalCancel=()=>{
     // setNotes(JSON.stringify(note))
     setIsnote(false)
   }
+  const handleCheckRetailerDetail = () =>{
+   console.log( "check1",getTravisRetailerDetails)
+   if(getTravisRetailerDetails && getTravisRetailerDetails.length == 0)
+    {
+      alert("please select reatailer")
+    }
+    else if(getTravisRetailerDetails ){
+      console.log("chec2",getTravisRetailerDetails)
+     const xyz = getTravisRetailerDetails 
+     handleRefetch()
+
+    }
+
+  }
   return (
     <div>
 
@@ -752,6 +770,7 @@ const handleRejectedModalCancel=()=>{
           rejectOrder={handleRejectOrder}
           completedOrder={handleCompletedOrder}
           note={handleNote}
+          checkAvailability={handleCheckRetailerDetail}
         />}
 
      { allOrder && allOrder.length>0?
@@ -959,6 +978,9 @@ const handleRejectedModalCancel=()=>{
       />
 
      {isShowPdf && <TravisOrderPdf/>}
+
+
+
 
     </div>
   )

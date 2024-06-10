@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel"
 import { Input, InputNumber, InputRef, Popconfirm, Select, SelectProps, Space, Table, TableColumnsType, Tooltip } from 'antd';
 import OgioGallery from '../../../brands/ogio/table/column/OgioGallery';
-import { updateOgioInclusiveDiscount, updateOgioExclusiveDiscount, updateOgioFlatDiscount, updateProgressStep, resetOgioOrder, addPreOrderId } from "../../../../slice/allProducts/OgioSlice"
+import { updateOgioInclusiveDiscount, updateOgioExclusiveDiscount, updateOgioFlatDiscount, updateProgressStep, resetOgioOrder, addPreOrderId, getOgioRetailerDetail } from "../../../../slice/allProducts/OgioSlice"
 import { getOgioProducts, updateQuantity90 } from "../../../../slice/allProducts/OgioSlice"
 import Loading from '../../../loading/Loading';
 import "./OgioCart.css";
@@ -31,6 +31,8 @@ import OgioSubmitModel from './OgioSubmitModal';
 import OgioApproveModel from './OgioApproveModal';
 import OgioCompleteModel from './OgioCompltedmodal';
 import { NoProdect } from '../../NoProdect';
+import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
+
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -55,6 +57,7 @@ const OgioCart = () => {
   const [userId, setUserId] = useState<number>();
   const [notes, setNotes] = useState<string>('');
   const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
+  const getOgioRetailerDetails = useSelector(getOgioRetailerDetail);
   
 
   // update user Id
@@ -795,6 +798,20 @@ const handleOkSubmit=()=>{
    
     setIsnote(false)
   }
+  const handleCheckRetailerDetail = () =>{
+    console.log( "ogiocheck1",getOgioRetailerDetails)
+    if(getOgioRetailerDetails && getOgioRetailerDetails.length == 0)
+     {
+       alert("please select reatailer")
+     }
+     else if(getOgioRetailerDetails ){
+       console.log("ogiochec2",getOgioRetailerDetails)
+      const xyz = getOgioRetailerDetails 
+      handleRefetch()
+ 
+     }
+ 
+   }
 
   return (
     <div>
@@ -810,6 +827,8 @@ const handleOkSubmit=()=>{
           rejectOrder={handleRejectOrder}
           completedOrder={handleCompletedOrder}
           note={handleNote}
+          checkAvailability={handleCheckRetailerDetail}
+
         />}
 
 
