@@ -21,10 +21,10 @@ const GetAllApparelProducts = ({ resetApparel }: Props) => {
   const getAllApparelProduct = async () => {
     try {
       const response = await GetCallawayApprealProduct();
-
-      if (response && response.productId) {
+       console.log("appareal ", response)
+      if (response ) {
         dispatch(addCallawayApparelProduct({
-          apparelProduct: response.productId
+          apparelProduct: response
 
         }))
         resetApparel();

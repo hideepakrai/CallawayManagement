@@ -81,7 +81,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const handleReview = () => {
 
 
-        if (retailerId !== 0) {
+        if (retailerId) {
             reviewOrder()
             setIsAvailable(true)
         }

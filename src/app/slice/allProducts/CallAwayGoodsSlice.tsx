@@ -534,7 +534,7 @@ const CallawayGoodsSlice = createSlice({
                     orientation:item.orientation,
                     
             })
-          
+        
 
            
         

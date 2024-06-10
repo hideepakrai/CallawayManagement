@@ -432,8 +432,7 @@ const OgioSlice = createSlice({
               if(ogioProduct &&ogioProduct.length>0){
                 ogioProduct.map((newOgio:OgioBasicModel)=>{
                     const ogioIndex= state.ogio.findIndex(item=>item.sku===newOgio.sku);
-                    // eslint-disable-next-line no-debugger
-                    debugger
+                   
                     if(ogioIndex!=-1){
                         state.ogio[ogioIndex].stock_90=newOgio.stock_90
                     }

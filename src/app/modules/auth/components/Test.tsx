@@ -20,7 +20,6 @@ import { getUserAccount } from "../../../slice/UserSlice/UserSlice"
 import Manager from "../../../api/manager/Manager"
 import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
-import type { FormEvent } from "react"
 
 
 
@@ -37,8 +36,8 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: '',
-  password: '',
+  email: 'shashi.kiranshetty@callawaygolf.com',
+  password: 'Callaway@1!',
   role: 'manager'
 }
 
@@ -49,7 +48,7 @@ const initialValues = {
   https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
 */
 
-export function Login() {
+export function TestLogin() {
   const [loading, setLoading] = useState(false)
   const { saveAuth, setCurrentUser } = useAuth()
   const [userName, setUserName] = useState(null)
@@ -139,7 +138,7 @@ export function Login() {
     setIsAdmin(false)
     formik.setValues({
       ...formik.values,
-      email: '',
+      email: 'arjun.budidi@gmail.com',
       password: '',
       role: "retailer"
     });
@@ -150,7 +149,7 @@ export function Login() {
     setIsAdmin(false)
     formik.setValues({
       ...formik.values,
-      email: '',
+      email: 'shashi.kiranshetty@callawaygolf.com',
       password: '',
       role: "retailer"
     });
@@ -161,7 +160,7 @@ export function Login() {
     setIsRetailer(false);
     formik.setValues({
       ...formik.values,
-      email: '',
+      email: 'ankur.srivastava@callawaygolf.com',
       password: '',
       role: "sales-representtaive"
     });
