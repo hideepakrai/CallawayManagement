@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card, Table, Input, Button, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { BasicModelTravis } from "../model/travis/TravisMethewModel"
+
+
+
 import { getRetailers } from "../../slice/retailer/RetailerSlice"
 import { RetailerModel, Retailer } from "../model/AccountType/retailer/RetailerModel"
 import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../slice/UserSlice/UserSlice"
@@ -10,9 +12,14 @@ import "./CartHeader.css"
 import ProgressCart from "./ProgressCart"
 
 import { addTravisOrderDetails } from "../../slice/orderSlice/travis/Orderdetails"
+import {addHardGoodsOrderDetails} from "../../slice/orderSlice/callawayGoods/HardGoodsOrderDetail"
+
 import { getActiveOrdertab } from "../../slice/activeTabsSlice/ActiveTabSlice";
+
 import { addTravisReatailerDetails, getTravisRetailerDetail } from "../../slice/allProducts/TravisMethewSlice";
 import { addOgioReatailerDetails, getOgioRetailerDetail } from "../../slice/allProducts/OgioSlice";
+import {addHardGoodsReatailerDetails,getHardGoodsRetailerDetail} from "../../slice/allProducts/CallAwayGoodsSlice.tsx";
+
 import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetailerAddress";
 import UpdateOgioRetailerAddress from "./brand/ogio/UpdateOgioRetailerAddress";
 type Props = {
@@ -22,11 +29,12 @@ type Props = {
     approveorder: () => void
     completedOrder: () => void
     note: () => void
+    checkAvailability:() =>void
 
 
 
 }
-const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder, completedOrder }: Props) => {
+const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder, completedOrder,checkAvailability}: Props) => {
     const dispatch = useDispatch()
     const [isNote, setIsNote] = useState(false);
    
@@ -79,16 +87,18 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     },[getUserProfiles,getCurrentUsers])
     
     const handleReview = () => {
+        checkAvailability()
 
+        // if (retailerId !== 0) {
+        //      if (retailerId ) {
 
-        if (retailerId) {
-            reviewOrder()
-            setIsAvailable(true)
-        }
-        else {
-            alert("Please select retailer")
-            setIsAvailable(false)
-        }
+        //     reviewOrder()
+        //     setIsAvailable(true)
+        // }
+        // else {
+        //     alert("Please select retailer")
+        //     setIsAvailable(false)
+        // }
 
     }
 
@@ -226,6 +236,10 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
     const handleResetOgioAddress=()=>{
         setIsOgio(false)
     }
+
+    const handleResetAvailable = () => {
+        setIsAvailable(false);
+    }
     return (
         <div>
             <div className='row'>
@@ -295,6 +309,7 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
                         rejectedOrder={handleRejectOrder}
                         completedOrder={handleCompletedOrder}
                         note={handleNote}
+                        resetAvailable={handleResetAvailable} 
                     />
 
                     {/* <span className='mx-3'  >

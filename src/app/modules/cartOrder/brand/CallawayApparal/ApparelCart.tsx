@@ -452,6 +452,20 @@ const CallawayApparelCarts = () => {
   const handleCompletedOrder = () => {
 
   }
+  const handleCheckRetailerDetail = () =>{
+    // console.log( "ogiocheck1",getOgioRetailerDetails)
+    // if(getOgioRetailerDetails && getOgioRetailerDetails.length == 0)
+    //  {
+    //    alert("please select reatailer")
+    //  }
+    //  else if(getOgioRetailerDetails ){
+    //    console.log("ogiochec2",getOgioRetailerDetails)
+    //   const xyz = getOgioRetailerDetails 
+    //   handleRefetch()
+ 
+    //  }
+ 
+   }
   return (
     <div>
 
@@ -467,6 +481,8 @@ const CallawayApparelCarts = () => {
           rejectOrder={handleRejectOrder}
           completedOrder={handleCompletedOrder}
           note={handleNote}
+          checkAvailability={handleCheckRetailerDetail}
+
         />}
 
       <Table className='card-table-travis cart-table-profile'

@@ -332,8 +332,8 @@ const CallawayGoodsSlice = createSlice({
                         gender:item.gender,
                         series:item.series,
                         type:item.type,
-
-                       
+                        sleeves:item.sleeves,
+          
                         Quantity90:0,
                         Quantity88:0,
                         Amount:0,
@@ -374,6 +374,8 @@ const CallawayGoodsSlice = createSlice({
                 state.callawayApparel[goodsIndex].style_id=item.style_id!=undefined ?item.style_id:rdx.style_id;
                 state.callawayApparel[goodsIndex].series=item.series!=undefined ?item.series:rdx.series;
                 state.callawayApparel[goodsIndex].type=item.type!=undefined ?item.type:rdx.type;
+                state.callawayApparel[goodsIndex].sleeves=item.sleeves!=undefined ?item.sleeves:rdx.sleeves;
+
 
 
 
