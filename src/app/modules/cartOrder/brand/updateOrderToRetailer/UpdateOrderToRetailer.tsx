@@ -21,11 +21,12 @@ const UpdateOrderToRetailer = ({ retailerId, orderId }: Props) => {
       })
 
     } catch (err) {
+      console.log("erroe")
     }
   }
 
   return (
-    <div>UpdateOrder</div>
+    <div></div>
   )
 }
 

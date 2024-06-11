@@ -32,6 +32,9 @@ import ApparelUpdateQtyDb from '../excel/importExcel/ApparelUpdateQtyDb';
 import Loading from '../../../../loading/Loading';
 
 import ApparelExcelUploadDb from '../excel/importExcel/ApparelExcelUploadDb';
+import ApparelPPt from "../ppt/ApparelPPt"
+
+
 type SelectCommonPlacement = SelectProps['placement'];
 
 const OPTIONS = ['Denim',];
@@ -688,58 +691,33 @@ const ApparelTable = () => {
 
 
   //ps
-
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
   const [uniqueSku, setUniqueSku] = useState<string[]>([])
   const [uniqueVariationSku, setUniqueVariationSku] = useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<BasicModelApparel[]>([])
   const [selectedRowVartionSku, setSelectedRowVartionSku] = useState<TravisPdfPrint[]>([])
   const handleSelctRow = (record: BasicModelApparel, selected: boolean) => {
-    const skuSet = new Set<string>(uniqueSku);
-    const variationSkuSet = new Set<string>(uniqueVariationSku);
-
+  
     if (selected) {
         setSelectedRow(prev => [...prev, record]);
-
-        if ( record &&record.variation_sku &&record.variation_sku!=undefined &&record.variation_sku !=="") {
-          const stringArray = record.variation_sku.split(',').map(item => item.trim());
-            if (uniqueVariationSku && uniqueVariationSku.length > 0) {
-                let check = false;
-
-                uniqueVariationSku.forEach(objVarSku => {
-                    const stringVar = objVarSku.split(',').map(item => item.trim());
-                 
-
-                    if (stringVar.length > 0 && stringArray.length > 0) {
-                        stringArray.forEach(item => {
-                            if (stringVar.includes(item)) {
-                                check = true;
-                            }
-                        });
-                    }
-                });
-
-                if (!check) {
-                    variationSkuSet.add(record.variation_sku);
-                   // makePdfPring(record.variation_sku,record)
-                }
-            } else {
-                variationSkuSet.add(record.variation_sku);
-               // makePdfPring(record.variation_sku,record)
-            }
-        }
-
-        setUniqueVariationSku(Array.from(variationSkuSet));
+        setSelectedRowKeys(prev => [...prev, record.sku!]);
+ 
     } else {
         const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
         setSelectedRow(updatedSelectedRow);
+
+        const updatedSelectedRowKeys = selectedRowKeys.filter(key => key !== record.sku);
+      setSelectedRowKeys(updatedSelectedRowKeys);
+
+        
     }
 };
 //const [isPDF, setIspdf] = useState<boolean>(false)
   const handleResetSelectedRow = () => {
     setSelectedRow([]);
-    setSelectedRow([])
+    setSelectedRowKeys([])
     setIspdf(false)
-    setSelectedRowVartionSku([])
+   
     // setIsCard(true)
   }
 
@@ -760,6 +738,19 @@ const ApparelTable = () => {
     setAllXData([])
   }
 
+   const [isPPt, setIsPPt]=useState<boolean>(false);
+
+  const handlePPT=()=>{
+setIsPPt(true)
+setIsProduct(false)
+  }
+
+
+  const handleResetPPt=()=>{
+    setIsPPt(false)
+    setSelectedRow([]);
+    setSelectedRowKeys([])
+  }
 
   return (
     <>
@@ -814,37 +805,13 @@ const ApparelTable = () => {
 
 
 
-            {/* <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-
-  //  onClick={handleViewCard}
-  > <i className="bi bi-bag-check fs-3"></i> View Cart</Button>
-
-    <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-   //  onClick={handleImport}
-  > <i className="bi bi-file-earmark-arrow-up fs-3"></i>  Import Products</Button>
-
-
-   <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-    // onClick={handleImport}
-  > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
-
-  <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-    // onClick={handleProduct} 
-    //  onClick={handleSampleExcel}
-  > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button> */}
-
-
-
-
-
-
 
           </div>
 
 
-          <div className='show-prodect-section' >
+          {/* <div className='show-prodect-section' >
             <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
-          </div>
+          </div> */}
 
        { allApparel.length>0?  
        (<Table className='cart-table-profile'
@@ -854,11 +821,10 @@ const ApparelTable = () => {
 
             //ps
             rowSelection={{
+              selectedRowKeys,
               onSelect: (record,selected) => { handleSelctRow(record,selected) }
             }}
-            // rowSelection={{
-            //   onSelect: (record) => { handleSelctRow(record) }
-            // }}
+          
             // expandable={{
             //   expandedRowRender,
 
@@ -902,6 +868,7 @@ const ApparelTable = () => {
           //
           allGoodsData={handleApparelData}
           printPdf={handleShowPdf}
+          ppt={handlePPT}
           excelAllExport={handleDownloadExcel} excelExport={function (): void {
             throw new Error('Function not implemented.');
           } }        />
@@ -913,7 +880,7 @@ const ApparelTable = () => {
 
 
 {isPDF && <ApparelPdf
-        selectedRow={selectedRowVartionSku}
+        selectedRow={selectedRow}
         resetSelectedRow={handleResetSelectedRow}
       />}
 
@@ -922,6 +889,12 @@ const ApparelTable = () => {
      resetExportAll={handleResetExportAll}
    />}
 
+
+{isPPt && 
+<ApparelPPt
+     selectedRow={selectedRow}
+     resetPPt={handleResetPPt}
+    />}
       </div>
 
     </>

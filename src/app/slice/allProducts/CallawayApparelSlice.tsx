@@ -2,6 +2,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { start } from "repl";
 import { BasicModelApparel } from "../../modules/model/apparel/CallawayApparelModel";
+import { RetailerModel } from "../../modules/model/AccountType/retailer/RetailerModel";
+import { NoteModel } from "../../modules/model/noteModel/NoteModel";
 interface ProductState {
     callawayApparel: BasicModelApparel[],
     otherProduct:BasicModelApparel[],
@@ -9,6 +11,11 @@ interface ProductState {
     uniqueSeries: string[]; 
     uniquetype: string[]; 
     isStartLoading : boolean;
+    softgoodRetailerDetails:RetailerModel[],
+    note:NoteModel[];
+    preOrderId:number;
+    progressStep:number,
+
     
 }
 
@@ -18,7 +25,11 @@ const initialState: ProductState = {
     uniqueCategories:[],
     uniqueSeries:[],
     uniquetype:[],
-    isStartLoading:false
+    isStartLoading:false,
+    preOrderId:0,
+    progressStep:0,
+    softgoodRetailerDetails:[],
+    note:[],
 
 };
 const CallawayGoodsSlice = createSlice({
@@ -28,6 +39,19 @@ const CallawayGoodsSlice = createSlice({
         resetCallayApparel: () => {
         return initialState;
        },
+       updateProgressStep:(state, action)=>{
+        state.progressStep=action.payload.progressStep;
+       },
+       addPreOrderId:(state,action)=>{
+        state.preOrderId=action.payload.preOrderId;
+       },
+       addsoftgoodReatailerDetails: (state, action)=>{
+        const {retailerDetails}= action.payload;
+        state.softgoodRetailerDetails=retailerDetails
+    },
+    addNote:(state,action)=>{
+      state.note.push(action.payload.note)
+     },
     
         addCallawayApparelProduct: (state, action) => {
             const { apparelProduct} = action.payload;
@@ -403,7 +427,12 @@ export const {
     updateQuantity90,
     updateQuantity88,
     updateApparelQty,
-    updateReduxData
+    updateReduxData,
+    addPreOrderId,
+    addsoftgoodReatailerDetails,
+    updateProgressStep,
+    addNote
+
 
     
 } = CallawayGoodsSlice.actions;
@@ -427,6 +456,18 @@ export const getAppaProducts = (state: { callawayApparel: ProductState }): Basic
   return state.callawayApparel?.callawayApparel || [];
 };
 
+export const getSoftgoodRetailerDetail = (state: { callawayApparel: ProductState }): RetailerModel[] => {
+  return state.callawayApparel?.softgoodRetailerDetails|| [];
+  
+};
+export const getPreOrderId = (state: { callawayApparel: ProductState }): number => {
+  return state.callawayApparel?.preOrderId|| 0;
+  
+};
+export const getApparelNote = (state: { callawayApparel: ProductState }): NoteModel[] => {
+  return state.callawayApparel?.note|| [];
+  
+};
 
 
 

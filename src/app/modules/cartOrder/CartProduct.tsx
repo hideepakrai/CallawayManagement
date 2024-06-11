@@ -39,6 +39,8 @@ const CartProduct = () => {
   // get apparel order
   const getApparelProduct= useSelector(getApparelProducts)
 
+
+
   const travisorderId= useSelector(getPreOrderId)
   const [travisId, setTravisId]= useState<number>()
   useEffect(() => {
@@ -90,6 +92,22 @@ const handleOgioCart=() => {
    activeOrderTab:"Ogio"
   })) 
 }
+const handleSoftGoodCart=() => {
+  setActiveTab('softgood');
+  dispatch(setActiveOrderTab({
+   activeOrderTab:"softgood"
+  })) 
+}
+
+const handleHardGoodCart=() => {
+  setActiveTab('hardgood');
+  dispatch(setActiveOrderTab({
+   activeOrderTab:"hardgood"
+  })) 
+}
+
+
+
   return (
     < div className='container'>
    {activeTab===""?
@@ -102,15 +120,15 @@ const handleOgioCart=() => {
           
 
           <li className="nav-item hover-elevate-up cursor-pointer">
-              <a className={`nav-link active-tab ${activeTab === 'apparel' ? 'active' : ''}`}  onClick={() => setActiveTab('apparel')}>
+              <a className={`nav-link active-tab ${activeTab === 'softgood' ? 'active' : ''}`}  onClick={handleSoftGoodCart}>
               <img src={Callawaygoods} className='cart-img'></img>
-              Callaway Apparel
+              Callaway Softgoods
               </a>
             </li>
 
 
           <li className="nav-item hover-elevate-up cursor-pointer">
-              <a className={`nav-link active-tab ${activeTab === 'goods' ? 'active' : ''}`} onClick={() => setActiveTab('goods')}>
+              <a className={`nav-link active-tab ${activeTab === 'hardgood' ? 'active' : ''}`} onClick={handleHardGoodCart}>
               <img src={Callawaygoods} className='  cart-img'></img>
               Callaway Hardgoods
               </a>

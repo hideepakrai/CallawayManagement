@@ -25,7 +25,7 @@ import SecondaryImage from '../../../callAway/apparel/pdf/SecondaryImage';
 import VarationSkuInfo from './VarationSkuInfo';
 
 type Props = {
-  selectedRow: TravisPdfPrint[];
+  selectedRow:BasicModelApparel [];
   resetSelectedRow: () => void;
 };
 
@@ -36,7 +36,8 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
 
     useEffect(() => {
       if (selectedRow && selectedRow.length > 0) {
-        handlePrint(null, () => contentToPrint.current);
+        console.log("selectedRowselectedRow",selectedRow)
+       // handlePrint(null, () => contentToPrint.current);
       }
     }, [selectedRow]);
   
@@ -71,11 +72,7 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
               handlePrint(null, () => contentToPrint.current);
             }} type="button" className="ant-btn css-dev-only-do-not-override-11xg00t ant-btn-default mx-3 download-prodect"><span>Download Pdf</span></button>
 
-            {/* <Button 
-                        onClick={handleExportToPPT}
-                        >
-                          
-                        </Button> */}
+           
 
             <button type="button" className="ant-btn css-dev-only-do-not-override-11xg00t ant-btn-default mx-3 download-prodect"><span>Download PPT</span></button>
 
@@ -101,14 +98,14 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
             </div>
 
 
-            {selectedRow &&
+            {/* {selectedRow &&
               selectedRow.length > 0 &&
               selectedRow.map(
                 (callout) => (
                   <>
                     <div
                       style={{
-                        // borderBottom: "1px solid #ddd",
+                       
                         paddingTop: "120px",
                         paddingLeft: "25px",
                         height: "1122px",
@@ -160,56 +157,11 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
                                     />
 
 
-                                    {/* <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
+                                   
 
-                                        src={productimg1}
+                                    
 
-                                      />
-                                    </span>
-
-                                    <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
-
-                                        src={productimg2}
-
-                                      />
-                                    </span>
-
-                                    <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
-
-                                        src={ productimg3}
-
-                                      />
-                                    </span>  */}
+                                  
 
                                   </div>
                                 </>
@@ -235,39 +187,7 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
                               >
 
 
-                                {/* <tr
-                                  style={{
-                                    border: "1px solid #ddd",
-                                    lineHeight: "40px",
-                                  }}
-                                >
-                                  <th
-                                    style={{
-                                      borderRight: "1px solid #ddd",
                                
-                                      fontSize: " 14px",
-                                      fontWeight: "600",
-                                      textAlign: "left",
-                                      width:"120px",
-                                      paddingLeft: "10px",
-                                    }}
-                                  >
-                                    SKU
-                                  </th>
-                                  <th
-                                    style={{                                    
-                                      fontSize: " 14px",
-                                      fontWeight: "600",
-                                      textAlign: "left",
-                                      width:"120px",
-                                      color:"#000000e0",
-                                      paddingLeft: "10px",
-                                    }}
-                                  >
-                                    {" "}
-                                    {callout?.variation_sku}
-                                  </th>
-                                </tr> */}
 
 
                                 <tr
@@ -360,7 +280,7 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
                                     MRP
                                   </td>
                                   <td style={{ paddingLeft: "10px" }}>
-                                    {/* {callout.otherInfo.mrp} */}
+                                  
                                     ₹{callout.otherInfo.mrp}
                                   </td>
                                 </tr>
@@ -573,7 +493,7 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
 
                   </>
                 )
-              )}
+              )} */}
           </Card>
         </Col>
       </Row>

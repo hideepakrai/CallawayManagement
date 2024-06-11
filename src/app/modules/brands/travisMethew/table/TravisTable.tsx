@@ -1410,7 +1410,8 @@ const [isExportAll, setIsExportAll] = useState<boolean>(false)
         </div>  */}
 
        {  
-       allTravisProduct.length>0?(<Table className='cart-table-profile'
+       allTravisProduct.length>0?(
+        <Table className='cart-table-profile'
           ref={tableRef}
           columns={columns}
           dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}

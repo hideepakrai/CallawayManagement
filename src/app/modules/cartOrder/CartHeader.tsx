@@ -22,6 +22,7 @@ import {addHardGoodsReatailerDetails,getHardGoodsRetailerDetail} from "../../sli
 
 import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetailerAddress";
 import UpdateOgioRetailerAddress from "./brand/ogio/UpdateOgioRetailerAddress";
+import { addsoftgoodReatailerDetails } from "../../slice/allProducts/CallawayApparelSlice.tsx";
 type Props = {
     reviewOrder: () => void,
     submitOrder: () => void
@@ -52,6 +53,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [MangerName, setManagerName] = useState<string>("")
     const [isTravis, setIsTravis] = useState<boolean>(false)
     const [isOgio, setIsOgio] = useState<boolean>(false)
+    const [isAparel, setIsApparel] = useState<boolean>(false)
     useEffect(()=>{
         if(getUserProfiles && getUserProfiles.length > 0){
             getUserProfiles.map(item=>{
@@ -141,6 +143,12 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                     retailerDetails:allData[0]
                 }))
                 setIsOgio(true)
+            }
+            else   if(getActiveOrdertabs==="softgood"){
+                dispatch(addsoftgoodReatailerDetails({
+                    retailerDetails:allData[0]
+                }))
+                setIsApparel(true)
             }
 
           
