@@ -72,8 +72,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                 setManagerName(getCurrentUsers.name)
             }
             if(getCurrentUsers && getCurrentUsers.role==="Retailer"){
-                // eslint-disable-next-line no-debugger
-                debugger
+             
                 if(getCurrentUsers.address &&getCurrentUsers.gstin && getCurrentUsers.id && getCurrentUsers.name){
                     setRetailerAddress(getCurrentUsers.address);
                     setGST(getCurrentUsers.gstin);

@@ -290,8 +290,7 @@ const TravisMethewSlice = createSlice({
                 const travisIndex = state.travisMethew.findIndex(
                   (travisItem) => travisItem.sku === item.sku
                 );
-                     // eslint-disable-next-line no-debugger
-                     debugger
+                 
                 if (travisIndex===-1) {
                   state.travisMethew.push({
                     sku: item.sku,
@@ -409,8 +408,7 @@ const TravisMethewSlice = createSlice({
             
             }
             const otherIndex=state.otherProduct.findIndex(item=>item.sku===sku);
-            // eslint-disable-next-line no-debugger
-            debugger
+          
             if(otherIndex!=-1){
               state.otherProduct[otherIndex].Quantity90=qty90;
               const quantity88 = state.otherProduct[otherIndex]?.Quantity88 ?? 0;

@@ -415,6 +415,92 @@ const CallawayGoodsSlice = createSlice({
           }
         }
         ,
+        updateApparelInclusiveDiscount:(state,action)=>{
+          const {discount}= action.payload;
+          state.callawayApparel.forEach((item) => {
+              item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+          
+              const gst = item.gst||0; // Parse gst to float or default to 0
+              const salP = item.Amount || 0; // Parse Amount to float or default to 0
+          
+              const gstdiscount = parseFloat((salP - ((100 * salP) / (100 + gst))).toFixed(2));
+              item.LessGST = gstdiscount;
+          
+              const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+
+              item.LessDiscountAmount = lessDiscountAmount;
+          
+              const netbill = parseFloat((salP - ((salP * discount) / 100) - gstdiscount).toFixed(2));
+              item.NetBillings = netbill;
+          
+              const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+              item.FinalBillValue = totalNetbill;
+          });
+      },
+      updaterApparelExclusiveDiscount:(state,action)=>{
+        const {discount}=action.payload;
+        state.callawayApparel.forEach((item) => {
+            item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+        
+            const gst = item.gst || 0; // Parse gst to float or default to 0
+            const salP = item.Amount || 0; // Parse Amount to float or default to 0
+        
+            item.LessGST = 0; // Initialize LessGST to 0
+        
+            const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+            item.LessDiscountAmount = lessDiscountAmount;
+        
+            const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+            item.NetBillings = netbill;
+        
+            const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+            item.FinalBillValue = totalNetbill;
+        });
+
+
+    },
+    updateApparelFlatDiscount:(state,action)=>{
+      const {discount}=action.payload;
+      state.callawayApparel.forEach((item) => {
+          item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+      
+          item.LessGST = 0; // Initialize LessGST to 0
+      
+          const salP =item.Amount || 0; // Parse Amount to float or default to 0
+      
+          const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+          item.LessDiscountAmount = lessDiscountAmount;
+      
+          const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+          item.NetBillings = netbill;
+      
+          const totalNetbill = parseFloat(netbill.toFixed(2));
+          item.FinalBillValue = totalNetbill;
+      });
+      
+
+
+  },
+  resetSoftGoods:(state)=>{
+    
+      state.callawayApparel.map(item=>{
+        item.Quantity90=0;
+        item.Quantity88=0;
+        item.Amount=0;
+        item.ordered=false;
+        item.LessGST=0;
+        item.LessDiscountAmount=0;
+        item.NetBillings=0;
+        item.FinalBillValue=0;
+        item.Discount=0;
+
+      });
+      state.softgoodRetailerDetails=[];
+      state.otherProduct=[];
+      state.note=[]
+    
+     
+  }
 
     }
     
@@ -431,7 +517,11 @@ export const {
     addPreOrderId,
     addsoftgoodReatailerDetails,
     updateProgressStep,
-    addSoftGoodNote
+    addSoftGoodNote,
+    updateApparelInclusiveDiscount,
+    updaterApparelExclusiveDiscount,
+    updateApparelFlatDiscount,
+    resetSoftGoods
 
 
     
@@ -466,6 +556,9 @@ export const getPreOrderId = (state: { callawayApparel: ProductState }): number 
 };
 export const getApparelNote = (state: { callawayApparel: ProductState }): NoteModel[] => {
   return state.callawayApparel?.note|| [];
+}
+export const getApparelProgress = (state: { callawayApparel: ProductState }): number=> {
+  return state.callawayApparel?.progressStep|| 0;
   
 };
 

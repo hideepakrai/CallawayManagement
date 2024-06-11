@@ -11,8 +11,7 @@ type props = {
  const GoodsUpdateQtyDb = ({allQtyXlxData, resetQtyData}: props) => {
     const dispatch = useDispatch()
     useEffect(() => {
-        // eslint-disable-next-line no-debugger
-        //debugger
+   
         if (allQtyXlxData && allQtyXlxData.length > 0){
             updateQty(allQtyXlxData)
            // console.log("up",allQtyXlxData)

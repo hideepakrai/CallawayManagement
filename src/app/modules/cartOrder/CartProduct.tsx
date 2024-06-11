@@ -45,8 +45,7 @@ const CartProduct = () => {
   const [travisId, setTravisId]= useState<number>()
   useEffect(() => {
 
-    // eslint-disable-next-line no-debugger
-    debugger
+  
     if (travisorderId&&getTravisOrders && getTravisOrders.length > 0) {
       setActiveTab('travis');
       setTravisId(travisorderId)

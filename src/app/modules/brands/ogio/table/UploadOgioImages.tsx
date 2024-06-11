@@ -17,8 +17,7 @@ const UploadOgioImages = ({   resetOgioImages}:Props) => {
   
   useEffect(()=>{
     const allOgioImges: OgioBasicModel[] = []
-    // eslint-disable-next-line no-debugger
-    debugger
+
     if(getOgioProduct && 
         getOgioProduct.length > 0) {
         getOgioProduct.map((record) => {
