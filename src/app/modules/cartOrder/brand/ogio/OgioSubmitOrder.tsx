@@ -103,8 +103,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
   const getOgioRetailerDetails= useSelector(getOgioRetailerDetail) as RetailerModel;
   useEffect(() => {
 
-     // eslint-disable-next-line no-debugger
-     debugger
+   
     if (getOgioRetailerDetails &&
       totalAmount&&
       totalNetBillAmount &&

@@ -367,7 +367,7 @@ const GooodsTable = () => {
 
             }}
 
-            disabled={value.stock_90 === 0}
+            disabled={value !=null &&value.stock_90 === 0}
             style={{ width: 100 }}
           />
         </Tooltip>

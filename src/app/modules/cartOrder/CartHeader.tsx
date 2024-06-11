@@ -22,7 +22,9 @@ import {addHardGoodsReatailerDetails,getHardGoodsRetailerDetail} from "../../sli
 
 import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetailerAddress";
 import UpdateOgioRetailerAddress from "./brand/ogio/UpdateOgioRetailerAddress";
-import { addsoftgoodReatailerDetails } from "../../slice/allProducts/CallawayApparelSlice.tsx";
+import { addsoftgoodReatailerDetails, getSoftgoodRetailerDetail } from "../../slice/allProducts/CallawayApparelSlice.tsx";
+import UpdatesoftGoodsRetailerAddress from "./brand/CallawayApparal/UpdatesoftGoodsRetailerAddress.tsx";
+
 type Props = {
     reviewOrder: () => void,
     submitOrder: () => void
@@ -53,7 +55,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [MangerName, setManagerName] = useState<string>("")
     const [isTravis, setIsTravis] = useState<boolean>(false)
     const [isOgio, setIsOgio] = useState<boolean>(false)
-    const [isAparel, setIsApparel] = useState<boolean>(false)
+    const [isApparel, setIsApparel] = useState<boolean>(false)
     useEffect(()=>{
         if(getUserProfiles && getUserProfiles.length > 0){
             getUserProfiles.map(item=>{
@@ -114,12 +116,12 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             allData[0]?.gstin &&
             allData[0]?.id) {
 
-            // setRetailerAddress(allData[0].address);
-            // // setRetailerCity(allData[0]?.attributes?.Location ?? '');
-            // setGST(allData[0]?.gstin);
-            // setRetailerId(allData[0]?.id)
-            // setRetailerName(allData[0]?.name)
-            // // setRetailerUserId(allData[0]?.user_id)
+            setRetailerAddress(allData[0].address);
+            // setRetailerCity(allData[0]?.attributes?.Location ?? '');
+            setGST(allData[0]?.gstin);
+            setRetailerId(allData[0]?.id)
+            setRetailerName(allData[0]?.name)
+            // setRetailerUserId(allData[0]?.user_id)   
             dispatch(addTravisOrderDetails({
 
                 retailerAddres: allData[0]?.address,
@@ -170,7 +172,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     // manage retailer Address
  const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
  const getOgioRetailerDetails= useSelector(getOgioRetailerDetail) as RetailerModel;
-
+ const getSoftgoodRetailerDetails= useSelector(getSoftgoodRetailerDetail) as RetailerModel;
 // set active tab adddress of retailer
 
  useEffect(()=>{
@@ -202,6 +204,17 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
             setGST(getOgioRetailerDetails.gstin);
             setRetailerId(getOgioRetailerDetails.id)
             setRetailerName(getOgioRetailerDetails.name)
+        }
+    }
+ else if(getActiveOrdertabs==='softgood' &&getSoftgoodRetailerDetails ){
+
+    console.log("getOgioRetailerDetails",getSoftgoodRetailerDetails)
+     if(getSoftgoodRetailerDetails.address &&
+        getSoftgoodRetailerDetails.name &&getSoftgoodRetailerDetails.id){
+            setRetailerAddress(getSoftgoodRetailerDetails.address);
+            setGST(getSoftgoodRetailerDetails.gstin);
+            setRetailerId(getSoftgoodRetailerDetails.id)
+            setRetailerName(getSoftgoodRetailerDetails.name)
         }
    
 
@@ -247,6 +260,9 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
 
     const handleResetAvailable = () => {
         setIsAvailable(false);
+    }
+    const handleResetApparelAddress = () => {
+        setIsApparel(false)
     }
     return (
         <div>
@@ -375,6 +391,11 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
 
             {    isOgio &&<UpdateOgioRetailerAddress
             resetOgioAddress={handleResetOgioAddress}
+                    />}
+
+                    {/* update apparel / soft good retailer address */}
+            {    isApparel &&<UpdatesoftGoodsRetailerAddress
+            resetApparelAddress={handleResetApparelAddress}
                     />}
         </div>
     )

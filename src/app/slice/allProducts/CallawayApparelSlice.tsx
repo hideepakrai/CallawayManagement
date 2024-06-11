@@ -49,7 +49,7 @@ const CallawayGoodsSlice = createSlice({
         const {retailerDetails}= action.payload;
         state.softgoodRetailerDetails=retailerDetails
     },
-    addNote:(state,action)=>{
+    addSoftGoodNote:(state,action)=>{
       state.note.push(action.payload.note)
      },
     
@@ -431,7 +431,7 @@ export const {
     addPreOrderId,
     addsoftgoodReatailerDetails,
     updateProgressStep,
-    addNote
+    addSoftGoodNote
 
 
     

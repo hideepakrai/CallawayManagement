@@ -14,7 +14,10 @@ import CartHeader from '../../CartHeader';
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 
 import { BasicModelApparel } from '../../../model/apparel/CallawayApparelModel';
-import { getApparelProducts, updateQuantity88, updateQuantity90 } from '../../../../slice/allProducts/CallawayApparelSlice';
+import { getApparelProducts, getSoftgoodRetailerDetail, updateProgressStep, updateQuantity88, updateQuantity90 } from '../../../../slice/allProducts/CallawayApparelSlice';
+import GetAllApparelProducts from '../../../../api/allProduct/callaway/appreal/GetAllApparelProducts';
+import SubmitSoftGoodModel from './submitOrder/SubmitSoftGoodModel';
+import SubmitSoftOrder from './submitOrder/SubmitSoftOrder';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -56,6 +59,8 @@ const CallawayApparelCarts = () => {
     }
     setAllApparel(apparelItem)
   }, [getApparelProduct])
+
+  console.log("allApparel",allApparel)
   const columns: TableColumnsType<BasicModelApparel> = [
     {
       dataIndex: "primary_image_url",
@@ -283,14 +288,13 @@ const CallawayApparelCarts = () => {
 
 
 
-  const handleRefetch = () => { }
 
   const handleRejectOrder = () => { }
 
 
   const handleNote = () => { }
 
-  const hanldeSubmitOrder = () => { }
+
 
   const [discountType, setDiscountType] = useState<string>("Inclusive")
   const [isDiscount, setIsDiscount] = useState<boolean>(false)
@@ -452,20 +456,75 @@ const CallawayApparelCarts = () => {
   const handleCompletedOrder = () => {
 
   }
+
+  const getSoftgoodRetailerDetails= useSelector(getSoftgoodRetailerDetail)
   const handleCheckRetailerDetail = () =>{
-    // console.log( "ogiocheck1",getOgioRetailerDetails)
-    // if(getOgioRetailerDetails && getOgioRetailerDetails.length == 0)
-    //  {
-    //    alert("please select reatailer")
-    //  }
-    //  else if(getOgioRetailerDetails ){
-    //    console.log("ogiochec2",getOgioRetailerDetails)
-    //   const xyz = getOgioRetailerDetails 
-    //   handleRefetch()
- 
-    //  }
+    if(getSoftgoodRetailerDetails && getSoftgoodRetailerDetails.length == 0)
+      {
+        alert("please select reatailer")
+      }
+      else if(getSoftgoodRetailerDetails ){
+       
+       handleRefetch()
+  
+      }
  
    }
+
+
+     // check for availiabilty by updating all quantity
+  const [isRefetch, setIsRefetch] = useState<boolean>(false)
+  const handleRefetch = () => {
+    setIsRefetch(true)
+    dispatch(LoadingStart())
+    console.log("fetch")
+   
+    
+  }
+
+  const handleResetRefetch=()=>{
+    setIsRefetch(false)
+    dispatch(LoadingStart())
+    dispatch(updateProgressStep({
+      progressStep: 1
+
+    }))
+  }
+
+ 
+  // submite order
+  const [isUpdateRedux, setIsUpdateRedux] = useState(false)
+  const [isUpdateStrapi, setIsUpdateStrapi] = useState(false)
+  const [isSubmitOrder, setIsSubmitOrder] = useState(false)
+  const [isSubmitModel, setIsSubmitModel] = useState(false)
+  const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
+  const hanldeSubmitOrder = () => {
+   
+    setIsSubmitModel(true)
+    console.log("submited")
+   
+  }
+
+  const handleSumbitOk=() => {
+    setIsSubmitModel(false)
+
+    setIsSubmitOrder(true)
+  }
+
+  const handleSumbitCancel=() => {
+    setIsSubmitModel(false)
+  }
+
+
+  const handleResetSubmitOrder = () => {
+    setIsSubmitOrder(false)
+    setIsUpdateStrapi(true)
+    setTotalAmount(0);
+    setTotalNetBillAmount(0)
+
+
+
+  }
   return (
     <div>
 
@@ -596,6 +655,30 @@ const CallawayApparelCarts = () => {
         )}
       />
 
+          {/*check availablity by getting all apparael qty  */}
+          {isRefetch && <GetAllApparelProducts
+        resetApparel={handleResetRefetch}
+      />}
+
+        {/* submit model */}
+        
+        <SubmitSoftGoodModel
+      isSubmit={isSubmitModel}
+      onOkHandler={handleSumbitOk}
+      handleCancel={handleSumbitCancel}
+      />
+
+{
+        isSubmitOrder &&
+        <SubmitSoftOrder
+          totalNetBillAmount={totalNetBillAmount ?? 0}
+          discountType={discountType}
+          discountValue={discountValue}
+          resetSubmitOrder={handleResetSubmitOrder}
+       
+          discountAmount={discountAmount??0}
+          totalAmount={totalAmount??0}
+        />}
 
     </div>
   )

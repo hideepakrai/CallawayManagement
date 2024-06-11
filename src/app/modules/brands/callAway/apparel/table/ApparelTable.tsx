@@ -33,6 +33,7 @@ import Loading from '../../../../loading/Loading';
 
 import ApparelExcelUploadDb from '../excel/importExcel/ApparelExcelUploadDb';
 import ApparelPPt from "../ppt/ApparelPPt"
+import PreOrderHome from '../preOrder/PreOrderHome';
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -895,6 +896,10 @@ setIsProduct(false)
      selectedRow={selectedRow}
      resetPPt={handleResetPPt}
     />}
+
+
+{/* create and update order  */}
+    <PreOrderHome/>
       </div>
 
     </>

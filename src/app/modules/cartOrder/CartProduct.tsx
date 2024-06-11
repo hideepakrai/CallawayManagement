@@ -44,10 +44,14 @@ const CartProduct = () => {
   const travisorderId= useSelector(getPreOrderId)
   const [travisId, setTravisId]= useState<number>()
   useEffect(() => {
+
+    // eslint-disable-next-line no-debugger
+    debugger
     if (travisorderId&&getTravisOrders && getTravisOrders.length > 0) {
       setActiveTab('travis');
       setTravisId(travisorderId)
-    } else if (getOgioProduct && getOgioProduct.length > 0) {
+    } 
+     if (getOgioProduct && getOgioProduct.length > 0) {
       getOgioProduct.map(item=>{
         if(item.ordered){
           setActiveTab('ogio');
@@ -57,19 +61,27 @@ const CartProduct = () => {
         }
       })
       
-      setActiveTab('ogio');
-    } else if (getGoodsProduct &&getGoodsProduct.length>0){
+
+    } if (getGoodsProduct &&getGoodsProduct.length>0){
        getGoodsProduct.map(item=>{
         if(item.ordered){
-          setActiveTab('goods');
+          setActiveTab('hardgood');
+          dispatch(setActiveOrderTab({
+            activeOrderTab:"hardgood"
+           })) 
         }
        })    
       
          
-    } else if (getApparelProduct && getApparelProduct.length>0){
-      getApparelProduct.map(item=>{
+    } 
+     if (getApparelProduct && getApparelProduct.length>0){
+      getApparelProduct.map((item)=>{
         if(item.ordered){
-          setActiveTab('apparel');
+          dispatch(setActiveOrderTab({
+            activeOrderTab:"softgood"
+           })) 
+          setActiveTab('softgood');
+          console.log("apparel tab")
         }
        })
     }
@@ -164,7 +176,7 @@ const handleHardGoodCart=() => {
 
         <div className="card-body">
           <div className="tab-content" id="myTabContent">
-            <div className={`tab-pane fade ${activeTab === 'apparel' ? 'show active' : ''}`} id="kt_tab_pane_Apperal" role="tabpanel">
+            <div className={`tab-pane fade ${activeTab === 'softgood' ? 'show active' : ''}`} id="kt_tab_pane_Apperal" role="tabpanel">
               <ApparelCart />
             </div>
             <div className={`tab-pane fade ${activeTab === 'goods' ? 'show active' : ''}`} id="kt_tab_pane_Goods" role="tabpanel">

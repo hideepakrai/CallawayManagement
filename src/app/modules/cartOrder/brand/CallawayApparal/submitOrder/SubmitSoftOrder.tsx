@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
-import { getTravisProducts, getOtherProducts, getPreOrderId, getTravisRetailerDetail, getTravisNote } from "../../../../slice/allProducts/TravisMethewSlice"
-import { useSelector, useDispatch } from 'react-redux'
-import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
-import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
-import { CurentUser } from '../../../model/useAccount/CurrentUser';
-import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
-import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails"
-import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
-import { CreateOrder, UpdateOrder } from '../../orderApi/OrderAPi';
-
-import GetAllorder from '../../../orderPage/GetAllorder';
-import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
+import {  useDispatch, useSelector } from 'react-redux'
+import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../../slice/UserSlice/UserSlice';
+import { getApparelNote, getApparelProducts, getPreOrderId, getSoftgoodRetailerDetail } from '../../../../../slice/allProducts/CallawayApparelSlice';
+import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel';
+import { CurentUser } from '../../../../model/useAccount/CurrentUser';
+import { RetailerModel } from '../../../../model/AccountType/retailer/RetailerModel';
+import { LoadingStart, LoadingStop } from '../../../../../slice/loading/LoadingSlice';
+import { CartModel } from '../../../../model/CartOrder/CartModel';
+import { UpdateOrder } from '../../../orderApi/OrderAPi';
+import GetAllorder from '../../../../orderPage/GetAllorder';
 
 type Props = {
   totalNetBillAmount: number;
@@ -23,8 +20,8 @@ type Props = {
   discountAmount:number
 }
 
-const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder }: Props) => {
-  const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
+const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder }: Props) => {
+  const getApparelProduct: BasicModelApparel[] = useSelector(getApparelProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")
   const [managerUserId, setManagerUserId] = useState<number | null>()
@@ -33,7 +30,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   const dispatch = useDispatch()
   const getPreOrderIds = useSelector(getPreOrderId);
  const getAllUsers=useSelector(getUserProfile)
- const getTravisNotes= useSelector(getTravisNote)
+ const getApparelNotes= useSelector(getApparelNote)
   const [salesRepId, setSalesRepId]= useState<number>(0)
  useEffect(()=>{
   if(getAllUsers &&getAllUsers){
@@ -75,16 +72,16 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   }, [getCurrentUsers])
 
   // getAll Order
-  const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
+  const [allPreOrderSoftGoood, setAllPreOrderSoftGoood]= useState<BasicModelApparel[]>([])
   const [brandId, setBrandId] = useState<number>()
-
+ 
   useEffect(() => {
-    const ogio: BasicModelTravis[] = [];
+    const softGood: BasicModelApparel[] = [];
 
-    if (getProduct && getProduct.length > 0) {
-      getProduct.map((item) => {
+    if (getApparelProduct && getApparelProduct.length > 0) {
+      getApparelProduct.map((item) => {
         if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id) {
-          ogio.push({
+            softGood.push({
             sku: item.sku,
             mrp: item.mrp,
             stock_90: item.Quantity90 ? item.Quantity90 : 0,
@@ -95,25 +92,25 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
             LessDiscountAmount:item.LessDiscountAmount
 
           })
-          setBrandId(item.brand_id)
+         
 
         }
       })
 
 
-      setGetAllTravisOrders(ogio)
+      setAllPreOrderSoftGoood(softGood)
     }
-  }, [getProduct]);
+  }, [getApparelProduct]);
 
-  const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
-  //getAlll retailer detail 
-  const getRetailerDetail = useSelector(getRetailerDetails)
+  const getSoftgoodRetailerDetails= useSelector(getSoftgoodRetailerDetail) as RetailerModel;
+  
+
   useEffect(() => {
 
    
-    if (getRetailerDetail &&
-      allTravisOrders && allTravisOrders.length > 0 &&
-      getTravisRetailerDetails&&
+    if (
+      allPreOrderSoftGoood && allPreOrderSoftGoood.length > 0 &&
+      getSoftgoodRetailerDetails&&
       discountAmount&&
       totalNetBillAmount &&
       discountValue &&
@@ -122,14 +119,14 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       brandId &&
       getPreOrderIds &&
      
-      getTravisNotes
+      getApparelNotes
   
 
     ) {
       handleCreateOrder()
     }
 
-  }, [allTravisOrders, getTravisNotes,getTravisRetailerDetails, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,salesRepId])
+  }, [allPreOrderSoftGoood, getApparelNotes,getSoftgoodRetailerDetails, totalNetBillAmount,discountAmount,totalAmount, discountType, discountValue, managerUserId, brandId, getPreOrderIds,salesRepId])
 
 
   const handleCreateOrder = () => {
@@ -140,22 +137,22 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
     const formattedTimestamp = now.toISOString();
     
 
-    if (Array.isArray(allTravisOrders)) {
+    if (Array.isArray(allPreOrderSoftGoood)) {
       const   retailer_details={
-        name:getTravisRetailerDetails.name,
-        gstin:getTravisRetailerDetails.gstin,
-        email:getTravisRetailerDetails.email,
-        address:getTravisRetailerDetails.address,
-        phone:getTravisRetailerDetails.phone
+        name:getSoftgoodRetailerDetails.name,
+        gstin:getSoftgoodRetailerDetails.gstin,
+        email:getSoftgoodRetailerDetails.email,
+        address:getSoftgoodRetailerDetails.address,
+        phone:getSoftgoodRetailerDetails.phone
         }
 
       const data = {
         id: getPreOrderIds,
         order_date: formattedTimestamp,
-        note: JSON.stringify(getTravisNotes),
+        note: JSON.stringify(getApparelNotes),
         brand_id: brandId,
         user_id: getCurrentUsers.id,
-        items: JSON.stringify(allTravisOrders),
+        items: JSON.stringify(allPreOrderSoftGoood),
         discount_type: discountType,
         discount_percent: discountValue,
         total_value:  totalNetBillAmount,
@@ -163,7 +160,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
         total_val_pre_discount:totalAmount,
         status: "submitted",
         manager_id: managerUserId,
-        retailer_id: getRetailerDetail.retailerId,
+        retailer_id: getSoftgoodRetailerDetails.id,
         salesrep_id: salesRepId??0,
         updated_at: formattedTimestamp,
         retailer_details:JSON.stringify(retailer_details)
@@ -209,8 +206,8 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   const handleResetOrder = () => {
     setIsOrder(false);
     setManagerUserId(null);
-    settypeOfAccount("")
-    setGetAllTravisOrders([])
+   // settypeOfAccount("")
+   setAllPreOrderSoftGoood([])
     resetSubmitOrder()
   }
 
@@ -229,5 +226,5 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   )
 }
 
-export default TravisSubmitOrder
+export default SubmitSoftOrder
 
