@@ -1,33 +1,55 @@
 import React, { useEffect, useState } from 'react'
-import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
-import { getTravisProducts, getOtherProducts } from "../../../../slice/allProducts/TravisMethewSlice"
+import { BasicModelGoods, BasicModelGoodsGraph, ImageType } from "../../../model/goods/CallawayGoodsModel"
+
+import { getGoodsProducts, getOtherProducts,getPreOrderId,getHardGoodsRetailerDetail,getHardGoodsNote } from "../../../../slice/allProducts/CallAwayGoodsSlice"
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
-import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
+import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
-import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
-import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails"
+import { getRetailerDetails } from "../../../../slice/orderSlice/callawayGoods/HardGoodsOrderDetail"
+
 import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
 import { CreateOrder } from '../../orderApi/OrderAPi';
 
 import GetAllorder from '../../../orderPage/GetAllorder';
+import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 
 type Props = {
   totalNetBillAmount: number;
   discountType: string;
   discountValue: number;
   resetSubmitOrder: () => void,
-  note: string
+  note: string,
+  
+  totalAmount:number,
+  discountAmount:number
 }
 
-const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder, note }: Props) => {
-  const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
+const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder, note,totalAmount,discountAmount }: Props) => {
+  const getProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")
   const [managerUserId, setManagerUserId] = useState<number | null>()
   const [userId, setUserId] = useState<number>();
   const [isOrder, setIsOrder] = useState(false);
   const dispatch = useDispatch()
+  const getPreOrderIds = useSelector(getPreOrderId);
+  const getHardGoodsNotes= useSelector(getHardGoodsNote)
+  const getAllUsers=useSelector(getUserProfile)
+
+  const [salesRepId, setSalesRepId]= useState<number>(0)
+  useEffect(()=>{
+    if(getAllUsers &&getAllUsers){
+      getAllUsers.map(item=>{
+        if( item.id &&item.role==="Sales Representative"){
+  
+          setSalesRepId(item.id)
+        }
+      })
+    }
+   },[getAllUsers])
+
+
 
   // update user Id
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
@@ -55,31 +77,31 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
   }, [getCurrentUsers])
 
   // getAll Order
-  const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
+  const [allHardGoodsOrders, setGetallHardGoodsOrders] = useState<BasicModelGoods[]>([])
   const [brandId, setBrandId] = useState<number>()
 
   useEffect(() => {
-    const ogio: BasicModelTravis[] = [];
+    const ogio: BasicModelGoods[] = [];
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id) {
+        if (item.ordered &&  item.error90 === "" ) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
-            stock_90: item.Quantity90 ? item.Quantity90 : 0,
+           // stock_90: item.Quantity90 ? item.Quantity90 : 0,
             stock_88: item.Quantity88 ? item.Quantity88 : 0,
 
           })
-          setBrandId(item.brand_id)
 
         }
       })
 
 
-      setGetAllTravisOrders(ogio)
+      setGetallHardGoodsOrders(ogio)
     }
   }, [getProduct]);
 
+  const getHardGoodsRetailerDetails= useSelector(getHardGoodsRetailerDetail) as RetailerModel;
 
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
@@ -88,40 +110,73 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
 
 
     if (getRetailerDetail &&
-
-      getRetailerDetail.retailerId &&
-
+      allHardGoodsOrders && allHardGoodsOrders.length > 0 &&
+      getHardGoodsRetailerDetails&&
+      discountAmount&&
       totalNetBillAmount &&
       discountValue &&
       discountType &&
-      brandId
+      totalAmount&&
+      brandId &&
+      getPreOrderIds &&
+                       
+      getHardGoodsNotes
 
     ) {
       handleCreateOrder()
     }
 
-  }, [allTravisOrders, getRetailerDetail, totalNetBillAmount, discountType, discountValue, managerUserId, brandId])
+  }, [allHardGoodsOrders, getRetailerDetail, totalNetBillAmount, discountType, discountValue, managerUserId, brandId])
 
 
   const handleCreateOrder = () => {
 
     dispatch(LoadingStart());
-    const orderId = generateUniqueNumeric();
+   // const orderId = generateUniqueNumeric();
     const now = new Date();
-    if (Array.isArray(allTravisOrders) && orderId) {
+    const formattedTimestamp = now.toISOString();
+
+    if (Array.isArray(allHardGoodsOrders) && orderId) {
+      const   retailer_details={
+        name:getHardGoodsRetailerDetails.name,
+        gstin:getHardGoodsRetailerDetails.gstin,
+        email:getHardGoodsRetailerDetails.email,
+        address:getHardGoodsRetailerDetails.address,
+        phone:getHardGoodsRetailerDetails.phone
+        }
       const data = {
-        order_date: "",
-        note: note,
+        // id: getPreOrderIds,
+        // order_date: "",
+        // note: note,
+        // brand_id: 1,
+        // user_id: getCurrentUsers.id,
+        // items: JSON.stringify(allHardGoodsOrders),
+        // discount_type: discountType,
+        // discount_percent: discountValue,
+        // total_value: totalNetBillAmount,
+        // status: "Pending",
+        // manager_id: managerUserId,
+        // retailer_id: getRetailerDetail.retailerId,
+        // salesrep_id: 111
+        id: getPreOrderIds,
+        order_date: formattedTimestamp,
+        note: JSON.stringify(getHardGoodsNotes),
         brand_id: brandId,
         user_id: getCurrentUsers.id,
-        items: JSON.stringify(allTravisOrders),
+        items: JSON.stringify(allHardGoodsOrders),
         discount_type: discountType,
         discount_percent: discountValue,
-        total_value: totalNetBillAmount,
-        status: "Pending",
+        total_value:  totalNetBillAmount,
+        discount_amount: discountAmount,
+        total_val_pre_discount:totalAmount,
+        status: "submitted",
         manager_id: managerUserId,
         retailer_id: getRetailerDetail.retailerId,
-        salesrep_id: 111
+        salesrep_id: salesRepId??0,
+        updated_at: formattedTimestamp,
+        retailer_details:JSON.stringify(retailer_details)
+      
+
 
 
 
@@ -164,7 +219,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
     setIsOrder(false);
     setManagerUserId(null);
     settypeOfAccount("")
-    setGetAllTravisOrders([])
+    setGetallHardGoodsOrders([])
     resetSubmitOrder()
   }
 

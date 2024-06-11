@@ -23,6 +23,7 @@ import GoodsUpdateQtyDb from '../excel/importExcel/GoodsUpdateQtyDb';
 
 import Loading from '../../../../loading/Loading';
 import HardGoodsExcelUploadDb from '../excel/importExcel/ExcelUploadDB';
+import PreOrder from '../preOrder/PreOrder';
 
 
 
@@ -346,9 +347,9 @@ const GooodsTable = () => {
 
 
     {
-      title: "Qty90",
-      dataIndex: "stock_90",
-      key: "stock_90",
+      title: "Qty88",
+      dataIndex: "stock_88",
+      key: "stock_88",
       width: 110,
       fixed: 'right',
       render: (value, record) => (
@@ -358,7 +359,7 @@ const GooodsTable = () => {
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className=' number-input'
-            addonBefore={record.stock_90 || 0}
+            addonBefore={record.stock_88 || 0}
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
@@ -366,8 +367,8 @@ const GooodsTable = () => {
               }
 
             }}
+            disabled={value != null && value.stock_88 === 0}
 
-            disabled={value !=null &&value.stock_90 === 0}
             style={{ width: 100 }}
           />
         </Tooltip>
@@ -450,7 +451,7 @@ const GooodsTable = () => {
     setQty90SKU("")
     record.Quantity90 = intValue;
     if (intValue > 0) {
-      if (record && record.stock_90 && record.stock_90 >= intValue) {
+      if (record && record.stock_88 && record.stock_88 >= intValue) {
 
         // Dispatch an action to update the quantity for the SKU
 
@@ -465,7 +466,7 @@ const GooodsTable = () => {
       }
       else {
         // alert("Quantity is not available")
-        const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
+        const st90 = (record && record.stock_88 && record.stock_88) ? record.stock_88 : 0;
         setQty90Message("The quantity should not exceed the available stock")
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
@@ -738,6 +739,8 @@ const GooodsTable = () => {
      resetExportAll={handleResetExportAll}
    
    />}
+
+   <PreOrder/>
 
     </div>
   )

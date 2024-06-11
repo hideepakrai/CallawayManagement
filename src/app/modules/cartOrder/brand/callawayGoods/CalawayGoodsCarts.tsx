@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Card, Table, Carousel, Breadcrumb, Tooltip, Select, Space } from "antd";
 import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, SelectProps, TableColumnsType } from 'antd';
+import { message as antdMessage } from 'antd';
+
 
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +14,8 @@ import CartHeader from '../../CartHeader';
 
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel';
-import { getGoodsProducts, updateQuantity90 } from '../../../../slice/allProducts/CallAwayGoodsSlice';
+import { getGoodsProducts, updateQuantity90 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount} from '../../../../slice/allProducts/CallAwayGoodsSlice';
+import CallawaySubmitOrder from './CallawaySubmitOrder';
 const CalawayGoodsCarts = () => {
 
   const tableRef = useRef(null);
@@ -29,6 +32,11 @@ const CalawayGoodsCarts = () => {
   const [totalAmount, setTotalAmount] = useState<number>()
   const [discountAmount, setDiscountAmount] = useState<number>()
   const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+  const [messageApi, contextHolder] = antdMessage.useMessage();
+ 
+
+
+  const getHardGoodsRetailerDetails = useSelector(getHardGoodsRetailerDetail);
 
   useEffect(() => {
     if (getLoadings) {
@@ -38,6 +46,7 @@ const CalawayGoodsCarts = () => {
     }
   }, [getLoadings])
   const [allOrder, setAllorder] = useState<BasicModelGoods[]>([])
+  console.log("allh",allOrder)
   useEffect(() => {
     const order: BasicModelGoods[] = []
     if (getGoodsProduct && getGoodsProduct.length > 0) {
@@ -175,9 +184,9 @@ const CalawayGoodsCarts = () => {
 
 
     {
-      title: "Qty90",
-      dataIndex: "stock_90",
-      key: "stock_90",
+      title: "Qty88",
+      dataIndex: "stock_88",
+      key: "stock_88",
       width: 150,
       fixed: 'right',
       render: (value, record) => (
@@ -186,7 +195,7 @@ const CalawayGoodsCarts = () => {
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className='mx-5 number-input'
-            addonBefore={record.stock_90 || 0}
+            addonBefore={record.stock_88 || 0}
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
@@ -195,7 +204,7 @@ const CalawayGoodsCarts = () => {
 
             }}
 
-            disabled={value.stock_90 === 0}
+            disabled={value.stock_88 === 0}
             style={{ width: 100 }}
           />
         </Tooltip>
@@ -241,20 +250,23 @@ const CalawayGoodsCarts = () => {
 
 
 
-  const handleRefetch = () => { }
+ // const handleRefetch = () => { }
 
   const handleRejectOrder = () => { }
 
+  const [isNote, setIsnote] = useState<boolean>(false)
 
-  const handleNote = () => { }
+  const handleNote = () => {
+    setIsnote(true)
+   }
 
-  const hanldeSubmitOrder = () => { }
+  //const hanldeSubmitOrder = () => { }
 
   const [discountType, setDiscountType] = useState<string>("Inclusive")
   const [isDiscount, setIsDiscount] = useState<boolean>(false)
   const [discountValue, setDiscountValue] = useState<number>(22)
 
-  const handleDiscount = (value: string) => { }
+  
 
   const [qty90ToolMesage, setQty90Message] = useState<string>("")
   const [qty90ToolSKU, setQty90SKU] = useState<string | undefined>("")
@@ -286,7 +298,7 @@ const CalawayGoodsCarts = () => {
     setQty90SKU("")
     record.Quantity90 = intValue;
     if (intValue > 0) {
-      if (record && record.stock_90 && record.stock_90 >= intValue) {
+      if (record && record.stock_88 && record.stock_88 >= intValue) {
 
         // Dispatch an action to update the quantity for the SKU
 
@@ -301,7 +313,7 @@ const CalawayGoodsCarts = () => {
       }
       else {
         // alert("Quantity is not available")
-        const st90 = (record && record.stock_90 && record.stock_90) ? record.stock_90 : 0;
+        const st90 = (record && record.stock_88 && record.stock_88) ? record.stock_88 : 0;
         setQty90Message("The quantity should not exceed the available stock")
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
@@ -344,19 +356,142 @@ const CalawayGoodsCarts = () => {
 
   }
   const handleCheckRetailerDetail = () =>{
-    // console.log( "ogiocheck1",getOgioRetailerDetails)
-    // if(getOgioRetailerDetails && getOgioRetailerDetails.length == 0)
-    //  {
-    //    alert("please select reatailer")
-    //  }
-    //  else if(getOgioRetailerDetails ){
-    //    console.log("ogiochec2",getOgioRetailerDetails)
-    //   const xyz = getOgioRetailerDetails 
-    //   handleRefetch()
+    console.log( "hardheck1",getHardGoodsRetailerDetails)
+    if(getHardGoodsRetailerDetails && getHardGoodsRetailerDetails.length == 0)
+     {
+       alert("please select reatailer")
+     }
+     else if(getHardGoodsRetailerDetails ){
+       console.log("hardgchec2",getHardGoodsRetailerDetails)
+      const xyz = getHardGoodsRetailerDetails 
+      handleRefetch()
  
-    //  }
+     }
  
    }
+
+
+   useEffect(() => {
+    let tAmount: number = 0;
+    let totalBillAmount: number = 0;
+    if (getGoodsProduct && getGoodsProduct.length > 0) {
+      getGoodsProduct.map((item: BasicModelGoods) => {
+        if (item.Amount && item.ordered) {
+          tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
+        }
+        if (item.FinalBillValue && item.ordered) {
+
+          totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+        }
+
+      })
+      setTotalAmount(tAmount)
+      setTotalNetBillAmount(totalBillAmount)
+      setDiscountAmount(tAmount - totalBillAmount)
+    }
+  }, [getGoodsProduct])
+
+
+   // submite order
+   const [isUpdateRedux, setIsUpdateRedux] = useState(false)
+   const [isUpdateStrapi, setIsUpdateStrapi] = useState(false)
+   const [isSubmitOrder, setIsSubmitOrder] = useState(false)
+   const [isSubmitModel, setIsSubmitModel] = useState(false)
+   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
+   const hanldeSubmitOrder = () => {
+     // setIsSubmitOrder(true)
+     setIsSubmitModel(true)
+     console.log("submited")
+    
+   }
+
+  const handleResetSubmitOrder = () => {
+    setIsSubmitOrder(false)
+    setIsUpdateStrapi(true)
+    setTotalAmount(0);
+    setTotalNetBillAmount(0)
+
+
+
+  }
+
+  
+  // submit for review
+  const [isRefetch, setIsRefetch] = useState<boolean>(false)
+  const handleRefetch = () => {
+    setIsRefetch(true)
+    dispatch(LoadingStart())
+    console.log("fetch")
+   
+    
+  }
+  const handleResetRefetch = () => {
+    setIsRefetch(false)
+    dispatch(LoadingStop())
+    dispatch(updateProgressStep({
+      progressStep: 1
+
+    }))
+   
+
+  }
+
+
+  
+  // handle change discount 
+  const handleChangeDiscount = (value: number) => {
+    const dis = value;
+    setDiscountValue(dis)
+    if (discountType === "Inclusive") {
+      setDiscountType("Inclusive")
+      setDiscountValue(dis)
+      dispatch(updateHardGoodsInclusiveDiscount({
+        discount: dis
+      }))
+    }
+    if (discountType === "Exclusive") {
+      setDiscountType("Exclusive")
+      setDiscountValue(dis)
+      dispatch(updaterHardGoodsExclusiveDiscount({
+        discount: dis
+      }))
+    }
+    if (discountType === "Flat") {
+      setDiscountValue(dis)
+      setDiscountType("Flat")
+      dispatch(updateHardGoodsFlatDiscount({
+        discount: dis
+      }))
+    }
+
+  }
+
+
+  
+  const handleDiscount = (value: string) => {
+    setIsDiscount(true)
+    if (value === "Inclusive") {
+      setDiscountType(value)
+      setDiscountValue(22)
+      dispatch(updateHardGoodsInclusiveDiscount({
+        discount: 22
+      }))
+    }
+    if (value === "Exclusive") {
+      setDiscountValue(23)
+      setDiscountType(value)
+      dispatch(updaterHardGoodsExclusiveDiscount({
+        discount: 23
+      }))
+    }
+    if (value === "Flat") {
+      setDiscountValue(0)
+      setDiscountType(value)
+      dispatch(updateHardGoodsFlatDiscount({
+        discount: 0
+      }))
+    }
+  }
 
   return (
     <div>
@@ -410,7 +545,8 @@ const CalawayGoodsCarts = () => {
                   showSearch
                   placeholder="Select discount"
                   optionFilterProp="children"
-                  // onChange={handleDiscount}
+                  onChange={handleDiscount}
+                  defaultValue="Inclusive" 
 
 
                   options={[
@@ -431,7 +567,7 @@ const CalawayGoodsCarts = () => {
               </div>
 
               <div>
-                {isDiscount && (
+                {(
                   <Space className='cart-number-input' direction="vertical" style={{ width: "125px" }}>
 
                     {/* <Input
@@ -445,7 +581,7 @@ const CalawayGoodsCarts = () => {
                       value={discountValue}
                       onChange={(value) => {
                         if (value !== null) {
-                          // handleChang eDiscount(value);
+                           handleChangeDiscount(value);
                         }
                       }}
                     />
@@ -489,6 +625,16 @@ const CalawayGoodsCarts = () => {
       />
 
 
+{ isSubmitOrder &&
+<CallawaySubmitOrder
+        totalNetBillAmount={totalNetBillAmount ?? 0}
+        discountType={discountType}
+        discountValue={discountValue}
+        resetSubmitOrder={handleResetSubmitOrder}
+        discountAmount={discountAmount ?? 0}
+        totalAmount={totalAmount ?? 0} 
+        note={''}      />
+}
     </div>
   )
 }

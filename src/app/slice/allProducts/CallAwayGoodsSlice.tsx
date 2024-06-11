@@ -16,6 +16,8 @@ interface ProductState {
     hardGoodsRetailerDetails:RetailerModel[],
     preOrderId:number;
     note:NoteModel[];
+    progressStep:number,
+
 
     
 }
@@ -30,6 +32,8 @@ const initialState: ProductState = {
     hardGoodsRetailerDetails:[],
     preOrderId:0,
     note:[],
+    progressStep:0,
+
 
 
 
@@ -66,7 +70,7 @@ const CallawayGoodsSlice = createSlice({
                         
                     }
    
-                    if( item.stock_90!=0){
+                    if( item.stock_88!=0){
                       state.callawayGoods.push({
                         sku: item.sku,
                         description: item.description,  
@@ -80,7 +84,7 @@ const CallawayGoodsSlice = createSlice({
                         primary_image_url: item.primary_image_url,
                         gallery_images_url: item.gallery_images_url,
                         variation_sku: item.variation_sku,
-                        stock_90:item.stock_90,    
+                        stock_88:item.stock_88,    
                         Quantity90:0,     
                         Amount:0,
                         TotalQty:0,
@@ -117,13 +121,13 @@ const CallawayGoodsSlice = createSlice({
                       
                       if(trvsRedux){
                         
-                        const rdxStock90=trvsRedux.stock_90;
+                        const rdxStock90=trvsRedux.stock_88;
                         
-                        const cusrrentStock90=item.stock_90;
+                        const cusrrentStock90=item.stock_88;
                         if(rdxStock90 &&cusrrentStock90){
                            if(rdxStock90!=cusrrentStock90){
                            
-                            trvsRedux.stock_90=cusrrentStock90;
+                            trvsRedux.stock_88=cusrrentStock90;
                           }
                           
                           if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
@@ -211,7 +215,7 @@ const CallawayGoodsSlice = createSlice({
         //                   primary_image_url: travisProduct.primary_image_url,
         //                   gallery_images_url: travisProduct.gallery_images_url,
         //                   variation_sku: travisProduct.variation_sku,
-        //                   stock_90:travisProduct.stock_90,
+        //                   stock_88:travisProduct.stock_88,
         //                   stock_88:travisProduct.stock_88,
         //                   Quantity90:0,
         //                   Quantity88:0,
@@ -269,8 +273,8 @@ const CallawayGoodsSlice = createSlice({
         //           if(travisProduct.variation_sku!==undefined){
         //             rdx.variation_sku=travisProduct.variation_sku
         //           }
-        //           if(travisProduct.stock_90!==undefined){
-        //             rdx.stock_90=travisProduct.stock_90
+        //           if(travisProduct.stock_88!==undefined){
+        //             rdx.stock_88=travisProduct.stock_88
         //           }
         //           if(travisProduct.stock_88!==undefined){
         //             rdx.stock_88=travisProduct.stock_88
@@ -496,7 +500,7 @@ const CallawayGoodsSlice = createSlice({
         allQtyGoods.map((item:BasicModelGoods)=>{
           const goodsIndex= state.callawayGoods.findIndex(goods=>goods.sku==item.sku);
           if(goodsIndex!=-1){
-            state.callawayGoods[goodsIndex].stock_90=item.stock_90;
+            state.callawayGoods[goodsIndex].stock_88=item.stock_88;
           }
           
         })
@@ -514,7 +518,7 @@ const CallawayGoodsSlice = createSlice({
             (travisItem) => travisItem.sku === item.sku
           );
       // eslint-disable-next-line no-debugger
-      debugger
+      //debugger
           if (goodsIndex===-1) {
             state.callawayGoods.push({
               sku: item.sku,
@@ -527,8 +531,8 @@ const CallawayGoodsSlice = createSlice({
                     primary_image_url: item.primary_image_url,
                     gallery_images_url: item.gallery_images_url,
                     variation_sku: item.variation_sku,
-                    stock_90:item.stock_90,
                     stock_88:item.stock_88,
+                   // stock_88:item.stock_88,
                    // size:item.size,
                
                     Quantity90:0,
@@ -565,7 +569,7 @@ const CallawayGoodsSlice = createSlice({
            // state.callawayGoods[goodsIndex].length=item.length!=undefined ?item.length:rdx.length;
             state.callawayGoods[goodsIndex].primary_image_url=item.primary_image_url!=undefined ?item.primary_image_url:rdx.primary_image_url;
             state.callawayGoods[goodsIndex].gallery_images_url=item.gallery_images_url!=undefined ?item.gallery_images_url:rdx.gallery_images_url;
-            state.callawayGoods[goodsIndex].stock_90=item.stock_90!=undefined ?item.stock_90:rdx.stock_90;
+            state.callawayGoods[goodsIndex].stock_88=item.stock_88!=undefined ?item.stock_88:rdx.stock_88;
             state.callawayGoods[goodsIndex].stock_88=item.stock_88!=undefined ?item.stock_88:rdx.stock_88;
             state.callawayGoods[goodsIndex].variation_sku=item.variation_sku!=undefined ?item.variation_sku:rdx.variation_sku;
             state.callawayGoods[goodsIndex].product_type=item.product_type!=undefined ?item.product_type:rdx.product_type;
@@ -590,6 +594,87 @@ const CallawayGoodsSlice = createSlice({
       const {retailerDetails}= action.payload;
       state.hardGoodsRetailerDetails=retailerDetails
   },
+  
+  addHardGoodsNote:(state,action)=>{
+    state.note.push(action.payload.note)
+   },
+   addPreOrderId:(state,action)=>{
+    state.preOrderId=action.payload.preOrderId;
+   },
+   updateProgressStep:(state, action)=>{
+    state.progressStep=action.payload.progressStep;
+   },
+
+   updaterHardGoodsExclusiveDiscount:(state,action)=>{
+    const {discount}=action.payload;
+    state.callawayGoods.forEach((item) => {
+        item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+    
+        const gst = item.gst || 0; // Parse gst to float or default to 0
+        const salP = item.Amount || 0; // Parse Amount to float or default to 0
+    
+        item.LessGST = 0; // Initialize LessGST to 0
+    
+        const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+        item.LessDiscountAmount = lessDiscountAmount;
+    
+        const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+        item.NetBillings = netbill;
+    
+        const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+        item.FinalBillValue = totalNetbill;
+    });
+
+
+},
+
+updateHardGoodsFlatDiscount:(state,action)=>{
+  const {discount}=action.payload;
+  state.callawayGoods.forEach((item) => {
+      item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+  
+      item.LessGST = 0; // Initialize LessGST to 0
+  
+      const salP =item.Amount || 0; // Parse Amount to float or default to 0
+  
+      const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+      item.LessDiscountAmount = lessDiscountAmount;
+  
+      const netbill = parseFloat((salP - ((salP * discount) / 100)).toFixed(2));
+      item.NetBillings = netbill;
+  
+      const totalNetbill = parseFloat(netbill.toFixed(2));
+      item.FinalBillValue = totalNetbill;
+  });
+  
+
+
+},
+
+
+updateHardGoodsInclusiveDiscount:(state,action)=>{
+  const {discount}= action.payload;
+  state.callawayGoods.forEach((item) => {
+      item.Discount = parseFloat(discount.toFixed(2)); // Set Discount for each item
+  
+      const gst = item.gst||0; // Parse gst to float or default to 0
+      const salP = item.Amount || 0; // Parse Amount to float or default to 0
+  
+      const gstdiscount = parseFloat((salP - ((100 * salP) / (100 + gst))).toFixed(2));
+      item.LessGST = gstdiscount;
+  
+      const lessDiscountAmount = parseFloat(((salP * discount) / 100).toFixed(2));
+
+      item.LessDiscountAmount = lessDiscountAmount;
+  
+      const netbill = parseFloat((salP - ((salP * discount) / 100) - gstdiscount).toFixed(2));
+      item.NetBillings = netbill;
+  
+      const totalNetbill = parseFloat((netbill + (gst * netbill / 100)).toFixed(2));
+      item.FinalBillValue = totalNetbill;
+  });
+},
+
 
           
 
@@ -603,6 +688,12 @@ export const {
     updateGoodsQty,
     updateReduxData,
     addHardGoodsReatailerDetails,
+    addHardGoodsNote,
+    addPreOrderId,
+    updateProgressStep,
+    updaterHardGoodsExclusiveDiscount,
+    updateHardGoodsInclusiveDiscount,
+    updateHardGoodsFlatDiscount,
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {
@@ -636,6 +727,13 @@ export const getHardGoodsNote = (state: { callawayGoods: ProductState }): NoteMo
   return state.callawayGoods?.note|| [];
   
 };
+
+export const getHardGoodsProgress = (state: { callawayGoods: ProductState }): number => {
+  return state.callawayGoods?.progressStep|| 0;
+  
+};
+
+
 
 
 

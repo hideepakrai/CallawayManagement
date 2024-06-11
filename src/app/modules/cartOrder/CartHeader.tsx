@@ -24,7 +24,7 @@ import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetail
 import UpdateOgioRetailerAddress from "./brand/ogio/UpdateOgioRetailerAddress";
 import { addsoftgoodReatailerDetails, getSoftgoodRetailerDetail } from "../../slice/allProducts/CallawayApparelSlice.tsx";
 import UpdatesoftGoodsRetailerAddress from "./brand/CallawayApparal/UpdatesoftGoodsRetailerAddress.tsx";
-
+import UpdateHardGoodsRetailerAddress from "./brand/callawayGoods/UpdateHardGoodsRetailerAddress.tsx";
 type Props = {
     reviewOrder: () => void,
     submitOrder: () => void
@@ -56,6 +56,8 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [isTravis, setIsTravis] = useState<boolean>(false)
     const [isOgio, setIsOgio] = useState<boolean>(false)
     const [isApparel, setIsApparel] = useState<boolean>(false)
+    const [isHard, setIsHard] = useState<boolean>(false)
+
     useEffect(()=>{
         if(getUserProfiles && getUserProfiles.length > 0){
             getUserProfiles.map(item=>{
@@ -73,7 +75,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             }
             if(getCurrentUsers && getCurrentUsers.role==="Retailer"){
                 // eslint-disable-next-line no-debugger
-                debugger
+                //debugger
                 if(getCurrentUsers.address &&getCurrentUsers.gstin && getCurrentUsers.id && getCurrentUsers.name){
                     setRetailerAddress(getCurrentUsers.address);
                     setGST(getCurrentUsers.gstin);
@@ -122,16 +124,16 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             setRetailerId(allData[0]?.id)
             setRetailerName(allData[0]?.name)
             // setRetailerUserId(allData[0]?.user_id)   
-            dispatch(addTravisOrderDetails({
+            // dispatch(addTravisOrderDetails({
 
-                retailerAddres: allData[0]?.address,
-                retailersGSt:allData[0]?.gstin,
-                retailerName: allData[0]?.name ?? "",
-                retailerId: allData[0]?.id,
-                retailerEmail:allData[0]?.email,
-                retailerPhone:allData[0]?.phone
-                // retailerUserId:allData[0].user_id
-            }))
+            //     retailerAddres: allData[0]?.address,
+            //     retailersGSt:allData[0]?.gstin,
+            //     retailerName: allData[0]?.name ?? "",
+            //     retailerId: allData[0]?.id,
+            //     retailerEmail:allData[0]?.email,
+            //     retailerPhone:allData[0]?.phone
+            //     // retailerUserId:allData[0].user_id
+            // }))
 
             if(getActiveOrdertabs==="Travis"){
                 dispatch(addTravisReatailerDetails({
@@ -151,6 +153,12 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                     retailerDetails:allData[0]
                 }))
                 setIsApparel(true)
+            }
+            else   if(getActiveOrdertabs==="hardgood"){
+                dispatch(addHardGoodsReatailerDetails({
+                    retailerDetails:allData[0]
+                }))
+                setIsHard(true)
             }
 
           
@@ -173,6 +181,8 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
  const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
  const getOgioRetailerDetails= useSelector(getOgioRetailerDetail) as RetailerModel;
  const getSoftgoodRetailerDetails= useSelector(getSoftgoodRetailerDetail) as RetailerModel;
+ const getHardGoodsRetailerDetails= useSelector(getHardGoodsRetailerDetail) as RetailerModel;
+
 // set active tab adddress of retailer
 
  useEffect(()=>{
@@ -208,7 +218,7 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
     }
  else if(getActiveOrdertabs==='softgood' &&getSoftgoodRetailerDetails ){
 
-    console.log("getOgioRetailerDetails",getSoftgoodRetailerDetails)
+    console.log("getSoftRetailerDetails",getSoftgoodRetailerDetails)
      if(getSoftgoodRetailerDetails.address &&
         getSoftgoodRetailerDetails.name &&getSoftgoodRetailerDetails.id){
             setRetailerAddress(getSoftgoodRetailerDetails.address);
@@ -218,14 +228,33 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
         }
    
 
-} else {
+}
+
+else if(getActiveOrdertabs==='Hardgood' &&getHardGoodsRetailerDetails ){
+
+    console.log("getHardRetailerDetails",getHardGoodsRetailerDetails)
+     if(getHardGoodsRetailerDetails.address &&
+        getHardGoodsRetailerDetails.name &&getHardGoodsRetailerDetails.id){
+            setRetailerAddress(getHardGoodsRetailerDetails.address);
+            setGST(getHardGoodsRetailerDetails.gstin);
+            setRetailerId(getHardGoodsRetailerDetails.id)
+            setRetailerName(getHardGoodsRetailerDetails.name)
+        }
+   
+
+}
+
+
+
+
+else {
     setRetailerAddress('');
     setRetailerCity('');
     setGST("");
     setRetailerId(null)
     setRetailerName("")
 }
- },[getActiveOrdertabs,getTravisRetailerDetails,getOgioRetailerDetails])
+ },[getActiveOrdertabs,getTravisRetailerDetails,getOgioRetailerDetails,getHardGoodsRetailerDetails])
 
 
 
@@ -257,6 +286,12 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
     const handleResetOgioAddress=()=>{
         setIsOgio(false)
     }
+// eslint-disable-next-line no-debugger
+//debugger
+    const handleResetHardGoodsAddress=()=>{
+        setIsHard(false)
+    }
+
 
     const handleResetAvailable = () => {
         setIsAvailable(false);
@@ -396,6 +431,10 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerD
                     {/* update apparel / soft good retailer address */}
             {    isApparel &&<UpdatesoftGoodsRetailerAddress
             resetApparelAddress={handleResetApparelAddress}
+            />}
+
+                  { isHard && <UpdateHardGoodsRetailerAddress
+                    resetHardGoodsAddress={handleResetHardGoodsAddress}
                     />}
         </div>
     )

@@ -46,7 +46,7 @@ const CartProduct = () => {
   useEffect(() => {
 
     // eslint-disable-next-line no-debugger
-    debugger
+    //debugger
     if (travisorderId&&getTravisOrders && getTravisOrders.length > 0) {
       setActiveTab('travis');
       setTravisId(travisorderId)
@@ -179,7 +179,7 @@ const handleHardGoodCart=() => {
             <div className={`tab-pane fade ${activeTab === 'softgood' ? 'show active' : ''}`} id="kt_tab_pane_Apperal" role="tabpanel">
               <ApparelCart />
             </div>
-            <div className={`tab-pane fade ${activeTab === 'goods' ? 'show active' : ''}`} id="kt_tab_pane_Goods" role="tabpanel">
+            <div className={`tab-pane fade ${activeTab === 'hardgood' ? 'show active' : ''}`} id="kt_tab_pane_Goods" role="tabpanel">
               <CalawayGoodsCarts />
             </div>
 
