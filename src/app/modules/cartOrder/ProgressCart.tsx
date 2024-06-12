@@ -3,6 +3,10 @@ import { Steps, Popover, Button,Tooltip } from 'antd';
 import type { StepsProps } from 'antd';
 import { getTravisProgressStep } from '../../slice/allProducts/TravisMethewSlice';
 import { getOgioProgressStep } from '../../slice/allProducts/OgioSlice';
+import { getHardGoodsProgress } from '../../slice/allProducts/CallAwayGoodsSlice';
+
+
+
 import { useSelector } from 'react-redux';
 import "./ProgressCart.css";
 import Note from './Note';
@@ -24,6 +28,8 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
     const [current, setCurrent] = useState(0);
     const [currentOgio, setCurrentOgio] = useState(0);
     const [currentTravis, setCurrentTravis] = useState(0);
+    const [currentHardGoods, setCurrentHardGoods] = useState(0);
+
     const [role, setRole] = useState<string>("");
 
      const getCurrentUsers= useSelector(getCurrentUser)
@@ -41,6 +47,9 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
     const getActiveOrdertabs = useSelector(getActiveOrdertab)
     const getPregressStepstravis = useSelector(getTravisProgressStep);
     const getPregressStepsogio = useSelector(getOgioProgressStep);
+    const getPregressStepshard = useSelector(getHardGoodsProgress);
+
+
    const getApparelProgresss= useSelector(getApparelProgress)
     useEffect(()=>{
         setCurrent(0)
@@ -52,13 +61,19 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
             
         } else if (getActiveOrdertabs==="Ogio" &&getPregressStepsogio){
             setCurrent(getPregressStepsogio)
+        } 
+         else if (getActiveOrdertabs==="hardgoods" &&getPregressStepshard){
+            setCurrent(getPregressStepshard)
             //setCurrentOgio(getPregressStepsogio)
         
         } else if (getActiveOrdertabs==="softgood" &&getApparelProgresss){
             setCurrent(getApparelProgresss)
             //setCurrentOgio(getPregressStepsogio)
-        }
 
+        }
+        
+
+    },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getPregressStepshard])
     },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getApparelProgresss])
   
 

@@ -7,32 +7,34 @@ import { useSelector } from 'react-redux';
 import { getPreOrderId, getHardGoodsNote, getHardGoodsProducts, getHardGoodsRetailerDetail } from '../../../../slice/allProducts/CallAwayGoodsSlice';
 
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
-import { BasicModelTravis } from '../../../model/travis/TravisMethewModel';
+import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel';
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
-import { getTravisRetailerDetail, getTravisProducts, getTravisNote } from '../../../../slice/allProducts/TravisMethewSlice';
+//import { getHardGoodsRetailerDetail, getHardGoodsProducts, getTravisNote } from '../../../../slice/allProducts/CallAwayGoodsSlice';
 
 
 type Props = {
-    resetAddress:()=>void
+    resetHardGoodsAddress:()=>void
 }
-const UpdateTravisRetailerAddress = ({resetAddress}:Props) => {
-  const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
+const UpdateHardGoodsRetailerAddress = ({resetHardGoodsAddress}:Props) => {
+  const [allHardGoodsOrders, setGetAllHardGoodsOrders] = useState<BasicModelGoods[]>([])
     const getActiveOrdertabs= useSelector(getActiveOrdertab)
-    const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
+    const getHardGoodsRetailerDetails= useSelector(getHardGoodsRetailerDetail) as RetailerModel;
     const getPreOrderIds = useSelector(getPreOrderId);
-    const getProduct: BasicModelTravis[] = useSelector(getTravisProducts);
+    const getProduct: BasicModelGoods[] = useSelector(getHardGoodsProducts);
     useEffect(() => {
-      const ogio: BasicModelTravis[] = [];
+      // eslint-disable-next-line no-debugger
+     // debugger
+      const hard: BasicModelGoods[] = [];
       if (getProduct && getProduct.length > 0) {
         getProduct.map((item) => {
-          if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id ) {
-            ogio.push({
+          if (item.ordered && item.error88 === ""  ) {
+            hard.push({
               sku: item.sku,
               mrp: item.mrp,
-              stock_90: item.Quantity90 ? item.Quantity90 : 0,
+             // stock_90: item.Quantity90 ? item.Quantity90 : 0,
               stock_88: item.Quantity88 ? item.Quantity88 : 0,
-              size: item.size,
+             // size: item.size,
               color:item.color,
               Amount:item.Amount,
               LessDiscountAmount:item.LessDiscountAmount
@@ -44,11 +46,11 @@ const UpdateTravisRetailerAddress = ({resetAddress}:Props) => {
         })
   
   
-        setGetAllTravisOrders(ogio)
+        setGetAllHardGoodsOrders(hard)
       }
     }, [getProduct]);
 
-    const getTravisNotes= useSelector(getTravisNote)
+    const getHardGoodNotes= useSelector(getHardGoodsNote)
  const [totalAmount, setTotalAmount] = useState<number>()
  const [discountAmount, setDiscountAmount] = useState<number>()
  const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
@@ -57,7 +59,7 @@ const UpdateTravisRetailerAddress = ({resetAddress}:Props) => {
    let tAmount: number = 0;
    let totalBillAmount: number = 0;
    if (getProduct && getProduct.length > 0) {
-     getProduct.map((item: BasicModelTravis) => {
+     getProduct.map((item: BasicModelGoods) => {
        if (item.Amount && item.ordered) {
          tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
        }
@@ -106,7 +108,7 @@ const UpdateTravisRetailerAddress = ({resetAddress}:Props) => {
  const getAllUsers=useSelector(getUserProfile)
  const [salesRepId, setSalesRepId]= useState<number>(0)
 useEffect(()=>{
- if(getAllUsers &&getAllUsers){
+ if(getAllUsers && getAllUsers){
    getAllUsers.map(item=>{
      if( item.id &&item.role==="Sales Representative"){
 
@@ -119,22 +121,22 @@ useEffect(()=>{
 
 
     useEffect(()=>{
-        if(getTravisRetailerDetails &&
-            getActiveOrdertabs==="Travis"   &&
-            allTravisOrders &&
+        if(getHardGoodsRetailerDetails &&
+            getActiveOrdertabs==="hardgood"   &&
+            allHardGoodsOrders &&
             totalAmount&&
       discountAmount &&
       totalNetBillAmount &&
-      getTravisNotes
+      getHardGoodNotes
 
 
         ){
             const   retailer_details={
-                name:getTravisRetailerDetails.name,
-                gstin:getTravisRetailerDetails.gstin,
-                email:getTravisRetailerDetails.email,
-                address:getTravisRetailerDetails.address,
-                phone:getTravisRetailerDetails.phone
+                name:getHardGoodsRetailerDetails.name,
+                gstin:getHardGoodsRetailerDetails.gstin,
+                email:getHardGoodsRetailerDetails.email,
+                address:getHardGoodsRetailerDetails.address,
+                phone:getHardGoodsRetailerDetails.phone
                 }
                 const now = new Date();
                 const formattedTimestamp = now.toISOString();
@@ -143,10 +145,10 @@ useEffect(()=>{
                     order_date: formattedTimestamp,
                     brand_id: 3,
                     updated_at: formattedTimestamp,
-                    note:JSON.stringify(getTravisNotes),
+                    note:JSON.stringify(getHardGoodNotes),
                     retailer_details:JSON.stringify(retailer_details),
                     user_id: getCurrentUsers.id,
-                    items: JSON.stringify(allTravisOrders),
+                    items: JSON.stringify(allHardGoodsOrders),
                     status: "Pending",
                     discount_type:"Inclusive",
                     discount_percent:22,
@@ -154,19 +156,19 @@ useEffect(()=>{
                     discount_amount:discountAmount,
                     total_val_pre_discount:totalAmount,
                     manager_id: managerUserId,
-                    retailer_id: getTravisRetailerDetails.id,
+                    retailer_id: getHardGoodsRetailerDetails.id,
                     salesrep_id: salesRepId??0,
                   }
                   updateOrder(data)
         }
-    },[getActiveOrdertabs,getTravisNotes,totalNetBillAmount,discountAmount,
-  getTravisRetailerDetails,managerUserId,salesRepId,getPreOrderIds,allTravisOrders])
+    },[getActiveOrdertabs,getHardGoodNotes,totalNetBillAmount,discountAmount,
+  getHardGoodsRetailerDetails,managerUserId,salesRepId,getPreOrderIds,allHardGoodsOrders])
 
     const updateOrder = async (data: CartModel) => {
         try {
           const response = await UpdateOrder(data);
           if (response) {
-            resetAddress()
+            resetHardGoodsAddress()
           }
     
     
@@ -174,7 +176,7 @@ useEffect(()=>{
         catch (err) {
           //dispatch(LoadingStop())
           // alert("Error on creating order")
-          resetAddress()
+          resetHardGoodsAddress()
     
         }
       }
@@ -184,4 +186,4 @@ useEffect(()=>{
   )
 }
 
-export default UpdateTravisRetailerAddress
+export default UpdateHardGoodsRetailerAddress
