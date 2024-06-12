@@ -14,7 +14,7 @@ import { getGoodsProducts } from '../../slice/allProducts/CallAwayGoodsSlice';
 import { getApparelProducts } from '../../slice/allProducts/CallawayApparelSlice';
 import  Callawaygoods from "../../../../public/media/logos/icon-profile.png"
 import { Route, Routes } from 'react-router-dom';
-import { getPreOrderId } from '../../slice/allProducts/TravisMethewSlice';
+import { getPreOrderId, getTravisProducts } from '../../slice/allProducts/TravisMethewSlice';
 import { useNavigate } from 'react-router-dom';
 import { setActiveOrderTab } from '../../slice/activeTabsSlice/ActiveTabSlice';
 import {useDispatch} from "react-redux"
@@ -29,6 +29,7 @@ const CartProduct = () => {
 
   //get travis order
   const getTravisOrders= useSelector(getTravisOrder)
+  const getTravisProduct= useSelector(getTravisProducts)
  
   // get ogio order
   const getOgioProduct= useSelector(getOgioProducts)
@@ -44,10 +45,17 @@ const CartProduct = () => {
   const travisorderId= useSelector(getPreOrderId)
   const [travisId, setTravisId]= useState<number>()
   useEffect(() => {
-
-    if (travisorderId&&getTravisOrders && getTravisOrders.length > 0) {
-      setActiveTab('travis');
+// eslint-disable-next-line no-debugger
+debugger
+    if (travisorderId &&getTravisProduct &&getTravisProduct.length>0){
+      getTravisProduct.map((item)=>{
+        if(item.ordered){
+          setActiveTab('travis');
       setTravisId(travisorderId)
+        }
+      })  
+    
+      
     } 
      if (getOgioProduct && getOgioProduct.length > 0) {
       getOgioProduct.map(item=>{
@@ -84,7 +92,7 @@ const CartProduct = () => {
        })
     }
     
-  }, [getTravisOrders, getOgioProduct,getGoodsProduct,getApparelProduct,travisorderId]);
+  }, [getTravisProduct, getOgioProduct,getGoodsProduct,getApparelProduct,travisorderId]);
 
 
   const gettravisPreOrderId= useSelector(getPreOrderId)

@@ -279,6 +279,48 @@ const CallawayApparelCarts = () => {
       width: 100,
       fixed: 'right'
     },
+    {
+      title: "GST",
+      dataIndex: "gst",
+      key: "gst",
+      width: 100,
+      fixed: 'right'
+    },
+    {
+      title: "LessGST",
+      dataIndex: "LessGST",
+      key: "LessGST",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "Discount",
+      dataIndex: "Discount",
+      key: "Discount",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "LessDiscountAmount",
+      dataIndex: "LessDiscountAmount",
+      key: "LessDiscountAmount",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "NetBillings",
+      dataIndex: "NetBillings",
+      key: "NetBillings",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "FinalBillValue",
+      dataIndex: "FinalBillValue",
+      key: "FinalBillValue",
+      width: 100,
+      // fixed:'right'
+    },
 
 
   ];
