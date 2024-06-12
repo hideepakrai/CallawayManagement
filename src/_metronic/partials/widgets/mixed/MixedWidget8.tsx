@@ -1,9 +1,14 @@
-import {useEffect, useRef, FC} from 'react'
+import {useEffect, useRef, FC,useState} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import {getCSSVariableValue} from '../../../assets/ts/_utils'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
+import { useSelector } from 'react-redux'
+import { getApparelProducts } from '../../../../app/slice/allProducts/CallawayApparelSlice'
+import { getGoodsProducts } from '../../../../app/slice/allProducts/CallAwayGoodsSlice'
+import { getOgioProducts } from '../../../../app/slice/allProducts/OgioSlice'
+import { getTravisProducts } from '../../../../app/slice/allProducts/TravisMethewSlice'
 
 type Props = {
   className: string
@@ -12,6 +17,14 @@ type Props = {
 }
 
 const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
+  const getApparelProduct= useSelector(getApparelProducts)
+  const getGoodsProduct= useSelector(getGoodsProducts)
+  const getOgioProduct= useSelector(getOgioProducts)
+  const [ogioQuantity,setOgioQuantity]= useState<number>()
+  const getTravisProduct= useSelector(getTravisProducts)
+  const [travisQuantity,setTravisQuantity]= useState<number>()
+
+
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
   const refreshChart = () => {
@@ -37,6 +50,20 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef, mode])
+
+
+
+useEffect(()=>{
+    if(getOgioProduct){
+      setOgioQuantity(getOgioProduct.length)
+    }
+  },[getOgioProduct])
+
+  useEffect(()=>{
+    if(getTravisProduct){
+      setTravisQuantity(getTravisProduct.length)
+    }
+  },[getTravisProduct])
 
   return (
     <div className={`card ${className}`}>
@@ -101,7 +128,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-bold py-4 px-3'>82</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>{getApparelProduct.length}</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -135,7 +162,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-bold py-4 px-3'>280</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>{getGoodsProduct.length}</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -169,7 +196,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-bold py-4 px-3'>500</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>{ogioQuantity}</div>
             {/* end::Label */}
           </div>
 
@@ -202,7 +229,7 @@ Travis Mathew
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-bold py-4 px-3'>450</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>{travisQuantity}</div>
             {/* end::Label */}
           </div>
 

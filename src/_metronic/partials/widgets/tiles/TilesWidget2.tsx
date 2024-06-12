@@ -96,9 +96,13 @@ const TilesWidget2 = ({
         </div>
 
      
-          <div className='text-white mb-3 time-date digital-font mt-0 pt-2'>
+          <div className='text-white mb-3 time-date digital-font mt-0 pt-0'>
               <span className='date digital-font'>{monthStr[0]}</span><span className='date digital-font'>{monthStr[1]}</span><span className='dots'>:</span><span className='calendar-day digital-font'>{day[0]}</span><span className='calendar-day digital-font'>{day[1]}</span><span className='dots'>:</span><span className='date digital-font'>{year[0]}</span><span className='date digital-font'>{year[1]}</span><span className='date digital-font'>{year[2]}</span><span className='date digital-font'>{year[3]}</span> 
           </div>
+
+          {/* <div className='DigitalFont'>
+              <span className='date-1'>{monthStr[0]}</span><span className='date-1'>{monthStr[1]}</span><span className='date-1'>:</span><span className='date-1'>{day[0]}</span><span className='date-1'>{day[1]}</span><span className='date-1'>:</span><span className='date-1'>{year[0]}</span><span className='date-1'>{year[1]}</span><span className='date-1'>{year[2]}</span><span className='date-1'>{year[3]}</span>
+          </div> */}
       
         <Timer />
       </div>

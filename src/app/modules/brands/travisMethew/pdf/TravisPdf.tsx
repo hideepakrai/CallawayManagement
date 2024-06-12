@@ -31,11 +31,11 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
 
 
-  useEffect(() => {
-    if (selectedRow && selectedRow.length > 0) {
-      handlePrint(null, () => contentToPrint.current);
-    }
-  }, [selectedRow]);
+  /// useEffect(() => {
+  //   if (selectedRow && selectedRow.length > 0) {
+  //     handlePrint(null, () => contentToPrint.current);
+  //   }
+  // }, [selectedRow]);
 
 
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
@@ -52,7 +52,9 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
 
 
-  return (<div>
+  return (
+  
+  <div>
     <div className='pdf-info'>
       <Row >
         <Col xs={24} >
@@ -61,7 +63,6 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                         onClick={() => {
                           handlePrint(null, () => contentToPrint.current);
                         }}
-                        >
                           
                         </Button> */}
 
@@ -143,10 +144,10 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
                                 }
 
+
                               </div>
                               <div
                                 className="prodect-info-img mt-6" >
-
                                 <>
                                   <div
                                     className="prodect-images-pdf"
@@ -221,6 +222,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                                 <VarationSkuInfo
                                   variation_sku_data={callout.variation_sku_data}
                                 />}
+
                               <table
                                 style={{
                                   border: "1px solid #ddd",
