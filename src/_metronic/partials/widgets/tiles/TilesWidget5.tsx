@@ -28,7 +28,7 @@ const TilesWidget5 = (props: Props) => {
         <img width={30} src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/icon_callway_f25555115b.png'></img>
         <div className='d-flex flex-column'>
           <div className={clsx(titleClass, 'fw-bold fs-1 mb-0 mt-5')}>{getApparelProduct.length}</div>
-          <div className={clsx(descriptionClass, 'fw-semibold fs-6')}>Callaway Apparel </div>
+          <div className={clsx(descriptionClass, 'fw-semibold fs-6')}>Callaway Softgoods </div>
         </div>
       </div>
 

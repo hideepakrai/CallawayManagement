@@ -52,7 +52,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
 
       <div className={`card-header row m-0 border-0 py-5`}  style={{backgroundColor:"#000"}}>
         <div className='col-6'>
-        <h3 className='card-title fw-bold text-white pt-4'>Callaway Apparel </h3>
+        <h3 className='card-title fw-bold text-white pt-4'>Callaway Softgoods  </h3>
         </div>
 
         <div className='card-toolbar col-6 justify-content-end'>                
