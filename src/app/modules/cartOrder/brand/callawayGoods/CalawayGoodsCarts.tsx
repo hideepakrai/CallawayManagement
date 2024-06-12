@@ -48,6 +48,9 @@ const CalawayGoodsCarts = () => {
   const [allOrder, setAllorder] = useState<BasicModelGoods[]>([])
   console.log("allh",allOrder)
   useEffect(() => {
+   
+// eslint-disable-next-line no-debugger
+debugger
     const order: BasicModelGoods[] = []
     if (getGoodsProduct && getGoodsProduct.length > 0) {
 

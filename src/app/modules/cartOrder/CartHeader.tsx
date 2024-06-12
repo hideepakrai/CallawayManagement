@@ -57,7 +57,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [isOgio, setIsOgio] = useState<boolean>(false)
     const [isApparel, setIsApparel] = useState<boolean>(false)
     const [isHard, setIsHard] = useState<boolean>(false)
-
+  console.log("cardheader")
     useEffect(()=>{
         if(getUserProfiles && getUserProfiles.length > 0){
             getUserProfiles.map(item=>{
@@ -190,8 +190,9 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     setGST("");
     setRetailerId(null)
     setRetailerName("")
-    
-if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails &&getTravisRetailerDetails){
+    // eslint-disable-next-line no-debugger
+    debugger
+if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails ){
 
     console.log("getTravisRetailerDetails",getTravisRetailerDetails)
      if(getTravisRetailerDetails.address &&
@@ -253,7 +254,7 @@ else {
     setRetailerId(null)
     setRetailerName("")
 }
- },[getActiveOrdertabs,getTravisRetailerDetails,getOgioRetailerDetails,getHardGoodsRetailerDetails])
+ },[getActiveOrdertabs,getTravisRetailerDetails,getOgioRetailerDetails,getHardGoodsRetailerDetails,getSoftgoodRetailerDetails])
 
 
 

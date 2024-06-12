@@ -71,6 +71,24 @@ const PPTTable =({eachItem}:Props)=>{
                                     {eachItem?.description}
                                   </td>
                                 </tr>
+                                <tr
+                                  style={{
+                                    border: "1px solid #ddd",
+                                    lineHeight: "40px",
+                                  }}
+                                >
+                                  <td
+                                    style={{
+                                      borderRight: "1px solid #ddd",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Category
+                                  </td>
+                                  <td style={{ paddingLeft: "10px" }}>
+                                    {eachItem?.category}
+                                  </td>
+                                </tr>
 
                                 </table>
 

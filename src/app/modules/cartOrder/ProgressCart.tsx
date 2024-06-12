@@ -74,7 +74,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         
 
     },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getPregressStepshard])
-    },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getApparelProgresss])
+   
   
 
     const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
