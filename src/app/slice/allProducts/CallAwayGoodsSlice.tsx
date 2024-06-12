@@ -85,7 +85,8 @@ const CallawayGoodsSlice = createSlice({
                         gallery_images_url: item.gallery_images_url,
                         variation_sku: item.variation_sku,
                         stock_88:item.stock_88,    
-                        Quantity90:0,     
+
+                        Quantity88:0,     
                         Amount:0,
                         TotalQty:0,
                         LessGST:0,
@@ -93,7 +94,7 @@ const CallawayGoodsSlice = createSlice({
                         Discount:0,
                         NetBillings:0,
                         FinalBillValue:0,    
-                        error90:"",
+                        error88:"",
                         primaryImage:"",
                         secondaryImage:[]
                    
@@ -130,8 +131,8 @@ const CallawayGoodsSlice = createSlice({
                             trvsRedux.stock_88=cusrrentStock90;
                           }
                           
-                          if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
-                            trvsRedux.error90="Quantity is more than Stock"
+                          if( trvsRedux.Quantity88&&trvsRedux.Quantity88>cusrrentStock90){
+                            trvsRedux.error88="Quantity is more than Stock"
                           }
 
                         }
@@ -517,8 +518,7 @@ const CallawayGoodsSlice = createSlice({
           const goodsIndex = state.callawayGoods.findIndex(
             (travisItem) => travisItem.sku === item.sku
           );
-      // eslint-disable-next-line no-debugger
-      //debugger
+
           if (goodsIndex===-1) {
             state.callawayGoods.push({
               sku: item.sku,

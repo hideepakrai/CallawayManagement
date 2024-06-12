@@ -18,8 +18,7 @@ const GetAllorder = ({ resetOrder }: Props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-  // eslint-disable-next-line no-debugger
-  debugger
+ 
         if (getCurrentUsers && getCurrentUsers.role === "Manager" && getCurrentUsers.id) {
             dispatch(LoadingStart())
             getManagerOrder(getCurrentUsers.id)

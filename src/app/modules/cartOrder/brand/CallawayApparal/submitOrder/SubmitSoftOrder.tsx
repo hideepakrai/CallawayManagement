@@ -80,7 +80,7 @@ const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discou
 
     if (getApparelProduct && getApparelProduct.length > 0) {
       getApparelProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id) {
+        if (item.ordered && item.error88 === "" && item.error90 === "" ) {
             softGood.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -107,7 +107,8 @@ const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discou
 
   useEffect(() => {
 
-   
+     // eslint-disable-next-line no-debugger
+     debugger
     if (
       allPreOrderSoftGoood && allPreOrderSoftGoood.length > 0 &&
       getSoftgoodRetailerDetails&&
@@ -116,7 +117,7 @@ const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discou
       discountValue &&
       discountType &&
       totalAmount&&
-      brandId &&
+     
       getPreOrderIds &&
      
       getApparelNotes

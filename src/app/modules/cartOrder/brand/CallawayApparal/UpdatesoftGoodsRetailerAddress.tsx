@@ -27,8 +27,7 @@ const UpdatesoftGoodsRetailerAddress = ({resetApparelAddress}:Props) => {
     const [brandId, setBrandId] = useState<number>()
     
     useEffect(() => {
-      // eslint-disable-next-line no-debugger
-      debugger
+    
         const apparel: BasicModelApparel[] = [];
         if (getApparelProduct && getApparelProduct.length > 0 &&getPreOrderIds) {
           getApparelProduct.map((item) => {
@@ -122,8 +121,7 @@ const UpdatesoftGoodsRetailerAddress = ({resetApparelAddress}:Props) => {
 const getApparelNotes= useSelector(getApparelNote)
 
     useEffect(()=>{
-      // eslint-disable-next-line no-debugger
-      debugger
+    
 
       console.log("allApparelOrders",allApparelOrders)
         if(getSoftgoodRetailerDetails &&

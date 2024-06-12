@@ -12,12 +12,18 @@ import { LoadingStart, LoadingStop, getLoading } from '../../../../slice/loading
 import CartHeader from '../../CartHeader';
 
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
-
+import { message as antdMessage } from 'antd';
 import { BasicModelApparel } from '../../../model/apparel/CallawayApparelModel';
-import { getApparelProducts, getSoftgoodRetailerDetail, updateProgressStep, updateQuantity88, updateQuantity90 } from '../../../../slice/allProducts/CallawayApparelSlice';
+import { getApparelProducts, getSoftgoodRetailerDetail, resetSoftGoods, updateApparelFlatDiscount, updateApparelInclusiveDiscount, updateProgressStep, updateQuantity88, updateQuantity90, updaterApparelExclusiveDiscount } from '../../../../slice/allProducts/CallawayApparelSlice';
 import GetAllApparelProducts from '../../../../api/allProduct/callaway/appreal/GetAllApparelProducts';
 import SubmitSoftGoodModel from './submitOrder/SubmitSoftGoodModel';
 import SubmitSoftOrder from './submitOrder/SubmitSoftOrder';
+import Note from '../../Note';
+import UpdateApparelQtyInDB from './upadateQty_Db/UpdateApparelQtyInDB';
+import ApparelApproveModel from './approve/ApparelApproveModal';
+import ApparelApproveOrder from './approve/ApparelApproveOrder';
+import ApparelCompleteModel from './completeOrder/ApparelCompleteModal';
+import ApparelCompletedOrder from './completeOrder/ApparelcompleteOrder';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -31,10 +37,7 @@ const CallawayApparelCarts = () => {
   const [isLoadingStart, setIsLoadingStart] = useState<boolean>(false)
   const getApparelProduct: BasicModelApparel[] = useSelector(getApparelProducts)
   const getUserAccounts = useSelector(getUserAccount)
-  const [totalAmount, setTotalAmount] = useState<number>()
-  const [discountAmount, setDiscountAmount] = useState<number>()
-  const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
-
+ 
   useEffect(() => {
     if (getLoadings) {
       setIsLoadingStart(true)
@@ -291,16 +294,8 @@ const CallawayApparelCarts = () => {
 
   const handleRejectOrder = () => { }
 
+ 
 
-  const handleNote = () => { }
-
-
-
-  const [discountType, setDiscountType] = useState<string>("Inclusive")
-  const [isDiscount, setIsDiscount] = useState<boolean>(false)
-  const [discountValue, setDiscountValue] = useState<number>(22)
-
-  const handleDiscount = (value: string) => { }
 
   const [qty90ToolMesage, setQty90Message] = useState<string>("")
   const [qty90ToolSKU, setQty90SKU] = useState<string | undefined>("")
@@ -450,12 +445,8 @@ const CallawayApparelCarts = () => {
 
   };
 
-  const handleApproveOrder = () => {
-  }
-  // complete order
-  const handleCompletedOrder = () => {
-
-  }
+  
+  
 
   const getSoftgoodRetailerDetails= useSelector(getSoftgoodRetailerDetail)
   const handleCheckRetailerDetail = () =>{
@@ -484,14 +475,30 @@ const CallawayApparelCarts = () => {
 
   const handleResetRefetch=()=>{
     setIsRefetch(false)
-    dispatch(LoadingStart())
+    dispatch(LoadingStop())
     dispatch(updateProgressStep({
       progressStep: 1
 
     }))
   }
+// notes
+
+const [isNote, setIsnote] = useState<boolean>(false)
+const handleNote = () => { 
+  setIsnote(true)
+}
+ 
+const handleCancelNote = () => {
+  setIsnote(false)
+}
+
+const handleOkNote = () => {
 
  
+  // setNotes(JSON.stringify(note))
+  setIsnote(false)
+}
+
   // submite order
   const [isUpdateRedux, setIsUpdateRedux] = useState(false)
   const [isUpdateStrapi, setIsUpdateStrapi] = useState(false)
@@ -525,6 +532,184 @@ const CallawayApparelCarts = () => {
 
 
   }
+  const [isApproveModel, setIsApproveModel] = useState<boolean>(false)
+  const [isCompletedModel, setIsCompletedModel] = useState<boolean>(false)
+  const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
+
+  //approve order
+  const handleApproveOrder = () => {
+    setIsApproveModel(true)
+  }
+  const handleApproveModalCancel=()=>{
+    setIsApproveModel(false)
+  }
+
+  // handle disacount
+  const [discountType, setDiscountType] = useState<string>("Inclusive")
+  const [isDiscount, setIsDiscount] = useState<boolean>(true)
+  const [discountValue, setDiscountValue] = useState<number>(22)
+
+  const handleDiscount = (value: string) => {
+    setIsDiscount(true)
+    if (value === "Inclusive") {
+      setDiscountType(value)
+      setDiscountValue(22)
+      dispatch(updateApparelInclusiveDiscount({
+        discount: 22
+      }))
+    }
+    if (value === "Exclusive") {
+      setDiscountValue(23)
+      setDiscountType(value)
+      dispatch(updaterApparelExclusiveDiscount({
+        discount: 23
+      }))
+    }
+    if (value === "Flat") {
+      setDiscountValue(0)
+      setDiscountType(value)
+      dispatch(updateApparelFlatDiscount({
+        discount: 0
+      }))
+    }
+  }
+
+  // calculated amount and discount ammount
+
+  const [totalAmount, setTotalAmount] = useState<number>()
+  const [discountAmount, setDiscountAmount] = useState<number>()
+  const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
+
+  useEffect(() => {
+    let tAmount: number = 0;
+    let totalBillAmount: number = 0;
+    if (getApparelProduct && getApparelProduct.length > 0) {
+      getApparelProduct.map((item: BasicModelApparel) => {
+        if (item.Amount && item.ordered) {
+          tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
+        }
+        if (item.FinalBillValue && item.ordered) {
+
+          totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+        }
+
+      })
+      setTotalAmount(tAmount)
+      setTotalNetBillAmount(totalBillAmount)
+      setDiscountAmount(tAmount - totalBillAmount)
+    }
+  }, [getApparelProduct])
+
+  // handle change discount 
+  const handleChangeDiscount = (value: number) => {
+    const dis = value;
+    setDiscountValue(dis)
+    if (discountType === "Inclusive") {
+      setDiscountType("Inclusive")
+      setDiscountValue(dis)
+      dispatch(updateApparelInclusiveDiscount({
+        discount: dis
+      }))
+    }
+    if (discountType === "Exclusive") {
+      setDiscountType("Exclusive")
+      setDiscountValue(dis)
+      dispatch(updaterApparelExclusiveDiscount({
+        discount: dis
+      }))
+    }
+    if (discountType === "Flat") {
+      setDiscountValue(dis)
+      setDiscountType("Flat")
+      dispatch(updateApparelFlatDiscount({
+        discount: dis
+      }))
+    }
+
+  }
+
+  const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
+  const [statusUpdate, setStatusUpdate] = useState<string>("")
+  const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
+  const [messageApi, contextHolder] = antdMessage.useMessage();
+  const handleUpdateStrapi = (message: string) => {
+    setIsUpdateStrapi(false)
+    setIsUpdateRedux(true)
+    // eslint-disable-next-line no-debugger
+    debugger
+    if (message === "") {
+      messageApi.info('some went wrong');
+      // alert("some went wrong")
+      dispatch(updateProgressStep({
+        progressStep: 1
+  
+      }))
+    }
+    else if (message != ``) {
+      alert("order submited sucessfully")
+      //messageApi.info(message);
+      dispatch(updateProgressStep({
+        progressStep: 2
+  
+      }))
+    }
+
+   
+    dispatch(LoadingStop())
+  }
+
+  // aprove modal
+
+  const handleApproveOk=()=>{
+    setIsApproveModel(false)
+    setStatusUpdate("Approved")
+    setIsStatusUpdate(true)
+  
+    dispatch(LoadingStart())
+  }
+
+
+
+  const handleResetStatus = (status: string) => {
+    if (status === "Approved") {
+      dispatch(updateProgressStep({
+        progressStep: 3
+
+      }))
+
+    }
+    setIsStatusUpdate(false)
+    dispatch(LoadingStop())
+  }
+  
+  //  complete
+  const handleCompltedOk=()=>{
+    setIsCompletedModel(false)
+    setIsCompletedorder(true)
+    dispatch(LoadingStart())
+      }
+   
+     const handleCompletedOrder = () => {
+       setIsCompletedModel(true)
+      
+     }
+     const handleCompltedModalCancel=()=>{
+       setIsCompletedModel(false)
+     }
+   
+     const handleResetCompletedOrder = () => {
+       setIsCompletedorder(false)
+       dispatch(LoadingStop())
+       dispatch(updateProgressStep({
+         progressStep: 4
+   
+       }))
+   
+       dispatch(resetSoftGoods())
+       alert("Your order is suceessfully completed")
+       // messageApi.info('Your order is suceessfully completed');
+   
+     }
   return (
     <div>
 
@@ -577,7 +762,7 @@ const CallawayApparelCarts = () => {
                   showSearch
                   placeholder="Select discount"
                   optionFilterProp="children"
-                  // onChange={handleDiscount}
+                  onChange={handleDiscount}
 
 
                   options={[
@@ -612,7 +797,7 @@ const CallawayApparelCarts = () => {
                       value={discountValue}
                       onChange={(value) => {
                         if (value !== null) {
-                          // handleChang eDiscount(value);
+                           handleChangeDiscount(value);
                         }
                       }}
                     />
@@ -660,6 +845,14 @@ const CallawayApparelCarts = () => {
         resetApparel={handleResetRefetch}
       />}
 
+      {/* notes */}
+      <Note
+        isModalOpen={isNote}
+        handleOk={handleOkNote}
+        handleCancel={handleCancelNote}
+      />
+     
+
         {/* submit model */}
         
         <SubmitSoftGoodModel
@@ -680,6 +873,42 @@ const CallawayApparelCarts = () => {
           totalAmount={totalAmount??0}
         />}
 
+{/* update data into DB */}
+{isUpdateStrapi &&
+        <UpdateApparelQtyInDB
+        allApparel={allApparel}
+          resetUpdateData={handleUpdateStrapi}
+        />}
+
+
+           {/* Approve modal */}
+           <ApparelApproveModel
+          isApprove={isApproveModel}
+          onOkHandler={handleApproveOk}
+          handleCancel={handleApproveModalCancel}
+
+          />
+
+            {/* approve order */}
+      {isstatusUpdate && <ApparelApproveOrder
+        resetStatus={handleResetStatus}
+        statusUpdate={statusUpdate}
+        />}
+
+        {/* complete modal */}
+
+           {/* completed modal */}
+       <ApparelCompleteModel
+          iscompleted={isCompletedModel}
+          onOkHandler={handleCompltedOk}
+          handleCancel={handleCompltedModalCancel}
+
+          />
+
+{isCompletedorder && <ApparelCompletedOrder
+        resetCompleted={handleResetCompletedOrder}
+
+      />}
     </div>
   )
 }

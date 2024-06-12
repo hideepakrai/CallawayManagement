@@ -12,6 +12,7 @@ import "./ProgressCart.css";
 import Note from './Note';
 import { getActiveOrdertab } from '../../slice/activeTabsSlice/ActiveTabSlice';
 import { getCurrentUser } from '../../slice/UserSlice/UserSlice';
+import { getApparelProgress } from '../../slice/allProducts/CallawayApparelSlice';
 
 type Props = {
     checkAvailability: () => void;
@@ -49,6 +50,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
     const getPregressStepshard = useSelector(getHardGoodsProgress);
 
 
+   const getApparelProgresss= useSelector(getApparelProgress)
     useEffect(()=>{
         setCurrent(0)
         if(getActiveOrdertabs==="Travis" &&getPregressStepstravis){
@@ -62,10 +64,17 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         } 
          else if (getActiveOrdertabs==="hardgoods" &&getPregressStepshard){
             setCurrent(getPregressStepshard)
+            //setCurrentOgio(getPregressStepsogio)
+        
+        } else if (getActiveOrdertabs==="softgood" &&getApparelProgresss){
+            setCurrent(getApparelProgresss)
+            //setCurrentOgio(getPregressStepsogio)
+
         }
         
 
     },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getPregressStepshard])
+    },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getApparelProgresss])
   
 
     const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
