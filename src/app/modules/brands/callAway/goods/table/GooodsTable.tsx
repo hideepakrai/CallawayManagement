@@ -25,6 +25,8 @@ import Loading from '../../../../loading/Loading';
 import HardGoodsExcelUploadDb from '../excel/importExcel/ExcelUploadDB';
 import PreOrder from '../preOrder/PreOrder';
 import { render } from 'react-dom';
+import HardGoodsPPt from '../pptHardGoods/HardGoodsPPt';
+import { TravisPdfPrint } from '../../../../model/pdf/PdfModel';
 
 
 
@@ -505,30 +507,50 @@ const GooodsTable = () => {
 
   };
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState<BasicModelGoods[]>([]);
 
   const [selectedRow, setSelectedRow] = useState<BasicModelGoods[]>([])
-  const handleSelectRow = (record: BasicModelGoods) => {
-    if (selectedRow && selectedRow.length > 0) {
-      const updatedSelectedRow = [...selectedRow];
-      const index = selectedRow.findIndex(row => row.sku === record.sku);
-      if (index !== -1) {
-        updatedSelectedRow.splice(index, 1);
+  const [selectedRowVartionSku, setSelectedRowVartionSku] = useState<TravisPdfPrint[]>([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+
+
+  // const handleSelectRow = (record: BasicModelGoods) => {
+  //   if (selectedRow && selectedRow.length > 0) {
+  //     const updatedSelectedRow = [...selectedRow];
+  //     const index = selectedRow.findIndex(row => row.sku === record.sku);
+  //     if (index !== -1) {
+  //       updatedSelectedRow.splice(index, 1);
+  //       setSelectedRow(updatedSelectedRow);
+
+  //     } else if (index === -1) {
+  //       setSelectedRowKeys([record]);
+  //       if (record) {
+  //         setSelectedRow(prev => [...prev, record]);
+  //       }
+  //     }
+  //   } else {
+  //     setSelectedRowKeys([record]);
+  //     if (record) {
+  //       setSelectedRow(prev => [...prev, record]);
+  //     }
+  //   }
+  // }
+
+  const handleSelctRow = (record: BasicModelGoods, selected: boolean) => {
+  
+    if (selected) {
+        setSelectedRow(prev => [...prev, record]);
+        setSelectedRowKeys(prev => [...prev, record.sku!]);
+ 
+    } else {
+        const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
         setSelectedRow(updatedSelectedRow);
 
-      } else if (index === -1) {
-        setSelectedRowKeys([record]);
-        if (record) {
-          setSelectedRow(prev => [...prev, record]);
-        }
-      }
-    } else {
-      setSelectedRowKeys([record]);
-      if (record) {
-        setSelectedRow(prev => [...prev, record]);
-      }
+        const updatedSelectedRowKeys = selectedRowKeys.filter(key => key !== record.sku);
+      setSelectedRowKeys(updatedSelectedRowKeys);
+
+        
     }
-  }
+};
 
 
 
@@ -630,6 +652,23 @@ const GooodsTable = () => {
     setAllXlxData([])
   }
 
+
+  const [isPPT, setIsPPt]= useState<boolean>(false)
+ const handlePPT=()=>{
+  setIsPPt(true)
+ }
+
+
+ const handleResetPPT=()=>{
+  setIsPPt(false)
+  setIsProduct(false)
+  setSelectedRowKeys([]);
+    setSelectedRow([])
+    setIspdf(false)
+    setSelectedRowVartionSku([])
+
+ }
+
   return (
     <div className='container'>
 
@@ -688,7 +727,8 @@ const GooodsTable = () => {
           columns={columns}
           dataSource={allGoodsProduct?.map((item) => ({ ...item, key: item.sku }))}
           rowSelection={{
-            onSelect: (record) => { handleSelectRow(record) }
+            selectedRowKeys,
+            onSelect: (record,selected) => { handleSelctRow(record,selected) }
           }}
 
           bordered
@@ -724,6 +764,8 @@ const GooodsTable = () => {
         printPdf={handleShowPdf}
         excelExport={handleDownloadExcel}
         excelAllExport={handleDownloadAllExcel}
+        ppt={handlePPT}
+
 
       />
       <GoodsUpdateQtyDb
@@ -744,6 +786,15 @@ const GooodsTable = () => {
    />}
 
    <PreOrder/>
+
+
+   
+{isPPT &&
+<HardGoodsPPt
+selectedRowVartionSku={selectedRowVartionSku}
+resetPPT={handleResetPPT}
+/>
+}
 
     </div>
   )
