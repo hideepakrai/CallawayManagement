@@ -91,13 +91,13 @@ const TilesWidget2 = ({
       }}
     >
       <div className='card-body d-flex flex-column justify-content-center text-center '>
-        <div className='text-white fw-bold mb-0 pt-0 fs-1 calendar-var mb-3 '>
-           <h4 className='text-white fw-bold mb-0 fs-1 day-cart'> {dayOfWeek}</h4>
+        <div className='text-white fw-bold mb-0 pt-0 fs-1 calendar-var mb-1 '>
+           <h4 className='text-white fw-bold mb-0 fs-1 day-cart '> {dayOfWeek}</h4>
         </div>
 
      
 
-          <div className='text-white mb-3 time-date digital-font mt-0 pt-0 digital-font'>
+          <div className='text-white mb-1 time-date digital-font mt-0 pt-0 digital-font'>
               <span className='date digital-font'>{monthStr[0]}</span><span className='date digital-font'>{monthStr[1]}</span><span className='dots'>:</span><span className='calendar-day digital-font'>{day[0]}</span><span className='calendar-day digital-font'>{day[1]}</span><span className='dots'>:</span><span className='date digital-font'>{year[0]}</span><span className='date digital-font'>{year[1]}</span><span className='date digital-font'>{year[2]}</span><span className='date digital-font'>{year[3]}</span> 
           </div>
 

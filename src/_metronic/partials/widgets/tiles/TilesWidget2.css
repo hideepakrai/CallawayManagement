@@ -14,15 +14,15 @@
 .time-section{height: 240px!important;}
 .calendar i{ width: 30%;}
 
-.time{ color: #fff; border-radius: 3px; padding: 0 2px; font-weight: 500; font-size: 36px;  }
-.time-title{font-size: 12px;position: absolute; top: -14px; left: 100px; letter-spacing: 0.8px;  font-family: Inter, Helvetica, "sans-serif"; }
-.time-min{font-size: 12px; position: absolute; top: -14px;     left: 175px; letter-spacing: 0.8px; font-family:Inter, Helvetica, "sans-serif";}
-.time-sec{font-size: 12px; position: absolute; top: -14px;     right: 100px; letter-spacing: 0.8px; font-family: Inter, Helvetica, "sans-serif";}
+.time{ color: #fff; border-radius: 3px; padding: 0 2px; font-weight: 100!important; font-size: 36px;  }
+.time-title{font-size: 10px;position: absolute; top: -10px; left: 106px; letter-spacing: 0.8px;  font-family: Inter, Helvetica, "sans-serif"; }
+.time-min{font-size: 10px; position: absolute; top: -10px;     left: 170px; letter-spacing: 0.8px; font-family:Inter, Helvetica, "sans-serif";}
+.time-sec{font-size: 10px; position: absolute; top: -10px;     right: 130px; letter-spacing: 0.8px; font-family: Inter, Helvetica, "sans-serif";}
 .calendar{justify-content: center; position: relative;}
 .dot-time{font-size: 30px;}
 .dots{font-size: 30px; padding-left: 2px; padding-right: 2px;}
-.date{  color: #fff; border-radius: 3px; padding: 0 2px; font-weight: 500; font-size: 36px; margin: 0 2px 0 3px;}
-.calendar-day{  color: #fff; border-radius: 3px; padding: 0 5px; font-weight: 500; font-size: 50px;  }
+.date{  color: #fff; border-radius: 3px; padding: 0 2px; font-weight: 500; font-size: 42px; margin: 0 2px 0 3px;}
+.calendar-day{  color: #fff; border-radius: 3px; padding: 0 5px; font-weight: 500; font-size: 60px;  }
 
 
 .day{ background-color: #fff; color: #000; border-radius: 3px; padding: 0 2px; font-weight: 500; }
@@ -65,20 +65,19 @@ padding: 4px 6px;
 
   
  @font-face {
-  font-family: 'Library-3-am';
-  src: url('/path-to-your-font/library-3-am.3am.otf') format('opentype');
-  
+  font-family: 'Crimson';
+  src: url('/src//_metronic//digitalFontFamily/happy-times-at-the-ikob.ttf');
   src: url('/path-to-your-font/Digital-7.eot?#iefix') format('embedded-opentype'),
-        url('/path-to-your-font/Digital-7.woff2') format('woff2'),
-        url('/src/_metronic/digitalFontFamily/Library\ 3\ am.otf') format('woff'),
-        url('/src/_metronic/digitalFontFamily/Library\ 3\ am\ soft.otf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
+       url('/path-to-your-font/Digital-7.woff2') format('woff2'),
+       url('/src/_metronic/digitalFontFamily/Crimson-Roman.ttf \(mono\).ttf') format('woff'),
+       url('/src/_metronic/digitalFontFamily/happy-times-at-the-ikob.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
   
   .digital-font {
-    font-family: 'Library-3-am', sans-serif;
+    font-family: 'Crimson', sans-serif;
   }
   
   .date-1{color: #fff;}

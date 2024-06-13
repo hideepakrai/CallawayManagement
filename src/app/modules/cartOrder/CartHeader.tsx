@@ -312,6 +312,7 @@ else {
                                 <a>Select Retailer</a>
                             </h4>
 
+
                             <Select
                                 showSearch
                                 placeholder="Select retailer"
