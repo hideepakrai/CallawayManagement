@@ -44,7 +44,7 @@ padding: 4px 6px;
 /* TilesWidget2.css */
 
 /* If hosting the font locally */
-@font-face {
+/* @font-face {
     font-family: 'Digital-7';
     src: url('/src//_metronic//digitalFont/digital-7.ttf');
     src: url('/path-to-your-font/Digital-7.eot?#iefix') format('embedded-opentype'),
@@ -59,7 +59,7 @@ padding: 4px 6px;
     font-family: 'Digital-7', sans-serif;
   }
 
-
+ */
 
 
   
@@ -69,7 +69,7 @@ padding: 4px 6px;
     src: url('/path-to-your-font/Digital-7.eot?#iefix') format('embedded-opentype'),
          url('/path-to-your-font/Digital-7.woff2') format('woff2'),
          url('/src/_metronic/digitalFontFamily//Library\ 3\ am.otf') format('woff'),
-         url('/src/_metronic/digitalFont/digital-7.ttf') format('truetype');
+         url('/src/_metronic/digitalFontFamily/1001fonts-library-3-am-eula.txt') format('truetype');
     font-weight: normal;
     font-style: normal;
   }

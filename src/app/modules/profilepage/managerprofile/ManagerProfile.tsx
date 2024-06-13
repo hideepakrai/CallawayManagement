@@ -120,7 +120,7 @@ sa
 
                 <div className='user-address'>
                   <span className="gx-mb-0 text-white fw-semibold fs-5">Address</span>
-                  <p><a href="#" className="gx-mb-0 text-gray-400 fw-bold text-hover-secondary fs-6"> {getCurrentUsers?.address}</a></p>
+                  <p><a href="#" className="gx-mb-0 text-gray-400 fw-bold text-hover-secondary fs-6">{getCurrentUsers?.address}</a></p>
                 </div>
 
                 <div className='d-flex'>

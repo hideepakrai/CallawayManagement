@@ -771,7 +771,7 @@ const handleOkNote = () => {
 
         />}
 
-      <Table className='card-table-travis cart-table-profile'
+      <Table className='card-table-travis cart-table-profile mt-12 mb-5'
         ref={tableRef}
         columns={columns}
         dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
@@ -783,10 +783,7 @@ const handleOkNote = () => {
         size="middle"
         scroll={{ x: "100%", y: "auto" }}
 
-        pagination={{
-          position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-          defaultPageSize: 20
-        }}
+        pagination={false}
         footer={() => (
           <div
             style={{
@@ -856,19 +853,19 @@ const handleOkNote = () => {
 
               <h4 style={{ borderBottom: "1px solid #ddd", fontSize: "14px", paddingBottom: "10px", paddingTop: "2px" }}>
                 {" "}
-                <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> {totalAmount}
+                <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> ₹{totalAmount}
               </h4>
 
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "2px", margin: "0" }}>
                 {" "}
                 <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount:</a>
-                {discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
+                ₹{discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
               </h4>
 
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "10px", background: "#f1f1f1" }}>
                 {" "}
                 <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
-                {totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
+                ₹{totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
               </h4>
 
 

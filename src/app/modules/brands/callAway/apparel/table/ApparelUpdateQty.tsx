@@ -333,8 +333,9 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3>Upadte Qty</h3>
-        <Dragger
+        <h3 className="mb-5" >Upadte Qty</h3>
+
+        <Dragger className="mb-6"
           multiple={false}
           onChange={(info) => handleInput(info)}
         >
@@ -349,7 +350,8 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
             uploading company data or other banned files.
           </p>
         </Dragger>
-        <div className="mt-5 downlaod-excel "
+        
+        <div className="mt-6 downlaod-excel "
         onClick={handleExportToExcel}
         >
           <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
