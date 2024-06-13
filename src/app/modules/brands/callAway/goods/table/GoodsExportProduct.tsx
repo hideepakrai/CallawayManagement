@@ -18,6 +18,8 @@ type Props = {
   excelExport: () => void;
   allGoodsData: (allData: ExcelModelTravis[]) => void
   excelAllExport: () => void
+  ppt:()=> void
+
 }
 
 const props: UploadProps = {
@@ -26,7 +28,7 @@ const props: UploadProps = {
 
 
 };
-const OgioExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport,excelAllExport }: Props) => {
+const HardGoodsExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport,excelAllExport ,ppt}: Props) => {
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -81,6 +83,10 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelEx
   const handleExportAll =() =>{
     excelAllExport()
   }
+
+  const handlePPT=()=>{
+    ppt()
+  }
   return (
     <div>
       <Modal
@@ -117,7 +123,12 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelEx
             onClick={handleExcel}
           >
             <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
-
+            <button className="export-button excel hover-scale"
+            onClick={handlePPT}
+          >
+            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>
+            Export to PPT
+        </button>
             <button className="export-button pro-btn-table hover-scale"
             // onClick={handlePdf}
             onClick={handleExportAll}
@@ -129,7 +140,7 @@ const OgioExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelEx
   )
 }
 
-export default OgioExportProduct;
+export default HardGoodsExportProduct;
 
 
 
