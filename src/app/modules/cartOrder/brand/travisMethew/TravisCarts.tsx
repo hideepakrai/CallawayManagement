@@ -944,7 +944,7 @@ const handleRejectedModalCancel=()=>{
         />}
 
         
-<TravisRejectedModel
+           <TravisRejectedModel
           isReject={isRejectedModel}
           onOkHandler={handleRejectedOk}
           handleCancel={handleRejectedModalCancel}

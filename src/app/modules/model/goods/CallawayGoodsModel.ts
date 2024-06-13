@@ -17,7 +17,7 @@ export interface BasicModelGoods {
   product_model?:string;
   life_cycle?:string;
   orientation?:string;
-      stock_90?:number,
+     // stock_90?:number,
       primary_image_url?:string,
       gallery_images_url?:string,
      category?:string,
@@ -40,7 +40,7 @@ export interface BasicModelGoods {
      NetBillings?: number;
      FinalBillValue?: number;
      error88?:string;
-     error90?:string;
+     //error90?:string;
      primaryImage?: string;
      secondaryImage?:[];
     

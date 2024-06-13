@@ -46,7 +46,6 @@ const exportGoodsProductsToExcel = ({resetExportAll}: Props) =>{
            // "season": row.season,
            // "style_code": row.style_code,
            // "color": row.color,
-           "stock_90": row.stock_90,
          "stock_88": row.stock_88,
             "gst": row.gst,
             "mrp": row.mrp,

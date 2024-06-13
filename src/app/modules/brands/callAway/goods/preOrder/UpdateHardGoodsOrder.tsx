@@ -22,11 +22,10 @@ const UpdateHardGoodsOrder = ({ resetUpdateOrder, preorderId }: Props) => {
     const ogio: BasicModelGoods[] = [];
     if (getProduct && getProduct.length > 0 &&preorderId) {
       getProduct.map((item) => {
-        if (item.ordered && item.error90 === ""  ) {
+        if (item.ordered && item.error88 === ""  ) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
-            stock_90: item.Quantity90 ? item.Quantity90 : 0,
             stock_88: item.Quantity88 ? item.Quantity88 : 0,
             //size: item.size,
             color:item.color,

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { BasicModelGoods, BasicModelGoodsGraph, ImageType } from "../../../model/goods/CallawayGoodsModel"
-
 import { getGoodsProducts, getOtherProducts,getPreOrderId,getHardGoodsRetailerDetail,getHardGoodsNote } from "../../../../slice/allProducts/CallAwayGoodsSlice"
 import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
 import { getRetailerDetails } from "../../../../slice/orderSlice/callawayGoods/HardGoodsOrderDetail"
-
 import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
-import { CreateOrder } from '../../orderApi/OrderAPi';
-
+import { CreateOrder, UpdateOrder } from '../../orderApi/OrderAPi';
 import GetAllorder from '../../../orderPage/GetAllorder';
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 
@@ -19,13 +16,13 @@ type Props = {
   discountType: string;
   discountValue: number;
   resetSubmitOrder: () => void,
-  note: string,
+  //note: string,
   
   totalAmount:number,
   discountAmount:number
 }
 
-const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder, note,totalAmount,discountAmount }: Props) => {
+const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder, totalAmount,discountAmount }: Props) => {
   const getProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")
@@ -39,6 +36,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
 
   const [salesRepId, setSalesRepId]= useState<number>(0)
   useEffect(()=>{
+
     if(getAllUsers &&getAllUsers){
       getAllUsers.map(item=>{
         if( item.id &&item.role==="Sales Representative"){
@@ -84,7 +82,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
     const ogio: BasicModelGoods[] = [];
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
-        if (item.ordered &&  item.error90 === "" ) {
+        if (item.ordered &&  item.error88 === "" ) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -106,6 +104,8 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
+    // eslint-disable-next-line no-debugger
+    //debugger
 
 
 
@@ -117,7 +117,6 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
       discountValue &&
       discountType &&
       totalAmount&&
-      brandId &&
       getPreOrderIds &&
                        
       getHardGoodsNotes
@@ -136,7 +135,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
     const now = new Date();
     const formattedTimestamp = now.toISOString();
 
-    if (Array.isArray(allHardGoodsOrders) && orderId) {
+    if (Array.isArray(allHardGoodsOrders)) {
       const   retailer_details={
         name:getHardGoodsRetailerDetails.name,
         gstin:getHardGoodsRetailerDetails.gstin,
@@ -161,7 +160,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
         id: getPreOrderIds,
         order_date: formattedTimestamp,
         note: JSON.stringify(getHardGoodsNotes),
-        brand_id: brandId,
+        brand_id: 1,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allHardGoodsOrders),
         discount_type: discountType,
@@ -195,15 +194,17 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
   }
 
 
-  const [orderId, setOrderId] = useState<number>(0)
+ // const [orderId, setOrderId] = useState<number>(0)
   const [reLoadUserAccount, setReloadUserAccount] = useState(false)
   const createOrder = async (data: CartModel) => {
     try {
-      const response = await CreateOrder(data);
+      const response = await UpdateOrder(data);
+      if (response) {
+        //setReloadUserAccount(true)
+        setIsOrder(true)
+      }
 
 
-      setReloadUserAccount(true)
-      setIsOrder(true)
     }
     catch (err) {
       dispatch(LoadingStop())

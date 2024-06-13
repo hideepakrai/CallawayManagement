@@ -24,6 +24,7 @@ import GoodsUpdateQtyDb from '../excel/importExcel/GoodsUpdateQtyDb';
 import Loading from '../../../../loading/Loading';
 import HardGoodsExcelUploadDb from '../excel/importExcel/ExcelUploadDB';
 import PreOrder from '../preOrder/PreOrder';
+import { render } from 'react-dom';
 
 
 
@@ -352,7 +353,9 @@ const GooodsTable = () => {
       key: "stock_88",
       width: 110,
       fixed: 'right',
+
       render: (value, record) => (
+        
 
 
         <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">

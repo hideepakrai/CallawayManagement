@@ -62,7 +62,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         } else if (getActiveOrdertabs==="Ogio" &&getPregressStepsogio){
             setCurrent(getPregressStepsogio)
         } 
-         else if (getActiveOrdertabs==="hardgoods" &&getPregressStepshard){
+         else if (getActiveOrdertabs==="hardgood" &&getPregressStepshard){
             setCurrent(getPregressStepshard)
             //setCurrentOgio(getPregressStepsogio)
         
@@ -73,8 +73,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         }
         
 
-    },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getPregressStepshard])
-   
+    },[getActiveOrdertabs,getPregressStepstravis,getPregressStepsogio,getPregressStepshard,getApparelProgresss])
   
 
     const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (

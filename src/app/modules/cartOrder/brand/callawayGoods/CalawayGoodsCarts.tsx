@@ -14,8 +14,18 @@ import CartHeader from '../../CartHeader';
 
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel';
-import { getGoodsProducts, updateQuantity90 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount} from '../../../../slice/allProducts/CallAwayGoodsSlice';
+import { getGoodsProducts, updateQuantity90 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount, resetHardGoodsOrder, addPreOrderId} from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import CallawaySubmitOrder from './CallawaySubmitOrder';
+import GetCallawayGoodsProduct from '../../../../api/allProduct/callaway/goods/GetCallAWayGoods';
+import SubmitModel from './SubmitModel';
+import CallawayUpdateOrderToDB from './CallawayUpdateOrderToDB';
+import HardGoodsApproveModel from './CalawayGoodsApproveModel';
+import ApproveOrderHardGoods from './ApproveOrderHardGoods';
+import HardGoodsRejectedModel from './HardGoodsRejectedModel';
+import RejectOrderHardGoods from './RejectOrderHardGoods';
+import HardGoodsCompleteModel from './HardGoodsCompleteModel';
+import CompletedHardGoods from './CompletedOrderHardGoods';
+import Note from '../../Note';
 const CalawayGoodsCarts = () => {
 
   const tableRef = useRef(null);
@@ -46,16 +56,17 @@ const CalawayGoodsCarts = () => {
     }
   }, [getLoadings])
   const [allOrder, setAllorder] = useState<BasicModelGoods[]>([])
-  console.log("allh",allOrder)
   useEffect(() => {
+    console.log("allh",allOrder)
+
    
 // eslint-disable-next-line no-debugger
-debugger
+//debugger
     const order: BasicModelGoods[] = []
     if (getGoodsProduct && getGoodsProduct.length > 0) {
 
       getGoodsProduct.map(item => {
-        if (item.ordered && item.error90 === "") {
+        if (item.ordered && item.error88 === "") {
           order.push(item)
 
         }
@@ -247,21 +258,23 @@ debugger
 
 
 
-
-
-
-
-
-
- // const handleRefetch = () => { }
-
-  const handleRejectOrder = () => { }
-
   const [isNote, setIsnote] = useState<boolean>(false)
 
   const handleNote = () => {
     setIsnote(true)
    }
+
+
+   const handleCancelNote = () => {
+    setIsnote(false)
+  }
+
+  const handleOkNote = () => {
+  
+   
+    // setNotes(JSON.stringify(note))
+    setIsnote(false)
+  }
 
   //const hanldeSubmitOrder = () => { }
 
@@ -352,12 +365,7 @@ debugger
 
   };
 
-  const handleApproveOrder = () => {
-  }
-  // complete order
-  const handleCompletedOrder = () => {
-
-  }
+ 
   const handleCheckRetailerDetail = () =>{
     console.log( "hardheck1",getHardGoodsRetailerDetails)
     if(getHardGoodsRetailerDetails && getHardGoodsRetailerDetails.length == 0)
@@ -407,6 +415,14 @@ debugger
      console.log("submited")
     
    }
+   const handleSumbitOk=() => {
+    setIsSubmitModel(false)
+
+    setIsSubmitOrder(true)
+  }
+  const handleSumbitCancel=() => {
+    setIsSubmitModel(false)
+  }
 
   const handleResetSubmitOrder = () => {
     setIsSubmitOrder(false)
@@ -417,6 +433,31 @@ debugger
 
 
   }
+
+  const handleUpdateStrapi = (message: string) => {
+    setIsUpdateStrapi(false)
+    setIsUpdateRedux(true)
+    if (message === "") {
+      messageApi.info('some went wrong');
+      // alert("some went wrong")
+      dispatch(updateProgressStep({
+        progressStep: 1
+  
+      }))
+    }
+    else if (message != ``) {
+      alert(message)
+      //messageApi.info(message);
+      dispatch(updateProgressStep({
+        progressStep: 2
+  
+      }))
+    }
+
+   
+    dispatch(LoadingStop())
+  }
+
 
   
   // submit for review
@@ -495,6 +536,107 @@ debugger
       }))
     }
   }
+
+
+  // Approve order
+  const [message, setMessages] = useState<string>("")
+  const [messageType, setMessagesType] = useState<string>("")
+  const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
+  const [isApproveModel, setIsApproveModel] = useState<boolean>(false)
+  const [isCompletedModel, setIsCompletedModel] = useState<boolean>(false)
+  const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
+  const [isRejectedModel, setIsRejectedModel] = useState<boolean>(false)
+  const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
+  const [statusUpdate, setStatusUpdate] = useState<string>("")
+  const handleApproveOk=()=>{
+    setIsApproveModel(false)
+    
+    setIsStatusUpdate(true)
+    setStatusUpdate("Approved")
+    dispatch(LoadingStart())
+  }
+const handleApproveModalCancel=()=>{
+  setIsApproveModel(false)
+}
+
+  const handleApproveOrder = () => {
+   
+  setIsApproveModel(true)
+  }
+
+  const handleResetStatus = (status: string) => {
+    if (status === "Approved") {
+      dispatch(updateProgressStep({
+        progressStep: 3
+
+      }))
+
+    }
+    setIsStatusUpdate(false)
+    dispatch(LoadingStop())
+  }
+
+
+ 
+  // reject order
+const handleRejectedOk=()=>{
+  setIsRejectedorder(true)
+  setIsRejectedModel(false)
+  dispatch(LoadingStart())
+}
+const handleRejectedModalCancel=()=>{
+  setIsRejectedModel(false)
+}
+
+  const handleRejectOrder = () => {
+    setIsRejectedModel(true)
+  }
+
+  const handleResetRejectedOrder = () => {
+    setIsRejectedorder(false)
+    dispatch(LoadingStop())
+    messageApi.info('Your order is rejected');
+    //alert("Your order is rejected")
+    dispatch(resetHardGoodsOrder())
+
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
+    dispatch(addPreOrderId({
+      preOrderId:0
+    }))
+  }
+
+
+   const handleCompltedOk=()=>{
+ setIsCompletedModel(false)
+ setIsCompletedorder(true)
+ dispatch(LoadingStart())
+   }
+
+  const handleCompletedOrder = () => {
+    setIsCompletedModel(true)
+   
+  }
+  const handleCompltedModalCancel=()=>{
+    setIsCompletedModel(false)
+  }
+
+  const handleResetCompletedOrder = () => {
+    setIsCompletedorder(false)
+    dispatch(LoadingStop())
+    dispatch(updateProgressStep({
+      progressStep: 4
+
+    }))
+
+    dispatch(resetHardGoodsOrder())
+    alert("Your order is suceessfully completed")
+    // messageApi.info('Your order is suceessfully completed');
+
+  }
+  
 
   return (
     <div>
@@ -627,7 +769,15 @@ debugger
         )}
       />
 
-
+{isRefetch && <GetCallawayGoodsProduct
+        resetGoods={handleResetRefetch}
+  />}
+  
+<SubmitModel
+      isSubmit={isSubmitModel}
+      onOkHandler={handleSumbitOk}
+      handleCancel={handleSumbitCancel}
+      />
 { isSubmitOrder &&
 <CallawaySubmitOrder
         totalNetBillAmount={totalNetBillAmount ?? 0}
@@ -636,8 +786,64 @@ debugger
         resetSubmitOrder={handleResetSubmitOrder}
         discountAmount={discountAmount ?? 0}
         totalAmount={totalAmount ?? 0} 
-        note={''}      />
+             />
 }
+
+
+
+{isUpdateStrapi &&
+        <CallawayUpdateOrderToDB
+          resetUpdateData={handleUpdateStrapi}
+        />} 
+
+ {/* Approve modal */}
+          <HardGoodsApproveModel
+          isApprove={isApproveModel}
+          onOkHandler={handleApproveOk}
+          handleCancel={handleApproveModalCancel}
+
+          />
+          {/* approve order */}
+      {isstatusUpdate && <ApproveOrderHardGoods
+        resetStatus={handleResetStatus}
+        statusUpdate={statusUpdate} />}
+
+         {/* reject order */}
+
+      {isRejectedorder &&
+        <RejectOrderHardGoods
+          resetReject={handleResetRejectedOrder}
+        />}
+
+<HardGoodsRejectedModel
+          isReject={isRejectedModel}
+          onOkHandler={handleRejectedOk}
+          handleCancel={handleRejectedModalCancel}
+
+          />
+
+           {/* completed modal */}
+       <HardGoodsCompleteModel
+          iscompleted={isCompletedModel}
+          onOkHandler={handleCompltedOk}
+          handleCancel={handleCompltedModalCancel}
+
+          />
+          
+            {isCompletedorder && <CompletedHardGoods
+        resetCompleted={handleResetCompletedOrder}
+
+      />} 
+     
+     <Note
+        isModalOpen={isNote}
+        handleOk={handleOkNote}
+        handleCancel={handleCancelNote}
+      />
+
+
+
+
     </div>
   )
 }

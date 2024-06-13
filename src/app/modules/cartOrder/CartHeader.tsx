@@ -59,6 +59,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [isHard, setIsHard] = useState<boolean>(false)
   console.log("cardheader")
     useEffect(()=>{
+        
         if(getUserProfiles && getUserProfiles.length > 0){
             getUserProfiles.map(item=>{
                 if(item.role==="Sales Representative"){
@@ -111,6 +112,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
   const getActiveOrdertabs= useSelector(getActiveOrdertab)
     const getUserAccounts = useSelector(getUserAccount)
     const handleChange = (value: number) => {
+       
         const allData = getUserRetailers?.filter(retailer => retailer.id == value)
         if (allData &&
             allData.length > 0 &&
@@ -153,7 +155,9 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                 }))
                 setIsApparel(true)
             }
+    
             else   if(getActiveOrdertabs==="hardgood"){
+                //console.log("addhard",addHardGoodsReatailerDetails)
                 dispatch(addHardGoodsReatailerDetails({
                     retailerDetails:allData[0]
                 }))
@@ -191,7 +195,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     setRetailerId(null)
     setRetailerName("")
     // eslint-disable-next-line no-debugger
-    debugger
+   // debugger
 if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails ){
 
     console.log("getTravisRetailerDetails",getTravisRetailerDetails)
@@ -230,7 +234,7 @@ if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails ){
 
 }
 
-else if(getActiveOrdertabs==='Hardgood' &&getHardGoodsRetailerDetails ){
+else if(getActiveOrdertabs==='hardgood' && getHardGoodsRetailerDetails ){
 
     console.log("getHardRetailerDetails",getHardGoodsRetailerDetails)
      if(getHardGoodsRetailerDetails.address &&
@@ -286,8 +290,7 @@ else {
     const handleResetOgioAddress=()=>{
         setIsOgio(false)
     }
-// eslint-disable-next-line no-debugger
-//debugger
+
     const handleResetHardGoodsAddress=()=>{
         setIsHard(false)
     }
