@@ -74,7 +74,7 @@ const OgioCart = () => {
       // title: "Image",
       dataIndex: "PrimaryImage",
       // fixed: "left",
-      width: 50,
+      width: 60,
       render: (value,record) => <OgioGallery record={record} />,
     },
 
@@ -397,7 +397,7 @@ const OgioCart = () => {
       title: "FinalBillValue",
       dataIndex: "FinalBillValue",
       key: "FinalBillValue",
-      width: 100,
+      width: 110,
       // fixed:'right'
     },
 

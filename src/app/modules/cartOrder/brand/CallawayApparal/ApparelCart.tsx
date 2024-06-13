@@ -24,6 +24,7 @@ import ApparelApproveModel from './approve/ApparelApproveModal';
 import ApparelApproveOrder from './approve/ApparelApproveOrder';
 import ApparelCompleteModel from './completeOrder/ApparelCompleteModal';
 import ApparelCompletedOrder from './completeOrder/ApparelcompleteOrder';
+import { NoProdect } from '../../NoProdect';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -771,7 +772,9 @@ const handleOkNote = () => {
 
         />}
 
-      <Table className='card-table-travis cart-table-profile mt-12 mb-5'
+     {allApparel &&
+        allApparel.length > 0 ?
+      (<Table className='card-table-travis cart-table-profile mt-12 mb-5'
         ref={tableRef}
         columns={columns}
         dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
@@ -802,7 +805,7 @@ const handleOkNote = () => {
                   placeholder="Select discount"
                   optionFilterProp="children"
                   onChange={handleDiscount}
-
+                  // defaultValue="Inclusive" 
 
                   options={[
                     {
@@ -862,11 +865,13 @@ const handleOkNote = () => {
                 ₹{discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
               </h4>
 
+
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "10px", background: "#f1f1f1" }}>
                 {" "}
-                <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
+                <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill: </a>
                 ₹{totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
               </h4>
+
 
 
 
@@ -877,7 +882,10 @@ const handleOkNote = () => {
 
           </div>
         )}
-      />
+      />) 
+      : (<NoProdect/>)
+      
+      }
 
           {/*check availablity by getting all apparael qty  */}
           {isRefetch && <GetAllApparelProducts

@@ -16,6 +16,7 @@ import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel';
 import { getGoodsProducts, updateQuantity90 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount} from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import CallawaySubmitOrder from './CallawaySubmitOrder';
+import { NoProdect } from '../../NoProdect';
 const CalawayGoodsCarts = () => {
 
   const tableRef = useRef(null);
@@ -505,6 +506,7 @@ debugger
         allOrder.length > 0 &&
         <CartHeader
 
+
           reviewOrder={handleRefetch}
           approveorder={handleApproveOrder}
           submitOrder={hanldeSubmitOrder}
@@ -515,7 +517,9 @@ debugger
 
         />}
 
-      <Table className='card-table-travis cart-table-profile mt-12 mb-5'
+      { allOrder &&
+        allOrder.length > 0 ?
+       ( <Table className='card-table-travis cart-table-profile mt-12 mb-5'
         ref={tableRef}
         columns={columns}
         dataSource={allOrder?.map((item) => ({ ...item, key: item?.sku }))}
@@ -623,7 +627,10 @@ debugger
 
           </div>
         )}
-      />
+      /> )
+      :(<NoProdect/>)
+    
+    }
 
 
 { isSubmitOrder &&
