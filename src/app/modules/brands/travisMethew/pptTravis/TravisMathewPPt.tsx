@@ -21,13 +21,13 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
         selectedRowVartionSku.forEach((item) => {
           const slide = pptx.addSlide();
           // Add image to slide
-          // // slide.addImage({
-        //   // //   path: `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/${item.family}/${item.primary_image_url}`,
-          // //   x: 0.5,
-          // //   y: 0.5,
-          // //   w: 2,
-          // //   h: 2,
-          // // });
+          // slide.addImage({
+          // //   path: `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/${item.family}/${item.primary_image_url}`,
+          //   x: 0.5,
+          //   y: 0.5,
+          //   w: 2,
+          //   h: 2,
+          // });
 
         if(item.otherInfo){
             const tableData2 = [
@@ -38,10 +38,10 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
                 // [{ text: 'style_id', options: { bold: true } }, { text: item.otherInfo.style_code }],
                 [
                   { text: 'Category', options: { bold: true } },
-                  { text: 'color', options: { bold: true } },
-                  { text: 'gender', options: { bold: true } },
-                  { text: 'season', options: { bold: true } },
-                  { text: 'style_id', options: { bold: true } }
+                  { text: 'Color', options: { bold: true } },
+                  { text: 'Gender', options: { bold: true } },
+                  { text: 'Season', options: { bold: true } },
+                  { text: 'Style_Id', options: { bold: true } }
 
 
                 ],
@@ -57,10 +57,10 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
                 ]
               ] as (string | { text: string; options?: { bold?: boolean } })[][];
               slide.addTable(tableData2, {
-                x: 2,
-                y: 1,
-                w: 5,
-                colW: [1,1,1,1,1],
+                x: 0.5,
+                y: 0.5,
+                w: 9,  // Adjust this value to ensure the table width is properly set
+                colW: [1.8, 1.8, 1.8, 1.8, 1.8],  // Ensure these values are equal for proper alignment
                 border: { pt: 1, color: '000000' },
                 fill: 'F1F1F1',
                 fontSize: 12,
@@ -93,10 +93,10 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
              
   
               slide.addTable(tableData, {
-                x: 2,
-                y: 0.5,
-                w: 5,
-                colW: [0.5,0.5,0.5,0.5],
+                x: 0.5,
+                y: 1.5,  // Adjust the Y position to avoid overlap with the previous table
+                w: 9,  // Adjust this value to ensure the table width is properly set
+                colW: [2.25, 2.25, 2.25, 2.25],  // Ensure these values are equal for proper alignment
                 border: { pt: 1, color: '000000' },
                 fill: 'F1F1F1',
                 fontSize: 12,
