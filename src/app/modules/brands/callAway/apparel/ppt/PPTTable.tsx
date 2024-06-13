@@ -13,11 +13,11 @@ const PPTTable = ({ eachItem }: Props) => {
 
 
 
-<div className='row product-img-callaway'>
+{/* <div className='row product-img-callaway'> */}
   
-        <div className='col-6 p-0' >
+        {/* <div className='col-6 p-0' >
           <img style={{width:"100%",}} src='https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/1MZ247_0BLK/1MZ247_0BLK_A.jpg'></img>
-        </div>
+        </div> */}
     
       <div className='col-6'
         style={{
@@ -28,7 +28,7 @@ const PPTTable = ({ eachItem }: Props) => {
         }}
       >
 
-<Ppttable/>
+{/* <Ppttable/> */}
         <table className='gy-5'
           style={{
             border: "2px solid #ddd",
@@ -107,7 +107,7 @@ const PPTTable = ({ eachItem }: Props) => {
 
       </div>
 
-      </div>
+      {/* </div> */}
     </>
   )
 }

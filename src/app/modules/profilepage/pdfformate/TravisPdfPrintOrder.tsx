@@ -4,11 +4,12 @@ import { useReactToPrint } from 'react-to-print';
 import { BasicModelTravis } from '../../model/travis/TravisMethewModel';
 import { AccountOrder } from '../../model/CartOrder/CartModel';
 import {useSelector} from "react-redux";
-import BrandLogo from "../../../../../public/media/logos/travis-white.png";
+// import BrandLogo from "../../../../../public/media/logos/travis-white.png";
 import { getCurrentUser, getUserProfile } from '../../../slice/UserSlice/UserSlice';
 import {RetailerModel} from "../../model/AccountType/retailer/RetailerModel"
-
 // import BrandLogo from "../../../../../../../BrandLogopublic/media/logos/logo-white.png"
+import BrandLogo from "../../../../../public/media/logos/logo-white.png"
+import "./TravisPdfPrintOrder.css"
 type Props={
     recordPdf:AccountOrder;
     resetTravisPdf:()=>void;
@@ -139,11 +140,12 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
     
       });
 
-      useEffect(()=>{
+       useEffect(()=>{
         if(alldata && alldata.length > 0){
           handlePrint(null, () => contentToPrint.current);
         }
       },[alldata])
+
   return (
    
     <div>
@@ -156,7 +158,7 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
 
     <Card className="padf" style={{ marginTop: "10px", backgroundColor: "#f8f8f8" }}>
 
-      <div className=" ant-card ant-card-bordered gx-card mt-6" 
+      <div className=" ant-card ant-card-bordered gx-card " 
       ref={contentToPrint}
        >
         <div className="ant-card-body">
@@ -164,10 +166,10 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
        
         <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
           <div className="col-7 text-end ">
-            {/* <img className="pdf-image" width={200} src={BrandLogo}></img> */}
+            <img className="pdf-image user-barnd-image" width={200} src={BrandLogo}></img>
           </div>
-          <div className="col-5 text-end px-6">
-            <h2 className="text-white pdf-title">ORDER PDF</h2>
+          <div className="col-5 text-end px-6 text-white">
+            <h2 className="text-white pdf-title">ORDER PDF </h2>
           </div>
           </div>
 
@@ -181,10 +183,10 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
             <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN: </span>
             <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> 
             {recordPdf.retailer_gstin}
-             <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
+             <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer mx-2"></i></p>
           </div>
 
-          <div className="user-address pt-2 d-flex">
+          {/* <div className="user-address pt-2 d-flex">
             <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:
             
              </span>
@@ -192,7 +194,7 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
           {recordPdf.retailer_phone}
               
             </p>
-          </div>
+          </div> */}
 
           <div className="user-address pt-2 ">
             <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>

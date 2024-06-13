@@ -27,7 +27,12 @@ const ApparelPPt = ({ selectedRow, resetPPt }: Props) => {
 
 
   const handleExportPPT = () => {
-    // eslint-disable-next-line no-debugger
+    console.log("ppt page")
+    const pptx = new PptxGenJS();
+
+    pptx.tableToSlides("tabAutoPaging", { x: 1, y: 0.5, w: 5 });
+
+    pptx.writeFile({ fileName: 'Apparel_Presentation.pptx' });
 
   };
 
@@ -35,44 +40,48 @@ const ApparelPPt = ({ selectedRow, resetPPt }: Props) => {
 
   return (
     <div>
-      <Card  id="tableContainer" className='ppt-section' ref={tableRef} style={{ width: "1046px",  margin:"20px auto" }}>
+      <Card title="Default category card" style={{ width: 700 }}>
+        <div>
+        <table id="tabAutoPaging">
+        <thead>
+    <tr>
+      <th ></th>
+      <th > </th>
+      
+    </tr>
+  </thead>
+  <tbody>
+  {selectedPPTdata.map((item, index) => (
+    <tr key={index}>
+      <td><img src={callawayimg} style={{ width: 100, height: 100 }} /></td>
+      <td>
+        <tr>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <PPTTable 
+                  eachItem={item}/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </tr>
+      </td>
+    </tr>
+    
+  ))}
 
-        <div className='mb-18 row ppt-sec' style={{ textAlign: 'center', height: "585px", backgroundColor: "#000", paddingTop: "50px", }}>
-
-          <div className='right-section '>
-            <div >
-              <img style={{ width: "200px", paddingTop: "60px" }} src={CallawLogo}></img>
-            </div>
-            <h2 className='brand-title' style={{ paddingTop: "40px", paddingBottom: "40px", fontSize: "40px", color: "#fff", fontWeight: "500", letterSpacing: "4px", }}>Callaway Golf Company</h2>
-            <p style={{ fontSize: "18px", paddingLeft: "30px", color: "#fff", paddingRight: "30px", fontWeight: "100", }}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-            </p>
-          </div>
-
-{/* <div className='left-section col-4'>
-  <img src={callawayimg}></img>
-</div> */}
-        </div>
-
-        <div  >
-          {selectedPPTdata &&
-            selectedPPTdata.length > 0 &&
-            selectedPPTdata.map((item) => {
-              return (
-
-                < PPTTable
-                  key={item.sku}
-                  eachItem={item}
-
-                />
-              )
-            })}
-          <Button onClick={handleExportPPT} type="primary" style={{ marginTop: 20 }}>
+  </tbody>
+          
+              </table>
+              </div>
+              <Button onClick={handleExportPPT} type="primary" style={{ marginTop: 20 }}>
             Export to PPT
           </Button>
-        </div>
-      </Card>
-    </div>
+          </Card>
+          </div>
+
   );
 };
 

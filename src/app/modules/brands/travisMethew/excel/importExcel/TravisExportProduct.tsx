@@ -23,7 +23,7 @@ type Props = {
   excelExport: () => void;
   allGoodsData: (allData: ExcelModelTravis[]) => void
   excelAllExport: () => void
-
+  ppt:()=> void
   
 }
 
@@ -33,38 +33,13 @@ const props: UploadProps = {
 
 
 };
-const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport ,excelAllExport}: Props) => {
+const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excelExport ,excelAllExport,ppt}: Props) => {
   const [allXlxData, setAllXlxData] = useState<ExcelModelTravis[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
 
   // handle input xls
-  const handleInput = (info: UploadChangeParam) => {
-
-    const file = info.file.originFileObj;
-    if (!file || file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-      message.error('You can only upload Excel files!');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const data = e.target?.result as string;
-
-
-      const workbook = XLSX.read(data, { type: 'binary' });
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json<ExcelModelTravis>(worksheet) as ExcelModelTravis[];
-      setAllXlxData(jsonData)
-      setLoading(false);
-    };
-    reader.onerror = () => {
-      message.error("File reading failed!");
-      setLoading(false);
-    };
-    reader.readAsBinaryString(file);
-    // 
-  }
+ 
 
   const handleOk = () => {
     //setIsModalOpen(false);
@@ -90,7 +65,9 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excel
 
  
 
-
+const handlePPT=()=>{
+  ppt()
+}
   
   
   return (
@@ -130,6 +107,12 @@ const TravisExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, excel
           >
             <i className="bi bi-file-earmark-spreadsheet fs-2"></i>
             Export to Excel
+        </button>
+          <button className="export-button excel hover-scale"
+            onClick={handlePPT}
+          >
+            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>
+            Export to PPT
         </button>
 
             <button className="export-button pro-btn-table hover-scale"

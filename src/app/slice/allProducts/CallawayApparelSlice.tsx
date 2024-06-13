@@ -272,15 +272,15 @@ const CallawayGoodsSlice = createSlice({
             state.callawayApparel[goodsIndex].Quantity88 = qty88;
             const quantity88 = state.callawayApparel[goodsIndex]?.Quantity88 ?? 0;
             const quantity90 = state.callawayApparel[goodsIndex]?.Quantity90 ?? 0;
-            const total=quantity88+quantity90;
-            state.callawayApparel[goodsIndex].TotalQty = quantity88+quantity90;
+            const total=qty88+quantity90;
+            state.callawayApparel[goodsIndex].TotalQty = total;
 
             //const totalQty = state.callawayApparel[goodsIndex]?.TotalQty ?? 0;
-            state.callawayApparel[goodsIndex].Amount = MRP*(quantity88+quantity90)
+            state.callawayApparel[goodsIndex].Amount = MRP*(total)
             state.callawayApparel[goodsIndex].ordered = true;
             const gst=state.callawayApparel[goodsIndex].gst;
             const mrp=state.callawayApparel[goodsIndex].mrp;
-            const amount=state.callawayApparel[goodsIndex].Amount;
+            const amount=MRP*(total)
             if(mrp &&gst && amount){
              const gstdiscount = parseFloat((amount - ((100 * amount) / (100 + gst))).toFixed(2));
 

@@ -48,6 +48,9 @@ import Loading from '../../../loading/Loading';
 
 import { addTravisReatailerDetails, getTravisRetailerDetail } from "../../../../slice/allProducts/TravisMethewSlice";
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
+import TravisMathewPPt from '../pptTravis/TravisMathewPPt';
+
+
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -1348,9 +1351,21 @@ const [isExportAll, setIsExportAll] = useState<boolean>(false)
     setIsExportAll(false)
   }
 
+const [isPPT, setIsPPt]= useState<boolean>(false)
+ const handlePPT=()=>{
+  setIsPPt(true)
+ }
 
- 
 
+ const handleResetPPT=()=>{
+  setIsPPt(false)
+  setIsProduct(false)
+  setSelectedRowKeys([]);
+    setSelectedRow([])
+    setIspdf(false)
+    setSelectedRowVartionSku([])
+
+ }
   return (
     <div className='container'>
 
@@ -1479,6 +1494,7 @@ const [isExportAll, setIsExportAll] = useState<boolean>(false)
         printPdf={handleShowPdf}
         excelExport={handleDownloadExcel}
         excelAllExport={handleDownloadAllExcel}
+        ppt={handlePPT}
       />
 
       <TravisExcelUploadDB
@@ -1491,6 +1507,13 @@ const [isExportAll, setIsExportAll] = useState<boolean>(false)
         resetSelectedRow={handleResetSelectedRow}
       />}
 
+
+{isPPT &&
+<TravisMathewPPt
+selectedRowVartionSku={selectedRowVartionSku}
+resetPPT={handleResetPPT}
+/>
+}
 
       {isStartSearch &&
         <UploadTravisImages

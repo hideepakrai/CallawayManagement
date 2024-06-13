@@ -24,6 +24,7 @@ import ApparelApproveModel from './approve/ApparelApproveModal';
 import ApparelApproveOrder from './approve/ApparelApproveOrder';
 import ApparelCompleteModel from './completeOrder/ApparelCompleteModal';
 import ApparelCompletedOrder from './completeOrder/ApparelcompleteOrder';
+import { NoProdect } from '../../NoProdect';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -278,6 +279,48 @@ const CallawayApparelCarts = () => {
       key: "Amount",
       width: 100,
       fixed: 'right'
+    },
+    {
+      title: "GST",
+      dataIndex: "gst",
+      key: "gst",
+      width: 100,
+      fixed: 'right'
+    },
+    {
+      title: "LessGST",
+      dataIndex: "LessGST",
+      key: "LessGST",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "Discount",
+      dataIndex: "Discount",
+      key: "Discount",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "LessDiscountAmount",
+      dataIndex: "LessDiscountAmount",
+      key: "LessDiscountAmount",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "NetBillings",
+      dataIndex: "NetBillings",
+      key: "NetBillings",
+      width: 100,
+      // fixed:'right'
+    },
+    {
+      title: "FinalBillValue",
+      dataIndex: "FinalBillValue",
+      key: "FinalBillValue",
+      width: 100,
+      // fixed:'right'
     },
 
 
@@ -729,7 +772,9 @@ const handleOkNote = () => {
 
         />}
 
-      <Table className='card-table-travis cart-table-profile'
+     {allApparel &&
+        allApparel.length > 0 ?
+      (<Table className='card-table-travis cart-table-profile mt-12 mb-5'
         ref={tableRef}
         columns={columns}
         dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
@@ -741,10 +786,7 @@ const handleOkNote = () => {
         size="middle"
         scroll={{ x: "100%", y: "auto" }}
 
-        pagination={{
-          position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-          defaultPageSize: 20
-        }}
+        pagination={false}
         footer={() => (
           <div
             style={{
@@ -763,7 +805,7 @@ const handleOkNote = () => {
                   placeholder="Select discount"
                   optionFilterProp="children"
                   onChange={handleDiscount}
-
+                  // defaultValue="Inclusive" 
 
                   options={[
                     {
@@ -814,20 +856,22 @@ const handleOkNote = () => {
 
               <h4 style={{ borderBottom: "1px solid #ddd", fontSize: "14px", paddingBottom: "10px", paddingTop: "2px" }}>
                 {" "}
-                <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> {totalAmount}
+                <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> ₹{totalAmount}
               </h4>
 
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "2px", margin: "0" }}>
                 {" "}
                 <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount:</a>
-                {discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
+                ₹{discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
               </h4>
+
 
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "10px", background: "#f1f1f1" }}>
                 {" "}
-                <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
-                {totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
+                <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill: </a>
+                ₹{totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
               </h4>
+
 
 
 
@@ -838,7 +882,10 @@ const handleOkNote = () => {
 
           </div>
         )}
-      />
+      />) 
+      : (<NoProdect/>)
+      
+      }
 
           {/*check availablity by getting all apparael qty  */}
           {isRefetch && <GetAllApparelProducts

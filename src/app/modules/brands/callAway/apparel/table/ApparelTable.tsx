@@ -802,7 +802,7 @@ setIsProduct(false)
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
               //  onClick={handleProduct} 
               onClick={handleProduct}
-            > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products</Button>
+            > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Export Product</Button>
 
 
 

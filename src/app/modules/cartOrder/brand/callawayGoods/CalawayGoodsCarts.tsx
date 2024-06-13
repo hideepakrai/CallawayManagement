@@ -16,6 +16,7 @@ import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel';
 import { getGoodsProducts, updateQuantity90 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount, resetHardGoodsOrder, addPreOrderId} from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import CallawaySubmitOrder from './CallawaySubmitOrder';
+
 import GetCallawayGoodsProduct from '../../../../api/allProduct/callaway/goods/GetCallAWayGoods';
 import SubmitModel from './SubmitModel';
 import CallawayUpdateOrderToDB from './CallawayUpdateOrderToDB';
@@ -26,6 +27,9 @@ import RejectOrderHardGoods from './RejectOrderHardGoods';
 import HardGoodsCompleteModel from './HardGoodsCompleteModel';
 import CompletedHardGoods from './CompletedOrderHardGoods';
 import Note from '../../Note';
+
+import { NoProdect } from '../../NoProdect';
+
 const CalawayGoodsCarts = () => {
 
   const tableRef = useRef(null);
@@ -647,6 +651,7 @@ const handleRejectedModalCancel=()=>{
         allOrder.length > 0 &&
         <CartHeader
 
+
           reviewOrder={handleRefetch}
           approveorder={handleApproveOrder}
           submitOrder={hanldeSubmitOrder}
@@ -657,7 +662,9 @@ const handleRejectedModalCancel=()=>{
 
         />}
 
-      <Table className='card-table-travis cart-table-profile'
+      { allOrder &&
+        allOrder.length > 0 ?
+       ( <Table className='card-table-travis cart-table-profile mt-12 mb-5'
         ref={tableRef}
         columns={columns}
         dataSource={allOrder?.map((item) => ({ ...item, key: item?.sku }))}
@@ -669,10 +676,8 @@ const handleRejectedModalCancel=()=>{
         size="middle"
         scroll={{ x: "100%", y: "auto" }}
 
-        pagination={{
-          position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-          defaultPageSize: 20
-        }}
+        pagination={false}
+
         footer={() => (
           <div
             style={{
@@ -743,19 +748,19 @@ const handleRejectedModalCancel=()=>{
 
               <h4 style={{ borderBottom: "1px solid #ddd", fontSize: "14px", paddingBottom: "10px", paddingTop: "2px" }}>
                 {" "}
-                <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> {totalAmount}
+                <a style={{ color: "#000", paddingRight: "93px", paddingLeft: "10px", }}>Sub Total:</a> ₹{totalAmount}
               </h4>
 
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "2px", margin: "0" }}>
                 {" "}
                 <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount:</a>
-                {discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
+                ₹{discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
               </h4>
 
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "10px", background: "#f1f1f1" }}>
                 {" "}
                 <a style={{ color: "#000", paddingRight: "75px", paddingLeft: "10px" }}>Total Net Bill:</a>
-                {totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
+                ₹{totalNetBillAmount !== undefined ? totalNetBillAmount.toFixed(2) : "Loading..."}
               </h4>
 
 
@@ -767,7 +772,10 @@ const handleRejectedModalCancel=()=>{
 
           </div>
         )}
-      />
+      /> )
+      :(<NoProdect/>)
+    
+    }
 
 {isRefetch && <GetCallawayGoodsProduct
         resetGoods={handleResetRefetch}

@@ -161,6 +161,7 @@ const AllPendingOrder = () => {
                                 onClick={() => handleDownload(record)}
                             ></i>
                         </Tooltip>
+                        
                         <Tooltip title="View" placement="bottom">
                             <i
                                 className="bi bi-box-arrow-up-right"
