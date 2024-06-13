@@ -33,6 +33,7 @@ import OgioProductsToExcel from '../excel/importExcel/ExportAllProduct';
 
 
 import Loading from '../../../loading/Loading';
+import OgioPPt from '../pptOgio/OgioPPt';
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -1011,6 +1012,23 @@ const OgioTable = () => {
   const handleResetExportAll=() =>{
     setIsExportAll(false)
   }
+
+
+  const [isPPT, setIsPPt]= useState<boolean>(false)
+ const handlePPT=()=>{
+  setIsPPt(true)
+ }
+
+
+ const handleResetPPT=()=>{
+  setIsPPt(false)
+  setIsProduct(false)
+  setSelectedRowKeys([]);
+    setSelectedRow([])
+    setIspdf(false)
+    setSelectedRowVartionSku([])
+
+ }
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}
@@ -1110,6 +1128,8 @@ const OgioTable = () => {
         excelExport={handleDownloadExcel}
         selectedRow={selectedRow}
         excelAllExport={handleDownloadAllExcel}
+        ppt={handlePPT}
+
 
         
       />
@@ -1156,6 +1176,12 @@ const OgioTable = () => {
      resetExportAll={handleResetExportAll}
    
    />}
+{isPPT &&
+<OgioPPt
+selectedRowVartionSku={selectedRowVartionSku}
+resetPPT={handleResetPPT}
+/>}
+
     </div>
   )
 }
