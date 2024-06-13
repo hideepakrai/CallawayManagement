@@ -545,7 +545,6 @@ const CallawayGoodsSlice = createSlice({
                     NetBillings:0,
                     FinalBillValue:0,
                     error88:"",
-                    error90:"",
                     product_type:item.product_type,
                     product_model:item.product_model,
                     orientation:item.orientation,
@@ -674,6 +673,23 @@ updateHardGoodsInclusiveDiscount:(state,action)=>{
       item.FinalBillValue = totalNetbill;
   });
 },
+resetHardGoodsOrder:(state)=>{
+  state.callawayGoods.map(item=>{
+    item.Quantity90=0;
+    item.Quantity88=0;
+    item.Amount=0;
+    item.ordered=false;
+    item.LessGST=0;
+    item.LessDiscountAmount=0;
+    item.NetBillings=0;
+    item.FinalBillValue=0;
+    item.Discount=0;
+
+  });
+  state.hardGoodsRetailerDetails=[];
+  state.otherProduct=[];
+  state.note=[]
+ }, 
 
 
           
@@ -694,6 +710,7 @@ export const {
     updaterHardGoodsExclusiveDiscount,
     updateHardGoodsInclusiveDiscount,
     updateHardGoodsFlatDiscount,
+    resetHardGoodsOrder,
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {

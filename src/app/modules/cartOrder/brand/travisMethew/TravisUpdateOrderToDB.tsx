@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOgioProducts } from '../../../../slice/allProducts/OgioSlice'
-import { UpdateStockQuantity } from '../../../brands/ogio/api/OgioAPI';
+// import { getOgioProducts } from '../../../../slice/allProducts/OgioSlice'
+// import { UpdateStockQuantity } from '../../../brands/ogio/api/OgioAPI';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
 import { getTravisProducts, getOtherProducts, updateTravisQty } from "../../../../slice/allProducts/TravisMethewSlice"
 import { UpDateTravisQty } from '../../../brands/travisMethew/api/UpdateProductData';

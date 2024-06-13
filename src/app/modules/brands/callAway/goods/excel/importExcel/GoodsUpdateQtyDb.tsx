@@ -25,8 +25,10 @@ type props = {
         if (allQtyXlxData && allQtyXlxData.length > 0){
             allQtyXlxData.map(item => {
                 const updateQuantity ={
+                    
                     sku : item.sku,
-                    stock_90: item.stock_90
+                    stock_88: item.stock_88
+                    
                 }
                 allQtData.push(updateQuantity)
             })

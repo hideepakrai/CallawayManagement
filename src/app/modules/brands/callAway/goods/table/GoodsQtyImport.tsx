@@ -106,19 +106,19 @@ const GoodsQtyImport = ({ onClose, isQtyImport, allGoodsData }: Props) => {
       brand: "HardGoods",
       sku: 'TM001',
      
-      stock_90: 100,
+      stock_88: 100,
 
 
     },
     {
       brand: "HardGoods",
       sku: 'TM002',
-      stock_90: 100,
+      stock_88: 100,
     },
     {
       brand: "HardGoods",
       sku: 'TM003',
-      stock_90: 100,
+      stock_88: 100,
     },
   ];
 

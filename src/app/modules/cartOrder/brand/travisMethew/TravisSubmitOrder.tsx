@@ -5,11 +5,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { CartModel, ProductDetails } from '../../../model/CartOrder/CartModel';
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
-import { OgioBasicModel } from '../../../model/ogio/OgioBrandModel';
 import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails"
 import { LoadingStart, LoadingStop } from '../../../../slice/loading/LoadingSlice';
 import { CreateOrder, UpdateOrder } from '../../orderApi/OrderAPi';
-
 import GetAllorder from '../../../orderPage/GetAllorder';
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 

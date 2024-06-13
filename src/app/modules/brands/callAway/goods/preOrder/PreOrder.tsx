@@ -20,7 +20,7 @@ const PreOrder = () => {
         const allpre:BasicModelGoods[]=[]
         if(getHardGoodsProduct && getHardGoodsProduct.length>0){
             getHardGoodsProduct.map(item=>{
-                if(item.ordered && item.error90===""){
+                if(item.ordered && item.error88===""){
                     allpre.push(item)
                 }
             })
@@ -30,7 +30,8 @@ const PreOrder = () => {
   const [preorderId, setPreOderId]= useState<number|null>(null)
 // check the PreOrderId and create else update order
 useEffect(()=>{
-
+// eslint-disable-next-line no-debugger
+//debugger
    
     if(getPreOrderIds===0 &&
          allPreOrderHardGoods && 

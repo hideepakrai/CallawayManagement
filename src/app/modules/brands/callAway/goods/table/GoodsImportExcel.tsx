@@ -166,7 +166,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       mrp: 50,
 
       
-      stock_90: 100,
+      stock_88: 100,
       gst: 12,
 
     },
@@ -187,7 +187,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
       
 
-      stock_90: 100,
+      stock_88: 100,
       gst: 12,
     },
     {
@@ -206,7 +206,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
       mrp: 50,
       
 
-      stock_90: 100,
+      stock_88: 100,
       gst: 12,
     },
   ];

@@ -56,7 +56,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     const hard: BasicModelGoods[] = [];
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
-        if (item.ordered  && item.error90 === "" ) {
+        if (item.ordered  && item.error88 === "" ) {
           hard.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -95,7 +95,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 
   useEffect(() => {
     // eslint-disable-next-line no-debugger
-    debugger
+    //debugger
     if (allhardGoodsOrders && 
       allhardGoodsOrders.length > 0 &&
      
