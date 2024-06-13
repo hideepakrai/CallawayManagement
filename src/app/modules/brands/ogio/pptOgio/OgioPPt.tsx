@@ -9,7 +9,7 @@ type Props={
 
 
 
-const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
+const OgioPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
     useEffect(() => {
         console.log("ppt")
       if (selectedRowVartionSku && selectedRowVartionSku.length > 0) {
@@ -21,13 +21,13 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
         selectedRowVartionSku.forEach((item) => {
           const slide = pptx.addSlide();
           // Add image to slide
-          // // slide.addImage({
-        //   // //   path: `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/${item.family}/${item.primary_image_url}`,
-          // //   x: 0.5,
-          // //   y: 0.5,
-          // //   w: 2,
-          // //   h: 2,
-          // // });
+          // slide.addImage({
+          //   path: `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/${item.family}/${item.primary_image_url}`,
+          //   x: 0.5,
+          //   y: 0.5,
+          //   w: 2,
+          //   h: 2,
+          // });
 
         if(item.otherInfo){
             const tableData2 = [
@@ -73,7 +73,7 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
           }
         });
   
-        pptx.writeFile({ fileName: 'Travis_Presentation.pptx' });
+        pptx.writeFile({ fileName: 'Ogio_Presentation.pptx' });
         resetPPT();
       }
     }, [selectedRowVartionSku]);
@@ -83,4 +83,4 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
   
   
 
-export default TravisMathewPPt
+export default OgioPPt

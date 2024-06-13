@@ -22,6 +22,8 @@ type Props = {
   onClose: () => void;
 
   excelAllExport: () => void;
+  ppt:()=> void;
+
   
   isExport:boolean,
   selectedRow:OgioBasicModel[]
@@ -33,7 +35,7 @@ const props: UploadProps = {
   multiple: false,
 
 };
-const OgioImportExcel = ({ onClose, isExport,excelExport,printPdf ,selectedRow,excelAllExport }: Props) => {
+const OgioImportExcel = ({ onClose, isExport,excelExport,printPdf ,selectedRow,excelAllExport,ppt }: Props) => {
   const [allXlxData, setAllXlxData] = useState<OgioBasicModel[]>([])
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -344,6 +346,11 @@ const OgioImportExcel = ({ onClose, isExport,excelExport,printPdf ,selectedRow,e
   const handleExportAll = () => {
     excelAllExport()
   }
+
+  
+const handlePPT=()=>{
+  ppt()
+}
   return (
     <div>
       <Modal
@@ -364,6 +371,14 @@ const OgioImportExcel = ({ onClose, isExport,excelExport,printPdf ,selectedRow,e
             onClick={handleExcel}
           >
             <i className="bi bi-file-earmark-spreadsheet fs-2"></i>Export to Excel</button>
+
+            <button className="export-button excel hover-scale"
+            onClick={handlePPT}
+          >
+            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>
+            Export to PPT
+        </button>
+
 
             <button className="export-button pro-btn-table hover-scale"
             // onClick={handlePdf}
