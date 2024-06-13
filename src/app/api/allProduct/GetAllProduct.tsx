@@ -59,41 +59,45 @@ if(getTravisProduct && getTravisProduct.length === 0)
   // reload ogio Product
   const getOgioProduct= useSelector(getOgioProducts)
 
-   useEffect(()=>{
-    if(getOgioProduct && getOgioProduct.length===0){
-      setIsOgio(true)
-      setIsRetech(false)
-    } else{
-      setIsOgio(false)
+  //  useEffect(()=>{
+  //   if(getOgioProduct && getOgioProduct.length===0){
+  //     setIsOgio(true)
+  //     setIsRetech(false)
+  //   } else{
+  //     setIsOgio(false)
      
-    }
-   },[getOgioProduct])
+  //   }
+  //  },[getOgioProduct])
 
-  useEffect(() => {
-    // get_allProducts(getAdminTokens)
-     setIsOgio(true)
-     setIsTravis(true)
-     setIsGoods(true)
-     setIsetailers(true)
-     setIsBrands(true)
-     setIsApparel(true)
+  // useEffect(() => {
+  //   // get_allProducts(getAdminTokens)
+  //    setIsOgio(true)
+  //    setIsTravis(true)
+  //    setIsGoods(true)
+  //    setIsetailers(true)
+  //    setIsBrands(true)
+  //    setIsApparel(true)
     
-  }, []);
+  // }, []);
 
 /// if the travis array is empty start query
-const getTravisStartLoadings= useSelector(getTravisStartLoading);
-useEffect(()=>{
-  if(getTravisStartLoadings){
-    setIsTravis(true)
-  }
-},[getTravisStartLoadings])
+// const getTravisStartLoadings= useSelector(getTravisStartLoading);
+// useEffect(()=>{
+//   if(getTravisStartLoadings){
+//     setIsTravis(true)
+//   }
+// },[getTravisStartLoadings])
+
+
   const handleOgio=()=>{
     setIsOgio(false)
+    setIsGoods(true)
 
   }
 
   const handleResetTravis=()=>{
     setIsTravis(false)
+    setIsOgio(true)
     // dispatch(stopTravisLoading())
 
     
@@ -101,6 +105,7 @@ useEffect(()=>{
 
   const handleResetGoods=()=>{
     setIsGoods(false)
+    setIsApparel(true)
   }
 
   const handleResetRetailer=()=>{

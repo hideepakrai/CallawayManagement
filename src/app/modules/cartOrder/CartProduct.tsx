@@ -52,6 +52,9 @@ debugger
         if(item.ordered){
           setActiveTab('travis');
       setTravisId(travisorderId)
+      dispatch(setActiveOrderTab({
+        activeOrderTab:"Travis"
+       })) 
         }
       })  
     

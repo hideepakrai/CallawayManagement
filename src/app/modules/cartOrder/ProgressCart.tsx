@@ -55,9 +55,8 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
         setCurrent(0)
         if(getActiveOrdertabs==="Travis" &&getPregressStepstravis){
             setCurrent(getPregressStepstravis);
-            console.log("getPregressStepstravis",getPregressStepstravis)
-            console.log("role",role)
-           // setCurrentTravis(getPregressStepstravis);
+          
+          
             
         } else if (getActiveOrdertabs==="Ogio" &&getPregressStepsogio){
             setCurrent(getPregressStepsogio)
