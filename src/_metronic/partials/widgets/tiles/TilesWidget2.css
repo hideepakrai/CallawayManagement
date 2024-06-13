@@ -2,6 +2,7 @@
   
 
 
+
   #date-prodect{    font-size: 28px;
     background: transparent;
     color: #fff;
@@ -64,18 +65,20 @@ padding: 4px 6px;
 
   
   @font-face {
-    font-family: 'DigitalFont';
+    font-family: 'library-3-am';
     src: url('/src//_metronic//digitalFontFamily/1001fonts-library-3-am-eula.txt');
-    src: url('/path-to-your-font/Digital-7.eot?#iefix') format('embedded-opentype'),
-         url('/path-to-your-font/Digital-7.woff2') format('woff2'),
+    src: url('/path-to-your-font/library-3-am.eot?#iefix') format('embedded-opentype'),
+         url('/path-to-your-font/library-3-am.woff2') format('woff2'),
          url('/src/_metronic/digitalFontFamily//Library\ 3\ am.otf') format('woff'),
-         url('/src/_metronic/digitalFontFamily/1001fonts-library-3-am-eula.txt') format('truetype');
+         url('/src/_metronic/digitalFontFamily/Library\ 3\ am.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }
+
+  
   
   .digital-font {
-    font-family: 'DigitalFont', sans-serif;
+    font-family: 'library-3-am', sans-serif;
   }
   
   .date-1{color: #fff;}
