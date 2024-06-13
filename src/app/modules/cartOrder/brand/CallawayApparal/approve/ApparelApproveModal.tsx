@@ -56,9 +56,16 @@ const ApparelApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
     onOkHandler()
     setnotes("")
   }
+
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  };
+
     return (
     <div>
-           <Modal className='timeline submit-popup' title="Add Note" open={isApprove} onOk={handleOk} onCancel={handleCancel}>
+           <Modal className='timeline submit-popup' title="Do you want to approve Order" open={isApprove} onOk={handleOk} onCancel={handleCancel}>
             <div className='row mt-8'>
                 {/* <div className='col-7'>
 
@@ -71,9 +78,25 @@ const ApparelApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
                         
                     </Timeline>
                 </div> */}
-                <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to approve Order</h4>
 
-                <div className='col-12'>
+                {/* <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to approve Order</h4> */}
+
+                <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
+            <input
+              className="form-check-input submit-order"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
+              Add Note
+            </label>
+          </div>
+          
+          {isChecked && (
+                <div className='col-12 mt-4'>
                     <TextArea
                         rows={5}
                         placeholder="Note"
@@ -81,6 +104,8 @@ const ApparelApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
                         onChange={(e) => setnotes(e.target.value)}
                     />
                 </div>
+          )}
+
                 </div>
             </Modal>
     </div>

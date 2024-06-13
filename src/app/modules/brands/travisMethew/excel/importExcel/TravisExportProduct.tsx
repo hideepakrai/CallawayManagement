@@ -97,7 +97,7 @@ const handlePPT=()=>{
         </Dragger> */}
 
 
-        <div className="mt-5 downlaod-excel text-center py-4">
+        <div className="mt-5 downlaod-excel  py-4">
           <button className="export-button pdf hover-scale"
             onClick={handlePdf}
           > <i className="bi bi-file-pdf fs-2"></i>Export to PDF</button>
@@ -112,7 +112,7 @@ const handlePPT=()=>{
             onClick={handlePPT}
           >
             <i className="bi bi-file-earmark-spreadsheet fs-2"></i>
-            Export to PPT
+            Export to PPT 
         </button>
 
             <button className="export-button pro-btn-table hover-scale"

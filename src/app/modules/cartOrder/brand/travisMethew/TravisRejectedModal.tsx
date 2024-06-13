@@ -64,12 +64,14 @@ const TravisRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) => 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
   };
+  
   return (
+
     <div>
       <Modal className='timeline submit-popup' title="Do you want to submit Order" open={isReject} onOk={handleOk} onCancel={handleCancel}>
       <div className='row mt-6 mb-6 '>
            {/* <h4 className='mb-3 fs-2 text-black' style={{ fontWeight: '500' }}>Do you want to submit Order</h4>  */}
-          <div className="form-check form-check-custom form-check-solid mx-3 mt-2 cursor-pointer">
+          <div className="form-check form-check-custom form-check-solid mx-3 cursor-pointer">
             <input
               className="form-check-input submit-order"
               type="checkbox"

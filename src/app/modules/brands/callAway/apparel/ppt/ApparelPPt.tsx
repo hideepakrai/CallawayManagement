@@ -77,7 +77,7 @@ const ApparelPPt = ({ selectedRow, resetPPt }: Props) => {
               </table>
               </div>
               <Button onClick={handleExportPPT} type="primary" style={{ marginTop: 20 }}>
-            Export to PPT
+            Export to PPT 
           </Button>
           </Card>
           </div>
