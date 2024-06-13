@@ -21,14 +21,14 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
         selectedRowVartionSku.forEach((item) => {
           const slide = pptx.addSlide();
           // Add image to slide
-          slide.addImage({
-            // path: Image1,
-            path: `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/${item.family}/${item.primary_image_url}`,
-            x: 0.5,
-            y: 0.5,
-            w: 2,
-            h: 2,
-          });
+          // slide.addImage({
+          //   // path: Image1,
+          //   path: `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/${item.family}/${item.primary_image_url}`,
+          //   x: 0.5,
+          //   y: 0.5,
+          //   w: 2,
+          //   h: 2,
+          // });
 
         if(item.otherInfo){
             const tableData2 = [

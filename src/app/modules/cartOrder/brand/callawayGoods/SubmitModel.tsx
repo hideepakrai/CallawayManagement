@@ -20,8 +20,7 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser;
 
   useEffect(() => {
-    // eslint-disable-next-line no-debugger
-    //debugger
+   
     const now = new Date();
     const formattedTimestamp = now.toISOString();
   }, [notes, getCurrentUsers, dispatch]);

@@ -81,8 +81,8 @@ const CallawayGoodsSlice = createSlice({
                       state.callawayApparel.push({
                         sku: item.sku,
                         description: item.description,  
-                        mrp: item.mrp,
-                        gst: item.gst, 
+                        mrp: item.mrp!== undefined ? parseFloat(String(item.mrp)) : 0.0,
+                        gst: item.gst !== undefined ? parseFloat(String(item.gst)) : 0.0, 
                         color: item.color,
                         size:item.size,
                         category: item.category,
@@ -226,10 +226,10 @@ const CallawayGoodsSlice = createSlice({
              
             const quantity88 = state.callawayApparel[goodsIndex]?.Quantity88 ?? 0;
             const quantity90 = state.callawayApparel[goodsIndex]?.Quantity90 ?? 0;
-            state.callawayApparel[goodsIndex].TotalQty = quantity88+quantity90;
+            state.callawayApparel[goodsIndex].TotalQty = quantity88+qty90;
 
             
-            state.callawayApparel[goodsIndex].Amount = MRP*(quantity88+quantity90)
+            state.callawayApparel[goodsIndex].Amount = MRP*(quantity88+qty90)
             state.callawayApparel[goodsIndex].ordered = true;
             const gst=state.callawayApparel[goodsIndex].gst;
              const mrp=state.callawayApparel[goodsIndex].mrp;
@@ -265,6 +265,8 @@ const CallawayGoodsSlice = createSlice({
         },
         updateQuantity88:(state,actions) => {
           const {sku, qty88,MRP}=actions.payload;
+          // eslint-disable-next-line no-debugger
+          debugger
           const goodsIndex = state.callawayApparel.findIndex(
             (apparelItem) => apparelItem.sku === sku
           );

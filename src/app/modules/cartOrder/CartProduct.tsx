@@ -45,8 +45,7 @@ const CartProduct = () => {
   const travisorderId= useSelector(getPreOrderId)
   const [travisId, setTravisId]= useState<number>()
   useEffect(() => {
-// eslint-disable-next-line no-debugger
-debugger
+
     if (travisorderId &&getTravisProduct &&getTravisProduct.length>0){
       getTravisProduct.map((item)=>{
         if(item.ordered){

@@ -678,8 +678,7 @@ const handleOkNote = () => {
   const handleUpdateStrapi = (message: string) => {
     setIsUpdateStrapi(false)
     setIsUpdateRedux(true)
-    // eslint-disable-next-line no-debugger
-    debugger
+   
     if (message === "") {
       messageApi.info('some went wrong');
       // alert("some went wrong")

@@ -107,8 +107,7 @@ const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discou
 
   useEffect(() => {
 
-     // eslint-disable-next-line no-debugger
-     debugger
+    
     if (
       allPreOrderSoftGoood && allPreOrderSoftGoood.length > 0 &&
       getSoftgoodRetailerDetails&&

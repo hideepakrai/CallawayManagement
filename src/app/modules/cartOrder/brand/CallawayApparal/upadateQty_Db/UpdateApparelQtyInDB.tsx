@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel'
 import { updateApparelQty } from '../../../../../slice/allProducts/CallawayApparelSlice';
 import { UpDateTravisQty } from '../../../../brands/travisMethew/api/UpdateProductData';
+import { UpDateApparelQty } from '../../../../brands/callAway/apparel/api/UpdateProductData';
 
 type props = {
     allApparel:BasicModelApparel[];
@@ -57,10 +58,9 @@ const UpdateApparelQtyInDB = ({ resetUpdateData,allApparel }: props) => {
         try {
 
             setIsUpdating(true);
-            const response = await UpDateTravisQty(data);
+            const response = await UpDateApparelQty(data);
 
-            // eslint-disable-next-line no-debugger
-            debugger
+           
             if (response.status == 200 && response.data) {
                 dispatch(updateApparelQty({
                     apparelProduct: data

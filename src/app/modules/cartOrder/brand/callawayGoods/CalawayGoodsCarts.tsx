@@ -64,8 +64,7 @@ const CalawayGoodsCarts = () => {
     console.log("allh",allOrder)
 
    
-// eslint-disable-next-line no-debugger
-//debugger
+
     const order: BasicModelGoods[] = []
     if (getGoodsProduct && getGoodsProduct.length > 0) {
 

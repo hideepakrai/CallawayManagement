@@ -104,9 +104,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
-    // eslint-disable-next-line no-debugger
-    //debugger
-
+  
 
 
     if (getRetailerDetail &&
