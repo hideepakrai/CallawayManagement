@@ -14,7 +14,7 @@ type Props = {
   handleCancel: () => void;
 };
 
-const HardGoodsRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) => {
+const SoftGoodsRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) => {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -119,4 +119,4 @@ const HardGoodsRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) 
   );
 };
 
-export default HardGoodsRejectedModel;
+export default SoftGoodsRejectedModel;

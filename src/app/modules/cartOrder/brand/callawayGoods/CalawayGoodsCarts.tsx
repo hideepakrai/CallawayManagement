@@ -650,6 +650,7 @@ const handleRejectedModalCancel=()=>{
 
     }))
 
+
     dispatch(resetHardGoodsOrder())
     alert("Your order is suceessfully completed")
     // messageApi.info('Your order is suceessfully completed');
@@ -842,17 +843,19 @@ const handleRejectedModalCancel=()=>{
 
          {/* reject order */}
 
+
       {isRejectedorder &&
         <RejectOrderHardGoods
           resetReject={handleResetRejectedOrder}
         />}
 
-<HardGoodsRejectedModel
+    <HardGoodsRejectedModel
           isReject={isRejectedModel}
           onOkHandler={handleRejectedOk}
           handleCancel={handleRejectedModalCancel}
 
           />
+
 
            {/* completed modal */}
        <HardGoodsCompleteModel

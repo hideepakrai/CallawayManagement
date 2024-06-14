@@ -736,7 +736,20 @@ const GooodsTable = () => {
         }
       >
 
-        <div style={{ float: "right", marginBottom: "12px" }}>
+     <div className='row'>
+        <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{paddingLeft:"10px"}}>
+          <input
+            className="form-check-input submit-order"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
+            Show Available Product
+          </label>
+        </div>
+
+        <div className='col-8' style={{  marginBottom: "12px" , textAlign:"end", }}>
 
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
@@ -760,6 +773,7 @@ const GooodsTable = () => {
 
 
         </div>
+    </div>
 
         <div className='show-prodect-section' >
           {/* <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4> */}

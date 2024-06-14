@@ -49,6 +49,7 @@ import Loading from '../../../loading/Loading';
 import { addTravisReatailerDetails, getTravisRetailerDetail } from "../../../../slice/allProducts/TravisMethewSlice";
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 import TravisMathewPPt from '../pptTravis/TravisMathewPPt';
+import { left } from '@popperjs/core';
 
 
 
@@ -62,7 +63,7 @@ const OPTIONS2 = ['1MR410', '1MO479', '1MR410',];
 
 
 const TravisTable = () => {
-  const getCurrentUsers= useSelector(getCurrentUser)
+  const getCurrentUsers = useSelector(getCurrentUser)
   const placement: SelectCommonPlacement = 'topLeft';
   const tableRef = useRef(null);
   const [isImport, setIsImport] = useState(false);
@@ -147,7 +148,7 @@ const TravisTable = () => {
         const valLower = value.toString().toLowerCase();
 
         if (record && record.sku) {
-         // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
           check = record.sku.includes(valUpper) || record.sku.includes(valLower);
         }
 
@@ -198,7 +199,7 @@ const TravisTable = () => {
         const valLower = value.toString().toLowerCase();
 
         if (record && record.description) {
-         // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
           check = record.description.includes(valUpper) || record.description.includes(valLower);
         }
 
@@ -768,7 +769,7 @@ const TravisTable = () => {
     }
   }
   //const [selectedRowKeys, setSelectedRowKeys] = useState<BasicModelTravis[]>([]);
-  
+
 
   const onSelectChange = (newSelectedRowKeys: Key[], record: BasicModelTravis) => {
 
@@ -1221,9 +1222,9 @@ const TravisTable = () => {
     const skuSet = new Set<string>(uniqueSku);
     const variationSkuSet = new Set<string>(uniqueVariationSku);
 
-    if (selected && record && record.sku ) {
+    if (selected && record && record.sku) {
       setSelectedRow(prev => [...prev, record]);
-      const key=record.sku
+      const key = record.sku
       setSelectedRowKeys(prev => [...prev, key]);
       if (record && record.variation_sku && record.variation_sku != undefined && record.variation_sku !== "") {
         const stringArray = record.variation_sku.split(',').map(item => item.trim());
@@ -1252,7 +1253,7 @@ const TravisTable = () => {
           makePdfPring(record.variation_sku, record)
         }
       }
-      
+
       setUniqueVariationSku(Array.from(variationSkuSet));
     } else {
       const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
@@ -1286,10 +1287,10 @@ const TravisTable = () => {
         category: record.category,
         gender: record.gender,
         season: record.season,
-        mrp:record.mrp?record.mrp:0,
+        mrp: record.mrp ? record.mrp : 0,
       };
       const allVarSku = {
-        family:record.family,
+        family: record.family,
         primary_image_url: record.primary_image_url,
         gallery_images_url: record.gallery_images_url,
         name: record.name,
@@ -1390,34 +1391,34 @@ const TravisTable = () => {
   }
 
   const getTravisuploadImages = useSelector(getTravisuploadImage)
-const [isExportAll, setIsExportAll] = useState<boolean>(false)
+  const [isExportAll, setIsExportAll] = useState<boolean>(false)
 
 
-  const handleDownloadAllExcel= () =>{
+  const handleDownloadAllExcel = () => {
     setIsExportAll(true)
     setIsProduct(false)
 
 
   }
-  const handleResetExportAll=() =>{
+  const handleResetExportAll = () => {
     setIsExportAll(false)
   }
 
-const [isPPT, setIsPPt]= useState<boolean>(false)
- const handlePPT=()=>{
-  setIsPPt(true)
- }
+  const [isPPT, setIsPPt] = useState<boolean>(false)
+  const handlePPT = () => {
+    setIsPPt(true)
+  }
 
 
- const handleResetPPT=()=>{
-  setIsPPt(false)
-  setIsProduct(false)
-  setSelectedRowKeys([]);
+  const handleResetPPT = () => {
+    setIsPPt(false)
+    setIsProduct(false)
+    setSelectedRowKeys([]);
     setSelectedRow([])
     setIspdf(false)
     setSelectedRowVartionSku([])
 
- }
+  }
   return (
     <div className='container'>
 
@@ -1440,25 +1441,34 @@ const [isPPT, setIsPPt]= useState<boolean>(false)
 
       >
 
-        <div style={{ float: "right", marginBottom: "12px" }}>
-          {/* { getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handelUploadImage}
-      
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Update Images</Button>} */}
-          {/* active class ="active-btn" */}
+<div className='row'>
+        <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{paddingLeft:"10px"}}>
+          <input
+            className="form-check-input submit-order"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
+            Show Available Product
+          </label>
+        </div>
+
+        <div className='col-8' style={{ float: "right", marginBottom: "12px", textAlign:"end",  }}>
+
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
             onClick={handleViewCard}
           > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
-{getCurrentUsers &&getCurrentUsers.role!=="Retailer" && <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+          {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handleImport}
           > <i className="bi bi-file-earmark-arrow-down fs-3"></i>Import Products</Button>
-}
+          }
 
 
-{getCurrentUsers &&getCurrentUsers.role!=="Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+          {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
             onClick={handleQtyImport}
           > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>}
 
@@ -1469,6 +1479,7 @@ const [isPPT, setIsPPt]= useState<boolean>(false)
 
         </div>
 
+</div>
 
 
         {/* <div className='show-prodect-section' >
@@ -1476,31 +1487,31 @@ const [isPPT, setIsPPt]= useState<boolean>(false)
         
         </div>  */}
 
-       {  
-       allTravisProduct.length>0?(
-        <Table className='cart-table-profile'
-          ref={tableRef}
-          columns={columns}
-          dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
-          rowSelection={{
-            selectedRowKeys,
-            onSelect: handleSelctRow,
-          }}
-          expandable={{
-            expandedRowRender,
+        {
+          allTravisProduct.length > 0 ? (
+            <Table className='cart-table-profile'
+              ref={tableRef}
+              columns={columns}
+              dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
+              rowSelection={{
+                selectedRowKeys,
+                onSelect: handleSelctRow,
+              }}
+              expandable={{
+                expandedRowRender,
 
-            onExpand: (expanded, record) => handleExpand(expanded, record),
+                onExpand: (expanded, record) => handleExpand(expanded, record),
 
-          }}
-          bordered
-          size="middle"
-          scroll={{ x: "100%", y: "auto" }}
+              }}
+              bordered
+              size="middle"
+              scroll={{ x: "100%", y: "auto" }}
 
-          pagination={{
-            position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-            defaultPageSize: 20
-          }}
-        />):(<Loading/>)}
+              pagination={{
+                position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+                defaultPageSize: 20
+              }}
+            />) : (<Loading />)}
 
 
       </Card>}
@@ -1560,12 +1571,12 @@ const [isPPT, setIsPPt]= useState<boolean>(false)
       />}
 
 
-{isPPT &&
-<TravisMathewPPt
-selectedRowVartionSku={selectedRowVartionSku}
-resetPPT={handleResetPPT}
-/>
-}
+      {isPPT &&
+        <TravisMathewPPt
+          selectedRowVartionSku={selectedRowVartionSku}
+          resetPPT={handleResetPPT}
+        />
+      }
 
       {isStartSearch &&
         <UploadTravisImages
@@ -1576,10 +1587,10 @@ resetPPT={handleResetPPT}
       {getTravisuploadImages && <TravisImage />}
 
 
-   { isExportAll && <TravisProductsToExcel
-     resetExportAll={handleResetExportAll}
-   
-   />}
+      {isExportAll && <TravisProductsToExcel
+        resetExportAll={handleResetExportAll}
+
+      />}
 
     </div>
   )
