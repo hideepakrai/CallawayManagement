@@ -26,6 +26,7 @@ import ApparelCompleteModel from './completeOrder/ApparelCompleteModal';
 import ApparelCompletedOrder from './completeOrder/ApparelcompleteOrder';
 import { NoProdect } from '../../NoProdect';
 import SoftGoodsOrderPdf from './pdfOrder/SoftGoodsOrderPdf';
+import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -763,7 +764,7 @@ const handleOkNote = () => {
        dispatch(resetSoftGoods())
        alert("Your order is suceessfully completed")
        // messageApi.info('Your order is suceessfully completed');
-   
+        dispatch(resetActive())
      }
   return (
     <div>

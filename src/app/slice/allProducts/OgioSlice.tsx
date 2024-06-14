@@ -91,7 +91,7 @@ const OgioSlice = createSlice({
                                 TotalQty:0,
                                 LessGST:0,
                                 LessDiscountAmount:0,
-                                Discount:0,
+                                Discount:22,
                                 NetBillings:0,
                                 FinalBillValue:0,
                                 error:"",

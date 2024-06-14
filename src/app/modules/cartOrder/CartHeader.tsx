@@ -71,10 +71,16 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                 }
             })
 
-            if (getCurrentUsers && getCurrentUsers.role === "Manager" && getCurrentUsers.name) {
+         
+// manager
+            if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
                 setManagerName(getCurrentUsers.name)
             }
-            if (getCurrentUsers && getCurrentUsers.role === "Retailer") {
+            if(getCurrentUsers && getCurrentUsers.role==="Sales Representative" &&getCurrentUsers.name){
+                setSalesRepName(getCurrentUsers.name)
+            }
+          
+            if(getCurrentUsers && getCurrentUsers.role==="Retailer"){
 
                 if (getCurrentUsers.address && getCurrentUsers.gstin && getCurrentUsers.id && getCurrentUsers.name) {
                     setRetailerAddress(getCurrentUsers.address);
@@ -95,16 +101,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const handleReview = () => {
         checkAvailability()
 
-        // if (retailerId !== 0) {
-        //      if (retailerId ) {
-
-        //     reviewOrder()
-        //     setIsAvailable(true)
-        // }
-        // else {
-        //     alert("Please select retailer")
-        //     setIsAvailable(false)
-        // }
+     
 
     }
 
@@ -124,17 +121,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             setGST(allData[0]?.gstin);
             setRetailerId(allData[0]?.id)
             setRetailerName(allData[0]?.name)
-            // setRetailerUserId(allData[0]?.user_id)   
-            // dispatch(addTravisOrderDetails({
-
-            //     retailerAddres: allData[0]?.address,
-            //     retailersGSt:allData[0]?.gstin,
-            //     retailerName: allData[0]?.name ?? "",
-            //     retailerId: allData[0]?.id,
-            //     retailerEmail:allData[0]?.email,
-            //     retailerPhone:allData[0]?.phone
-            //     // retailerUserId:allData[0].user_id
-            // }))
+           
 
             if (getActiveOrdertabs === "Travis") {
                 dispatch(addTravisReatailerDetails({

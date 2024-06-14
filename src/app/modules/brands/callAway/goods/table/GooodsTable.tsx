@@ -133,7 +133,7 @@ const GooodsTable = () => {
         const valLower = value.toString().toLowerCase();
 
         if (record && record.sku) {
-          check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          check = record.sku.includes(valUpper) || record.sku.includes(valLower);
         }
 
 
@@ -151,6 +151,48 @@ const GooodsTable = () => {
       dataIndex: "description",
       key: "description",
       width: 150,
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+        <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1 }}>
+          <Input
+            ref={searchInput}
+
+            placeholder="Search Description"
+            value={selectedKeys[0]}
+            onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+            onKeyUp={(e) => {
+              confirm({ closeDropdown: false });
+
+            }}
+
+            style={{ width: 188, marginBottom: 8, display: "block" }}
+          />
+
+        </div>
+      ),
+      onFilterDropdownVisibleChange: (visible) => {
+        if (visible) {
+          setTimeout(() => {
+            setTimeout(() => searchInput.current?.select(), 1000);
+          });
+        }
+      },
+      onFilter: (value, record) => {
+
+        let check = false;
+        const valUpper = value.toString().toUpperCase();
+        const valLower = value.toString().toLowerCase();
+
+        if (record && record.description) {
+         // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          check = record.description.includes(valUpper) || record.description.includes(valLower);
+        }
+
+
+
+
+        return check;
+      },
+      filterSearch: true,
 
     },
 

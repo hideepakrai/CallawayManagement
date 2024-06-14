@@ -33,6 +33,7 @@ import OgioCompleteModel from './OgioCompltedmodal';
 import { NoProdect } from '../../NoProdect';
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 import GetAllorder from '../../../orderPage/GetAllorder';
+import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -757,6 +758,7 @@ const handleOkSubmit=()=>{
       alert("Your order is suceessfully completed")
 
       dispatch(resetOgioOrder())
+      dispatch(resetActive())
     } else if(message==="Failed to Complete order"){
       dispatch(updateProgressStep({
         progressStep: 3
@@ -788,6 +790,8 @@ const handleOkSubmit=()=>{
     dispatch(addPreOrderId({
       preOrderId:0
     }))
+
+    dispatch(resetActive())
   }
 
 

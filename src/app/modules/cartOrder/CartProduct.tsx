@@ -16,7 +16,7 @@ import  Callawaygoods from "../../../../public/media/logos/icon-profile.png"
 import { Route, Routes } from 'react-router-dom';
 import { getPreOrderId, getTravisProducts } from '../../slice/allProducts/TravisMethewSlice';
 import { useNavigate } from 'react-router-dom';
-import { setActiveOrderTab } from '../../slice/activeTabsSlice/ActiveTabSlice';
+import { getActivetab, setActiveOrderTab, setFisttimeTab } from '../../slice/activeTabsSlice/ActiveTabSlice';
 import {useDispatch} from "react-redux"
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState(''); // Default to 'apparel' tab
@@ -25,6 +25,7 @@ const CartProduct = () => {
   useEffect(() => {
     // Set the default active tab when the component mounts
     setActiveTab('');
+    console.log("setActive")
   }, []);
 
   //get travis order
@@ -40,13 +41,16 @@ const CartProduct = () => {
   // get apparel order
   const getApparelProduct= useSelector(getApparelProducts)
 
+//  set active tab return boolean
+  const getActivetabs= useSelector(getActivetab)
+
 
 
   const travisorderId= useSelector(getPreOrderId)
   const [travisId, setTravisId]= useState<number>()
   useEffect(() => {
-
-    if (travisorderId &&getTravisProduct &&getTravisProduct.length>0){
+    
+    if (travisorderId &&getTravisProduct &&getTravisProduct.length>0  && getActivetabs){
       getTravisProduct.map((item)=>{
         if(item.ordered){
           setActiveTab('travis');
@@ -54,47 +58,65 @@ const CartProduct = () => {
       dispatch(setActiveOrderTab({
         activeOrderTab:"Travis"
        })) 
+
+       dispatch(setFisttimeTab({
+        activetab:false
+       }))
         }
       })  
     
       
     } 
-     if (getOgioProduct && getOgioProduct.length > 0) {
+     if (getOgioProduct && getOgioProduct.length > 0 && getActivetabs) {
       getOgioProduct.map(item=>{
         if(item.ordered){
           setActiveTab('ogio');
           dispatch(setActiveOrderTab({
             activeOrderTab:"Ogio"
            })) 
+
+           dispatch(setFisttimeTab({
+            activetab:false
+           }))
         }
       })
       
 
-    } if (getGoodsProduct &&getGoodsProduct.length>0){
+    } if (getGoodsProduct &&getGoodsProduct.length>0 && getActivetabs){
        getGoodsProduct.map(item=>{
         if(item.ordered){
           setActiveTab('hardgood');
           dispatch(setActiveOrderTab({
             activeOrderTab:"hardgood"
            })) 
+
+
+           dispatch(setFisttimeTab({
+            activetab:false
+           }))
         }
        })    
       
          
     } 
-     if (getApparelProduct && getApparelProduct.length>0){
+     if (getApparelProduct && getApparelProduct.length>0 && getActivetabs){
       getApparelProduct.map((item)=>{
         if(item.ordered){
           dispatch(setActiveOrderTab({
             activeOrderTab:"softgood"
            })) 
+
+           dispatch(setFisttimeTab({
+            activetab:false
+           }))
+
           setActiveTab('softgood');
-          console.log("apparel tab")
+          
         }
        })
     }
     
-  }, [getTravisProduct, getOgioProduct,getGoodsProduct,getApparelProduct,travisorderId]);
+  }, [getTravisProduct, getOgioProduct,getGoodsProduct,getApparelProduct,travisorderId,getActivetabs]);
 
 
   const gettravisPreOrderId= useSelector(getPreOrderId)

@@ -173,6 +173,7 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
     
     try {
       const response = await ApproveOrder(data);
+
       resetReject()
       //   resetStatus(statusUpdate)
     } catch (err) {
@@ -180,7 +181,7 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
     }
   }
   return (
-    <div>RejectOrderTravis</div>
+    <div></div>
   )
 }
 

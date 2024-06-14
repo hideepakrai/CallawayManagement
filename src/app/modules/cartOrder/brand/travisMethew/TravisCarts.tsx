@@ -35,6 +35,7 @@ import TravisRejectedModel from './TravisRejectedModal';
 import { NoProdect } from '../../NoProdect';
 import "./TravisCarts.css"
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
+import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -697,6 +698,7 @@ const handleRejectedModalCancel=()=>{
     dispatch(addPreOrderId({
       preOrderId:0
     }))
+    dispatch(resetActive())
   }
 
 
@@ -721,7 +723,7 @@ const handleRejectedModalCancel=()=>{
       progressStep: 4
 
     }))
-
+    dispatch(resetActive())
     dispatch(resetTravisOrder())
     alert("Your order is suceessfully completed")
     // messageApi.info('Your order is suceessfully completed');
@@ -1000,3 +1002,4 @@ const handleRejectedModalCancel=()=>{
 }
 
 export default TravisCarts
+

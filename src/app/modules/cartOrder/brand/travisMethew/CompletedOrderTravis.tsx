@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getPreOrderId, getTravisNote } from '../../../../slice/allProducts/TravisMethewSlice'
 import { ApproveOrder, } from '../../orderApi/OrderAPi'
+import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice'
 
 
 type Props = {
   resetCompleted: () => void
 }
 const CompletedOrderTravis = ({ resetCompleted }: Props) => {
-
+   const dispatch= useDispatch()
   const getPreOrderIds = useSelector(getPreOrderId)
   const getTravisNotes= useSelector(getTravisNote)
   useEffect(() => {
@@ -32,6 +33,7 @@ const CompletedOrderTravis = ({ resetCompleted }: Props) => {
     }
     try {
       const response = await ApproveOrder(order);
+     
       resetCompleted()
       //   resetStatus(statusUpdate)
     } catch (err) {
@@ -39,7 +41,7 @@ const CompletedOrderTravis = ({ resetCompleted }: Props) => {
     }
   }
   return (
-    <div>RejectOrderTravis</div>
+    <div></div>
   )
 }
 

@@ -129,7 +129,7 @@ const OgioTable = () => {
         const valLower = value.toString().toLowerCase();
 
         if (record && record.sku) {
-          check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          check = record.sku.includes(valUpper) || record.sku.includes(valLower);
         }
 
 
@@ -148,31 +148,45 @@ const OgioTable = () => {
       fixed: "left",
       filterMode: 'tree',
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1, }}>
+        <div style={{ padding: 8, width: "300px", position: "absolute", top: -90, zIndex: 1 }}>
           <Input
-            placeholder="Search Name"
+            ref={searchInput}
 
+            placeholder="Search Name"
             value={selectedKeys[0]}
             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-            onKeyUp={() => confirm()}
+            onKeyUp={(e) => {
+              confirm({ closeDropdown: false });
+
+            }}
+
             style={{ width: 188, marginBottom: 8, display: "block" }}
           />
+
         </div>
       ),
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
           setTimeout(() => {
-            // Trigger the search input to focus when the filter dropdown is opened
+            setTimeout(() => searchInput.current?.select(), 1000);
           });
         }
       },
       onFilter: (value, record) => {
-        const name =
-          record &&
-          record.name;
+
+        let check = false;
+        const valUpper = value.toString().toUpperCase();
+        const valLower = value.toString().toLowerCase();
+
+        if (record && record.name) {
+         // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          check = record.name.includes(valUpper) || record.name.includes(valLower);
+        }
 
 
-        return name === value;
+
+
+        return check;
       },
       filterSearch: true,
     },

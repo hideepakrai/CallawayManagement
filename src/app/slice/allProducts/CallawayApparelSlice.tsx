@@ -98,7 +98,7 @@ const CallawayGoodsSlice = createSlice({
                         variation_sku: item.variation_sku,
                         stock_90:item.stock_90,    
                         stock_88:item.stock_88,    
-                        Quantity90:0,     
+                        Quantity90:22,     
                         Amount:0,
                         TotalQty:0,
                         LessGST:0,

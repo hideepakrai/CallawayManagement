@@ -31,6 +31,7 @@ import Note from '../../Note';
 import { NoProdect } from '../../NoProdect';
 import AlertTravis from '../travisMethew/AlertTravis';
 import HardGoodsOrderPdf from './HardGoodsOrderPdf';
+import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
 
 const CalawayGoodsCarts = () => {
 
@@ -622,6 +623,8 @@ const handleRejectedModalCancel=()=>{
     dispatch(addPreOrderId({
       preOrderId:0
     }))
+
+    dispatch(resetActive())
   }
 
 
@@ -650,7 +653,7 @@ const handleRejectedModalCancel=()=>{
     dispatch(resetHardGoodsOrder())
     alert("Your order is suceessfully completed")
     // messageApi.info('Your order is suceessfully completed');
-
+   dispatch(resetActive())
   }
   
 
