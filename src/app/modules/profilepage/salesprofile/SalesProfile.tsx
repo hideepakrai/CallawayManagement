@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
 
 import PendingOrder from './PendingOrder';
-import AllOrder from './AllOrders';
+import AllOrder from '../managerprofile/AllOrders';
 import Contact from './Contact';
 import { contactLists } from './ContactList';
 import Friends from './Friend';
@@ -50,11 +50,11 @@ const SalesProfile = () => {
 </Col>
 
 
-<Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
+{/* <Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
 
 
   <Friends friendList={friendList} />
-</Col>
+</Col> */}
 
 
 
