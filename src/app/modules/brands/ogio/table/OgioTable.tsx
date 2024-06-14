@@ -365,7 +365,9 @@ const OgioTable = () => {
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className='mx-3 number-input'
-            addonBefore={record?.stock_90}
+            //addonBefore={record?.stock_90}
+            addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
+
             value={record.Quantity90?.toString()}
             style={{ width: 100 }}
             onChange={(value) => {
@@ -376,7 +378,9 @@ const OgioTable = () => {
             }}
 
 
-            disabled={value.stock_90 === 0}
+            //disabled={value.stock_90 === 0}
+            disabled={record.stock_90 === 0}
+
           />
         </Tooltip>
 
@@ -859,6 +863,7 @@ const OgioTable = () => {
                 status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
                 className='mx-5 number-input'
                 addonBefore={record.stock_90 || 0}
+                
                 value={record.Quantity90?.toString()}
                 onChange={(value) => {
                   if (value !== null) {

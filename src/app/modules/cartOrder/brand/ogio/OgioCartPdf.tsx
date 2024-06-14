@@ -37,7 +37,9 @@ const OgioCartPdf = () => {
   const [retailerCty, setRetailerCity] = useState<string>()
   const [salesRepName, setSalesRepName] = useState<string>()
   const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-CA'); 
+  //const formattedDate = today.toLocaleDateString('en-CA');
+  const formattedDate = today.toLocaleDateString('en-GB'); 
+ 
 
   const getAllTravisOrder = useSelector(getTravisOrder)
 
@@ -148,7 +150,7 @@ const OgioCartPdf = () => {
 
 
     {
-      title: " Qty90",
+      title: " Qty",
       dataIndex: "Quantity90",
       key: "Quantity90",
       width: 150,

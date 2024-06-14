@@ -18,7 +18,8 @@ const ApparelPPt = ({ selectedRow, resetPPt }: Props) => {
 
   useEffect(() => {
     if (selectedRow && selectedRow.length > 0) {
-      setSelectdPPtData(selectedRow)
+     // setSelectdPPtData(selectedRow)
+     handleExportPPT(selectedRow)
 
     }
   }, [selectedRow]);
@@ -26,7 +27,7 @@ const ApparelPPt = ({ selectedRow, resetPPt }: Props) => {
 
 
 
-  const handleExportPPT = () => {
+  const handleExportPPT = (selectedRow:BasicModelApparel[]) => {
     console.log("ppt page")
     const pptx = new PptxGenJS();
 
@@ -40,7 +41,7 @@ const ApparelPPt = ({ selectedRow, resetPPt }: Props) => {
 
   return (
     <div>
-      <Card title="Default category card" style={{ width: 700 }}>
+      {/* <Card title="Default category card" style={{ width: 700 }}>
         <div>
         <table id="tabAutoPaging">
         <thead>
@@ -79,7 +80,7 @@ const ApparelPPt = ({ selectedRow, resetPPt }: Props) => {
               <Button onClick={handleExportPPT} type="primary" style={{ marginTop: 20 }}>
             Export to PPT 
           </Button>
-          </Card>
+          </Card> */}
           </div>
 
   );

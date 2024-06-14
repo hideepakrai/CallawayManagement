@@ -1,4 +1,5 @@
 export interface BasicModelApparel {
+    
 brand?: string;
     sku?:string;
     brand_id?:number|null;

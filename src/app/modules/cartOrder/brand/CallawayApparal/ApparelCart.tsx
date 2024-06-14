@@ -25,6 +25,7 @@ import ApparelApproveOrder from './approve/ApparelApproveOrder';
 import ApparelCompleteModel from './completeOrder/ApparelCompleteModal';
 import ApparelCompletedOrder from './completeOrder/ApparelcompleteOrder';
 import { NoProdect } from '../../NoProdect';
+import SoftGoodsOrderPdf from './pdfOrder/SoftGoodsOrderPdf';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -38,6 +39,8 @@ const CallawayApparelCarts = () => {
   const [isLoadingStart, setIsLoadingStart] = useState<boolean>(false)
   const getApparelProduct: BasicModelApparel[] = useSelector(getApparelProducts)
   const getUserAccounts = useSelector(getUserAccount)
+  const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
+
  
   useEffect(() => {
     if (getLoadings) {
@@ -61,7 +64,17 @@ const CallawayApparelCarts = () => {
 
       })
     }
+
+   // setAllApparel(apparelItem)
+   if(apparelItem && apparelItem.length>0){
     setAllApparel(apparelItem)
+    setIsShowPdf(true)
+  } else if(apparelItem && apparelItem.length==0){
+    setAllApparel([])
+    setIsShowPdf(false)
+  }
+
+
   }, [getApparelProduct])
 
   console.log("allApparel",allApparel)
@@ -966,6 +979,10 @@ const handleOkNote = () => {
 {isCompletedorder && <ApparelCompletedOrder
         resetCompleted={handleResetCompletedOrder}
 
+      />}
+
+      
+     {isShowPdf && <SoftGoodsOrderPdf
       />}
     </div>
   )

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
-import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { getTravisProducts, getTravisRetailerDetail } from '../../../../slice/allProducts/TravisMethewSlice'
+import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel'
+import { getGoodsProducts, getHardGoodsRetailerDetail } from '../../../../slice/allProducts/CallAwayGoodsSlice'
 import { Button, Card, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
-const TravisOrderPdf = () => {
+const HardGoodsOrderPdf = () => {
 
   const today = new Date();
   //const formattedDate = today.toLocaleDateString('en-CA'); 
@@ -28,18 +28,18 @@ const TravisOrderPdf = () => {
 },[getUserProfiles])
 
 // get all discount , net billl amount
-const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
+const getHardGoodsRetailerDetails= useSelector(getHardGoodsRetailerDetail) as RetailerModel;
 const [totalAmount, setTotalAmount] = useState<number>()
 const [discountAmount, setDiscountAmount] = useState<number>()
 const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
-const getTravisProduct: BasicModelTravis[] = useSelector(getTravisProducts)
-const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
+const getHardGoodsProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
+const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelGoods[]>([])
 useEffect(() => {
   let tAmount: number = 0;
   let totalBillAmount: number = 0;
-  const travis: BasicModelTravis[] = [];
-  if (getTravisProduct && getTravisProduct.length > 0) {
-    getTravisProduct.map((item) => {
+  const travis: BasicModelGoods[] = [];
+  if (getHardGoodsProduct && getHardGoodsProduct.length > 0) {
+    getHardGoodsProduct.map((item) => {
       if (item.ordered) {
         travis.push(item)
       }
@@ -59,9 +59,9 @@ useEffect(() => {
     setTotalNetBillAmount(totalBillAmount)
     setDiscountAmount(parseFloat((tAmount - totalBillAmount).toFixed(2)));
   }
-}, [getTravisProduct]);
+}, [getHardGoodsProduct]);
 
-const columns: TableColumnsType<BasicModelTravis> = [
+const columns: TableColumnsType<BasicModelGoods> = [
 
     {
       title: "SKU",
@@ -78,43 +78,57 @@ const columns: TableColumnsType<BasicModelTravis> = [
       width: 150,
 
     },
+    // {
+    //     title: "Category",
+    //     dataIndex: "category",
+    //     key: "category",
+    //     width: 120,
+  
+  
+  
+    //   },
 
 
     {
-        title: "Season",
-        dataIndex: "season",
-        key: "season",
+        title: "Model",
+        dataIndex: "product_model",
+        key: "product_model",
         width: 100,
   
   
       },
 
 
-    {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
-      width: 120,
+   
 
-
-
-    },
-
-
-    {
-        title: "Style",
-        dataIndex: "style_code",
-        key: "style_code",
-        width: 85,
+// //
+//     {
+//         title: "Product type",
+//         dataIndex: "product_type",
+//         key: "product_type",
+//         width: 85,
   
-      },
-
+//       },
+//       {
+//         title: "life cycle",
+//         dataIndex: "life_cycle",
+//         key: "life_cycle",
+//         width: 85,
+  
+//       },
+//       {
+//         title: "Orientation",
+//         dataIndex: "orientation",
+//         key: "orientation",
+//         width: 85,
+  
+//       },
 
 
     {
       title: " Qty",
-      dataIndex: "TotalQty",
-      key: "TotalQty",
+      dataIndex: "Quantity90",
+      key: "Quantity90",
       width: 150,
       fixed: 'right',
 
@@ -140,6 +154,55 @@ const columns: TableColumnsType<BasicModelTravis> = [
       fixed: 'right'
 
     },
+    // {
+    //     title: "GST",
+    //     dataIndex: "GST",
+    //     key: "GST",
+    //     width: 70,
+    //     fixed: 'right'
+  
+    //   },
+    //   {
+    //     title: "LessGST",
+    //     dataIndex:"LessGST",
+    //     key:"LessGST",
+    //     width: 70,
+    //     fixed: 'right'
+  
+    //   },
+
+    //   {
+    //     title: "Discount",
+    //     dataIndex:"Discount",
+    //     key:"Discount",
+    //     width: 70,
+    //     fixed: 'right'
+         
+    //   },
+    //   {
+    //     title: "LessDiscountAmount",
+    //     dataIndex:"LessDiscountAmount",
+    //     key:"LessDiscountAmount",
+    //     width: 70,
+    //     fixed: 'right'
+         
+    //   },
+    //   {
+    //     title: "NetBillings",
+    //     dataIndex:"NetBillings",
+    //     key:"NetBillings",
+    //     width: 70,
+    //     fixed: 'right'
+         
+    //   },
+    //   {
+    //     title: "FinalBillValue",
+    //     dataIndex:"FinalBillValue",
+    //     key:"FinalBillValue",
+    //     width: 70,
+    //     fixed: 'right'
+         
+    //   },
 
 
   ];
@@ -179,17 +242,17 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
       <div className="row px-10 mt-8 mb-18" >
         <div className="col-8">
-          <h1 className=" d-flex font-gray-900 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{getTravisRetailerDetails.name}</h1>
+          <h1 className=" d-flex font-gray-900 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{getHardGoodsRetailerDetails.name}</h1>
 
           <div className="d-flex">
             <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN: </span>
-            <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> {getTravisRetailerDetails.gstin} <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
+            <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> {getHardGoodsRetailerDetails.gstin} <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
           </div>
 
           <div className="user-address pt-3">
             <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mb-3">
-              {getTravisRetailerDetails.address}  
+              {getHardGoodsRetailerDetails.address}  
             </p>
           </div>
 
@@ -213,7 +276,7 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India</p>
 
-          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span>TravisMathew</p>
+          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span>Callaway</p>
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span> {getCurrentUsers?.name}</p>
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span>  {salesRepName}</p>
         </div>
@@ -232,6 +295,7 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
             size="middle"
             pagination={false} />
+
 
 
 
@@ -270,4 +334,4 @@ const columns: TableColumnsType<BasicModelTravis> = [
   )
 }
 
-export default TravisOrderPdf
+export default HardGoodsOrderPdf

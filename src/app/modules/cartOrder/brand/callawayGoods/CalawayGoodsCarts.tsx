@@ -29,6 +29,8 @@ import CompletedHardGoods from './CompletedOrderHardGoods';
 import Note from '../../Note';
 
 import { NoProdect } from '../../NoProdect';
+import AlertTravis from '../travisMethew/AlertTravis';
+import HardGoodsOrderPdf from './HardGoodsOrderPdf';
 
 const CalawayGoodsCarts = () => {
 
@@ -47,6 +49,8 @@ const CalawayGoodsCarts = () => {
   const [discountAmount, setDiscountAmount] = useState<number>()
   const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
   const [messageApi, contextHolder] = antdMessage.useMessage();
+  const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
+
  
 
 
@@ -74,7 +78,16 @@ const CalawayGoodsCarts = () => {
 
         }
       })
-      setAllorder(order)
+
+
+      //setAllorder(order)
+      if(order && order.length>0){
+        setAllorder(order)
+        setIsShowPdf(true)
+      } else if(order && order.length==0){
+        setAllorder([])
+        setIsShowPdf(false)
+      }
     }
   },
     [getGoodsProduct])
@@ -856,6 +869,14 @@ const handleRejectedModalCancel=()=>{
         handleOk={handleOkNote}
         handleCancel={handleCancelNote}
       />
+
+<AlertTravis
+        message={message}
+        messageType={messageType}
+
+      />
+
+{isShowPdf && <HardGoodsOrderPdf/>}
 
 
 

@@ -34,6 +34,7 @@ import Loading from '../../../../loading/Loading';
 import ApparelExcelUploadDb from '../excel/importExcel/ApparelExcelUploadDb';
 import ApparelPPt from "../ppt/ApparelPPt"
 import PreOrderHome from '../preOrder/PreOrderHome';
+import SoftGoodsPPt from '../ppt/SoftGoodsPPt';
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -890,9 +891,9 @@ setIsProduct(false)
      resetExportAll={handleResetExportAll}
    />}
 
-
+   
 {isPPt && 
-<ApparelPPt
+<SoftGoodsPPt
      selectedRow={selectedRow}
      resetPPt={handleResetPPt}
     />}

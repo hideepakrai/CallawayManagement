@@ -414,28 +414,32 @@ const TravisTable = () => {
       key: "stock_88",
       width: 150,
       fixed: 'right',
-      render: (value, record) => (
-        <Tooltip open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""} placement="top">
-          <InputNumber
-            status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
-            className='mx-3 number-input'
-            addonBefore={record.stock_88}
-            value={record.Quantity88?.toString()}
-            style={{ width: 100 }}
-            onChange={(value) => {
-              if (value !== null) {
-                handleQuantity88(value, record)
-              }
-
-            }}
-
-
-            disabled={value != null && value.stock_88 === 0}
-          />
-        </Tooltip>
-
-      ),
+      render: (value, record) => {
+        console.log("r", record.stock_88);
+        return (
+          <Tooltip 
+            open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} 
+            title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""} 
+            placement="top"
+          >
+            <InputNumber
+              status={record.sku === qty88ToolSKU && qty88ToolMesage !== "" ? "error" : ""}
+              className='mx-3 number-input'
+              addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
+              value={record.Quantity88?.toString()}
+              style={{ width: 100 }}
+              onChange={(value) => {
+                if (value !== null) {
+                  handleQuantity88(value, record);
+                }
+              }}
+              disabled={record.stock_88 === 0}
+            />
+          </Tooltip>
+        );
+      }
     },
+    
     {
       title: "Qty90",
       dataIndex: "stock_90",
@@ -448,17 +452,22 @@ const TravisTable = () => {
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className='mx-5 number-input'
-            addonBefore={record.stock_90 || 0}
+            addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
+
+           // addonBefore={record.stock_90 || 0}
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
+                
                 handleQuantity90(value, record)
               }
 
             }}
 
-            disabled={value != null && value.stock_90 === 0}
-            style={{ width: 100 }}
+           // disabled={value != null && value.stock_90 === 0}
+           // style={{ width: 100 }}
+            disabled={record.stock_90 === 0}
+
           />
         </Tooltip>
 
