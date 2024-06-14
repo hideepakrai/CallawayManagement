@@ -77,19 +77,8 @@ const HardGoodsApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
               </Button>
             ]}
             >
-            <div className='row mt-8'>
-                {/* <div className='col-7'>
-
-                    <Timeline>
-                        <Timeline.Item color="black ">
-                          
-                            <p className="text-gray-800 fs-5 fw-semibold">Note by <i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
-                        </Timeline.Item>
-                       
-                        
-                    </Timeline>
-                </div> */}
-                {/* <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to approve Order</h4> */}
+            {/* <div className='row mt-8'>
+             
                   
                 <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
             <input
@@ -116,7 +105,7 @@ const HardGoodsApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
                 </div>
                 )}
 
-                </div>
+                </div> */}
             </Modal>
     </div>
   )

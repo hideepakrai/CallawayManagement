@@ -103,7 +103,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
       const now = new Date();
       const formattedTimestamp = now.toISOString();
       const data1={
-        message: "Order Initiated",
+        message: "Order Initiated ",
         name: getCurrentUsers?.name,
         date: formattedTimestamp,
         user_id:getCurrentUsers?.id,

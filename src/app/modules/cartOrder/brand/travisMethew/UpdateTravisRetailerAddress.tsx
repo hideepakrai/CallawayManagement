@@ -165,8 +165,6 @@ useEffect(()=>{
           if (response) {
             resetAddress()
           }
-    
-    
         }
         catch (err) {
           //dispatch(LoadingStop())

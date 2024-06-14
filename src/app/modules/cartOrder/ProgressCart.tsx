@@ -142,7 +142,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                             </Button>
                             </Tooltip>
 
-                            <span className="note-title note-icon">
+                            {/* <span className="note-title note-icon">
                                 {current === 0 ? (
                                     <a onClick={handleNote} className="note-model">
                                         <i className="bi bi-pencil-square"></i> Add a note
@@ -152,7 +152,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                         <i className="bi bi-pencil-square"></i> Add a note
                                     </span>
                                 )}
-                            </span>
+                            </span> */}
                         </>
                     }
                 />

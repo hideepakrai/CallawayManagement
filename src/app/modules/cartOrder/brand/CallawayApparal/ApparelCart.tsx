@@ -771,9 +771,14 @@ const handleOkNote = () => {
 
         />}
 
+
      {allApparel &&
         allApparel.length > 0 ?
-      (<Table className='card-table-travis cart-table-profile mt-12 mb-5'
+      (
+      <div>
+<button className='note-button hover-elevate-up mt-10' onClick={handleNote}> <i className="bi bi-pencil-square"></i> Add a Note</button>
+        
+      <Table className='card-table-travis  cart-table-profile mt-6 mb-6'
         ref={tableRef}
         columns={columns}
         dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
@@ -881,10 +886,17 @@ const handleOkNote = () => {
 
           </div>
         )}
-      />) 
+      />
+      <button className='note-button hover-elevate-up mb-20' onClick={handleNote}> <i className="bi bi-pencil-square"></i> Add a Note</button>
+      </div>
+    
+    ) 
       : (<NoProdect/>)
       
       }
+
+
+
 
           {/*check availablity by getting all apparael qty  */}
           {isRefetch && <GetAllApparelProducts

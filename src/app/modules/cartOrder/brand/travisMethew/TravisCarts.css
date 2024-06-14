@@ -6,4 +6,18 @@
 .input-dropdown{width: 15%;}
 .cart-sec .cart-number-input{ display: inline-block;  vertical-align: bottom!important;}
 
+
 .cart-number-input{width: 120px!important;}
+
+.note-button {border: 1px solid #333!important;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    background-color: #f1f1f1;
+    background: transparent;}
+
+    .note-button i{color: #333; font-size: 14px}
+    /* .note-button:hover i{color: #fff;} */
+    .note-button:hover{ border: 1px solid #111; color: #111;}

@@ -12,13 +12,13 @@ import "./CartHeader.css"
 import ProgressCart from "./ProgressCart"
 
 import { addTravisOrderDetails } from "../../slice/orderSlice/travis/Orderdetails"
-import {addHardGoodsOrderDetails} from "../../slice/orderSlice/callawayGoods/HardGoodsOrderDetail"
+import { addHardGoodsOrderDetails } from "../../slice/orderSlice/callawayGoods/HardGoodsOrderDetail"
 
 import { getActiveOrdertab } from "../../slice/activeTabsSlice/ActiveTabSlice";
 
 import { addTravisReatailerDetails, getTravisRetailerDetail } from "../../slice/allProducts/TravisMethewSlice";
 import { addOgioReatailerDetails, getOgioRetailerDetail } from "../../slice/allProducts/OgioSlice";
-import {addHardGoodsReatailerDetails,getHardGoodsRetailerDetail} from "../../slice/allProducts/CallAwayGoodsSlice.tsx";
+import { addHardGoodsReatailerDetails, getHardGoodsRetailerDetail } from "../../slice/allProducts/CallAwayGoodsSlice.tsx";
 
 import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetailerAddress";
 import UpdateOgioRetailerAddress from "./brand/ogio/UpdateOgioRetailerAddress";
@@ -32,22 +32,22 @@ type Props = {
     approveorder: () => void
     completedOrder: () => void
     note: () => void
-    checkAvailability:() =>void
+    checkAvailability: () => void
 
 
 
 }
-const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder, completedOrder,checkAvailability}: Props) => {
+const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder, completedOrder, checkAvailability }: Props) => {
     const dispatch = useDispatch()
     const [isNote, setIsNote] = useState(false);
-   
-   const getUserProfiles= useSelector(getUserProfile)
+
+    const getUserProfiles = useSelector(getUserProfile)
     const getCurrentUsers = useSelector(getCurrentUser)
     const [isAvailable, setIsAvailable] = useState(false)
     const [isSubmit, setIsSubmit] = useState<boolean>(false)
     const [retailerName, setRetailerName] = useState<string>()
     const [retailerAddres, setRetailerAddress] = useState<string>()
-    const [retailerId, setRetailerId] = useState<number|null>(null)
+    const [retailerId, setRetailerId] = useState<number | null>(null)
     const [retailerCity, setRetailerCity] = useState<string>()
     const [retailerUserId, setRetailerUserId] = useState<number>(0)
     const [GST, setGST] = useState<string>()
@@ -57,41 +57,41 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [isOgio, setIsOgio] = useState<boolean>(false)
     const [isApparel, setIsApparel] = useState<boolean>(false)
     const [isHard, setIsHard] = useState<boolean>(false)
-  console.log("cardheader")
-    useEffect(()=>{
-        
-        if(getUserProfiles && getUserProfiles.length > 0){
-            getUserProfiles.map(item=>{
-                if(item.role==="Sales Representative"){
+    console.log("cardheader")
+    useEffect(() => {
+
+        if (getUserProfiles && getUserProfiles.length > 0) {
+            getUserProfiles.map(item => {
+                if (item.role === "Sales Representative") {
                     setSalesRepName(item.name)
-                } 
-                 if(item.role==="Manager" && item.name){
+                }
+                if (item.role === "Manager" && item.name) {
                     setManagerName(item.name)
 
-                 }
+                }
             })
 
-            if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
+            if (getCurrentUsers && getCurrentUsers.role === "Manager" && getCurrentUsers.name) {
                 setManagerName(getCurrentUsers.name)
             }
-            if(getCurrentUsers && getCurrentUsers.role==="Retailer"){
+            if (getCurrentUsers && getCurrentUsers.role === "Retailer") {
 
-                if(getCurrentUsers.address &&getCurrentUsers.gstin && getCurrentUsers.id && getCurrentUsers.name){
+                if (getCurrentUsers.address && getCurrentUsers.gstin && getCurrentUsers.id && getCurrentUsers.name) {
                     setRetailerAddress(getCurrentUsers.address);
                     setGST(getCurrentUsers.gstin);
                     setRetailerId(getCurrentUsers.id)
                     setRetailerName(getCurrentUsers.name)
                     dispatch(addTravisReatailerDetails({
-                        retailerDetails:getCurrentUsers
+                        retailerDetails: getCurrentUsers
                     }))
                 }
-               
+
 
             }
         }
-      
-    },[getUserProfiles,getCurrentUsers])
-    
+
+    }, [getUserProfiles, getCurrentUsers])
+
     const handleReview = () => {
         checkAvailability()
 
@@ -109,10 +109,10 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     }
 
     const getUserRetailers = useSelector(getUserRetailer);
-  const getActiveOrdertabs= useSelector(getActiveOrdertab)
+    const getActiveOrdertabs = useSelector(getActiveOrdertab)
     const getUserAccounts = useSelector(getUserAccount)
     const handleChange = (value: number) => {
-       
+
         const allData = getUserRetailers?.filter(retailer => retailer.id == value)
         if (allData &&
             allData.length > 0 &&
@@ -136,35 +136,35 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             //     // retailerUserId:allData[0].user_id
             // }))
 
-            if(getActiveOrdertabs==="Travis"){
+            if (getActiveOrdertabs === "Travis") {
                 dispatch(addTravisReatailerDetails({
-                    retailerDetails:allData[0]
+                    retailerDetails: allData[0]
                 }))
                 setIsTravis(true)
             }
 
-            else   if(getActiveOrdertabs==="Ogio"){
+            else if (getActiveOrdertabs === "Ogio") {
                 dispatch(addOgioReatailerDetails({
-                    retailerDetails:allData[0]
+                    retailerDetails: allData[0]
                 }))
                 setIsOgio(true)
             }
-            else   if(getActiveOrdertabs==="softgood"){
+            else if (getActiveOrdertabs === "softgood") {
                 dispatch(addsoftgoodReatailerDetails({
-                    retailerDetails:allData[0]
+                    retailerDetails: allData[0]
                 }))
                 setIsApparel(true)
             }
-    
-            else   if(getActiveOrdertabs==="hardgood"){
+
+            else if (getActiveOrdertabs === "hardgood") {
                 //console.log("addhard",addHardGoodsReatailerDetails)
                 dispatch(addHardGoodsReatailerDetails({
-                    retailerDetails:allData[0]
+                    retailerDetails: allData[0]
                 }))
                 setIsHard(true)
             }
 
-          
+
         } else {
 
             setRetailerAddress('');
@@ -181,84 +181,84 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 
 
     // manage retailer Address
- const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
- const getOgioRetailerDetails= useSelector(getOgioRetailerDetail) as RetailerModel;
- const getSoftgoodRetailerDetails= useSelector(getSoftgoodRetailerDetail) as RetailerModel;
- const getHardGoodsRetailerDetails= useSelector(getHardGoodsRetailerDetail) as RetailerModel;
+    const getTravisRetailerDetails = useSelector(getTravisRetailerDetail) as RetailerModel;
+    const getOgioRetailerDetails = useSelector(getOgioRetailerDetail) as RetailerModel;
+    const getSoftgoodRetailerDetails = useSelector(getSoftgoodRetailerDetail) as RetailerModel;
+    const getHardGoodsRetailerDetails = useSelector(getHardGoodsRetailerDetail) as RetailerModel;
 
-// set active tab adddress of retailer
+    // set active tab adddress of retailer
 
- useEffect(()=>{
-    setRetailerAddress('');
-    setRetailerCity('');
-    setGST("");
-    setRetailerId(null)
-    setRetailerName("")
-    // eslint-disable-next-line no-debugger
-   // debugger
-if(getActiveOrdertabs==='Travis' &&getTravisRetailerDetails ){
+    useEffect(() => {
+        setRetailerAddress('');
+        setRetailerCity('');
+        setGST("");
+        setRetailerId(null)
+        setRetailerName("")
+        // eslint-disable-next-line no-debugger
+        // debugger
+        if (getActiveOrdertabs === 'Travis' && getTravisRetailerDetails) {
 
-    console.log("getTravisRetailerDetails",getTravisRetailerDetails)
-     if(getTravisRetailerDetails.address &&
-        getTravisRetailerDetails.name &&getTravisRetailerDetails.id){
-            setRetailerAddress(getTravisRetailerDetails.address);
-            setGST(getTravisRetailerDetails.gstin);
-            setRetailerId(getTravisRetailerDetails.id)
-            setRetailerName(getTravisRetailerDetails.name)
+            console.log("getTravisRetailerDetails", getTravisRetailerDetails)
+            if (getTravisRetailerDetails.address &&
+                getTravisRetailerDetails.name && getTravisRetailerDetails.id) {
+                setRetailerAddress(getTravisRetailerDetails.address);
+                setGST(getTravisRetailerDetails.gstin);
+                setRetailerId(getTravisRetailerDetails.id)
+                setRetailerName(getTravisRetailerDetails.name)
+            }
+
+
         }
-   
+        else if (getActiveOrdertabs === 'Ogio' && getOgioRetailerDetails) {
 
-}
- else if(getActiveOrdertabs==='Ogio' &&getOgioRetailerDetails ){
-
-    console.log("getOgioRetailerDetails",getOgioRetailerDetails)
-     if(getOgioRetailerDetails.address &&
-        getOgioRetailerDetails.name &&getOgioRetailerDetails.id){
-            setRetailerAddress(getOgioRetailerDetails.address);
-            setGST(getOgioRetailerDetails.gstin);
-            setRetailerId(getOgioRetailerDetails.id)
-            setRetailerName(getOgioRetailerDetails.name)
+            console.log("getOgioRetailerDetails", getOgioRetailerDetails)
+            if (getOgioRetailerDetails.address &&
+                getOgioRetailerDetails.name && getOgioRetailerDetails.id) {
+                setRetailerAddress(getOgioRetailerDetails.address);
+                setGST(getOgioRetailerDetails.gstin);
+                setRetailerId(getOgioRetailerDetails.id)
+                setRetailerName(getOgioRetailerDetails.name)
+            }
         }
-    }
- else if(getActiveOrdertabs==='softgood' &&getSoftgoodRetailerDetails ){
+        else if (getActiveOrdertabs === 'softgood' && getSoftgoodRetailerDetails) {
 
-    console.log("getSoftRetailerDetails",getSoftgoodRetailerDetails)
-     if(getSoftgoodRetailerDetails.address &&
-        getSoftgoodRetailerDetails.name &&getSoftgoodRetailerDetails.id){
-            setRetailerAddress(getSoftgoodRetailerDetails.address);
-            setGST(getSoftgoodRetailerDetails.gstin);
-            setRetailerId(getSoftgoodRetailerDetails.id)
-            setRetailerName(getSoftgoodRetailerDetails.name)
+            console.log("getSoftRetailerDetails", getSoftgoodRetailerDetails)
+            if (getSoftgoodRetailerDetails.address &&
+                getSoftgoodRetailerDetails.name && getSoftgoodRetailerDetails.id) {
+                setRetailerAddress(getSoftgoodRetailerDetails.address);
+                setGST(getSoftgoodRetailerDetails.gstin);
+                setRetailerId(getSoftgoodRetailerDetails.id)
+                setRetailerName(getSoftgoodRetailerDetails.name)
+            }
+
+
         }
-   
 
-}
+        else if (getActiveOrdertabs === 'hardgood' && getHardGoodsRetailerDetails) {
 
-else if(getActiveOrdertabs==='hardgood' && getHardGoodsRetailerDetails ){
+            console.log("getHardRetailerDetails", getHardGoodsRetailerDetails)
+            if (getHardGoodsRetailerDetails.address &&
+                getHardGoodsRetailerDetails.name && getHardGoodsRetailerDetails.id) {
+                setRetailerAddress(getHardGoodsRetailerDetails.address);
+                setGST(getHardGoodsRetailerDetails.gstin);
+                setRetailerId(getHardGoodsRetailerDetails.id)
+                setRetailerName(getHardGoodsRetailerDetails.name)
+            }
 
-    console.log("getHardRetailerDetails",getHardGoodsRetailerDetails)
-     if(getHardGoodsRetailerDetails.address &&
-        getHardGoodsRetailerDetails.name &&getHardGoodsRetailerDetails.id){
-            setRetailerAddress(getHardGoodsRetailerDetails.address);
-            setGST(getHardGoodsRetailerDetails.gstin);
-            setRetailerId(getHardGoodsRetailerDetails.id)
-            setRetailerName(getHardGoodsRetailerDetails.name)
+
         }
-   
-
-}
 
 
 
 
-else {
-    setRetailerAddress('');
-    setRetailerCity('');
-    setGST("");
-    setRetailerId(null)
-    setRetailerName("")
-}
- },[getActiveOrdertabs,getTravisRetailerDetails,getOgioRetailerDetails,getHardGoodsRetailerDetails,getSoftgoodRetailerDetails])
+        else {
+            setRetailerAddress('');
+            setRetailerCity('');
+            setGST("");
+            setRetailerId(null)
+            setRetailerName("")
+        }
+    }, [getActiveOrdertabs, getTravisRetailerDetails, getOgioRetailerDetails, getHardGoodsRetailerDetails, getSoftgoodRetailerDetails])
 
 
 
@@ -279,19 +279,19 @@ else {
         completedOrder()
     }
 
-    const handleNote=()=>{
+    const handleNote = () => {
         note()
 
     }
 
-    const handleResetTravisAddress=()=>{
-   setIsTravis(false)
+    const handleResetTravisAddress = () => {
+        setIsTravis(false)
     }
-    const handleResetOgioAddress=()=>{
+    const handleResetOgioAddress = () => {
         setIsOgio(false)
     }
 
-    const handleResetHardGoodsAddress=()=>{
+    const handleResetHardGoodsAddress = () => {
         setIsHard(false)
     }
 
@@ -333,7 +333,14 @@ else {
                             <span className=' fs-5 fw-bold ' >
                                 Manager
                             </span>
+                         
 
+                            {/* <select className="form-select select-dro" data-control="select2" data-placeholder="Select an option">
+                                <option value="1">Mukesh Gupta</option>
+                                <option value="2">Ankur </option>
+                                <option value="3">Manish Sharma </option>
+                            </select> */}
+                            
                             <h3 className=' fs-2 user-title' >
                              {MangerName}
                             </h3>
@@ -343,9 +350,15 @@ else {
                             <span className=' fs-5 fw-bold ' >
                                 Sales Representative
                             </span>
-
+                           
+                            {/* <select className="form-select select-dro" data-control="select2" data-placeholder="Select an option">
+                                <option value="1">Mukesh Gupta</option>
+                                <option value="2">Ankur </option>
+                                <option value="3">Manish Sharma </option>
+                            </select> */}
+                     
                             <h3 className=' fs-2 user-title' >
-                               {salesRepName}
+                                {salesRepName}
                             </h3>
                         </div>
 
@@ -372,7 +385,7 @@ else {
                         rejectedOrder={handleRejectOrder}
                         completedOrder={handleCompletedOrder}
                         note={handleNote}
-                        resetAvailable={handleResetAvailable} 
+                        resetAvailable={handleResetAvailable}
                     />
 
                     {/* <span className='mx-3'  >
@@ -423,23 +436,26 @@ else {
 
 
             </div>
-           { isTravis &&
-           <UpdateTravisRetailerAddress
-           resetAddress={handleResetTravisAddress}
-           />}
 
-            {    isOgio &&<UpdateOgioRetailerAddress
-            resetOgioAddress={handleResetOgioAddress}
-                    />}
+            {isTravis &&
+                <UpdateTravisRetailerAddress
+                    resetAddress={handleResetTravisAddress}
+                />}
 
-                    {/* update apparel / soft good retailer address */}
-            {    isApparel &&<UpdatesoftGoodsRetailerAddress
-            resetApparelAddress={handleResetApparelAddress}
+
+
+            {isOgio && <UpdateOgioRetailerAddress
+                resetOgioAddress={handleResetOgioAddress}
             />}
 
-                  { isHard && <UpdateHardGoodsRetailerAddress
-                    resetHardGoodsAddress={handleResetHardGoodsAddress}
-                    />}
+            {/* update apparel / soft good retailer address */}
+            {isApparel && <UpdatesoftGoodsRetailerAddress
+                resetApparelAddress={handleResetApparelAddress}
+            />}
+
+            {isHard && <UpdateHardGoodsRetailerAddress
+                resetHardGoodsAddress={handleResetHardGoodsAddress}
+            />}
         </div>
     )
 }

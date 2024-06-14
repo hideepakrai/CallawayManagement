@@ -77,8 +77,8 @@ const TravisApproveModel = ({ isApprove, onOkHandler, handleCancel }: Props) => 
         </Button>
       ]}
       >
-        <div className='row mt-8'>
-          {/* <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to approve Order</h4> */}
+        {/* <div className='row mt-8'>
+        
           <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
             <input
               className="form-check-input submit-order"
@@ -104,7 +104,7 @@ const TravisApproveModel = ({ isApprove, onOkHandler, handleCancel }: Props) => 
               onChange={(e) => setnotes(e.target.value)}
             />
           </div>
-        )}
+        )} */}
 
 
 

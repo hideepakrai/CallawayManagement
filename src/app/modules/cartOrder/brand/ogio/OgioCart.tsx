@@ -840,8 +840,12 @@ const handleOkSubmit=()=>{
 
 
     { allOgioOrders && allOgioOrders.length>0 ?
-   (  <Table
-        className='cart-table-profile ogio-table-cart mt-12 mb-5'
+   (  
+    <div>
+<button className='note-button hover-elevate-up mt-10' onClick={handleNote}> <i className="bi bi-pencil-square"></i> Add a Note</button>
+
+   <Table
+        className='cart-table-profile ogio-table-cart mt-6 mb-6'
         ref={tableRef}
         columns={columns}
         dataSource={allOgioOrders?.map((item) => ({ ...item, key: item.sku }))}
@@ -945,10 +949,15 @@ const handleOkSubmit=()=>{
 
           </div>
         )}
-      />):(<>
+      />
+<button className='note-button hover-elevate-up mb-20' onClick={handleNote}> <i className="bi bi-pencil-square"></i> Add a Note</button>
+
+      </div>
+      ):(<>
       <NoProdect/>
       </>)
     }
+
 
 
       { isShowPdf &&<OgioCartPdf />}

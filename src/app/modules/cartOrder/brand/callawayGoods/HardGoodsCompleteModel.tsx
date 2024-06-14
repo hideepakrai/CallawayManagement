@@ -80,19 +80,9 @@ const HardGoodsCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) =>
           ]}
           >
             <div className='row mt-8'>
-                {/* <div className='col-7'>
-
-                    <Timeline>
-                        <Timeline.Item color="black ">
-                          
-                            <p className="text-gray-800 fs-5 fw-semibold">Note by <i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
-                        </Timeline.Item>
-                       
-                        
-                    </Timeline>
-                </div> */}
+               
               
-              <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
+              {/* <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
             <input
               className="form-check-input submit-order"
               type="checkbox"
@@ -116,7 +106,7 @@ const HardGoodsCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) =>
                         onChange={(e) => setnotes(e.target.value)}
                     />
                 </div>
-              )}
+              )} */}
 
                 </div>
             </Modal>

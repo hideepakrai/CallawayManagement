@@ -64,7 +64,7 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
 
   return (
     <div>
-      <Modal className='timeline submit-popup' title="Do you want to Submit Order" open={isSubmit} 
+      <Modal className='timeline submit-popup' open={isSubmit} 
       // onOk={handleOk} 
       onCancel={handleCancel}
    
@@ -77,8 +77,15 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
         </Button>
       ]}
       >
-        <div className='row mt-6 mb-6 '>
-           {/* <h4 className='mb-3 fs-2 text-black' style={{ fontWeight: '500' }}>Do you want to submit Order</h4>  */}
+         <div className='pt-8 pb-3 text-center '>
+          <h4 className='fs-2'>Do you want to Submit Order?</h4>
+          <h5 className='fs-5 pt-4 text-Secondary'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+          </h5>
+        </div>
+
+        {/* <div className='row mt-6 mb-6 '>
+         
           <div className="form-check form-check-custom form-check-solid mx-3 mt-2 cursor-pointer">
             <input
               className="form-check-input submit-order"
@@ -102,7 +109,7 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
               />
             </div>
           )}
-        </div>
+        </div> */}
       </Modal>
     </div>
   );

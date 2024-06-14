@@ -86,7 +86,7 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
    
     return (
         <div>
-            <Modal className='timeline' title="Add Note " open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
+            <Modal className='timeline' title="Add Note" open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
             <div className='row mt-8'>
                 <div className='col-7'>
 

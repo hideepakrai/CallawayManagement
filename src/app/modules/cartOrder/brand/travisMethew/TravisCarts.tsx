@@ -33,6 +33,7 @@ import TravisApproveModel from './TravisApproveModal';
 import TravisCompleteModel from './TraviscompleteModal';
 import TravisRejectedModel from './TravisRejectedModal';
 import { NoProdect } from '../../NoProdect';
+import "./TravisCarts.css"
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
@@ -773,8 +774,14 @@ const handleRejectedModalCancel=()=>{
           checkAvailability={handleCheckRetailerDetail}
         />}
 
+
+    
      { allOrder && allOrder.length>0?
-    ( <Table className='card-table-travis cart-table-profile mt-12 mb-5'
+    ( 
+    <div>
+     <button className='note-button hover-elevate-up mt-8' onClick={handleNote}> <i className="bi bi-pencil-square"></i> Add a Note</button>
+
+    <Table className='card-table-travis  cart-table-profile mt-6 mb-6'
         ref={tableRef}
         columns={columns}
         dataSource={allOrder?.map((item) => ({ ...item, key: item?.sku }))}
@@ -886,10 +893,17 @@ const handleRejectedModalCancel=()=>{
 
           </div>
         )}
-      />):(
+      />
+    <button className='note-button hover-elevate-up mb-20' > <i className="bi bi-pencil-square"></i> Add a Note</button>
+      </div>
+      ):(
         <NoProdect/>
       )
     }
+{/* <Button >Add a note</Button> */}
+
+
+
 
       {isRefetch && <GetTravisMethewProduct
         resetTravis={handleResetRefetch}
