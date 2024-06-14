@@ -34,6 +34,7 @@ import Loading from '../../../../loading/Loading';
 import ApparelExcelUploadDb from '../excel/importExcel/ApparelExcelUploadDb';
 import ApparelPPt from "../ppt/ApparelPPt"
 import PreOrderHome from '../preOrder/PreOrderHome';
+import SoftGoodsPPt from '../ppt/SoftGoodsPPt';
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -367,7 +368,9 @@ const ApparelTable = () => {
           <InputNumber
             status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
             className='mx-3 number-input'
-            addonBefore={record.stock_88}
+            //addonBefore={record.stock_88}
+            addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
+
             value={record.Quantity88?.toString()}
             style={{ width: 100 }}
             onChange={(value) => {
@@ -378,7 +381,9 @@ const ApparelTable = () => {
             }}
 
 
-            disabled={value.stock_88 === 0}
+           // disabled={value.stock_88 === 0}
+            disabled={record.stock_88 === 0}
+
           />
         </Tooltip>
 
@@ -396,17 +401,22 @@ const ApparelTable = () => {
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className='mx-5 number-input'
-            addonBefore={record.stock_90 || 0}
+            addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
+
+           // addonBefore={record.stock_90 || 0}
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
+                
                 handleQuantity90(value, record)
               }
 
             }}
 
-            disabled={value.stock_90 === 0}
-            style={{ width: 100 }}
+           // disabled={value != null && value.stock_90 === 0}
+           // style={{ width: 100 }}
+            disabled={record.stock_90 === 0}
+
           />
         </Tooltip>
 
@@ -890,9 +900,9 @@ setIsProduct(false)
      resetExportAll={handleResetExportAll}
    />}
 
-
+   
 {isPPt && 
-<ApparelPPt
+<SoftGoodsPPt
      selectedRow={selectedRow}
      resetPPt={handleResetPPt}
     />}

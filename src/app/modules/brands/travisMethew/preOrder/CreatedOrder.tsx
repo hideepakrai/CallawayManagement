@@ -94,14 +94,24 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
  },[getAllUsers])
   /// after getting product create order
 
+
+  const getISTTime = () => {
+    const now = new Date();
+    const utcOffset = now.getTimezoneOffset();
+    const istOffset = 330; // IST offset is +5:30 from UTC
+    const istTime = new Date(now.getTime() + (istOffset - utcOffset) * 60000);
+    return istTime.toISOString();
+  };
   useEffect(() => {
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&
      
       managerUserId
     ) {
-      const now = new Date();
-      const formattedTimestamp = now.toISOString();
+      //const now = new Date();
+      //const formattedTimestamp = now.toISOString();
+      const formattedTimestamp = getISTTime();
+
       const data1={
         message: "Order Initiated ",
         name: getCurrentUsers?.name,

@@ -111,7 +111,11 @@ const AllOrders = () => {
             width: 150,
             render: (value) => {
                 const date = new Date(value);
-                return date.toUTCString();
+                // Convert to IST
+                const utcOffset = date.getTimezoneOffset();
+                const istOffset = 330; // IST offset is +5:30 from UTC
+                const istDate = new Date(date.getTime() + (istOffset - utcOffset) * 60000);
+                return istDate.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
             },
         },
         {
@@ -120,7 +124,11 @@ const AllOrders = () => {
             width: 100,
             render: (value) => {
                 const date = new Date(value);
-                return date.toUTCString();
+                // Convert to IST
+                const utcOffset = date.getTimezoneOffset();
+                const istOffset = 330; // IST offset is +5:30 from UTC
+                const istDate = new Date(date.getTime() + (istOffset - utcOffset) * 60000);
+                return istDate.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
             },
         },
         {
@@ -187,6 +195,10 @@ const AllOrders = () => {
     const expandedRowRender = (record: CartModel) => {
         if (record && record.brand_id) {
             switch (record.brand_id) {
+                // case 3:
+                //     return <TravisExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                // case 4:
+                //     return <OgioExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
                 case 3:
                     return <TravisExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
                 case 4:
