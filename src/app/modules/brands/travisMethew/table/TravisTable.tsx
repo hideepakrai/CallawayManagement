@@ -466,7 +466,7 @@ const TravisTable = () => {
             }}
 
            // disabled={value != null && value.stock_90 === 0}
-           // style={{ width: 100 }}
+            style={{ width: 100 }}
             disabled={record.stock_90 === 0}
 
           />
