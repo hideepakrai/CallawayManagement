@@ -364,7 +364,9 @@ const GooodsTable = () => {
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className=' number-input'
-            addonBefore={record.stock_88 || 0}
+            //addonBefore={record.stock_88 || 0}
+            addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
+
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
@@ -372,7 +374,9 @@ const GooodsTable = () => {
               }
 
             }}
-            disabled={value != null && value.stock_88 === 0}
+            disabled={record.stock_88 === 0}
+
+           // disabled={value != null && value.stock_88 === 0}
 
             style={{ width: 100 }}
           />

@@ -168,12 +168,12 @@ const PendingOrder = () => {
 
                 onCloseView={handleCloseView}
             /> */}
-            <Edit
+            {/* <Edit
                 isEdit={isEdit}
 
                 onClose={handleCloseEdit}
                 changeStatus={handleUpdateStatus}
-            />
+            /> */}
 
 
             {status != null && orderId &&

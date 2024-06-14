@@ -71,13 +71,23 @@ const AllPendingOrder = () => {
             width: 100,
             render: (value) => {
                 let brandName;
-                if (value === 3) {
-                    brandName = "Travis Mathew";
-                } else {
-                    brandName = "Ogio"; // Default value or other brand name
+                switch (value) {
+                    case 1:
+                        brandName = "Callaway Hardgoods";
+                        break;
+                    case 2:
+                        brandName = "Callaway Softgoods";
+                        break;
+                    case 3:
+                        brandName = "Travis Mathew";
+                        break;
+                    case 4:
+                        brandName = "Ogio";
+                        break;
+                    default:
+                        brandName = "Unknown Brand";
                 }
-
-                return <span>{brandName}</span>; // Render the brand name inside a span
+                return <span>{brandName}</span>;
             },
         },
         {
@@ -100,39 +110,15 @@ const AllPendingOrder = () => {
             }
         },
 
-        // {
-        //     title: "Order date",
-        //     dataIndex: "created_at",
-        //     width: 150,
-        //     render: (value) => {
-        //         const date = new Date(value);
-        //         return date.toUTCString();
-        //     },
-       // },
-       {
-        title: "Order date",
-        dataIndex: "created_at",
-        width: 150,
-        render: (value) => {
-            const date = new Date(value);
-            // Convert to IST
-            const utcOffset = date.getTimezoneOffset();
-            const istOffset = 330; 
-            const istDate = new Date(date.getTime() + (istOffset - utcOffset) * 60000);
-            return istDate.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+        {
+            title: "Order date",
+            dataIndex: "created_at",
+            width: 150,
+            render: (value) => {
+                const date = new Date(value);
+                return date.toUTCString();
+            },
         },
-    },
-
-
-        // {
-        //     title: "Last Update",
-        //     dataIndex: "updated_at",
-        //     width: 100,
-        //     render: (value) => {
-        //         const date = new Date(value);
-        //         return date.toUTCString();
-        //     },
-        // },
 
         {
             title: "Last Update",
@@ -140,11 +126,7 @@ const AllPendingOrder = () => {
             width: 100,
             render: (value) => {
                 const date = new Date(value);
-                // Convert to IST
-                const utcOffset = date.getTimezoneOffset();
-                const istOffset = 330; // IST offset is +5:30 from UTC
-                const istDate = new Date(date.getTime() + (istOffset - utcOffset) * 60000);
-                return istDate.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+                return date.toUTCString();
             },
         },
 
