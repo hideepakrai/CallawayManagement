@@ -215,7 +215,7 @@ const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOr
                                 )
                             ) : (
                                 <span className="disabled-note">
-                                    <i className="bi bi-bag-x"></i> Reject Order 1
+                                    <i className="bi bi-bag-x"></i> Reject Order 
                                 </span>
                             )}
                             </span>

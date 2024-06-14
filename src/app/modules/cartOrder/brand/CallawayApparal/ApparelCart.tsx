@@ -14,7 +14,7 @@ import CartHeader from '../../CartHeader';
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { message as antdMessage } from 'antd';
 import { BasicModelApparel } from '../../../model/apparel/CallawayApparelModel';
-import { getApparelProducts, getSoftgoodRetailerDetail, resetSoftGoods, updateApparelFlatDiscount, updateApparelInclusiveDiscount, updateProgressStep, updateQuantity88, updateQuantity90, updaterApparelExclusiveDiscount } from '../../../../slice/allProducts/CallawayApparelSlice';
+import { getApparelProducts, getSoftgoodRetailerDetail, resetSoftGoods, updateApparelFlatDiscount, updateApparelInclusiveDiscount, updateProgressStep, updateQuantity88, updateQuantity90, updaterApparelExclusiveDiscount,addPreOrderId } from '../../../../slice/allProducts/CallawayApparelSlice';
 import GetAllApparelProducts from '../../../../api/allProduct/callaway/appreal/GetAllApparelProducts';
 import SubmitSoftGoodModel from './submitOrder/SubmitSoftGoodModel';
 import SubmitSoftOrder from './submitOrder/SubmitSoftOrder';
@@ -27,6 +27,8 @@ import ApparelCompletedOrder from './completeOrder/ApparelcompleteOrder';
 import { NoProdect } from '../../NoProdect';
 import SoftGoodsOrderPdf from './pdfOrder/SoftGoodsOrderPdf';
 import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
+import SoftGoodsRejectedModel from "./SoftGoodsRejectedModel"
+import RejectOrderSoftGoods from './RejectOrderSoftGoods';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -38,6 +40,7 @@ const CallawayApparelCarts = () => {
   const getLoadings = useSelector(getLoading)
   const [notes, setNotes] = useState<string>('');
   const [isLoadingStart, setIsLoadingStart] = useState<boolean>(false)
+  const [isRejectedModel, setIsRejectedModel] = useState<boolean>(false)
   const getApparelProduct: BasicModelApparel[] = useSelector(getApparelProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
@@ -51,6 +54,7 @@ const CallawayApparelCarts = () => {
     }
   }, [getLoadings])
   const [allApparel, setAllApparel] = useState<BasicModelApparel[]>([])
+
   //get Apparel product 
 
   useEffect(() => {
@@ -349,7 +353,7 @@ const CallawayApparelCarts = () => {
 
 
 
-  const handleRejectOrder = () => { }
+  
 
  
 
@@ -726,6 +730,46 @@ const handleOkNote = () => {
 
 
 
+
+  // reject order
+const handleRejectedOk=()=>{
+  setIsRejectedorder(true)
+  setIsRejectedModel(false)
+  dispatch(LoadingStart())
+}
+const handleRejectedModalCancel=()=>{
+  setIsRejectedModel(false)
+}
+
+  const handleRejectOrder = () => {
+    setIsRejectedModel(true)
+  }
+
+  
+
+  const handleResetRejectedOrder = () => {
+    setIsRejectedorder(false)
+    dispatch(LoadingStop())
+    messageApi.info('Your order is rejected');
+    //alert("Your order is rejected")
+    dispatch(resetSoftGoods())
+
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
+    dispatch(addPreOrderId({
+      preOrderId:0
+    }))
+  }
+
+
+
+
+
+
+
+  
   const handleResetStatus = (status: string) => {
     if (status === "Approved") {
       dispatch(updateProgressStep({
@@ -961,11 +1005,33 @@ const handleOkNote = () => {
 
           />
 
+
+
             {/* approve order */}
       {isstatusUpdate && <ApparelApproveOrder
         resetStatus={handleResetStatus}
         statusUpdate={statusUpdate}
         />}
+
+
+
+          {/* reject order */}
+
+          {isRejectedorder &&
+     <RejectOrderSoftGoods
+     resetReject={handleResetRejectedOrder}
+     />
+          }
+
+<SoftGoodsRejectedModel
+          isReject={isRejectedModel}
+          onOkHandler={handleRejectedOk}
+          handleCancel={handleRejectedModalCancel}
+
+          />
+
+
+
 
         {/* complete modal */}
 

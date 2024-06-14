@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getPreOrderId, getTravisNote, getTravisProducts, getTravisRetailerDetail } from '../../../../slice/allProducts/TravisMethewSlice'
+import { getPreOrderId, getApparelNote, getAppaProducts, getSoftgoodRetailerDetail } from '../../../../slice/allProducts/CallawayApparelSlice'
 import { ApproveOrder, } from '../../orderApi/OrderAPi'
 import { CartModel } from '../../../model/CartOrder/CartModel'
-import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
+import { BasicModelGoods } from "../../../model/goods/CallawayGoodsModel"
 import { getActiveOrdertab } from '../../../../slice/activeTabsSlice/ActiveTabSlice'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
@@ -13,27 +13,26 @@ import { CurentUser } from '../../../model/useAccount/CurrentUser'
 type Props = {
   resetReject: () => void
 }
-const RejectOrderTravis = ({ resetReject }: Props) => {
+const RejectOrderSoftGoods = ({ resetReject }: Props) => {
 
   const getPreOrderIds = useSelector(getPreOrderId)
 
 
-  const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
+  const [allHardGoodsOrders, setGetAllHardGoodsOrders] = useState<BasicModelGoods[]>([])
   const getActiveOrdertabs= useSelector(getActiveOrdertab)
-  const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
+  const getSoftgoodRetailerDetails= useSelector(getSoftgoodRetailerDetail) as RetailerModel;
   
-  const getProduct: BasicModelTravis[] = useSelector(getTravisProducts);
+  const getProduct: BasicModelGoods[] = useSelector(getAppaProducts);
   useEffect(() => {
-    const ogio: BasicModelTravis[] = [];
+    const ogio: BasicModelGoods[] = [];
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id ) {
+        if (item.ordered && item.error88 === ""  ) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
-            stock_90: item.Quantity90 ? item.Quantity90 : 0,
             stock_88: item.Quantity88 ? item.Quantity88 : 0,
-            size: item.size,
+           // size: item.size,
             color:item.color,
             Amount:item.Amount,
             LessDiscountAmount:item.LessDiscountAmount
@@ -45,13 +44,13 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
       })
 
 
-      setGetAllTravisOrders(ogio)
+      setGetAllHardGoodsOrders(ogio)
     }
   }, [getProduct]);
 
 
 
-  const getTravisNotes= useSelector(getTravisNote)
+  const getTravisNotes= useSelector(getApparelNote)
   const [totalAmount, setTotalAmount] = useState<number>()
   const [discountType, setDiscountType] = useState<string>()
   const [discountpercent, setDiscountPercent] = useState<number>()
@@ -62,7 +61,7 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
     let tAmount: number = 0;
     let totalBillAmount: number = 0;
     if (getProduct && getProduct.length > 0) {
-      getProduct.map((item: BasicModelTravis) => {
+      getProduct.map((item: BasicModelGoods) => {
         if (item.Amount && item.ordered) {
           tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
         }
@@ -124,21 +123,22 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
 
  useEffect(() => {
   if (getPreOrderIds &&
-    getTravisRetailerDetails &&
-            getActiveOrdertabs==="Travis"   &&
-            allTravisOrders &&
+    getSoftgoodRetailerDetails &&
+            getActiveOrdertabs==="hardgood"   &&
+            allHardGoodsOrders &&
             totalAmount&&
       discountAmount &&
       totalNetBillAmount &&
       getTravisNotes
   ) {
 
+    
     const   retailer_details={
-      name:getTravisRetailerDetails.name,
-      gstin:getTravisRetailerDetails.gstin,
-      email:getTravisRetailerDetails.email,
-      address:getTravisRetailerDetails.address,
-      phone:getTravisRetailerDetails.phone
+      name:getSoftgoodRetailerDetails.name,
+      gstin:getSoftgoodRetailerDetails.gstin,
+      email:getSoftgoodRetailerDetails.email,
+      address:getSoftgoodRetailerDetails.address,
+      phone:getSoftgoodRetailerDetails.phone
       }
       const now = new Date();
       const formattedTimestamp = now.toISOString();
@@ -150,7 +150,7 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
           note:JSON.stringify(getTravisNotes),
           retailer_details:JSON.stringify(retailer_details),
           user_id: getCurrentUsers.id,
-          items: JSON.stringify(allTravisOrders),
+          items: JSON.stringify(allHardGoodsOrders),
           status: "Rejected",
           discount_type:"Inclusive",
           discount_percent:22,
@@ -158,23 +158,21 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
           discount_amount:discountAmount,
           total_val_pre_discount:totalAmount,
           manager_id: managerUserId,
-          retailer_id: getTravisRetailerDetails.id,
+          retailer_id: getSoftgoodRetailerDetails.id,
           salesrep_id: salesRepId??0,
         }
-    rejectOrderTravis(data)
+        RejectOrderSoftGoods(data)
 
   }
 
-  
 }, [getActiveOrdertabs,getTravisNotes,totalNetBillAmount,discountAmount,
-  getTravisRetailerDetails,managerUserId,salesRepId,getPreOrderIds,allTravisOrders])
+    getSoftgoodRetailerDetails,managerUserId,salesRepId,getPreOrderIds,allHardGoodsOrders])
  
-  const rejectOrderTravis = async (data: CartModel) => {
+  const RejectOrderSoftGoods = async (data: CartModel) => {
     const now = new Date();
     
     try {
       const response = await ApproveOrder(data);
-
       resetReject()
       //   resetStatus(statusUpdate)
     } catch (err) {
@@ -182,8 +180,8 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
     }
   }
   return (
-    <div></div>
+    <div>RejectOrderSoftGoods</div>
   )
 }
 
-export default RejectOrderTravis
+export default RejectOrderSoftGoods
