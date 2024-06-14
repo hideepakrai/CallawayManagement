@@ -1,58 +1,58 @@
 import TextArea from 'antd/es/input/TextArea'
 import React, { useEffect, useState } from 'react'
 
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import "../../../Note.css"
-import { Modal } from 'antd'
+import { Modal,Button } from 'antd'
 import { CurentUser } from '../../../../model/useAccount/CurrentUser'
 import { getCurrentUser } from '../../../../../slice/UserSlice/UserSlice'
 import { addSoftGoodNote } from '../../../../../slice/allProducts/CallawayApparelSlice'
 
 type Props = {
-    isApprove:boolean
-    onOkHandler:() => void
-    handleCancel:() => void
+  isApprove: boolean
+  onOkHandler: () => void
+  handleCancel: () => void
 }
-const ApparelApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
+const ApparelApproveModel = ({ isApprove, onOkHandler, handleCancel }: Props) => {
 
-    console.log("SubmitModel",isApprove)
-    const dispatch = useDispatch()
-    const [addNotes, setAddNotes] = useState<string>('');
-  const [notes, setnotes]= useState<string>("")
+  console.log("SubmitModel", isApprove)
+  const dispatch = useDispatch()
+  const [addNotes, setAddNotes] = useState<string>('');
+  const [notes, setnotes] = useState<string>("")
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
 
 
-  const handleOk=()=>{
+  const handleOk = () => {
     const now = new Date();
     const formattedTimestamp = now.toISOString();
     if (notes !== '' && getCurrentUsers) {
-        const data1 = {
-          message: notes,
-          name: getCurrentUsers?.name,
-          date: formattedTimestamp,
-          user_id: getCurrentUsers?.id,
-          access: 'all',
-          type: 'user',
-        };
-        dispatch(addSoftGoodNote({
-          note: data1,
-        }));
-      
-      } else if (notes === '' && getCurrentUsers) {
-        const data1 = {
-          message: 'Order approve',
-          name: getCurrentUsers?.name,
-          date: formattedTimestamp,
-          user_id: getCurrentUsers?.id,
-          access: 'all',
-          type: 'system',
-        };
-        dispatch(addSoftGoodNote({
-          note: data1,
-        }));
-      
-      }
+      const data1 = {
+        message: notes,
+        name: getCurrentUsers?.name,
+        date: formattedTimestamp,
+        user_id: getCurrentUsers?.id,
+        access: 'all',
+        type: 'user',
+      };
+      dispatch(addSoftGoodNote({
+        note: data1,
+      }));
+
+    } else if (notes === '' && getCurrentUsers) {
+      const data1 = {
+        message: 'Order approve',
+        name: getCurrentUsers?.name,
+        date: formattedTimestamp,
+        user_id: getCurrentUsers?.id,
+        access: 'all',
+        type: 'system',
+      };
+      dispatch(addSoftGoodNote({
+        note: data1,
+      }));
+
+    }
     onOkHandler()
     setnotes("")
   }
@@ -63,11 +63,22 @@ const ApparelApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
     setIsChecked(e.target.checked);
   };
 
-    return (
+  return (
     <div>
-           <Modal className='timeline submit-popup' title="Do you want to approve Order" open={isApprove} onOk={handleOk} onCancel={handleCancel}>
-            <div className='row mt-8'>
-                {/* <div className='col-7'>
+      <Modal className='timeline submit-popup' title="Do you want to Approve Order" open={isApprove} 
+      // onOk={handleOk}
+       onCancel={handleCancel}
+         footer={[
+          <Button key="no" onClick={handleCancel}>
+            No
+          </Button>,
+          <Button key="yes" type="primary" onClick={handleOk}>
+            Yes
+          </Button>
+        ]}
+      >
+        <div className='row mt-8'>
+          {/* <div className='col-7'>
 
                     <Timeline>
                         <Timeline.Item color="black ">
@@ -79,9 +90,9 @@ const ApparelApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
                     </Timeline>
                 </div> */}
 
-                {/* <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to approve Order</h4> */}
+          {/* <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to approve Order</h4> */}
 
-                <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
+          <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
             <input
               className="form-check-input submit-order"
               type="checkbox"
@@ -94,20 +105,22 @@ const ApparelApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
               Add Note
             </label>
           </div>
-          
+
+
           {isChecked && (
-                <div className='col-12 mt-4'>
-                    <TextArea
-                        rows={5}
-                        placeholder="Note"
-                        value={notes}
-                        onChange={(e) => setnotes(e.target.value)}
-                    />
-                </div>
+            <div className='col-12 mt-4'>
+              <TextArea
+                rows={5}
+                placeholder="Note"
+                value={notes}
+                onChange={(e) => setnotes(e.target.value)}
+              />
+            </div>
           )}
 
-                </div>
-            </Modal>
+
+        </div>
+      </Modal>
     </div>
   )
 }

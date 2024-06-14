@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from "react-redux"
 
 import "../../../Note.css"
-import { Modal } from 'antd'
+import { Modal,Button } from 'antd'
 import { getCurrentUser } from '../../../../../slice/UserSlice/UserSlice'
 import { addSoftGoodNote } from '../../../../../slice/allProducts/CallawayApparelSlice'
 import { CurentUser } from '../../../../model/useAccount/CurrentUser'
@@ -42,7 +42,7 @@ const ApparelCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
           
           } else if (notes === '' && getCurrentUsers) {
             const data1 = {
-              message: 'Order submitted',
+              message: 'Order submitted ',
               name: getCurrentUsers?.name,
               date: formattedTimestamp,
               user_id: getCurrentUsers?.id,
@@ -59,24 +59,48 @@ const ApparelCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
      
   }
 
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  };
+
+
    return (
     <div>
-         <Modal className='timeline submit-popup' title="Add Note" open={iscompleted} onOk={handleOk} onCancel={handleCancel}>
+         <Modal className='timeline submit-popup' title="Do you want to Complete Order" open={iscompleted} 
+        //  onOk={handleOk} 
+         onCancel={handleCancel}
+
+         footer={[
+          <Button key="no" onClick={handleCancel}>
+            No
+          </Button>,
+          <Button key="yes" type="primary" onClick={handleOk}>
+            Yes
+          </Button>
+        ]}
+         
+         >
             <div className='row mt-8'>
-                {/* <div className='col-7'>
+                {/* <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to complete Order</h4> */}
 
-                    <Timeline>
-                        <Timeline.Item color="black ">
-                          
-                            <p className="text-gray-800 fs-5 fw-semibold">Note by <i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
-                        </Timeline.Item>
-                       
-                        
-                    </Timeline>
-                </div> */}
-                <h4 className='mb-3 fs-4' style={{fontWeight:"500"}}>Do you want to complete Order</h4>
+                <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
+            <input
+              className="form-check-input submit-order"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
+              Add Note
+            </label>
+          </div>
 
-                <div className='col-12'>
+          {isChecked && (
+                <div className='col-12 mt-4'>
                     <TextArea
                         rows={5}
                         placeholder="Note"
@@ -84,7 +108,9 @@ const ApparelCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
                         onChange={(e) => setnotes(e.target.value)}
                     />
                 </div>
+          )}
                 </div>
+
             </Modal>
     </div>
   )

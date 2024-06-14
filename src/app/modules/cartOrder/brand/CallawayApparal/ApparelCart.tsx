@@ -495,7 +495,7 @@ const CallawayApparelCarts = () => {
   const handleCheckRetailerDetail = () =>{
     if(getSoftgoodRetailerDetails && getSoftgoodRetailerDetails.length == 0)
       {
-        alert("please select reatailer")
+        alert("Please select reatailer")
       }
       else if(getSoftgoodRetailerDetails ){
        

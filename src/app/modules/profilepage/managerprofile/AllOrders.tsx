@@ -100,7 +100,7 @@ const AllOrders = () => {
             },
         },
         {
-            title: "Retailer name",
+            title: "Retailer name  ",
             dataIndex: "retailer_name",
             width: 150,
         },
@@ -234,8 +234,13 @@ const AllOrders = () => {
                         onExpand: (expanded, record) => handleExpand(expanded, record),
                     }}
                     bordered
+                    
                     size="middle"
-                    pagination={false}
+// scroll={{ x: "100%", y: "auto" }}
+                    pagination={{
+                        position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+                        defaultPageSize: 20
+                      }}
                 />
             </Card>
 

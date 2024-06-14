@@ -745,7 +745,7 @@ const handleRejectedModalCancel=()=>{
    console.log( "check1",getTravisRetailerDetails)
    if(getTravisRetailerDetails && getTravisRetailerDetails.length == 0)
     {
-      alert("please select reatailer")
+      alert("Please select reatailer")
     }
     else if(getTravisRetailerDetails ){
       console.log("chec2",getTravisRetailerDetails)

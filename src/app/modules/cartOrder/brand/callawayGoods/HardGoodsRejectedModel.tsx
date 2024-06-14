@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
 import { addHardGoodsNote } from '../../../../slice/allProducts/CallAwayGoodsSlice';
-import { Modal } from 'antd';
+import { Modal,Button } from 'antd';
 import "../../Note.css";
 
 type Props = {
@@ -66,7 +66,20 @@ const HardGoodsRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) 
   };
   return (
     <div>
-      <Modal className='timeline submit-popup' title="Do you want to submit Order" open={isReject} onOk={handleOk} onCancel={handleCancel}>
+      <Modal className='timeline submit-popup' title="Do you want to Submit Order " open={isReject}
+      //  onOk={handleOk} 
+       onCancel={handleCancel}
+
+       footer={[
+        <Button key="no" onClick={handleCancel}>
+          No
+        </Button>,
+        <Button key="yes" type="primary" onClick={handleOk}>
+          Yes
+        </Button>
+      ]}
+      
+      >
       <div className='row mt-6 mb-6 '>
            {/* <h4 className='mb-3 fs-2 text-black' style={{ fontWeight: '500' }}>Do you want to submit Order</h4>  */}
           <div className="form-check form-check-custom form-check-solid mx-3 mt-2 cursor-pointer">

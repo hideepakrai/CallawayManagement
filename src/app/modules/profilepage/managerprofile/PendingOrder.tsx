@@ -68,9 +68,9 @@ const PendingOrder = () => {
 
                         <thead className="table-head-order" >
                             <tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                                <th>Order Id</th>
+                                <th>Order Id </th>
                                 <th>Brand</th>
-                                <th>Retailer Name</th>
+                                <th>Retailer Name </th>
                                 <th>Date</th>
                                 <th>Amount</th>
                                 <th>Action </th>

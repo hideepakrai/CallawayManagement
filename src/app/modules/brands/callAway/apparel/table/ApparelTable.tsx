@@ -263,7 +263,7 @@ const ApparelTable = () => {
       title: "Color",
       dataIndex: "color",
       key: "color",
-      width: 75,
+      width: 120,
 
       sorter: (a, b) => {
         // Extract and compare StyleCode values, handling null or undefined cases
@@ -279,7 +279,7 @@ const ApparelTable = () => {
       title: "Style",
       dataIndex: "style_id",
       key: "style_id",
-      width: 85,
+      width: 100,
 
       sorter: (a, b) => {
         // Extract and compare StyleCode values, handling null or undefined cases
@@ -347,13 +347,13 @@ const ApparelTable = () => {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
-      width: 150,
+      width: 90,
     },
     {
       title: "Sleeves",
       dataIndex: "sleeves",
       key: "sleeves",
-      width: 150,
+      width: 90,
     },
 
     {
@@ -762,7 +762,7 @@ setIsProduct(false)
       <div className='container content-pro mt-3'>
         {/* <SliderApprel /> */}
         <Card className='travish-mat-section' style={{ marginTop: '80px', padding: "10px", }}
-          title="CALLAWAY SOFTGOODS"
+          title="CALLAWAY SOFTGOODS "
           extra={
             <div >
               <Breadcrumb separator=">">

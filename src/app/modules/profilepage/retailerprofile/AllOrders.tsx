@@ -77,7 +77,7 @@ const AllRetailerOrders = () => {
             },
         },
         {
-            title: "Retailer name",
+            title: "Retailer name ",
             dataIndex: "retailer_name",
             width: 130,
         },
@@ -222,13 +222,13 @@ const AllRetailerOrders = () => {
                     bordered
                     size="middle"
                     // scroll={{ x: "100%", y: "auto" }}\
-                    pagination={
-             false
-                    }
-                    // pagination={{
-                    //     position: ["topRight", "bottomRight"],
-                    //     defaultPageSize: 20,
-                    // }}
+            //         pagination={
+            //  false
+            //         }
+                    pagination={{
+                        position: ["topRight", "bottomRight"],
+                        defaultPageSize: 20,
+                    }}
                 />
             </Card>
 

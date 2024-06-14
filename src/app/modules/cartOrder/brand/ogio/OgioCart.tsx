@@ -802,7 +802,7 @@ const handleOkSubmit=()=>{
     console.log( "ogiocheck1",getOgioRetailerDetails)
     if(getOgioRetailerDetails && getOgioRetailerDetails.length == 0)
      {
-       alert("please select reatailer")
+       alert("Please select reatailer")
      }
      else if(getOgioRetailerDetails ){
        console.log("ogiochec2",getOgioRetailerDetails)

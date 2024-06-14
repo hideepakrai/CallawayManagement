@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from "react-redux"
 
 import "../../Note.css"
-import { Modal } from 'antd'
+import { Modal,Button } from 'antd'
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { addNote } from '../../../../slice/allProducts/OgioSlice'
@@ -64,7 +64,18 @@ const OgioApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
 
     return (
     <div>
-           <Modal className='timeline submit-popup' title="Do you want to approve Order" open={isApprove} onOk={handleOk} onCancel={handleCancel}>
+           <Modal className='timeline submit-popup' title="Do you want to Approve Order" open={isApprove}
+            // onOk={handleOk}
+             onCancel={handleCancel}
+             footer={[
+              <Button key="no" onClick={handleCancel}>
+                No
+              </Button>,
+              <Button key="yes" type="primary" onClick={handleOk}>
+                Yes
+              </Button>
+            ]}
+             >
             <div className='row mt-8'>
                 {/* <div className='col-7'>
 

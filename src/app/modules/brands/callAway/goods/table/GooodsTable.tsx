@@ -320,7 +320,7 @@ const GooodsTable = () => {
     },
 
     {
-      title: "life cycle",
+      title: "Life cycle",
       dataIndex: "life_cycle",
       key: "life_cycle",
       width: 100,

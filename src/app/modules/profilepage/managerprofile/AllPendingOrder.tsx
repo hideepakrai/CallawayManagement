@@ -92,7 +92,7 @@ const AllPendingOrder = () => {
                     if (value !== "") {
                         const retailer = JSON.parse(value);
                         return (
-                            <h6>{retailer.name}</h6>
+                            <p className="pt-4" style={{fontSize:"14px"}}>{retailer.name}</p>
                         );
                     }
             
@@ -313,7 +313,12 @@ const AllPendingOrder = () => {
                         }}
                         bordered
                         size="middle"
-                        pagination={false}
+                        // scroll={{ x: "100%", y: "auto" }}
+                        pagination={{
+                            position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+                            defaultPageSize: 20
+                          }}
+
                     />
                 </Card>
 
