@@ -81,7 +81,7 @@ const HardGoodsRejectedModel = ({ isReject, onOkHandler, handleCancel }: Props) 
       
       >
          <div className='pt-8 pb-3 text-center '>
-          <h4 className='fs-2'>Do you want to Submit Order?</h4>
+          <h4 className='fs-2'>Do you want to Reject Order?</h4>
           <h5 className='fs-5 pt-4 text-Secondary'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
 
           </h5>

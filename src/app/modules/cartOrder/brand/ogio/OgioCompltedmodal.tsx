@@ -1,77 +1,77 @@
 import TextArea from 'antd/es/input/TextArea'
 import React, { useEffect, useState } from 'react'
 
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import "../../Note.css"
-import { Modal,Button } from 'antd'
+import { Modal, Button } from 'antd'
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { addNote } from '../../../../slice/allProducts/OgioSlice'
 
 type Props = {
-    iscompleted:boolean
-    onOkHandler:() => void
-    handleCancel:() => void
+  iscompleted: boolean
+  onOkHandler: () => void
+  handleCancel: () => void
 }
-const OgioCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
+const OgioCompleteModel = ({ iscompleted, onOkHandler, handleCancel }: Props) => {
 
-    console.log("SubmitModel",iscompleted)
-    const dispatch = useDispatch()
-    const [addNotes, setAddNotes] = useState<string>('');
-  const [notes, setnotes]= useState<string>("")
+  console.log("SubmitModel", iscompleted)
+  const dispatch = useDispatch()
+  const [addNotes, setAddNotes] = useState<string>('');
+  const [notes, setnotes] = useState<string>("")
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
 
 
-  const handleOk=()=>{
-    
-        const now = new Date();
-        const formattedTimestamp = now.toISOString();
-        if (notes !== '' && getCurrentUsers) {
-            const data1 = {
-              message: notes,
-              name: getCurrentUsers?.name,
-              date: formattedTimestamp,
-              user_id: getCurrentUsers?.id,
-              access: 'all',
-              type: 'user',
-            };
-            dispatch(addNote({
-              note: data1,
-            }));
-          
-          } else if (notes === '' && getCurrentUsers) {
-            const data1 = {
-              message: 'Order submitted',
-              name: getCurrentUsers?.name,
-              date: formattedTimestamp,
-              user_id: getCurrentUsers?.id,
-              access: 'all',
-              type: 'system',
-            };
-            dispatch(addNote({
-              note: data1,
-            }));
-          
-          }
-        onOkHandler()
-        setnotes("")
-     
+  const handleOk = () => {
+
+    const now = new Date();
+    const formattedTimestamp = now.toISOString();
+    if (notes !== '' && getCurrentUsers) {
+      const data1 = {
+        message: notes,
+        name: getCurrentUsers?.name,
+        date: formattedTimestamp,
+        user_id: getCurrentUsers?.id,
+        access: 'all',
+        type: 'user',
+      };
+      dispatch(addNote({
+        note: data1,
+      }));
+
+    } else if (notes === '' && getCurrentUsers) {
+      const data1 = {
+        message: 'Order submitted',
+        name: getCurrentUsers?.name,
+        date: formattedTimestamp,
+        user_id: getCurrentUsers?.id,
+        access: 'all',
+        type: 'system',
+      };
+      dispatch(addNote({
+        note: data1,
+      }));
+
+    }
+    onOkHandler()
+    setnotes("")
+
   }
 
-  
+
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
   };
 
-   return (
+  return (
     <div>
-         <Modal className='timeline submit-popup' title="Do you want to Complete Order" open={iscompleted} 
+      <Modal className='timeline submit-popup' open={iscompleted}
         //  onOk={handleOk}
-          onCancel={handleCancel}
-         footer={[
+        onCancel={handleCancel}
+        footer={[
           <Button key="no" onClick={handleCancel}>
             No
           </Button>,
@@ -79,8 +79,15 @@ const OgioCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
             Yes
           </Button>
         ]}
-         >
-            {/* <div className='row mt-8'>
+      >
+
+        <div className='pt-8 pb-3 text-center '>
+          <h4 className='fs-2'>Do you want to Complete Order?</h4>
+          <h5 className='fs-5 pt-4 text-Secondary'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </h5>
+        </div>
+
+        {/* <div className='row mt-8'>
               
 
                 <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">
@@ -108,7 +115,7 @@ const OgioCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
                 </div>
           )}
                 </div> */}
-            </Modal>
+      </Modal>
     </div>
   )
 }

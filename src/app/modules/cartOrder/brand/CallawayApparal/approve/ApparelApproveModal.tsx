@@ -77,6 +77,13 @@ const ApparelApproveModel = ({ isApprove, onOkHandler, handleCancel }: Props) =>
           </Button>
         ]}
       >
+          <div className='pt-8 pb-3 text-center '>
+          <h4 className='fs-2'>Do you want to Approve Order?</h4>
+          <h5 className='fs-5 pt-4 text-Secondary'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+          </h5>
+        </div>
+        
         {/* <div className='row mt-8'>
         
           <div className="form-check form-check-custom form-check-solid mx-3  cursor-pointer">

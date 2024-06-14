@@ -68,7 +68,7 @@ const ApparelCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
 
    return (
     <div>
-         <Modal className='timeline submit-popup' title="Do you want to Complete Order" open={iscompleted} 
+         <Modal className='timeline submit-popup'  open={iscompleted} 
         //  onOk={handleOk} 
          onCancel={handleCancel}
 
@@ -80,8 +80,14 @@ const ApparelCompleteModel = ({iscompleted,onOkHandler,handleCancel}:Props) => {
             Yes
           </Button>
         ]}
-         
          >
+
+       <div className='pt-8 pb-3 text-center '>
+          <h4 className='fs-2'>Do you want to Complete Order?</h4>
+          <h5 className='fs-5 pt-4 text-Secondary'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </h5>
+        </div>
+
             {/* <div className='row mt-8'>
              
 
