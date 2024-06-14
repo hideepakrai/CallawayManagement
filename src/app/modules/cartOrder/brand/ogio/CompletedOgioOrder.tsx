@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getOgioNotes, getPreOrderId } from '../../../../slice/allProducts/OgioSlice'
 import { ApproveOrder } from '../../orderApi/OrderAPi'
+import GetAllorder from '../../../orderPage/GetAllorder'
 
 
 type Props = {
@@ -19,6 +20,7 @@ const getOgioNote= useSelector(getOgioNotes)
 
   }, [getPreOrderIds,getOgioNote]
   )
+  const [isOrder, setIsOrder]= useState<boolean>(false)
 
   const completedOrderOgio = async (ordreId: number) => {
     const now = new Date();
@@ -33,7 +35,7 @@ const getOgioNote= useSelector(getOgioNotes)
     try {
       const response = await ApproveOrder(order);
       if(response)
-      resetCompleted("completed")
+        setIsOrder(true)
       //   resetStatus(statusUpdate)
     } catch (err) {
       resetCompleted("Failed to Complete order")
@@ -41,8 +43,16 @@ const getOgioNote= useSelector(getOgioNotes)
   }
 
 
+  const handleResetOrder=()=>{
+    resetCompleted("completed")
+}
+
   return (
-    <div>CompletedOgioOrder</div>
+    <div>
+         {isOrder && <GetAllorder
+        resetOrder={handleResetOrder}
+        />}
+    </div>
   )
 }
 

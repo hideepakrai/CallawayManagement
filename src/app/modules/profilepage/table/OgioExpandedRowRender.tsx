@@ -24,6 +24,8 @@ const OgioExpandedRowRender =({allarray,id}:Props)=>{
         }
     },[allarray])
 
+    console.log("all array",allarray)
+
     const subcolumns: TableColumnsType<OgioBasicModel> = [
         {
             title: "SKU ",
@@ -32,10 +34,10 @@ const OgioExpandedRowRender =({allarray,id}:Props)=>{
             width: 390,
             fixed: "left",
         },
-      {  title: "ProductType",
-        dataIndex: "product_type",
-        key: "product_type",
-        width: 150,},
+    //   {  title: "color",
+    //     dataIndex: "color",
+    //     key: "color",
+    //     width: 150,},
 
       
        
@@ -62,12 +64,23 @@ const OgioExpandedRowRender =({allarray,id}:Props)=>{
             fixed: "right",
         },
         {
+            title: "Discount",
+            dataIndex: "LessDiscountAmount",
+            key: "LessDiscountAmount",
+            width: 80,
+            fixed: "right",
+        },
+        {
             title: "Amount",
 
             dataIndex: "total_value",
             key: "Amount",
             width: 100,
             fixed: "right",
+            render:(value, record)=>{
+                const newAmount=(record?.mrp??0)-(record?.LessDiscountAmount??0)
+                return(newAmount)
+            }
         },
     ]
 

@@ -2,11 +2,12 @@ import React from 'react';
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
 
 import PendingOrder from './PendingOrder';
-import AllOrders from './AllOrders';
+import AllOrder from './AllOrders';
 import Contact from './Contact';
 import { contactLists } from './ContactList';
 import Friends from './Friend';
 import { friendList } from './FriendList';
+import AllPendingOrder from '../managerprofile/AllPendingOrder';
 
 const SalesProfile = () => {
   return (
@@ -33,18 +34,41 @@ const SalesProfile = () => {
       </div>
 
       <Row className='container'>
-        <Col xl={16} lg={14} md={14} sm={24} xs={24} className='user-left-section'>
-        
-          <PendingOrder/>
-<AllOrders/>
-        </Col>
 
-        <Col xl={8} lg={10} md={10} sm={24} xs={24}>
-        <Friends friendList={friendList} /> 
-        <Contact contactList={contactLists} />
+<Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
 
-        </Col>
-      </Row>
+  <AllPendingOrder />
+  {/* <PendingOrder /> */}
+
+</Col>
+
+
+<Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
+  <AllOrder />
+  {/* <PendingOrder />  */}
+
+</Col>
+
+
+<Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
+
+
+  <Friends friendList={friendList} />
+</Col>
+
+
+
+{/* <Col xl={6} lg={10} md={10} sm={24} xs={24} >
+  <Contact contactList={contactList} />
+</Col> */}
+
+</Row>
+
+{/* {isOrder &&
+          <GetAllorder
+
+            resetOrder={handleResetOrder}
+          />} */}
 
     </div>
   );

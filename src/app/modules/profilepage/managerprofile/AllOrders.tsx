@@ -21,13 +21,13 @@ const AllOrders = () => {
     const tableRef = useRef(null);
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
     const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
-
+    const[ selectedOrder, setSelectedOrder]= useState<CartModel>()
     // Get all pending orders
     useEffect(() => {
         const allpend: AccountOrder[] = [];
         if (getUserOrder && getUserOrder.length > 0) {
             getUserOrder.forEach(item => {
-                if (item.status !== "Pending") {
+                if (item.status === "complete" ||item.status === "Complete") {
                     allpend.push(item);
                 }
             });
@@ -41,12 +41,13 @@ const AllOrders = () => {
         setStatus(status);
     };
 
-    const handleEdit = (id: number | undefined) => {
-        if (id !== undefined) {
+  const handleEdit = (record:CartModel) => {
+        if (record) {
             setIsEdit(true);
-            setOrderId(id);
+            setSelectedOrder(record)
         }
     };
+    
 
     const handleCloseEdit = () => {
         setIsEdit(false);
@@ -85,7 +86,7 @@ const AllOrders = () => {
                         brandName = "Callaway Hardgoods";
                         break;
                     case 2:
-                        brandName = "Callaway Apparel";
+                        brandName = "Callaway Softgoods";
                         break;
                     case 3:
                         brandName = "Travis Mathew";
@@ -172,7 +173,7 @@ const AllOrders = () => {
                         <Tooltip title="Edit" placement="bottom">
                             <span
                                 style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                onClick={() => handleEdit(record.id)}
+                                onClick={() => handleEdit(record)}
                             >
                                 <i className="bi bi-pencil-fill"></i>
                             </span>
@@ -223,7 +224,7 @@ const AllOrders = () => {
 
     return (
         <div className="cart-table">
-            <Card title="All Orders">
+            <Card title="Completed">
                 <Table<CartModel>
                     ref={tableRef}
                     className="cart-table-profile pb-3"
@@ -244,7 +245,11 @@ const AllOrders = () => {
                 />
             </Card>
 
-            <Edit isEdit={isEdit} onClose={handleCloseEdit} changeStatus={handleUpdateStatus} />
+           {selectedOrder && <Edit 
+             selectedOrder={selectedOrder}
+            isEdit={isEdit} 
+            onClose={handleCloseEdit} 
+            changeStatus={handleUpdateStatus} />}
 
             {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} />}
 

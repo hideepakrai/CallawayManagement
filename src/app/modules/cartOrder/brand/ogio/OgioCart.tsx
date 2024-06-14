@@ -32,6 +32,7 @@ import OgioApproveModel from './OgioApproveModal';
 import OgioCompleteModel from './OgioCompltedmodal';
 import { NoProdect } from '../../NoProdect';
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
+import GetAllorder from '../../../orderPage/GetAllorder';
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -587,7 +588,7 @@ const OgioCart = () => {
   // check start submit for Review
   // csubmit fro review
 
-
+  const [ isOrder, setIsOrder]= useState<boolean>(false)
   const [isNote, setIsnote] = useState<boolean>(false)
   
 
@@ -614,13 +615,18 @@ const OgioCart = () => {
   const handleResetRefetch = () => {
     console.log("refetch")
     setIsRefetch(false)
+    setIsOrder(true)
+    
+  }
+
+  const handleResetOrder=()=>{
+    setIsOrder(false)
     dispatch(LoadingStop())
     dispatch(updateProgressStep({
       progressStep: 1
 
     }))
   }
-
 
   // submit order
 const handleOkSubmit=()=>{
@@ -1022,6 +1028,11 @@ handleCancel={handleCancelCompleted}
         handleOk={handleOkNote}
         handleCancel={handleCancelNote}
       />
+
+        {/* get all order */}
+       {isOrder && <GetAllorder
+        resetOrder={handleResetOrder}
+        />}
     </div>
   )
 }

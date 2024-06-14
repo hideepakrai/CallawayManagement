@@ -32,6 +32,7 @@ const UserSlice = createSlice({
         state.UserRetailer=[];
         state.adminToken=null;
             state.userOrders=[];
+            state.userProfile=[]
         },
         addUser: (state, action) => {
             state.currentUser = action.payload.currentUser;

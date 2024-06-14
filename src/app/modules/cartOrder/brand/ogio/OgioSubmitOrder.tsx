@@ -84,7 +84,9 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
-            stock_90: item.Quantity90
+            stock_90: item.Quantity90,
+            LessDiscountAmount:item.LessDiscountAmount,
+            product_type:item.product_type
 
           })
          

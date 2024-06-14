@@ -23,6 +23,8 @@ const TravisExpandedRowRender =({allarray,id}:Props)=>{
         }
     },[allarray])
 
+
+ 
     const subcolumns: TableColumnsType<BasicModelTravis> = [
         {
             title: "SKU ",
@@ -80,10 +82,14 @@ const TravisExpandedRowRender =({allarray,id}:Props)=>{
         {
             title: "Amount",
         
-            dataIndex: "total_value",
+            dataIndex: "newAmount",
             key: "Amount",
             width: 100,
             fixed: "right",
+            render:(value, record)=>{
+                const newAmount=(record?.mrp??0)-(record?.LessDiscountAmount??0)
+                return(newAmount)
+            }
         },
     ]
 

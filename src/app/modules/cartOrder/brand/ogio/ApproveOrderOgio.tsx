@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useState} from 'react'
 import { useSelector } from 'react-redux'
 import { getOgioNotes, getPreOrderId } from '../../../../slice/allProducts/OgioSlice'
 import { ApproveOrder } from '../../orderApi/OrderAPi'
+import GetAllorder from '../../../orderPage/GetAllorder'
 
 
 type Props = {
@@ -19,7 +20,7 @@ const ApproveOrderOgio = ({resetStatus}:Props) => {
         }
 
     }, [getPreOrderIds,getOgioNote ])
-
+   const [isOrder, setIsOrder]= useState<boolean>(false)
     const approveOrderOgio = async (ordreId: number) => {
         const now = new Date();
         const formattedTimestamp = now.toISOString();
@@ -32,7 +33,8 @@ const ApproveOrderOgio = ({resetStatus}:Props) => {
         try {
             const response = await ApproveOrder(order);
             if(response){
-                resetStatus("Approved")
+                setIsOrder(true)
+               
             }
             
         } catch (err) {
@@ -40,8 +42,17 @@ const ApproveOrderOgio = ({resetStatus}:Props) => {
         }
     }
     
+
+    const handleResetOrder=()=>{
+        resetStatus("Approved")
+    }
   return (
-    <div>ApproveOrderOgio</div>
+    <div>
+         {isOrder && <GetAllorder
+        resetOrder={handleResetOrder}
+        />}
+
+    </div>
   )
 }
 

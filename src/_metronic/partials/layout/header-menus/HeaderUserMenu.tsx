@@ -67,6 +67,9 @@ const HeaderUserMenu: FC = () => {
     else if (role==="Admin"  && getCurrentUsers&&getCurrentUsers.id){
       navigate(`/profilepage/adminprofile/${getCurrentUsers.id}`)
     }
+    else if (role==="Sales Representative"  && getCurrentUsers&&getCurrentUsers.id){
+      navigate(`/profilepage/salesprofile/${getCurrentUsers.id}`)
+    }
 
   }
 

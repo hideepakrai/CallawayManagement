@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Modal, Select, Timeline } from "antd";
 import "./Edit.css";
 import Note from "./Note";
+import { CartModel } from "../../model/CartOrder/CartModel";
 
 type Props = {
   isEdit: boolean;
   onClose: () => void;
   changeStatus: (status: string) => void;
+  selectedOrder:CartModel
 };
 
-const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
+  type  notetimeLine={
+    message?:string,
+    date?:string,
+    name?:string
+  }
+const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
   const [status, setStatus] = useState<string>("");
   const [isNoteModalOpen, setIsNoteModalOpen] = useState<boolean>(false);
-
+  
   const handleOk = () => {
     if (status !== "") {
       changeStatus(status);
@@ -40,6 +47,16 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
     setIsNoteModalOpen(false);
   };
 
+  const [timeLine, settimeLime]= useState<notetimeLine[]>([])
+  useEffect(()=>{
+    if(selectedOrder && selectedOrder.note&& selectedOrder.status ){
+      const note = JSON.parse(selectedOrder.note);
+      settimeLime(note)
+      setStatus(selectedOrder.status)
+    }
+  },[selectedOrder])
+
+  console.log("timeLine",timeLine)
   return (
     <>
       <Modal
@@ -51,14 +68,23 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
       >
         <div className="mt-8">
           <Timeline>
-            <Timeline.Item color="black">
-              <h3 className="note-text">Cras non dolor. Praesent ac massa at ligula laoreet iaculis.</h3>
-              <p className="text-gray-600 fs-5 note-details">Note by <i>Deepak Rai</i> on 21-01-2024 01:00AM</p>
+           { timeLine && 
+           timeLine.map((item)=>{
+
+            return(
+          <Timeline.Item color="black">
+              <h3 className="note-text">{item?.message}</h3>
+              <p className="text-gray-600 fs-5 note-details">Note by <i>{item.name}</i> {item.date}</p>
             </Timeline.Item>
-            <Timeline.Item color="gray">
+            )
+           }
+
+           )
+           }
+            {/* <Timeline.Item color="gray">
               <h3 className="note-text">Cras non dolor. Praesent ac massa at ligula laoreet iaculis.</h3>
               <p className="text-gray-600 fs-5 note-details">Note by <i>Manish Sharma</i> on 22-01-2024 01:00AM</p>
-            </Timeline.Item>
+            </Timeline.Item> */}
           </Timeline>
         </div>
 
@@ -75,6 +101,7 @@ const Edit = ({ isEdit, onClose, changeStatus }: Props) => {
             style={{ width: '35%', marginLeft: "20px", marginTop: "-5px" }}
             showSearch
             placeholder="Update status"
+            value={status}
             optionFilterProp="children"
             onChange={handleStatusChange}
             options={[

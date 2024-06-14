@@ -20,13 +20,13 @@ const AllPendingOrder = () => {
     const tableRef = useRef(null);
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
     const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
-
+    const[ selectedOrder, setSelectedOrder]= useState<CartModel>()
     // get All pending orders
     useEffect(() => {
         const allpend: AccountOrder[] = [];
         if (getUserOrder && getUserOrder.length > 0) {
             getUserOrder.forEach(item => {
-                if (item.status != "Complete") {
+                if (item.status != "Complete" ) {
                     allpend.push(item);
                 }
             });
@@ -40,10 +40,10 @@ const AllPendingOrder = () => {
         setStatus(status);
     };
 
-    const handleEdit = (id: number | undefined) => {
-        if (id !== undefined) {
+    const handleEdit = (record:CartModel) => {
+        if (record) {
             setIsEdit(true);
-            setOrderId(id);
+            setSelectedOrder(record)
         }
     };
 
@@ -71,13 +71,23 @@ const AllPendingOrder = () => {
             width: 100,
             render: (value) => {
                 let brandName;
-                if (value === 3) {
-                    brandName = "Travis Mathew";
-                } else {
-                    brandName = "Ogio"; // Default value or other brand name
+                switch (value) {
+                    case 1:
+                        brandName = "Callaway Hardgoods";
+                        break;
+                    case 2:
+                        brandName = "Callaway Softgoods";
+                        break;
+                    case 3:
+                        brandName = "Travis Mathew";
+                        break;
+                    case 4:
+                        brandName = "Ogio";
+                        break;
+                    default:
+                        brandName = "Unknown Brand";
                 }
-
-                return <span>{brandName}</span>; // Render the brand name inside a span
+                return <span>{brandName}</span>;
             },
         },
         {
@@ -177,7 +187,7 @@ const AllPendingOrder = () => {
                         <Tooltip title="Edit" placement="bottom">
                             <span
                                 style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
-                                onClick={() => handleEdit(record.id)} // Pass the id directly to handleEdit
+                                onClick={() => handleEdit(record)} // Pass the id directly to handleEdit
                             >
                                 <i className="bi bi-pencil-fill"></i>
                             </span>
@@ -322,11 +332,12 @@ const AllPendingOrder = () => {
                     />
                 </Card>
 
-                <Edit
+             { selectedOrder && <Edit
                     isEdit={isEdit}
+                    selectedOrder={selectedOrder}
                     onClose={handleCloseEdit}
                     changeStatus={handleUpdateStatus}
-                />
+                />}
 
                 {status != null && orderId && (
                     <UpdateStatus
