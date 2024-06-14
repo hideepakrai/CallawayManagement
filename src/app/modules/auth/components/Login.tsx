@@ -22,7 +22,11 @@ import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
 import type { FormEvent } from "react"
 
-
+type loginError={
+ 
+    message:string
+  
+}
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -98,8 +102,10 @@ export function Login() {
 
 
       } catch (error) {
+        // eslint-disable-next-line no-debugger
+        debugger
         if (error) {
-          alert("check your username and password")
+          alert(error)
         }
         saveAuth(undefined)
         setStatus('The login details are incorrect')

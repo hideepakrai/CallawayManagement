@@ -168,7 +168,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
         total_val_pre_discount:totalAmount,
         status: "submitted",
         manager_id: managerUserId,
-        retailer_id: getRetailerDetail.retailerId,
+        retailer_id: getHardGoodsRetailerDetails.id,
         salesrep_id: salesRepId??0,
         updated_at: formattedTimestamp,
         retailer_details:JSON.stringify(retailer_details)

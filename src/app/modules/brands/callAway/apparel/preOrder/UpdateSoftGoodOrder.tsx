@@ -133,7 +133,7 @@ const getApparelNotes= useSelector(getApparelNote)
       const update = {
         id: preorderId,
         order_date: formattedTimestamp,
-        brand_id: brandId,
+        brand_id: 2,
         note:JSON.stringify(getApparelNotes),
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allPreOrderSoftGoood),

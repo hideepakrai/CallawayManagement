@@ -453,7 +453,7 @@ const TravisTable = () => {
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className='mx-5 number-input'
             addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
-
+            style={{ width: 100 }}
            // addonBefore={record.stock_90 || 0}
             value={record.Quantity90?.toString()}
             onChange={(value) => {

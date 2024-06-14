@@ -150,7 +150,7 @@ const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discou
         id: getPreOrderIds,
         order_date: formattedTimestamp,
         note: JSON.stringify(getApparelNotes),
-        brand_id: brandId,
+        brand_id: 2,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allPreOrderSoftGoood),
         discount_type: discountType,

@@ -16,17 +16,18 @@ import  Callawaygoods from "../../../../public/media/logos/icon-profile.png"
 import { Route, Routes } from 'react-router-dom';
 import { getPreOrderId, getTravisProducts } from '../../slice/allProducts/TravisMethewSlice';
 import { useNavigate } from 'react-router-dom';
-import { getActivetab, setActiveOrderTab, setFisttimeTab } from '../../slice/activeTabsSlice/ActiveTabSlice';
+import { getActiveOrdertab, getActivetab, setActiveOrderTab, setFisttimeTab } from '../../slice/activeTabsSlice/ActiveTabSlice';
 import {useDispatch} from "react-redux"
 const CartProduct = () => {
   const [activeTab, setActiveTab] = useState(''); // Default to 'apparel' tab
    const navigate = useNavigate()
    const dispatch = useDispatch()
+   const getActiveOrdertabs= useSelector(getActiveOrdertab)
   useEffect(() => {
-    // Set the default active tab when the component mounts
-    setActiveTab('');
+    if(getActiveOrdertabs)
+    setActiveTab(getActiveOrdertabs);
     console.log("setActive")
-  }, []);
+  }, [getActiveOrdertabs]);
 
   //get travis order
   const getTravisOrders= useSelector(getTravisOrder)
