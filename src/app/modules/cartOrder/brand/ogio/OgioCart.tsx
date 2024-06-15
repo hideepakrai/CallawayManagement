@@ -88,35 +88,35 @@ const OgioCart = () => {
       fixed: "left",
 
 
-      onFilterDropdownVisibleChange: (visible) => {
-        if (visible) {
-          setTimeout(() => {
-            setTimeout(() => searchInput.current?.select(), 1000);
-          });
-        }
-      },
-      onFilter: (value, record) => {
+      // onFilterDropdownVisibleChange: (visible) => {
+      //   if (visible) {
+      //     setTimeout(() => {
+      //       setTimeout(() => searchInput.current?.select(), 1000);
+      //     });
+      //   }
+      // },
+      // onFilter: (value, record) => {
 
-        let check: boolean = false
-        const val: string = value.toString().toUpperCase()
-        if (record && record.sku) {
-          check = record.sku?.startsWith(val)
-        }
+      //   let check: boolean = false
+      //   const val: string = value.toString().toUpperCase()
+      //   if (record && record.sku) {
+      //     check = record.sku?.startsWith(val)
+      //   }
 
-        return check;
-      },
-      filterSearch: true,
+      //   return check;
+      // },
+      // filterSearch: true,
 
 
     },
 
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
       width: 150,
       fixed: "left",
-      filterMode: 'tree',
+     // filterMode: 'tree',
       //   filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
       //    <div style={{ padding: 8 }}>
       //      <Input
@@ -128,45 +128,45 @@ const OgioCart = () => {
       //      />
       //    </div>
       //  ),
-      onFilterDropdownVisibleChange: (visible) => {
-        if (visible) {
-          setTimeout(() => {
-            // Trigger the search input to focus when the filter dropdown is opened
-          });
-        }
-      },
-      onFilter: (value, record) => {
-        const name =
-          record &&
-          record.name;
+      // onFilterDropdownVisibleChange: (visible) => {
+      //   if (visible) {
+      //     setTimeout(() => {
+      //       // Trigger the search input to focus when the filter dropdown is opened
+      //     });
+      //   }
+      // },
+    //   onFilter: (value, record) => {
+    //     const name =
+    //       record &&
+    //       record.name;
 
 
-        return name === value;
-      },
-      filterSearch: true,
-    },
+    //     return name === value;
+    //   },
+    //   filterSearch: true,
+    // },
     // {
     //   title: "Description",
     //   dataIndex: "description",
     //   key: "description", 
     //   width: 150,
 
-    // },
+     },
 
     //product Type
     {
-      title: "ProductType",
+      title: "Type",
       dataIndex: "product_type",
       key: "product_type",
       width: 150,
 
 
-      sorter: (a, b) => {
-        const categoryA = a.product_type ?? "";
-        const categoryB = b.product_type ?? "";
+      // sorter: (a, b) => {
+      //   const categoryA = a.product_type ?? "";
+      //   const categoryB = b.product_type ?? "";
 
-        return categoryA.localeCompare(categoryB);
-      },
+      //   return categoryA.localeCompare(categoryB);
+      // },
 
       // filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
       //   <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
@@ -189,19 +189,19 @@ const OgioCart = () => {
 
       //   </div>
       // ),
-      onFilterDropdownVisibleChange: (visible) => {
-        if (visible) {
-          setTimeout(() => {
-            // Trigger the search input to focus when the filter dropdown is opened
-          });
-        }
-      },
-      onFilter: (value, record) => {
-        const category = record?.product_type;
+      // onFilterDropdownVisibleChange: (visible) => {
+      //   if (visible) {
+      //     setTimeout(() => {
+      //       // Trigger the search input to focus when the filter dropdown is opened
+      //     });
+      //   }
+      // },
+      // onFilter: (value, record) => {
+      //   const category = record?.product_type;
 
-        return category === value;
-      },
-      filterSearch: true,
+      //   return category === value;
+      // },
+      // filterSearch: true,
 
     },
 
@@ -212,12 +212,12 @@ const OgioCart = () => {
       key: "category",
       width: 120,
 
-      sorter: (a, b) => {
-        const categoryA = a.category ?? "";
-        const categoryB = b.category ?? "";
+      // sorter: (a, b) => {
+      //   const categoryA = a.category ?? "";
+      //   const categoryB = b.category ?? "";
 
-        return categoryA.localeCompare(categoryB);
-      },
+      //   return categoryA.localeCompare(categoryB);
+      // },
 
       // filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
       //   <div style={{ padding: 8,  width: "300px", position: "absolute", top: -90,  zIndex: 1, }}>
@@ -260,7 +260,7 @@ const OgioCart = () => {
 
     // product model
     {
-      title: "ProductModel",
+      title: "Model",
       dataIndex: "product_model",
       key: "product_model",
       width: 150,

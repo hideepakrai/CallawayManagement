@@ -567,7 +567,7 @@ const TravisTable = () => {
           title: "SKU",
           dataIndex: "sku",
           key: "sku",
-          width: 390,
+          width: 100,
           fixed: "left",
         }
         ,
@@ -577,14 +577,14 @@ const TravisTable = () => {
           title: "Style",
           dataIndex: "style_code",
           key: "style_code",
-          width: 200,
+          width: 100,
 
         },
         {
-          title: "size",
+          title: "Size",
           dataIndex: "size",
           key: "size",
-          width: 170,
+          width: 100,
 
         },
 
@@ -672,7 +672,9 @@ const TravisTable = () => {
               <InputNumber
                 status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
                 className='mx-3 number-input'
-                addonBefore={record.stock_88}
+               // addonBefore={record.stock_88}
+               addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
+
                 value={record.Quantity88?.toString()}
                 style={{ width: 100 }}
                 onChange={(value) => {
@@ -683,7 +685,9 @@ const TravisTable = () => {
                 }}
 
 
-                disabled={value !== null && value?.stock_88 === 0}
+               // disabled={value !== null && value?.stock_88 === 0}
+               disabled={record.stock_88 === 0}
+
               />
             </Tooltip>
 
@@ -702,7 +706,9 @@ const TravisTable = () => {
               <InputNumber
                 status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
                 className='mx-5 number-input'
-                addonBefore={record.stock_90 || 0}
+              //  addonBefore={record.stock_90 || 0}
+              addonBefore={record.stock_90}
+
                 value={record.Quantity90?.toString()}
                 onChange={(value) => {
                   if (value !== null) {
@@ -711,7 +717,9 @@ const TravisTable = () => {
 
                 }}
 
-                disabled={value !== null && value?.stock_90 === 0}
+                //disabled={value !== null && value?.stock_90 === 0}
+                disabled={record.stock_90 === 0}
+
                 style={{ width: 100 }}
               />
             </Tooltip>

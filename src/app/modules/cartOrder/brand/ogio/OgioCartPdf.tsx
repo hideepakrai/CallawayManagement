@@ -114,14 +114,14 @@ const OgioCartPdf = () => {
 
     },
 
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: 150,
-      fixed: "left",
+    // {
+    //   title: "Name",
+    //   dataIndex: "name",
+    //   key: "name",
+    //   width: 150,
+    //   fixed: "left",
 
-    },
+    // },
     {
       title: "Description",
       dataIndex: "description",
@@ -132,7 +132,7 @@ const OgioCartPdf = () => {
 
     //product Type
     {
-      title: "ProductType",
+      title: "Type",
       dataIndex: "product_type",
       key: "product_type",
       width: 150,
@@ -155,7 +155,7 @@ const OgioCartPdf = () => {
 
 
     {
-      title: "ProductModel",
+      title: "Model",
       dataIndex: "product_model",
       key: "product_model",
       width: 150,

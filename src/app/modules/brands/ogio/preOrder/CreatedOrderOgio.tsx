@@ -76,7 +76,13 @@ const CreatedOrderOgio = ({ resetCreatedOrder }: Props) => {
             stock_90: item.Quantity90 ? item.Quantity90 : 0,
             Amount:item.Amount,
             LessDiscountAmount:item.LessDiscountAmount,
-            product_type:item.product_type
+            product_type:item.product_type,
+            description:item.description,
+            category:item.category,
+            product_model:item.product_model,
+
+
+
             
           })
           

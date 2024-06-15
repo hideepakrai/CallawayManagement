@@ -31,17 +31,38 @@ const SoftGoodsExpandedRowRender =({allarray,id}:Props)=>{
             title: "SKU ",
             dataIndex: "sku",
             key: "sku",
-            width: 390,
+            width: 100,
             fixed: "left",
         },
+        {
+            title: "Description",
+            dataIndex: "description",
+            key: "description",
+            width: 100,
+      
+          },
     
         {
             title: "Color ",
             dataIndex: "color",
             key: "color",
-            width: 390,
+            width: 85,
             fixed: "left",
         },
+        {
+            title: "Style",
+            dataIndex: "style_id",
+            key: "style_id",
+            width: 85,
+      
+          },
+          {
+            title: "Size",
+            dataIndex: "size",
+            key: "size",
+            width: 85,
+      
+          },
     
 
       

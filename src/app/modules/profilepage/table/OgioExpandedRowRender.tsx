@@ -28,17 +28,68 @@ const OgioExpandedRowRender =({allarray,id}:Props)=>{
 
     const subcolumns: TableColumnsType<OgioBasicModel> = [
         {
-            title: "SKU ",
+            title: "SKU",
             dataIndex: "sku",
-            key: "sku",
-            width: 390,
+            width: 100,
             fixed: "left",
-        },
+      
+      
+          },
     //   {  title: "color",
     //     dataIndex: "color",
     //     key: "color",
     //     width: 150,},
 
+    // {
+    //     title: "Name",
+    //     dataIndex: "name",
+    //     key: "name",
+    //     width: 150,
+    //     fixed: "left",
+  
+    //   },
+      {
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+        width: 150,
+  
+      },
+      
+  
+      //product Type
+      {
+        title: "Type",
+        dataIndex: "product_type",
+        key: "product_type",
+        width: 150,
+  
+  
+  
+  
+      },
+  
+  
+      {
+        title: "Category",
+        dataIndex: "category",
+        key: "category",
+        width: 120,
+  
+  
+  
+      },
+  
+  
+      {
+        title: "Model",
+        dataIndex: "product_model",
+        key: "product_model",
+        width: 150,
+  
+      },
+  
+  
       
        
         {
@@ -55,6 +106,8 @@ const OgioExpandedRowRender =({allarray,id}:Props)=>{
                 }
                 
             }
+
+
         },
         {
             title: "MRP",
