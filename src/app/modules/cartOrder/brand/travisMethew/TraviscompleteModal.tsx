@@ -41,7 +41,7 @@ const TravisCompleteModel = ({ iscompleted, onOkHandler, handleCancel }: Props) 
 
     } else if (notes === '' && getCurrentUsers) {
       const data1 = {
-        message: 'Order submitted',
+        message: 'Order Completed',
         name: getCurrentUsers?.name,
         date: formattedTimestamp,
         user_id: getCurrentUsers?.id,

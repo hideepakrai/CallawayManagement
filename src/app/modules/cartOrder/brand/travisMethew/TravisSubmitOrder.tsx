@@ -159,7 +159,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
         total_value:  totalNetBillAmount,
         discount_amount: discountAmount,
         total_val_pre_discount:totalAmount,
-        status: "submitted",
+        status: "Submitted",
         manager_id: managerUserId,
         retailer_id: getRetailerDetail.retailerId,
         salesrep_id: salesRepId??0,

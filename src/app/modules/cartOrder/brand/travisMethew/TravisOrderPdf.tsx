@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { getTravisProducts, getTravisRetailerDetail } from '../../../../slice/allProducts/TravisMethewSlice'
+import { getPreOrderId, getTravisNote, getTravisProducts, getTravisRetailerDetail } from '../../../../slice/allProducts/TravisMethewSlice'
 import { Button, Card, Flex, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import "./TravisOrderPdf.css"
 const TravisOrderPdf = () => {
-
+  const getPreOrderIds= useSelector(getPreOrderId)
   const today = new Date();
   //const formattedDate = today.toLocaleDateString('en-CA'); 
   const formattedDate = today.toLocaleDateString('en-GB'); 
@@ -27,6 +27,20 @@ const TravisOrderPdf = () => {
         })
     }
 },[getUserProfiles])
+  const [notes, setNotes]= useState<string[]>([])
+const getTravisNotes= useSelector(getTravisNote)
+useEffect(() => {
+  const check:string[]=[];
+ if(getTravisNotes){
+    getTravisNotes.map((item)=>{
+        if(item.type!="system" && item.message){
+         check.push(item.message)
+
+        }
+    })
+    setNotes(check)
+ }
+}, [getTravisNotes])
 
 // get all discount , net billl amount
 const getTravisRetailerDetails= useSelector(getTravisRetailerDetail) as RetailerModel;
@@ -154,6 +168,7 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
   });
 
+ 
   return (
     <div>
     <Button className="mt-12"
@@ -174,6 +189,7 @@ const columns: TableColumnsType<BasicModelTravis> = [
           </div>
           <div className="col-5 text-end px-6">
             <h2 className="text-white pdf-title">ORDER PDF</h2>
+            <h2 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h2>
           </div>
           </div>
 
@@ -237,8 +253,13 @@ const columns: TableColumnsType<BasicModelTravis> = [
 <div className='row'>
           <div  className='col-3 mt-6 notes-pdf'>
             <h2 className='fs-4'>NOTES:</h2>
-            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note one</h4>
-            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note two</h4>
+            {notes &&
+            notes.length>0 &&
+            notes.map((item) => (
+              <h4 className='fs-5 text-gray-700 notes-pdf-text'>- {item}</h4>
+            ))}
+            {/* <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note one</h4>
+            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note two</h4> */}
           </div>
 
            <div className='col-9'>
@@ -273,8 +294,8 @@ const columns: TableColumnsType<BasicModelTravis> = [
 
         </div>
 
-      </div>
-
+      
+</div>
     </Card>
 
   </div>

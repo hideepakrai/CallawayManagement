@@ -8,7 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 import OgioGallery from "../../../brands/ogio/table/column/OgioGallery.tsx";
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel.ts";
-import { getOgioProducts, getOgioRetailerDetail } from "../../../../slice/allProducts/OgioSlice.tsx";
+import { getOgioNotes, getOgioProducts, getOgioRetailerDetail, getPreOrderId } from "../../../../slice/allProducts/OgioSlice.tsx";
 import { getOgioOrder } from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice.tsx";
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../../../slice/UserSlice/UserSlice"
@@ -43,6 +43,21 @@ const OgioCartPdf = () => {
 
   const getAllTravisOrder = useSelector(getTravisOrder)
 
+   const getPreOrderIds =useSelector(getPreOrderId)
+  const [notes, setNotes]= useState<string[]>([])
+  const getOgioNote= useSelector(getOgioNotes)
+  useEffect(() => {
+    const check:string[]=[];
+   if(getOgioNote){
+      getOgioNote.map((item)=>{
+          if(item.type!="system" && item.message){
+           check.push(item.message)
+  
+          }
+      })
+      setNotes(check)
+   }
+  }, [getOgioNote])
   useEffect(()=>{
     if(getUserProfiles && getUserProfiles.length > 0){
         getUserProfiles.map(item=>{
@@ -212,6 +227,7 @@ const OgioCartPdf = () => {
           </div>
           <div className="col-5 text-end px-6">
             <h2 className="text-white pdf-title">ORDER PDF </h2>
+            <h2 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h2>
           </div>
           </div>
 
@@ -278,8 +294,11 @@ const OgioCartPdf = () => {
 <div className='row'>
           <div  className='col-3 mt-6 notes-pdf'>
             <h2 className='fs-4'>NOTES:</h2>
-            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note one</h4>
-            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note two</h4>
+            {notes &&
+            notes.length>0 &&
+            notes.map((item) => (
+              <h4 className='fs-5 text-gray-700 notes-pdf-text'>- {item}</h4>
+            ))}
             
           </div>
 <div className="col-9">

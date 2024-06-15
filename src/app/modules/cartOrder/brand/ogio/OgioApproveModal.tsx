@@ -41,7 +41,7 @@ const OgioApproveModel = ({isApprove,onOkHandler,handleCancel}:Props) => {
       
       } else if (notes === '' && getCurrentUsers) {
         const data1 = {
-          message: 'Order approve',
+          message: 'Order Approved',
           name: getCurrentUsers?.name,
           date: formattedTimestamp,
           user_id: getCurrentUsers?.id,

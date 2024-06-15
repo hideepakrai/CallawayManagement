@@ -34,6 +34,7 @@ import { NoProdect } from '../../NoProdect';
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 import GetAllorder from '../../../orderPage/GetAllorder';
 import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
+import OgioOrderRejectModal from './OgioOrderRejectModal';
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -504,7 +505,13 @@ const OgioCart = () => {
   const [totalAmount, setTotalAmount] = useState<number>()
   const [discountAmount, setDiscountAmount] = useState<number>()
   const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>(0)
-
+  const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
+  const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
+  const [isCompletedModal, setIsCompletedModal] = useState<boolean>(false)
+  const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
+  const [isApproveModal, setIsApproveModal] = useState<boolean>(false)
+  const [statusUpdate, setStatusUpdate] = useState<string>("")
+  
   useEffect(() => {
     let tAmount: number = 0;
     let totalBillAmount: number = 0;
@@ -691,13 +698,7 @@ const handleOkSubmit=()=>{
   }
 
   //approve 
-  const [isRejectedorder, setIsRejectedorder] = useState<boolean>(false)
-  const [isCompletedorder, setIsCompletedorder] = useState<boolean>(false)
-  const [isCompletedModal, setIsCompletedModal] = useState<boolean>(false)
-  const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
-  const [isApproveModal, setIsApproveModal] = useState<boolean>(false)
-  const [statusUpdate, setStatusUpdate] = useState<string>("")
-  
+
   const handleOkApprove=() => {
     setIsApproveModal(false)
     setIsStatusUpdate(true)
@@ -771,12 +772,25 @@ const handleOkSubmit=()=>{
 
 
   // rejet order
-
+ const [ isRejectModal, setIsRejectModals]= useState<boolean>(false)
   const handleRejectOrder = () => {
-    setIsRejectedorder(true)
+    //setIsRejectModals(true)
+     setIsRejectedorder(true)
     dispatch(LoadingStart())
   }
+
+//   const handleRejectedModalCancel=()=>{
+
+//     setIsRejectModals(false)
+// }
+  // const handleRejectedOk=()=>{
+    
+  //   setIsRejectedorder(true)
+  //   setIsRejectModals(false)
+  //   dispatch(LoadingStart())
+  // }
   const handleResetRejectedOrder = () => {
+    
     setIsRejectedorder(false)
     dispatch(LoadingStop())
     //messageApi.info('Your order is rejected');
@@ -1030,6 +1044,15 @@ handleCancel={handleCancelCompleted}
       />}
 
        {/* reject order */}
+
+
+{/* {isRejectModal &&
+<OgioOrderRejectModal
+isReject={isRejectModal}
+onOkHandler={handleRejectedOk}
+handleCancel={handleRejectedModalCancel}
+
+/>} */}
 
        {isRejectedorder &&
         <RejectedOgioOrder

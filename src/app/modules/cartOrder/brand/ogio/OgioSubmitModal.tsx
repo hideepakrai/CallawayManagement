@@ -46,7 +46,7 @@ const OgioSubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
       
       } else if (notes === '' && getCurrentUsers) {
         const data1 = {
-          message: 'Order submitted',
+          message: 'Order Submitted',
           name: getCurrentUsers?.name,
           date: formattedTimestamp,
           user_id: getCurrentUsers?.id,

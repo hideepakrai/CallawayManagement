@@ -3,7 +3,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
 import { CurentUser } from '../../../model/useAccount/CurrentUser';
-import { addTravisNote } from '../../../../slice/allProducts/TravisMethewSlice';
+import { addTravisNote, getTravisNote } from '../../../../slice/allProducts/TravisMethewSlice';
 import { Modal, Button } from 'antd';
 import "../../Note.css";
 
@@ -18,7 +18,7 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
   const [notes, setNotes] = useState<string>('');
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser;
-
+ 
   useEffect(() => {
     const now = new Date();
     const formattedTimestamp = now.toISOString();
@@ -41,7 +41,7 @@ const SubmitModel = ({ isSubmit, onOkHandler, handleCancel }: Props) => {
       }));
     } else if (notes === '' && getCurrentUsers) {
       const data1 = {
-        message: 'Order submitted',
+        message: 'Order Submitted',
         name: getCurrentUsers?.name,
         date: formattedTimestamp,
         user_id: getCurrentUsers?.id,

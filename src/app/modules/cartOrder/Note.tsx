@@ -41,10 +41,10 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
             getTravisNotes.length>0
             ){
                 setTabNotes(getTravisNotes)
-                setTab("Travis")
+                setTab("travis")
             } else if(getActiveOrdertabs==='ogio'){
                 setTabNotes(getOgioNote)
-                setTab("Ogio")
+                setTab("ogio")
             }
              else if(getActiveOrdertabs==='softgood'){
                 setTabNotes(getApparelNotes)
@@ -57,10 +57,11 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
 
      },[getActiveOrdertabs,getTravisNotes,getApparelNotes,getOgioNote,getHardGoodsNotes])
     
-    
+      console.log("")
     const onOkHandler = () => {
-
+        const checkNote = addNotes.trim().length > 0;
         
+    if(checkNote){
         const data2={
             message:addNotes ,
             name: getCurrentUsers?.name,
@@ -86,6 +87,9 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
             note:data2,
         }))
       }
+       
+        
+    }
        
 
         handleOk();
