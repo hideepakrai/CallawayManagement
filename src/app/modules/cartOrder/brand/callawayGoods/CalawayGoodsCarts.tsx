@@ -226,7 +226,9 @@ const CalawayGoodsCarts = () => {
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
             className='mx-5 number-input'
-            addonBefore={record.stock_88 || 0}
+            //addonBefore={record.stock_88 || 0}
+            addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
+
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
@@ -235,7 +237,9 @@ const CalawayGoodsCarts = () => {
 
             }}
 
-            disabled={value.stock_88 === 0}
+           // disabled={value.stock_88 === 0}
+           disabled={record.stock_88 === 0}
+
             style={{ width: 100 }}
           />
         </Tooltip>
