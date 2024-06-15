@@ -205,7 +205,7 @@ const AllRetialerPendingOrder = () => {
 
     return (
         <div className="cart-table">
-            <Card title="Pending orders ">
+            <Card title="Pending Orders ">
                 <Table<CartModel>
                     ref={tableRef}
                     className="cart-table-profile pb-5"

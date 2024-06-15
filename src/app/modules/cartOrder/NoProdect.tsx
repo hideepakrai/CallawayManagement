@@ -28,7 +28,7 @@ const NoProdect = ({
       <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/no_prodect_e1c5895009.png' className='cart-no-product-image' style={{margin:"0 auto"}}></img>
       
         <h2 className='text-muted   fs-2 fw-light mb-0 pt-4 text-center justify-content-center'>
-        Your cart is empty. Please create an order by selecting the below categories. 
+        No product added to cart from this category. You can create an order by selecting the below categories. 
         </h2>
 
         <div className='mt-15 mb-3 d-flex justify-content-center'>
@@ -40,7 +40,9 @@ const NoProdect = ({
           >
 
             <img src='https://callawaytech.s3.ap-south-1.amazonaws.com/omsimages/uploads/callaway_c_bfb3e34faf.png' className=' w-20px brand-icon'></img>
-          Callaway Apparel
+          
+          Callaway Softgoods
+
           </a>
           </Link>
 

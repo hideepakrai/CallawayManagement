@@ -111,7 +111,7 @@ const AllOrders = () => {
         {
             title: "Order date",
             dataIndex: "created_at",
-            width: 150,
+            width: 130,
             render: (value) => {
                 const date = new Date(value);
                 
@@ -150,7 +150,7 @@ const AllOrders = () => {
         {
             title: "Last Update",
             dataIndex: "updated_at",
-            width: 100,
+            width: 115,
             render: (value) => {
                 const date = new Date(value);
                 
@@ -305,9 +305,10 @@ const AllOrders = () => {
         setIsOgio(false);
         setIsSoftGood(false)
     } 
+    
        return (
-        <div className="cart-table">
-            <Card title="Completed">
+        <div className="cart-table mb-10 mt-3 mx-4">
+            <Card className="cart-order-section" title="Completed Orders">
                 <Table<CartModel>
                     ref={tableRef}
                     className="cart-table-profile pb-3"

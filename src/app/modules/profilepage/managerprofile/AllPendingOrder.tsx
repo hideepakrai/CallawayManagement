@@ -127,7 +127,7 @@ const AllPendingOrder = () => {
         {
             title: "Order date",
             dataIndex: "created_at",
-            width: 150,
+            width: 130,
             render: (value) => {
                 const date = new Date(value);
                 
@@ -170,7 +170,7 @@ const AllPendingOrder = () => {
         {
             title: "Last Update",
             dataIndex: "updated_at",
-            width: 100,
+            width: 110,
             render: (value) => {
                 const date = new Date(value);
                 
@@ -344,11 +344,13 @@ const AllPendingOrder = () => {
         setIsSoftGood(false)
     } 
 
+
+
     handleResetSoftGood
     return (
         <>
-            <div className="cart-table mb-5">
-                <Card title="Pending Orders ">
+            <div className="cart-table mb-10 mt-3 mx-4">
+                <Card className="cart-order-section" title="Pending Orders ">
                     <Table<CartModel>
                         ref={tableRef}
                         className="cart-table-profile pb-6"
@@ -370,6 +372,7 @@ const AllPendingOrder = () => {
                           }}
 
                     />
+                    
                 </Card>
 
              { selectedOrder && <Edit

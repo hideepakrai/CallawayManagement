@@ -6,14 +6,17 @@ import { useSelector } from 'react-redux'
 import { CurentUser } from '../../model/useAccount/CurrentUser'
 import Loading from '../../loading/Loading'
 import { LoadingStop, getLoading } from '../../../slice/loading/LoadingSlice'
-import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
+import { Row, Col, Tabs } from 'antd'; // Import Row and Col components from Ant Design
 import ManagerSlider from "../managerprofile/ManagerSlider"
 
 import GetAllorder from '../../orderPage/GetAllorder'
 import AllPendingOrder from '../managerprofile/AllPendingOrder'
 import AllOrders from '../managerprofile/AllOrders'
+import ManagerPofile from "../managerprofile/Friend"
 import { useDispatch } from "react-redux"
 import { Badge, Button, Tooltip } from 'antd';
+import { Card } from 'react-bootstrap';
+
 const AdminHome = () => {
   const [copied, setCopied] = useState(false);
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
@@ -45,6 +48,24 @@ const AdminHome = () => {
     );
   };
 
+
+  const items = [
+    {
+      key: '1',
+      label: 'Pending Orders',
+      children: <AllPendingOrder />,
+    },
+    {
+      key: '2',
+      label: 'Completed Orders',
+      children: <AllOrders />,
+    },
+    {
+      key: '3',
+      label: 'Support',
+      children:  <ManagerPofile/> ,
+    },
+  ];
 
 
 
@@ -157,7 +178,17 @@ sa
 
         {getLoadings && <Loading />}
 
+
         <Row className='container'>
+
+<Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section  table-orders'>
+  <Card className=''>
+  <Tabs defaultActiveKey="1" items={items} />
+  </Card>
+</Col>
+</Row>
+
+        {/* <Row className='container'>
 
           <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
 
@@ -177,7 +208,7 @@ sa
           <Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
 
 
-            {/* <Friends friendList={friendList} /> */}
+              <ManagerPofile/>  
           </Col>
 
 
@@ -186,7 +217,7 @@ sa
             <Contact contactList={contactList} />
           </Col> */}
 
-        </Row>
+        {/* </Row>  */}
 
 
 

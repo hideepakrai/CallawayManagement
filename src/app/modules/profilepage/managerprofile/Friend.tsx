@@ -23,12 +23,12 @@ const Friends = () => {
  
       
 
-      <div className="card card-custom  mt-6 border support-section">
-  <div className="card-header bg-black">
+      <div className="  mt-3 border mx-4  mb-10 ">
+  <div className="card-header " style={{backgroundColor:"#333", minHeight:"56px",}}>
       <h3 className="card-title text-white">Support</h3>
      
   </div>
-  <div className="card-body py-7 mx-1">
+  <div className="card-body py-7 ">
   {/* <div className="gx-pt-2">
         <ul className="gx-fnd-list gx-mb-0 d-flex row user-image" >
           {friendList.map((user:user, index) =>

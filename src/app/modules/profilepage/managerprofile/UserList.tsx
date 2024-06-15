@@ -29,7 +29,7 @@ const UserList = () => {
   };
 
   return (
-    <div className='card-body py-3'>
+    <div className=' py-3 '>
       <div className='table-responsive'>
         <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
           <thead>
