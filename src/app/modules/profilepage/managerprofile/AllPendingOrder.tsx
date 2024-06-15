@@ -78,10 +78,10 @@ const AllPendingOrder = () => {
                 let brandName;
                 switch (value) {
                     case 1:
-                        brandName = "Callaway Hardgoods";
+                        brandName = "Callaway";
                         break;
                     case 2:
-                        brandName = "Callaway Softgoods";
+                        brandName = "Callaway";
                         break;
                     case 3:
                         brandName = "Travis Mathew";
