@@ -53,12 +53,12 @@ const  ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedO
    const getApparelProgresss= useSelector(getApparelProgress)
     useEffect(()=>{
         setCurrent(0)
-        if(getActiveOrdertabs==="Travis" &&getPregressStepstravis){
+        if(getActiveOrdertabs==="travis" &&getPregressStepstravis){
             setCurrent(getPregressStepstravis);
           
           
             
-        } else if (getActiveOrdertabs==="Ogio" &&getPregressStepsogio){
+        } else if (getActiveOrdertabs==="ogio" &&getPregressStepsogio){
             setCurrent(getPregressStepsogio)
         } 
          else if (getActiveOrdertabs==="hardgood" &&getPregressStepshard){

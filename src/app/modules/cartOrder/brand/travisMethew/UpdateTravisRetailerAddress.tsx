@@ -117,7 +117,7 @@ useEffect(()=>{
 
     useEffect(()=>{
         if(getTravisRetailerDetails &&
-            getActiveOrdertabs==="Travis"   &&
+            getActiveOrdertabs==="travis"   &&
             allTravisOrders &&
             totalAmount&&
       discountAmount &&

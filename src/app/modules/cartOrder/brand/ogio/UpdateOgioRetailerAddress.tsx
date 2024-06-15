@@ -121,7 +121,7 @@ const getOgioNote= useSelector(getOgioNotes)
 
     useEffect(()=>{
         if(getOgioRetailerDetails &&
-            getActiveOrdertabs==="Ogio" &&
+            getActiveOrdertabs==="ogio" &&
             getCurrentUsers  &&
             salesRepId &&
             managerUserId &&

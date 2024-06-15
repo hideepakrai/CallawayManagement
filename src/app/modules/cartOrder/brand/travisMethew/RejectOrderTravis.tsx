@@ -125,7 +125,7 @@ const RejectOrderTravis = ({ resetReject }: Props) => {
  useEffect(() => {
   if (getPreOrderIds &&
     getTravisRetailerDetails &&
-            getActiveOrdertabs==="Travis"   &&
+            getActiveOrdertabs==="travis"   &&
             allTravisOrders &&
             totalAmount&&
       discountAmount &&

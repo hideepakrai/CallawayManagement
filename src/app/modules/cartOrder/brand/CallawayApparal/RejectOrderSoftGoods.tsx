@@ -124,7 +124,7 @@ const RejectOrderSoftGoods = ({ resetReject }: Props) => {
  useEffect(() => {
   if (getPreOrderIds &&
     getSoftgoodRetailerDetails &&
-            getActiveOrdertabs==="hardgood"   &&
+            getActiveOrdertabs==="hardgood"&&
             allHardGoodsOrders &&
             totalAmount&&
       discountAmount &&

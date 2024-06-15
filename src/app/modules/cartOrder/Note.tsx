@@ -10,6 +10,7 @@ import { NoteModel } from '../model/noteModel/NoteModel';
 import { addTravisNote, getTravisNote } from '../../slice/allProducts/TravisMethewSlice';
 import { addNote, getOgioNotes } from '../../slice/allProducts/OgioSlice';
 import { addSoftGoodNote, getApparelNote } from '../../slice/allProducts/CallawayApparelSlice';
+import { addHardGoodsNote, getHardGoodsNote } from '../../slice/allProducts/CallAwayGoodsSlice';
 type Props = {
     isModalOpen: boolean;
     handleOk: () => void;
@@ -27,6 +28,7 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
     const getTravisNotes= useSelector(getTravisNote)
     const getOgioNote= useSelector(getOgioNotes)
     const getApparelNotes= useSelector(getApparelNote)
+    const getHardGoodsNotes= useSelector(getHardGoodsNote)
     const dispatch= useDispatch()
 
      const getActiveOrdertabs= useSelector(getActiveOrdertab);
@@ -34,13 +36,13 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
         console.log("note",getActiveOrdertab)
         setTabNotes([])
         setTab("")
-            if(getActiveOrdertabs==='Travis' &&
+            if(getActiveOrdertabs==='travis' &&
             getTravisNotes &&
             getTravisNotes.length>0
             ){
                 setTabNotes(getTravisNotes)
                 setTab("Travis")
-            } else if(getActiveOrdertabs==='Ogio'){
+            } else if(getActiveOrdertabs==='ogio'){
                 setTabNotes(getOgioNote)
                 setTab("Ogio")
             }
@@ -48,8 +50,12 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
                 setTabNotes(getApparelNotes)
                 setTab("softgood")
             }
+             else if(getActiveOrdertabs==='hardgood'){
+               setTabNotes(getHardGoodsNotes)
+                setTab("hardgood")
+            }
 
-     },[getActiveOrdertabs,getTravisNotes,getApparelNotes,getOgioNote])
+     },[getActiveOrdertabs,getTravisNotes,getApparelNotes,getOgioNote,getHardGoodsNotes])
     
     
     const onOkHandler = () => {
@@ -67,12 +73,16 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
         dispatch(addTravisNote({
             note:data2,
         }))
-      } else if (tab==="Ogio"){
+      } else if (tab==="ogio"){
         dispatch(addNote({
             note:data2,
         }))
       } else if (tab==="softgood"){
         dispatch(addSoftGoodNote({
+            note:data2,
+        }))
+      } else if (tab==="hardgood"){
+        dispatch(addHardGoodsNote({
             note:data2,
         }))
       }

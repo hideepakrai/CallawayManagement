@@ -57,7 +57,7 @@ const CartProduct = () => {
           setActiveTab('travis');
       setTravisId(travisorderId)
       dispatch(setActiveOrderTab({
-        activeOrderTab:"Travis"
+        activeOrderTab:"travis"
        })) 
 
        dispatch(setFisttimeTab({
@@ -73,7 +73,7 @@ const CartProduct = () => {
         if(item.ordered){
           setActiveTab('ogio');
           dispatch(setActiveOrderTab({
-            activeOrderTab:"Ogio"
+            activeOrderTab:"ogio"
            })) 
 
            dispatch(setFisttimeTab({
@@ -124,7 +124,7 @@ const CartProduct = () => {
 const handleTravisCart=() => {
   setActiveTab('travis');
    dispatch(setActiveOrderTab({
-    activeOrderTab:"Travis"
+    activeOrderTab:"travis"
    }))
  
 }
@@ -132,7 +132,7 @@ const handleTravisCart=() => {
 const handleOgioCart=() => {
   setActiveTab('ogio');
   dispatch(setActiveOrderTab({
-   activeOrderTab:"Ogio"
+   activeOrderTab:"ogio"
   })) 
 }
 const handleSoftGoodCart=() => {

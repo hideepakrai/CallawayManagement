@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { GetUserOrder } from './api/_orderRequest'
 import { addUserOrders, getCurrentUser, getUserAccount } from '../../slice/UserSlice/UserSlice'
 import { useDispatch, useSelector } from "react-redux"
-import { GetAllAdminOrder, GetAllManagerOrder, GetAllRetailerOrder, GetAllUserOrders } from '../../api/order/OrederApi'
+import { GetAllAdminOrder, GetAllManagerOrder, GetAllRetailerOrder, GetAllSaleRepresentationOrder, GetAllUserOrders } from '../../api/order/OrederApi'
 import { LoadingStart } from '../../slice/loading/LoadingSlice'
 
 
@@ -30,6 +30,10 @@ const GetAllorder = ({ resetOrder }: Props) => {
         else if (getCurrentUsers && getCurrentUsers.role === "Admin") {
               dispatch(LoadingStart())
             getAdminOrder()
+        }
+        else if (getCurrentUsers && getCurrentUsers.id &&getCurrentUsers.role === "Sales Representative") {
+              dispatch(LoadingStart())
+            getSalesRepOrder(getCurrentUsers.id)
         }
 
 
@@ -90,6 +94,24 @@ const GetAllorder = ({ resetOrder }: Props) => {
         }
     }
 
+
+    const getSalesRepOrder= async(userId:number)=>{
+
+
+        try {
+            const response = await GetAllSaleRepresentationOrder(userId)
+            if (response) {
+                dispatch(addUserOrders({
+                    userOrders: response
+                }))
+
+                resetOrder()
+            }
+
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
 
     return (
         <div>GetAllorder</div>

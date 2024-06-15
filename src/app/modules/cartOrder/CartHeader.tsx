@@ -123,14 +123,14 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             setRetailerName(allData[0]?.name)
            
 
-            if (getActiveOrdertabs === "Travis") {
+            if (getActiveOrdertabs === "travis") {
                 dispatch(addTravisReatailerDetails({
                     retailerDetails: allData[0]
                 }))
                 setIsTravis(true)
             }
 
-            else if (getActiveOrdertabs === "Ogio") {
+            else if (getActiveOrdertabs === "ogio") {
                 dispatch(addOgioReatailerDetails({
                     retailerDetails: allData[0]
                 }))
@@ -183,7 +183,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
         setRetailerName("")
         // eslint-disable-next-line no-debugger
         // debugger
-        if (getActiveOrdertabs === 'Travis' && getTravisRetailerDetails) {
+        if (getActiveOrdertabs === 'travis' && getTravisRetailerDetails) {
 
             console.log("getTravisRetailerDetails", getTravisRetailerDetails)
             if (getTravisRetailerDetails.address &&
@@ -196,7 +196,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 
 
         }
-        else if (getActiveOrdertabs === 'Ogio' && getOgioRetailerDetails) {
+        else if (getActiveOrdertabs === 'ogio' && getOgioRetailerDetails) {
 
             console.log("getOgioRetailerDetails", getOgioRetailerDetails)
             if (getOgioRetailerDetails.address &&

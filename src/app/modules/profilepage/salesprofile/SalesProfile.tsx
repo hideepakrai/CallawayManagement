@@ -1,15 +1,36 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
 
 import PendingOrder from './PendingOrder';
 import AllOrder from '../managerprofile/AllOrders';
 import Contact from './Contact';
 import { contactLists } from './ContactList';
-
+import { useDispatch, useSelector } from 'react-redux';
 import AllPendingOrder from '../managerprofile/AllPendingOrder';
 import Friend from '../managerprofile/Friend';
-
+import { CurentUser } from '../../model/useAccount/CurrentUser';
+import GetAllorder from '../../orderPage/GetAllorder';
+import { getCurrentUser } from '../../../slice/UserSlice/UserSlice';
+import { LoadingStop, getLoading } from '../../../slice/loading/LoadingSlice';
 const SalesProfile = () => {
+  const [isOrder, setIsOrder] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const dispatch = useDispatch();
+  const getLoadings = useSelector(getLoading)
+  const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
+
+  useEffect(() => {
+    if (getCurrentUsers && getCurrentUsers.id) {
+
+      setIsOrder(true)
+    }
+  }, [])
+
+  const handleResetOrder = () => {
+    dispatch(LoadingStop())
+    setIsOrder(false)
+
+  }
   return (
     <div>
       <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
@@ -64,11 +85,11 @@ const SalesProfile = () => {
 
 </Row>
 
-{/* {isOrder &&
+{isOrder &&
           <GetAllorder
 
             resetOrder={handleResetOrder}
-          />} */}
+          />}
 
     </div>
   );
