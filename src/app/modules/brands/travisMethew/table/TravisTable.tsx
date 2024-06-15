@@ -328,7 +328,7 @@ const TravisTable = () => {
       title: "Style",
       dataIndex: "style_code",
       key: "style_code",
-      width: 85,
+      width: 90,
 
       sorter: (a, b) => {
         // Extract and compare StyleCode values, handling null or undefined cases
@@ -382,7 +382,7 @@ const TravisTable = () => {
       title: "Color",
       dataIndex: "color",
       key: "color",
-      width: 75,
+      width: 100,
 
       sorter: (a, b) => {
         // Extract and compare StyleCode values, handling null or undefined cases
@@ -413,7 +413,7 @@ const TravisTable = () => {
       title: "Qty88",
       dataIndex: "stock_88",
       key: "stock_88",
-      width: 150,
+      width: 120,
       fixed: 'right',
       render: (value, record) => {
         console.log("r", record.stock_88);
@@ -425,7 +425,7 @@ const TravisTable = () => {
           >
             <InputNumber
               status={record.sku === qty88ToolSKU && qty88ToolMesage !== "" ? "error" : ""}
-              className='mx-3 number-input'
+              className=' number-input'
               addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
               value={record.Quantity88?.toString()}
               style={{ width: 100 }}
@@ -445,14 +445,14 @@ const TravisTable = () => {
       title: "Qty90",
       dataIndex: "stock_90",
       key: "stock_90",
-      width: 150,
+      width: 120,
       fixed: 'right',
       render: (value, record) => (
 
         <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
-            className='mx-5 number-input'
+            className=' number-input'
             addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
             style={{ width: 100 }}
            // addonBefore={record.stock_90 || 0}
@@ -466,7 +466,7 @@ const TravisTable = () => {
             }}
 
            // disabled={value != null && value.stock_90 === 0}
-            style={{ width: 100 }}
+         
             disabled={record.stock_90 === 0}
 
           />

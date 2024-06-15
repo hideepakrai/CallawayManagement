@@ -22,3 +22,9 @@
     .btn.btn-active-light-primary:hover:not(.btn-active){background-color: #383838!important;} 
     .cart-button:hover .svg-cart {color: #fff!important;}
     .cart-button .svg-cart {color: #fff!important;}
+
+    .order-btn{width: 118px !important;
+        margin: 0 12px;
+        padding: 0 0 0 10px!important;
+        height: 38px !important;}
+        .order-btn i{font-size: 18px; margin-right: 3px;}

@@ -275,6 +275,14 @@ const OgioCartPdf = () => {
 
 
 
+<div className='row'>
+          <div  className='col-3 mt-6 notes-pdf'>
+            <h2 className='fs-4'>NOTES:</h2>
+            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note one</h4>
+            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note two</h4>
+            
+          </div>
+<div className="col-9">
             <div className="mx-7" style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
 
               <h4 style={{ color: "#545454", display: "flex", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
@@ -296,10 +304,16 @@ const OgioCartPdf = () => {
 
 
 
-              <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px" }}>
+              <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px", display:"flex" }}>
                 <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total :  </a>₹{totalNetBillAmount}
               </h4>
             </div>
+            </div>
+ </div>
+
+
+
+
           </div>
 
         </div>

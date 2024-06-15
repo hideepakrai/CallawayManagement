@@ -836,16 +836,17 @@ const handleRejectedModalCancel=()=>{
 
               <div>
                 {isDiscount && (
-                  <Space className='cart-number-input' direction="vertical" style={{ width: "125px" }}>
+                  <Space className='cart-number-input' direction="vertical" style={{ width: "300px" }}>
 
                     {/* <Input
           //   onChange={(e)=>handleChangeDiscount(e.target.value)}
           // /> */}
 
                     <InputNumber
-
+                         style={{width:100}}
                       className='mx-3 number-input'
                       addonAfter="%"
+                      
                       value={discountValue}
                     
                       onChange={(value) => {

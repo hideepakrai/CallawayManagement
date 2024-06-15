@@ -1,5 +1,5 @@
 
-import {FC} from 'react'
+import {FC, useEffect,useState} from 'react'
 import clsx from 'clsx'
 import {KTIcon,KTSVG, toAbsoluteUrl} from '../../../helpers'
 import "./Topbar.css"
@@ -12,6 +12,9 @@ import {
   ThemeModeSwitcher,
 } from '../../../partials'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { getCurrentUser, getUserAccount } from '../../../../app/slice/UserSlice/UserSlice'
+import { UserAccountModel } from '../../../../app/modules/model/useAccount/UserAccountModel'
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
   toolbarButtonHeightClass = 'btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40p',
   toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px',
@@ -20,6 +23,7 @@ const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
 
 
 const Topbar: FC = () => {
+  const [role, setRole] = useState<string>();
   const navigate= useNavigate()
   // move to cart
 
@@ -27,30 +31,58 @@ const Topbar: FC = () => {
     navigate("/cart")
 
   }
+
+  const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
+  const getCurrentUsers = useSelector(getCurrentUser) as UserAccountModel;
+  useEffect(() => {
+    if (getCurrentUsers &&
+      getCurrentUsers &&
+      getCurrentUsers?.role) {
+      setRole(getCurrentUsers?.role)
+    }
+  }
+    , [getCurrentUsers])
+    
+    
+  const handleOrder = () => {
+    if (role === "Manager" && getCurrentUsers&&getCurrentUsers.id) {
+      navigate(`/profilepage/managerprofile/${getCurrentUsers.id}`)
+    } else if (role === "Retailer" &&getCurrentUsers&&getCurrentUsers.id){
+      navigate(`/profilepage/retailerprofile/${getCurrentUsers.id}`)
+    }
+    else if (role==="Admin"  && getCurrentUsers&&getCurrentUsers.id){
+      navigate(`/profilepage/adminprofile/${getCurrentUsers.id}`)
+    }
+    else if (role==="Sales Representative"  && getCurrentUsers&&getCurrentUsers.id){
+      navigate(`/profilepage/salesprofile/${getCurrentUsers.id}`)
+    }
+
+  }
+  
   return (
     <div className='d-flex align-items-stretch flex-shrink-0'>
       <div className='topbar d-flex align-items-stretch flex-shrink-0'>
-        {/* Search */}
-        {/* <div className={clsx('d-flex align-items-stretch', toolbarButtonMarginClass)}>
-          <Search />
-        </div> */}
-        {/* Activities */}
-        {/* <div className={clsx('d-flex align-items-center ', toolbarButtonMarginClass)}>
-       
-          <div
+        
+        <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
+          
+        <div 
             className={clsx(
-              'btn btn-icon btn-active-light-primary btn-custom',
+              'btn btn-icon btn-active-light-primary btn-custom order-btn',
               toolbarButtonHeightClass
             )}
-            id='kt_activities_toggle'
+            onClick={handleOrder}
           >
-            <KTIcon iconName='chart-simple' className={toolbarButtonIconSizeClass} />
-          </div>
+           
          
-        </div> */}
+           <i className="bi bi-bag"></i>
 
-        {/* NOTIFICATIONS */}
-        <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
+           
+            <span className="cart-btn">My Orders</span>         
+          </div>
+
+
+
+          
           {/* begin::Menu- wrapper */}
           <div 
             className={clsx(
@@ -71,6 +103,8 @@ const Topbar: FC = () => {
            
             <span className="cart-btn"> CART</span>         
           </div>
+
+
           {/* <HeaderNotificationsMenu /> */}
           {/* end::Menu wrapper */}
         </div>

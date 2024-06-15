@@ -58,6 +58,7 @@ const HeaderUserMenu: FC = () => {
     }
   }
     , [getCurrentUsers])
+    
   const handleProfile = () => {
     if (role === "Manager" && getCurrentUsers&&getCurrentUsers.id) {
       navigate(`/profilepage/managerprofile/${getCurrentUsers.id}`)
@@ -117,7 +118,7 @@ const HeaderUserMenu: FC = () => {
         <a href='#' className='menu-link menu-lists px-5 '
           onClick={handleProfile}
         >
-          <span className='menu-text user-profile-link' >My Orders</span>
+          <span className='menu-text user-profile-link' >My Orders </span>
         </a>
       </div>
 

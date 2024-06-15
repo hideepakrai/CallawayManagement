@@ -901,7 +901,7 @@ const handleOkSubmit=()=>{
 
 
                     <InputNumber
-
+                      style={{width:100}}
                       className='mx-3 number-input'
                       addonAfter="%"
                       value={discountValue}
