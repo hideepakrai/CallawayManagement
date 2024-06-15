@@ -751,7 +751,7 @@ const GooodsTable = () => {
             id="flexCheckDefault"
           />
           <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
-            Show Available Product
+          Show Only Available Products
           </label>
         </div>
 

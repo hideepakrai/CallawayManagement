@@ -1453,7 +1453,8 @@ const TravisTable = () => {
       >
 
 <div className='row'>
-        <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{paddingLeft:"10px"}}>
+       
+         <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{paddingLeft:"10px"}}>
           <input
             className="form-check-input submit-order"
             type="checkbox"
@@ -1461,10 +1462,9 @@ const TravisTable = () => {
             id="flexCheckDefault"
           />
           <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
-            Show Available Product
+          Show Only Available Products
           </label>
         </div>
-
         <div className='col-8' style={{ float: "right", marginBottom: "12px", textAlign:"end",  }}>
 
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '

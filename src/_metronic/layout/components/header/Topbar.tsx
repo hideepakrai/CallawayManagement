@@ -74,10 +74,11 @@ const Topbar: FC = () => {
           >
            
          
+         
            <i className="bi bi-bag"></i>
 
            
-            <span className="cart-btn">My Orders</span>         
+            <span className="cart-btn">My Orders </span>         
           </div>
 
 

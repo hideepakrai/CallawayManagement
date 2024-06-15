@@ -1,8 +1,10 @@
 import React, { useState , useEffect} from "react";
-import { Modal, Select, Timeline } from "antd";
+import { Modal, Select, Timeline,Button,message, Popconfirm } from "antd";
 import "./Edit.css";
 import Note from "./Note";
 import { CartModel } from "../../model/CartOrder/CartModel";
+import type { PopconfirmProps } from 'antd';
+
 
 type Props = {
   isEdit: boolean;
@@ -57,14 +59,45 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
   },[selectedOrder])
 
   console.log("timeLine",timeLine)
+
+  const confirm: PopconfirmProps['onConfirm'] = (e) => {
+    console.log(e);
+    message.success('Click on Yes');
+  };
+  
+  const cancel: PopconfirmProps['onCancel'] = (e) => {
+    console.log(e);
+    message.error('Click on No');
+  };
   return (
     <>
       <Modal
         open={isEdit}
         onOk={handleOk}
         onCancel={handleCancel}
-        title="Edit Status"
+        title="Edit Status "
         className="note-modal"
+
+        footer={[
+          <Popconfirm
+    title="Delete the Order"
+    description="Are you sure to delete this Order?"
+    onConfirm={confirm}
+    onCancel={cancel}
+    okText="Yes"
+    cancelText="No"
+  >
+    <Button danger>Delete Order</Button>
+  </Popconfirm>,
+
+          <Button key="cancel" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="ok" type="primary" onClick={handleOk}>
+            Ok
+          </Button>,
+        ]}
+
       >
         <div className="mt-8">
           {/* <Timeline>

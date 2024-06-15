@@ -153,10 +153,10 @@ const AllPendingOrder = () => {
                 const formattedTime = date.toLocaleTimeString('en-US', timeCall);
         
                 //return `${formattedDate}  ${formattedTime}`;
-                return(<div>
+                return(<div className="datecalllist">
 
                   <span className="dateCall"> {formattedDate}  </span>
-                  <span className="timeCall"> {formattedTime}  </span>
+                  <span className="timeCall text-gray-600"> {formattedTime}  </span>
 
                   </div>
 
@@ -196,10 +196,10 @@ const AllPendingOrder = () => {
                 const formattedTime = date.toLocaleTimeString('en-US', timeCall);
         
                 //return `${formattedDate}  ${formattedTime}`;
-                return(<div>
+                return(<div className="datecalllist">
 
                   <span className="dateCall"> {formattedDate}  </span>
-                  <span className="timeCall"> {formattedTime}  </span>
+                  <span className="timeCall text-gray-600"> {formattedTime}  </span>
 
                   </div>
 
