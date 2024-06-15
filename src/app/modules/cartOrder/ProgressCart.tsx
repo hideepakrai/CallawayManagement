@@ -24,7 +24,7 @@ type Props = {
     resetAvailable: () => void;
 };
 
-const ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOrder, completedOrder, note, resetAvailable }: Props) => {
+const  ProgressCart = ({ checkAvailability, submitorder, approveOrder, rejectedOrder, completedOrder, note, resetAvailable }: Props) => {
     const [current, setCurrent] = useState(0);
     const [currentOgio, setCurrentOgio] = useState(0);
     const [currentTravis, setCurrentTravis] = useState(0);

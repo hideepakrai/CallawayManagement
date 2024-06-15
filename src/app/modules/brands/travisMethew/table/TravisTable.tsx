@@ -467,6 +467,7 @@ const TravisTable = () => {
 
            // disabled={value != null && value.stock_90 === 0}
          
+           // style={{ width: 100 }}
             disabled={record.stock_90 === 0}
 
           />
@@ -895,6 +896,10 @@ const TravisTable = () => {
           MRP: record.mrp,
 
         }));
+        dispatch(updateProgressStep({
+          progressStep:0,
+
+        }))
 
 
       }
@@ -969,6 +974,12 @@ const TravisTable = () => {
           qty88: intValue,
           MRP: record.mrp,
         }));
+        dispatch(updateProgressStep({
+          progressStep:0,
+
+        }))
+        
+       
 
       }
       else if (record && record.stock_88 && record.stock_88) {

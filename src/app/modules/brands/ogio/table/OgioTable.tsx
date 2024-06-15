@@ -6,7 +6,7 @@ import { OgioBasicModel, OgioBasicModelGraph, OgioModel, } from "../../../model/
 
 import { OgioExcelModel } from "../../../model/ogio/OgioExcelModel"
 import { useDispatch, useSelector } from "react-redux"
-import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType, addOtherProduct, getOgioOtherProduct, updateOtherQuantity90 } from "../../../../slice/allProducts/OgioSlice"
+import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType, addOtherProduct, getOgioOtherProduct, updateOtherQuantity90, updateProgressStep } from "../../../../slice/allProducts/OgioSlice"
 import SampleOgioExcel from '../excel/SampleOgioExcel';
 import OgioImportExcel from "../excel/importExcel/OgioImportExcel"
 import OgioExcelUploadDB from "../excel/importExcel/OgioUploadExcel"
@@ -455,6 +455,10 @@ const OgioTable = () => {
 
         }));
 
+        dispatch(updateProgressStep({
+          progressStep:0,
+
+        }))
 
       }
       else {

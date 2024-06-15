@@ -67,7 +67,7 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
         className="note-modal"
       >
         <div className="mt-8">
-          <Timeline>
+          {/* <Timeline>
            { timeLine && 
            timeLine.map((item)=>{
 
@@ -81,11 +81,59 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
 
            )
            }
-            {/* <Timeline.Item color="gray">
-              <h3 className="note-text">Cras non dolor. Praesent ac massa at ligula laoreet iaculis.</h3>
-              <p className="text-gray-600 fs-5 note-details">Note by <i>Manish Sharma</i> on 22-01-2024 01:00AM</p>
-            </Timeline.Item> */}
-          </Timeline>
+           
+          </Timeline> */}
+          <Timeline>
+    {timeLine && 
+        timeLine.map((item, index) => {
+            if (!item.date) {
+                return (
+                    <Timeline.Item color="black" key={index}>
+                        <h3 className="note-text">{item?.message}</h3>
+                        <p className="text-gray-600 fs-5 note-details">
+                            Note by <i>{item.name}</i> on unknown date
+                        </p>
+                    </Timeline.Item>
+                );
+            }
+
+            const date = new Date(item.date);
+
+            // Options for the date part
+            const dateOptions: Intl.DateTimeFormatOptions = { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric', 
+                timeZone: 'Asia/Kolkata'
+            };
+
+            // Options for the time part
+            const timeOptions: Intl.DateTimeFormatOptions = { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true, 
+                timeZone: 'Asia/Kolkata' 
+            };
+
+            const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+            const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+
+            return (
+                <Timeline.Item color="black" key={index}>
+                    <h3 className="note-text">{item?.message}</h3>
+                    <p className="text-gray-600 fs-5 note-details">
+                        Note by <i>{item.name}</i> on {formattedDate}, {formattedTime}
+                    </p>
+                </Timeline.Item>
+            );
+        })
+    }
+</Timeline>
+
+
+
         </div>
 
         <Note
