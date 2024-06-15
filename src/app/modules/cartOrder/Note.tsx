@@ -31,6 +31,7 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
 
      const getActiveOrdertabs= useSelector(getActiveOrdertab);
      useEffect(()=>{
+        console.log("note",getActiveOrdertab)
         setTabNotes([])
         setTab("")
             if(getActiveOrdertabs==='Travis' &&
@@ -85,30 +86,101 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
     
    
     return (
-        <div>
-            <Modal className='timeline' title="Add Note" open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
-            <div className='row mt-8'>
-                <div className='col-7'>
+        // <div>
+        //     <Modal className='timeline' title="Add Note" open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
+        //     <div className='row mt-8'>
+        //         <div className='col-7'>
 
-                    <Timeline>
-                       { tabNotes &&
-                       tabNotes.length>0&&
-                       tabNotes.map((note, index) => {
-                        return (
-                            <Timeline.Item color="black ">
+        //             <Timeline>
+        //                { tabNotes &&
+        //                tabNotes.length>0&&
+        //                tabNotes.map((note, index) => {
+        //                 return (
+        //                     <Timeline.Item color="black ">
                           
-                            <p className="text-gray-800 fs-5 m-0 fw-bold">{note.message}</p>
-                            <p className="text-gray-900 fs-6 "><i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
-                        </Timeline.Item>
-                        )
-                       })
-                    }
+        //                     <p className="text-gray-800 fs-5 m-0 fw-bold">{note.message}</p>
+        //                     <p className="text-gray-900 fs-6 "><i>{getCurrentUsers?.name}</i> on {date.toUTCString()}</p>
+        //                 </Timeline.Item>
+        //                 )
+        //                })
+        //             }
                       
                        
                         
+        //             </Timeline>
+
+
+
+
+
+
+
+
+        //         </div>
+
+        //         <div className='col-5'>
+        //             <TextArea
+        //                 rows={5}
+        //                 placeholder="Note"
+        //                 value={addNotes}
+        //                 onChange={(e) => setAddNotes(e.target.value)}
+        //             />
+        //         </div>
+        //         </div>
+        //     </Modal>
+        // </div>
+
+        <div>
+        <Modal className='timeline' title="Add Note" open={isModalOpen} onOk={onOkHandler} onCancel={handleCancel}>
+            <div className='row mt-8'>
+                <div className='col-7'>
+                    <Timeline>
+                        {tabNotes && tabNotes.length > 0 && tabNotes.map((note, index) => {
+                            if (!note.date) {
+                                return (
+                                    <Timeline.Item color="black" key={index}>
+                                        <p className="text-gray-800 fs-5 m-0 fw-bold">{note.message}</p>
+                                        <p className="text-gray-900 fs-6">
+                                            <i>{getCurrentUsers?.name}</i> on unknown date
+                                        </p>
+                                    </Timeline.Item>
+                                );
+                            }
+    
+                            const date = new Date(note.date);
+    
+                            // Options for the date part
+                            const dateOptions: Intl.DateTimeFormatOptions = { 
+                                weekday: 'short', 
+                                year: 'numeric', 
+                                month: 'short', 
+                                day: 'numeric', 
+                                timeZone: 'Asia/Kolkata'
+                            };
+    
+                            // Options for the time part
+                            const timeOptions: Intl.DateTimeFormatOptions = { 
+                                hour: '2-digit', 
+                                minute: '2-digit', 
+                                second: '2-digit', 
+                                hour12: true, 
+                                timeZone: 'Asia/Kolkata' 
+                            };
+    
+                            const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+                            const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+    
+                            return (
+                                <Timeline.Item color="black" key={index}>
+                                    <p className="text-gray-800 fs-5 m-0 fw-bold">{note.message}</p>
+                                    <p className="text-gray-900 fs-6">
+                                        <i>{getCurrentUsers?.name}</i> on {formattedDate}, {formattedTime}
+                                    </p>
+                                </Timeline.Item>
+                            );
+                        })}
                     </Timeline>
                 </div>
-
                 <div className='col-5'>
                     <TextArea
                         rows={5}
@@ -117,9 +189,10 @@ const Note = ({ isModalOpen, handleOk, handleCancel }: Props) => {
                         onChange={(e) => setAddNotes(e.target.value)}
                     />
                 </div>
-                </div>
-            </Modal>
-        </div>
+            </div>
+        </Modal>
+    </div>
+    
     );
 };
 

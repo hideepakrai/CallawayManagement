@@ -16,7 +16,7 @@ import GoodsImportExcel from "./GoodsImportExcel"
 import GoodsQtyImport from "./GoodsQtyImport"
 import TravisExportProduct from "./GoodsExportProduct"
 import type { RadioChangeEvent, SelectProps } from 'antd';
-import { getCategory, getGoodsProducts, getProductModel, getProductType, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
+import { getCategory, getGoodsProducts, getProductModel, getProductType, updateProgressStep, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
 
 import OgioProductsToExcel from '../excel/exportExcel/ExportAllProduct';
 import GoodsUpdateQtyDb from '../excel/importExcel/GoodsUpdateQtyDb';
@@ -511,7 +511,13 @@ const GooodsTable = () => {
           qty90: intValue,
           MRP: record.mrp,
 
+
         }));
+
+        dispatch(updateProgressStep({
+          progressStep:0,
+
+        }))
 
 
       }

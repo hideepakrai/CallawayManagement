@@ -115,15 +115,57 @@ const AllPendingOrder = () => {
             }
         },
 
+        // {
+        //     title: "Order date",
+        //     dataIndex: "created_at",
+        //     width: 150,
+        //     render: (value) => {
+        //         const date = new Date(value);
+        //         return date.toUTCString();
+        //     },
+        // },
         {
             title: "Order date",
             dataIndex: "created_at",
             width: 150,
             render: (value) => {
                 const date = new Date(value);
-                return date.toUTCString();
+                
+                // Options for the date part
+                const dateCall: Intl.DateTimeFormatOptions = { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    timeZone: 'Asia/Kolkata'
+                };
+        
+                // Options for the time part
+                const timeCall: Intl.DateTimeFormatOptions = { 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit', 
+                    hour12: true, 
+                    timeZone: 'Asia/Kolkata' 
+                };
+        
+                const formattedDate = date.toLocaleDateString('en-US', dateCall);
+                const formattedTime = date.toLocaleTimeString('en-US', timeCall);
+        
+                //return `${formattedDate}  ${formattedTime}`;
+                return(<div>
+
+                  <span className="dateCall"> {formattedDate}  </span>
+                  <span className="timeCall"> {formattedTime}  </span>
+
+                  </div>
+
+                )
             },
         },
+        
+        
+        
 
         {
             title: "Last Update",
@@ -131,7 +173,37 @@ const AllPendingOrder = () => {
             width: 100,
             render: (value) => {
                 const date = new Date(value);
-                return date.toUTCString();
+                
+                // Options for the date part
+                const dateCall: Intl.DateTimeFormatOptions = { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    timeZone: 'Asia/Kolkata'
+                };
+        
+                // Options for the time part
+                const timeCall: Intl.DateTimeFormatOptions = { 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit', 
+                    hour12: true, 
+                    timeZone: 'Asia/Kolkata' 
+                };
+        
+                const formattedDate = date.toLocaleDateString('en-US', dateCall);
+                const formattedTime = date.toLocaleTimeString('en-US', timeCall);
+        
+                //return `${formattedDate}  ${formattedTime}`;
+                return(<div>
+
+                  <span className="dateCall"> {formattedDate}  </span>
+                  <span className="timeCall"> {formattedTime}  </span>
+
+                  </div>
+
+                )
             },
         },
 

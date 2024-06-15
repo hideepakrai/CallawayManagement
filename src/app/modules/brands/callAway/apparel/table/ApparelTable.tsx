@@ -18,7 +18,7 @@ import "../TravisTable.css"
 import type { RadioChangeEvent, SelectProps } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel';
-import { getApparelProducts, updateQuantity88, updateQuantity90 } from '../../../../../slice/allProducts/CallawayApparelSlice';
+import { getApparelProducts, updateProgressStep, updateQuantity88, updateQuantity90 } from '../../../../../slice/allProducts/CallawayApparelSlice';
 import { useNavigate } from 'react-router-dom';
 import TravisImportProduct from "./ApparelImportProduct"
 import ApparelUpdateQty from "./ApparelUpdateQty"
@@ -526,6 +526,9 @@ const ApparelTable = () => {
           qty88: intValue,
           MRP: record.mrp,
         }));
+        dispatch(updateProgressStep({
+          progressStep:0,
+        }))
 
       }
       else if (record && record.stock_88 && record.stock_88) {
@@ -539,6 +542,9 @@ const ApparelTable = () => {
           qty88: st88,
           MRP: record.mrp
         }));
+        dispatch(updateProgressStep({
+          progressStep:0,
+        }))
 
 
       }
