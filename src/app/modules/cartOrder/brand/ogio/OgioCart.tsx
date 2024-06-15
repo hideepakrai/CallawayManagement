@@ -325,7 +325,9 @@ const OgioCart = () => {
             <InputNumber
               status={record.error !== "" ? "error" : ""}
               className='mx-3 number-input'
-              addonBefore={record.stock_90}
+             // addonBefore={record.stock_90}
+             addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
+
               value={record.Quantity90?.toString()}
               style={{ width: 100 }}
               onChange={(value) => {
@@ -336,7 +338,9 @@ const OgioCart = () => {
               }}
 
 
-              disabled={value[0]?.Stock90 === 0}
+              //disabled={value[0]?.Stock90 === 0}
+              disabled={record.stock_90 === 0}
+
             />
           </Tooltip>
         </>

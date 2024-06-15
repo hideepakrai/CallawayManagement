@@ -22,10 +22,10 @@ import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
 import type { FormEvent } from "react"
 
-type loginError={
- 
-    message:string
-  
+type loginError = {
+
+  message: string
+
 }
 
 const loginSchema = Yup.object().shape({
@@ -215,7 +215,12 @@ export function Login() {
                     <img src="https://dzinlystrapi.s3.us-east-2.amazonaws.com/graphic_designer_5b13ac7386.png" alt="Image 1"></img>
 
                   </div>
-                  <h4 className="user-detail d-flex  fs-5 fw-bolder text-gray-900">Manager</h4><div className="tick_container">
+                  <h4 className="user-detail d-flex  fs-5 fw-bolder text-gray-900">Manager</h4>
+
+                  
+
+
+                  <div className="tick_container">
                     {isManager && <div className="tick">
                       <i className="bi bi-check2"></i>
                     </div>}
@@ -330,7 +335,7 @@ export function Login() {
 
           </div>
 
-          <label className='form-label fs-6 fw-bolder text-gray-900'>Email</label>
+          <label className='form-label fs-6 fw-bolder text-gray-900'>Email </label>
           <input
             placeholder='Email'
             {...formik.getFieldProps('email')}

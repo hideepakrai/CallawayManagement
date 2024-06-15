@@ -20,6 +20,7 @@ import { getUserAccount } from "../../../slice/UserSlice/UserSlice"
 import Manager from "../../../api/manager/Manager"
 import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
+import { Select } from 'antd';
 
 
 
@@ -168,6 +169,10 @@ export function TestLogin() {
 
 
 
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
   return (
     <>
       <form
@@ -178,83 +183,49 @@ export function TestLogin() {
       >
 
 
-        {/* end::Separator */}
-
-        {/* {formik.status ? (
-          <div className='mb-lg-15 alert alert-danger'>
-            <div className='alert-text font-weight-bold'>{formik.status}</div>
-          </div>
-        ) : (
-          <div className='mb-10 bg-light-info p-8 rounded'>
-            <div className='text-info'>
-              Use account <strong>admin@demo.com</strong> and password <strong>demo</strong> to
-              continue.
-            </div>
-          </div>
-        )} */}
+      
 
         {/* begin::Form group */}
         <div className='fv-row mb-8'>
           <div className="form-group">
             {/* <label>Role</label> */}
 
-            <div className="user-section row mb-8">
-              <div className="col user-box  text-center col-3"
-                onClick={handleManager}
-              >
+          
+          <div>
 
-                <div className='user-checkbox'>
-                  <div className="user-img">
-                    <img src="https://dzinlystrapi.s3.us-east-2.amazonaws.com/graphic_designer_5b13ac7386.png" alt="Image 1"></img>
-
-                  </div>
-                  <h4 className="user-detail d-flex  fs-5 fw-bolder text-gray-900">Manager</h4><div className="tick_container">
-                    {isManager && <div className="tick">
-                      <i className="bi bi-check2"></i>
-                    </div>}
-
-                  </div>
-                </div>
-              </div>
-
-
-              <div className="col user-box text-center col-3"
-                onClick={handleRetailer}
-              >
-
-                <div className='user-checkbox'>
-                  <div className="user-img">
-                    <img src=" https://dzinlystrapi.s3.us-east-2.amazonaws.com/people_bc29368361.png" alt="Image 2"></img>
-                  </div>
-                  <h4 className="user-detail  fs-5 fw-bolder text-gray-900 retailer"
-
-                  >Retailer</h4>
-                  <div className="tick_container">
-                    {isRetailer && <div className="tick">
-                      <i className="bi bi-check2"></i>
-                    </div>}
-                  </div>
-                </div>
-              </div>
-
-              <div className="col user-box text-center col-3"
-                onClick={handleAdmin}
-              >
-
-                <div className='user-checkbox'>
-                  <div className="user-img">
-                    <img src="/media/icons/sales-representative.png" alt="Image 3"></img>
-
-                  </div>
-                  <h4 className="user-detail  fs-5 fw-bolder text-gray-900"> Admin</h4>
-                  <div className="tick_container">
-                    {isAdmin && <div className="tick">
-                      <i className="bi bi-check2"></i>
-                    </div>}
-                  </div>
-                </div>
-              </div>
-            </div>
+            
+          <Select style={{width: '100%', height: '40px', marginBottom:"50px"}}
+    defaultValue="lucy"
+   
+    onChange={handleChange}
+    options={[
+      {
+        label: <span>Manager</span>,
+        title: 'Manager',
+        options: [
+          { label: <span>Jack</span>, value: 'Jack' },
+          { label: <span>Lucy</span>, value: 'Lucy' },
+        ],
+      },
+      {
+        label: <span>Sales Rep</span>,
+        title: 'Sales Rep',
+        options: [
+          { label: <span>Chloe</span>, value: 'Chloe' },
+          { label: <span>Lucas</span>, value: 'Lucas' },
+        ],
+      },
+      {
+        label: <span>Retailers</span>,
+        title: 'Retailers',
+        options: [
+          { label: <span>Chloe</span>, value: 'Chloe' },
+          { label: <span>Lucas</span>, value: 'Lucas' },
+        ],
+      },
+    ]}
+  />
+          </div>
 
 
 
@@ -345,26 +316,10 @@ export function TestLogin() {
             </div>
           )}
         </div>
-        {/* end::Form group */}
 
-        {/* begin::Form group */}
+
+    
         <div className='fv-row mb-3'>
-          {/* <label className='form-label fw-bolder text-gray-900 fs-6 mb-0'>Password</label>
-          <input
-            type='password'
-            autoComplete='off'
-            {...formik.getFieldProps('password')}
-            className={clsx(
-              'form-control bg-transparent',
-              {
-                'is-invalid': formik.touched.password && formik.errors.password,
-              },
-              {
-                'is-valid': formik.touched.password && !formik.errors.password,
-              }
-            )}
-          /> */}
-
           <div className="position-relative mb-3">
             <input
               type={showPassword ? 'text' : 'password'}

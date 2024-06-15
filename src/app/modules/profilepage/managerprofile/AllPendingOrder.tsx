@@ -78,10 +78,10 @@ const AllPendingOrder = () => {
                 let brandName;
                 switch (value) {
                     case 1:
-                        brandName = "Callaway Hardgoods";
+                        brandName = "Callaway";
                         break;
                     case 2:
-                        brandName = "Callaway Softgoods";
+                        brandName = "Callaway";
                         break;
                     case 3:
                         brandName = "Travis Mathew";
@@ -153,10 +153,10 @@ const AllPendingOrder = () => {
                 const formattedTime = date.toLocaleTimeString('en-US', timeCall);
         
                 //return `${formattedDate}  ${formattedTime}`;
-                return(<div>
+                return(<div className="datecalllist">
 
                   <span className="dateCall"> {formattedDate}  </span>
-                  <span className="timeCall"> {formattedTime}  </span>
+                  <span className="timeCall text-gray-600"> {formattedTime}  </span>
 
                   </div>
 
@@ -196,10 +196,10 @@ const AllPendingOrder = () => {
                 const formattedTime = date.toLocaleTimeString('en-US', timeCall);
         
                 //return `${formattedDate}  ${formattedTime}`;
-                return(<div>
+                return(<div className="datecalllist">
 
                   <span className="dateCall"> {formattedDate}  </span>
-                  <span className="timeCall"> {formattedTime}  </span>
+                  <span className="timeCall text-gray-600"> {formattedTime}  </span>
 
                   </div>
 

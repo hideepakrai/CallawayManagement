@@ -9,3 +9,7 @@
     color: #fff!important;
 } */
 
+.datecalllist{display: grid;}
+.dateCall{font-size: 14px; font-weight: 400;}
+.timeCall{font-size: 13px;}
+
