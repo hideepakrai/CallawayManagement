@@ -15,8 +15,10 @@ type Props={
     resetTravisPdf:()=>void;
 }
 const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
+
+  console.log("recordPdf",recordPdf)
    const [managerName, setmanagerName]= useState<string>("")
-   const [orderDate, setOrderdate]= useState<string>("")
+   const [orderDate, setOrderDate] = useState<string | undefined>(undefined);
   const[alldata, setAllData]= useState<BasicModelTravis[]>([])
   const[retailerDetail, setRetailerDetail]= useState<RetailerModel>()
    const getCurrentUsers = useSelector(getCurrentUser)
@@ -34,13 +36,12 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
       const retailer= JSON.parse(recordPdf.retailer_details)
       setRetailerDetail(retailer)
 
-    //    if (getCurrentUsers && getCurrentUsers.role==="Admin"){
-    //     if(getUserProfiles && getUserProfiles.length>0){
-    //       getUserProfiles.map(item=>{
-    //         if(item.id==recordPdf.manager_id)
-    //       })
-    //     }
-    // }
+
+      const formattedDate = recordPdf.created_at
+    ? new Date(recordPdf.created_at).toLocaleDateString('en-GB')
+    : '0';
+    setOrderDate(formattedDate);
+   
     }
    },[recordPdf,getCurrentUsers])
     const columns: TableColumnsType<BasicModelTravis> = [
@@ -207,7 +208,7 @@ const TravisPdfPrintOrder = ({recordPdf,resetTravisPdf}:Props) => {
 
 
         <div className="col-4 user-details-pdf" >
-          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> 16/01/2024 </p>
+          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Date:</span> {orderDate} </p>
 
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India</p>
 

@@ -13,6 +13,9 @@ import TravisPdfPrintOrder from "../pdfformate/TravisPdfPrintOrder.tsx";
 import OgioPdfPrintOrder from "../pdfformate/OgioPdfPrintOrder.tsx";
 import TravisExpandedRowRender from "../table/TravisExpandedRowRender.tsx";
 import OgioExpandedRowRender from "../table/OgioExpandedRowRender.tsx";
+import SoftGoodsExpandedRowRender from "../table/SoftGoodsExpandedRowRender.tsx";
+import HardGoodsExpandedRowRender from "../table/HardGoodExpandedRowRender.tsx";
+import SoftGoodPdfPrintOrder from "../pdfformate/SoftGoodPdfPrintOrder.tsx";
 
 const AllOrders = () => {
     const [status, setStatus] = useState<string>("");
@@ -83,10 +86,10 @@ const AllOrders = () => {
                 let brandName;
                 switch (value) {
                     case 1:
-                        brandName = "Callaway Hardgoods";
+                        brandName = "Callaway";
                         break;
                     case 2:
-                        brandName = "Callaway Softgoods";
+                        brandName = "Callaway";
                         break;
                     case 3:
                         brandName = "Travis Mathew";
@@ -195,10 +198,10 @@ const AllOrders = () => {
     const expandedRowRender = (record: CartModel) => {
         if (record && record.brand_id) {
             switch (record.brand_id) {
-                // case 3:
-                //     return <TravisExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
-                // case 4:
-                //     return <OgioExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                 case 1:
+                    return <HardGoodsExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                case 2:
+                    return <SoftGoodsExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
                 case 3:
                     return <TravisExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
                 case 4:
@@ -212,6 +215,7 @@ const AllOrders = () => {
 
     const [recordPdf, setRecordPdf] = useState<AccountOrder | null>(null);
     const [isTravis, setIsTravis] = useState<boolean>(false);
+    const [isSoftGood, setIsSoftGood] = useState<boolean>(false);
     const [isOgio, setIsOgio] = useState<boolean>(false);
     const handleDownload = (record: AccountOrder) => {
         setRecordPdf(null);
@@ -219,11 +223,19 @@ const AllOrders = () => {
         setIsOgio(false);
         if (record.brand_id === 3) {
             setIsOgio(false);
+            setIsSoftGood(false)
             setIsTravis(true);
             setRecordPdf(record);
         } else if (record.brand_id === 4) {
             setIsOgio(true);
             setIsTravis(false);
+            setIsSoftGood(false)
+            setRecordPdf(record);
+        }
+        else if (record.brand_id === 2 ||record.brand_id==1) {
+            setIsOgio(false);
+            setIsTravis(false);
+            setIsSoftGood(true)
             setRecordPdf(record);
         }
     };
@@ -234,7 +246,14 @@ const AllOrders = () => {
         setIsOgio(false);
     };
 
-    return (
+
+    const handleResetSoftGood=()=>{
+        setIsTravis(false);
+        setRecordPdf(null);
+        setIsOgio(false);
+        setIsSoftGood(false)
+    } 
+       return (
         <div className="cart-table">
             <Card title="Completed">
                 <Table<CartModel>
@@ -267,6 +286,9 @@ const AllOrders = () => {
 
             {isTravis && recordPdf && <TravisPdfPrintOrder recordPdf={recordPdf} resetTravisPdf={handleResetTravis} />}
             {isOgio && recordPdf && <OgioPdfPrintOrder recordPdf={recordPdf} resetOgioPdf={handleResetTravis} />}
+            {isSoftGood && recordPdf && <SoftGoodPdfPrintOrder 
+            recordPdf={recordPdf}    
+             resetSoftGoodPdf={handleResetSoftGood} />}
         </div>
     );
 };

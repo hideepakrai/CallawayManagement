@@ -191,7 +191,7 @@ sa
           <Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
 
 
-            <Friends friendList={friendList} />
+            <Friends />
           </Col>
 
 

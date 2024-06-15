@@ -13,7 +13,7 @@ type user={
     name:string
     id:number
 }
-const Friends = ({friendList}: Props) => {
+const Friends = () => {
     
 
 

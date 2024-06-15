@@ -3,26 +3,35 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print';
 import { BasicModelTravis } from '../../model/travis/TravisMethewModel';
 import { AccountOrder } from '../../model/CartOrder/CartModel';
-import { OgioBasicModel } from '../../model/ogio/OgioBrandModel';
-//import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
-import BrandLogo from "../../../../../public/media/logos/ogio-white.png"
-import { RetailerModel } from '../../model/AccountType/retailer/RetailerModel';
-
+import {useSelector} from "react-redux";
+// import BrandLogo from "../../../../../public/media/logos/travis-white.png";
+import { getCurrentUser, getUserProfile } from '../../../slice/UserSlice/UserSlice';
+import {RetailerModel} from "../../model/AccountType/retailer/RetailerModel"
+// import BrandLogo from "../../../../../../../BrandLogopublic/media/logos/logo-white.png"
+import BrandLogo from "../../../../../public/media/logos/logo-white.png"
+import "./TravisPdfPrintOrder.css"
+import { BasicModelApparel } from '../../model/apparel/CallawayApparelModel';
 type Props={
     recordPdf:AccountOrder;
-    resetOgioPdf:()=>void;
+    resetSoftGoodPdf:()=>void;
 }
-const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
-
-  const[alldata, setAllData]= useState<OgioBasicModel[]>([])
+const SoftGoodPdfPrintOrder = ({recordPdf,resetSoftGoodPdf}:Props) => {
+   const [managerName, setmanagerName]= useState<string>("")
+   const [orderDate, setOrderDate] = useState<string | undefined>(undefined);
+  const[alldata, setAllData]= useState<BasicModelApparel[]>([])
   const[retailerDetail, setRetailerDetail]= useState<RetailerModel>()
-  const [orderDate, setOrderDate] = useState<string | undefined>(undefined);
+   const getCurrentUsers = useSelector(getCurrentUser)
+  const getUserProfiles = useSelector(getUserProfile)
+         useEffect(()=>{
+        if(getCurrentUsers && getCurrentUsers.role==="Manager" && getCurrentUsers.name){
+          setmanagerName(getCurrentUsers.name) 
+        } 
+       },[getCurrentUsers,getUserProfiles])
 
    useEffect(()=>{
-    if(recordPdf &&recordPdf.items && recordPdf.retailer_details &&recordPdf.created_at){
+    if(recordPdf &&recordPdf.items && recordPdf.retailer_details &&recordPdf.created_at &&recordPdf.manager_id){
       const orderData= JSON.parse(recordPdf.items)
       setAllData(orderData)
-      console.log("recordPdf",recordPdf);
       const retailer= JSON.parse(recordPdf.retailer_details)
       setRetailerDetail(retailer)
 
@@ -30,10 +39,10 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
       ? new Date(recordPdf.created_at).toLocaleDateString('en-GB')
       : '0';
       setOrderDate(formattedDate);
-
+   
     }
-   },[recordPdf])
-    const columns: TableColumnsType<OgioBasicModel> = [
+   },[recordPdf,getCurrentUsers])
+    const columns: TableColumnsType<BasicModelApparel> = [
 
         {
           title: "SKU",
@@ -43,23 +52,17 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
     
     
         },
+     
+    
+    
         {
-          title: "Size",
-          dataIndex: "size",
-          key: "size",
-          width: 150,
-    
-        },
-    
-    
-        // {
-        //     title: "Color",
-        //     dataIndex: "color",
-        //     key: "color",
-        //     width: 100,
+            title: "Color",
+            dataIndex: "color",
+            key: "color",
+            width: 100,
       
       
-        //   },
+          },
     
     
         {
@@ -125,17 +128,17 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
       const handlePrint = useReactToPrint({
         documentTitle: "Print This Document",
         onBeforePrint: () => console.log("before printing..."),
-        onAfterPrint: () => resetOgioPdf(),
+        onAfterPrint: () => resetSoftGoodPdf(),
     
     
       });
 
-      useEffect(()=>{
+       useEffect(()=>{
         if(alldata && alldata.length > 0){
-         
           handlePrint(null, () => contentToPrint.current);
         }
       },[alldata])
+
   return (
    
     <div>
@@ -148,48 +151,48 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
 
     <Card className="padf" style={{ marginTop: "10px", backgroundColor: "#f8f8f8" }}>
 
-      <div className=" ant-card ant-card-bordered gx-card mt-6" 
+      <div className=" ant-card ant-card-bordered gx-card " 
       ref={contentToPrint}
        >
         <div className="ant-card-body">
          
+       
         <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
           <div className="col-7 text-end ">
-            <img className="pdf-image" width={200} src={BrandLogo}></img>
+            <img className="pdf-image user-barnd-image" width={200} src={BrandLogo}></img>
           </div>
-          <div className="col-5 text-end px-6">
-            <h2 className="text-white pdf-title">ORDER PDF</h2>
+          <div className="col-5 text-end px-6 text-white">
+            <h2 className="text-white pdf-title">ORDER PDF </h2>
           </div>
           </div>
-
 
       <div className="row px-10 mt-8 mb-18" >
         <div className="col-8">
           <h1 className=" d-flex font-gray-800 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >
-            {retailerDetail?.name} 
+            {recordPdf.retailer_name} 
             </h1>
 
           <div className="d-flex">
             <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN: </span>
             <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> 
-            {retailerDetail?.gstin}
-             <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
+            {recordPdf.retailer_gstin}
+             <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer mx-2"></i></p>
           </div>
 
-          <div className="user-address pt-2 d-flex">
-            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:
+          {/* <div className="user-address pt-2 d-flex">
+            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:
             
              </span>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
-          {retailerDetail?.address}
+          {recordPdf.retailer_phone}
               
             </p>
-          </div>
+          </div> */}
 
           <div className="user-address pt-2 ">
-            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Phone:</span>
+            <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
             <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
-              {retailerDetail?.phone}  
+              {recordPdf.retailer_address}  
             </p>
           </div>
         </div>
@@ -201,9 +204,9 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
 
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Company:</span> Callaway Golf India</p>
 
-          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Travis Mathew</p>
+          <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Brand:</span> Callaway</p>
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Manager:</span>
-        {recordPdf.manager_name}
+        {managerName}
            </p>
           <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5"><span className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4">Sales Rep:</span>  
          {recordPdf.salesrep_name}
@@ -265,4 +268,4 @@ const OgioPdfPrintOrder = ({recordPdf,resetOgioPdf}:Props) => {
   )
 }
 
-export default OgioPdfPrintOrder
+export default SoftGoodPdfPrintOrder

@@ -12,6 +12,11 @@ import OrderPdfFormate from "../../cartOrder/orderPdf/OrderPdfFormate";
 import { isNull } from "util";
 import TravisPdfPrintOrder from "../pdfformate/TravisPdfPrintOrder";
 import OgioPdfPrintOrder from "../pdfformate/OgioPdfPrintOrder";
+import TravisExpandedRowRender from "../table/TravisExpandedRowRender.tsx";
+import OgioExpandedRowRender from "../table/OgioExpandedRowRender.tsx";
+import SoftGoodsExpandedRowRender from "../table/SoftGoodsExpandedRowRender.tsx";
+import HardGoodsExpandedRowRender from "../table/HardGoodExpandedRowRender.tsx";
+import SoftGoodPdfPrintOrder from "../pdfformate/SoftGoodPdfPrintOrder.tsx";
 
 const AllPendingOrder = () => {
     const [status, setStatus] = useState<string>("");
@@ -201,80 +206,26 @@ const AllPendingOrder = () => {
 
 
     const expandedRowRender = (record: CartModel) => {
-        console.log("expandedRowRender", record)
-        const subcolumns: TableColumnsType<BasicModelTravis> = [
-            {
-                title: "SKU ",
-                dataIndex: "sku",
-                key: "sku",
-                width: 390,
-                fixed: "left",
-            },
-            {
-                title: "Style",
-                dataIndex: "style_code",
-                key: "style_code",
-                width: 200,
-            },
-            {
-                title: "Size",
-                dataIndex: "size",
-                key: "size",
-                width: 170,
-            },
-            {
-                title: "Qty88",
-                dataIndex: "stock_88",
-                key: "stock_88",
-                width: 150,
-                fixed: "right",
-            },
-            {
-                title: "Qty90",
-                dataIndex: "stock_90",
-                key: "stock_90",
-                width: 150,
-                fixed: "right",
-            },
-            {
-                title: "Qty",
-                dataIndex: "TotalQty",
-                key: "TotalQty",
-                width: 50,
-                fixed: "right",
-            },
-            {
-                title: "MRP",
-                dataIndex: "mrp",
-                key: "mrp",
-                width: 80,
-                fixed: "right",
-            },
-            {
-                title: "Amount",
-                dataIndex: "Amount",
-                key: "Amount",
-                width: 100,
-                fixed: "right",
-            },
-        ];
-
-        return (
-            <Table
-                className="table-profile"
-                columns={subcolumns}
-                dataSource={expandedRowKeys.map((item) => ({
-                    ...item,
-                    key: item.sku,
-                }))}
-                pagination={false}
-                size="middle"
-            />
-        );
+        if (record && record.brand_id) {
+            switch (record.brand_id) {
+                 case 1:
+                    return <HardGoodsExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                case 2:
+                    return <SoftGoodsExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                case 3:
+                    return <TravisExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                case 4:
+                    return <OgioExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
+                default:
+                    return <div>No detailed view available</div>;
+            }
+        }
+        return null;
     };
 
     const [recordPdf, setRecordPdf] = useState<AccountOrder | null>(null);
      const [isTravis, setIsTravis]= useState<boolean>(false);
+     const [isSoftGood, setIsSoftGood]= useState<boolean>(false);
      const [isOgio, setIsOgio]= useState<boolean>(false);
      const [isOrder, setIsOrder]= useState<boolean>(false);
     const handleDownload = (record: AccountOrder) => {
@@ -285,11 +236,19 @@ const AllPendingOrder = () => {
         if(record.brand_id  &&record.brand_id===3){
             setIsOgio(false)
             setIsTravis(true)
+            setIsSoftGood(false)
         setRecordPdf(record);
     } 
     else if(record.brand_id && record.brand_id===4){
         setIsOgio(true)
             setIsTravis(false)
+            setIsSoftGood(false)
+        setRecordPdf(record);
+    }
+    else if(record.brand_id && record.brand_id===2 ||record.brand_id===1){
+        setIsOgio(false)
+            setIsTravis(false)
+            setIsSoftGood(true)
         setRecordPdf(record);
     }
     }
@@ -305,6 +264,15 @@ const AllPendingOrder = () => {
         setRecordPdf(null)
         setIsOgio(false)
     }
+
+    const handleResetSoftGood=()=>{
+        setIsTravis(false);
+        setRecordPdf(null);
+        setIsOgio(false);
+        setIsSoftGood(false)
+    } 
+
+    handleResetSoftGood
     return (
         <>
             <div className="cart-table mb-5">
@@ -365,6 +333,9 @@ const AllPendingOrder = () => {
             resetOgioPdf={handleResetTravis}
             />
             }
+           {isSoftGood && recordPdf && <SoftGoodPdfPrintOrder 
+            recordPdf={recordPdf}    
+             resetSoftGoodPdf={handleResetSoftGood} />}
 
             
         </>
