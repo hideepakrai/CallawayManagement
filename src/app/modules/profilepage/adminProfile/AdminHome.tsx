@@ -16,6 +16,8 @@ import ManagerPofile from "../managerprofile/Friend"
 import { useDispatch } from "react-redux"
 import { Badge, Button, Tooltip } from 'antd';
 import { Card } from 'react-bootstrap';
+import Support from './Support'
+
 
 const AdminHome = () => {
   const [copied, setCopied] = useState(false);
@@ -63,7 +65,7 @@ const AdminHome = () => {
     {
       key: '3',
       label: 'Support',
-      children:  <ManagerPofile/> ,
+      children:  <Support/> ,
     },
   ];
 
