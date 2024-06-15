@@ -24,6 +24,7 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
   
   const handleOk = () => {
     if (status !== "") {
+      
       changeStatus(status);
     } else {
       alert("Please select a status");
@@ -38,6 +39,7 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
   };
 
   const handleStatusChange = (value: string) => {
+    console.log("statis", value)
     setStatus(value);
   };
 
@@ -186,16 +188,22 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
             optionFilterProp="children"
             onChange={handleStatusChange}
             options={[
-              { value: "Completed", label: "Completed" },
-              { value: "Rejected", label: "Rejected" },
+              { value: "Pending", label: "Pending" },
+              { value: "Submitted", label: "Submitted" },
               { value: "Approved", label: "Approved" },
-              { value: "Under Review", label: "Under Review" },
+
+              { value: "Rejected", label: "Rejected" },
+              { value: "Completed", label: "Completed" },
             ]}
           />
         </div>
       </Modal>
 
-
+      Pending
+Submitted
+Approved
+Rejected
+Completed
 
     </>
   );

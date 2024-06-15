@@ -19,7 +19,7 @@ import HardGoodsExpandedRowRender from "../table/HardGoodExpandedRowRender.tsx";
 import SoftGoodPdfPrintOrder from "../pdfformate/SoftGoodPdfPrintOrder.tsx";
 
 const AllPendingOrder = () => {
-    const [status, setStatus] = useState<string>("");
+    const [status, setStatus] = useState<string | undefined>(undefined);
     const [orderId, setOrderId] = useState<number>();
     const [isEdit, setIsEdit] = useState(false);
     const tableRef = useRef(null);
@@ -45,12 +45,23 @@ const AllPendingOrder = () => {
         setStatus(status);
     };
 
+    const [order_id, setOrder_id] = useState<number | undefined>(undefined);
+    const [note, setnotes] = useState<string | undefined>(undefined);
     const handleEdit = (record:CartModel) => {
-        if (record) {
+        if (record && record.id &&record.id!=undefined && record.note) {
+            setOrder_id(record.id)
             setIsEdit(true);
             setSelectedOrder(record)
+            setnotes(record.note)
         }
     };
+
+
+    const handleResetOrder=()=>{
+        setOrder_id(undefined);
+        setStatus(undefined);
+        setnotes(undefined);
+    }
 
     const handleCloseEdit = () => {
         setIsEdit(false);
@@ -382,10 +393,12 @@ const AllPendingOrder = () => {
                     changeStatus={handleUpdateStatus}
                 />}
 
-                {status != null && orderId && (
+                {status != null && order_id && note && (
                     <UpdateStatus
                         status={status}
-                        orderId={orderId}
+                        orderId={order_id}
+                        note={note}
+                        resetOrder={handleResetOrder}
                     />
                 )}
             </div>

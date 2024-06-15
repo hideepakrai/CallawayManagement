@@ -44,6 +44,7 @@ const ApproveOrderOgio = ({resetStatus}:Props) => {
     
 
     const handleResetOrder=()=>{
+        setIsOrder(false)
         resetStatus("Approved")
     }
   return (
