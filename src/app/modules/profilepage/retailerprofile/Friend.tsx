@@ -52,8 +52,8 @@ const Friends = ({friendList}: Props) => {
 // </div>
 
 
-<div className="card card-custom  mt-6 border support-section">
-<div className="card-header bg-black">
+<div className="mt-3 border mx-4  mb-10">
+<div className="card-header" style={{backgroundColor:"#333", minHeight:"56px",}}>
     <h3 className="card-title text-white">Support</h3>
    
 </div>
