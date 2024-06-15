@@ -178,7 +178,7 @@ const CalawayGoodsCarts = () => {
 
 
     {
-      title: "Product model",
+      title: "Model",
       dataIndex: "product_model",
       key: "product_model",
       width: 100,
@@ -187,7 +187,7 @@ const CalawayGoodsCarts = () => {
 
 
     {
-      title: "Product type",
+      title: "Type",
       dataIndex: "product_type",
       key: "product_type",
       width: 85,
@@ -209,7 +209,7 @@ const CalawayGoodsCarts = () => {
       title: "Orientation",
       dataIndex: "orientation",
       key: "orientation",
-      width: 65,
+      width: 90,
 
     },
 

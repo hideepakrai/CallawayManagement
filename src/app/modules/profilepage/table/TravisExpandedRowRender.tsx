@@ -27,25 +27,52 @@ const TravisExpandedRowRender =({allarray,id}:Props)=>{
  
     const subcolumns: TableColumnsType<BasicModelTravis> = [
         {
-            title: "SKU ",
+            title: "SKU",
             dataIndex: "sku",
-            key: "sku",
-            width: 390,
+            width: 100,
             fixed: "left",
-        },
-        {
-            title: "Color",
-            dataIndex: "color",
-            key: "color",
-            width: 200,
-        },
-        {
-            title: "Size",
-            dataIndex: "size",
-            key: "size",
-            width: 170,
-        },
-       
+      
+      
+          },
+          {
+            title: "Description",
+            dataIndex: "description",
+            key: "description",
+            width: 150,
+      
+          },
+      
+      
+          {
+              title: "Season",
+              dataIndex: "season",
+              key: "season",
+              width: 100,
+        
+        
+            },
+      
+      
+          {
+            title: "Category",
+            dataIndex: "category",
+            key: "category",
+            width: 120,
+      
+      
+      
+          },
+      
+      
+          {
+              title: "Style",
+              dataIndex: "style_code",
+              key: "style_code",
+              width: 85,
+        
+            },
+      
+      
         {
             title: "Qty",
             dataIndex: "TotalQty",
@@ -55,6 +82,7 @@ const TravisExpandedRowRender =({allarray,id}:Props)=>{
             render: (value, record, index) => {
                 const qty88=record.stock_88;
                 const qty90=record.stock_90;
+
                 if(qty88 && qty90){
                     return qty88+qty90;
                 } else if(qty88 &&qty90===0){
@@ -63,6 +91,7 @@ const TravisExpandedRowRender =({allarray,id}:Props)=>{
                 else if(qty90 &&qty88===0){
                     return qty90;
                 }
+
             }
         },
         {

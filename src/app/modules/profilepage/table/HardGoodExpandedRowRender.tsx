@@ -3,7 +3,7 @@ import { Card, Table, Carousel, Breadcrumb, Select, Tooltip, InputNumber } from 
 import { Input, Radio, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
 import { OgioBasicModel } from '../../model/ogio/OgioBrandModel';
-import { BasicModelApparel } from '../../model/apparel/CallawayApparelModel';
+//import { BasicModelApparel } from '../../model/apparel/CallawayApparelModel';
 import { BasicModelGoods } from '../../model/goods/CallawayGoodsModel';
 
 type Props={
@@ -32,9 +32,37 @@ const HardGoodsExpandedRowRender =({allarray,id}:Props)=>{
             title: "SKU ",
             dataIndex: "sku",
             key: "sku",
-            width: 390,
+            width: 100,
             fixed: "left",
         },
+        {
+            title: "Description",
+            dataIndex: "description",
+            key: "description",
+            width: 150,
+      
+          },
+          // {
+          //     title: "Category",
+          //     dataIndex: "category",
+          //     key: "category",
+          //     width: 120,
+        
+        
+        
+          //   },
+      
+      
+          {
+              title: "Model",
+              dataIndex: "product_model",
+              key: "product_model",
+              width: 100,
+        
+        
+            },
+      
+      
     
         
 

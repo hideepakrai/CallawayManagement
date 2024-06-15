@@ -200,7 +200,7 @@ const OgioTable = () => {
 
     //product Type
     {
-      title: "ProductType",
+      title: "Type",
       dataIndex: "product_type",
       key: "product_type",
       width: 150,
@@ -307,7 +307,7 @@ const OgioTable = () => {
 
     // product model
     {
-      title: "ProductModel",
+      title: "Model",
       dataIndex: "product_model",
       key: "product_model",
       width: 150,
@@ -849,22 +849,22 @@ const OgioTable = () => {
           title: "SKU",
           dataIndex: "sku",
           key: "sku",
-          width: 390,
+          width: 100,
           fixed: "left",
         },
         {
-          title: "Product Model",
+          title: "Model",
           dataIndex: "product_model",
           key: "product_model",
-          width: 390,
+          width: 100,
           fixed: "left"
 
         },
         {
-          title: "Product Type",
+          title: "Type",
           dataIndex: "product_type",
           key: "product_type",
-          width: 390,
+          width: 100,
           fixed: "left"
 
         },
@@ -872,7 +872,7 @@ const OgioTable = () => {
           title: "Qty90",
           dataIndex: "stock_90",
           key: "stock_90",
-          width: 150,
+          width: 100,
           fixed: 'right',
           render: (value, record) => (
 
@@ -880,7 +880,9 @@ const OgioTable = () => {
               <InputNumber
                 status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
                 className='mx-5 number-input'
-                addonBefore={record.stock_90 || 0}
+                //addonBefore={record.stock_90 || 0}
+                addonBefore={record.stock_90}
+
                 
                 value={record.Quantity90?.toString()}
                 onChange={(value) => {
@@ -890,7 +892,9 @@ const OgioTable = () => {
 
                 }}
 
-                disabled={value !== null && value?.stock_90 === 0}
+                //disabled={value !== null && value?.stock_90 === 0}
+                disabled={record.stock_90 === 0}
+
                 style={{ width: 100 }}
               />
             </Tooltip>
@@ -901,7 +905,7 @@ const OgioTable = () => {
           title: "Qty",
           dataIndex: "TotalQty",
           key: "TotalQty",
-          width: 50,
+          width: 100,
           fixed: 'right'
         },
 
@@ -909,7 +913,7 @@ const OgioTable = () => {
           title: "MRP",
           dataIndex: "mrp",
           key: "mrp",
-          width: 80,
+          width: 100,
           fixed: 'right',
 
         },

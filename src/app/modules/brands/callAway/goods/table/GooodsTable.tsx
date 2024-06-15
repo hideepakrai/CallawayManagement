@@ -256,7 +256,7 @@ const GooodsTable = () => {
 
 
     {
-      title: "Product model",
+      title: "Model",
       dataIndex: "product_model",
       key: "product_model",
       width: 140,
@@ -309,7 +309,7 @@ const GooodsTable = () => {
 
 
     {
-      title: "Product type",
+      title: "Type",
       dataIndex: "product_type",
       key: "product_type",
       width: 140,

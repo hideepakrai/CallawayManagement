@@ -42,7 +42,7 @@ const getOgioNote= useSelector(getOgioNotes)
     }
   }
 
-
+//
   const handleResetOrder=()=>{
     resetCompleted("completed")
 }

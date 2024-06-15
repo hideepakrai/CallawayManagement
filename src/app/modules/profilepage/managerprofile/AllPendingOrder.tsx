@@ -96,7 +96,7 @@ const AllPendingOrder = () => {
             },
         },
         {
-            title: "Retailer name ",
+            title: "Retailer Name ",
             dataIndex: "retailer_details",
             width: 150,
             render:(value, record)=>{
@@ -125,7 +125,7 @@ const AllPendingOrder = () => {
         //     },
         // },
         {
-            title: "Order date",
+            title: "Order Date",
             dataIndex: "created_at",
             width: 150,
             render: (value) => {
@@ -223,12 +223,37 @@ const AllPendingOrder = () => {
             width: 100,
         },
 
+        // {
+        //     title: "Status	",
+        //     dataIndex: "status",
+        //     width: 100,
+        //     render: (value, record) => {
+        //         const valSub = value
+        //         console.log("c",value)
+        //         return(
+        //          valSub
+               
+                   
+        //         )
+        //     }
+
+        // },
         {
-            title: "Status	",
+            title: "Status",
             dataIndex: "status",
             width: 100,
-
+            render: (value, record) => {
+                const valSub = value;
+              //  console.log("c", value);
+        
+                if (valSub === "submitted") {
+                    return "Submitted";
+                }
+        
+                return valSub;
+            }
         },
+        
 
 
         {
