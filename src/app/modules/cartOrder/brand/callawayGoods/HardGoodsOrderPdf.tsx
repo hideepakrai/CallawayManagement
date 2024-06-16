@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel'
-import { getGoodsProducts, getHardGoodsRetailerDetail } from '../../../../slice/allProducts/CallAwayGoodsSlice'
+import { getGoodsProducts, getHardGoodsRetailerDetail,getHardGoodsNote } from '../../../../slice/allProducts/CallAwayGoodsSlice'
 import { Button, Card, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
@@ -34,6 +34,27 @@ const [discountAmount, setDiscountAmount] = useState<number>()
 const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
 const getHardGoodsProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
 const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelGoods[]>([])
+
+
+
+const [notes, setNotes]= useState<string[]>([])
+const getHardGoodsNotes= useSelector(getHardGoodsNote)
+useEffect(() => {
+  const check:string[]=[];
+ if(getHardGoodsNotes){
+  getHardGoodsNotes.map((item)=>{
+        if(item.type!="system" && item.message){
+         check.push(item.message)
+
+        }
+    })
+    setNotes(check)
+ }
+}, [getHardGoodsNotes])
+
+
+
+
 useEffect(() => {
   let tAmount: number = 0;
   let totalBillAmount: number = 0;
@@ -300,10 +321,14 @@ const columns: TableColumnsType<BasicModelGoods> = [
 
 <div className='row'>
           <div  className='col-3 mt-6 notes-pdf'>
-            <h2 className='fs-4'>NOTES:</h2>
-            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note one</h4>
-            <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note two</h4>
-            
+            <h2 className='fs-4' >NOTES:</h2>
+            <ul>
+            {notes &&
+            notes.length>0 &&
+            notes.map((item) => (
+            <li className='fs-5 text-gray-700 notes-pdf-text'>{item}</li>
+          ))}
+            </ul>
           </div>
 
           <div className='col-9'>

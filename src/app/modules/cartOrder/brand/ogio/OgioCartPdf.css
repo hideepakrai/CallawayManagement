@@ -1,3 +1,6 @@
 .user-details-pdf{float: right;}
 .pdf-title{font-size: 36px;}
 .pdf-image{margin-right: -10px;}
+.order-pdf-list{color: rgb(84, 84, 84); font-weight: 500;
+padding-left: 10px; width: 50%;}
+.order-pdf-data{color: rgb(84, 84, 84); font-weight: 500; width: 50%; text-align: center;}

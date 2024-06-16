@@ -335,7 +335,9 @@ const AllOrders = () => {
             onClose={handleCloseEdit} 
             changeStatus={handleUpdateStatus} />}
 
-            {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} />}
+            {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} note={""} resetOrder={function (): void {
+                   throw new Error("Function not implemented.");
+               } } />}
 
             {isTravis && recordPdf && <TravisPdfPrintOrder recordPdf={recordPdf} resetTravisPdf={handleResetTravis} />}
             {isOgio && recordPdf && <OgioPdfPrintOrder recordPdf={recordPdf} resetOgioPdf={handleResetTravis} />}

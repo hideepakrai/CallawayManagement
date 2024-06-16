@@ -253,11 +253,13 @@ const columns: TableColumnsType<BasicModelTravis> = [
 <div className='row'>
           <div  className='col-3 mt-6 notes-pdf'>
             <h2 className='fs-4'>NOTES:</h2>
+            <ul>
             {notes &&
             notes.length>0 &&
             notes.map((item) => (
-              <h4 className='fs-5 text-gray-700 notes-pdf-text'>- {item}</h4>
+              <li className='fs-5 text-gray-700 notes-pdf-text'>{item}</li>
             ))}
+            </ul>
             {/* <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note one</h4>
             <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note two</h4> */}
           </div>

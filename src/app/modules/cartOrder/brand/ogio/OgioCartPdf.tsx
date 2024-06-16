@@ -46,6 +46,7 @@ const OgioCartPdf = () => {
    const getPreOrderIds =useSelector(getPreOrderId)
   const [notes, setNotes]= useState<string[]>([])
   const getOgioNote= useSelector(getOgioNotes)
+
   useEffect(() => {
     const check:string[]=[];
    if(getOgioNote){
@@ -58,6 +59,7 @@ const OgioCartPdf = () => {
       setNotes(check)
    }
   }, [getOgioNote])
+
   useEffect(()=>{
     if(getUserProfiles && getUserProfiles.length > 0){
         getUserProfiles.map(item=>{
@@ -294,38 +296,53 @@ const OgioCartPdf = () => {
 <div className='row'>
           <div  className='col-3 mt-6 notes-pdf'>
             <h2 className='fs-4'>NOTES:</h2>
+            <ul>
             {notes &&
             notes.length>0 &&
             notes.map((item) => (
-              <h4 className='fs-5 text-gray-700 notes-pdf-text'>- {item}</h4>
+              <li className='fs-5 text-gray-700 notes-pdf-text'> {item}</li>
             ))}
+
+            </ul>
             
           </div>
 <div className="col-9">
             <div className="mx-7" style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
+            
+              <tr  style={{ color: "rgb(84, 84, 84)", display: "flex", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
+              
+                <th className="order-pdf-list"> Sub Total: </th>
+                <th className="order-pdf-data"> ₹{totalAmount} </th>
 
-              <h4 style={{ color: "#545454", display: "flex", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
-                {" "}
-                <a style={{ color: "#545454", paddingRight: "88px", paddingLeft: "10px", }}>Sub Total:</a>₹{totalAmount}
-              </h4>
+              </tr>
+
+
+
               {/* ₹ */}
-              <h4 style={{ color: "#545454", display: "flex", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
-                {" "}
-                <a style={{ color: "#545454", paddingRight: "90px", paddingLeft: "10px", }}>Discount:</a> ₹{discountAmount}
-              </h4>
+              <tr  style={{ color: "rgb(84, 84, 84)", display: "flex", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px",paddingTop:"5px" }}>
+              
+              <th className="order-pdf-list"> Discount: </th>
+              <th className="order-pdf-data"> ₹{discountAmount} </th>
+
+            </tr>
+
+             
 
 
 
-              {/* <h4 style={{color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px",fontSize:"14px"}}>
-                {" "}
-                <a style={{color:"#545454",  paddingRight:"123px",paddingLeft:"10px", }}>Tax:</a> ₹50
-              </h4> */}
+           
 
 
+            <tr  style={{ color: "rgb(84, 84, 84)", display: "flex", backgroundColor: "#ddd", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px", paddingTop:"5px" }}>
+              
+              <th className="order-pdf-list"> Total : </th>
+              <th className="order-pdf-data"> ₹{totalNetBillAmount} </th>
 
-              <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px", display:"flex" }}>
+            </tr>
+
+              {/* <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px", display:"flex" }}>
                 <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total :  </a>₹{totalNetBillAmount}
-              </h4>
+              </h4> */}
             </div>
             </div>
  </div>

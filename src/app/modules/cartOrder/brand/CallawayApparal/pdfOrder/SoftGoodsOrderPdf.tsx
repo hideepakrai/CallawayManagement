@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel'
-import { getApparelProducts, getSoftgoodRetailerDetail } from '../../../../../slice/allProducts/CallawayApparelSlice'
+import {getApparelNote, getApparelProducts, getSoftgoodRetailerDetail } from '../../../../../slice/allProducts/CallawayApparelSlice'
 import { Button, Card, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../../model/AccountType/retailer/RetailerModel'
@@ -17,6 +17,24 @@ const SoftGoodsOrderPdf = () => {
   const [salesRepName, setSalesRepName] = useState<string>()
   const getUserProfiles = useSelector(getUserProfile)
   //get sales Rep name
+
+  const [notes, setNotes]= useState<string[]>([])
+  const getOgioNotes= useSelector(getApparelNote)
+  useEffect(() => {
+    const check:string[]=[];
+   if(getOgioNotes){
+    getOgioNotes.map((item)=>{
+          if(item.type!="system" && item.message){
+           check.push(item.message)
+  
+          }
+      })
+      setNotes(check)
+   }
+  }, [getOgioNotes])
+  
+
+  
   useEffect(() => {
     if (getUserProfiles && getUserProfiles.length > 0) {
       getUserProfiles.map(item => {
@@ -314,9 +332,13 @@ const SoftGoodsOrderPdf = () => {
             <div className='row'>
               <div className='col-3 mt-6 notes-pdf'>
                 <h2 className='fs-4'>NOTES:</h2>
-                <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note one</h4>
-                <h4 className='fs-5 text-gray-700 notes-pdf-text'>- This is note two</h4>
-
+                <ul>
+                {notes &&
+            notes.length>0 &&
+            notes.map((item) => (
+                <li className='fs-5 text-gray-700 notes-pdf-text'>{item}</li>
+              ))}
+                </ul>
               </div>
               <div className='col-9'>
                 <div className="mx-7" style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>

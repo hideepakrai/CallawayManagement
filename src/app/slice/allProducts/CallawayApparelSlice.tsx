@@ -556,7 +556,7 @@ export const getPreOrderId = (state: { callawayApparel: ProductState }): number 
   return state.callawayApparel?.preOrderId|| 0;
   
 };
-export const getApparelNote = (state: { callawayApparel: ProductState }): NoteModel[] => {
+export const getApparelNote  = (state: { callawayApparel: ProductState }): NoteModel[] => {
   return state.callawayApparel?.note|| [];
 }
 export const getApparelProgress = (state: { callawayApparel: ProductState }): number=> {
