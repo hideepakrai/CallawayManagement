@@ -181,7 +181,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
               <div className="col-7 text-end ">
                 <img className="pdf-image" width={200} src={BrandLogo}></img>
               </div>
-              <div className="col-5 text-end px-8">
+              <div className="col-5 text-end px-10">
                 <h2 className="text-white pdf-title">ORDER PDF </h2>
                 <h2 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h2>
               </div>
@@ -202,12 +202,10 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
                 </div>
 
                 <div className="user-address pt-2 d-flex">
-                  <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:
+                  <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
 
-                  </span>
                   <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mx-1">
                     {retailerDetail?.address}
-
                   </p>
                 </div>
 

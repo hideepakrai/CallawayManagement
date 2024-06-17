@@ -121,6 +121,7 @@ const SoftGoodPdfPrintOrder = ({ recordPdf, resetSoftGoodPdf }: Props) => {
       fixed: 'right'
 
     },
+    
     {
       title: "Discount",
       dataIndex: "LessDiscountAmount",
@@ -182,7 +183,7 @@ const SoftGoodPdfPrintOrder = ({ recordPdf, resetSoftGoodPdf }: Props) => {
                 <img className="pdf-image user-barnd-image" width={200} src={BrandLogo}></img>
               </div>
 
-              <div className="col-5 text-end px-8 text-white">
+              <div className="col-5 text-end px-10 text-white">
                 <h2 className="text-white pdf-title">ORDER PDF </h2>
                 <h3 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h3>
               </div>
@@ -211,10 +212,10 @@ const SoftGoodPdfPrintOrder = ({ recordPdf, resetSoftGoodPdf }: Props) => {
             </p>
           </div> */}
 
-                <div className="user-address pt-2 ">
+                <div className="user-address pt-2 d-flex">
                   <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
                   <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">
-                    {recordPdf.retailer_address}
+                    {recordPdf.retailer_address} 
                   </p>
                 </div>
               </div>

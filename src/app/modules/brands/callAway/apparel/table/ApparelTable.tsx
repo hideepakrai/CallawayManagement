@@ -35,7 +35,7 @@ import ApparelExcelUploadDb from '../excel/importExcel/ApparelExcelUploadDb';
 import ApparelPPt from "../ppt/ApparelPPt"
 import PreOrderHome from '../preOrder/PreOrderHome';
 import SoftGoodsPPt from '../ppt/SoftGoodsPPt';
-import BrandLogo from "../../../../../../../public/media/logos/ogio-white.png"
+import BrandLogo from "../../../../../../../public/media/logos/logo-callaway.png"
 //import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 
 type SelectCommonPlacement = SelectProps['placement'];

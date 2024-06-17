@@ -334,6 +334,7 @@ const HardGoodsOrderPdf = () => {
                 </ul>
               </div>
 
+
               <div className='col-9'>
                 <div className="mx-7" style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
 

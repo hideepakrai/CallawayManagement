@@ -931,7 +931,7 @@ const handleRejectedModalCancel=()=>{
 
               <h4 style={{ borderBottom: "1px solid #ddd", display: "flex", fontSize: "14px", paddingBottom: "10px", paddingTop: "2px", margin: "0" }}>
                 {" "}
-                <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount:</a>
+                <a style={{ color: "#000", paddingRight: "100px", paddingLeft: "10px", }}>Discount: </a>
                 ₹{discountAmount !== undefined ? discountAmount.toFixed(2) : "Loading..."}
               </h4>
 

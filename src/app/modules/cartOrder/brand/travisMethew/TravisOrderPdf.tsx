@@ -278,6 +278,7 @@ const TravisOrderPdf = () => {
 
 
 
+
                   <tr className="total-amout-list pt-1">
                     <th className="order-pdf-list"> Discount: </th>
                     <th className="order-pdf-data"> ₹{discountAmount} </th>

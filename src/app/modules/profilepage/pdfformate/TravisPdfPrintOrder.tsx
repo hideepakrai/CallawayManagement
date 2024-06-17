@@ -196,7 +196,7 @@ const TravisPdfPrintOrder = ({ recordPdf, resetTravisPdf }: Props) => {
               <div className="col-7 text-end ">
                 <img className="pdf-image user-barnd-image" width={200} src={BrandLogo}></img>
               </div>
-              <div className="col-5 text-end px-8 text-white ">
+              <div className="col-5 text-end px-10 text-white ">
                 <h2 className="text-white pdf-title">ORDER PDF </h2>
                 <h3 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h3>
               </div>

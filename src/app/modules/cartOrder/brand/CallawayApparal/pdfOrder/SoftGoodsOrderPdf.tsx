@@ -182,7 +182,7 @@ const SoftGoodsOrderPdf = () => {
       title: "Amount",
       dataIndex: "Amount",
       key: "Amount",
-      width: 70,
+      width: 50,
       fixed: 'right'
 
     },
@@ -304,6 +304,7 @@ const SoftGoodsOrderPdf = () => {
 
 
 
+
               <div className="col-4 user-details-pdf" >
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Date:</span> {formattedDate} </p>
 
@@ -330,6 +331,7 @@ const SoftGoodsOrderPdf = () => {
               pagination={false} />
 
 
+
             <div className='row'>
               <div className='col-3 mt-6 notes-pdf'>
                 {notes &&
@@ -348,10 +350,12 @@ const SoftGoodsOrderPdf = () => {
                 <div className="mx-7" style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
 
 
+
                   <tr className="total-amout-list">
                     <th className="order-pdf-list"> Sub Total: </th>
                     <th className="order-pdf-data"> ₹{totalAmount} </th>
                   </tr>
+
 
                   <tr className="total-amout-list pt-1">
                     <th className="order-pdf-list"> Discount: </th>
@@ -359,6 +363,7 @@ const SoftGoodsOrderPdf = () => {
                   </tr>
 
                   {/* ₹ */}
+
 
                   <tr className="total-amout-list" style={{ backgroundColor: "#ddd", paddingTop: "3px" }}>
                     <th className="order-pdf-list"> Total : </th>
