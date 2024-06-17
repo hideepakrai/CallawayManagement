@@ -23,6 +23,8 @@ const MenuItem: React.FC<Props> = ({
 }) => {
   const {pathname} = useLocation()
 
+
+  console.log("pathname",pathname)
   return (
     <div className='menu-item me-lg-1'>
       <Link
