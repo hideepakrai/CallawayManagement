@@ -25,10 +25,10 @@ const SecondaryImage = ({ record }: Props) => {
               style={{
                 backgroundColor: "#eee",
                 borderRadius: "10px",
-                width: "90px",
+                width: "160px",
                 border: "1px solid #ddd",
                 marginBottom: "5px",
-                height: "90px",
+              
               }}
               src={`${s3_url}${path}`}
               onError={(e) => console.error(`Failed to load image at ${s3_url}${path}`)}

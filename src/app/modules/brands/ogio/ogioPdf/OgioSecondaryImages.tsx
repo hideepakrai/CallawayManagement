@@ -18,7 +18,7 @@ const OgioSecondaryImages = ({ record }: Props) => {
    
     imagePathsArray.length > 0 ? (
       imagePathsArray.map((path, index) => (
-        <span key={index} style={{ width: "150px" }}>
+        <span key={index} style={{ width: "150px", marginLeft:"10px" }}>
           <img
             alt={record.family}
             style={{

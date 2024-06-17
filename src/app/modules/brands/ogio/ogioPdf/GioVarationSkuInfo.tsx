@@ -21,13 +21,13 @@ const GioVarationSkuInfo = ({variation_sku_data}:Props) => {
           width: 100,
           
         },
-        {
-          title: "Product Type",
-          dataIndex: "product_type",
-          key: "product_type",
-          width: 100,
+        // {
+        //   title: "Product Type",
+        //   dataIndex: "product_type",
+        //   key: "product_type",
+        //   width: 100,
           
-        },
+        // },
         {
           title: "Qty",
           dataIndex: "qty",

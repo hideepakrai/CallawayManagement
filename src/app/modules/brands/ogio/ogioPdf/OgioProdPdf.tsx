@@ -110,6 +110,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                           <div className='product-pdf row'>
                             <div className=' col-7' style={{ borderRadius: "5px", }}>
 
+
                               <div className='prodect-images'>
                                 {callout.primary_image_url !== null ? (
                                   <OgioPrimaryImages
@@ -152,39 +153,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                               >
 
 
-                                {/* <tr
-                                  style={{
-                                    border: "1px solid #ddd",
-                                    lineHeight: "40px",
-                                  }}
-                                >
-                                  <th
-                                    style={{
-                                      borderRight: "1px solid #ddd",
                                
-                                      fontSize: " 14px",
-                                      fontWeight: "600",
-                                      textAlign: "left",
-                                      width:"120px",
-                                      paddingLeft: "10px",
-                                    }}
-                                  >
-                                    SKU
-                                  </th>
-                                  <th
-                                    style={{                                    
-                                      fontSize: " 14px",
-                                      fontWeight: "600",
-                                      textAlign: "left",
-                                      width:"120px",
-                                      color:"#000000e0",
-                                      paddingLeft: "10px",
-                                    }}
-                                  >
-                                    {" "}
-                                    {callout?.variation_sku}
-                                  </th>
-                                </tr> */}
 
 
                                 <tr
