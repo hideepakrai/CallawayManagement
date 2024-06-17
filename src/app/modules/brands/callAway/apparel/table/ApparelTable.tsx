@@ -811,6 +811,53 @@ setIsProduct(false)
     setSelectedRowKeys([])
   }
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(200);
+    const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
+    //const filteredProducts = sh
+
+  const handleCheckboxClick = (showAvailableOnly:boolean) => {
+    setShowAvailableOnly(!showAvailableOnly);
+
+    console.log("check",showAvailableOnly)
+    const allTr: BasicModelApparel[] = []
+
+    if(!showAvailableOnly){
+
+
+
+    if(allApparel && allApparel.length>0 ){
+      allApparel.map((item)=>{
+        if((item.stock_88!=undefined && item.stock_88 > 0  ) || (item.stock_90!=undefined  && item.stock_90>0  )  ){
+          allTr.push(item)
+
+        }
+
+
+      })
+}
+}
+else if(showAvailableOnly){
+// if (getProduct && getProduct.length > 0) {
+//   getProduct.map(item => {
+//     allTr.push(item)
+//   })
+// }
+if (getApparelProduct &&
+  getApparelProduct.length > 0
+) {
+  getApparelProduct.map(item => {
+    allTr.push(item)
+
+  })
+}
+
+}
+
+
+setAllApparel(allTr)
+  };
+
   return (
     <>
 
@@ -843,6 +890,9 @@ setIsProduct(false)
             type="checkbox"
             value=""
             id="flexCheckDefault"
+            checked={showAvailableOnly}
+            onClick={()=> handleCheckboxClick(showAvailableOnly)}
+            
           />
           <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
           Show Only Available Products
@@ -925,7 +975,6 @@ setIsProduct(false)
 
         <ApparelUpdateQty
           isUpdate={isUpdate}
-         
           onClose={handleCloseUpdateQty}
           allGoodsData={handleApparelData}
 

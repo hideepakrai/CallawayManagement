@@ -71,16 +71,16 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
 
   const columns: TableColumnsType<BasicModelApparel> = [
    
-    {
-      title: "brand",
-      dataIndex: "brand",
-      width: 100,
-      fixed: "left",
+    // {
+    //   title: "brand",
+    //   dataIndex: "brand",
+    //   width: 100,
+    //   fixed: "left",
 
     
 
 
-    },
+    // },
 
 
     {
@@ -213,7 +213,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
   
   const excelData: BasicModelApparel[] = [
     {
-      brand: "Apparel",
+     // brand: "Apparel",
       sku: 'TM001',
       // name: 'Cool Belt',
       // category: 'Belts',
@@ -235,7 +235,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
       
     },
     {
-        brand: "Apparel",
+       // brand: "Apparel",
       sku: 'TM002',
       // name: 'Stylish Cap',
       // category: 'Headwear',
@@ -257,7 +257,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
      // gst:12,
     },
     {
-        brand: "Apparel",
+        //brand: "Apparel",
       sku: 'TM003',
       // name: 'Classic Polo',
       // category: 'Tops',
@@ -317,7 +317,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
   
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "ApparelQtySample.xlsx");
+    XLSX.writeFile(wb, "CallawaySoftgoodsQtySample.xlsx");
   
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

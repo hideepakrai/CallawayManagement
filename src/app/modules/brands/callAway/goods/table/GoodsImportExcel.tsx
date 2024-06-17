@@ -123,9 +123,9 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
 
    
     {
-      title: 'stock_90',
-      dataIndex: 'stock_90',
-      key: 'stock_90',
+      title: 'stock_88',
+      dataIndex: 'stock_88',
+      key: 'stock_88',
       width: 80,
     },
     {
@@ -248,7 +248,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
     document.body.appendChild(hiddenTable);
 
     // Generate and download the Excel file
-    XLSX.writeFile(wb, "HardGoodsSample.xlsx");
+    XLSX.writeFile(wb, "CallawayHardgoodsSample.xlsx");
 
     // Clean up: remove the hidden table
     document.body.removeChild(hiddenTable);

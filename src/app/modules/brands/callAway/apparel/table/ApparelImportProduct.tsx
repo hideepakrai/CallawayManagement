@@ -205,7 +205,7 @@ const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
       fixed: 'right'
     },
     {
-      title: " series",
+      title: "series",
       dataIndex: "series",
       key: "series",
       width: 80,
@@ -230,7 +230,7 @@ const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
   const excelData: BasicModelApparel[] = [
     {
 
-      brand: "Callaway SoftGoods",
+     // brand: "Callaway SoftGoods",
       brand_id:1,
       sku: 'TM001',
       name: 'Cool Belt',
@@ -257,7 +257,7 @@ const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
     },
     {
 
-      brand: "Callaway SoftGoods",
+     // brand: "Callaway SoftGoods",
       brand_id:2,
 
       sku: 'TM002',
@@ -287,7 +287,7 @@ const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
     },
     {
 
-      brand: "Callaway SoftGoods",
+     // brand: "Callaway SoftGoods",
       brand_id:3,
 
       sku: 'TM003',
@@ -355,7 +355,7 @@ const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
 
     // Generate and download the Excel file
 
-    XLSX.writeFile(wb, "CallawaySoftGoodsSample.xlsx");
+    XLSX.writeFile(wb, "CallawaySoftgoodsSample.xlsx");
 
 
     // Clean up: remove the hidden table
