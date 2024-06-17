@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Card, Table, Carousel, Breadcrumb, Tooltip } from "antd";
+import { Card, Table, Carousel, Breadcrumb, Tooltip, Pagination } from "antd";
 import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
@@ -1438,6 +1438,51 @@ const TravisTable = () => {
     setSelectedRowVartionSku([])
 
   }
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(200);
+    const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
+    //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
+    
+    const handleCheckboxClick = (showAvailableOnly:boolean) => {
+      setShowAvailableOnly(!showAvailableOnly);
+
+      console.log("check",showAvailableOnly)
+      const allTr: BasicModelTravis[] = []
+
+      if(!showAvailableOnly){
+
+
+
+      if(allTravisProduct && allTravisProduct.length>0 ){
+        allTravisProduct.map((item)=>{
+          if((item.stock_88!=undefined && item.stock_88 > 0  ) || (item.stock_90!=undefined  && item.stock_90>0  )  ){
+            allTr.push(item)
+
+          }
+
+
+        })
+ }
+}
+else if(showAvailableOnly){
+  if (getProduct && getProduct.length > 0) {
+    getProduct.map(item => {
+      allTr.push(item)
+    })
+  }
+
+}
+
+ 
+      setAllTravisProduct(allTr)
+    };
+
+    // const handlePageChange = (page, pageSize) => {
+    //   setCurrentPage(page);
+    //   setPageSize(pageSize);
+    // };
+ 
+  
   return (
     <div className='container'>
 
@@ -1468,11 +1513,21 @@ const TravisTable = () => {
             type="checkbox"
             value=""
             id="flexCheckDefault"
+            checked={showAvailableOnly}
+          onClick={()=> handleCheckboxClick(showAvailableOnly)}
           />
           <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
           Show Only Available Products
+
+
           </label>
         </div>
+       
+
+
+        
+
+        
         <div className='col-8' style={{ float: "right", marginBottom: "12px", textAlign:"end",  }}>
 
           <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
@@ -1508,6 +1563,7 @@ const TravisTable = () => {
 
         {
           allTravisProduct.length > 0 ? (
+            <div>
             <Table className='cart-table-profile'
               ref={tableRef}
               columns={columns}
@@ -1525,12 +1581,37 @@ const TravisTable = () => {
               bordered
               size="middle"
               scroll={{ x: "100%", y: "auto" }}
+             // pagination={false} // Disable default pagination
+
 
               pagination={{
                 position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-                defaultPageSize: 20
+                defaultPageSize: 200,
+
               }}
-            />) : (<Loading />)}
+              
+
+             
+              //    <Pagination size="small" total={50} showTotal={showTotal} />
+  
+              
+
+              
+
+            />
+              {/* <Pagination
+        size="small"
+        total={allTravisProduct.length}
+        current={currentPage}
+        pageSize={pageSize}
+        showTotal={(total) => `Total ${total} items`}
+        onChange={handlePageChange}
+        showSizeChanger
+        pageSizeOptions={['10', '20', '50', '100', '200']}
+      /> */}
+
+            </div>
+            ) : (<Loading />)}
 
 
       </Card>}

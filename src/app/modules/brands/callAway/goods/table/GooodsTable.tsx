@@ -721,6 +721,43 @@ const GooodsTable = () => {
 
  }
 
+ const [currentPage, setCurrentPage] = useState<number>(1);
+ const [pageSize, setPageSize] = useState<number>(200);
+   const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
+
+   const handleCheckboxClick = (showAvailableOnly:boolean) => {
+    setShowAvailableOnly(!showAvailableOnly);
+
+    console.log("check",showAvailableOnly)
+    const allTr: BasicModelGoods[] = []
+
+    if(!showAvailableOnly){
+    if(allGoodsProduct && allGoodsProduct.length>0 ){
+      allGoodsProduct.map((item)=>{
+        if((item.stock_88!=undefined && item.stock_88 > 0  )  ){
+          allTr.push(item)
+ }
+
+
+      })
+}
+}
+else if(showAvailableOnly){
+  if (getGoodsProduct &&
+    getGoodsProduct.length > 0
+  ) {
+    getGoodsProduct.map(item => {
+      allTr.push(item)
+
+    })
+  }
+
+    
+
+}
+setAllGoodsProduct(allTr)
+  };
+
   return (
     <div className='container'>
 
@@ -749,6 +786,8 @@ const GooodsTable = () => {
             type="checkbox"
             value=""
             id="flexCheckDefault"
+            checked={showAvailableOnly}
+            onClick={()=> handleCheckboxClick(showAvailableOnly)}
           />
           <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
           Show Only Available Products

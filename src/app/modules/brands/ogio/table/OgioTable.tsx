@@ -1056,6 +1056,48 @@ const OgioTable = () => {
     setSelectedRowVartionSku([])
 
  }
+
+
+ const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(200);
+    const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
+    //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
+    
+    const handleCheckboxClick = (showAvailableOnly:boolean) => {
+      setShowAvailableOnly(!showAvailableOnly);
+
+      console.log("check",showAvailableOnly)
+      const allTr: OgioBasicModel[] = []
+
+      if(!showAvailableOnly){
+
+
+
+      if(allOgioData && allOgioData.length>0 ){
+        allOgioData.map((item)=>{
+          if((item.stock_88!=undefined && item.stock_88 > 0  ) || (item.stock_90!=undefined  && item.stock_90>0  )  ){
+            allTr.push(item)
+
+          }
+
+
+        })
+ }
+}
+else if(showAvailableOnly){
+  if(ogioProducts && ogioProducts.length>0){
+    ogioProducts.map(item => {
+      //if ( item.stock_90!=0) {
+      allTr.push(item)
+    })
+  }
+
+}
+
+ 
+setAllOgioData(allTr)
+    };
+
   return (
     <div className='container'>
       <Card style={{ marginTop: '80px' }}
@@ -1082,6 +1124,8 @@ const OgioTable = () => {
             type="checkbox"
             value=""
             id="flexCheckDefault"
+            checked={showAvailableOnly}
+          onClick={()=> handleCheckboxClick(showAvailableOnly)}
           />
           <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
           Show Only Available Products

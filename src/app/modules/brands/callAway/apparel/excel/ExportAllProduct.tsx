@@ -71,7 +71,7 @@ useEffect(() => {
       const url = URL.createObjectURL(blob);
 
       anchor.href = url;
-      anchor.download = `ApparelProducts_${Date.now()}.xlsx`;
+      anchor.download = `CallawaySogtgoodsProducts_${Date.now()}.xlsx`;
       anchor.click();
 
       // Release the object URL
