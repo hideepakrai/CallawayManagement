@@ -17,6 +17,8 @@ const PendingOrder = () => {
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[]
     const [orderId, setOrderId] = useState<number>()
     const [isEdit, setIsEdit] = useState(false);
+    const [status, setStatus] = useState<string | undefined>(undefined);
+
     const handleEdit = (id: number | undefined) => {
         if (id !== undefined) {
             setIsEdit(true);
@@ -32,6 +34,8 @@ const PendingOrder = () => {
 
     const [allProducts, setAllProducts] = useState<AccountOrder>()
     const [isView, setIsView] = useState(false);
+    const [order_id, setOrder_id] = useState<number | undefined>(undefined);
+    const [note, setnotes] = useState<string | undefined>(undefined);
     const handleView = (allProduct: unknown) => {
         setIsView(true);
         //setAllProducts(allProduct);
@@ -50,8 +54,11 @@ const PendingOrder = () => {
     const handleview = () => {
 
     };
-
-    const [status, setStatus] = useState<string>("")
+    const handleResetOrder=()=>{
+        setOrder_id(undefined);
+        setStatus(undefined);
+        setnotes(undefined);
+    }
     const handleUpdateStatus = (status: string) => {
         setStatus(status)
     }
@@ -176,11 +183,13 @@ const PendingOrder = () => {
             /> */}
 
 
-            {status != null && orderId &&
+{status != null && order_id && note && (
                 <UpdateStatus
                     status={status}
-                    orderId={orderId}
-                />}
+                    orderId={order_id}
+                        note={note}
+                        resetOrder={handleResetOrder}
+                />)}
 
 
         </>
