@@ -107,7 +107,7 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                     <div
                       style={{
                         // borderBottom: "1px solid #ddd",
-                        paddingTop: "120px",
+                        paddingTop: "30px",
                         paddingLeft: "25px",
                         height: "1122px",
                         paddingRight: "25px",
@@ -123,7 +123,8 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                           </h2>
 
 
-                          <div className='product-pdf row'>
+
+                          <div className='product-pdf  row'>
                             <div className=' col-7' style={{ borderRadius: "5px", }}>
 
                               <div className='prodect-images'>
@@ -146,73 +147,8 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
 
 
                               </div>
-                              <div
-                                className="prodect-info-img mt-6" >
-                                <>
-                                  <div
-                                    className="prodect-images-pdf"
-                                    style={{ marginRight: "10px", marginLeft: "10", }}
-                                  >
-                                    <SecondaryImage
-                                      record={callout}
-                                    />
-
-
-                                    {/* <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
-
-                                        src={productimg1}
-
-                                      />
-                                    </span>
-
-                                    <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
-
-                                        src={productimg2}
-
-                                      />
-                                    </span>
-
-                                    <span style={{ width: "150px" }} className="">
-                                      <img
-                                        alt="Special Edition Party Spas"
-                                        style={{
-                                          backgroundColor: "#eee",
-                                          borderRadius: "10px",
-                                          width: "70px",
-                                          border: "1px solid #ddd",
-                                          marginBottom: "5px",
-                                          height: "70px",
-                                        }}
-
-                                        src={ productimg3}
-
-                                      />
-                                    </span>  */}
-
-                                  </div>
-                                </>
-
-                              </div>
+                              
+                          
 
 
                             </div>
@@ -369,6 +305,75 @@ const TravisPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =>
                             </div>
 
                           </div>
+
+                          <div
+                                className="prodect-info-img mt-6" >
+                                <>
+
+                                  <div
+                                    className="prodect-images-pdf"
+                                    style={{ marginRight: "10px", marginLeft: "10", }}
+                                  >
+                                    <SecondaryImage
+                                      record={callout}
+                                    />
+
+
+                                    {/* <span style={{ width: "150px" }} className="">
+                                      <img
+                                        alt="Special Edition Party Spas"
+                                        style={{
+                                          backgroundColor: "#eee",
+                                          borderRadius: "10px",
+                                          width: "70px",
+                                          border: "1px solid #ddd",
+                                          marginBottom: "5px",
+                                          height: "70px",
+                                        }}
+
+                                        src={productimg1}
+
+                                      />
+                                    </span>
+
+                                    <span style={{ width: "150px" }} className="">
+                                      <img
+                                        alt="Special Edition Party Spas"
+                                        style={{
+                                          backgroundColor: "#eee",
+                                          borderRadius: "10px",
+                                          width: "70px",
+                                          border: "1px solid #ddd",
+                                          marginBottom: "5px",
+                                          height: "70px",
+                                        }}
+
+                                        src={productimg2}
+
+                                      />
+                                    </span>
+
+                                    <span style={{ width: "150px" }} className="">
+                                      <img
+                                        alt="Special Edition Party Spas"
+                                        style={{
+                                          backgroundColor: "#eee",
+                                          borderRadius: "10px",
+                                          width: "70px",
+                                          border: "1px solid #ddd",
+                                          marginBottom: "5px",
+                                          height: "70px",
+                                        }}
+
+                                        src={ productimg3}
+
+                                      />
+                                    </span>  */}
+
+                                  </div>
+                                </>
+
+                              </div>
 
 
 

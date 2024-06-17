@@ -91,7 +91,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                     <div
                       style={{
                         // borderBottom: "1px solid #ddd",
-                        paddingTop: "120px",
+                        paddingTop: "30px",
                         paddingLeft: "25px",
                         height: "1122px",
                         paddingRight: "25px",
@@ -129,25 +129,7 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                                 }
 
                               </div>
-                              <div
-                                className="prodect-info-img mt-6" >
-
-                                <>
-                                  <div
-                                    className="prodect-images-pdf"
-                                    style={{ marginRight: "10px", marginLeft: "10", }}
-                                  >
-                                    <OgioSecondaryImages
-                                      record={callout}
-                                    />
-
-
-                              
-
-                                  </div>
-                                </>
-
-                              </div>
+                            
 
 
                             </div>
@@ -305,6 +287,26 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
                             </div>
 
                           </div>
+
+                          <div
+                                className="prodect-info-img mt-6" >
+
+                                <>
+                                  <div
+                                    className="prodect-images-pdf"
+                                    style={{ marginRight: "10px", marginLeft: "10", }}
+                                  >
+                                    <OgioSecondaryImages
+                                      record={callout}
+                                    />
+
+
+                              
+
+                                  </div>
+                                </>
+
+                              </div>
 
 
 

@@ -1,0 +1,5 @@
+.order-pdf-list-print{color: rgb(84, 84, 84); font-weight: 500;
+    padding-left: 10px; width: 50%;}
+    .order-pdf-data-print{color: rgb(84, 84, 84); font-weight: 500; width: 50%; text-align: end; padding-right: 15px;}
+
+    .total-amout-list-print{ padding-bottom: 5px; border-bottom: 1px solid #ddd; display: flex; }
