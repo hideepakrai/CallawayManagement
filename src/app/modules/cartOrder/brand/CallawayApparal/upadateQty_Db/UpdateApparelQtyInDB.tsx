@@ -19,6 +19,8 @@ const UpdateApparelQtyInDB = ({ resetUpdateData,allApparel }: props) => {
     const [updatestock, setUpdateStock] = useState<BasicModelApparel[]>([])
     const [isUpdating, setIsUpdating] = useState(false);
     useEffect(() => {
+        // eslint-disable-next-line no-debugger
+        debugger
         const newApparel: BasicModelApparel[] = [];
         if (allApparel && allApparel.length > 0) {
             allApparel.forEach(item => {
@@ -59,8 +61,9 @@ const UpdateApparelQtyInDB = ({ resetUpdateData,allApparel }: props) => {
 
             setIsUpdating(true);
             const response = await UpDateApparelQty(data);
-
-           
+           console.log("response update apparel qty",response)
+            // eslint-disable-next-line no-debugger
+            debugger
             if (response.status == 200 && response.data) {
                 dispatch(updateApparelQty({
                     apparelProduct: data

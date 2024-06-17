@@ -143,7 +143,7 @@ useEffect(()=>{
                 const data = {
                     id: getPreOrderIds,
                     order_date: formattedTimestamp,
-                    brand_id: 3,
+                    brand_id: 1,
                     updated_at: formattedTimestamp,
                     note:JSON.stringify(getHardGoodNotes),
                     retailer_details:JSON.stringify(retailer_details),

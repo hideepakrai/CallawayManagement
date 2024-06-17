@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Card, Table, Tooltip } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import type { TableColumnsType } from "antd";
 import { getUserOrders } from "../../../slice/UserSlice/UserSlice";
 import { BasicModelTravis } from "../../model/travis/TravisMethewModel";
@@ -17,12 +17,15 @@ import OgioExpandedRowRender from "../table/OgioExpandedRowRender.tsx";
 import SoftGoodsExpandedRowRender from "../table/SoftGoodsExpandedRowRender.tsx";
 import HardGoodsExpandedRowRender from "../table/HardGoodExpandedRowRender.tsx";
 import SoftGoodPdfPrintOrder from "../pdfformate/SoftGoodPdfPrintOrder.tsx";
+import { LoadingStop } from "../../../slice/loading/LoadingSlice.tsx";
+import DeleteOrder from "./DeleteOrder.tsx";
 
 const AllPendingOrder = () => {
     const [status, setStatus] = useState<string | undefined>(undefined);
     const [orderId, setOrderId] = useState<number>();
     const [isEdit, setIsEdit] = useState(false);
     const tableRef = useRef(null);
+    const dispatch= useDispatch()
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
     const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
     const[ selectedOrder, setSelectedOrder]= useState<CartModel>()
@@ -58,6 +61,7 @@ const AllPendingOrder = () => {
 
 
     const handleResetOrder=()=>{
+        dispatch(LoadingStop())
         setOrder_id(undefined);
         setStatus(undefined);
         setnotes(undefined);
@@ -381,8 +385,19 @@ const AllPendingOrder = () => {
     } 
 
 
+const [isDeleteOrder, setIsDeleteOder]= useState<boolean>(false)
+const handleDeleteOrder=()=>{
+    setIsDeleteOder(true)
 
-    handleResetSoftGood
+}
+const handleResetDeleteOrder=()=>{
+    setIsDeleteOder(false)
+    setOrder_id(undefined)
+    dispatch(LoadingStop())
+    setIsEdit(false)
+
+    
+}
     return (
         <>
             <div className="cart-table mb-10 mt-3 mx-4">
@@ -416,6 +431,7 @@ const AllPendingOrder = () => {
                     selectedOrder={selectedOrder}
                     onClose={handleCloseEdit}
                     changeStatus={handleUpdateStatus}
+                    deletedYes={handleDeleteOrder}
                 />}
 
                 {status != null && order_id && note && (
@@ -427,10 +443,14 @@ const AllPendingOrder = () => {
                     />
                 )}
             </div>
-            {/* {recordPdf && <OrderPdfFormate
-                recordPdf={recordPdf}
-                resetSelectedRow={handleRecordPdf}
-            />} */}
+
+            {/* delete order */}
+            {isDeleteOrder &&order_id &&
+            <DeleteOrder
+            orderId={order_id}
+            resetDeleteOrder={handleResetDeleteOrder}
+            />}
+          
 
             { isTravis &&
             recordPdf &&

@@ -9,7 +9,7 @@ export const serverUrl = import.meta.env.VITE_APP_MY_SERVER_URL;
 // get USer Role 
 export function UpdateGoodsProduct(data: BasicModelGoods[]) {
    const update = data
-   return axios.post('${serverurl}/update-goods', update,
+   return axios.post(`${serverUrl}/update-goods`, update,
    {
     headers: {
         "Content-Type": "application/json"

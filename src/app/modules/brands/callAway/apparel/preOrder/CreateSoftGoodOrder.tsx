@@ -40,7 +40,7 @@ const CreatedSoftGoodOrder = ({ resetCreatedOrder }: Props) => {
         setUserId(getCurrentUsers.id)
       } else if (getCurrentUsers.role === "Sales Representative" && getCurrentUsers.manager_id) {
         settypeOfAccount(getCurrentUsers.role)
-
+        setSalesRepId(getCurrentUsers.id)
         setManagerUserId(getCurrentUsers.manager_id)
         setUserId(getCurrentUsers.id)
       } else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){

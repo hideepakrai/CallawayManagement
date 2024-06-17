@@ -38,7 +38,7 @@ const UpdateStatus = ({ orderId, status,note,resetOrder }: Props) => {
           
         }
         try {
-            const response = await await ApproveOrder(data);
+            const response =  await ApproveOrder(data);
             if (response) {
                 // dispatch(LoadingStop())
 

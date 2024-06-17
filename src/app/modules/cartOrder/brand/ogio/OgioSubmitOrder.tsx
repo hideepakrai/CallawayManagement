@@ -60,7 +60,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
           setUserId(getCurrentUsers.id)
         } else if (getCurrentUsers.role === "Sales Representative" && getCurrentUsers.manager_id) {
           settypeOfAccount(getCurrentUsers.role)
-  
+          setSalesRepId(getCurrentUsers.id)
           setManagerUserId(getCurrentUsers.manager_id)
           setUserId(getCurrentUsers.id)
         }

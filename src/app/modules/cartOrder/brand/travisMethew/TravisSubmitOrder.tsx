@@ -60,7 +60,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
         setUserId(getCurrentUsers.id)
       } else if (getCurrentUsers.role === "Sales Representative" && getCurrentUsers.manager_id) {
         settypeOfAccount(getCurrentUsers.role)
-
+        setSalesRepId(getCurrentUsers.id)
         setManagerUserId(getCurrentUsers.manager_id)
         setUserId(getCurrentUsers.id)
       }else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
@@ -161,10 +161,10 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
         total_val_pre_discount:totalAmount,
         status: "Submitted",
         manager_id: managerUserId,
-        retailer_id: getRetailerDetail.retailerId,
+        retailer_id: getTravisRetailerDetails.id,
         salesrep_id: salesRepId??0,
         updated_at: formattedTimestamp,
-        retailer_details:JSON.stringify(retailer_details)
+        retailer_details:JSON.stringify(getTravisRetailerDetails)
       
 
 

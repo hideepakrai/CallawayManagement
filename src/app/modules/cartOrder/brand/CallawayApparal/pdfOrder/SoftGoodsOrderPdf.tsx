@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel'
-import {getApparelNote, getApparelProducts, getSoftgoodRetailerDetail } from '../../../../../slice/allProducts/CallawayApparelSlice'
+import { getApparelNote, getApparelProducts, getPreOrderId, getSoftgoodRetailerDetail } from '../../../../../slice/allProducts/CallawayApparelSlice'
 import { Button, Card, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../../model/AccountType/retailer/RetailerModel'
-//import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
+import BrandLogo from "../../../../../../../public/media/logos/logo-white.png"
 const SoftGoodsOrderPdf = () => {
 
   const today = new Date();
@@ -18,23 +18,23 @@ const SoftGoodsOrderPdf = () => {
   const getUserProfiles = useSelector(getUserProfile)
   //get sales Rep name
 
-  const [notes, setNotes]= useState<string[]>([])
-  const getOgioNotes= useSelector(getApparelNote)
+  const [notes, setNotes] = useState<string[]>([])
+  const getOgioNotes = useSelector(getApparelNote)
   useEffect(() => {
-    const check:string[]=[];
-   if(getOgioNotes){
-    getOgioNotes.map((item)=>{
-          if(item.type!="system" && item.message){
-           check.push(item.message)
-  
-          }
+    const check: string[] = [];
+    if (getOgioNotes) {
+      getOgioNotes.map((item) => {
+        if (item.type != "system" && item.message) {
+          check.push(item.message)
+
+        }
       })
       setNotes(check)
-   }
+    }
   }, [getOgioNotes])
-  
 
-  
+  const getPreOrderIds = useSelector(getPreOrderId)
+
   useEffect(() => {
     if (getUserProfiles && getUserProfiles.length > 0) {
       getUserProfiles.map(item => {
@@ -264,10 +264,11 @@ const SoftGoodsOrderPdf = () => {
 
             <div className="bg-black  py-12  row" style={{ borderRadius: "5px" }}>
               <div className="col-7 text-end ">
-                {/* <img className="pdf-image" width={200} src={BrandLogo}></img> */}
+                <img className="pdf-image" width={200} src={BrandLogo}></img>
               </div>
               <div className="col-5 text-end px-6">
                 <h2 className="text-white pdf-title">ORDER PDF</h2>
+                <h3 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h3>
               </div>
             </div>
 
@@ -304,7 +305,7 @@ const SoftGoodsOrderPdf = () => {
 
 
               <div className="col-4 user-details-pdf" >
-                <p className=" gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Date:</span> {formattedDate} </p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Date:</span> {formattedDate} </p>
 
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Company:</span> Callaway Golf India</p>
 
@@ -331,40 +332,43 @@ const SoftGoodsOrderPdf = () => {
 
             <div className='row'>
               <div className='col-3 mt-6 notes-pdf'>
-                <h2 className='fs-4'>NOTES:</h2>
-                <ul>
                 {notes &&
-            notes.length>0 &&
-            notes.map((item) => (
-                <li className='fs-5 text-gray-700 notes-pdf-text'>{item}</li>
-              ))}
+                  notes.length > 0 &&
+                  <h2 className='fs-4'>NOTES:</h2>
+                }
+                <ul>
+                  {notes &&
+                    notes.length > 0 &&
+                    notes.map((item) => (
+                      <li className='fs-5 text-gray-700 notes-pdf-text'>{item}</li>
+                    ))}
                 </ul>
               </div>
               <div className='col-9'>
                 <div className="mx-7" style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
 
-                  <h4 style={{ color: "#545454", display: "flex", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
-                    {" "}
-                    <a style={{ color: "#545454", paddingRight: "88px", paddingLeft: "10px", }}>Sub Total:</a>₹{totalAmount}
-                  </h4>
+
+                  <tr className="total-amout-list">
+                    <th className="order-pdf-list"> Sub Total: </th>
+                    <th className="order-pdf-data"> ₹{totalAmount} </th>
+                  </tr>
+
+                  <tr className="total-amout-list pt-1">
+                    <th className="order-pdf-list"> Discount: </th>
+                    <th className="order-pdf-data"> ₹{discountAmount}</th>
+                  </tr>
+
                   {/* ₹ */}
-                  <h4 style={{ color: "#545454", display: "flex", borderBottom: "1px solid #ddd", paddingBottom: "5px", fontSize: "14px" }}>
-                    {" "}
-                    <a style={{ color: "#545454", paddingRight: "90px", paddingLeft: "10px", }}>Discount:</a> ₹{discountAmount}
-                  </h4>
+
+                  <tr className="total-amout-list" style={{ backgroundColor: "#ddd", paddingTop: "3px" }}>
+                    <th className="order-pdf-list"> Total : </th>
+                    <th className="order-pdf-data"> ₹{totalNetBillAmount} </th>
+                  </tr>
 
 
 
-                  {/* <h4 style={{color:"#545454", borderBottom:"1px solid #ddd", paddingBottom:"5px",fontSize:"14px"}}>
-              {" "}
-              <a style={{color:"#545454",  paddingRight:"123px",paddingLeft:"10px", }}>Tax:</a> ₹50
-            </h4> */}
 
 
-
-                  <h4 style={{ color: "#545454", padding: "8px 0px", backgroundColor: "#ddd", fontSize: "14px", display: "flex" }}>
-                    <a style={{ color: "#545454", paddingRight: "109px", paddingLeft: "10px", }}>Total : </a>₹{totalNetBillAmount}
-                  </h4>
                 </div>
               </div>
 

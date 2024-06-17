@@ -270,7 +270,7 @@ const CalawayGoodsCarts = () => {
       title: "Amount ",
       dataIndex: "Amount",
       key: "Amount",
-      width: 100,
+      width: 85,
       fixed: 'right'
     },
 

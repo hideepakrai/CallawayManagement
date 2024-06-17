@@ -95,6 +95,7 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
                   selectedRow.map(
                     (callout) => (
                       <>
+
                         <div
                           style={{
                             // borderBottom: "1px solid #ddd",

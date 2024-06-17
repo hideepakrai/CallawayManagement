@@ -126,7 +126,7 @@ const HardGoodsExportProduct = ({ onClose, isProduct, allGoodsData, printPdf, ex
             <button className="export-button excel hover-scale"
             onClick={handlePPT}
           >
-            <i className="bi bi-file-earmark-spreadsheet fs-2"></i>
+           <i className="bi bi-file-earmark-ppt fs-2"></i>
             Export to PPT
         </button>
             <button className="export-button pro-btn-table hover-scale"
