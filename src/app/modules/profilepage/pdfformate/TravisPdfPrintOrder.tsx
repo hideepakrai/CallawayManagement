@@ -145,6 +145,7 @@ const TravisPdfPrintOrder = ({ recordPdf, resetTravisPdf }: Props) => {
 
     },
 
+
     {
       title: "Amount",
       dataIndex: "Amount",
@@ -293,7 +294,7 @@ const TravisPdfPrintOrder = ({ recordPdf, resetTravisPdf }: Props) => {
 
                   <tr className="total-amout-list-print pt-1">
                     <th className="order-pdf-list-print"> Discount: </th>
-                    <th className="order-pdf-data-print">₹ {recordPdf.discount_amount}</th>
+                    <th className="order-pdf-data-print">₹{recordPdf.discount_amount}</th>
                   </tr>
 
 
