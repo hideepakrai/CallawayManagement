@@ -65,7 +65,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
         setUserId(getCurrentUsers.id)
       } else if (getCurrentUsers.role === "Sales Representative" && getCurrentUsers.manager_id) {
         settypeOfAccount(getCurrentUsers.role)
-
+        setSalesRepId(getCurrentUsers.id)
         setManagerUserId(getCurrentUsers.manager_id)
         setUserId(getCurrentUsers.id)
       }
@@ -142,19 +142,7 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
         phone:getHardGoodsRetailerDetails.phone
         }
       const data = {
-        // id: getPreOrderIds,
-        // order_date: "",
-        // note: note,
-        // brand_id: 1,
-        // user_id: getCurrentUsers.id,
-        // items: JSON.stringify(allHardGoodsOrders),
-        // discount_type: discountType,
-        // discount_percent: discountValue,
-        // total_value: totalNetBillAmount,
-        // status: "Pending",
-        // manager_id: managerUserId,
-        // retailer_id: getRetailerDetail.retailerId,
-        // salesrep_id: 111
+       
         id: getPreOrderIds,
         order_date: formattedTimestamp,
         note: JSON.stringify(getHardGoodsNotes),
@@ -173,8 +161,6 @@ const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, 
         updated_at: formattedTimestamp,
         retailer_details:JSON.stringify(retailer_details)
       
-
-
 
 
       }

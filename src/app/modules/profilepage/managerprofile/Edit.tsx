@@ -10,7 +10,8 @@ type Props = {
   isEdit: boolean;
   onClose: () => void;
   changeStatus: (status: string) => void;
-  selectedOrder:CartModel
+  selectedOrder:CartModel,
+  deletedYes:()=>void
 };
 
   type  notetimeLine={
@@ -18,7 +19,7 @@ type Props = {
     date?:string,
     name?:string
   }
-const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
+const Edit = ({ isEdit, onClose, changeStatus,selectedOrder ,deletedYes}: Props) => {
   const [status, setStatus] = useState<string>("");
   const [isNoteModalOpen, setIsNoteModalOpen] = useState<boolean>(false);
   
@@ -63,8 +64,8 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
   console.log("timeLine",timeLine)
 
   const confirm: PopconfirmProps['onConfirm'] = (e) => {
-    console.log(e);
-    message.success('Click on Yes');
+  
+     deletedYes()
   };
   
   const cancel: PopconfirmProps['onCancel'] = (e) => {
@@ -89,7 +90,7 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder }: Props) => {
     okText="Yes"
     cancelText="No"
   >
-    <Button danger>Delete Order</Button>
+    <Button danger >Delete Order</Button>
   </Popconfirm>,
 
           <Button key="cancel" onClick={handleCancel}>

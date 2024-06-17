@@ -1,9 +1,10 @@
-import React from 'react'
+import React ,{useEffect}from 'react'
 import {Link} from 'react-router-dom'
 import {useLocation} from 'react-router'
 import clsx from 'clsx'
 import {checkIsActive, KTIcon} from '../../../helpers'
-
+import {useDispatch} from "react-redux"
+import { LoadingStop } from '../../../../app/slice/loading/LoadingSlice'
 type Props = {
   to: string
   title: string
@@ -22,9 +23,16 @@ const MenuItem: React.FC<Props> = ({
   hasBullet = false,
 }) => {
   const {pathname} = useLocation()
+ const dispatch= useDispatch()
 
 
-  console.log("pathname",pathname)
+
+  useEffect(()=>{
+    if(pathname==="/dashboard"){
+      dispatch(LoadingStop())
+    }
+  },[pathname])
+  
   return (
     <div className='menu-item me-lg-1'>
       <Link

@@ -43,4 +43,20 @@ export function ApproveOrder(data: CartModel) {
             throw err;
         });
 }
+export function DeleteOrderDB(orderId:number) {
+    const data={
+        orderId:orderId
+    }
+
+    return axios.post(`${serverUrl}/delete-order`, data)
+        .then(response => {
+           
+            return response;
+        })
+        .catch(err => {
+            console.error("Error on Delete order:", err);
+            
+            throw err;
+        });
+}
 

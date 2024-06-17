@@ -35,7 +35,8 @@ import ApparelExcelUploadDb from '../excel/importExcel/ApparelExcelUploadDb';
 import ApparelPPt from "../ppt/ApparelPPt"
 import PreOrderHome from '../preOrder/PreOrderHome';
 import SoftGoodsPPt from '../ppt/SoftGoodsPPt';
-
+import BrandLogo from "../../../../../../../public/media/logos/ogio-white.png"
+//import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 
 type SelectCommonPlacement = SelectProps['placement'];
 
@@ -84,8 +85,20 @@ const ApparelTable = () => {
       dataIndex: "primary_image_url",
 
       width: 50,
-      // render: (value, record) => <ImageRenderer 
-      // record={record} />
+      render: (value, record) => {
+
+        return (
+          <span>
+
+              <img
+                src={BrandLogo}
+                alt="Primary Image"
+                style={{ maxWidth: "30px", marginRight: "5px" }}
+                width={30}
+              />
+            </span>
+        )
+      }
 
     },
 
