@@ -56,6 +56,7 @@ const CallawayGoodsSlice = createSlice({
    state.callawayApparel= action.payload.apparel
      },
        addCallawayApparelProduct: (state, action) => {
+      
             const { apparelProduct} = action.payload;
             const categoriesSet = new Set<string>();
             const seriesSet = new Set<string>();
