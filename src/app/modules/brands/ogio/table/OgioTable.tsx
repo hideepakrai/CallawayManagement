@@ -41,7 +41,7 @@ const OPTIONS1 = ['Moto', 'Lifestyle',];
 const OPTIONS2 = ['Og Rise', 'Og Pace Pro', 'Og Max', 'Og Al Convoy	'];
 
 const OgioTable = () => {
-  const getCurrentUsers= useSelector(getCurrentUser)
+  const getCurrentUsers = useSelector(getCurrentUser)
   const navigate = useNavigate()
   const searchInput = useRef<InputRef>(null);
   const placement: SelectCommonPlacement = 'topLeft';
@@ -50,7 +50,7 @@ const OgioTable = () => {
   const [isImport, setIsImport] = useState(false);
   const dispatch = useDispatch()
   const [isUploadData, setUploadData] = useState()
-  
+
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const [allXlxData, setAllXlxData] = useState<OgioExcelModel[]>([])
@@ -65,23 +65,23 @@ const OgioTable = () => {
 
 
   const ogioProducts: OgioBasicModel[] = useSelector(getOgioProducts)
-  const [allOgioData, setAllOgioData] =useState<OgioBasicModel[]>([])
+  const [allOgioData, setAllOgioData] = useState<OgioBasicModel[]>([])
 
   const [isProduct, setIsProduct] = useState(false);
 
 
-  useEffect(()=>{
-    if(ogioProducts && ogioProducts.length>0){
+  useEffect(() => {
+    if (ogioProducts && ogioProducts.length > 0) {
       const newData: OgioBasicModel[] = [];
       ogioProducts.map(item => {
-        if ( item.stock_90!=0) {
+        if (item.stock_90 != 0) {
           newData.push(item)
         }
       })
       setAllOgioData(newData)
       localStorage.setItem("Ogio",JSON.stringify(newData))
     }
-  },[ogioProducts])
+  }, [ogioProducts])
 
 
   const columns: TableColumnsType<OgioBasicModel> = [
@@ -90,8 +90,8 @@ const OgioTable = () => {
       dataIndex: "PrimaryImage",
       // fixed: "left",
       width: 50,
-      render: (value, record) => 
-      <OgioGallery record={record} />,
+      render: (value, record) =>
+        <OgioGallery record={record} />,
     },
 
 
@@ -181,7 +181,7 @@ const OgioTable = () => {
         const valLower = value.toString().toLowerCase();
 
         if (record && record.name) {
-         // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
+          // check = record.sku.startsWith(valUpper) || record.sku.startsWith(valLower);
           check = record.name.includes(valUpper) || record.name.includes(valLower);
         }
 
@@ -458,7 +458,7 @@ const OgioTable = () => {
         }));
 
         dispatch(updateProgressStep({
-          progressStep:0,
+          progressStep: 0,
 
         }))
 
@@ -562,7 +562,7 @@ const OgioTable = () => {
   //   console.log("selected row: " ,selectedRow)
   //   console.log("record " ,record)
   //   if(selected){
-      
+
   //     setSelectedRow(prev => [...prev, record]);
   //   }
   //   else if(!selected){
@@ -571,10 +571,10 @@ const OgioTable = () => {
   //        if (index !== -1) {
   //        updatedSelectedRow.splice(index, 1);
   //         setSelectedRow(updatedSelectedRow);
-  
+
   //       }
   //   }
- 
+
 
   // };
 
@@ -595,8 +595,8 @@ const OgioTable = () => {
           const varSkuData = {
             sku: ogioData.sku,
             product_type: ogioData.product_type,
-            qty:  ogioData.stock_90 ||0,
-            mrp: ogioData.mrp||0
+            qty: ogioData.stock_90 || 0,
+            mrp: ogioData.mrp || 0
           };
           totalVarSkuData.push(varSkuData);
 
@@ -604,14 +604,14 @@ const OgioTable = () => {
 
       })
       const otherInfo = {
-        product_model:record.product_model,
+        product_model: record.product_model,
         category: record.category,
-       // product_type:record.product_type,
-        mrp:record.mrp?record.mrp:0,
-     
+        // product_type:record.product_type,
+        mrp: record.mrp ? record.mrp : 0,
+
       };
       const allVarSku = {
-        family:record.sku,
+        family: record.sku,
         primary_image_url: record.primary_image_url,
         gallery_images_url: record.gallery_images_url,
         name: record.name,
@@ -633,32 +633,32 @@ const OgioTable = () => {
       setSelectedRow(prev => [...prev, record]);
 
       if (record && record.variation_sku && record.variation_sku != undefined && record.variation_sku !== "") {
-       // const stringArray = record.variation_sku.split(',').map(item => item.trim());
-    
+        // const stringArray = record.variation_sku.split(',').map(item => item.trim());
 
-      makePdfPring(record.variation_sku, record)
 
-   
+        makePdfPring(record.variation_sku, record)
+
+
         setSelectedRowKeys(prev => [...prev, record.sku!]);
-      
-    } 
-  }else  if(!selected){
+
+      }
+    } else if (!selected) {
       const updatedSelectedRow = selectedRow.filter(row => row.sku !== record.sku);
       setSelectedRow(updatedSelectedRow);
-  
+
       const updatedSelectedRowKeys = selectedRowKeys.filter(key => key !== record.sku);
       setSelectedRowKeys(updatedSelectedRowKeys);
-      const updatedselectedRowVartionSku = selectedRowVartionSku.filter(key => key.family!== record.sku);
+      const updatedselectedRowVartionSku = selectedRowVartionSku.filter(key => key.family !== record.sku);
       setSelectedRowVartionSku(updatedselectedRowVartionSku);
     }
   };
 
 
 
- 
-// useEffect(()=>{
-//   console.log("selected row",selectedRow)
-// },[selectedRow])
+
+  // useEffect(()=>{
+  //   console.log("selected row",selectedRow)
+  // },[selectedRow])
 
 
   // export to pdf 
@@ -674,53 +674,53 @@ const OgioTable = () => {
 
 
 
-  const [isStartuploadImages, setiStartuploadImages]= useState(false)
+  const [isStartuploadImages, setiStartuploadImages] = useState(false)
 
-   const handleUploadImages=()=>{
+  const handleUploadImages = () => {
     console.log("upload button")
     setiStartuploadImages(true)
-    
-   }
 
-   const handleResetUploadImages=()=>{
+  }
+
+  const handleResetUploadImages = () => {
     setiStartuploadImages(false)
-   }
+  }
 
-   const handleViewCart = () => {
+  const handleViewCart = () => {
     navigate("/cart")
   }
-  const [isExport , setIsExport]= useState<boolean>(false)
+  const [isExport, setIsExport] = useState<boolean>(false)
   // export pdf and excel on selection 
-    // handle Excels product
-    
-   
-    const handleProduct = () => {
-      setIsExport(true);
-    };
-    const handleCloseImport = () => {
-      setIsExport(false);
-     setSelectedRow([])
-     setSelectedRowVartionSku([])
-    };
-  
-// import all ogio product
+  // handle Excels product
 
-    const handleImport = () => {
-      setIsImport(true);
-    };
 
-    const handleCloseImportModal=()=>{
-      setIsImport(false);
+  const handleProduct = () => {
+    setIsExport(true);
+  };
+  const handleCloseImport = () => {
+    setIsExport(false);
+    setSelectedRow([])
+    setSelectedRowVartionSku([])
+  };
 
-    }
+  // import all ogio product
 
-    const handleOgioData=(allOgioData:OgioBasicModel[])=>{
-      setAllXlxData(allOgioData);
-      setIsImport(false)
-    }
-  
+  const handleImport = () => {
+    setIsImport(true);
+  };
 
-// show pd()
+  const handleCloseImportModal = () => {
+    setIsImport(false);
+
+  }
+
+  const handleOgioData = (allOgioData: OgioBasicModel[]) => {
+    setAllXlxData(allOgioData);
+    setIsImport(false)
+  }
+
+
+  // show pd()
   const handleShowPdf = () => {
     setIspdf(true)
     setIsExport(false)
@@ -781,7 +781,7 @@ const OgioTable = () => {
   };
 
 
-   
+
 
   const handleRowSelectionChange = (selectedKeys: React.Key[], selectedRows: OgioBasicModel[]) => {
     const validKeys = selectedKeys.filter((key): key is string => typeof key === 'string');
@@ -802,46 +802,46 @@ const OgioTable = () => {
 
   // expannsion of family
 
-    //get other product 
-    const getOgioOtherProducts = useSelector(getOgioOtherProduct)
-    const [expandedRowKeys, setExpandedRowKeys] = useState<OgioBasicModel[]>([]);
-    const [expandedKeys, setExpandedKeys] = useState<string|null>(null);
-  
-    const handleExpand = (expanded: boolean, record: OgioBasicModel) => {
-      setExpandedRowKeys([])
-      setExpandedKeys(null);
-      console.log("expanded",expanded)
-      //dispatch(removeOtherProduct())
-      if (record.sku && record.variation_sku != "" && record.variation_sku != undefined &&expanded ) {
-        const inputString = record.variation_sku
-        const stringArray =  inputString.split(',').map(item => item.trim());
-        const varskuArray: OgioBasicModel[] = [];
-      
-        console.log("vartion sku",varskuArray)
-        allOgioData.map((item) => {
-          if (stringArray && stringArray.length > 0) {
-            stringArray.map(varSku => {
-              if (item.sku === varSku) {
-                varskuArray.push(item)
-  
-              }
-            })
-  
-          }
-  
-        })
+  //get other product 
+  const getOgioOtherProducts = useSelector(getOgioOtherProduct)
+  const [expandedRowKeys, setExpandedRowKeys] = useState<OgioBasicModel[]>([]);
+  const [expandedKeys, setExpandedKeys] = useState<string | null>(null);
 
-        // Expand only the clicked row
-        setExpandedKeys(record.sku)
-        setExpandedRowKeys(varskuArray);
-        dispatch(addOtherProduct(varskuArray))
-        // expandedRowRender (record.products.data)  // Assuming SKU is a string
-      } else  {
-        setExpandedRowKeys([])
-        setExpandedKeys(null)
-      }
-    };
-  
+  const handleExpand = (expanded: boolean, record: OgioBasicModel) => {
+    setExpandedRowKeys([])
+    setExpandedKeys(null);
+    console.log("expanded", expanded)
+    //dispatch(removeOtherProduct())
+    if (record.sku && record.variation_sku != "" && record.variation_sku != undefined && expanded) {
+      const inputString = record.variation_sku
+      const stringArray = inputString.split(',').map(item => item.trim());
+      const varskuArray: OgioBasicModel[] = [];
+
+      console.log("vartion sku", varskuArray)
+      allOgioData.map((item) => {
+        if (stringArray && stringArray.length > 0) {
+          stringArray.map(varSku => {
+            if (item.sku === varSku) {
+              varskuArray.push(item)
+
+            }
+          })
+
+        }
+
+      })
+
+      // Expand only the clicked row
+      setExpandedKeys(record.sku)
+      setExpandedRowKeys(varskuArray);
+      dispatch(addOtherProduct(varskuArray))
+      // expandedRowRender (record.products.data)  // Assuming SKU is a string
+    } else {
+      setExpandedRowKeys([])
+      setExpandedKeys(null)
+    }
+  };
+
   const expandedRowRender = (record: OgioBasicModel) => {
 
     if (record) {
@@ -885,11 +885,11 @@ const OgioTable = () => {
                 //addonBefore={record.stock_90 || 0}
                 addonBefore={record.stock_90}
 
-                
+
                 value={record.Quantity90?.toString()}
                 onChange={(value) => {
                   if (value !== null) {
-                   handleQuantity901(value, record)
+                    handleQuantity901(value, record)
                   }
 
                 }}
@@ -927,22 +927,19 @@ const OgioTable = () => {
           fixed: 'right'
         },
       ]
-      if (expandedKeys===record.sku && getOgioOtherProducts) {
+      if (expandedKeys === record.sku && getOgioOtherProducts) {
 
-      return (
-        <Table className='cart-table-profile'
-          columns={subcolumns}
-          dataSource={getOgioOtherProducts?.map((item) => ({ ...item, key: item.sku }))}
-          pagination={false}
-
-          size="middle"
-
-         
-        />
+        return (
+          <Table className='cart-table-profile'
+            columns={subcolumns}
+            dataSource={getOgioOtherProducts?.map((item) => ({ ...item, key: item.sku }))}
+            pagination={false}
+            size="middle"
+          />
 
 
-      );
-    }
+        );
+      }
 
     }
   }
@@ -1032,73 +1029,73 @@ const OgioTable = () => {
   };
 
   const [isExportAll, setIsExportAll] = useState<boolean>(false)
-  const handleDownloadAllExcel= () =>{
+  const handleDownloadAllExcel = () => {
     setIsExportAll(true)
     setIsProduct(false)
 
 
   }
-  const handleResetExportAll=() =>{
+  const handleResetExportAll = () => {
     setIsExportAll(false)
   }
 
 
-  const [isPPT, setIsPPt]= useState<boolean>(false)
- const handlePPT=()=>{
-  setIsPPt(true)
- }
+  const [isPPT, setIsPPt] = useState<boolean>(false)
+  const handlePPT = () => {
+    setIsPPt(true)
+  }
 
 
- const handleResetPPT=()=>{
-  setIsPPt(false)
-  setIsProduct(false)
-  setSelectedRowKeys([]);
+  const handleResetPPT = () => {
+    setIsPPt(false)
+    setIsProduct(false)
+    setSelectedRowKeys([]);
     setSelectedRow([])
     setIspdf(false)
     setSelectedRowVartionSku([])
 
- }
+  }
 
 
- const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(200);
-    const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
-    //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
-    
-    const handleCheckboxClick = (showAvailableOnly:boolean) => {
-      setShowAvailableOnly(!showAvailableOnly);
+  const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
+  //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
 
-      console.log("check",showAvailableOnly)
-      const allTr: OgioBasicModel[] = []
+  const handleCheckboxClick = (showAvailableOnly: boolean) => {
+    setShowAvailableOnly(!showAvailableOnly);
 
-      if(!showAvailableOnly){
+    console.log("check", showAvailableOnly)
+    const allTr: OgioBasicModel[] = []
+
+    if (!showAvailableOnly) {
 
 
 
-      if(allOgioData && allOgioData.length>0 ){
-        allOgioData.map((item)=>{
-          if((item.stock_88!=undefined && item.stock_88 > 0  ) || (item.stock_90!=undefined  && item.stock_90>0  )  ){
+      if (allOgioData && allOgioData.length > 0) {
+        allOgioData.map((item) => {
+          if ((item.stock_88 != undefined && item.stock_88 > 0) || (item.stock_90 != undefined && item.stock_90 > 0)) {
             allTr.push(item)
 
           }
 
 
         })
- }
-}
-else if(showAvailableOnly){
-  if(ogioProducts && ogioProducts.length>0){
-    ogioProducts.map(item => {
-      //if ( item.stock_90!=0) {
-      allTr.push(item)
-    })
-  }
+      }
+    }
+    else if (showAvailableOnly) {
+      if (ogioProducts && ogioProducts.length > 0) {
+        ogioProducts.map(item => {
+          //if ( item.stock_90!=0) {
+          allTr.push(item)
+        })
+      }
 
-}
+    }
 
- 
-setAllOgioData(allTr)
-    };
+
+    setAllOgioData(allTr)
+  };
 
   return (
     <div className='container'>
@@ -1120,58 +1117,58 @@ setAllOgioData(allTr)
 
       >
         <div className='row'>
-        <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{paddingLeft:"10px"}}>
-          <input
-            className="form-check-input submit-order"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-            checked={showAvailableOnly}
-          onClick={()=> handleCheckboxClick(showAvailableOnly)}
-          />
-          <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
-          Show Only Available Products
-          </label>
-        </div>
-        <div className='col-8' style={{  marginBottom: "12px",  textAlign:"end", }}>
+          <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{ paddingLeft: "10px" }}>
+            <input
+              className="form-check-input submit-order"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+              checked={showAvailableOnly}
+              onClick={() => handleCheckboxClick(showAvailableOnly)}
+            />
+            <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
+              Show Only Available Products
+            </label>
+          </div>
+          <div className='col-8' style={{ marginBottom: "12px", textAlign: "end", }}>
 
-        {/* {getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+            {/* {getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
            onClick={handleUploadImages}
           > <i className="bi bi-bag fs-3"></i> UploadImages</Button>} */}
-          <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+            <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
-         onClick={handleViewCart}
-          > <i className="bi bi-bag fs-3"></i> View Cart</Button>
+              onClick={handleViewCart}
+            > <i className="bi bi-bag fs-3"></i> View Cart</Button>
 
 
-{getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleImport}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>  Import Products</Button>
-}
+            {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+              onClick={handleImport}
+            > <i className="bi bi-file-earmark-arrow-up fs-3"></i>  Import Products</Button>
+            }
 
-         {getCurrentUsers &&getCurrentUsers.role!=="Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleQtyImport}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
-}
-          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleProduct}
-          > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
+            {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+              onClick={handleQtyImport}
+            > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
+            }
+            <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+              onClick={handleProduct}
+            > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
+
+          </div>
 
         </div>
 
-</div>
 
 
-
-{/* 
+        {/* 
         <div className='show-prodect-section' >
           <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
 
         </div> */}
 
 
-      {allOgioData.length>0? ( <Table
+        {allOgioData.length > 0 ? (<Table
           className='cart-table-profile'
           ref={tableRef}
           columns={columns}
@@ -1192,9 +1189,12 @@ setAllOgioData(allTr)
 
           pagination={{
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-            defaultPageSize: 20
+            defaultPageSize: 200,
+            showTotal: (total) => `Total ${total} items`, // Corrected showTotal usage
+            showSizeChanger: true, // Show page size changer
+            pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
           }}
-        />):(<Loading/>)}
+        />) : (<Loading />)}
 
 
       </Card>
@@ -1216,11 +1216,11 @@ setAllOgioData(allTr)
         ppt={handlePPT}
 
 
-        
+
       />
 
-{/* open modal for upload all ogio products */}
-<ImportAllOgioProduct
+      {/* open modal for upload all ogio products */}
+      <ImportAllOgioProduct
         isImport={isImport}
         onClose={handleCloseImportModal}
         allOgioData={handleOgioData}
@@ -1250,22 +1250,22 @@ setAllOgioData(allTr)
       />}
 
 
-{isStartuploadImages &&
+      {isStartuploadImages &&
         <UploadOgioImages
-        resetOgioImages={handleResetUploadImages}
+          resetOgioImages={handleResetUploadImages}
         />}
 
       <OgioPreOrder />
 
-      { isExportAll && <OgioProductsToExcel
-     resetExportAll={handleResetExportAll}
-   
-   />}
-{isPPT &&
-<OgioPPt
-selectedRowVartionSku={selectedRowVartionSku}
-resetPPT={handleResetPPT}
-/>}
+      {isExportAll && <OgioProductsToExcel
+        resetExportAll={handleResetExportAll}
+
+      />}
+      {isPPT &&
+        <OgioPPt
+          selectedRowVartionSku={selectedRowVartionSku}
+          resetPPT={handleResetPPT}
+        />}
 
     </div>
   )

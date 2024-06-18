@@ -64,7 +64,7 @@ const AdminHome = () => {
     },
     {
       key: '3',
-      label: 'Support',
+      label: 'Users',
       children:  <Support/> ,
     },
   ];

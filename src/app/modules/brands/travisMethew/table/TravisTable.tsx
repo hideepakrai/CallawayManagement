@@ -1565,41 +1565,41 @@ else if(showAvailableOnly){
         {
           allTravisProduct.length > 0 ? (
             <div>
-            <Table className='cart-table-profile'
-              ref={tableRef}
-              columns={columns}
-              dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
-              rowSelection={{
-                selectedRowKeys,
-                onSelect: handleSelctRow,
-              }}
-              expandable={{
-                expandedRowRender,
+          <Table
+  className='cart-table-profile'
+  ref={tableRef}
+  columns={columns}
+  dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
+  rowSelection={{
+    selectedRowKeys,
+    onSelect: handleSelctRow,
+  }}
+  expandable={{
+    expandedRowRender,
+    onExpand: (expanded, record) => handleExpand(expanded, record),
+  }}
+  bordered
+  size="middle"
+  scroll={{ x: "100%", y: "auto" }}
+  pagination={{
+    position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+    defaultPageSize: 200,
+    showTotal: (total) => `Total ${total} items`, // Corrected showTotal usage
+    showSizeChanger: true, // Show page size changer
+    pageSizeOptions: ['100', '200', '300', '400','500', '600', '1000' ], // Page size options
+  }}
+/>
 
-                onExpand: (expanded, record) => handleExpand(expanded, record),
-
-              }}
-              bordered
-              size="middle"
-              scroll={{ x: "100%", y: "auto" }}
-             // pagination={false} // Disable default pagination
-
-
-              pagination={{
-                position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-                defaultPageSize: 200,
-
-              }}
               
 
              
-              //    <Pagination size="small" total={50} showTotal={showTotal} />
+              
   
               
 
               
 
-            />
+          
               {/* <Pagination
         size="small"
         total={allTravisProduct.length}
