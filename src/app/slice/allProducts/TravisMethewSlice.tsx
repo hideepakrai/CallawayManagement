@@ -55,7 +55,7 @@ const TravisMethewSlice = createSlice({
         state.isStartLoading = true
        },
        addTravisLocalStorage:(state,action)=>{  
-          state.travis=action.payload.travis
+          state.travisMethew=action.payload.travis
        },
        stopTravisLoading:(state)=>{
          state.isStartLoading = false
