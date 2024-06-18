@@ -90,7 +90,8 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
             size: item.size,
             color:item.color,
             Amount:item.Amount,
-            LessDiscountAmount:item.LessDiscountAmount
+            LessDiscountAmount:item.LessDiscountAmount,
+            description:item.description,
 
           })
           setBrandId(item.brand_id)

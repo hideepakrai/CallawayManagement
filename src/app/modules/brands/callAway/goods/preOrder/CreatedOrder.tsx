@@ -56,7 +56,9 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     const hard: BasicModelGoods[] = [];
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
+
         if (item.ordered  && item.error88 === "" ) {
+
           hard.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -65,7 +67,10 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
           //  size: item.size,
             color:item.color,
             Amount:item.Amount,
-            LessDiscountAmount:item.LessDiscountAmount
+            LessDiscountAmount:item.LessDiscountAmount,
+            description:item.description,
+            Discount:item.Discount,
+
             
 
           })

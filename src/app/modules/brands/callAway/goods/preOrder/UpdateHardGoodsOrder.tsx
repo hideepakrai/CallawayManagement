@@ -23,6 +23,7 @@ const UpdateHardGoodsOrder = ({ resetUpdateOrder, preorderId }: Props) => {
     if (getProduct && getProduct.length > 0 &&preorderId) {
       getProduct.map((item) => {
         if (item.ordered && item.error88 === ""  ) {
+
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -30,7 +31,9 @@ const UpdateHardGoodsOrder = ({ resetUpdateOrder, preorderId }: Props) => {
             //size: item.size,
             color:item.color,
             Amount:item.Amount,
-            LessDiscountAmount:item.LessDiscountAmount
+            LessDiscountAmount:item.LessDiscountAmount,
+            description:item.description,
+            Discount:item.Discount,
 
           })
 

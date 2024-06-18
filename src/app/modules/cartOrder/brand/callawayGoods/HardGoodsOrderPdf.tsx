@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel'
-import { getGoodsProducts, getHardGoodsRetailerDetail, getHardGoodsNote } from '../../../../slice/allProducts/CallAwayGoodsSlice'
+import { getGoodsProducts, getHardGoodsRetailerDetail, getHardGoodsNote, getPreOrderId } from '../../../../slice/allProducts/CallAwayGoodsSlice'
 import { Button, Card, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 const HardGoodsOrderPdf = () => {
+  const getPreOrderIds = useSelector(getPreOrderId)
+
 
   const today = new Date();
   //const formattedDate = today.toLocaleDateString('en-CA'); 
@@ -110,46 +112,23 @@ const HardGoodsOrderPdf = () => {
     //   },
 
 
-    {
-      title: "Model",
-      dataIndex: "product_model",
-      key: "product_model",
-      width: 100,
+    // {
+    //   title: "Model",
+    //   dataIndex: "product_model",
+    //   key: "product_model",
+    //   width: 100,
 
 
-    },
+    // },
 
 
 
-
-    // //
-    //     {
-    //         title: "Product type",
-    //         dataIndex: "product_type",
-    //         key: "product_type",
-    //         width: 85,
-
-    //       },
-    //       {
-    //         title: "life cycle",
-    //         dataIndex: "life_cycle",
-    //         key: "life_cycle",
-    //         width: 85,
-
-    //       },
-    //       {
-    //         title: "Orientation",
-    //         dataIndex: "orientation",
-    //         key: "orientation",
-    //         width: 85,
-
-    //       },
 
 
     {
       title: " Qty",
-      dataIndex: "Quantity90",
-      key: "Quantity90",
+      dataIndex: "Quantity88",
+      key: "Quantity88",
       width: 50,
       fixed: 'right',
 
@@ -166,6 +145,14 @@ const HardGoodsOrderPdf = () => {
       fixed: 'right'
 
     },
+       {
+        title: "Discount",
+        dataIndex:"Discount",
+        key:"Discount",
+        width: 70,
+        fixed: 'right'
+
+      },
 
     {
       title: "Amount",
@@ -192,14 +179,7 @@ const HardGoodsOrderPdf = () => {
 
     //   },
 
-    //   {
-    //     title: "Discount",
-    //     dataIndex:"Discount",
-    //     key:"Discount",
-    //     width: 70,
-    //     fixed: 'right'
-
-    //   },
+   
     //   {
     //     title: "LessDiscountAmount",
     //     dataIndex:"LessDiscountAmount",
@@ -257,6 +237,8 @@ const HardGoodsOrderPdf = () => {
               </div>
               <div className="col-5 text-end px-6">
                 <h2 className="text-white pdf-title">ORDER PDF</h2>
+                <h2 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h2>
+
               </div>
             </div>
 

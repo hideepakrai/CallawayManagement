@@ -47,6 +47,8 @@ const SoftGoodPdfPrintOrder = ({ recordPdf, resetSoftGoodPdf }: Props) => {
 
 
   useEffect(() => {
+    console.log("record",recordPdf)
+
     if (recordPdf && recordPdf.items && recordPdf.retailer_details && recordPdf.created_at && recordPdf.manager_id) {
       const orderData = JSON.parse(recordPdf.items)
       setAllData(orderData)
@@ -70,32 +72,39 @@ const SoftGoodPdfPrintOrder = ({ recordPdf, resetSoftGoodPdf }: Props) => {
 
 
     },
-
-
-
     {
-      title: "Color",
-      dataIndex: "color",
-      key: "color",
-      width: 100,
-
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+      width: 150,
 
     },
 
 
-    {
-      title: "MRP",
-      dataIndex: "mrp",
-      key: "mrp",
-      width: 120,
+
+    // {
+    //   title: "Color",
+    //   dataIndex: "color",
+    //   key: "color",
+    //   width: 100,
+
+
+    // },
+
+
+    // {
+    //   title: "MRP",
+    //   dataIndex: "mrp",
+    //   key: "mrp",
+    //   width: 120,
 
 
 
-    },
+    // },
     {
       title: "QTY",
-      dataIndex: "mrp",
-      key: "mrp",
+      dataIndex: "TotalQty",
+      key: "TotalQty",
       width: 120,
       render: (value, record) => {
 
@@ -158,8 +167,8 @@ const SoftGoodPdfPrintOrder = ({ recordPdf, resetSoftGoodPdf }: Props) => {
     }
   }, [alldata])
 
-  const getPreOrderIds = useSelector(getPreOrderId)
-
+ // const getPreOrderIds = useSelector(getPreOrderId)
+ const getPreOrderIds=recordPdf.id
   return (
 
     <div>

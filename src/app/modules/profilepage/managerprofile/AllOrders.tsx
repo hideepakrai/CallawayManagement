@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Card, Table, Tooltip } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { TableColumnsType } from "antd";
 import { getUserOrders } from "../../../slice/UserSlice/UserSlice";
 import { BasicModelTravis } from "../../model/travis/TravisMethewModel";
@@ -16,6 +16,8 @@ import OgioExpandedRowRender from "../table/OgioExpandedRowRender.tsx";
 import SoftGoodsExpandedRowRender from "../table/SoftGoodsExpandedRowRender.tsx";
 import HardGoodsExpandedRowRender from "../table/HardGoodExpandedRowRender.tsx";
 import SoftGoodPdfPrintOrder from "../pdfformate/SoftGoodPdfPrintOrder.tsx";
+import DeleteOrder from "./DeleteOrder.tsx";
+import { LoadingStop } from "../../../slice/loading/LoadingSlice.tsx";
 
 const AllOrders = () => {
     const [status, setStatus] = useState<string>("");
@@ -25,6 +27,8 @@ const AllOrders = () => {
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
     const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
     const[ selectedOrder, setSelectedOrder]= useState<CartModel>()
+    const dispatch= useDispatch()
+
     // Get all pending orders
     useEffect(() => {
         const allpend: AccountOrder[] = [];
@@ -306,6 +310,21 @@ const AllOrders = () => {
         setIsSoftGood(false)
     } 
     
+const [isDeleteOrder, setIsDeleteOder]= useState<boolean>(false)
+const handleDeleteOrder=()=>{
+    setIsDeleteOder(true)
+
+}
+
+const [order_id, setOrder_id] = useState<number | undefined>(undefined);
+const handleResetDeleteOrder=()=>{
+    setIsDeleteOder(false)
+    setOrder_id(undefined)
+    dispatch(LoadingStop())
+    setIsEdit(false)
+
+    
+}
        return (
         <div className="cart-table mb-10 mt-3 mx-4">
             <Card className="cart-order-section" title="Completed Orders">
@@ -330,12 +349,14 @@ const AllOrders = () => {
             </Card>
 
            {selectedOrder && <Edit 
-                   selectedOrder={selectedOrder}
-                   isEdit={isEdit}
-                   onClose={handleCloseEdit}
-                   changeStatus={handleUpdateStatus} deletedYes={function (): void {
-                       throw new Error("Function not implemented.");
-                   } } />}
+             selectedOrder={selectedOrder}
+            isEdit={isEdit} 
+            onClose={handleCloseEdit} 
+            changeStatus={handleUpdateStatus}
+            deletedYes={handleDeleteOrder}
+            />}
+
+                  
 
             {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} note={""} resetOrder={function (): void {
                    throw new Error("Function not implemented.");
@@ -346,6 +367,12 @@ const AllOrders = () => {
             {isSoftGood && recordPdf && <SoftGoodPdfPrintOrder 
             recordPdf={recordPdf}    
              resetSoftGoodPdf={handleResetSoftGood} />}
+
+{isDeleteOrder &&order_id &&
+            <DeleteOrder
+            orderId={order_id}
+            resetDeleteOrder={handleResetDeleteOrder}
+            />}
         </div>
     );
 };

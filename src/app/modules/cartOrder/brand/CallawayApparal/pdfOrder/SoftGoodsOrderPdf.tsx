@@ -120,27 +120,27 @@ const SoftGoodsOrderPdf = () => {
 
 
 
-    {
-      title: "Color",
-      dataIndex: "color",
-      key: "color",
-      width: 85,
+    // {
+    //   title: "Color",
+    //   dataIndex: "color",
+    //   key: "color",
+    //   width: 85,
 
-    },
-    {
-      title: "Style",
-      dataIndex: "style_id",
-      key: "style_id",
-      width: 85,
+    // },
+    // {
+    //   title: "Style",
+    //   dataIndex: "style_id",
+    //   key: "style_id",
+    //   width: 85,
 
-    },
-    {
-      title: "Size",
-      dataIndex: "size",
-      key: "size",
-      width: 85,
+    // },
+    // {
+    //   title: "Size",
+    //   dataIndex: "size",
+    //   key: "size",
+    //   width: 85,
 
-    },
+    // },
     //   {
     //     title: "Gender",
     //     dataIndex: "gender",
@@ -173,6 +173,14 @@ const SoftGoodsOrderPdf = () => {
       title: "MRP",
       dataIndex: "mrp",
       key: "mrp",
+      width: 100,
+      fixed: 'right'
+
+    },
+    {
+      title: "Discount",
+      dataIndex: "LessDiscountAmount",
+      key: "LessDiscountAmount",
       width: 100,
       fixed: 'right'
 

@@ -79,38 +79,35 @@ const TravisPdfPrintOrder = ({ recordPdf, resetTravisPdf }: Props) => {
 
 
     },
+    // {
+    //   title: "Size",
+    //   dataIndex: "size",
+    //   key: "size",
+    //   width: 150,
+
+    // },
+
+
+    // {
+    //   title: "Color",
+    //   dataIndex: "color",
+    //   key: "color",
+    //   width: 100,
+
+
+    // },
+
     {
-      title: "Size",
-      dataIndex: "size",
-      key: "size",
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
       width: 150,
-
-    },
-
-
-    {
-      title: "Color",
-      dataIndex: "color",
-      key: "color",
-      width: 100,
-
-
-    },
-
-
-    {
-      title: "MRP",
-      dataIndex: "mrp",
-      key: "mrp",
-      width: 120,
-
-
 
     },
     {
       title: "QTY",
-      dataIndex: "mrp",
-      key: "mrp",
+      dataIndex: "TotalQty",
+      key: "TotalQty",
       width: 120,
       render: (value, record) => {
 

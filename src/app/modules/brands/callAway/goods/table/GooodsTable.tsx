@@ -16,7 +16,7 @@ import GoodsImportExcel from "./GoodsImportExcel"
 import GoodsQtyImport from "./GoodsQtyImport"
 import TravisExportProduct from "./GoodsExportProduct"
 import type { RadioChangeEvent, SelectProps } from 'antd';
-import { getCategory, getGoodsProducts, getProductModel, getProductType, updateProgressStep, updateQuantity90 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
+import { getCategory, getGoodsProducts, getProductModel, getProductType, updateProgressStep, updateQuantity88 } from '../../../../../slice/allProducts/CallAwayGoodsSlice';
 
 import OgioProductsToExcel from '../excel/exportExcel/ExportAllProduct';
 import GoodsUpdateQtyDb from '../excel/importExcel/GoodsUpdateQtyDb';
@@ -27,7 +27,12 @@ import PreOrder from '../preOrder/PreOrder';
 import { render } from 'react-dom';
 import HardGoodsPPt from '../pptHardGoods/HardGoodsPPt';
 import { TravisPdfPrint } from '../../../../model/pdf/PdfModel';
+
+import HardGoodsPdf from '../pdf/HardGoodsPdf';
+
+
 import BrandLogo from "../../../../../../../public/media/logos/logo-callaway.png"
+
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -509,6 +514,7 @@ const GooodsTable = () => {
 
 
   const handleQuantity90 = (value: string, record: BasicModelGoods) => {
+    console.log("select",value)
 
     const intValue = parseInt(value, 10);
 
@@ -521,7 +527,7 @@ const GooodsTable = () => {
 
         // Dispatch an action to update the quantity for the SKU
 
-        dispatch(updateQuantity90({
+        dispatch(updateQuantity88({
           sku: record.sku,
           qty90: intValue,
           MRP: record.mrp,
@@ -543,7 +549,7 @@ const GooodsTable = () => {
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
 
-        dispatch(updateQuantity90({
+        dispatch(updateQuantity88({
           sku: record.sku,
           qty90: st90,
           MRP: record.mrp
@@ -561,7 +567,7 @@ const GooodsTable = () => {
       setIsQty90ToolTip(true)
       setQty90SKU(record.sku)
     } else if (intValue === 0) {
-      dispatch(updateQuantity90({
+      dispatch(updateQuantity88({
         sku: record.sku,
         qty90: intValue,
         MRP: record.mrp,
@@ -773,6 +779,14 @@ else if(showAvailableOnly){
 setAllGoodsProduct(allTr)
   };
 
+  const handleResetSelectedRow = () => {
+    setSelectedRow([]);
+    setSelectedRowKeys([])
+    setIspdf(false)
+   
+    // setIsCard(true)
+  }
+
   return (
     <div className='container'>
 
@@ -917,7 +931,16 @@ setAllGoodsProduct(allTr)
 selectedRowVartionSku={selectedRowVartionSku}
 resetPPT={handleResetPPT}
 />
+
+
+
 }
+{isPDF &&  <HardGoodsPdf
+selectedRow={selectedRow}
+resetSelectedRow={handleResetSelectedRow}
+
+/>}
+
 
     </div>
   )
