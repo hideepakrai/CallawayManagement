@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { getUserByToken, login, getAdminToken } from '../core/_requests'
 import { toAbsoluteUrl } from '../../../../_metronic/helpers'
 import { useAuth } from '../core/Auth'
 import { useDispatch, useSelector } from 'react-redux'
 import "./Login.css"
-import { addUser, addAdminToken } from "../../../slice/UserSlice/UserSlice"
+import { addUser, addAdminToken, getUserRetailer } from "../../../slice/UserSlice/UserSlice"
 
 import GetUserAccount from './GetUserAccount'
 import { UserModel } from '../core/_models';
@@ -21,9 +21,10 @@ import Manager from "../../../api/manager/Manager"
 import { UserAccountModel } from "../../model/useAccount/UserAccountModel"
 import GetRetailerInfo from '../../../api/retailers/GetRetailerInfo'
 import { Select } from 'antd';
+import { RetailerModel } from '../../model/AccountType/retailer/RetailerModel'
 
 
-
+const { Option, OptGroup } = Select;
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -65,7 +66,36 @@ export function TestLogin() {
   const [grpqlSalesRep, setGrpqlSalesRep] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState(false)
 
+  const getUserRetailers= useSelector(getUserRetailer)
   const dispatch = useDispatch()
+
+  const navigate= useNavigate()
+  const [allSalesRep, setAllSalesRep]= useState<RetailerModel []>([])
+  const [allManager, setAllManager]= useState<RetailerModel []>([])
+  const [allRetailer, setAllRetailer]= useState<RetailerModel []>([])
+  useEffect(()=>{
+    const manger:RetailerModel[]=[]
+    const retailer:RetailerModel[]=[]
+    const saleRep:RetailerModel[]=[]
+    if(getUserRetailers && getUserRetailers.length>0){
+      getUserRetailers.map((item)=>{
+        if(item.role==="Manager"){
+          manger.push(item)
+        }
+        else if(item.role==="Sales Representative"){
+          saleRep.push(item)
+        }
+        else if(item.role==="Retailer"){
+          retailer.push(item)
+        }
+      })
+ console.log("hello")
+    }
+    setAllManager(manger);
+    setAllSalesRep(saleRep);
+    setAllRetailer(retailer)
+
+  },[getUserRetailers])
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
@@ -95,7 +125,7 @@ export function TestLogin() {
         }))
 
         setLoading(false)
-
+        navigate("/dashboard")
 
       } catch (error) {
         if (error) {
@@ -113,65 +143,37 @@ export function TestLogin() {
   const getUserAccounts = useSelector(getUserAccount) as UserAccountModel;
 
 
-  const handleResetRoleId = () => {
-    setUserRoleId(null)
-    setGrpqlManager(false)
-    setGrpqlRetailer(false)
-    setGrpqlSalesRep(false)
+
+
+
+
+
+
+
+
+  const handleChange = (val: string) => {
+    const value= parseInt(val)
+    console.log("val", val)
+   
+     if(getUserRetailers &&getUserRetailers.length>0){
+      getUserRetailers.map((item)=>{
+        if(item.id===value){
+          console.log("item",item)
+          if(item.email && item.password_hash){
+            formik.setValues({
+              ...formik.values,
+              email: item.email,
+              password: item.password_hash
+              
+            })
+          }
+          
+        }
+      })
+     
+     }
+      
   }
-  // afterGetting userId and userName search finds its roles
-  const handleResetId = () => {
-    setUserId(null)
-    setGrpqlUser(false)
-
-
-  }
-  const handleResetRetailer = () => {
-    setUserRoleId(null)
-    setGrpqlRetailer(false)
-
-
-  }
-
-  const handleRetailer = () => {
-    setisManager(false);
-    setIsRetailer(true);
-    setIsAdmin(false)
-    formik.setValues({
-      ...formik.values,
-      email: 'arjun.budidi@gmail.com',
-      password: '',
-      role: "retailer"
-    });
-  }
-  const handleManager = () => {
-    setisManager(true);
-    setIsRetailer(false);
-    setIsAdmin(false)
-    formik.setValues({
-      ...formik.values,
-      email: 'shashi.kiranshetty@callawaygolf.com',
-      password: '',
-      role: "retailer"
-    });
-  }
-  const handleAdmin = () => {
-    setIsAdmin(true)
-    setisManager(false);
-    setIsRetailer(false);
-    formik.setValues({
-      ...formik.values,
-      email: 'ankur.srivastava@callawaygolf.com',
-      password: '',
-      role: "sales-representtaive"
-    });
-  }
-
-
-
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
 
   return (
     <>
@@ -194,37 +196,27 @@ export function TestLogin() {
           <div>
 
             
-          <Select style={{width: '100%', height: '40px', marginBottom:"50px"}}
+          <Select
+    style={{ width: '100%', height: '40px', marginBottom: '50px' }}
     defaultValue="lucy"
-   
     onChange={handleChange}
-    options={[
-      {
-        label: <span>Manager</span>,
-        title: 'Manager',
-        options: [
-          { label: <span>Jack</span>, value: 'Jack' },
-          { label: <span>Lucy</span>, value: 'Lucy' },
-        ],
-      },
-      {
-        label: <span>Sales Rep</span>,
-        title: 'Sales Rep',
-        options: [
-          { label: <span>Chloe</span>, value: 'Chloe' },
-          { label: <span>Lucas</span>, value: 'Lucas' },
-        ],
-      },
-      {
-        label: <span>Retailers</span>,
-        title: 'Retailers',
-        options: [
-          { label: <span>Chloe</span>, value: 'Chloe' },
-          { label: <span>Lucas</span>, value: 'Lucas' },
-        ],
-      },
-    ]}
-  />
+  >
+    <OptGroup label="Manager">
+      {allManager?.map((item) => (
+        <Option key={item.id} value={item.id}>{item.name}</Option>
+      ))}
+    </OptGroup>
+    <OptGroup label="Sales Rep">
+      {allSalesRep?.map((item) => (
+        <Option key={item.id} value={item.id}>{item.name}</Option>
+      ))}
+    </OptGroup>
+    <OptGroup label="Retailers">
+      {allRetailer?.map((item) => (
+        <Option key={item.id} value={item.id}>{item.name}</Option>
+      ))}
+    </OptGroup>
+  </Select>
           </div>
 
 

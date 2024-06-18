@@ -48,6 +48,8 @@ import { GetUserRetailer } from '../../modules/auth/core/_requests.ts'
 import TravisImage from './TravisImage.tsx'
 import OgioImage from './OgioImage.tsx'
 import { OgioBasicModel } from '../../modules/model/ogio/OgioBrandModel.ts'
+import { getApparelProducts } from '../../slice/allProducts/CallawayApparelSlice.tsx'
+import { getGoodsProducts } from '../../slice/allProducts/CallAwayGoodsSlice.tsx'
 const DashboardPage = () => (
 
 
@@ -230,7 +232,8 @@ const DashboardWrapper = () => {
   const getTravisProduct = useSelector(getTravisProducts)
   const getOgioProduct = useSelector(getOgioProducts) as OgioBasicModel[]
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
-
+  const getApparelProduct = useSelector(getApparelProducts)
+  const getGoodsProduct = useSelector(getGoodsProducts)
   useEffect(() => {
     if (getTravisProduct && getTravisProduct.length > 0 &&
 
@@ -243,7 +246,15 @@ const DashboardWrapper = () => {
     } else if (getTravisProduct && getTravisProduct.length === 0) {
       dispatch(startTravisLoading())
     }
-  }, [getTravisProduct, getOgioProduct, getAllBrand])
+    else if(getApparelProduct && getApparelProduct.length>0){
+      localStorage.setItem("SoftGoods",JSON.stringify(getApparelProduct))
+    }
+
+    else if (getGoodsProduct){
+      localStorage.setItem("HardGoods",JSON.stringify(getGoodsProduct))
+    }
+    
+  }, [getTravisProduct, getOgioProduct, getAllBrand,getApparelProduct,getGoodsProduct])
 
 
   // "getRetailer-associated""

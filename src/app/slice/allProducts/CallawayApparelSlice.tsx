@@ -52,8 +52,10 @@ const CallawayGoodsSlice = createSlice({
     addSoftGoodNote:(state,action)=>{
       state.note.push(action.payload.note)
      },
-    
-        addCallawayApparelProduct: (state, action) => {
+     addApparelLocalStorage:(state,action)=>{
+   state.callawayApparel= action.payload.apparel
+     },
+       addCallawayApparelProduct: (state, action) => {
             const { apparelProduct} = action.payload;
             const categoriesSet = new Set<string>();
             const seriesSet = new Set<string>();
@@ -524,7 +526,8 @@ export const {
     updateApparelInclusiveDiscount,
     updaterApparelExclusiveDiscount,
     updateApparelFlatDiscount,
-    resetSoftGoods
+    resetSoftGoods,
+    addApparelLocalStorage
 
 
     

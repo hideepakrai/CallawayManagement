@@ -12,6 +12,8 @@ import {getCurrentUser,getAdminToken,
   addUserAccount} from "../../../slice/UserSlice/UserSlice";
   import {reloadTravisProduct,reloadCategory,reloadStyleCode, addTravisLocalStorage} from "../../../slice/allProducts/TravisMethewSlice";
 import {addOgioLocalStroge, getOgioProducts} from "../../../slice/allProducts/OgioSlice"
+import { addApparelLocalStorage } from '../../../slice/allProducts/CallawayApparelSlice'
+import { addHardGoodsLocalStorage } from '../../../slice/allProducts/CallAwayGoodsSlice'
 
 type AuthContextProps = {
   auth: AuthModel | undefined
@@ -73,6 +75,12 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
     
     dispatch(addTravisLocalStorage({
       travis: JSON.parse(localStorage.getItem('Travis') as string)
+    }))
+    dispatch(addApparelLocalStorage({
+      apparel: JSON.parse(localStorage.getItem('SoftGoods') as string)
+    }))
+    dispatch(addHardGoodsLocalStorage({
+      goods: JSON.parse(localStorage.getItem('HardGoods') as string)
     }))
 
   }, []);

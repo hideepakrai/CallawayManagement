@@ -15,7 +15,8 @@ export interface RetailerModel{
    photo_url?:string,
    thumbnail_url?:string,
    manager_name?:string,
-   password?:string
+   password?:string,
+   password_hash?:string
 }
 
 

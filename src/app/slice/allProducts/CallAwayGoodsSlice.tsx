@@ -444,6 +444,9 @@ resetHardGoodsOrder:(state)=>{
   state.otherProduct=[];
   state.note=[]
  }, 
+ addHardGoodsLocalStorage:(state,action)=>{
+  state.callawayGoods= action.payload.goods
+ }
 
 
           
@@ -465,6 +468,7 @@ export const {
     updateHardGoodsInclusiveDiscount,
     updateHardGoodsFlatDiscount,
     resetHardGoodsOrder,
+    addHardGoodsLocalStorage
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {
