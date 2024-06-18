@@ -330,10 +330,12 @@ const AllOrders = () => {
             </Card>
 
            {selectedOrder && <Edit 
-             selectedOrder={selectedOrder}
-            isEdit={isEdit} 
-            onClose={handleCloseEdit} 
-            changeStatus={handleUpdateStatus} />}
+                   selectedOrder={selectedOrder}
+                   isEdit={isEdit}
+                   onClose={handleCloseEdit}
+                   changeStatus={handleUpdateStatus} deletedYes={function (): void {
+                       throw new Error("Function not implemented.");
+                   } } />}
 
             {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} note={""} resetOrder={function (): void {
                    throw new Error("Function not implemented.");
