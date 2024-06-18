@@ -35,6 +35,12 @@ export function MenuInner() {
           <MenuItem icon='shield-tick' to='/account/cway-retailer' title='Retailer' />
         </MenuInnerWithSub>
       )}
+
+      {
+        role === 'Admin' &&(
+          <MenuItem title='Other Accounts' to='/other-account' />
+        )
+      }
     </>
   );
 }

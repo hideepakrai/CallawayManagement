@@ -38,27 +38,19 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
 
         if (travisIndex !== -1 && getTravisProduct[travisIndex]) {
           const travispr = getTravisProduct[travisIndex];
-         // const id: number = travispr?.id ?? 0;
-
+   
           const update = {
             sku: item.sku,
             name: item.name !== undefined ? item.name : travispr.name,
             description: item.description != undefined ? item.description : travispr.description,
-            brand_id: 3,
+          
             mrp: item.mrp !== undefined ? item.mrp : travispr.mrp,
             gst: item.gst != undefined ? item.gst : travispr.gst,
-           // style_code: item.style_code !== undefined ? item.style_code : travispr.style_code,
-           // length: item.length !== undefined ? item.length : travispr.length,
+       
             category: item.category !== undefined ? item.category : travispr.category,
-            //season: item.season !== undefined ? item.season : travispr.season,
-           // line: item.line !== undefined ? item.line : travispr.line,
-           // color: item.color !== undefined ? item.color : travispr.color,
-           // color_code: item.color_code !== undefined ? item.color_code : travispr.color_code,
-            // Size:item.Size?.toString(),
-           // size: item.size !== undefined ? item.size : travispr.size,
-           // gender: item.gender !== undefined ? item.gender : travispr.gender,
+          
             stock_88: item.stock_88 !== undefined ? item.stock_88 : travispr.stock_88,
-            //stock_90: item.stock_90 !== undefined ? item.stock_90 : travispr.stock_90,
+           
             product_type: item.product_type !== undefined ? item.product_type : travispr.product_type,
             product_model: item.product_model !== undefined ? item.product_model : travispr.product_model,
             orientation: item.orientation !== undefined ? item.orientation : travispr.orientation,
@@ -69,10 +61,7 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
 
           }
           updateTravisData.push(update)
-          // dispatch(updateReduxData({
-          //   travisProduct:update  
-          // }))
-          // updateData(update,id,index)
+         
 
 
         } else if (travisIndex === -1) {
@@ -81,21 +70,15 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
 
             name: item.name,
             description: item.description,
-            brand_id: 3,
+          
             sku: item.sku,
             mrp: item.mrp,
             gst: item.gst,
-           // style_code: item.style_code,
-            //length: item.length,
+        
             category: item.category,
-           // season: item.season,
-           // line: item.line,
-           // color: item.color,
-           // color_code: item.color_code,
-           // size: item.size?.toString(),
-           // gender: item.gender,
+          
             stock_88: item.stock_88,
-          //  stock_90: item.stock_90,
+      
             product_type:item.product_type,
             product_model:item.product_model,
             orientation:item.orientation,

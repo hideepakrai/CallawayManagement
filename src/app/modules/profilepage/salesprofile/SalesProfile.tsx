@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Row, Col } from 'antd'; // Import Row and Col components from Ant Design
+import { Row, Col, Card, Tabs } from 'antd'; // Import Row and Col components from Ant Design
 
 import PendingOrder from './PendingOrder';
 import AllOrder from '../managerprofile/AllOrders';
@@ -12,6 +12,7 @@ import { CurentUser } from '../../model/useAccount/CurrentUser';
 import GetAllorder from '../../orderPage/GetAllorder';
 import { getCurrentUser } from '../../../slice/UserSlice/UserSlice';
 import { LoadingStop, getLoading } from '../../../slice/loading/LoadingSlice';
+import Friends from '../managerprofile/Friend';
 const SalesProfile = () => {
   const [isOrder, setIsOrder] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -31,8 +32,25 @@ const SalesProfile = () => {
     setIsOrder(false)
 
   }
+    const items = [
+    {
+      key: '1',
+      label: 'Pending Orders',
+      children: <AllPendingOrder />,
+    },
+    {
+      key: '2',
+      label: 'Completed Orders',
+      children: <AllOrder />,
+    },
+    {
+      key: '3',
+      label: 'Support',
+      children:  <Friends />,
+    },
+  ];
   return (
-    <div>
+    <div className='content-pro'>
       <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
         <div id="kt_toolbar_container" className="container d-flex flex-stack">
           <div className="d-flex ">
@@ -40,7 +58,7 @@ const SalesProfile = () => {
               <img src='https://via.placeholder.com/150' alt="Profile"></img>
             </div>
             <div className='pt-5 mx-6'>
-              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">Rahul Sharma</h1>
+              <h1 className="d-flex text-white fw-light my-1 fs-1 pb-3">{getCurrentUsers?.name}</h1>
               <h2 className="d-flex text-white fw-bold my-1 fs-3">Sales Representative</h2>
             </div>
           </div>
@@ -54,36 +72,19 @@ const SalesProfile = () => {
         </div>
       </div>
 
-      <Row className='container'>
+<Row className='container'>
 
-<Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
-
-  <AllPendingOrder />
-  {/* <PendingOrder /> */}
-
-</Col>
-
-
-<Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section'>
-  <AllOrder />
-  {/* <PendingOrder />  */}
-
-</Col>
+          <Col xl={24} lg={24} md={14} sm={24} xs={24} className='user-left-section  table-orders'>
+            <Card className=''>
+            <Tabs defaultActiveKey="1" items={items} />
+            </Card>
+          </Col>
 
 
- <Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
-
-
-   <Friend />
- </Col> 
-
-
-
-{/* <Col xl={6} lg={10} md={10} sm={24} xs={24} >
-  <Contact contactList={contactList} />
-</Col> */}
-
-</Row>
+          {/* <Col xl={24} lg={18} md={14} sm={24} xs={24} className='user-left-section'>
+            <Friends />
+          </Col> */}
+        </Row>
 
 {isOrder &&
           <GetAllorder
@@ -92,6 +93,8 @@ const SalesProfile = () => {
           />}
 
     </div>
+    
+    
   );
 };
 

@@ -4,6 +4,8 @@ import "./Edit.css";
 import Note from "./Note";
 import { CartModel } from "../../model/CartOrder/CartModel";
 import type { PopconfirmProps } from 'antd';
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../../../slice/UserSlice/UserSlice";
 
 
 type Props = {
@@ -22,7 +24,7 @@ type Props = {
 const Edit = ({ isEdit, onClose, changeStatus,selectedOrder ,deletedYes}: Props) => {
   const [status, setStatus] = useState<string>("");
   const [isNoteModalOpen, setIsNoteModalOpen] = useState<boolean>(false);
-  
+    const getCurrentUsers = useSelector(getCurrentUser)
   const handleOk = () => {
     if (status !== "") {
       
@@ -81,7 +83,9 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder ,deletedYes}: Props)
         title="Edit Status "
         className="note-modal"
 
-        footer={[
+        footer={ getCurrentUsers &&
+          getCurrentUsers && getCurrentUsers.role && ["Admin", "Manager"].includes(getCurrentUsers.role) ?
+          [
           <Popconfirm
     title="Delete the Order"
     description="Are you sure to delete this Order?"
@@ -99,7 +103,8 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder ,deletedYes}: Props)
           <Button key="ok" type="primary" onClick={handleOk}>
             Ok
           </Button>,
-        ]}
+        ] :null
+      }
 
       >
         <div className="mt-8">
