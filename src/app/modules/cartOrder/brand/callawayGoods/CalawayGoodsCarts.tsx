@@ -14,7 +14,7 @@ import CartHeader from '../../CartHeader';
 
 import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel';
-import { getGoodsProducts, updateQuantity90 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount, resetHardGoodsOrder, addPreOrderId} from '../../../../slice/allProducts/CallAwayGoodsSlice';
+import { getGoodsProducts, updateQuantity88 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount, resetHardGoodsOrder, addPreOrderId} from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import CallawaySubmitOrder from './CallawaySubmitOrder';
 
 import GetCallawayGoodsProduct from '../../../../api/allProduct/callaway/goods/GetCallAWayGoods';
@@ -229,7 +229,7 @@ const CalawayGoodsCarts = () => {
             //addonBefore={record.stock_88 || 0}
             addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
 
-            value={record.Quantity90?.toString()}
+            value={record.Quantity88?.toString()}
             onChange={(value) => {
               if (value !== null) {
                 handleQuantity90(value, record)
@@ -333,13 +333,13 @@ const CalawayGoodsCarts = () => {
     setQty90Message("");
     setIsQty90ToolTip(false);
     setQty90SKU("")
-    record.Quantity90 = intValue;
+    record.Quantity88 = intValue;
     if (intValue > 0) {
       if (record && record.stock_88 && record.stock_88 >= intValue) {
 
         // Dispatch an action to update the quantity for the SKU
 
-        dispatch(updateQuantity90({
+        dispatch(updateQuantity88({
           sku: record.sku,
           qty90: intValue,
           MRP: record.mrp,
@@ -355,7 +355,7 @@ const CalawayGoodsCarts = () => {
         setIsQty90ToolTip(true)
         setQty90SKU(record.sku)
 
-        dispatch(updateQuantity90({
+        dispatch(updateQuantity88({
           sku: record.sku,
           qty90: st90,
           MRP: record.mrp
@@ -373,7 +373,7 @@ const CalawayGoodsCarts = () => {
       setIsQty90ToolTip(true)
       setQty90SKU(record.sku)
     } else if (intValue === 0) {
-      dispatch(updateQuantity90({
+      dispatch(updateQuantity88({
         sku: record.sku,
         qty90: intValue,
         MRP: record.mrp,

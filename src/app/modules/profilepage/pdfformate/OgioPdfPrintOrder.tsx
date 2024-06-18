@@ -68,9 +68,9 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
 
     },
     {
-      title: "Size",
-      dataIndex: "size",
-      key: "size",
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
       width: 150,
 
     },
@@ -87,22 +87,15 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
 
 
     {
-      title: "MRP",
-      dataIndex: "mrp",
-      key: "mrp",
-      width: 120,
-
-
-
-    },
-    {
       title: "QTY",
-      dataIndex: "mrp",
-      key: "mrp",
+      dataIndex: "Quantity90",
+      key: "Quantity90",
       width: 120,
       render: (value, record) => {
 
-        const total = (record.stock_88 ? record.stock_88 : 0) + (record.stock_90 ? record.stock_90 : 0);
+        //const total = (record.stock_88 ? record.stock_88 : 0) + (record.stock_90 ? record.stock_90 : 0);
+        const total = (record.stock_90 ? record.stock_90 : 0);
+
         return (
           <div>
             {total}
@@ -112,8 +105,16 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
 
 
 
-    },
+     },
 
+    // {
+    //   title: "Qty",
+    //   dataIndex: "Quantity90",
+    //   key: "Quantity90",
+    //   width: 100,
+    //   fixed: 'right'
+
+    // },
 
 
     {

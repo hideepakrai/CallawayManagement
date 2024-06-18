@@ -96,34 +96,34 @@ const TravisOrderPdf = () => {
     },
 
 
-    {
-      title: "Season",
-      dataIndex: "season",
-      key: "season",
-      width: 100,
+    // {
+    //   title: "Season",
+    //   dataIndex: "season",
+    //   key: "season",
+    //   width: 100,
 
 
-    },
+    // },
 
 
-    {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
-      width: 120,
+    // {
+    //   title: "Category",
+    //   dataIndex: "category",
+    //   key: "category",
+    //   width: 120,
 
 
 
-    },
+    // },
 
 
-    {
-      title: "Style",
-      dataIndex: "style_code",
-      key: "style_code",
-      width: 85,
+    // {
+    //   title: "Style",
+    //   dataIndex: "style_code",
+    //   key: "style_code",
+    //   width: 85,
 
-    },
+    // },
 
 
 
@@ -143,6 +143,14 @@ const TravisOrderPdf = () => {
       title: "MRP",
       dataIndex: "mrp",
       key: "mrp",
+      width: 100,
+      fixed: 'right'
+
+    },
+    {
+      title: "Discount",
+      dataIndex: "LessDiscountAmount",
+      key: "LessDiscountAmount",
       width: 100,
       fixed: 'right'
 

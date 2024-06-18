@@ -178,7 +178,7 @@ const CallawayGoodsSlice = createSlice({
       
             //         //       TotalQty: 0,
             //         //       Quantity88: 0,
-            //         //       Quantity90: 0,
+            //         //       Quantity88: 0,
             //         //       Amount: 0
             //         // });
             //       }
@@ -198,17 +198,17 @@ const CallawayGoodsSlice = createSlice({
 
 
 
-          updateQuantity90:(state,actions) => {
+          updateQuantity88:(state,actions) => {
         
             const {sku, qty90,MRP}=actions.payload;
             const goodsIndex = state.callawayGoods.findIndex(
               (goodsItem) => goodsItem.sku === sku
             );
             if (goodsIndex!== -1) {
-              state.callawayGoods[goodsIndex].Quantity90 = qty90;
+              state.callawayGoods[goodsIndex].Quantity88 = qty90;
                
       
-              const quantity90 = state.callawayGoods[goodsIndex]?.Quantity90 ?? 0;
+              const quantity90 = state.callawayGoods[goodsIndex]?.Quantity88 ?? 0;
               state.callawayGoods[goodsIndex].TotalQty = quantity90;
 
               
@@ -289,8 +289,8 @@ const CallawayGoodsSlice = createSlice({
                    // stock_88:item.stock_88,
                    // size:item.size,
                
-                    Quantity90:0,
                     Quantity88:0,
+                
                     Amount:0,
                     TotalQty:0,
                     LessGST:0,
@@ -429,7 +429,7 @@ updateHardGoodsInclusiveDiscount:(state,action)=>{
 },
 resetHardGoodsOrder:(state)=>{
   state.callawayGoods.map(item=>{
-    item.Quantity90=0;
+    item.Quantity88=0;
     item.Quantity88=0;
     item.Amount=0;
     item.ordered=false;
@@ -454,7 +454,7 @@ resetHardGoodsOrder:(state)=>{
 export const {
     resetCallayGoods,
     addCallawayGoodsProduct,
-    updateQuantity90,
+    updateQuantity88,
     updateGoodsQty,
     updateReduxData,
     addHardGoodsReatailerDetails,

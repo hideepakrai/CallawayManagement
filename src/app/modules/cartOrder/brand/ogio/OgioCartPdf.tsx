@@ -133,36 +133,36 @@ const OgioCartPdf = () => {
     },
 
     //product Type
-    {
-      title: "Type",
-      dataIndex: "product_type",
-      key: "product_type",
-      width: 150,
+    // {
+    //   title: "Type",
+    //   dataIndex: "product_type",
+    //   key: "product_type",
+    //   width: 150,
 
 
 
 
-    },
+    // },
 
 
-    {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
-      width: 120,
+    // {
+    //   title: "Category",
+    //   dataIndex: "category",
+    //   key: "category",
+    //   width: 120,
 
 
 
-    },
+    // },
 
 
-    {
-      title: "Model",
-      dataIndex: "product_model",
-      key: "product_model",
-      width: 150,
+    // {
+    //   title: "Model",
+    //   dataIndex: "product_model",
+    //   key: "product_model",
+    //   width: 150,
 
-    },
+    // },
 
 
 
@@ -182,6 +182,14 @@ const OgioCartPdf = () => {
       title: "MRP",
       dataIndex: "mrp",
       key: "mrp",
+      width: 100,
+      fixed: 'right'
+
+    },
+    {
+      title: "Discount",
+      dataIndex: "LessDiscountAmount",
+      key: "LessDiscountAmount",
       width: 100,
       fixed: 'right'
 

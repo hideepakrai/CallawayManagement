@@ -33,13 +33,13 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
   });
 
-  // useEffect(() => {
-  //   if (selectedRow && selectedRow.length > 0) {
-  //     handlePrint(null, () => contentToPrint.current);
+  useEffect(() => {
+    if (selectedRow && selectedRow.length > 0) {
+      handlePrint(null, () => contentToPrint.current);
 
-  //     console.log("selectedRow",selectedRow)
-  //   }
-  // }, [selectedRow]);
+      console.log("selectedRow",selectedRow)
+    }
+  }, [selectedRow]);
 
   console.log("selectedRow",selectedRow)
   return (<div>

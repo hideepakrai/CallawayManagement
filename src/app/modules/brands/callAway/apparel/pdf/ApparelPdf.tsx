@@ -171,52 +171,15 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
                                           paddingLeft: "10px",
                                         }}
                                       >
-                                        Category
+                                        SKU
                                       </td>
                                       <td style={{ paddingLeft: "10px" }}>
-                                        {callout.category}
+                                        {callout.sku}
                                     
                                       </td>
 
                                     </tr>
     
-                                    <tr
-                                      style={{
-                                        border: "1px solid #ddd",
-                                        lineHeight: "40px",
-                                      }}
-                                    >
-                                      <td
-                                        style={{
-                                          borderRight: "1px solid #ddd",
-                                          paddingLeft: "10px",
-                                        }}
-                                      >
-                                        Sku
-                                      </td>
-                                      <td style={{ paddingLeft: "10px" }}>
-                                        {callout.sku}
-                                      </td>
-                                    </tr>
-    
-                                    <tr
-                                      style={{
-                                        border: "1px solid #ddd",
-                                        lineHeight: "40px",
-                                      }}
-                                    >
-                                      <td
-                                        style={{
-                                          borderRight: "1px solid #ddd",
-                                          paddingLeft: "10px",
-                                        }}
-                                      >
-                                        Color
-                                      </td>
-                                      <td style={{ paddingLeft: "10px" }}>
-                                        {callout.color}
-                                      </td>
-                                    </tr>
                                     <tr
                                       style={{
                                         border: "1px solid #ddd",
@@ -248,10 +211,47 @@ const ApparelPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) =
                                           paddingLeft: "10px",
                                         }}
                                       >
+                                        Category
+                                      </td>
+                                      <td style={{ paddingLeft: "10px" }}>
+                                        {callout.category}
+                                      </td>
+                                    </tr>
+                                    <tr
+                                      style={{
+                                        border: "1px solid #ddd",
+                                        lineHeight: "40px",
+                                      }}
+                                    >
+                                      <td
+                                        style={{
+                                          borderRight: "1px solid #ddd",
+                                          paddingLeft: "10px",
+                                        }}
+                                      >
+                                        Color
+                                      </td>
+                                      <td style={{ paddingLeft: "10px" }}>
+                                        {callout.color}
+                                      </td>
+                                    </tr>
+    
+                                    <tr
+                                      style={{
+                                        border: "1px solid #ddd",
+                                        lineHeight: "40px",
+                                      }}
+                                    >
+                                      <td
+                                        style={{
+                                          borderRight: "1px solid #ddd",
+                                          paddingLeft: "10px",
+                                        }}
+                                      >
                                         MRP
                                       </td>
                                       <td style={{ paddingLeft: "10px" }}>
-                                         {callout.mrp} 
+                                         {/* {callout.mrp}  */}
                                         ₹{callout.mrp}
                                       </td>
                                     </tr>
