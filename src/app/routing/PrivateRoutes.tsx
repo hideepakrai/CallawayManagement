@@ -23,6 +23,7 @@ import CallAwayGoods from "../pages/brand/callaway/CallawayGoods.js"
 import Cart from '../pages/cart/Cart.js'
 import OrderPdf from '../modules/cartOrder/brand/travisMethew/OrderPdf.js'
 import AdminProfile from '../pages/profilepage/adminProfile/AdminProfile.js'
+import {TestLogin} from "../modules/auth/components/Test.js";
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -61,6 +62,8 @@ const PrivateRoutes = () => {
         {/* Lazy Modules */}
 
       
+    {/* other Account login  */}
+    <Route path='/other-account' element={<TestLogin />} />
        {/* pdf */}
        
 

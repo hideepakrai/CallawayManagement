@@ -27,7 +27,11 @@ import PreOrder from '../preOrder/PreOrder';
 import { render } from 'react-dom';
 import HardGoodsPPt from '../pptHardGoods/HardGoodsPPt';
 import { TravisPdfPrint } from '../../../../model/pdf/PdfModel';
+
 import HardGoodsPdf from '../pdf/HardGoodsPdf';
+
+
+import BrandLogo from "../../../../../../../public/media/logos/logo-callaway.png"
 
 
 
@@ -87,14 +91,28 @@ const GooodsTable = () => {
   }
 
   const columns: TableColumnsType<BasicModelGoods> = [
+
     {
       dataIndex: "primary_image_url",
 
       width: 50,
-      // render: (value, record) => <ImageRenderer 
-      // record={record} />
+      render: (value, record) => {
+
+        return (
+          <span>
+
+              <img
+                src={BrandLogo}
+                alt="Primary Image"
+                style={{ maxWidth: "30px", marginRight: "5px" }}
+                width={30}
+              />
+            </span>
+        )
+      }
 
     },
+
 
     {
       title: "SKU ",
@@ -471,6 +489,7 @@ const GooodsTable = () => {
       })
     }
     setAllGoodsProduct(varskuArray)
+    localStorage.setItem("HardGoods",JSON.stringify(varskuArray))
   }, [getGoodsProduct])
 
   const [qty90ToolMesage, setQty90Message] = useState<string>("")
@@ -852,7 +871,10 @@ setAllGoodsProduct(allTr)
 
           pagination={{
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-            defaultPageSize: 20
+            defaultPageSize: 200,
+            showTotal: (total) => `Total ${total} items`, // Corrected showTotal usage
+            showSizeChanger: true, // Show page size changer
+            pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
           }}
         
         />):(

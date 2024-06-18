@@ -66,7 +66,7 @@ const RetailerProfile = () => {
     },
     {
       key: '3',
-      label: 'Support',
+      label: 'Users',
       children: <Friends friendList={friendList} />,
     },
   ];

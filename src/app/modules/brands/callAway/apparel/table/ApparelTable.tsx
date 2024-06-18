@@ -38,6 +38,7 @@ import SoftGoodsPPt from '../ppt/SoftGoodsPPt';
 import BrandLogo from "../../../../../../../public/media/logos/logo-callaway.png"
 //import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 
+
 type SelectCommonPlacement = SelectProps['placement'];
 
 const OPTIONS = ['Denim',];
@@ -79,6 +80,7 @@ const ApparelTable = () => {
       })
     }
     setAllApparel(apparelItem)
+    localStorage.setItem("SoftGoods",JSON.stringify(apparelItem))
   }, [getApparelProduct])
   const columns: TableColumnsType<BasicModelApparel> = [
     {
@@ -973,8 +975,12 @@ setAllApparel(allTr)
 
             pagination={{
               position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-              defaultPageSize: 20
+              defaultPageSize: 200,
+              showTotal: (total) => `Total ${total} items`, // Corrected showTotal usage
+              showSizeChanger: true, // Show page size changer
+              pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
             }}
+            
           />):
           (<Loading/>)}
         </Card>

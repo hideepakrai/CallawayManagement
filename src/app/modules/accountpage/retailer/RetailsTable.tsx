@@ -50,8 +50,9 @@ const handleResetIsEdit=()=>{
   setIsEdit(false)
   setUpdateRetailer(null)
 }
+
   return (<>
-   <div className='container'>
+   <div className='container '>
       <div className='card'>
         <Retailerheader />
         <div className='card-body py-3'>

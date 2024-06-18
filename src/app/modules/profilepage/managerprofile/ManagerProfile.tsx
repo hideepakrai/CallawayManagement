@@ -56,7 +56,7 @@ const ManagerProfile = () => {
     },
     {
       key: '3',
-      label: 'Support',
+      label: 'Users',
       children:  <Friends />,
     },
   ];
@@ -73,6 +73,7 @@ const ManagerProfile = () => {
                 <img style={{ backgroundColor: "#ddd" }} src={profilelogo} alt="Profile" />
                 <span className="d-flex text-white my-1 fs-5 profle-role">Manager</span>
               </div>
+
               <div className='pt-3 mx-6'>
                 <h1 className="d-flex text-white fw-light my-1 fs-1 pb-2 fw-bold">{getCurrentUsers?.name}</h1>
                 <a href='#'>
@@ -87,7 +88,10 @@ const ManagerProfile = () => {
                   </span>
                 </a>
               </div>
+
+
             </div>
+            
             <div className="d-flex align-items-center py-1">
               <div className="me-4">
                 <div className='user-web'>

@@ -6,7 +6,8 @@ import {getCurrentUser,getAdminToken,
   getUserOrders,addUser,
   addUserAccount,
   getUserRetailer,
-  addUserRetailer} from "../slice/UserSlice/UserSlice"
+  addUserRetailer,
+  getCurrentUserSlice} from "../slice/UserSlice/UserSlice"
 import { useSelector, useDispatch } from 'react-redux'
 
 import {getTravisProducts,getCategory,getStyleCode,getOtherProducts, addTravisProduct} from "../slice/allProducts/TravisMethewSlice";
@@ -27,48 +28,63 @@ const Reload = () => {
     const getOtherProduct = useSelector(getOtherProducts)
     const getCategorys = useSelector(getCategory)
     const getUserRetailers = useSelector(getUserRetailer)
-    useEffect(()=>{
+    
+    const getCurrentUserSlices= useSelector(getCurrentUserSlice)
+     useEffect(()=>{
+      if(getCurrentUserSlices){
+        console.log("getCurrentUserSlices",getCurrentUserSlices)
+        if(getCurrentUserSlices.currentUser){
+          localStorage.setItem('getCurrentUsers',JSON.stringify(getCurrentUserSlices.currentUser))
+        }
+        if(getCurrentUserSlices.adminToken){
+           localStorage.setItem('getuserAdmintoken',JSON.stringify(getCurrentUserSlices.adminToken))
+        }
+        if(getCurrentUserSlices.userOrders){
+          localStorage.setItem('userOrders',JSON.stringify(getCurrentUserSlices.userOrders))
+        }
+        if(getCurrentUserSlices.userProfile){
+           localStorage.setItem('getUserProfile',JSON.stringify(getCurrentUserSlices.userProfile))
+        }
+      }
+     },[getCurrentUserSlices])
+    
+    // useEffect(()=>{
      
-     if(getCurrentUsers &&
-         getUserAccounts&&
-         getAdminTokens &&
-         getOgioProduct &&
-         getTravisProduct
+    //  if(getCurrentUsers 
 
-        ){
-            localStorage.setItem('getCurrentUsers',JSON.stringify(getCurrentUsers))
-            localStorage.setItem('getAdminTokens',JSON.stringify(getAdminTokens))
-            localStorage.setItem('getUserAccounts',JSON.stringify(getUserAccounts))
-            localStorage.setItem('getOgioProduct',JSON.stringify(getOgioProduct))
-            localStorage.setItem('getTravisProduct',JSON.stringify(getTravisProduct))
-           
-     }  else if(getCurrentUsers && 
-      getCurrentUsers&&
-      getUserAccounts &&
-      getOgioProduct &&getOgioProduct.length === 0 &&
-      getTravisProduct &&getTravisProduct.length === 0
-    ) {
+    //     ){
+    //         localStorage.setItem('getCurrentUsers',JSON.stringify(getCurrentUsers))
+          
+    //  } 
+    // else if(getCurrentUsers && 
+    //   getCurrentUsers&&
+    //   getUserAccounts &&
+    //   getOgioProduct &&getOgioProduct.length === 0 &&
+    //   getTravisProduct &&getTravisProduct.length === 0
+    // ) {
 9
         
-         dispatch(addUser({
-          currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
-          UserAccount:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
-          adminToken: JSON.parse(localStorage.getItem('getAdminTokens') as string)
-         }))
-        dispatch(addOgioProduct({
-          ogioProduct:JSON.parse(localStorage.getItem('getOgioProduct') as string)
-        }))
-        dispatch(addTravisProduct({
-          travisProduct:JSON.parse(localStorage.getItem('getTravisProduct') as string)
-        }))
+        //  dispatch(addUser({
+        //   currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
+        //   UserAccount:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
+        //   adminToken: JSON.parse(localStorage.getItem('getAdminTokens') as string)
+        //  }))
+        // dispatch(addOgioProduct({
+        //   ogioProduct:JSON.parse(localStorage.getItem('getOgioProduct') as string)
+        // }))
+        // dispatch(addTravisProduct({
+        //   travisProduct:JSON.parse(localStorage.getItem('getTravisProduct') as string)
+        // }))
   
-     }
+    // }
      
 
-    },[getCurrentUsers,
-      getAdminTokens,
-      getUserAccounts,getOgioProduct
-      ]);
+    // },[getCurrentUsers,
+      
+    //   ]);
+
+
+
 
 
 // reload userRetailer

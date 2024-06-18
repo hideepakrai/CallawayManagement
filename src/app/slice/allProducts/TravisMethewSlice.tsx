@@ -54,6 +54,9 @@ const TravisMethewSlice = createSlice({
        startTravisLoading:(state)=>{
         state.isStartLoading = true
        },
+       addTravisLocalStorage:(state,action)=>{  
+          state.travis=action.payload.travis
+       },
        stopTravisLoading:(state)=>{
          state.isStartLoading = false
        },
@@ -790,7 +793,8 @@ export const {
     addTravisReatailerDetails,
     addTravisNote,
     submitModel,
-    importTravisProduct
+    importTravisProduct,
+    addTravisLocalStorage
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];

@@ -34,7 +34,7 @@ const AllOrders = () => {
         const allpend: AccountOrder[] = [];
         if (getUserOrder && getUserOrder.length > 0) {
             getUserOrder.forEach(item => {
-                if (item.status === "complete" ||item.status === "Complete") {
+                if (item.status === "complete" ||item.status === "Complete" || item.status==="Rejected") {
                     allpend.push(item);
                 }
             });
@@ -355,6 +355,8 @@ const handleResetDeleteOrder=()=>{
             changeStatus={handleUpdateStatus}
             deletedYes={handleDeleteOrder}
             />}
+
+                  
 
             {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} note={""} resetOrder={function (): void {
                    throw new Error("Function not implemented.");

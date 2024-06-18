@@ -47,6 +47,7 @@ import { addUserRetailer, getCurrentUser, getUserAccount } from '../../slice/Use
 import { GetUserRetailer } from '../../modules/auth/core/_requests.ts'
 import TravisImage from './TravisImage.tsx'
 import OgioImage from './OgioImage.tsx'
+import { OgioBasicModel } from '../../modules/model/ogio/OgioBrandModel.ts'
 const DashboardPage = () => (
 
 
@@ -227,15 +228,17 @@ const DashboardWrapper = () => {
   const dispatch = useDispatch()
   const getLoadings = useSelector(getLoading)
   const getTravisProduct = useSelector(getTravisProducts)
-  const getOgioProduct = useSelector(getOgioProducts)
+  const getOgioProduct = useSelector(getOgioProducts) as OgioBasicModel[]
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
 
   useEffect(() => {
     if (getTravisProduct && getTravisProduct.length > 0 &&
 
-      getOgioProduct && getOgioProduct.length > 0 &&
-      getAllBrand && getAllBrand.length > 0
+      getOgioProduct && getOgioProduct.length > 0 
+     
     ) {
+      localStorage.setItem("Ogio",JSON.stringify(getOgioProduct))
+      localStorage.setItem("Travis",JSON.stringify(getTravisProduct))
       dispatch(LoadingStop())
     } else if (getTravisProduct && getTravisProduct.length === 0) {
       dispatch(startTravisLoading())

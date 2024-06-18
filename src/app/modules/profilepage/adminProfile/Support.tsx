@@ -19,7 +19,7 @@ const Support = () => {
 
       <div className="  mt-3 border mx-4  mb-10 ">
   <div className="card-header " style={{backgroundColor:"#333", minHeight:"56px",}}>
-      <h3 className="card-title text-white">Support</h3>
+      <h3 className="card-title text-white">Users</h3>
      
   </div>
   <div className="card-body py-7 ">

@@ -14,6 +14,8 @@ type Props = {
 const GetAllorder = ({ resetOrder }: Props) => {
 
 
+    
+
     const getCurrentUsers = useSelector(getCurrentUser)
     const dispatch = useDispatch()
 
@@ -51,6 +53,7 @@ const GetAllorder = ({ resetOrder }: Props) => {
                     userOrders: response
                 }))
 
+                localStorage.setItem('userOrders',JSON.stringify(response))
                 resetOrder()
             }
 
@@ -68,7 +71,7 @@ const GetAllorder = ({ resetOrder }: Props) => {
                 dispatch(addUserOrders({
                     userOrders: response
                 }))
-
+                localStorage.setItem('userOrders',JSON.stringify(response))
                 resetOrder()
             }
 
@@ -85,7 +88,7 @@ const GetAllorder = ({ resetOrder }: Props) => {
                 dispatch(addUserOrders({
                     userOrders: response
                 }))
-
+                localStorage.setItem('userOrders',JSON.stringify(response))
                 resetOrder()
             }
 
@@ -104,7 +107,7 @@ const GetAllorder = ({ resetOrder }: Props) => {
                 dispatch(addUserOrders({
                     userOrders: response
                 }))
-
+                localStorage.setItem('userOrders',JSON.stringify(response))
                 resetOrder()
             }
 

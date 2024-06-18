@@ -54,7 +54,9 @@ const OgioSlice = createSlice({
        addNote:(state,action)=>{
         state.note.push(action.payload.note)
        },
-
+   addOgioLocalStroge:(state,action)=>{
+    state.ogio=action.payload.ogio
+   },
         addOgioProduct: (state, action) => {
             const { ogioProduct, id } = action.payload;
             const categoriesSet = new Set<string>();
@@ -535,7 +537,8 @@ export const { addOgioProduct,
     removeOtherProduct,
     addOgioReatailerDetails,
     addNote,
-    updateOtherQuantity90
+    updateOtherQuantity90,
+    addOgioLocalStroge
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];
