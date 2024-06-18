@@ -10,8 +10,8 @@ import {getCurrentUser,getAdminToken,
   getUserAccount,
   getUserOrders,addUser,
   addUserAccount} from "../../../slice/UserSlice/UserSlice";
-  import {reloadTravisProduct,reloadCategory,reloadStyleCode} from "../../../slice/allProducts/TravisMethewSlice";
-import {getOgioProducts} from "../../../slice/allProducts/OgioSlice"
+  import {reloadTravisProduct,reloadCategory,reloadStyleCode, addTravisLocalStorage} from "../../../slice/allProducts/TravisMethewSlice";
+import {addOgioLocalStroge, getOgioProducts} from "../../../slice/allProducts/OgioSlice"
 
 type AuthContextProps = {
   auth: AuthModel | undefined
@@ -57,15 +57,24 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
 
    
     // Load authentication state from local storage
-    saveAuth(JSON.parse(localStorage.getItem('getCurrentUsers') as string))
-    setCurrentUser(JSON.parse(localStorage.getItem('refreshAuth') as string))
+    saveAuth(JSON.parse(localStorage.getItem('getuserAdmintoken') as string))
+    setCurrentUser(JSON.parse(localStorage.getItem('getCurrentUsers') as string))
     dispatch(addUserAccount({
-      UserAccount:JSON.parse(localStorage.getItem('getUserAccounts') as string),
       currentUser:JSON.parse(localStorage.getItem('getCurrentUsers') as string),
-      adminToken: JSON.parse(localStorage.getItem('getAdminTokens') as string)
+      userProfile:JSON.parse(localStorage.getItem('getUserProfile') as string),
+      adminToken: JSON.parse(localStorage.getItem('getuserAdmintoken') as string)
     }))
     
-  
+
+    dispatch(addOgioLocalStroge({
+      ogio: JSON.parse(localStorage.getItem('Ogio') as string)
+    }))
+
+    
+    dispatch(addTravisLocalStorage({
+      travis: JSON.parse(localStorage.getItem('Travis') as string)
+    }))
+
   }, []);
 
   return (
@@ -79,9 +88,15 @@ const AuthInit: FC<WithChildren> = ({children}) => {
   const {auth, currentUser, logout, setCurrentUser} = useAuth()
   const [showSplashScreen, setShowSplashScreen] = useState(true)
 
+
+  useEffect(()=>{
+    console.log("currentUser",currentUser)
+  },[])
   // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
   useEffect(() => {
     const requestUser = async (apiToken: string) => {
+      // eslint-disable-next-line no-debugger
+      debugger
       try {
         if (!currentUser) {
           const {data} = await getUserByToken(apiToken)

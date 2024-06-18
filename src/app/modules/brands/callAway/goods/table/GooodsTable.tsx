@@ -470,6 +470,7 @@ const GooodsTable = () => {
       })
     }
     setAllGoodsProduct(varskuArray)
+    localStorage.setItem("HardGoods",JSON.stringify(varskuArray))
   }, [getGoodsProduct])
 
   const [qty90ToolMesage, setQty90Message] = useState<string>("")

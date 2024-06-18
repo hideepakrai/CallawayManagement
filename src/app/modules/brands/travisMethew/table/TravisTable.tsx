@@ -94,6 +94,7 @@ const TravisTable = () => {
       })
     }
     setAllTravisProduct(allTr)
+    localStorage.setItem("Travis",JSON.stringify(allTr))
   }, [getProduct])
 
 

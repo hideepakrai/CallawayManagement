@@ -79,8 +79,10 @@ const OgioTable = () => {
         }
       })
       setAllOgioData(newData)
+      localStorage.setItem("Ogio",JSON.stringify(newData))
     }
   },[ogioProducts])
+
 
   const columns: TableColumnsType<OgioBasicModel> = [
     {

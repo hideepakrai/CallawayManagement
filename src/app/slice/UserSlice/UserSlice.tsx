@@ -46,7 +46,9 @@ const UserSlice = createSlice({
             state.UserRetailer=action.payload.UserRetailer;
         },
         addUserAccount: (state, action) => {
-            state.UserAccount = action.payload.UserAccount;
+            state.currentUser = action.payload.currentUser;
+            state.userProfile= action.payload.userProfile
+            state.adminToken= action.payload.adminToken
         },
         // addUserInfo: (state, action) => {
         //     state.UserInfo = action.payload.UserInfo;
@@ -77,5 +79,6 @@ export const getAdminToken = (state: { user: UserState }) => state.user.adminTok
 export const getUserAccount = (state: { user: UserState }) => state.user.UserAccount
 export const getUserRetailer = (state: { user: UserState }) => state.user.UserRetailer
 export const getUserOrders = (state: { user: UserState }) => state.user.userOrders
+export const getCurrentUserSlice= (state: { user: UserState})=> state.user;
 // Export reducer
 export default UserSlice.reducer;

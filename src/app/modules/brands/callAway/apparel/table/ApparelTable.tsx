@@ -79,6 +79,7 @@ const ApparelTable = () => {
       })
     }
     setAllApparel(apparelItem)
+    localStorage.setItem("SoftGoods",JSON.stringify(apparelItem))
   }, [getApparelProduct])
   const columns: TableColumnsType<BasicModelApparel> = [
     {
