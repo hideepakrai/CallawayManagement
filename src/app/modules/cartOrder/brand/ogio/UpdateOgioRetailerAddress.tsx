@@ -36,9 +36,11 @@ const UpdateOgioRetailerAddress = ({resetOgioAddress}:Props) => {
                 sku: item.sku,
                 mrp: item.mrp,
                 stock_90: item.Quantity90 ? item.Quantity90 : 0,
-                Amount:item.Amount,
+                //Amount:item.Amount,
             LessDiscountAmount:item.LessDiscountAmount,
-            product_type:item.product_type
+            product_type:item.product_type,
+            Amount:item.FinalBillValue,
+
     
               })
              

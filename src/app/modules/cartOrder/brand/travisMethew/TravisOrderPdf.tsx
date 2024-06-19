@@ -158,8 +158,8 @@ const TravisOrderPdf = () => {
 
     {
       title: "Amount",
-      dataIndex: "Amount",
-      key: "Amount",
+      dataIndex: "FinalBillValue",
+      key: "FinalBillValue",
       width: 70,
       fixed: 'right'
 

@@ -36,7 +36,8 @@ const UpdateHardGoodsRetailerAddress = ({resetHardGoodsAddress}:Props) => {
               stock_88: item.Quantity88 ? item.Quantity88 : 0,
              // size: item.size,
               color:item.color,
-              Amount:item.Amount,
+              //Amount:item.Amount,
+              Amount:item.FinalBillValue,
               LessDiscountAmount:item.LessDiscountAmount
   
             })

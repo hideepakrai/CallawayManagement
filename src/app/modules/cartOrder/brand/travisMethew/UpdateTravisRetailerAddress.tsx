@@ -31,8 +31,11 @@ const UpdateTravisRetailerAddress = ({resetAddress}:Props) => {
               stock_88: item.Quantity88 ? item.Quantity88 : 0,
               size: item.size,
               color:item.color,
-              Amount:item.Amount,
-              LessDiscountAmount:item.LessDiscountAmount
+              //Amount:item.Amount,
+              LessDiscountAmount:item.LessDiscountAmount,
+              Amount:item.FinalBillValue,
+              description:item.description,
+
   
             })
             
@@ -103,6 +106,7 @@ const UpdateTravisRetailerAddress = ({resetAddress}:Props) => {
  const getAllUsers=useSelector(getUserProfile)
  const [salesRepId, setSalesRepId]= useState<number>(0)
 useEffect(()=>{
+
  if(getAllUsers &&getAllUsers){
    getAllUsers.map(item=>{
      if( item.id &&item.role==="Sales Representative"){

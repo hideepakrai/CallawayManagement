@@ -37,7 +37,7 @@ const UpdatesoftGoodsRetailerAddress = ({resetApparelAddress}:Props) => {
                 mrp: item.mrp,
                 stock_90: item.Quantity90 ? item.Quantity90 : 0,
                 stock_88:item.Quantity88 ? item.Quantity88 : 0,
-                Amount:item.Amount,
+                Amount:item.FinalBillValue,
             LessDiscountAmount:item.LessDiscountAmount,
             category:item.category,
     

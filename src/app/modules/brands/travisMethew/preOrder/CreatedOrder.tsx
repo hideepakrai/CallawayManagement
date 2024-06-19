@@ -64,9 +64,11 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
             stock_88: item.Quantity88 ? item.Quantity88 : 0,
             size: item.size,
             color:item.color,
-            Amount:item.Amount,
+            //Amount:item.Amount,
             LessDiscountAmount:item.LessDiscountAmount,
             description:item.description,
+            Amount:item.FinalBillValue,
+
 
             
 
