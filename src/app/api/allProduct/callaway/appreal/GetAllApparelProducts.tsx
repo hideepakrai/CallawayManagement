@@ -22,7 +22,10 @@ const GetAllApparelProducts = ({ resetApparel }: Props) => {
     try {
       const response = await GetCallawayApprealProduct();
        console.log("appareal ", response)
+        // eslint-disable-next-line no-debugger
+            debugger
       if (response ) {
+
         dispatch(addCallawayApparelProduct({
           apparelProduct: response
 

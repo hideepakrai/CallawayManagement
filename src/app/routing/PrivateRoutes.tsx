@@ -7,7 +7,7 @@ import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
-import {Order} from "../pages/order/Order.js"
+import Order from "../pages/order/Order.js"
 import Ogio from "../pages/brand/ogio/Ogio.js"
 import RetailerProfile from '../pages/profilepage/retailerprofile/RetailerProfile.js'
 import ManagerProfile from '../pages/profilepage/managerprofile.tsx/ManagerProfile.js'
@@ -41,7 +41,7 @@ const PrivateRoutes = () => {
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
-        <Route path='order' element={<Order />} />
+        <Route path='/order/:id' element={<Order />} />
 
         <Route path='/profilepage/retailerprofile/:id' element={<RetailerProfile />} />
         <Route path='/profilepage/managerprofile/:id' element={<ManagerProfile />} />
