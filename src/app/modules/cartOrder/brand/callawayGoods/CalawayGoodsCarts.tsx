@@ -12,7 +12,7 @@ import Loading from '../../../loading/Loading';
 import { LoadingStart, LoadingStop, getLoading } from '../../../../slice/loading/LoadingSlice';
 import CartHeader from '../../CartHeader';
 
-import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
+import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { BasicModelGoods } from '../../../model/goods/CallawayGoodsModel';
 import { getGoodsProducts, updateQuantity88 ,getHardGoodsRetailerDetail, updateProgressStep, updaterHardGoodsExclusiveDiscount, updateHardGoodsInclusiveDiscount, updateHardGoodsFlatDiscount, resetHardGoodsOrder, addPreOrderId} from '../../../../slice/allProducts/CallAwayGoodsSlice';
 import CallawaySubmitOrder from './CallawaySubmitOrder';
@@ -53,7 +53,7 @@ const CalawayGoodsCarts = () => {
   const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
 
  
-
+   const getCurrentUsers= useSelector(getCurrentUser)
 
   const getHardGoodsRetailerDetails = useSelector(getHardGoodsRetailerDetail);
 
@@ -467,12 +467,21 @@ const CalawayGoodsCarts = () => {
       }))
     }
     else if (message != ``) {
-      alert(message)
-      //messageApi.info(message);
-      dispatch(updateProgressStep({
-        progressStep: 2
-  
-      }))
+      if(getCurrentUsers && getCurrentUsers.role  ){
+        if(getCurrentUsers.role==="Retailer" || getCurrentUsers.role==="Sales Representative"){
+          dispatch(updateProgressStep({
+            progressStep: 0}))
+
+            dispatch(resetHardGoodsOrder())
+        } 
+        else{
+          dispatch(updateProgressStep({
+            progressStep: 2
+      
+          }))
+        }
+       
+      } 
     }
 
    

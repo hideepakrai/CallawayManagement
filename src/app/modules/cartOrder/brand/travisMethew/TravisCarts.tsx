@@ -21,7 +21,7 @@ import TravisSubmitOrder from './TravisSubmitOrder';
 import TravisUpdateOrderToDB from "./TravisUpdateOrderToDB"
 import TravisGallery from "../../../brands/travisMethew/table/column/gallery"
 import Note from "../../Note"
-import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
+import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import ApproveOrderTravis from './ApproveOrderTravis';
 import { message as antdMessage } from 'antd';
 import AlertTravis from "./AlertTravis"
@@ -50,7 +50,7 @@ const TravisCarts = () => {
   const [isShowPdf, setIsShowPdf] = useState<boolean>(false);
   const getTravisRetailerDetails = useSelector(getTravisRetailerDetail);
 
-  const getUserAccounts = useSelector(getUserAccount)
+  const getCurrentUsers = useSelector(getCurrentUser)
 
   useEffect(() => {
     if (getLoadings) {
@@ -626,10 +626,22 @@ const TravisCarts = () => {
     else if (message != ``) {
       alert(message)
       //messageApi.info(message);
-      dispatch(updateProgressStep({
-        progressStep: 2
-  
-      }))
+      if(getCurrentUsers && getCurrentUsers.role  ){
+        if(getCurrentUsers.role==="Retailer" || getCurrentUsers.role==="Sales Representative"){
+          dispatch(updateProgressStep({
+            progressStep: 0}))
+
+            dispatch(resetTravisOrder())
+        } 
+        else{
+          dispatch(updateProgressStep({
+            progressStep: 2
+      
+          }))
+        }
+       
+      } 
+     
     }
 
    

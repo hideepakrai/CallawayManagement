@@ -11,7 +11,7 @@ import Loading from '../../../loading/Loading';
 import { LoadingStart, LoadingStop, getLoading } from '../../../../slice/loading/LoadingSlice';
 import CartHeader from '../../CartHeader';
 
-import { getUserAccount } from '../../../../slice/UserSlice/UserSlice';
+import { getCurrentUser, getUserAccount } from '../../../../slice/UserSlice/UserSlice';
 import { message as antdMessage } from 'antd';
 import { BasicModelApparel } from '../../../model/apparel/CallawayApparelModel';
 import { getApparelProducts, getSoftgoodRetailerDetail, resetSoftGoods, updateApparelFlatDiscount, updateApparelInclusiveDiscount, updateProgressStep, updateQuantity88, updateQuantity90, updaterApparelExclusiveDiscount,addPreOrderId } from '../../../../slice/allProducts/CallawayApparelSlice';
@@ -644,7 +644,7 @@ const handleOkNote = () => {
   }
 
   // calculated amount and discount ammount
-
+  const getCurrentUsers= useSelector(getCurrentUser)
   const [totalAmount, setTotalAmount] = useState<number>()
   const [discountAmount, setDiscountAmount] = useState<number>()
   const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
@@ -716,10 +716,21 @@ const handleOkNote = () => {
     else if (message != ``) {
       alert("order submited sucessfully")
       //messageApi.info(message);
-      dispatch(updateProgressStep({
-        progressStep: 2
-  
-      }))
+      if(getCurrentUsers && getCurrentUsers.role  ){
+        if(getCurrentUsers.role==="Retailer" || getCurrentUsers.role==="Sales Representative"){
+          dispatch(updateProgressStep({
+            progressStep: 0}))
+
+            dispatch(resetSoftGoods())
+        } 
+        else{
+          dispatch(updateProgressStep({
+            progressStep: 2
+      
+          }))
+        }
+       
+      } 
     }
 
    

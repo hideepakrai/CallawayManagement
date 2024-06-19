@@ -616,7 +616,7 @@ const OgioCart = () => {
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
   
   //refetch
-  
+
   const [isRefetch, setIsRefetch] = useState<boolean>(false)
   const handleRefetch = () => {
     setIsRefetch(true)
@@ -684,11 +684,21 @@ const handleOkSubmit=()=>{
     }
     else if (message != ``) {
       alert(message)
-     // messageApi.info(message);
-     dispatch(updateProgressStep({
-      progressStep: 2
+      if(getCurrentUsers && getCurrentUsers.role  ){
+        if(getCurrentUsers.role==="Retailer" || getCurrentUsers.role==="Sales Representative"){
+          dispatch(updateProgressStep({
+            progressStep: 0}))
 
-    }))
+            dispatch(resetOgioOrder())
+        } 
+        else{
+          dispatch(updateProgressStep({
+            progressStep: 2
+      
+          }))
+        }
+       
+      } 
     }
      dispatch(LoadingStop())
   }

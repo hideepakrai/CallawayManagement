@@ -94,7 +94,7 @@ const TravisTable = () => {
       })
     }
     setAllTravisProduct(allTr)
-    localStorage.setItem("Travis",JSON.stringify(allTr))
+    //localStorage.setItem("Travis",JSON.stringify(allTr))
   }, [getProduct])
 
 
@@ -417,7 +417,7 @@ const TravisTable = () => {
       width: 120,
       fixed: 'right',
       render: (value, record) => {
-        console.log("r", record.stock_88);
+       
         return (
           <Tooltip 
             open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} 
@@ -1473,15 +1473,12 @@ else if(showAvailableOnly){
   }
 
 }
-
+ console.log("hello")
  
       setAllTravisProduct(allTr)
     };
 
-    // const handlePageChange = (page, pageSize) => {
-    //   setCurrentPage(page);
-    //   setPageSize(pageSize);
-    // };
+  
  
   
   return (
