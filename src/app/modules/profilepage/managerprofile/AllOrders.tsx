@@ -109,23 +109,61 @@ const AllOrders = () => {
         },
 
 
-        {
+        // {
 
            
-            title: "Retailer name  ",
+        //     title: "Retailer name  ",
+        //     dataIndex: "retailer_details",
+        //     width: 150,
+
+        //     render: (value,record) =>{
+        //        const val = record.retailer_name
+        //      //const val = value
+
+
+        //         console.log("a",val)
+        //         return(val)
+        //     }
+        // },
+       
+        {
+            title: "Retailer name",
             dataIndex: "retailer_details",
             width: 150,
-
-            render: (value,record) =>{
-               const val = record.retailer_name
-             //const val = value
-
-
-                console.log("a",val)
-                return(val)
+            render: (value, record) => {
+                let retailerName = 'N/A'; 
+        
+                if (typeof value === 'string') {
+                    try {
+                        const retailerDetails = JSON.parse(value);
+                        retailerName = retailerDetails.name ; 
+                    } catch (e) {
+                        console.error("Failed to parse retailer_details:", e);
+                    }
+                }
+        
+                console.log("Retailer name:", retailerName);
+        
+                return retailerName;
             }
         },
-       
+
+        // {
+        //     title: "Retailer name",
+        //     dataIndex: "retailer_details",
+        //     width: 150,
+        //     render: (value, record) => {
+        //         // Parse the retailer_details JSON string directly
+        //         const retailerDetails = JSON.parse(value);
+        //         const retailerName = retailerDetails.name;
+                
+        //         console.log("Retailer name:", retailerName);
+        
+        //         // Return the name directly
+        //         return retailerName;
+        //     }
+        // },
+        
         
         
         
