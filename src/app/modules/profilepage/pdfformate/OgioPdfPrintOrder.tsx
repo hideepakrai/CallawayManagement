@@ -22,7 +22,9 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
   const [retailerDetail, setRetailerDetail] = useState<RetailerModel>()
   const [orderDate, setOrderDate] = useState<string | undefined>(undefined);
 
-  const getPreOrderIds = useSelector(getPreOrderId)
+  //const getPreOrderIds = useSelector(getPreOrderId)
+  const getPreOrderIds=recordPdf.id
+
 
   const [notes, setNotes] = useState<string[]>([])
   const getOgioNote = useSelector(getOgioNotes)
