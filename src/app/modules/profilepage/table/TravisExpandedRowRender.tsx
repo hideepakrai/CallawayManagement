@@ -43,35 +43,6 @@ const TravisExpandedRowRender =({allarray,id}:Props)=>{
           },
       
       
-          {
-              title: "Season",
-              dataIndex: "season",
-              key: "season",
-              width: 100,
-        
-        
-            },
-      
-      
-          {
-            title: "Category",
-            dataIndex: "category",
-            key: "category",
-            width: 120,
-      
-      
-      
-          },
-      
-      
-          {
-              title: "Style",
-              dataIndex: "style_code",
-              key: "style_code",
-              width: 85,
-        
-            },
-      
       
         {
             title: "Qty",

@@ -107,11 +107,32 @@ const AllOrders = () => {
                 return <span>{brandName}</span>;
             },
         },
+
+
         {
+
+           
             title: "Retailer name  ",
-            dataIndex: "retailer_name",
+            dataIndex: "retailer_details",
             width: 150,
+
+            render: (value,record) =>{
+               const val = record.retailer_name
+             //const val = value
+
+
+                console.log("a",val)
+                return(val)
+            }
         },
+       
+        
+        
+        
+           
+
+       
+        
         {
             title: "Order date",
             dataIndex: "created_at",
