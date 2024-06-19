@@ -8,8 +8,12 @@ import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 import image3 from "../../../../../public/media/icons/logo-white.png"
 import {Link} from 'react-router-dom'
 import clsx from 'clsx'
-import { getApparelProducts } from '../../../../app/slice/allProducts/CallawayApparelSlice'
+import { getApparelProducts, getPreOrderId } from '../../../../app/slice/allProducts/CallawayApparelSlice'
 import { useSelector } from 'react-redux'
+import { getUserOrders } from '../../../../app/slice/UserSlice/UserSlice'
+//import {getUserOrders} from '../'
+
+
 type Props = {
   className: string
   chartColor: string
@@ -18,6 +22,20 @@ type Props = {
 }
 
 const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColor}) => {
+  const getUserOrd = getUserOrders
+
+  useEffect (  ()=> {
+
+
+
+    
+      //dispatch(getUserOrders);
+    
+
+   } )
+
+
+
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
   const refreshChart = () => {
@@ -46,6 +64,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef, mode])
   const getApparelProduct= useSelector(getApparelProducts)
+  const getPreOrderIds = useSelector(getPreOrderId)
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -87,7 +106,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
             {/* end::Col */}
             {/* begin::Col */}
 
-            <Link className ={ clsx ('col bg-light-primary cart-brand-section px-4 pt-4 pb-8 rounded-2 mb-7')} to={"/brand/travis-methew"} >
+            <Link className ={ clsx ('col bg-light-primary cart-brand-section px-4 pt-4 pb-8 rounded-2 mb-7')} to={"/brand/callaway/apparel"} >
               <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
               <a href='#' className='text-primary fw-semibold fs-6'style={{color:"#141414"}}  >
               Create Order
@@ -106,7 +125,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
               {/* <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' /> */}
               <a href='#' className=' fw-semibold  fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold text-danger'>0 </span> <br></br> Complete Orders  
+              <span className='fs-1 fw-bold text-danger'> 0 </span> <br></br> Complete Orders  
               </a>
             </div>
             {/* end::Col */}

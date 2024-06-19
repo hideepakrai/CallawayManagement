@@ -47,7 +47,7 @@ export interface OgioBasicModel {
        Discount?:number|null,
        LessDiscountAmount?:number,
        NetBillings?:number|null,
-       FinalBillValue?:number|null,
+       FinalBillValue?:number,
        error?:string,
        has_image?:number,
        family?:string,

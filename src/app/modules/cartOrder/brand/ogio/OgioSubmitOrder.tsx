@@ -88,7 +88,9 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
             LessDiscountAmount:item.LessDiscountAmount,
             product_type:item.product_type,
             description:item.description,
-            Amount:item.Amount,
+           // Amount:item.Amount,
+            Amount:item.FinalBillValue,
+
 
 
           })

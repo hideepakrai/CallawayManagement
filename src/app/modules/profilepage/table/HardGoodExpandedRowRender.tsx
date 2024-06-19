@@ -84,14 +84,14 @@ const HardGoodsExpandedRowRender =({allarray,id}:Props)=>{
         {
             title: "Amount",
 
-            dataIndex: "total_value",
+            dataIndex: "Amount",
             key: "Amount",
             width: 100,
             fixed: "right",
-            render:(value, record)=>{
-                const newAmount=(record?.mrp??0)-(record?.LessDiscountAmount??0)
-                return(newAmount)
-            }
+            // render:(value, record)=>{
+            //     const newAmount=(record?.mrp??0)-(record?.LessDiscountAmount??0)
+            //     return(newAmount)
+            // }
         },
     ]
 

@@ -188,8 +188,8 @@ const SoftGoodsOrderPdf = () => {
 
     {
       title: "Amount",
-      dataIndex: "Amount",
-      key: "Amount",
+      dataIndex: "FinalBillValue",
+      key: "FinalBillValue",
       width: 50,
       fixed: 'right'
 

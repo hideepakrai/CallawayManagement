@@ -88,7 +88,9 @@ const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discou
             stock_88: item.Quantity88 ? item.Quantity88 : 0,
             size: item.size,
             color:item.color,
-            Amount:item.Amount,
+            //Amount:item.Amount,
+            Amount:item.FinalBillValue,
+
             LessDiscountAmount:item.LessDiscountAmount,
             description:item.description,
 
