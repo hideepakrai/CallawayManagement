@@ -93,7 +93,7 @@ const TravisCarts = () => {
     {
       title: "SKU",
       dataIndex: "sku",
-      width: 100,
+      width: 130,
       fixed: "left",
 
       // filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
@@ -165,7 +165,7 @@ const TravisCarts = () => {
       title: "Season",
       dataIndex: "season",
       key: "season",
-      width: 100,
+      width: 70,
 
 
     },
@@ -188,7 +188,7 @@ const TravisCarts = () => {
       title: "Color",
       dataIndex: "color",
       key: "color",
-      width: 75,
+      width: 100,
 
 
     },
@@ -207,13 +207,13 @@ const TravisCarts = () => {
       title: "Qty88",
       dataIndex: "stock_88",
       key: "stock_88",
-      width: 150,
+      width: 120,
       fixed: 'right',
       render: (value, record) => (
         <Tooltip open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""} placement="top">
           <InputNumber
             status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
-            className='mx-3 number-input'
+            className=' number-input'
             //addonBefore={record.stock_88}
             addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
 
@@ -239,14 +239,14 @@ const TravisCarts = () => {
       title: "Qty90",
       dataIndex: "stock_90",
       key: "stock_90",
-      width: 150,
+      width: 120,
       fixed: 'right',
       render: (value, record) => (
 
         <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
-            className='mx-5 number-input'
+            className=' number-input'
             addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
             value={record.Quantity90?.toString()}
             onChange={(value) => {
@@ -294,21 +294,21 @@ const TravisCarts = () => {
       title: "GST",
       dataIndex: "gst",
       key: "gst",
-      width: 100,
+      width: 80,
       fixed: 'right'
     },
     {
       title: "LessGST",
       dataIndex: "LessGST",
       key: "LessGST",
-      width: 100,
+      width: 90,
       // fixed:'right'
     },
     {
       title: "Discount",
       dataIndex: "Discount",
       key: "Discount",
-      width: 100,
+      width: 80,
       // fixed:'right'
     },
     {
@@ -329,7 +329,7 @@ const TravisCarts = () => {
       title: "FinalBillValue",
       dataIndex: "FinalBillValue",
       key: "FinalBillValue",
-      width: 100,
+      width: 110,
       // fixed:'right'
     },
 

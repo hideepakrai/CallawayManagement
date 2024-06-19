@@ -417,11 +417,11 @@ const TravisTable = () => {
       width: 120,
       fixed: 'right',
       render: (value, record) => {
-       
+
         return (
-          <Tooltip 
-            open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} 
-            title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""} 
+          <Tooltip
+            open={record.sku === qty88ToolSKU ? isQty88ToolTip : false}
+            title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""}
             placement="top"
           >
             <InputNumber
@@ -441,7 +441,7 @@ const TravisTable = () => {
         );
       }
     },
-    
+
     {
       title: "Qty90",
       dataIndex: "stock_90",
@@ -456,19 +456,19 @@ const TravisTable = () => {
             className=' number-input'
             addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
             style={{ width: 100 }}
-           // addonBefore={record.stock_90 || 0}
+            // addonBefore={record.stock_90 || 0}
             value={record.Quantity90?.toString()}
             onChange={(value) => {
               if (value !== null) {
-                
+
                 handleQuantity90(value, record)
               }
 
             }}
 
-           // disabled={value != null && value.stock_90 === 0}
-         
-           // style={{ width: 100 }}
+            // disabled={value != null && value.stock_90 === 0}
+
+            // style={{ width: 100 }}
             disabled={record.stock_90 === 0}
 
           />
@@ -673,8 +673,8 @@ const TravisTable = () => {
               <InputNumber
                 status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
                 className='mx-3 number-input'
-               // addonBefore={record.stock_88}
-               addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
+                // addonBefore={record.stock_88}
+                addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
 
                 value={record.Quantity88?.toString()}
                 style={{ width: 100 }}
@@ -686,8 +686,8 @@ const TravisTable = () => {
                 }}
 
 
-               // disabled={value !== null && value?.stock_88 === 0}
-               disabled={record.stock_88 === 0}
+                // disabled={value !== null && value?.stock_88 === 0}
+                disabled={record.stock_88 === 0}
 
               />
             </Tooltip>
@@ -707,8 +707,8 @@ const TravisTable = () => {
               <InputNumber
                 status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
                 className='mx-5 number-input'
-              //  addonBefore={record.stock_90 || 0}
-              addonBefore={record.stock_90}
+                //  addonBefore={record.stock_90 || 0}
+                addonBefore={record.stock_90}
 
                 value={record.Quantity90?.toString()}
                 onChange={(value) => {
@@ -906,7 +906,7 @@ const TravisTable = () => {
 
         }));
         dispatch(updateProgressStep({
-          progressStep:0,
+          progressStep: 0,
 
         }))
 
@@ -984,11 +984,11 @@ const TravisTable = () => {
           MRP: record.mrp,
         }));
         dispatch(updateProgressStep({
-          progressStep:0,
+          progressStep: 0,
 
         }))
-        
-       
+
+
 
       }
       else if (record && record.stock_88 && record.stock_88) {
@@ -1441,46 +1441,46 @@ const TravisTable = () => {
   }
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(200);
-    const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
-    //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
-    
-    const handleCheckboxClick = (showAvailableOnly:boolean) => {
-      setShowAvailableOnly(!showAvailableOnly);
+  const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
+  //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
 
-      console.log("check",showAvailableOnly)
-      const allTr: BasicModelTravis[] = []
+  const handleCheckboxClick = (showAvailableOnly: boolean) => {
+    setShowAvailableOnly(!showAvailableOnly);
 
-      if(!showAvailableOnly){
+    console.log("check", showAvailableOnly)
+    const allTr: BasicModelTravis[] = []
+
+    if (!showAvailableOnly) {
 
 
 
-      if(allTravisProduct && allTravisProduct.length>0 ){
-        allTravisProduct.map((item)=>{
-          if((item.stock_88!=undefined && item.stock_88 > 0  ) || (item.stock_90!=undefined  && item.stock_90>0  )  ){
+      if (allTravisProduct && allTravisProduct.length > 0) {
+        allTravisProduct.map((item) => {
+          if ((item.stock_88 != undefined && item.stock_88 > 0) || (item.stock_90 != undefined && item.stock_90 > 0)) {
             allTr.push(item)
 
           }
 
 
         })
- }
-}
-else if(showAvailableOnly){
-  if (getProduct && getProduct.length > 0) {
-    getProduct.map(item => {
-      allTr.push(item)
-    })
-  }
+      }
+    }
+    else if (showAvailableOnly) {
+      if (getProduct && getProduct.length > 0) {
+        getProduct.map(item => {
+          allTr.push(item)
+        })
+      }
 
-}
- console.log("hello")
- 
-      setAllTravisProduct(allTr)
-    };
+    }
+    console.log("hello")
 
-  
- 
-  
+    setAllTravisProduct(allTr)
+  };
+
+
+
+
   return (
     <div className='container'>
 
@@ -1503,55 +1503,55 @@ else if(showAvailableOnly){
 
       >
 
-<div className='row'>
-       
-         <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{paddingLeft:"10px"}}>
-          <input
-            className="form-check-input submit-order"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-            checked={showAvailableOnly}
-          onClick={()=> handleCheckboxClick(showAvailableOnly)}
-          />
-          <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
-          Show Only Available Products
+        <div className='row'>
+
+          <div className="form-check form-check-custom form-check-solid  cursor-pointer col-4" style={{ paddingLeft: "10px" }}>
+            <input
+              className="form-check-input submit-order"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+              checked={showAvailableOnly}
+              onClick={() => handleCheckboxClick(showAvailableOnly)}
+            />
+            <label className="form-check-label fs-4 text-gray-700 cursor-pointer" style={{ fontWeight: "500" }}>
+              Show Only Available Products
 
 
-          </label>
+            </label>
+          </div>
+
+
+
+
+
+
+          <div className='col-8' style={{ float: "right", marginBottom: "12px", textAlign: "end", }}>
+
+            <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
+
+              onClick={handleViewCard}
+            > <i className="bi bi-bag fs-3"></i> View Cart</Button>
+
+
+            {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
+              onClick={handleImport}
+            > <i className="bi bi-file-earmark-arrow-down fs-3"></i>Import Products</Button>
+            }
+
+
+            {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
+              onClick={handleQtyImport}
+            > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>}
+
+            <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up'
+              onClick={handleProduct}
+            //  onClick={handleSampleExcel}
+            > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products </Button>
+
+          </div>
+
         </div>
-       
-
-
-        
-
-        
-        <div className='col-8' style={{ float: "right", marginBottom: "12px", textAlign:"end",  }}>
-
-          <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
-
-            onClick={handleViewCard}
-          > <i className="bi bi-bag fs-3"></i> View Cart</Button>
-
-
-          {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleImport}
-          > <i className="bi bi-file-earmark-arrow-down fs-3"></i>Import Products</Button>
-          }
-
-
-          {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
-            onClick={handleQtyImport}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>}
-
-          <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up'
-            onClick={handleProduct}
-          //  onClick={handleSampleExcel}
-          > <i className="bi bi-file-earmark-arrow-up fs-3"></i>Export Products </Button>
-
-        </div>
-
-</div>
 
 
         {/* <div className='show-prodect-section' >
@@ -1562,36 +1562,37 @@ else if(showAvailableOnly){
         {
           allTravisProduct.length > 0 ? (
             <div>
-          <Table
-  className='cart-table-profile'
-  ref={tableRef}
-  columns={columns}
-  dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
-  rowSelection={{
-    selectedRowKeys,
-    onSelect: handleSelctRow,
-  }}
-  expandable={{
-    expandedRowRender,
-    onExpand: (expanded, record) => handleExpand(expanded, record),
-  }}
-  bordered
-  size="middle"
-  scroll={{ x: "100%", y: "auto" }}
-  pagination={{
-    position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-    defaultPageSize: 200,
-    showTotal: (total) => `Total ${total} items`, // Corrected showTotal usage
-    showSizeChanger: true, // Show page size changer
-    pageSizeOptions: ['100', '200', '300', '400','500', '600', '1000' ], // Page size options
-  }}
-/>
+              <Table
+                className='cart-table-profile'
+                ref={tableRef}
+                columns={columns}
+                dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
+                rowSelection={{
+                  selectedRowKeys,
+                  onSelect: handleSelctRow,
+                }}
+                expandable={{
+                  expandedRowRender,
+                  onExpand: (expanded, record) => handleExpand(expanded, record),
+                }}
+                bordered
+                size="middle"
+                scroll={{ x: "100%", y: "auto" }}
+                pagination={{
+                  position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+                  defaultPageSize: 200,
+          
+                  showTotal: (total) => <span className="ant-pagination-total-text">Total {total} items</span>,
+                  showSizeChanger: true, // Show page size changer
+                  pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
+                }}
+              />
 
-              
+
 
 
             </div>
-            ) : (<Loading />)}
+          ) : (<Loading />)}
 
 
       </Card>}

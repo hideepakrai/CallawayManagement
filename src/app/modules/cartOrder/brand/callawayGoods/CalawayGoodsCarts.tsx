@@ -109,7 +109,7 @@ const CalawayGoodsCarts = () => {
     {
       title: "SKU ",
       dataIndex: "sku",
-      width: 100,
+      width: 130,
       fixed: "left",
 
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
@@ -161,7 +161,7 @@ const CalawayGoodsCarts = () => {
       title: "Description ",
       dataIndex: "description",
       key: "description",
-      width: 150,
+      width: 190,
 
     },
 
@@ -181,7 +181,7 @@ const CalawayGoodsCarts = () => {
       title: "Model",
       dataIndex: "product_model",
       key: "product_model",
-      width: 100,
+      width: 130,
     },
 
 
@@ -218,14 +218,14 @@ const CalawayGoodsCarts = () => {
       title: "Qty88",
       dataIndex: "stock_88",
       key: "stock_88",
-      width: 150,
-      fixed: 'right',
+      width: 105,
+     
       render: (value, record) => (
 
         <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
-            className='mx-5 number-input'
+            className=' number-input'
             //addonBefore={record.stock_88 || 0}
             addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
 

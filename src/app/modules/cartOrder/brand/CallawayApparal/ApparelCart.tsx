@@ -150,7 +150,7 @@ const CallawayApparelCarts = () => {
       title: "Description ",
       dataIndex: "description",
       key: "description",
-      width: 150,
+      width: 200,
 
     },
 
@@ -171,7 +171,7 @@ const CallawayApparelCarts = () => {
       title: "Season",
       dataIndex: "season",
       key: "season",
-      width: 100,
+      width: 80,
 
 
     },
@@ -179,7 +179,7 @@ const CallawayApparelCarts = () => {
       title: "Color",
       dataIndex: "color",
       key: "color",
-      width: 75,
+      width: 120,
 
     },
 
@@ -188,7 +188,7 @@ const CallawayApparelCarts = () => {
       title: "Style",
       dataIndex: "style_id",
       key: "style_id",
-      width: 85,
+      width: 90,
 
     },
 
@@ -206,26 +206,26 @@ const CallawayApparelCarts = () => {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
-      width: 150,
+      width: 80,
     },
     {
       title: "Sleeves",
       dataIndex: "sleeves",
       key: "sleeves",
-      width: 150,
+      width: 100,
     },
 
     {
       title: "Qty88",
       dataIndex: "stock_88",
       key: "stock_88",
-      width: 150,
-      fixed: 'right',
+      width: 120,
+     
       render: (value, record) => (
         <Tooltip open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""} placement="top">
           <InputNumber
             status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
-            className='mx-3 number-input'
+            className='number-input'
             //addonBefore={record.stock_88}
             addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
 
@@ -251,14 +251,14 @@ const CallawayApparelCarts = () => {
       title: "Qty90",
       dataIndex: "stock_90",
       key: "stock_90",
-      width: 150,
-      fixed: 'right',
+      width: 120,
+     
       render: (value, record) => (
 
         <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
           <InputNumber
             status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
-            className='mx-5 number-input'
+            className='number-input'
            // addonBefore={record.stock_90 || 0}
            addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
 
@@ -294,7 +294,7 @@ disabled={record.stock_90 === 0}
       title: "MRP",
       dataIndex: "mrp",
       key: "mrp",
-      width: 80,
+      width: 90,
       fixed: 'right'
     },
 
@@ -310,7 +310,7 @@ disabled={record.stock_90 === 0}
       title: "GST",
       dataIndex: "gst",
       key: "gst",
-      width: 100,
+      width: 80,
       fixed: 'right'
     },
     {
@@ -324,7 +324,7 @@ disabled={record.stock_90 === 0}
       title: "Discount",
       dataIndex: "Discount",
       key: "Discount",
-      width: 100,
+      width: 80,
       // fixed:'right'
     },
     {
@@ -345,7 +345,7 @@ disabled={record.stock_90 === 0}
       title: "FinalBillValue",
       dataIndex: "FinalBillValue",
       key: "FinalBillValue",
-      width: 100,
+      width: 110,
       // fixed:'right'
     },
 
@@ -853,7 +853,7 @@ const handleRejectedModalCancel=()=>{
         allApparel.length > 0 ?
       (
       <div>
-<button className='note-button hover-elevate-up mt-10' onClick={handleNote}> <i className="bi bi-pencil-square"></i> Add a Note</button>
+   <button className='note-button hover-elevate-up mt-10' onClick={handleNote}> <i className="bi bi-pencil-square"></i> Add a Note</button>
         
       <Table className='card-table-travis  cart-table-profile mt-6 mb-6'
         ref={tableRef}

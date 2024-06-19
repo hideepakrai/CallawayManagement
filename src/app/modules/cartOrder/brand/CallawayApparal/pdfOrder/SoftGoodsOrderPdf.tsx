@@ -93,7 +93,7 @@ const SoftGoodsOrderPdf = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      width: 150,
+      width: 225,
 
     },
     // {
@@ -161,7 +161,7 @@ const SoftGoodsOrderPdf = () => {
       title: " Qty",
       dataIndex: "TotalQty",
       key: "TotalQty",
-      width: 50,
+      width: 20,
       fixed: 'right',
 
 
@@ -173,7 +173,7 @@ const SoftGoodsOrderPdf = () => {
       title: "MRP",
       dataIndex: "mrp",
       key: "mrp",
-      width: 100,
+      width: 120,
       fixed: 'right'
 
     },
@@ -181,16 +181,16 @@ const SoftGoodsOrderPdf = () => {
       title: "Discount",
       dataIndex: "LessDiscountAmount",
       key: "LessDiscountAmount",
-      width: 100,
+      width: 120,
       fixed: 'right'
 
     },
 
     {
       title: "Amount",
-      dataIndex: "FinalBillValue",
-      key: "FinalBillValue",
-      width: 50,
+      dataIndex: "Amount",
+      key: "Amount",
+      width: 60,
       fixed: 'right'
 
     },
@@ -328,7 +328,7 @@ const SoftGoodsOrderPdf = () => {
 
 
             <Table
-              className='cart-table-profile project-table-profile mx-7'
+              className='cart-table-profile project-table-profile mx-7 product-table-pdf'
 
               style={{ border: "1px solid #f0f0f0", borderRadius: "8px 8px 0 0px" }}
 
@@ -355,7 +355,7 @@ const SoftGoodsOrderPdf = () => {
                 </ul>
               </div>
               <div className='col-9'>
-                <div className="mx-7" style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
+                <div className="mx-7" style={{ width: "260px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
 
 
 

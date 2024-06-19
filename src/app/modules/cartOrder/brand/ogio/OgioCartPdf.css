@@ -2,6 +2,8 @@
 .pdf-title{font-size: 36px;}
 .pdf-image{margin-right: -10px;}
 .order-pdf-list{color: rgb(84, 84, 84); font-weight: 500;
-padding-left: 10px; width: 50%;}
-.order-pdf-data{color: rgb(84, 84, 84); font-weight: 500; width: 50%; text-align: center;}
+padding-left: 10px; width: 33%;}
+.order-pdf-data{color: rgb(84, 84, 84); font-weight: 500; width: 60%; text-align: center;}
 .total-amout-list{ padding-bottom: 5px; border-bottom: 1px solid #ddd; display: flex; }
+.product-table-pdf .ant-table-cell{ padding-left: 30px!important;}
+/* .cart-table-profile .ant-spin-container .ant-table-thead .ant-table-cell{padding-left: 50px!important;} */

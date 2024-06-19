@@ -114,7 +114,7 @@ const OgioCart = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      width: 150,
+      width: 180,
       fixed: "left",
      // filterMode: 'tree',
       //   filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
@@ -158,7 +158,7 @@ const OgioCart = () => {
       title: "Type",
       dataIndex: "product_type",
       key: "product_type",
-      width: 150,
+      width: 120,
 
 
       // sorter: (a, b) => {
@@ -210,7 +210,7 @@ const OgioCart = () => {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      width: 120,
+      width: 110,
 
       // sorter: (a, b) => {
       //   const categoryA = a.category ?? "";
@@ -263,7 +263,7 @@ const OgioCart = () => {
       title: "Model",
       dataIndex: "product_model",
       key: "product_model",
-      width: 150,
+      width: 120,
 
       sorter: (a, b) => {
         const categoryA = a.product_model ?? "";
@@ -314,7 +314,7 @@ const OgioCart = () => {
       title: " Qty90",
       dataIndex: "stock_90",
       key: "stock_90",
-      width: 150,
+      width: 120,
       fixed: 'right',
 
       render: (value, record) => (
@@ -324,7 +324,7 @@ const OgioCart = () => {
 
             <InputNumber
               status={record.error !== "" ? "error" : ""}
-              className='mx-3 number-input'
+              className=' number-input'
              // addonBefore={record.stock_90}
              addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
 
@@ -361,7 +361,7 @@ const OgioCart = () => {
       title: "Amount",
       dataIndex: "Amount",
       key: "Amount",
-      width: 70,
+      width: 100,
       fixed: 'right'
 
     },
@@ -369,7 +369,7 @@ const OgioCart = () => {
       title: "GST",
       dataIndex: "gst",
       key: "gst",
-      width: 100,
+      width: 70,
       fixed: 'right'
     },
     {
@@ -383,7 +383,7 @@ const OgioCart = () => {
       title: "Discount",
       dataIndex: "Discount",
       key: "Discount",
-      width: 100,
+      width: 90,
       // fixed:'right'
     },
     {
