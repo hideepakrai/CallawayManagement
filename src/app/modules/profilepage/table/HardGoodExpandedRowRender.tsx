@@ -42,26 +42,10 @@ const HardGoodsExpandedRowRender =({allarray,id}:Props)=>{
             width: 150,
       
           },
-          // {
-          //     title: "Category",
-          //     dataIndex: "category",
-          //     key: "category",
-          //     width: 120,
-        
-        
-        
-          //   },
+         
       
       
-          {
-              title: "Model",
-              dataIndex: "product_model",
-              key: "product_model",
-              width: 100,
-        
-        
-            },
-      
+         
       
     
         
