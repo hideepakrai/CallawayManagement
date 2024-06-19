@@ -95,7 +95,7 @@ const RetailerProfile = () => {
                   <Tooltip title={copied ? 'Copied!' : 'Copy'} overlayInnerStyle={{ backgroundColor: 'white', color: 'black' }}>
                     <i
                       className={`bi ${copied ? 'bi-copy' : 'bi-copy'} mx-2 cursor-pointer text-gray-500 text-hover-dark`}
-                      onClick={() => getCurrentUsers?.name && copyToClipboard(getCurrentUsers?.name)}
+                      onClick={() => getCurrentUsers?.email && copyToClipboard(getCurrentUsers?.email)}
                     ></i>
                   </Tooltip>
 

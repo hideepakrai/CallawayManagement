@@ -106,7 +106,8 @@ const AllRetailerOrders = () => {
                                     cursor: "pointer",
                                 }}></i>
                         </Tooltip>
-                        <Tooltip title="View" placement="bottom">
+                        
+                        {/* <Tooltip title="View" placement="bottom">
                             <i
                                 className="bi bi-box-arrow-up-right"
                                 style={{
@@ -116,7 +117,9 @@ const AllRetailerOrders = () => {
                                     cursor: "pointer",
                                 }}
                                 onClick={() => handleExpand(record)}></i>
-                        </Tooltip>
+                        </Tooltip> */}
+
+
 
                         <Tooltip title="Edit" placement="bottom">
                             <span

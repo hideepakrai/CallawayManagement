@@ -173,6 +173,7 @@ const DashboardPage = () => (
             />
           </div>
 
+
           <div className='col-xxl-4'>
             <MixedWidget8
               className='card-xxl-stretch mb-xl-3'

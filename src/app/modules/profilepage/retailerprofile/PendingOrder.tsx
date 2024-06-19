@@ -104,7 +104,8 @@ const AllRetialerPendingOrder = () => {
                                     cursor: "pointer",
                                 }}></i>
                         </Tooltip>
-                        <Tooltip title="View" placement="bottom">
+
+                        {/* <Tooltip title="View" placement="bottom">
                             <i
                                 className="bi bi-box-arrow-up-right"
                                 style={{
@@ -114,7 +115,8 @@ const AllRetialerPendingOrder = () => {
                                     cursor: "pointer",
                                 }}
                                 onClick={() => handleExpand(record)}></i>
-                        </Tooltip>
+                        </Tooltip> */}
+
 
                         <Tooltip title="Edit" placement="bottom">
                             <span
@@ -124,6 +126,8 @@ const AllRetialerPendingOrder = () => {
                                 <i className="bi bi-pencil-fill"></i>
                             </span>
                         </Tooltip>
+
+                        
                     </span>
                 </>
             ),

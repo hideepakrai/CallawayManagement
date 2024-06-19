@@ -3,7 +3,7 @@ import { Card, Table, Carousel, Breadcrumb, Select, Tooltip, InputNumber } from 
 import { Input, Radio, Button } from "antd";
 import type { InputRef, TableColumnsType } from 'antd';
 import { OgioBasicModel, OgioBasicModelGraph, OgioModel, } from "../../../model/ogio/OgioBrandModel"
-
+import "./OgioTable.css"
 import { OgioExcelModel } from "../../../model/ogio/OgioExcelModel"
 import { useDispatch, useSelector } from "react-redux"
 import { getOgioProducts, updateQuantity90, getCategory, getProductModel, getProductType, addOtherProduct, getOgioOtherProduct, updateOtherQuantity90, updateProgressStep } from "../../../../slice/allProducts/OgioSlice"
@@ -1130,12 +1130,9 @@ const OgioTable = () => {
               Show Only Available Products
             </label>
           </div>
-          <div className='col-8' style={{ marginBottom: "12px", textAlign: "end", }}>
 
-            {/* {getCurrentUsers &&getCurrentUsers.role!=="Retailer" &&<Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
-           onClick={handleUploadImages}
-          > <i className="bi bi-bag fs-3"></i> UploadImages</Button>} */}
+          <div className='col-8 ogio-table' style={{ marginBottom: "12px", textAlign: "end", }}>
             <Button className=' btn   px-6 p-0  btn-travis mx-3 hover-elevate-up  '
 
               onClick={handleViewCart}

@@ -110,6 +110,7 @@ const AllPendingOrder = () => {
                 return <span>{brandName}</span>;
             },
         },
+
         {
             title: "Retailer Name ",
             dataIndex: "retailer_details",
@@ -288,7 +289,7 @@ const AllPendingOrder = () => {
                                 onClick={() => handleDownload(record)}
                             ></i>
                         </Tooltip>
-                        
+{/*                         
                         <Tooltip title="View" placement="bottom">
                             <i
                                 className="bi bi-box-arrow-up-right"
@@ -300,7 +301,9 @@ const AllPendingOrder = () => {
                                 }}
                                 onClick={() => handleExpand(record)}
                             ></i>
-                        </Tooltip>
+                        </Tooltip> */}
+
+
                         <Tooltip title="Edit" placement="bottom">
                             <span
                                 style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}

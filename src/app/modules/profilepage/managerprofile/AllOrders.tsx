@@ -19,6 +19,7 @@ import SoftGoodPdfPrintOrder from "../pdfformate/SoftGoodPdfPrintOrder.tsx";
 import DeleteOrder from "./DeleteOrder.tsx";
 import { LoadingStop } from "../../../slice/loading/LoadingSlice.tsx";
 
+
 const AllOrders = () => {
     const [status, setStatus] = useState<string>("");
     const [orderId, setOrderId] = useState<number | undefined>(undefined);
@@ -148,6 +149,7 @@ const AllOrders = () => {
             }
         },
 
+
         // {
         //     title: "Retailer name",
         //     dataIndex: "retailer_details",
@@ -171,6 +173,7 @@ const AllOrders = () => {
 
        
         
+
         {
             title: "Order date",
             dataIndex: "created_at",
@@ -285,17 +288,10 @@ const AllOrders = () => {
                                 onClick={() => handleDownload(record)}
                             ></i>
                         </Tooltip>
-                        <Tooltip title="View" placement="bottom">
-                            <i
-                                className="bi bi-box-arrow-up-right"
-                                style={{
-                                    paddingLeft: "7px",
-                                    paddingRight: "6px",
-                                    borderRight: "1px solid rgb(221, 221, 221)",
-                                    cursor: "pointer",
-                                }}
-                            ></i>
-                        </Tooltip>
+
+               
+
+
                         <Tooltip title="Edit" placement="bottom">
                             <span
                                 style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
@@ -304,6 +300,7 @@ const AllOrders = () => {
                                 <i className="bi bi-pencil-fill"></i>
                             </span>
                         </Tooltip>
+
                     </span>
                 </>
             ),

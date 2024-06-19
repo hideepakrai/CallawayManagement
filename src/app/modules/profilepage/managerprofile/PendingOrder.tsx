@@ -118,14 +118,15 @@ const PendingOrder = () => {
                                                                 <i className="bi bi-download"></i>
                                                             </Tooltip>
                                                         </span>
-                                                        <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
+                                                        
+                                                        {/* <span style={{ paddingLeft: "7px", paddingRight: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleView(item)}
                                                         >
                                                             <Tooltip title="View" placement="bottom">
-                                                                {/* <i className="bi bi-arrow-up-right-square"></i> */}
+                                                          
                                                                 <i className="bi bi-box-arrow-up-right"></i>
                                                             </Tooltip>
-                                                        </span>
+                                                        </span> */}
 
 
                                                         <span style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}

@@ -38,7 +38,7 @@ export function MenuInner() {
 
       {
         role === 'Admin' &&(
-          <MenuItem title='Other Accounts' to='/other-account' />
+          <MenuItem title='Users' to='/other-account' />
         )
       }
     </>

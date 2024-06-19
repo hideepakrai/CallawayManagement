@@ -205,11 +205,7 @@ const Edit = ({ isEdit, onClose, changeStatus,selectedOrder ,deletedYes}: Props)
         </div>
       </Modal>
 
-      Pending
-Submitted
-Approved
-Rejected
-Completed
+     
 
     </>
   );

@@ -44,17 +44,18 @@ const PendingOrder = () => {
             title: "Action",
             dataIndex: "action",
             key: 'x',
-            render: () => <span>
+            render: () => 
+            <span>
                 <span style={{ paddingRight: "9px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}>
-
                     <Tooltip title="Edit" placement="bottom">
                         <i className="bi bi-pencil-fill" ></i>
                     </Tooltip>
                 </span>
 
+
+
                 <span style={{ paddingLeft: "8px", cursor: "pointer" }}  >
                     <Tooltip title="View" placement="bottom">
-
                         <i className="bi bi-box-arrow-up-right " onClick={handleview}></i>
                     </Tooltip>
                 </span>

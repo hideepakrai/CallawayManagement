@@ -90,7 +90,7 @@ const MixedWidget2: FC<Props> = ({className, chartColor, chartHeight, strokeColo
             <Link className ={ clsx ('col bg-light-primary cart-brand-section px-4 pt-4 pb-8 rounded-2 mb-7')} to={"/brand/travis-methew"} >
               <KTIcon iconName='plus' className='fs-3x text-primary d-block mt-2' />
               <a href='#' className='text-primary fw-semibold fs-6'style={{color:"#141414"}}  >
-              Create Order
+              Create Order 1
               </a>
           
             </Link>

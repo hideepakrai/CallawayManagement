@@ -66,10 +66,11 @@ const UserRetail = () => {
                   <div className='d-flex align-items-center ' style={{ width: '250px' }}>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-7'>
-                        {item.name}
+                        {item.name ? item.name : '------'}
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-6'>
-                        {item.role}
+              
+                        {item.role ? item.role : '------'}
                       </span>
                     </div>
                   </div>
@@ -78,18 +79,24 @@ const UserRetail = () => {
                 <td style={{ width: '180px' }}>
                   <span style={{ width: '250px' }} className='text-gray-900 fw-bold d-block fs-6'>
                     {item.email ?? ''}
+                    {item.email ? (
                     <Tooltip title={copied ? 'Copied!' : 'Copy'}>
                       <i
                         className={`bi ${copied ? 'bi-copy' : 'bi-copy'} mx-2 cursor-pointer text-gray-500 text-hover-dark`}
                         onClick={() => item.email && copyToClipboard(item.email)}
                       ></i>
                     </Tooltip>
+                          )
+                          : ("------")
+                        }
+
                   </span>
                 </td>
 
                 <td style={{ width: '220px' }}>
                   <span className='text-gray-900 fw-bold d-block fs-6'>
-                    {item.phone}
+                    {/* {item.phone} */}
+                    {item.phone ? item.phone : '------'}                    
                   </span>
                   <span className='text-muted fw-semibold text-muted d-block fs-7'></span>
                 </td>
@@ -97,18 +104,23 @@ const UserRetail = () => {
                 <td style={{ width: '220px' }}>
                   <span className='text-gray-900 fw-bold d-block fs-6'>
                     {item.gstin ?? ''}
+                    {item.gstin ? (
                     <Tooltip title={copied ? 'Copied!' : 'Copy'}>
                       <i
                         className={`bi ${copied ? 'bi-copy' : 'bi-copy'} mx-2 cursor-pointer text-gray-500 text-hover-dark`}
                         onClick={() => item.gstin && copyToClipboard(item.gstin)}
                       ></i>
                     </Tooltip>
+                   )
+                   : ("------")
+                 }
                   </span>
                 </td>
 
                 <td style={{ width: '320px' }}>
                   <span className='text-gray-900 fw-bold d-block fs-7'>
-                    {item.address}
+                 
+                    {item.address ? item.address : '------'}
                   </span>
                   <span className='text-muted fw-semibold text-muted d-block fs-7'></span>
                 </td>
