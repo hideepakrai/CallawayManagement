@@ -33,7 +33,7 @@ const TravisPdfPrintOrder = ({ recordPdf, resetTravisPdf }: Props) => {
 
 
 
-  const getPreOrderIds = useSelector(getPreOrderId)
+  const getPreOrderIds=recordPdf.id
 
 
   const [notes, setNotes] = useState<string[]>([])
