@@ -16,12 +16,12 @@ type Props = {
   discountType: string;
   discountValue: number;
   resetSubmitOrder: () => void,
- 
+  failsubmit:()=>void,
   totalAmount:number,
   discountAmount:number
 }
 
-const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder }: Props) => {
+const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder ,failsubmit}: Props) => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")
@@ -81,7 +81,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
 
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id) {
+        if (item.ordered && item.error88 === "" && item.error90 === "" ) {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -96,8 +96,13 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
 
 
           })
-          setBrandId(item.brand_id)
+         
 
+        }
+        else if(item.ordered && (item.error88!=="" || item.error90!=="")){
+          failsubmit()
+   console.log("fail submit")
+   failsubmit()
         }
       })
 

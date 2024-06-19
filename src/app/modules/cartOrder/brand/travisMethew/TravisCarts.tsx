@@ -36,6 +36,7 @@ import { NoProdect } from '../../NoProdect';
 import "./TravisCarts.css"
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel';
 import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
+import RefetchTravis from '../../../../api/allProduct/travismethew/RefetchTravis';
 const TravisCarts = () => {
   const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
   const tableRef = useRef(null);
@@ -534,12 +535,13 @@ const TravisCarts = () => {
     }
 
   }
-
+  const [checkSku, setCheckSku]=useState<BasicModelTravis[]>([])
   const [totalAmount, setTotalAmount] = useState<number>()
   const [discountAmount, setDiscountAmount] = useState<number>()
   const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
   const [messageApi, contextHolder] = antdMessage.useMessage();
   useEffect(() => {
+    const newSku:BasicModelTravis[]=[];
     let tAmount: number = 0;
     let totalBillAmount: number = 0;
     if (getProduct && getProduct.length > 0) {
@@ -550,12 +552,15 @@ const TravisCarts = () => {
         if (item.FinalBillValue && item.ordered) {
 
           totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+        } if(item.ordered && item.error88 === "" && item.error90 === "" && item.sku){
+          newSku.push(item)
         }
 
       })
       setTotalAmount(tAmount)
       setTotalNetBillAmount(totalBillAmount)
       setDiscountAmount(tAmount - totalBillAmount)
+      setCheckSku(newSku)
     }
   }, [getProduct])
 
@@ -586,6 +591,7 @@ const TravisCarts = () => {
   const [isSubmitOrder, setIsSubmitOrder] = useState(false)
   const [isSubmitModel, setIsSubmitModel] = useState(false)
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
+ const [isSubmitRefetch, setIsSubmitRefetch]= useState<boolean>(false)
   const hanldeSubmitOrder = () => {
     // setIsSubmitOrder(true)
     setIsSubmitModel(true)
@@ -596,11 +602,42 @@ const TravisCarts = () => {
 
   const handleSumbitOk=() => {
     setIsSubmitModel(false)
+    setIsSubmitRefetch(true)
+   // setIsSubmitOrder(true)
+  }
 
+  //refetch submit 
+// faill submit
+const handlefailSubmit=(val :string)=>{
+  if(val){
+    alert(`${val} is out of stock`)
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
+  }
+
+}
+  const handleResetSubmitRefetch=()=>{
+    setIsSubmitRefetch(false)
     setIsSubmitOrder(true)
+   
   }
   const handleSumbitCancel=() => {
     setIsSubmitModel(false)
+  }
+
+
+  // fail submit
+  const handleFailSubmit=()=>{
+    
+    setIsSubmitOrder(false)
+    dispatch(updateProgressStep({
+      progressStep: 1
+
+    }))
+    alert("Some of quantity is out of stock")
+   
   }
   const handleResetSubmitOrder = () => {
     setIsSubmitOrder(false)
@@ -929,6 +966,13 @@ const handleRejectedModalCancel=()=>{
 
 
       />}
+      {isSubmitRefetch && <RefetchTravis
+      checkSku={checkSku}
+      resetSubmit={handleResetSubmitRefetch}
+      resetFail={handlefailSubmit}
+
+
+      />}
 
        {/* submit model */}
         
@@ -948,6 +992,7 @@ const handleRejectedModalCancel=()=>{
        
           discountAmount={discountAmount??0}
           totalAmount={totalAmount??0}
+          failsubmit={handleFailSubmit}
         />}
 
 

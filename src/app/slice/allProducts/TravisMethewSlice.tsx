@@ -184,10 +184,12 @@ const TravisMethewSlice = createSlice({
                             trvsRedux.stock_90=cusrrentStock90;
                           }
                           if( trvsRedux.Quantity88&&trvsRedux.Quantity88>cusrrentStock88){
+                            trvsRedux.stock_88=cusrrentStock88;
                             trvsRedux.error88="Quantity is more than Stock"
                           }
                           if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
                             trvsRedux.error90="Quantity is more than Stock"
+                             trvsRedux.stock_90=cusrrentStock90
                           }
                         
 
