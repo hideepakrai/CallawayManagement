@@ -1,5 +1,5 @@
 
-import {useEffect, useRef, FC} from 'react'
+import {useEffect, useRef, FC, useState} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import {getCSSVariableValue} from '../../../assets/ts/_utils'
@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom'
 import clsx from 'clsx'
 import { useSelector } from 'react-redux'
 import { getGoodsProducts } from '../../../../app/slice/allProducts/CallAwayGoodsSlice'
+import { CartModel } from '../../../../app/modules/model/CartOrder/CartModel'
+import { getCurrentUser, getUserOrders } from '../../../../app/slice/UserSlice/UserSlice'
 type Props = {
   className: string
   chartColor: string
@@ -50,6 +52,35 @@ const MixedWidget16: FC<Props> = ({className, chartColor, chartHeight, strokeCol
   }, [chartRef, mode])
 
   const getGoodsProduct= useSelector(getGoodsProducts)
+
+
+  const getUserOrder= useSelector(getUserOrders) as CartModel[];
+
+  const [completeOrder, setCompleteOrder]= useState<CartModel[]>([])
+  const [pendingOrder, setPendingOrder]= useState<CartModel[]>([])
+  useEffect(()=>{
+ 
+   const allComp:CartModel[]=[]
+   const allPend:CartModel[]=[]
+   if(getUserOrder && getUserOrder.length>0){
+    getUserOrder.map((item)=>{
+     if(item.brand_id===1 && item.status==="Complete"){
+       allComp.push(item)
+     }
+     if(item.brand_id===1 && item.status!="Complete"){
+       allPend.push(item)
+     }
+    })
+     
+   }
+   if(allComp && allComp.length>0){
+     setCompleteOrder(allComp)
+   }
+   if(allPend && allPend.length>0){
+     setPendingOrder(allPend)
+   }
+  },[getUserOrder ])
+  const getCurrentUsers = useSelector(getCurrentUser)
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -82,12 +113,14 @@ const MixedWidget16: FC<Props> = ({className, chartColor, chartHeight, strokeCol
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-warning px-4 pt-7 rounded-2 me-7 mb-7 cart-brand-section'>
+
+            <Link className='col bg-light-warning px-4 pt-7 rounded-2 me-7 mb-7 cart-brand-section' to={"/brand/callaway/goods"}>
               {/* <KTIcon iconName='chart-simple' className='fs-3x text-warning d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6' style={{color:"#141414"}} >
               <span className='fs-1 fw-bold text-warning' style={{lineHeight:"35px",}}> {getGoodsProduct.length} </span> <br></br> Total Products     
               </a>
-            </div>
+            </Link>
+
             {/* end::Col */}
             {/* begin::Col */}
 
@@ -108,22 +141,24 @@ const MixedWidget16: FC<Props> = ({className, chartColor, chartHeight, strokeCol
           {/* begin::Row */}
           <div className='row g-0'>
             {/* begin::Col */}
-            <div className='col bg-light-danger px-4 py-8 rounded-2 me-7 cart-brand-section'>
+
+            <Link className='col bg-light-danger px-4 py-8 rounded-2 me-7 cart-brand-section' to={`/profilepage/managerprofile/${getCurrentUsers?.id}`}>
               {/* <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold text-danger'>0 </span> <br></br> Complete Orders  
+              <span className='fs-1 fw-bold text-danger'>{completeOrder.length} </span> <br></br> Complete Orders  
               </a>
-            </div>
+            </Link>
+
             {/* end::Col */}
             {/* begin::Col */}
-            <div className='col bg-light-success px-6 py-8 rounded-2 cart-brand-section'>
+            <Link className='col bg-light-success px-6 py-8 rounded-2 cart-brand-section' to={`/profilepage/managerprofile/${getCurrentUsers?.id}`}>
               {/* <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold text-success'>0 </span> <br></br> Pending Orders  
+              <span className='fs-1 fw-bold text-success'>{pendingOrder.length}</span> <br></br> Pending Orders  
               </a>
-            </div>
+            </Link>
             {/* end::Col */}
           </div>
           {/* end::Row */}

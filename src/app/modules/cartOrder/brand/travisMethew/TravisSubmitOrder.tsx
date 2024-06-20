@@ -99,11 +99,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
          
 
         }
-        else if(item.ordered && (item.error88!=="" || item.error90!=="")){
-          failsubmit()
-   console.log("fail submit")
-   failsubmit()
-        }
+       
       })
 
 
@@ -115,7 +111,8 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
-
+ // eslint-disable-next-line no-debugger
+ debugger
    
     if (getRetailerDetail &&
       allTravisOrders && allTravisOrders.length > 0 &&
@@ -125,7 +122,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
       discountValue &&
       discountType &&
       totalAmount&&
-      brandId &&
+    
       getPreOrderIds &&
      
       getTravisNotes

@@ -91,6 +91,8 @@ const TravisMethewSlice = createSlice({
             const styleCodesSet = new Set<string>();
             const familySet = new Set<string>();
             const tarvisLength= state.travisMethew.length;
+             // eslint-disable-next-line no-debugger
+             debugger
             if(tarvisLength===0){
               if (travisProduct && travisProduct.length > 0) {
                 travisProduct.forEach((item: BasicModelTravis) => {
@@ -170,8 +172,7 @@ const TravisMethewSlice = createSlice({
                   );
                   if(travisIndex!==-1){
                     const trvsRedux=state.travisMethew[travisIndex];
-                    // const trvs= state.travisMethew[travisIndex].TravisAttributes
-                      
+                   
                       if(trvsRedux){
                         const rdxStock88=trvsRedux.stock_88;
                         const rdxStock90=trvsRedux.stock_90;
@@ -458,7 +459,12 @@ const TravisMethewSlice = createSlice({
              state.travisMethew[travisIndex].LessDiscountAmount = lessDiscountAmount;
              state.travisMethew[travisIndex].NetBillings = netBillings;
              state.travisMethew[travisIndex].FinalBillValue = finalBillValue;
-           } if(travisIndex!== -1 &&qty88==0 &&quantity90===0) {
+             
+           } 
+           if(qty88>=quantity88){
+            state.travisMethew[travisIndex].error88=""
+           }
+           if(travisIndex!== -1 &&qty88==0 &&quantity90===0) {
              state.travisMethew[travisIndex].Quantity90 = 0;
              state.travisMethew[travisIndex].Quantity88 = 0;
              state.travisMethew[travisIndex].Amount = 0;
@@ -773,7 +779,21 @@ const TravisMethewSlice = createSlice({
               
             }
 
-     }
+     },
+  updateCheckAvailability:(state,action)=>{
+    const {sku,qty}= action.payload;
+    const travisIndex = state.travisMethew.findIndex(
+      (travisItem) => travisItem.sku === sku
+    );
+    if( travisIndex !== -1){
+      const qty88= state.travisMethew[travisIndex].Quantity88??0;
+
+      if(qty<qty88){
+        state.travisMethew[travisIndex].error88="Out of Stock";
+        state.travisMethew[travisIndex].stock_88=qty;
+      }
+    }
+  }
      
     }
 });
@@ -805,7 +825,9 @@ export const {
     submitModel,
     importTravisProduct,
     addTravisLocalStorage,
-    addTravismanagerDetails
+    addTravismanagerDetails,
+
+    updateCheckAvailability
 } = TravisMethewSlice.actions;
 export const getTravisProducts = (state: { travisMethew: ProductState }): BasicModelTravis[] => {
     return state.travisMethew?.travisMethew || [];

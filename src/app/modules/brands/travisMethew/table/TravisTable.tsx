@@ -83,20 +83,43 @@ const TravisTable = () => {
   const filteredOptions = getCategorys.filter((o) => !selectedItems.includes(o));
   const filteredOptionsTwo = getStyleCodes.filter((o) => !selectedItems.includes(o));
   const [allTravisProduct, setAllTravisProduct] = useState<BasicModelTravis[]>([])
+  const [availTravisProduct, setAvailTravisProduct] = useState<BasicModelTravis[]>([])
 
   // get Trvis data
   useEffect(() => {
 
     const allTr: BasicModelTravis[] = []
+    const allShowTr: BasicModelTravis[] = []
     if (getProduct && getProduct.length > 0) {
       getProduct.map(item => {
         allTr.push(item)
+       
+        
+            if ((item.stock_88 != undefined && item.stock_88 > 0) || (item.stock_90 != undefined && item.stock_90 > 0)) {
+              allShowTr.push(item)
+  
+            }
+  
+  
+        
+        
       })
     }
     setAllTravisProduct(allTr)
+
+    if(allShowTr && allShowTr.length){
+      setAvailTravisProduct(allShowTr)
+    }
     //localStorage.setItem("Travis",JSON.stringify(allTr))
   }, [getProduct])
 
+  const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
+  //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
+
+  const handleCheckboxClick = (showAvailableOnly: boolean) => {
+    setShowAvailableOnly(!showAvailableOnly);
+
+  };
 
 
   const columns: TableColumnsType<BasicModelTravis> = [
@@ -1441,42 +1464,7 @@ const TravisTable = () => {
   }
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(200);
-  const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
-  //const filteredProducts = showAvailableOnly ? allTravisProduct.filter(product => product.Quantity88 > 0 && product.Quantity90 > 0) : allTravisProduct;
-
-  const handleCheckboxClick = (showAvailableOnly: boolean) => {
-    setShowAvailableOnly(!showAvailableOnly);
-
-    console.log("check", showAvailableOnly)
-    const allTr: BasicModelTravis[] = []
-
-    if (!showAvailableOnly) {
-
-
-
-      if (allTravisProduct && allTravisProduct.length > 0) {
-        allTravisProduct.map((item) => {
-          if ((item.stock_88 != undefined && item.stock_88 > 0) || (item.stock_90 != undefined && item.stock_90 > 0)) {
-            allTr.push(item)
-
-          }
-
-
-        })
-      }
-    }
-    else if (showAvailableOnly) {
-      if (getProduct && getProduct.length > 0) {
-        getProduct.map(item => {
-          allTr.push(item)
-        })
-      }
-
-    }
-    console.log("hello")
-
-    setAllTravisProduct(allTr)
-  };
+ 
 
 
 
@@ -1559,14 +1547,48 @@ const TravisTable = () => {
         
         </div>  */}
 
-        {
-          allTravisProduct.length > 0 ? (
-            <div>
+          {!showAvailableOnly?(
+             allTravisProduct.length > 0 ? (
+              <div>
+                <Table
+                  className='cart-table-profile'
+                  ref={tableRef}
+                  columns={columns}
+                  dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
+                  rowSelection={{
+                    selectedRowKeys,
+                    onSelect: handleSelctRow,
+                  }}
+                  expandable={{
+                    expandedRowRender,
+                    onExpand: (expanded, record) => handleExpand(expanded, record),
+                  }}
+                  bordered
+                  size="middle"
+                  scroll={{ x: "100%", y: "auto" }}
+                  pagination={{
+                    position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
+                    defaultPageSize: 200,
+            
+                    showTotal: (total) => <span className="ant-pagination-total-text">Total {total} items</span>,
+                    showSizeChanger: true, // Show page size changer
+                    pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
+                  }}
+                />
+  
+  
+  
+  
+              </div>
+            ):(<Loading/>)
+          ):(availTravisProduct &&
+            availTravisProduct.length>0?(
+              <div>
               <Table
                 className='cart-table-profile'
                 ref={tableRef}
                 columns={columns}
-                dataSource={allTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
+                dataSource={availTravisProduct?.map((item) => ({ ...item, key: item?.sku }))}
                 rowSelection={{
                   selectedRowKeys,
                   onSelect: handleSelctRow,
@@ -1592,7 +1614,11 @@ const TravisTable = () => {
 
 
             </div>
-          ) : (<Loading />)}
+            ):(<Loading/>)
+          )}
+
+    
+       
 
 
       </Card>}
