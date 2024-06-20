@@ -28,7 +28,7 @@ import { MixedWidget17 } from '../../../_metronic/partials/widgets/mixed/MixedWi
 import { MixedWidget18 } from '../../../_metronic/partials/widgets/mixed/MixedWidget18.tsx'
 import { Toolbar } from '../../../_metronic/layout/components/toolbar/Toolbar'
 import { Content } from '../../../_metronic/layout/components/Content'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import GetAllProduct from '../../api/allProduct/GetAllProduct';
 import Loading from '../../modules/loading/Loading'
 import { getLoading, LoadingStop } from "../../slice/loading/LoadingSlice"
@@ -50,6 +50,7 @@ import OgioImage from './OgioImage.tsx'
 import { OgioBasicModel } from '../../modules/model/ogio/OgioBrandModel.ts'
 import { getApparelProducts } from '../../slice/allProducts/CallawayApparelSlice.tsx'
 import { getGoodsProducts } from '../../slice/allProducts/CallAwayGoodsSlice.tsx'
+import GetAllorder from '../../modules/orderPage/GetAllorder.tsx'
 const DashboardPage = () => (
 
 
@@ -235,6 +236,21 @@ const DashboardWrapper = () => {
   const getAllBrand = useSelector(getAllBrands) as BrandModel[];
   const getApparelProduct = useSelector(getApparelProducts)
   const getGoodsProduct = useSelector(getGoodsProducts)
+
+
+
+// get all order
+  const [isOrder, setIsOrder] = useState(false);
+
+  useEffect(()=>{
+    setIsOrder(true)
+  },[])
+  const handleResetOrder = () => {
+    dispatch(LoadingStop())
+    setIsOrder(false)
+
+  }
+
   useEffect(() => {
     if (getTravisProduct && getTravisProduct.length > 0 &&
 
@@ -285,6 +301,7 @@ const DashboardWrapper = () => {
       console.log(error)
     }
   }
+ 
 
   return (
     <>
@@ -295,6 +312,11 @@ const DashboardWrapper = () => {
       <GetAllProduct />
     
       <Reload />
+
+      {isOrder &&
+          <GetAllorder
+            resetOrder={handleResetOrder}
+          />}
 
 
     </>

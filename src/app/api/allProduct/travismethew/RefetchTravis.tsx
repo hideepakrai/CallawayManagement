@@ -30,11 +30,10 @@ const RefetchTravis = ({ resetFail ,checkSku,resetSubmit}: Props) => {
             let val="";
             const response = await GetTravisProduct();
             const products: BasicModelTravis[] = response;
-            dispatch(addTravisProduct({
-                    travisProduct: response
-                }))
+           
             if (response &&fail) {
 
+               
                 checkSku.map((items)=>{
                   const check=response.findIndex((item:BasicModelTravis)=>item.sku==items.sku)
                   if(check  && check.stock_88!=items.stock_88 && check.stock_99!=items.stock_90 && val===""){
@@ -44,6 +43,9 @@ const RefetchTravis = ({ resetFail ,checkSku,resetSubmit}: Props) => {
               })
                 
                 if(!fail){
+                    dispatch(addTravisProduct({
+                        travisProduct: response
+                    }))
                     resetFail(val);
                 }else if (fail){
                     resetSubmit()

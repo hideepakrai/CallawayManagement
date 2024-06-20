@@ -168,8 +168,7 @@ const TravisMethewSlice = createSlice({
                   );
                   if(travisIndex!==-1){
                     const trvsRedux=state.travisMethew[travisIndex];
-                    // const trvs= state.travisMethew[travisIndex].TravisAttributes
-                      
+                   
                       if(trvsRedux){
                         const rdxStock88=trvsRedux.stock_88;
                         const rdxStock90=trvsRedux.stock_90;

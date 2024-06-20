@@ -9,6 +9,8 @@ import {useSelector} from"react-redux";
 import { getTravisProducts } from '../../../../app/slice/allProducts/TravisMethewSlice'
 import {Link} from 'react-router-dom'
 import clsx from 'clsx'
+import { getUserOrders } from '../../../../app/slice/UserSlice/UserSlice'
+import { CartModel } from '../../../../app/modules/model/CartOrder/CartModel'
 type Props = {
   className: string
   chartColor: string
@@ -53,6 +55,34 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
       setTravisQuantity(getTravisProduct.length)
     }
   },[getTravisProduct])
+
+
+  const getUserOrder= useSelector(getUserOrders) as CartModel[];
+
+  const [completeOrder, setCompleteOrder]= useState<CartModel[]>([])
+  const [pendingOrder, setPendingOrder]= useState<CartModel[]>([])
+  useEffect(()=>{
+ 
+   const allComp:CartModel[]=[]
+   const allPend:CartModel[]=[]
+   if(getUserOrder && getUserOrder.length>0){
+    getUserOrder.map((item)=>{
+     if(item.brand_id===3 && item.status==="Complete"){
+       allComp.push(item)
+     }
+     if(item.brand_id===3 && item.status!="Complete"){
+       allPend.push(item)
+     }
+    })
+     
+   }
+   if(allComp && allComp.length>0){
+     setCompleteOrder(allComp)
+   }
+   if(allPend && allPend.length>0){
+     setPendingOrder(allPend)
+   }
+  },[getUserOrder ])
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -112,7 +142,7 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
               {/* <KTIcon iconName='abstract-26' className='fs-3x text-danger d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold text-danger'>0 </span> <br></br> Complete Orders  
+              <span className='fs-1 fw-bold text-danger'>{completeOrder.length}</span> <br></br> Complete Orders  
               </a>
             </div>
             {/* end::Col */}
@@ -121,7 +151,7 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
               {/* <KTIcon iconName='sms' className='fs-3x text-success d-block my-2' /> */}
               <a href='#' className=' fw-semibold fs-6 mt-2' style={{color:"#141414"}}>
                
-              <span className='fs-1 fw-bold text-success'>0 </span> <br></br> Pending Orders  
+              <span className='fs-1 fw-bold text-success'>{pendingOrder.length} </span> <br></br> Pending Orders  
               </a>
             </div>
             {/* end::Col */}
