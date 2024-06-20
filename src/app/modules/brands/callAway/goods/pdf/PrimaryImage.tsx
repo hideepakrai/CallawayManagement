@@ -9,10 +9,7 @@ const PrimaryImage = ({ record }: Props) => {
 
   const [primaryImage, setPrimaryImage] = useState<string | null>(null);
   const [imagePaths, setImagePaths] = useState<string[]>([]);
-   const s3_url = "https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/";
-  //const s3_url = `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/TRAVIS-Images/${record.family}/`;
-
-
+  const s3_url = `https://callaways3bucketcc001-prod.s3.ap-south-1.amazonaws.com/public/productimg/cwayhardgood/${record.sku}`;
   return (
     <div>
       {record.primary_image_url ?

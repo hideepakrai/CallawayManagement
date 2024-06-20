@@ -20,14 +20,15 @@ import { TravisPdfPrint } from '../../../model/pdf/PdfModel';
 type Props = {
   selectedRow: TravisPdfPrint[];
   resetSelectedRow: () => void;
+  cancelRowSelected:()=>void
 };
 
-const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
- 
+const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow,cancelRowSelected }: Props) => {
+  const currentTime = new Date().toISOString();
   const contentToPrint = useRef(null);
   const handlePrint = useReactToPrint({
-    documentTitle: "Print This Document",
-    onBeforePrint: () => console.log("before printing..."),
+    documentTitle: `OgioProduct_${new Date().toISOString()}.pdf`,
+    onBeforePrint: () => cancelRowSelected(),
     onAfterPrint: () => resetSelectedRow(),
     removeAfterPrint: true,
 
@@ -35,9 +36,9 @@ const OgioPdf: React.FC<Props> = ({ selectedRow, resetSelectedRow }: Props) => {
 
   useEffect(() => {
     if (selectedRow && selectedRow.length > 0) {
-      handlePrint(null, () => contentToPrint.current);
+       handlePrint(null, () => contentToPrint.current);
 
-      console.log("selectedRow",selectedRow)
+      
     }
   }, [selectedRow]);
 

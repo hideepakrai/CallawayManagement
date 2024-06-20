@@ -1245,6 +1245,7 @@ const OgioTable = () => {
       {isPDF && <OgioProdPdf
         selectedRow={selectedRowVartionSku}
         resetSelectedRow={handleResetSelectedRow}
+        cancelRowSelected={handleResetSelectedRow}
       />}
 
 

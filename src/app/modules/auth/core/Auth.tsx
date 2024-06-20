@@ -68,20 +68,20 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
     }))
     
 
-    // dispatch(addOgioLocalStroge({
-    //   ogio: JSON.parse(localStorage.getItem('Ogio') as string)
-    // }))
+    dispatch(addOgioLocalStroge({
+      ogio: JSON.parse(localStorage.getItem('Ogio') as string)
+    }))
 
     
-    // dispatch(addTravisLocalStorage({
-    //   travis: JSON.parse(localStorage.getItem('Travis') as string)
-    // }))
-    // dispatch(addApparelLocalStorage({
-    //   apparel: JSON.parse(localStorage.getItem('SoftGoods') as string)
-    // }))
-    // dispatch(addHardGoodsLocalStorage({
-    //   goods: JSON.parse(localStorage.getItem('HardGoods') as string)
-    // }))
+    dispatch(addTravisLocalStorage({
+      travis: JSON.parse(localStorage.getItem('Travis') as string)
+    }))
+    dispatch(addApparelLocalStorage({
+      apparel: JSON.parse(localStorage.getItem('SoftGoods') as string)
+    }))
+    dispatch(addHardGoodsLocalStorage({
+      goods: JSON.parse(localStorage.getItem('HardGoods') as string)
+    }))
 
   }, []);
 
