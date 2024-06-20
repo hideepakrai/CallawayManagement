@@ -16,8 +16,8 @@ import { addHardGoodsOrderDetails } from "../../slice/orderSlice/callawayGoods/H
 
 import { getActiveOrdertab } from "../../slice/activeTabsSlice/ActiveTabSlice";
 
-import { addTravisReatailerDetails, getTravisRetailerDetail } from "../../slice/allProducts/TravisMethewSlice";
-import { addOgioReatailerDetails, getOgioRetailerDetail } from "../../slice/allProducts/OgioSlice";
+import { addTravisReatailerDetails, addTravismanagerDetails, getTravisRetailerDetail } from "../../slice/allProducts/TravisMethewSlice";
+import { addOgioReatailerDetails,addOgioManagerDetails, getOgioRetailerDetail } from "../../slice/allProducts/OgioSlice";
 import { addHardGoodsReatailerDetails, getHardGoodsRetailerDetail } from "../../slice/allProducts/CallAwayGoodsSlice.tsx";
 
 import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetailerAddress";
@@ -48,6 +48,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [retailerName, setRetailerName] = useState<string>()
     const [retailerAddres, setRetailerAddress] = useState<string>()
     const [retailerId, setRetailerId] = useState<number | null>(null)
+
     const [retailerCity, setRetailerCity] = useState<string>()
     const [retailerUserId, setRetailerUserId] = useState<number>(0)
     const [GST, setGST] = useState<string>()
@@ -75,6 +76,8 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 // manager
             if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
                 setManagerName(getCurrentUsers.name)
+                
+               
             }
             if(getCurrentUsers && getCurrentUsers.role==="Sales Representative" &&getCurrentUsers.name){
                 setSalesRepName(getCurrentUsers.name)
@@ -108,9 +111,38 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const getUserRetailers = useSelector(getUserRetailer);
     const getActiveOrdertabs = useSelector(getActiveOrdertab)
     const getUserAccounts = useSelector(getUserAccount)
-    const handleChange = (value: number) => {
 
-        const allData = getUserRetailers?.filter(retailer => retailer.id == value)
+const[retailers, setRetailers]= useState<RetailerModel[]>([])
+const[managers, setManagers]=useState<RetailerModel[]>([])
+    useEffect(()=>{
+        const ret:RetailerModel[]= []
+        const man:RetailerModel[]= []
+
+    if(getUserRetailers && getUserRetailers.length>0){
+
+        getUserRetailers.map((item)=>{
+            if(item.role==="Retailer"){
+                
+                ret.push(item)
+
+            }
+
+            if(item.role==="Manager"){
+                man.push(item)
+
+            }
+
+        })
+    }
+    setRetailers(ret)
+    setManagers(man)
+    },[getUserRetailers])
+
+    
+    const handleChange = (value: number) => {
+        
+
+        const allData = retailers?.filter(retailer => retailer.id == value)
         if (allData &&
             allData.length > 0 &&
             allData[0]?.gstin &&
@@ -160,6 +192,52 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
             setRetailerId(null)
             setRetailerName("")
         }
+
+        // if( allData.length>0 &&allData[0]?.attributes?.users_permissions_user?.data?.id)
+        //  sendRetailerData(allData[0]?.attributes?.users_permissions_user?.data?.id
+        // )
+    }
+
+
+
+
+    const handleChangeManager = (value:string) => {
+        console.log("manf",value)
+        
+     setManagerName(value)
+            if (getActiveOrdertabs === "travis") {
+                dispatch(addTravismanagerDetails(
+                {
+                    managerDetails: value                }
+                ))        
+                setIsTravis(true)
+            }
+
+            else if (getActiveOrdertabs === "ogio") {
+                dispatch(addOgioManagerDetails({
+                    managerDetails: value 
+                }))
+                setIsOgio(true)
+            }
+        //     else if (getActiveOrdertabs === "softgood") {
+        //         dispatch(addsoftgoodReatailerDetails({
+        //             retailerDetails: allData[0]
+        //         }))
+        //         setIsApparel(true)
+        //     }
+
+        //     else if (getActiveOrdertabs === "hardgood") {
+        //         //console.log("addhard",addHardGoodsReatailerDetails)
+        //         dispatch(addHardGoodsReatailerDetails({
+        //             retailerDetails: allData[0]
+        //         }))
+        //         setIsHard(true)
+        //     }
+
+
+        // } else {
+        //     setManagerName("")
+        // }
 
         // if( allData.length>0 &&allData[0]?.attributes?.users_permissions_user?.data?.id)
         //  sendRetailerData(allData[0]?.attributes?.users_permissions_user?.data?.id
@@ -308,7 +386,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                                 style={{ marginBottom: 10 }}
                                 onChange={handleChange}
                                 value={retailerId}
-                                options={getUserRetailers?.map((item: RetailerModel) => (
+                                options={retailers?.map((item: RetailerModel) => (
                                     {
                                         label: item.name ?? "",
                                         value: item.id
@@ -316,23 +394,54 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
                             />
 
                         </div>
-                        <div className="mb-4 col-3">
-                            <span className=' fs-5 fw-bold ' >
-                                Manager
-                            </span>
-                         
 
-                            {/* <select className="form-select select-dro" data-control="select2" data-placeholder="Select an option">
-                                <option value="1">Mukesh Gupta</option>
-                                <option value="2">Ankur </option>
-                                <option value="3">Manish Sharma </option>
-                            </select> */}
+
+
+                        <div className="col-3">
+
+
+                           
+                            {getCurrentUsers && getCurrentUsers.role==="Admin"?(
+                                <>
+                                 <h4 className=' pt-3 fs-6' style={{ width: "100px", minWidth: "100px" }}>
+                                <a>Select Manager</a>
+                            </h4> 
+                                <Select
+                                showSearch
+                                placeholder="Select manager"
+                                optionFilterProp="children"
+                                className="select-toogle"
+                                style={{ marginBottom: 5 }}
+                                onChange={handleChangeManager}
+                               value={MangerName}
+
+                                options={managers?.map((item: RetailerModel) => (
+                                    {
+                                        label: item.name ?? "",
+                                        value: item.name
+                                    }))}
+
+                                
+                            />
+                             </>
+
+                            ):( 
+                                <>
+                                 <h4 className=' pt-3 fs-6' style={{ width: "100px", minWidth: "100px" }}>
+                                <a>Manager</a>
+                            </h4> 
                             
                             <h3 className=' fs-2 user-title' >
-                             {MangerName}
-                            </h3>
+                                {MangerName}
+                               </h3> 
+                               </>
+                               )}
+                           
+                                                   
+                                
+                                                
                         </div>
-
+                    
                         <div className="mb-4 col-3">
                             <span className=' fs-5 fw-bold ' >
                                 Sales Representative

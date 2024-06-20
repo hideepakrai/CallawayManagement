@@ -8,7 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 import OgioGallery from "../../../brands/ogio/table/column/OgioGallery.tsx";
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel.ts";
-import { getOgioNotes, getOgioProducts, getOgioRetailerDetail, getPreOrderId } from "../../../../slice/allProducts/OgioSlice.tsx";
+import { getOgioNotes, getOgioProducts, getOgioRetailerDetail, getPreOrderId, getaddOgioManagerDetails } from "../../../../slice/allProducts/OgioSlice.tsx";
 import { getOgioOrder } from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice.tsx";
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../../../slice/UserSlice/UserSlice"
@@ -25,6 +25,7 @@ type Props = {
 }
 
 const OgioCartPdf = () => {
+
 
 
   const getUserProfiles = useSelector(getUserProfile)
@@ -46,6 +47,24 @@ const OgioCartPdf = () => {
   const getPreOrderIds = useSelector(getPreOrderId)
   const [notes, setNotes] = useState<string[]>([])
   const getOgioNote = useSelector(getOgioNotes)
+   
+  const managerName =useSelector(getaddOgioManagerDetails)
+  const[manaer_Name,setManager_Name] = useState<string>()
+  useEffect(()=>{
+    if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && managerName){
+      setManager_Name(managerName)
+      
+
+    }
+    else if(getCurrentUsers && getCurrentUsers.role=="Manager" && getCurrentUsers.name)
+{
+  setManager_Name(getCurrentUsers.name)
+}    
+
+
+  },[getCurrentUsers,managerName]
+
+  )
 
   useEffect(() => {
     const check: string[] = [];
@@ -281,7 +300,7 @@ const OgioCartPdf = () => {
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Company:</span> Callaway Golf India </p>
 
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Brand:</span> Ogio</p>
-                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Manager:</span> {getCurrentUsers?.name}</p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Manager:</span> {manaer_Name}</p>
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Sales Rep:</span>  {salesRepName}</p>
               </div>
             </div>
