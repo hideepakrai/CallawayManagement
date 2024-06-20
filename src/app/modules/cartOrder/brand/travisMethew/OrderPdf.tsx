@@ -270,7 +270,7 @@ const [retailerCty, setRetailerCity]= useState<string>()
        </div>
        <div style={{float:"left"}}>
        <p>Date: 16/01/2024 </p>
-        <p>Company: Callaway Golf India</p>
+        <p>Company: Callaway Golf India </p>
         <p>Brand: Ogio</p>
         <p>Manager: Manish Sharma </p>
         <p>Sales Rep: Mukesh Kumar</p>

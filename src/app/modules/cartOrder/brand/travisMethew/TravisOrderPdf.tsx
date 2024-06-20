@@ -260,7 +260,7 @@ const TravisOrderPdf = () => {
               pagination={false} />
 
             <div className='row'>
-              <div className='col-3 mt-6 notes-pdf'>
+              <div className='col-6 mt-6 notes-pdf'>
                 {notes &&
                   notes.length > 0 &&
                   <h2 className='fs-4'>NOTES:</h2>
@@ -277,7 +277,7 @@ const TravisOrderPdf = () => {
               </div>
 
 
-              <div className='col-9'>
+              <div className='col-6'>
                 <div className="mx-7 " style={{ width: "260px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
 
                   <tr className="total-amout-list">
