@@ -284,7 +284,7 @@ const OgioSlice = createSlice({
               const quantity90 = state.ogio[ogioIndex]?.Quantity90 ?? 0;
               state.ogio[ogioIndex].TotalQty =quantity90;
 
-              
+              const stock90=state.ogio[ogioIndex].stock_90 ??0;
               state.ogio[ogioIndex].Amount = MRP*(quantity90)
               state.ogio[ogioIndex].ordered = true;
                const gst=state.ogio[ogioIndex].gst;
@@ -308,6 +308,9 @@ const OgioSlice = createSlice({
     state.ogio[ogioIndex].LessDiscountAmount = lessDiscountAmount;
     state.ogio[ogioIndex].NetBillings = netBillings;
     state.ogio[ogioIndex].FinalBillValue = finalBillValue;
+                }
+                if(stock90>=qty90){
+                    state.ogio[ogioIndex].error=""
                 }
                 
             } else if(ogioIndex!== -1 &&qty90==0) {
@@ -519,6 +522,20 @@ const OgioSlice = createSlice({
             }
 
           },
+          updateCheckAvailability:(state,action)=>{
+            const {sku,qty}= action.payload;
+            const OgioIndex = state.ogio.findIndex(
+              (ogioItem) => ogioItem.sku === sku
+            );
+            if( OgioIndex !== -1){
+              const qty88= state.ogio[OgioIndex].Quantity88??0;
+        
+              if(qty<qty88){
+                state.ogio[OgioIndex].error="Out of Stock";
+                state.ogio[OgioIndex].stock_88=qty;
+              }
+            }
+          }
 
 
        
@@ -548,7 +565,8 @@ export const { addOgioProduct,
     addNote,
     updateOtherQuantity90,
     addOgioLocalStroge,
-    addOgioManagerDetails
+    addOgioManagerDetails,
+    updateCheckAvailability
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];

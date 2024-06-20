@@ -377,9 +377,9 @@ const OgioTable = () => {
 
       // ),
       render: (value, record) => (
-        <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+        <Tooltip open={record.error !==""? true : false} title={record.error !== "" ? record.error : ""} placement="top">
           <InputNumber
-            status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
+            status={record.error  !== "" ? "error" : ""}
             className='mx-3 number-input'
             //addonBefore={record?.stock_90}
             addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}

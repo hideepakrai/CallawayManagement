@@ -1,56 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery, useApolloClient } from "@apollo/client";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { GET_TRAVISMETHEW_Prduct } from "../../../modules/brands/travisMethew/graphQl/TravisMethewProducts"
-import { addTravisProduct, getTravisProducts, updateCheckAvailability } from "../../../slice/../slice/allProducts/TravisMethewSlice"
-import { GetTravisProduct } from './TravisProduct';
-import { BasicModelTravis } from '../../../modules/model/travis/TravisMethewModel';
+import { useDispatch } from 'react-redux';
+import { GET_OGIO_Prduct } from "../../../modules/brands/ogio/graphql/OgioGraphQl"
+import {  addOgioProduct, updateCheckAvailability } from "../../../slice/allProducts/OgioSlice"
+import axios from 'axios';
+import { GetOgioProduct } from "../ogio/OgioAPI"
+import { OgioBasicModel } from '../../../modules/model/ogio/OgioBrandModel';
+
 type Props = {
 
     resetFail: (val:string) => void,
-    checkSku:BasicModelTravis[],
-    resetSubmit:()=>void
+    resetSubmit: () => void,
+    checkSku: OgioBasicModel[]
 }
 
-const RefetchTravis = ({ resetFail ,checkSku,resetSubmit}: Props) => {
+const RefetchOgio = ({ checkSku, resetSubmit,resetFail }: Props) => {
 
-    const getProduct: BasicModelTravis[] = useSelector(getTravisProducts)
+
     const dispatch = useDispatch();
     useEffect(() => {
         if(checkSku && checkSku.length>0){
-            getAllTravisProduct()
+        getAllOgioProduct()
         }
-       
     }, [checkSku])
 
-    const getAllTravisProduct = async () => {
+    const getAllOgioProduct = async () => {
         try {
-            let fail=true;
-            let val="";
-            const response = await GetTravisProduct();
-            const products: BasicModelTravis[] = response;
-           
-            if (response &&fail) {
-                dispatch(addTravisProduct({
+            const response = await GetOgioProduct();
+              let fail=true;
+              let val="";
+            if (response  &&fail) {
+                dispatch(addOgioProduct({
                     travisProduct: response
                 }))
                
                 checkSku.map((items) => {
-                    const checkIndex = response.findIndex((item: BasicModelTravis) => item.sku === items.sku);
+                    const checkIndex = response.findIndex((item: OgioBasicModel) => item.sku === items.sku);
                       console.log("checkIndex",checkIndex)
                       // eslint-disable-next-line no-debugger
                       debugger
                     if (
                         checkIndex !== -1 &&
-                        response[checkIndex].stock_88 <= (items.Quantity88 ?? 0)  &&
+                        response[checkIndex].stock_90 <= (items.Quantity90 ?? 0)  &&
                         val === ""
                     ) {
                         fail = false;
                         val = items.sku ?? "";
                         dispatch(updateCheckAvailability({
                             sku:items.sku ?? "",
-                            qty:response[checkIndex].stock_88 
+                            qty:response[checkIndex].stock_90 
                         }))
                     }
                 });
@@ -66,14 +65,12 @@ const RefetchTravis = ({ resetFail ,checkSku,resetSubmit}: Props) => {
             }
 
 
-
-
         } catch (err) {
-            resetFail("some thing went wrong")
             // alert("Error in getting ogio product")
         }
 
     }
+
 
 
 
@@ -83,4 +80,4 @@ const RefetchTravis = ({ resetFail ,checkSku,resetSubmit}: Props) => {
     )
 }
 
-export default RefetchTravis;
+export default RefetchOgio;

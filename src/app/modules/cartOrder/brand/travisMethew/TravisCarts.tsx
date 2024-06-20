@@ -552,7 +552,8 @@ const TravisCarts = () => {
         if (item.FinalBillValue && item.ordered) {
 
           totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
-        } if(item.ordered && item.error88 === "" && item.error90 === "" && item.sku){
+        } 
+        if(item.ordered && item.error88 === "" && item.error90 === ""){
           newSku.push(item)
         }
 
@@ -560,7 +561,9 @@ const TravisCarts = () => {
       setTotalAmount(tAmount)
       setTotalNetBillAmount(totalBillAmount)
       setDiscountAmount(tAmount - totalBillAmount)
-      setCheckSku(newSku)
+      if(newSku && newSku.length>0){
+        setCheckSku(newSku)
+      }
     }
   }, [getProduct])
 
@@ -595,9 +598,7 @@ const TravisCarts = () => {
   const hanldeSubmitOrder = () => {
     setIsSubmitRefetch(true)
     dispatch(LoadingStart())
-    // setIsSubmitOrder(true)
-    //setIsSubmitModel(true)
-    console.log("submited")
+   
    
   }
 
@@ -625,6 +626,7 @@ const handlefailSubmit=(val :string)=>{
 }
   const handleResetSubmitRefetch=()=>{
     //setIsSubmitOrder(true)
+    setIsSubmitRefetch(false)
     setIsSubmitModel(true)
    
   }

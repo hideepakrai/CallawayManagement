@@ -35,6 +35,7 @@ import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel
 import GetAllorder from '../../../orderPage/GetAllorder';
 import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
 import OgioOrderRejectModal from './OgioOrderRejectModal';
+import RefetchOgio from '../../../../api/allProduct/ogio/RefetchOgio';
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -515,8 +516,9 @@ const OgioCart = () => {
   const [isstatusUpdate, setIsStatusUpdate] = useState<boolean>(false)
   const [isApproveModal, setIsApproveModal] = useState<boolean>(false)
   const [statusUpdate, setStatusUpdate] = useState<string>("")
-  
+  const [checkSku, setCheckSku]=useState<OgioBasicModel[]>([])
   useEffect(() => {
+    const newSku:OgioBasicModel[]=[];
     let tAmount: number = 0;
     let totalBillAmount: number = 0;
     if (getOgioProduct && getOgioProduct.length > 0) {
@@ -528,11 +530,18 @@ const OgioCart = () => {
 
           totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
         }
+        if(item.ordered && item.error === "" ){
+          newSku.push(item)
+        }
 
       })
       setTotalAmount(tAmount)
       setTotalNetBillAmount(totalBillAmount)
       setDiscountAmount(tAmount - totalBillAmount)
+      if(newSku && newSku.length>0){
+        setCheckSku(newSku)
+      }
+     
     }
   }, [getOgioProduct])
 
@@ -614,7 +623,7 @@ const OgioCart = () => {
   const [isSubmitOrder, setIsSubmitOrder] = useState(false)
   const [isSubmitModal, setIsSubmitModal] = useState(false)
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
-  
+  const [isSubmitRefetch, setIsSubmitRefetch]= useState<boolean>(false)
   //refetch
 
   const [isRefetch, setIsRefetch] = useState<boolean>(false)
@@ -647,10 +656,37 @@ const handleOkSubmit=()=>{
   dispatch(LoadingStart())
 }
 
+ 
   const hanldeSubmitOrder = () => {
+    setIsSubmitRefetch(true)
+    dispatch(LoadingStart())
+   
+  }
+
+  // refetch the data base to check availability
+  //refetch submit 
+// faill submit
+const handlefailSubmit=(val :string)=>{
+  if(val){
+  
+    alert(`${val} is out of stock`)
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
+    setIsSubmitRefetch(false)
+  }
+
+  dispatch(LoadingStop())
+}
+
+  const handleResetSubmitRefetch=()=>{
+    //setIsSubmitOrder(true)
+    setIsSubmitRefetch(false)
     setIsSubmitModal(true)
    
   }
+
   const handleCancelSubmit = () => {
    setIsSubmitModal(false)
    
@@ -703,13 +739,7 @@ const handleOkSubmit=()=>{
      dispatch(LoadingStop())
   }
 
-  const handleUpdateRedux = () => {
-    alert("Your order has been plcaed successfully")
-    setIsUpdateRedux(false)
 
-    dispatch(LoadingStop())
-    setGetAllOgioOrders([])
-  }
 
   //approve 
 
@@ -1007,6 +1037,14 @@ const handleOkSubmit=()=>{
       {isRefetch && <OgioProduct
         resetOgio={handleResetRefetch}
         isRefetch={isRefetch}
+
+      />}
+
+{isSubmitRefetch && <RefetchOgio
+      checkSku={checkSku}
+      resetSubmit={handleResetSubmitRefetch}
+      resetFail={handlefailSubmit}
+
 
       />}
 
