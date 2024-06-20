@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { getPreOrderId, getTravisNote, getTravisProducts, getTravisRetailerDetail } from '../../../../slice/allProducts/TravisMethewSlice'
+import { getPreOrderId, getTravisNote, getTravisProducts, getTravisRetailerDetail, getaddTravismanagerDetails } from '../../../../slice/allProducts/TravisMethewSlice'
 import { Button, Card, Flex, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
@@ -17,7 +17,28 @@ const TravisOrderPdf = () => {
   const getCurrentUsers = useSelector(getCurrentUser)
   const [salesRepName, setSalesRepName] = useState<string>()
   const getUserProfiles = useSelector(getUserProfile)
-  //get sales Rep name
+  const managerName =useSelector(getaddTravismanagerDetails)
+  const[manaer_Name,setManager_Name] = useState<string>()
+  useEffect(()=>{
+    if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && managerName){
+      setManager_Name(managerName)
+      
+
+    }
+    else if(getCurrentUsers && getCurrentUsers.role=="Manager" && getCurrentUsers.name)
+{
+  setManager_Name(getCurrentUsers.name)
+}    
+
+
+  },[getCurrentUsers,managerName]
+
+  )
+  useEffect(()=>{
+
+  }
+
+  )
   useEffect(() => {
     if (getUserProfiles && getUserProfiles.length > 0) {
       getUserProfiles.map(item => {
@@ -240,7 +261,7 @@ const TravisOrderPdf = () => {
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Company:</span> Callaway Golf India</p>
 
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Brand:</span> Travis Mathew</p>
-                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Manager:</span> {getCurrentUsers?.name}</p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Manager:</span> {manaer_Name}</p>
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Sales Rep:</span>  {salesRepName}</p>
               </div>
             </div>
