@@ -3,7 +3,7 @@ import { useQuery, useApolloClient } from "@apollo/client";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_TRAVISMETHEW_Prduct } from "../../../modules/brands/travisMethew/graphQl/TravisMethewProducts"
-import { addTravisProduct, getTravisProducts } from "../../../slice/../slice/allProducts/TravisMethewSlice"
+import { addTravisProduct, getTravisProducts, updateCheckAvailability } from "../../../slice/../slice/allProducts/TravisMethewSlice"
 import { GetTravisProduct } from './TravisProduct';
 import { BasicModelTravis } from '../../../modules/model/travis/TravisMethewModel';
 type Props = {
@@ -32,22 +32,34 @@ const RefetchTravis = ({ resetFail ,checkSku,resetSubmit}: Props) => {
             const products: BasicModelTravis[] = response;
            
             if (response &&fail) {
-
+                dispatch(addTravisProduct({
+                    travisProduct: response
+                }))
                
-                checkSku.map((items)=>{
-                  const check=response.findIndex((item:BasicModelTravis)=>item.sku==items.sku)
-                  if(check  && check.stock_88!=items.stock_88 && check.stock_99!=items.stock_90 && val===""){
-                    fail=false;
-                    val=items.sku??"";
-                  }
-              })
+                checkSku.map((items) => {
+                    const checkIndex = response.findIndex((item: BasicModelTravis) => item.sku === items.sku);
+                      console.log("checkIndex",checkIndex)
+                      // eslint-disable-next-line no-debugger
+                      debugger
+                    if (
+                        checkIndex !== -1 &&
+                        response[checkIndex].stock_88 <= (items.Quantity88 ?? 0)  &&
+                        val === ""
+                    ) {
+                        fail = false;
+                        val = items.sku ?? "";
+                        dispatch(updateCheckAvailability({
+                            sku:items.sku ?? "",
+                            qty:response[checkIndex].stock_88 
+                        }))
+                    }
+                });
+                
                 
                 if(!fail){
-                    dispatch(addTravisProduct({
-                        travisProduct: response
-                    }))
+                    
                     resetFail(val);
-                }else if (fail){
+                }else {
                     resetSubmit()
                 }
                  

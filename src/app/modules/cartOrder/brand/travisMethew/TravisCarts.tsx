@@ -211,9 +211,9 @@ const TravisCarts = () => {
       width: 120,
       fixed: 'right',
       render: (value, record) => (
-        <Tooltip open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""} placement="top">
+        <Tooltip open={record.error88 !== "" ? true : false} title={record?.error88 !== "" ? record.error88 : ""} placement="top">
           <InputNumber
-            status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
+            status={record.error88 !== "" ? "error" : ""}
             className=' number-input'
             //addonBefore={record.stock_88}
             addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
@@ -593,8 +593,10 @@ const TravisCarts = () => {
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
  const [isSubmitRefetch, setIsSubmitRefetch]= useState<boolean>(false)
   const hanldeSubmitOrder = () => {
+    setIsSubmitRefetch(true)
+    dispatch(LoadingStart())
     // setIsSubmitOrder(true)
-    setIsSubmitModel(true)
+    //setIsSubmitModel(true)
     console.log("submited")
    
   }
@@ -602,25 +604,28 @@ const TravisCarts = () => {
 
   const handleSumbitOk=() => {
     setIsSubmitModel(false)
-    setIsSubmitRefetch(true)
-   // setIsSubmitOrder(true)
+    //setIsSubmitRefetch(true)
+   setIsSubmitOrder(true)
   }
 
   //refetch submit 
 // faill submit
 const handlefailSubmit=(val :string)=>{
   if(val){
+  
     alert(`${val} is out of stock`)
     dispatch(updateProgressStep({
       progressStep: 0
 
     }))
+    setIsSubmitRefetch(false)
   }
 
+  dispatch(LoadingStop())
 }
   const handleResetSubmitRefetch=()=>{
-    setIsSubmitRefetch(false)
-    setIsSubmitOrder(true)
+    //setIsSubmitOrder(true)
+    setIsSubmitModel(true)
    
   }
   const handleSumbitCancel=() => {
@@ -651,7 +656,7 @@ const handlefailSubmit=(val :string)=>{
 
   const handleUpdateStrapi = (message: string) => {
     setIsUpdateStrapi(false)
-    setIsUpdateRedux(true)
+    //setIsUpdateRedux(true)
     if (message === "") {
       messageApi.info('some went wrong');
       // alert("some went wrong")
@@ -966,7 +971,9 @@ const handleRejectedModalCancel=()=>{
 
 
       />}
-      {isSubmitRefetch && <RefetchTravis
+     
+
+       {isSubmitRefetch && <RefetchTravis
       checkSku={checkSku}
       resetSubmit={handleResetSubmitRefetch}
       resetFail={handlefailSubmit}
