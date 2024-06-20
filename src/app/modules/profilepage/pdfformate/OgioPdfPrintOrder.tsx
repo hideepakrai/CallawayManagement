@@ -73,7 +73,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      width: 150,
+      width: 200,
 
     },
 
@@ -92,7 +92,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
       title: "QTY",
       dataIndex: "Quantity90",
       key: "Quantity90",
-      width: 120,
+      width: 60,
       render: (value, record) => {
 
         //const total = (record.stock_88 ? record.stock_88 : 0) + (record.stock_90 ? record.stock_90 : 0);
@@ -123,7 +123,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
       title: "MRP",
       dataIndex: "mrp",
       key: "mrp",
-      width: 100,
+      width: 115,
       fixed: 'right'
 
     },
@@ -131,7 +131,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
       title: "Discount",
       dataIndex: "LessDiscountAmount",
       key: "LessDiscountAmount",
-      width: 100,
+      width: 115,
       fixed: 'right'
 
     },
@@ -140,7 +140,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
       title: "Amount",
       dataIndex: "Amount",
       key: "Amount",
-      width: 70,
+      width: 60,
       fixed: 'right'
 
     },
@@ -185,7 +185,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
                 <img className="pdf-image" width={200} src={BrandLogo}></img>
               </div>
               <div className="col-5 text-end px-10">
-                <h2 className="text-white pdf-title">ORDER PDF </h2>
+                <h2 className="text-white pdf-title">ORDER PDF  </h2>
                 <h2 className="text-white pdf-title"><span>#</span>{getPreOrderIds}</h2>
               </div>
             </div>
@@ -250,7 +250,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
               pagination={false} />
 
             <div className='row'>
-              <div className='col-3 mt-6 notes-pdf'>
+              <div className='col-6 mt-6 notes-pdf'>
               {notes &&
                     notes.length > 0 &&
                 <h2 className='fs-4'>NOTES:</h2>
@@ -266,7 +266,7 @@ const OgioPdfPrintOrder = ({ recordPdf, resetOgioPdf }: Props) => {
 
               </div>
 
-              <div className='col-9'>
+              <div className='col-6'>
                 <div className="mx-7 " style={{ width: "237px", float: "right", paddingTop: "20px", backgroundColor: "#fff" }}>
 
                 <tr className="total-amout-list-print">

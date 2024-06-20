@@ -132,6 +132,7 @@ const PendingOrder = () => {
                                                         <span style={{ paddingRight: "5px", paddingLeft: "6px", borderRight: "1px solid rgb(221, 221, 221)", cursor: "pointer" }}
                                                             onClick={() => handleEdit(item.id)}
 
+                                                            
                                                         >
                                                             <Tooltip title="Edit" placement="bottom">
                                                                 <i className="bi bi-pencil-fill" ></i>

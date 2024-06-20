@@ -125,6 +125,8 @@ const DashboardPage = () => (
             </div>
           </div>
 
+
+
           <div className='col-xl-4'>
             <MixedWidget2
               className='card-xl-stretch mb-xl-8'
