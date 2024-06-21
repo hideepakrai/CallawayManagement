@@ -21,7 +21,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
     const ogio: BasicModelTravis[] = [];
     if (getProduct && getProduct.length > 0 &&preorderId) {
       getProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id ) {
+        if (item.ordered && item.error88 === "" && item.error90 === "") {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -37,8 +37,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
 
 
           })
-          setBrandId(item.brand_id)
-
+       
         }
       })
 
@@ -101,10 +100,10 @@ const getTravisNotes= useSelector(getTravisNote)
    let totalBillAmount: number = 0;
    if (getProduct && getProduct.length > 0) {
      getProduct.map((item: BasicModelTravis) => {
-       if (item.Amount && item.ordered) {
+       if (item.Amount && item.ordered && item.error88===""  && item.error90==="") {
          tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
        }
-       if (item.FinalBillValue && item.ordered) {
+       if (item.FinalBillValue && item.ordered &&item.error88==="" && item.error90==="") {
 
          totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
        }
@@ -133,7 +132,7 @@ const getTravisNotes= useSelector(getTravisNote)
       const update = {
         id: preorderId,
         order_date: formattedTimestamp,
-        brand_id: brandId,
+        brand_id: 3,
         note:JSON.stringify(getTravisNotes),
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),

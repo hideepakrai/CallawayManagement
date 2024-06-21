@@ -94,7 +94,7 @@ const CallawayGoodsSlice = createSlice({
                         
                     }
    
-                    if( item.stock_90 ||item.stock_88){
+                    
                       state.callawayApparel.push({
                         sku: item.sku,
                         description: item.description,  
@@ -131,7 +131,7 @@ const CallawayGoodsSlice = createSlice({
                    
   
                       });
-                    }
+                    
                  
                    
 

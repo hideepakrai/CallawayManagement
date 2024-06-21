@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentUser, getUserAccount, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { addTravisNote, addPreOrderId, getTravisProducts, updateProgressStep } from '../../../../slice/allProducts/TravisMethewSlice'
+import { addTravisNote, addPreOrderId, getTravisProducts, updateProgressStep, getPreOrderId } from '../../../../slice/allProducts/TravisMethewSlice'
 import { CurentUser } from '../../../model/useAccount/CurrentUser'
 import { CartModel } from '../../../model/CartOrder/CartModel'
 import { CreateOrder } from '../../../cartOrder/orderApi/OrderAPi'
@@ -24,7 +24,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
   const [allTravisOrders, setGetAllTravisOrders] = useState<BasicModelTravis[]>([])
   const [brandId, setBrandId] = useState<number>()
 
-
+const getPreOrderIds= useSelector(getPreOrderId)
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
     console.log("ytt")
@@ -56,9 +56,9 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
   useEffect(() => {
     console.log("y2")
     const ogio: BasicModelTravis[] = [];
-    if (getProduct && getProduct.length > 0) {
+    if (getProduct && getProduct.length > 0 &&getPreOrderIds===0) {
       getProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id) {
+        if (item.ordered && item.error88 === "" && item.error90 === "") {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -75,7 +75,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
             
 
           })
-          setBrandId(item.brand_id)
+          
 
         }
       })
@@ -83,7 +83,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 
       setGetAllTravisOrders(ogio)
     }
-  }, [getProduct]);
+  }, [getProduct,getPreOrderIds]);
 
 
   const getAllUsers=useSelector(getUserProfile)
@@ -133,7 +133,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
       const data = {
         note: JSON.stringify(data1),
         order_date: formattedTimestamp,
-        brand_id: brandId,
+        brand_id: 3,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),
         status: "Pending",

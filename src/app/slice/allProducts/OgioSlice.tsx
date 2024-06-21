@@ -127,15 +127,17 @@ const OgioSlice = createSlice({
                         const ogioIndex= state.ogio.findIndex(prod=>prod.sku===item.sku);
                         if(ogioIndex!==-1) {
                             const stt=state.ogio[ogioIndex]
-                            const rdxtt= item.stock_90
-                                if(stt ){
+
+                                if(stt  ){
+                                    const rdxtt= item.stock_90
                                     const prdstock90=stt.stock_90 // redux
                                     const ltstock90= item.stock_90//latest
                                     const rdxqty90=state.ogio[ogioIndex].Quantity90
+                                    if(rdxtt!=undefined &&prdstock90!=undefined &&rdxqty90!=undefined  && ltstock90!= undefined)
                                     if(prdstock90!==ltstock90){
                                         stt.stock_90=ltstock90;
                                      
-                                        if(rdxqty90&&ltstock90&&rdxqty90>ltstock90){
+                                        if(rdxqty90>ltstock90){
                                             state.ogio[ogioIndex].error="quantity is more than Stock";
                                             state.ogio[ogioIndex].Amount=0;
                                             state.ogio[ogioIndex].Discount=0

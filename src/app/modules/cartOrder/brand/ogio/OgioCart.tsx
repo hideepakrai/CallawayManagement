@@ -321,7 +321,7 @@ const OgioCart = () => {
       render: (value, record) => (
         <>
 
-          <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+          <Tooltip open={record.error! === "" ? true : false} title={record.error !== ""  ? record.error : ""} placement="top">
 
             <InputNumber
               status={record.error !== "" ? "error" : ""}

@@ -546,10 +546,10 @@ const TravisCarts = () => {
     let totalBillAmount: number = 0;
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item: BasicModelTravis) => {
-        if (item.Amount && item.ordered) {
+        if (item.Amount && item.ordered &&item.error88==="" &&item.error90==="") {
           tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
         }
-        if (item.FinalBillValue && item.ordered) {
+        if (item.FinalBillValue && item.ordered &&item.error88==="" &&item.error90==="") {
 
           totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
         } 
@@ -632,6 +632,8 @@ const handlefailSubmit=(val :string)=>{
   }
   const handleSumbitCancel=() => {
     setIsSubmitModel(false)
+    dispatch(LoadingStop())
+
   }
 
 
