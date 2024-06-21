@@ -53,6 +53,8 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
   const [userId, setUserId] = useState<number>();
  
   useEffect(() => {
+    // eslint-disable-next-line no-debugger
+    debugger
 
 
     if (getCurrentUsers &&
@@ -71,9 +73,12 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
         setUserId(getCurrentUsers.id)
       }else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
         setManagerUserId(getCurrentUsers.manager_id);
-      }
-
-
+      }else if (getCurrentUsers.role === "Admin" && getCurrentUsers.manager_id !=undefined) {
+        settypeOfAccount(getCurrentUsers.role)
+         setSalesRepId(0)
+         setManagerUserId(getCurrentUsers.manager_id)
+        // setUserId(getCurrentUsers.id)
+       }
 
     }
   }, [getCurrentUsers])
@@ -116,10 +121,13 @@ const getTravisNotes= useSelector(getTravisNote)
    }
  }, [getProduct])
   useEffect(() => {
+    // eslint-disable-next-line no-debugger
+    debugger
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&
-      salesRepId &&
-      managerUserId &&
+      salesRepId!=undefined &&
+      managerUserId!=undefined
+      &&
       getCurrentUsers &&
       totalAmount&&
       discountAmount &&

@@ -45,7 +45,12 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
         setUserId(getCurrentUsers.id)
       } else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
         setManagerUserId(getCurrentUsers.manager_id);
-      }
+      }else if (getCurrentUsers.role === "Admin" && getCurrentUsers.manager_id !=undefined) {
+        settypeOfAccount(getCurrentUsers.role)
+         setSalesRepId(0)
+         setManagerUserId(getCurrentUsers.manager_id)
+        // setUserId(getCurrentUsers.id)
+       }
 
 
     }
@@ -105,7 +110,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     if (allhardGoodsOrders && 
       allhardGoodsOrders.length > 0 &&
      
-      managerUserId
+      managerUserId!=undefined
     ) {
       const now = new Date();
       const formattedTimestamp = now.toISOString();

@@ -27,7 +27,10 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
-    console.log("ytt")
+    // eslint-disable-next-line no-debugger
+    //debugger
+
+    //console.log("ytt")
 
 
     if (getCurrentUsers &&
@@ -46,6 +49,11 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
         setUserId(getCurrentUsers.id)
       } else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
         setManagerUserId(getCurrentUsers.manager_id);
+      } else if (getCurrentUsers.role === "Admin" && getCurrentUsers.manager_id !=undefined) {
+       settypeOfAccount(getCurrentUsers.role)
+        setSalesRepId(0)
+        setManagerUserId(getCurrentUsers.manager_id)
+       // setUserId(getCurrentUsers.id)
       }
 
 
@@ -58,7 +66,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     const ogio: BasicModelTravis[] = [];
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
-        if (item.ordered && item.error88 === "" && item.error90 === "" && item.brand_id) {
+        if (item.ordered && item.error88 === "" && item.error90 === "") {
           ogio.push({
             sku: item.sku,
             mrp: item.mrp,
@@ -75,7 +83,6 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
             
 
           })
-          setBrandId(item.brand_id)
 
         }
       })
@@ -100,7 +107,26 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     })
   }
  },[getAllUsers])
+
+
+//  const getAllUs=useSelector(getUserProfile)
+//  const [adminId, setAdminnId]= useState<number>(0)
+//  useEffect(()=>{
+
+//   console.log("y3")
+//   if(getAllUs &&getAllUs){
+//     getAllUs.map(item=>{
+//       if( item.id &&item.role==="Admin"){
+
+//         setAdminnId(item.id)
+//       }
+//     })
+//   }
+//  },[getAllUs])
+
+
   /// after getting product create order
+
 
 
   const getISTTime = () => {
@@ -111,11 +137,13 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     return istTime.toISOString();
   };
   useEffect(() => {
-    console.log("y4")
+    // eslint-disable-next-line no-debugger
+   // debugger
+    console.log("y4",managerUserId)
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&
      
-      managerUserId
+      managerUserId!=undefined
     ) {
       //const now = new Date();
       //const formattedTimestamp = now.toISOString();
@@ -133,7 +161,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
       const data = {
         note: JSON.stringify(data1),
         order_date: formattedTimestamp,
-        brand_id: brandId,
+        brand_id: 3,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),
         status: "Pending",
@@ -142,7 +170,10 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
         manager_id: managerUserId,
         salesrep_id: salesRepId??0,
 
+
       }
+
+
       dispatch(addTravisNote({
         note:data1
       }))
