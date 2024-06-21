@@ -180,22 +180,54 @@ const TravisMethewSlice = createSlice({
                         const rdxStock90=trvsRedux.stock_90;
                         const cusrrentStock88=item.stock_88;
                         const cusrrentStock90=item.stock_90;
-                        if(rdxStock88&& rdxStock90 &&cusrrentStock88 &&cusrrentStock90){
-                          if(rdxStock88!=cusrrentStock88){
-                           
-                            trvsRedux.stock_88=cusrrentStock88;
-                          } if(rdxStock90!=cusrrentStock90){
+                        if(rdxStock88!= undefined&& cusrrentStock88!=undefined && 
+                          trvsRedux.Quantity88!=undefined && cusrrentStock90!=undefined  &&
+                          trvsRedux.Quantity90!=undefined && rdxStock90!=undefined){
+
+                              if(rdxStock88!=cusrrentStock88 ){
+                              
+                                trvsRedux.stock_88=cusrrentStock88;
+                                if(cusrrentStock88===0){
+                                 trvsRedux.error="quantity is more than Stock";
+                                 trvsRedux.Amount=0;
+                                 trvsRedux.Discount=0
+                                 trvsRedux.NetBillings=0
+                                 trvsRedux.FinalBillValue=0
+                                 trvsRedux.LessDiscountAmount=0
+                                 trvsRedux.LessGST=0
+                                }
+                              } 
+                          if(rdxStock90!=cusrrentStock90){
                            
                             trvsRedux.stock_90=cusrrentStock90;
                           }
-                          if( trvsRedux.Quantity88&&trvsRedux.Quantity88>cusrrentStock88){
-                            trvsRedux.stock_88=cusrrentStock88;
-                            trvsRedux.error88="Quantity is more than Stock"
-                          }
-                          if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
-                            trvsRedux.error90="Quantity is more than Stock"
-                             trvsRedux.stock_90=cusrrentStock90
-                          }
+                                if( trvsRedux.Quantity88>cusrrentStock88){
+                                  trvsRedux.stock_88=cusrrentStock88;
+                                  trvsRedux.error88="Quantity is more than Stock";
+                                  trvsRedux.FinalBillValue=0
+                                  trvsRedux.Amount=0;
+                                 trvsRedux.Discount=0
+                                 trvsRedux.NetBillings=0
+                                 trvsRedux.LessDiscountAmount=0
+                                 trvsRedux.LessGST=0
+
+                                }
+                                if( trvsRedux.Quantity90>cusrrentStock90){
+                                  trvsRedux.stock_90=cusrrentStock90;
+                                  trvsRedux.error90="Quantity is more than Stock";
+                                  trvsRedux.FinalBillValue=0
+                                  trvsRedux.FinalBillValue=0
+                                  trvsRedux.Amount=0;
+                                 trvsRedux.Discount=0
+                                 trvsRedux.NetBillings=0
+                                 trvsRedux.LessDiscountAmount=0
+                                 trvsRedux.LessGST=0
+
+                                }
+                          // if( trvsRedux.Quantity90&&trvsRedux.Quantity90>cusrrentStock90){
+                          //   trvsRedux.error90="Quantity is more than Stock"
+                          //    trvsRedux.stock_90=cusrrentStock90
+                          // }
                         
 
                         }
@@ -204,85 +236,13 @@ const TravisMethewSlice = createSlice({
             
             })
           }
-            //else if(travisIndex===-1){
-                    
-            //         // const att: TravisMathewAttribute[] = [
-            //         //   {
-            //         //     StyleCode: travisProduct.StyleCode,
-            //         //     Length: travisProduct.Length,
-            //         //     Category: travisProduct.Category,
-            //         //     Season: travisProduct.Season,
-            //         //     Line: travisProduct.Line,
-            //         //     Color: travisProduct.Color,
-            //         //     ColorCode: travisProduct.ColorCode,
-            //         //     Size: travisProduct.Size,
-            //         //     Gender: travisProduct.Gender || "", 
-            //         //     Stock88:travisProduct.Stock88,
-            //         //      Stock90:travisProduct.Stock90,
-                        
-            //         //      // Assuming Gender might be optional
-            //         //   },
-            //         // ];
-            
-      
-                   
-            //         // state.travisMethew.push({
-            //         //   brand: travisProduct.brand,
-            //         //   Name: travisProduct.Name,
-            //         //   Description: travisProduct.Description,
-            //         //   SKU: travisProduct.SKU,
-            //         //   Gallery: travisProduct?.Gallery?.data?.attributes?.formats?.thumbnail?.url,
-            //         //   MRP: travisProduct.MRP,
-            //         //   SetType: travisProduct.SetType,
-            //         //   ProductType: travisProduct.ProductType,
-            //         //   GST: travisProduct.GST,
-            //         //   TravisAttributes: att,
-      
-            //         //       TotalQty: 0,
-            //         //       Quantity88: 0,
-            //         //       Quantity90: 0,
-            //         //       Amount: 0
-            //         // });
-            //       }
-
-            //     })
-                
-            //   }
-              
-
-               
            
-            // }
             
         }
-        // state.travisMethew.map((item:BasicModelTravis)=>{
-        //   createExpansion(sku: item.sku, variation_sku: item.variation_sku );
-        // })
+        
       },
-    // const   createExpansion= (sku, variation_sku ) => {
-       
-        
-    //         const expansionArray:BasicModelTravis[]=[];
-    //         const travisIndex= state.travisMethew.findIndex(skus=>skus.sku===sku)
-    //         const stringVar = variation_sku.split(',').map((item:string) => item.trim());
-    //         if (stringVar.length > 0 && travisIndex!=-1) {
-  
-    //     stringVar.map((varSku:string) => {
-    //       const travisdata= state.travisMethew.find(items=>items.sku===varSku);
-    //       if(travisdata){
-    //         expansionArray.push(travisdata)
-    //       }
-  
-    //     })
-    //     if(travisIndex!=-1){
-    //       state.travisMethew[travisIndex].expansion=expansionArray
-    //     }
-        
-    //    }
-  
-            
-  
-    //   },
+   
+
            reloadCategory:(state,action)=>{
             state.uniqueCategories=action.payload.reloadCategory
 
@@ -795,8 +755,14 @@ const TravisMethewSlice = createSlice({
       const qty88= state.travisMethew[travisIndex].Quantity88??0;
 
       if(qty<qty88){
-        state.travisMethew[travisIndex].error88="Out of Stock";
+        state.travisMethew[travisIndex].error88="Quantity is more than Stock";
         state.travisMethew[travisIndex].stock_88=qty;
+        state.travisMethew[travisIndex].FinalBillValue=0;
+        state.travisMethew[travisIndex].LessDiscountAmount=0;
+        state.travisMethew[travisIndex].Discount=0;
+        state.travisMethew[travisIndex].NetBillings=0;
+       
+      
       }
     }
   }

@@ -97,17 +97,18 @@ const TravisOrderPdf = () => {
     const travis: BasicModelTravis[] = [];
     if (getTravisProduct && getTravisProduct.length > 0) {
       getTravisProduct.map((item) => {
-        if (item.ordered) {
+        if (item.ordered &&item.error88==="") {
           travis.push(item)
-        }
-        if (item.Amount) {
+          if (item.Amount) {
 
-          tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
+            tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
+          }
+          if (item.FinalBillValue) {
+  
+            totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+          }
         }
-        if (item.FinalBillValue) {
-
-          totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
-        }
+       
       })
 
 

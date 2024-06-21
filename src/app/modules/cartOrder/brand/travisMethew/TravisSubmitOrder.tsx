@@ -156,7 +156,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
         id: getPreOrderIds,
         order_date: formattedTimestamp,
         note: JSON.stringify(getTravisNotes),
-        brand_id: brandId,
+        brand_id: 3,
         user_id: getCurrentUsers.id,
         items: JSON.stringify(allTravisOrders),
         discount_type: discountType,

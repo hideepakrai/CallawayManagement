@@ -2,6 +2,7 @@ import React from 'react'
 import GoodsHeader from './header/GoodsHeader';
 import GooodsTable from './table/GooodsTable';
 import Slider from '../../../model/slider/Slider';
+import ScrolBottom from "../../../ProductScrollBottom/ScrollBottom";
 const CallAwayGoodsProducts = () => {
   return (
     <div>
@@ -19,6 +20,7 @@ const CallAwayGoodsProducts = () => {
   
       {/* <GoodsHeader /> */}
       <GooodsTable />
+      <ScrolBottom/>
       </div>
     </div>
   )

@@ -124,17 +124,19 @@ const OgioCartPdf = () => {
     const ogio: OgioBasicModel[] = [];
     if (getOgioProduct && getOgioProduct.length > 0) {
       getOgioProduct.map((item) => {
-        if (item.ordered) {
+        if (item.ordered && item.error==="") {
           ogio.push(item)
-        }
-        if (item.Amount) {
+          if (item.Amount) {
 
-          tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
-        }
-        if (item.FinalBillValue) {
+            tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
+          }
+          if (item.FinalBillValue) {
 
-          totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+            totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+          }
         }
+        
+       
       })
 
 

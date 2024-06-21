@@ -1,0 +1,28 @@
+/* .scroll-bottom {width: 54%!important;
+    height: 56px!important;
+    right: 0;
+    background: #33333335!important;
+    opacity: 1!important;
+    border-radius: 5px 0px 0px 5px!important;
+}
+.scroll-bar-section{padding-right: 49px;}
+
+[data-kt-scrolltop=on] .scrolltop{opacity: 1!important;} */
+
+
+.scroll-bottom {width: 100%!important;
+    height: 56px!important;
+    right: 0;
+    bottom: 0px;
+    background: #000 !important;
+    opacity: 1!important;
+    border-radius: 0px 0px 0px 0px!important;
+}
+/* .scroll-bar-section{padding-right: 49px;} */
+
+[data-kt-scrolltop=on] .scrolltop{opacity: 1!important;}
+
+.scroll-bottom button{ background-color: rgba(255, 255, 255, 0.1) !important;} 
+.scroll-bottom button:hover{ background-color: #363636!important;}
+/* 707070 */
+/* 505050 */

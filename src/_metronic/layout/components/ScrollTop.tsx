@@ -50,8 +50,9 @@ export function ScrollTop() {
   }, [initialized, pathname])
 
   return (
-    <div id='kt_scrolltop' className='scrolltop' data-kt-scrolltop='true'>
-      <KTIcon iconName='arrow-up' />
-    </div>
+    <></>
+    // <div id='kt_scrolltop' className='scrolltop scroll-top-icon' data-kt-scrolltop='true'>
+    //   <KTIcon iconName='arrow-up' />
+    // </div>
   )
 }

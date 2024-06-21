@@ -872,7 +872,7 @@ setAllGoodsProduct(allTr)
           pagination={{
             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
             defaultPageSize: 200,
-            showTotal: (total) => <span className="ant-pagination-total-text">Total {total} items</span>,
+            showTotal: (total) => <span className="ant-pagination-total-text ">Total <span className='total-page '> <i> {total} </i></span> items</span>,
             showSizeChanger: true, // Show page size changer
             pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
           }}

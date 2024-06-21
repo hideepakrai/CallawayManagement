@@ -36,10 +36,10 @@ const RefetchOgio = ({ checkSku, resetSubmit,resetFail }: Props) => {
                 }))
                
                 checkSku.map((items) => {
-                    const checkIndex = response.findIndex((item: OgioBasicModel) => item.sku === items.sku);
-                      console.log("checkIndex",checkIndex)
-                      // eslint-disable-next-line no-debugger
-                      debugger
+
+                    if(items.error===""){
+                        const checkIndex = response.findIndex((item: OgioBasicModel) => item.sku === items.sku);
+                     
                     if (
                         checkIndex !== -1 &&
                         response[checkIndex].stock_90 <= (items.Quantity90 ?? 0)  &&
@@ -52,6 +52,8 @@ const RefetchOgio = ({ checkSku, resetSubmit,resetFail }: Props) => {
                             qty:response[checkIndex].stock_90 
                         }))
                     }
+                    }
+                    
                 });
                 
                 
