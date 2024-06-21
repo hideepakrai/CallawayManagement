@@ -70,7 +70,13 @@ const UpdateHardGoodsOrder = ({ resetUpdateOrder, preorderId }: Props) => {
         setUserId(getCurrentUsers.id)
       }else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
         setManagerUserId(getCurrentUsers.manager_id);
-      }
+      }else if (getCurrentUsers.role === "Admin" && getCurrentUsers.manager_id !=undefined) {
+        settypeOfAccount(getCurrentUsers.role)
+         setSalesRepId(0)
+         setManagerUserId(getCurrentUsers.manager_id)
+        // setUserId(getCurrentUsers.id)
+       }
+
 
 
 
@@ -117,8 +123,9 @@ const getHardGoodsNotes= useSelector(getHardGoodsNote)
   useEffect(() => {
     if (allHardGoodsOrders && 
         allHardGoodsOrders.length > 0 &&
-      salesRepId &&
-      managerUserId &&
+        salesRepId!=undefined &&
+        managerUserId!=undefined
+      &&
       getCurrentUsers &&
       totalAmount&&
       discountAmount &&

@@ -27,7 +27,10 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 const getPreOrderIds= useSelector(getPreOrderId)
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
-    console.log("ytt")
+    // eslint-disable-next-line no-debugger
+    //debugger
+
+    //console.log("ytt")
 
 
     if (getCurrentUsers &&
@@ -46,6 +49,11 @@ const getPreOrderIds= useSelector(getPreOrderId)
         setUserId(getCurrentUsers.id)
       } else if (getCurrentUsers.role === "Retailer" && getCurrentUsers.manager_id){
         setManagerUserId(getCurrentUsers.manager_id);
+      } else if (getCurrentUsers.role === "Admin" && getCurrentUsers.manager_id !=undefined) {
+       settypeOfAccount(getCurrentUsers.role)
+        setSalesRepId(0)
+        setManagerUserId(getCurrentUsers.manager_id)
+       // setUserId(getCurrentUsers.id)
       }
 
 
@@ -75,7 +83,7 @@ const getPreOrderIds= useSelector(getPreOrderId)
             
 
           })
-          
+
 
         }
       })
@@ -100,7 +108,26 @@ const getPreOrderIds= useSelector(getPreOrderId)
     })
   }
  },[getAllUsers])
+
+
+//  const getAllUs=useSelector(getUserProfile)
+//  const [adminId, setAdminnId]= useState<number>(0)
+//  useEffect(()=>{
+
+//   console.log("y3")
+//   if(getAllUs &&getAllUs){
+//     getAllUs.map(item=>{
+//       if( item.id &&item.role==="Admin"){
+
+//         setAdminnId(item.id)
+//       }
+//     })
+//   }
+//  },[getAllUs])
+
+
   /// after getting product create order
+
 
 
   const getISTTime = () => {
@@ -111,11 +138,13 @@ const getPreOrderIds= useSelector(getPreOrderId)
     return istTime.toISOString();
   };
   useEffect(() => {
-    console.log("y4")
+    // eslint-disable-next-line no-debugger
+   // debugger
+    console.log("y4",managerUserId)
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&
      
-      managerUserId
+      managerUserId!=undefined
     ) {
       //const now = new Date();
       //const formattedTimestamp = now.toISOString();
@@ -142,7 +171,10 @@ const getPreOrderIds= useSelector(getPreOrderId)
         manager_id: managerUserId,
         salesrep_id: salesRepId??0,
 
+
       }
+
+
       dispatch(addTravisNote({
         note:data1
       }))

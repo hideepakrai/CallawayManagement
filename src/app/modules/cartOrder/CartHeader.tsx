@@ -76,7 +76,7 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 // manager
             if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
                 setManagerName(getCurrentUsers.name)
-                
+                console.log("e",getCurrentUsers.name)
                
             }
             if(getCurrentUsers && getCurrentUsers.role==="Sales Representative" &&getCurrentUsers.name){
@@ -508,9 +508,11 @@ const[salesrep,setSalesrep]=useState<RetailerModel[]>([])
                             
                             <h3 className=' fs-2 user-title' >
                                 {MangerName}
+                                
                                </h3> 
                                </>
                                )}
+
                            
                                                    
                                 
