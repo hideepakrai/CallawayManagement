@@ -16,13 +16,13 @@ import { addHardGoodsOrderDetails } from "../../slice/orderSlice/callawayGoods/H
 
 import { getActiveOrdertab } from "../../slice/activeTabsSlice/ActiveTabSlice";
 
-import { addTravisReatailerDetails, addTravismanagerDetails, getTravisRetailerDetail } from "../../slice/allProducts/TravisMethewSlice";
-import { addOgioReatailerDetails,addOgioManagerDetails, getOgioRetailerDetail } from "../../slice/allProducts/OgioSlice";
-import { addHardGoodsReatailerDetails, getHardGoodsRetailerDetail } from "../../slice/allProducts/CallAwayGoodsSlice.tsx";
+import { addTravisReatailerDetails, addTravisSalesrepDetails, addTravismanagerDetails, getTravisRetailerDetail } from "../../slice/allProducts/TravisMethewSlice";
+import { addOgioReatailerDetails,addOgioManagerDetails, getOgioRetailerDetail, addOgioSalesrepDetails } from "../../slice/allProducts/OgioSlice";
+import { addHardGoodsManagerDetails, addHardGoodsReatailerDetails, addHardGoodsSalesrepDetails, getHardGoodsRetailerDetail } from "../../slice/allProducts/CallAwayGoodsSlice.tsx";
 
 import UpdateTravisRetailerAddress from "./brand/travisMethew/UpdateTravisRetailerAddress";
 import UpdateOgioRetailerAddress from "./brand/ogio/UpdateOgioRetailerAddress";
-import { addsoftgoodReatailerDetails, getSoftgoodRetailerDetail } from "../../slice/allProducts/CallawayApparelSlice.tsx";
+import { addSoftGoodManagerDetails, addSoftGoodSalesrepDetails, addsoftgoodReatailerDetails, getSoftgoodRetailerDetail } from "../../slice/allProducts/CallawayApparelSlice.tsx";
 import UpdatesoftGoodsRetailerAddress from "./brand/CallawayApparal/UpdatesoftGoodsRetailerAddress.tsx";
 import UpdateHardGoodsRetailerAddress from "./brand/callawayGoods/UpdateHardGoodsRetailerAddress.tsx";
 type Props = {
@@ -114,9 +114,12 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 
 const[retailers, setRetailers]= useState<RetailerModel[]>([])
 const[managers, setManagers]=useState<RetailerModel[]>([])
+const[salesrep,setSalesrep]=useState<RetailerModel[]>([])
     useEffect(()=>{
         const ret:RetailerModel[]= []
         const man:RetailerModel[]= []
+        const sal:RetailerModel[]= []
+
 
     if(getUserRetailers && getUserRetailers.length>0){
 
@@ -131,11 +134,20 @@ const[managers, setManagers]=useState<RetailerModel[]>([])
                 man.push(item)
 
             }
+            if(item.role==="Sales Representative"){
+                
+                sal.push(item)
+
+            }
+
+
 
         })
     }
     setRetailers(ret)
     setManagers(man)
+    setSalesrep(sal)
+
     },[getUserRetailers])
 
     
@@ -200,49 +212,112 @@ const[managers, setManagers]=useState<RetailerModel[]>([])
 
 
 
-
+    
     const handleChangeManager = (value:string) => {
-        console.log("manf",value)
+        //console.log("manf",value)
+        
         
      setManagerName(value)
+
+    }
+
+    useEffect(()=>{
+        setManagerName("")
+        if(getActiveOrdertabs && MangerName){
             if (getActiveOrdertabs === "travis") {
                 dispatch(addTravismanagerDetails(
                 {
-                    managerDetails: value                }
+                    managerDetails: MangerName                }
                 ))        
                 setIsTravis(true)
+                setManagerName(MangerName)
             }
 
             else if (getActiveOrdertabs === "ogio") {
                 dispatch(addOgioManagerDetails({
-                    managerDetails: value 
+                    managerDetails: MangerName 
                 }))
                 setIsOgio(true)
+                setManagerName(MangerName)
+
             }
-        //     else if (getActiveOrdertabs === "softgood") {
-        //         dispatch(addsoftgoodReatailerDetails({
-        //             retailerDetails: allData[0]
-        //         }))
-        //         setIsApparel(true)
-        //     }
+            else if (getActiveOrdertabs === "softgood") {
+                dispatch(addSoftGoodManagerDetails({
+                    managerDetails: MangerName
+                }))
+                setIsApparel(true)
+                setManagerName(MangerName)
 
-        //     else if (getActiveOrdertabs === "hardgood") {
-        //         //console.log("addhard",addHardGoodsReatailerDetails)
-        //         dispatch(addHardGoodsReatailerDetails({
-        //             retailerDetails: allData[0]
-        //         }))
-        //         setIsHard(true)
-        //     }
+            }
+
+            else if (getActiveOrdertabs === "hardgood") {
+                //console.log("addhard",addHardGoodsReatailerDetails)
+                dispatch(addHardGoodsManagerDetails({
+                    managerDetails:MangerName
+                }))
+                setIsHard(true)
+                setManagerName(MangerName)
+
+            }
+
+        }
+
+   
+    },[getActiveOrdertabs,MangerName])
 
 
-        // } else {
-        //     setManagerName("")
-        // }
+    const handleChangeSalesrep = (value:string) => {
+        //console.log("sales",value)
+        
+        
+        setSalesRepName(value)
 
-        // if( allData.length>0 &&allData[0]?.attributes?.users_permissions_user?.data?.id)
-        //  sendRetailerData(allData[0]?.attributes?.users_permissions_user?.data?.id
-        // )
     }
+
+    useEffect(()=>{
+        setSalesRepName("")
+        if(getActiveOrdertabs && salesRepName){
+            if (getActiveOrdertabs === "travis") {
+                dispatch(addTravisSalesrepDetails(
+                {
+                    salesrepDetails: salesRepName                }
+                ))        
+                setIsTravis(true)
+                setSalesRepName(salesRepName)
+            }
+
+            else if (getActiveOrdertabs === "ogio") {
+                dispatch(addOgioSalesrepDetails({
+                    salesrepDetails: salesRepName 
+                }))
+                setIsOgio(true)
+                setSalesRepName(salesRepName)
+
+            }
+            else if (getActiveOrdertabs === "softgood") {
+                dispatch(addSoftGoodSalesrepDetails({
+                    salesrepDetails: salesRepName
+                }))
+                setIsApparel(true)
+                setSalesRepName(salesRepName)
+
+            }
+
+            else if (getActiveOrdertabs === "hardgood") {
+                //console.log("addhard",addHardGoodsReatailerDetails)
+                dispatch(addHardGoodsSalesrepDetails({
+                    salesrepDetails:salesRepName
+                }))
+                setIsHard(true)
+                setSalesRepName(salesRepName)
+
+            }
+
+        }
+
+   
+    },[getActiveOrdertabs,salesRepName])
+
 
 
     // manage retailer Address
@@ -443,19 +518,65 @@ const[managers, setManagers]=useState<RetailerModel[]>([])
                         </div>
                     
                         <div className="mb-4 col-3">
-                            <span className=' fs-5 fw-bold ' >
-                                Sales Representative
-                            </span>
-                           
-                            {/* <select className="form-select select-dro" data-control="select2" data-placeholder="Select an option">
-                                <option value="1">Mukesh Gupta</option>
-                                <option value="2">Ankur </option>
-                                <option value="3">Manish Sharma </option>
-                            </select> */}
-                     
+                         
+                        {getCurrentUsers && getCurrentUsers.role==="Admin"?(
+                                <>
+                                 <h4 className=' pt-3 fs-6' style={{ width: "50px", minWidth: "100px" }}>
+                                <a>Select salesRepName</a>
+                            </h4> 
+                                <Select
+                                showSearch
+                                placeholder="Select salesRepName"
+                                optionFilterProp="children"
+                                className="select-toogle"
+                                style={{ marginBottom: 2 }}
+                                onChange={handleChangeSalesrep}
+                              value={salesRepName}
+
+                                options={salesrep?.map((item: RetailerModel) => (
+                                    {
+                                        label: item.name ?? "",
+                                        value: item.name
+                                    }))}
+
+                                
+                            />
+                             </>
+
+                            ):( 
+                                <>
+                                 <h4 className=' pt-3 fs-6' style={{ width: "100px", minWidth: "100px" }}>
+                                <a>Sales Rep Name</a>
+                            </h4> 
+                            
+                            
                             <h3 className=' fs-2 user-title' >
                                 {salesRepName}
                             </h3>
+                               </>
+                               )}
+
+
+
+
+
+
+
+                            {/* <span className=' fs-5 fw-bold ' >
+                                Sales Representative
+                            </span>
+                           
+                            <select className="form-select select-dro" data-control="select2" data-placeholder="Select an option">
+                                <option value="1">Mukesh Gupta</option>
+                                <option value="2">Ankur </option>
+                                <option value="3">Manish Sharma </option>
+                            </select>
+                           
+                     
+                            <h3 className=' fs-2 user-title' >
+                                {salesRepName}
+                            </h3> 
+                             */}
                         </div>
 
                     </div>

@@ -27,6 +27,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
+    console.log("ytt")
 
 
     if (getCurrentUsers &&
@@ -53,6 +54,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 
   
   useEffect(() => {
+    console.log("y2")
     const ogio: BasicModelTravis[] = [];
     if (getProduct && getProduct.length > 0) {
       getProduct.map((item) => {
@@ -87,6 +89,8 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
   const getAllUsers=useSelector(getUserProfile)
   const [salesRepId, setSalesRepId]= useState<number>(0)
  useEffect(()=>{
+
+  console.log("y3")
   if(getAllUsers &&getAllUsers){
     getAllUsers.map(item=>{
       if( item.id &&item.role==="Sales Representative"){
@@ -107,6 +111,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
     return istTime.toISOString();
   };
   useEffect(() => {
+    console.log("y4")
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&
      

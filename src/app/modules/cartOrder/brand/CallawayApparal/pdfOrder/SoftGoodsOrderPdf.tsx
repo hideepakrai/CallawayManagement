@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelApparel } from '../../../../model/apparel/CallawayApparelModel'
-import { getApparelNote, getApparelProducts, getPreOrderId, getSoftgoodRetailerDetail } from '../../../../../slice/allProducts/CallawayApparelSlice'
+import { getApparelNote, getApparelProducts, getPreOrderId, getSoftgoodRetailerDetail, getaddSoftGoodManagerDetails, getaddSoftGoodSalesrepDetails } from '../../../../../slice/allProducts/CallawayApparelSlice'
 import { Button, Card, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../../model/AccountType/retailer/RetailerModel'
@@ -20,6 +20,28 @@ const SoftGoodsOrderPdf = () => {
 
   const [notes, setNotes] = useState<string[]>([])
   const getOgioNotes = useSelector(getApparelNote)
+  const managerName =useSelector(getaddSoftGoodManagerDetails)
+  const[manaer_Name,setManager_Name] = useState<string>()
+  const salesrepName =useSelector(getaddSoftGoodSalesrepDetails)
+  const[salesrep_Name,setsalesrep_Name] = useState<string>()
+
+  useEffect(()=>{
+    if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && managerName){
+      setManager_Name(managerName)
+      
+
+    }
+    else if(getCurrentUsers && getCurrentUsers.role=="Manager" && getCurrentUsers.name)
+{
+  setManager_Name(getCurrentUsers.name)
+}    
+
+
+  },[getCurrentUsers,managerName]
+
+  )
+
+
   useEffect(() => {
     const check: string[] = [];
     if (getOgioNotes) {
@@ -35,15 +57,34 @@ const SoftGoodsOrderPdf = () => {
 
   const getPreOrderIds = useSelector(getPreOrderId)
 
-  useEffect(() => {
-    if (getUserProfiles && getUserProfiles.length > 0) {
-      getUserProfiles.map(item => {
-        if (item.role === "Sales Representative") {
-          setSalesRepName(item.name)
-        }
-      })
+
+
+  
+  useEffect(()=>{
+    if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && salesrepName){
+      setsalesrep_Name(salesrepName)
+      
+
     }
-  }, [getUserProfiles])
+    else if(getCurrentUsers && getCurrentUsers.role=="Sales Representative" && getCurrentUsers.name)
+{
+  setsalesrep_Name(getCurrentUsers.name)
+}    
+
+
+  },[getCurrentUsers,salesrepName]
+
+  )
+
+  // useEffect(() => {
+  //   if (getUserProfiles && getUserProfiles.length > 0) {
+  //     getUserProfiles.map(item => {
+  //       if (item.role === "Sales Representative") {
+  //         setSalesRepName(item.name)
+  //       }
+  //     })
+  //   }
+  // }, [getUserProfiles])
 
   // get all discount , net billl amount
   const getSoftGoodsRetailerDetails = useSelector(getSoftgoodRetailerDetail) as RetailerModel;
@@ -319,8 +360,8 @@ const SoftGoodsOrderPdf = () => {
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Company:</span> Callaway Golf India</p>
 
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Brand:</span> Callaway</p>
-                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Manager:</span> {getCurrentUsers?.name}</p>
-                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Sales Rep:</span>  {salesRepName}</p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Manager:</span> {manaer_Name}</p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Sales Rep:</span>  {salesrep_Name}</p>
               </div>
             </div>
 

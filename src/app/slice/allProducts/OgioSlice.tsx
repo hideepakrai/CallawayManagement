@@ -17,6 +17,7 @@ interface ProductState {
     ogioRetailerDetails:RetailerModel[]
     note:NoteModel[];
     OgioManagerDetails:string,
+    OgioSalesrepDetails:string,
 }
 
 const initialState: ProductState = {
@@ -31,6 +32,7 @@ const initialState: ProductState = {
     ogioRetailerDetails:[],
     note:[],
     OgioManagerDetails:"",
+    OgioSalesrepDetails:"",
 
 
 }
@@ -474,6 +476,11 @@ const OgioSlice = createSlice({
             state.OgioManagerDetails=managerDetails
 
         },
+        addOgioSalesrepDetails:(state , action)=>{
+            const {salesrepDetails}=action.payload;
+            state.OgioSalesrepDetails=salesrepDetails
+
+        },
         updateOtherQuantity90:(state,actions) => {
  
             const {sku, qty90,MRP}=actions.payload;
@@ -566,7 +573,8 @@ export const { addOgioProduct,
     updateOtherQuantity90,
     addOgioLocalStroge,
     addOgioManagerDetails,
-    updateCheckAvailability
+    updateCheckAvailability,
+    addOgioSalesrepDetails
 } = OgioSlice.actions;
 export const getOgioProducts = (state: { Ogio: ProductState }): OgioBasicModel[] => {
     return state.Ogio?.ogio || [];
@@ -608,6 +616,9 @@ export const getOgioNotes = (state: { Ogio: ProductState }): NoteModel[] => {
 
 export const getaddOgioManagerDetails=  (state: { Ogio: ProductState }): string => {
     return state.Ogio?.OgioManagerDetails||"";  
+};
+export const getaddOgioSalesrepDetails=  (state: { Ogio: ProductState }): string => {
+    return state.Ogio?.OgioSalesrepDetails||"";  
 };
 
 export default OgioSlice.reducer;
