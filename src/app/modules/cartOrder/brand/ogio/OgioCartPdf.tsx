@@ -8,7 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 import { getRetailerDetails } from "../../../../slice/orderSlice/travis/Orderdetails.tsx"
 import OgioGallery from "../../../brands/ogio/table/column/OgioGallery.tsx";
 import { OgioBasicModel } from "../../../model/ogio/OgioBrandModel.ts";
-import { getOgioNotes, getOgioProducts, getOgioRetailerDetail, getPreOrderId, getaddOgioManagerDetails } from "../../../../slice/allProducts/OgioSlice.tsx";
+import { getOgioNotes, getOgioProducts, getOgioRetailerDetail, getPreOrderId, getaddOgioManagerDetails, getaddOgioSalesrepDetails } from "../../../../slice/allProducts/OgioSlice.tsx";
 import { getOgioOrder } from "../../../../slice/orderSlice/ogio/OgioCartOrderSlice.tsx";
 import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
 import { getCurrentUser, getUserAccount, getUserProfile, getUserRetailer } from "../.../../../../../slice/UserSlice/UserSlice"
@@ -50,6 +50,9 @@ const OgioCartPdf = () => {
    
   const managerName =useSelector(getaddOgioManagerDetails)
   const[manaer_Name,setManager_Name] = useState<string>()
+  const salesrepName =useSelector(getaddOgioSalesrepDetails)
+  const[salesrep_Name,setsalesrep_Name] = useState<string>()
+
   useEffect(()=>{
     if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && managerName){
       setManager_Name(managerName)
@@ -79,15 +82,33 @@ const OgioCartPdf = () => {
     }
   }, [getOgioNote])
 
-  useEffect(() => {
-    if (getUserProfiles && getUserProfiles.length > 0) {
-      getUserProfiles.map(item => {
-        if (item.role === "Sales Representative") {
-          setSalesRepName(item.name)
-        }
-      })
+
+
+  useEffect(()=>{
+    if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && salesrepName){
+      setsalesrep_Name(salesrepName)
+      
+
     }
-  }, [getUserProfiles])
+    else if(getCurrentUsers && getCurrentUsers.role=="Sales Representative" && getCurrentUsers.name)
+{
+  setsalesrep_Name(getCurrentUsers.name)
+}    
+
+
+  },[getCurrentUsers,salesrepName]
+
+  )
+
+  // useEffect(() => {
+  //   if (getUserProfiles && getUserProfiles.length > 0) {
+  //     getUserProfiles.map(item => {
+  //       if (item.role === "Sales Representative") {
+  //         setSalesRepName(item.name)
+  //       }
+  //     })
+  //   }
+  // }, [getUserProfiles])
 
 
 
@@ -301,7 +322,7 @@ const OgioCartPdf = () => {
 
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Brand:</span> Ogio</p>
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Manager:</span> {manaer_Name}</p>
-                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Sales Rep:</span>  {salesRepName}</p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-4">Sales Rep:</span>  {salesrep_Name}</p>
               </div>
             </div>
 

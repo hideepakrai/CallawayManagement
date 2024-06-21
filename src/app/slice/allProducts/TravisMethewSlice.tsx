@@ -24,6 +24,7 @@ interface ProductState {
     note:NoteModel[];
     iSubmitModel:boolean,
     travisManagerDetails:string,
+    travisSalesrepDetails:string,
     
 }
 
@@ -43,6 +44,7 @@ const initialState: ProductState = {
     note:[],
     iSubmitModel:false,
     travisManagerDetails:"",
+    travisSalesrepDetails:"",
   
 
 };
@@ -655,6 +657,10 @@ const TravisMethewSlice = createSlice({
       const {managerDetails}= action.payload;
       state.travisManagerDetails=managerDetails
   },
+  addTravisSalesrepDetails: (state, action)=>{
+    const {salesrepDetails}= action.payload;
+    state.travisSalesrepDetails=salesrepDetails
+},
 
     
      resetTravisOrder:(state)=>{
@@ -826,6 +832,7 @@ export const {
     importTravisProduct,
     addTravisLocalStorage,
     addTravismanagerDetails,
+    addTravisSalesrepDetails,
 
     updateCheckAvailability
 } = TravisMethewSlice.actions;
@@ -877,6 +884,11 @@ export const getaddTravismanagerDetails =(state: { travisMethew: ProductState })
   return state.travisMethew?.travisManagerDetails|| "";
   
 };
+export const getaddTravisSalesrepDetails =(state: { travisMethew: ProductState }): string => {
+  return state.travisMethew?.travisSalesrepDetails|| "";
+  
+};
+
 
 
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentUser, getUserProfile } from '../../../../slice/UserSlice/UserSlice'
 import { useSelector } from 'react-redux'
 import { BasicModelTravis } from '../../../model/travis/TravisMethewModel'
-import { getPreOrderId, getTravisNote, getTravisProducts, getTravisRetailerDetail, getaddTravismanagerDetails } from '../../../../slice/allProducts/TravisMethewSlice'
+import { getPreOrderId, getTravisNote, getTravisProducts, getTravisRetailerDetail, getaddTravisSalesrepDetails, getaddTravismanagerDetails } from '../../../../slice/allProducts/TravisMethewSlice'
 import { Button, Card, Flex, Table, type TableColumnsType } from 'antd';
 import { useReactToPrint } from 'react-to-print'
 import { RetailerModel } from '../../../model/AccountType/retailer/RetailerModel'
@@ -19,6 +19,11 @@ const TravisOrderPdf = () => {
   const getUserProfiles = useSelector(getUserProfile)
   const managerName =useSelector(getaddTravismanagerDetails)
   const[manaer_Name,setManager_Name] = useState<string>()
+
+  const salesrepName =useSelector(getaddTravisSalesrepDetails)
+  const[salesrep_Name,setsalesrep_Name] = useState<string>()
+
+
   useEffect(()=>{
     if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && managerName){
       setManager_Name(managerName)
@@ -34,20 +39,35 @@ const TravisOrderPdf = () => {
   },[getCurrentUsers,managerName]
 
   )
-  useEffect(()=>{
 
-  }
+
+  useEffect(()=>{
+    if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && salesrepName){
+      setsalesrep_Name(salesrepName)
+      
+
+    }
+    else if(getCurrentUsers && getCurrentUsers.role=="Sales Representative" && getCurrentUsers.name)
+{
+  setsalesrep_Name(getCurrentUsers.name)
+}    
+
+
+  },[getCurrentUsers,salesrepName]
 
   )
-  useEffect(() => {
-    if (getUserProfiles && getUserProfiles.length > 0) {
-      getUserProfiles.map(item => {
-        if (item.role === "Sales Representative") {
-          setSalesRepName(item.name)
-        }
-      })
-    }
-  }, [getUserProfiles])
+
+
+ 
+  // useEffect(() => {
+  //   if (getUserProfiles && getUserProfiles.length > 0) {
+  //     getUserProfiles.map(item => {
+  //       if (item.role === "Sales Representative") {
+  //         setSalesRepName(item.name)
+  //       }
+  //     })
+  //   }
+  // }, [getUserProfiles])
 
   const [notes, setNotes] = useState<string[]>([])
   const getTravisNotes = useSelector(getTravisNote)
@@ -226,14 +246,14 @@ const TravisOrderPdf = () => {
 
             <div className="row px-10 mt-8 mb-18" >
               <div className="col-8">
-                <h1 className=" d-flex font-gray-900 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{getTravisRetailerDetails.name}</h1>
+                <h1 className="d-flex font-gray-900 fw-light my-1 fs-1  fw-bold pt-3 pb-2" >{getTravisRetailerDetails.name}</h1>
 
                 <div className="d-flex">
                   <span className="gx-mb-0  font-weight-800 fw-semibold fs-5">GSTIN: </span>
                   <p className='text-gray-600 font-weight-800 fw-semibold fs-5 m-0 mx-1'> {getTravisRetailerDetails.gstin} <i className="bi bi-copy text-gray-600 text-hover-dark cursor-pointer"></i></p>
                 </div>
 
-                <div className="user-address pt-3">
+                <div className="user-address-pt-3">
                   <span className="gx-mb-0 font-weight-800 fw-semibold fs-4 ">Address:</span>
                   <p className="text-black font-weight-800 text-gray-600 fw-semibold fs-5 m-0 mb-3">
                     {getTravisRetailerDetails.address}
@@ -262,7 +282,7 @@ const TravisOrderPdf = () => {
 
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Brand:</span> Travis Mathew</p>
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Manager:</span> {manaer_Name}</p>
-                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Sales Rep:</span>  {salesRepName}</p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Sales Rep:</span>  {salesrep_Name}</p>
               </div>
             </div>
 

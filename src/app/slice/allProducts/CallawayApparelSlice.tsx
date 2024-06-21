@@ -15,6 +15,8 @@ interface ProductState {
     note:NoteModel[];
     preOrderId:number;
     progressStep:number,
+    softGoodManagerDetails:string,
+    softGoodSalesrepDetails:string,
 
     
 }
@@ -30,6 +32,8 @@ const initialState: ProductState = {
     progressStep:0,
     softgoodRetailerDetails:[],
     note:[],
+    softGoodManagerDetails:"",
+    softGoodSalesrepDetails:"",
 
 };
 const CallawayGoodsSlice = createSlice({
@@ -49,6 +53,14 @@ const CallawayGoodsSlice = createSlice({
         const {retailerDetails}= action.payload;
         state.softgoodRetailerDetails=retailerDetails
     },
+    addSoftGoodManagerDetails: (state, action)=>{
+      const {managerDetails}= action.payload;
+      state.softGoodManagerDetails=managerDetails
+  },
+  addSoftGoodSalesrepDetails: (state, action)=>{
+    const {salesrepDetails}= action.payload;
+    state.softGoodSalesrepDetails=salesrepDetails
+},
     addSoftGoodNote:(state,action)=>{
       state.note.push(action.payload.note)
      },
@@ -530,7 +542,9 @@ export const {
     updaterApparelExclusiveDiscount,
     updateApparelFlatDiscount,
     resetSoftGoods,
-    addApparelLocalStorage
+    addApparelLocalStorage,
+    addSoftGoodManagerDetails,
+    addSoftGoodSalesrepDetails
 
 
     
@@ -570,6 +584,17 @@ export const getApparelProgress = (state: { callawayApparel: ProductState }): nu
   return state.callawayApparel?.progressStep|| 0;
   
 };
+
+export const getaddSoftGoodManagerDetails = (state: { callawayApparel: ProductState }): string=> {
+  return state.callawayApparel?.softGoodManagerDetails||"";
+  
+};
+
+export const getaddSoftGoodSalesrepDetails = (state: { callawayApparel: ProductState }): string=> {
+  return state.callawayApparel?.softGoodSalesrepDetails||"";
+  
+};
+
 
 
 

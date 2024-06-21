@@ -18,6 +18,8 @@ interface ProductState {
     preOrderId:number;
     note:NoteModel[];
     progressStep:number,
+    hardGoodsManagerDetails:string,
+    hardGoodsSalesrepDetails:string,
 
 
     
@@ -34,6 +36,8 @@ const initialState: ProductState = {
     preOrderId:0,
     note:[],
     progressStep:0,
+    hardGoodsManagerDetails:"",
+    hardGoodsSalesrepDetails:"",
 
 
 
@@ -347,6 +351,14 @@ const CallawayGoodsSlice = createSlice({
       const {retailerDetails}= action.payload;
       state.hardGoodsRetailerDetails=retailerDetails
   },
+  addHardGoodsManagerDetails: (state, action)=>{
+    const {managerDetails}= action.payload;
+    state.hardGoodsManagerDetails=managerDetails
+},
+addHardGoodsSalesrepDetails: (state, action)=>{
+  const {salesrepDetails}= action.payload;
+  state.hardGoodsSalesrepDetails=salesrepDetails
+},
   
   addHardGoodsNote:(state,action)=>{
     state.note.push(action.payload.note)
@@ -468,7 +480,9 @@ export const {
     updateHardGoodsInclusiveDiscount,
     updateHardGoodsFlatDiscount,
     resetHardGoodsOrder,
-    addHardGoodsLocalStorage
+    addHardGoodsLocalStorage,
+    addHardGoodsManagerDetails,
+    addHardGoodsSalesrepDetails,
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {
@@ -507,6 +521,16 @@ export const getHardGoodsProgress = (state: { callawayGoods: ProductState }): nu
   return state.callawayGoods?.progressStep|| 0;
   
 };
+
+export const getaddHardGoodsManagerDetails = (state: { callawayGoods: ProductState }): string => {
+  return state.callawayGoods?.hardGoodsManagerDetails||"";
+  
+};
+export const getaddHardGoodsSalesrepDetails = (state: { callawayGoods: ProductState }): string => {
+  return state.callawayGoods?.hardGoodsSalesrepDetails||"";
+  
+};
+
 
 
 
