@@ -27,15 +27,15 @@ const AllOrders = () => {
     const tableRef = useRef(null);
     const getUserOrder = useSelector(getUserOrders) as AccountOrder[];
     const [allPending, setAllPendingOrder] = useState<AccountOrder[]>([]);
-    const[ selectedOrder, setSelectedOrder]= useState<CartModel>()
-    const dispatch= useDispatch()
+    const [selectedOrder, setSelectedOrder] = useState<CartModel>()
+    const dispatch = useDispatch()
 
     // Get all pending orders
     useEffect(() => {
         const allpend: AccountOrder[] = [];
         if (getUserOrder && getUserOrder.length > 0) {
             getUserOrder.forEach(item => {
-                if (item.status === "complete" ||item.status === "Complete" || item.status==="Rejected") {
+                if (item.status === "complete" || item.status === "Complete" || item.status === "Rejected") {
                     allpend.push(item);
                 }
             });
@@ -49,13 +49,13 @@ const AllOrders = () => {
         setStatus(status);
     };
 
-  const handleEdit = (record:CartModel) => {
+    const handleEdit = (record: CartModel) => {
         if (record) {
             setIsEdit(true);
             setSelectedOrder(record)
         }
     };
-    
+
 
     const handleCloseEdit = () => {
         setIsEdit(false);
@@ -112,7 +112,7 @@ const AllOrders = () => {
 
         // {
 
-           
+
         //     title: "Retailer name  ",
         //     dataIndex: "retailer_details",
         //     width: 150,
@@ -126,25 +126,25 @@ const AllOrders = () => {
         //         return(val)
         //     }
         // },
-       
+
         {
             title: "Retailer name",
             dataIndex: "retailer_details",
             width: 150,
             render: (value, record) => {
-                let retailerName = 'N/A'; 
-        
+                let retailerName = 'N/A';
+
                 if (typeof value === 'string') {
                     try {
                         const retailerDetails = JSON.parse(value);
-                        retailerName = retailerDetails.name ; 
+                        retailerName = retailerDetails.name;
                     } catch (e) {
                         console.error("Failed to parse retailer_details:", e);
                     }
                 }
-        
+
                 console.log("Retailer name:", retailerName);
-        
+
                 return retailerName;
             }
         },
@@ -158,21 +158,21 @@ const AllOrders = () => {
         //         // Parse the retailer_details JSON string directly
         //         const retailerDetails = JSON.parse(value);
         //         const retailerName = retailerDetails.name;
-                
+
         //         console.log("Retailer name:", retailerName);
-        
+
         //         // Return the name directly
         //         return retailerName;
         //     }
         // },
-        
-        
-        
-        
-           
 
-       
-        
+
+
+
+
+
+
+
 
         {
             title: "Order date",
@@ -180,35 +180,35 @@ const AllOrders = () => {
             width: 130,
             render: (value) => {
                 const date = new Date(value);
-                
+
                 // Options for the date part
-                const dateCall: Intl.DateTimeFormatOptions = { 
-                    weekday: 'short', 
-                    year: 'numeric', 
-                    month: 'short', 
+                const dateCall: Intl.DateTimeFormatOptions = {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
                     day: 'numeric',
                     timeZone: 'Asia/Kolkata'
                 };
-        
+
                 // Options for the time part
-                const timeCall: Intl.DateTimeFormatOptions = { 
-                    hour: '2-digit', 
-                    minute: '2-digit', 
-                    second: '2-digit', 
-                    hour12: true, 
-                    timeZone: 'Asia/Kolkata' 
+                const timeCall: Intl.DateTimeFormatOptions = {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true,
+                    timeZone: 'Asia/Kolkata'
                 };
-        
+
                 const formattedDate = date.toLocaleDateString('en-US', dateCall);
                 const formattedTime = date.toLocaleTimeString('en-US', timeCall);
-        
+
                 //return `${formattedDate}  ${formattedTime}`;
-                return(<div className="datecalllist">
+                return (<div className="datecalllist">
 
-                  <span className="dateCall"> {formattedDate}  </span>
-                  <span className="timeCall text-gray-600"> {formattedTime}  </span>
+                    <span className="dateCall"> {formattedDate}  </span>
+                    <span className="timeCall text-gray-600"> {formattedTime}  </span>
 
-                  </div>
+                </div>
 
                 )
             },
@@ -219,35 +219,35 @@ const AllOrders = () => {
             width: 115,
             render: (value) => {
                 const date = new Date(value);
-                
+
                 // Options for the date part
-                const dateCall: Intl.DateTimeFormatOptions = { 
-                    weekday: 'short', 
-                    year: 'numeric', 
-                    month: 'short', 
+                const dateCall: Intl.DateTimeFormatOptions = {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
                     day: 'numeric',
                     timeZone: 'Asia/Kolkata'
                 };
-        
+
                 // Options for the time part
-                const timeCall: Intl.DateTimeFormatOptions = { 
-                    hour: '2-digit', 
-                    minute: '2-digit', 
-                    second: '2-digit', 
-                    hour12: true, 
-                    timeZone: 'Asia/Kolkata' 
+                const timeCall: Intl.DateTimeFormatOptions = {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true,
+                    timeZone: 'Asia/Kolkata'
                 };
-        
+
                 const formattedDate = date.toLocaleDateString('en-US', dateCall);
                 const formattedTime = date.toLocaleTimeString('en-US', timeCall);
-        
+
                 //return `${formattedDate}  ${formattedTime}`;
-                return(<div className="datecalllist">
+                return (<div className="datecalllist">
 
-                  <span className="dateCall"> {formattedDate}  </span>
-                  <span className="timeCall text-gray-600"> {formattedTime}  </span>
+                    <span className="dateCall"> {formattedDate}  </span>
+                    <span className="timeCall text-gray-600"> {formattedTime}  </span>
 
-                  </div>
+                </div>
 
                 )
             },
@@ -289,7 +289,7 @@ const AllOrders = () => {
                             ></i>
                         </Tooltip>
 
-               
+
 
 
                         <Tooltip title="Edit" placement="bottom">
@@ -310,7 +310,7 @@ const AllOrders = () => {
     const expandedRowRender = (record: CartModel) => {
         if (record && record.brand_id) {
             switch (record.brand_id) {
-                 case 1:
+                case 1:
                     return <HardGoodsExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
                 case 2:
                     return <SoftGoodsExpandedRowRender allarray={record.items ?? ""} id={record.id ?? 0} />;
@@ -344,7 +344,7 @@ const AllOrders = () => {
             setIsSoftGood(false)
             setRecordPdf(record);
         }
-        else if (record.brand_id === 2 ||record.brand_id==1) {
+        else if (record.brand_id === 2 || record.brand_id == 1) {
             setIsOgio(false);
             setIsTravis(false);
             setIsSoftGood(true)
@@ -359,29 +359,29 @@ const AllOrders = () => {
     };
 
 
-    const handleResetSoftGood=()=>{
+    const handleResetSoftGood = () => {
         setIsTravis(false);
         setRecordPdf(null);
         setIsOgio(false);
         setIsSoftGood(false)
-    } 
-    
-const [isDeleteOrder, setIsDeleteOder]= useState<boolean>(false)
-const handleDeleteOrder=()=>{
-    setIsDeleteOder(true)
+    }
 
-}
+    const [isDeleteOrder, setIsDeleteOder] = useState<boolean>(false)
+    const handleDeleteOrder = () => {
+        setIsDeleteOder(true)
 
-const [order_id, setOrder_id] = useState<number | undefined>(undefined);
-const handleResetDeleteOrder=()=>{
-    setIsDeleteOder(false)
-    setOrder_id(undefined)
-    dispatch(LoadingStop())
-    setIsEdit(false)
+    }
 
-    
-}
-       return (
+    const [order_id, setOrder_id] = useState<number | undefined>(undefined);
+    const handleResetDeleteOrder = () => {
+        setIsDeleteOder(false)
+        setOrder_id(undefined)
+        dispatch(LoadingStop())
+        setIsEdit(false)
+
+
+    }
+    return (
         <div className="cart-table mb-10 mt-3 mx-4">
             <Card className="cart-order-section" title="Completed Orders">
                 <Table<CartModel>
@@ -394,41 +394,46 @@ const handleResetDeleteOrder=()=>{
                         onExpand: (expanded, record) => handleExpand(expanded, record),
                     }}
                     bordered
-                    
+
                     size="middle"
-// scroll={{ x: "100%", y: "auto" }}
+                    // scroll={{ x: "100%", y: "auto" }}
                     pagination={{
                         position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-                        defaultPageSize: 20
-                      }}
+                        defaultPageSize: 200,
+                        showTotal: (total) => <span className="ant-pagination-total-text ">Total <span className='total-page '> <i> {total} </i></span> items</span>,
+                        showSizeChanger: true, // Show page size changer
+                        pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
+
+
+                    }}
                 />
             </Card>
 
-           {selectedOrder && <Edit 
-             selectedOrder={selectedOrder}
-            isEdit={isEdit} 
-            onClose={handleCloseEdit} 
-            changeStatus={handleUpdateStatus}
-            deletedYes={handleDeleteOrder}
+            {selectedOrder && <Edit
+                selectedOrder={selectedOrder}
+                isEdit={isEdit}
+                onClose={handleCloseEdit}
+                changeStatus={handleUpdateStatus}
+                deletedYes={handleDeleteOrder}
             />}
 
-                  
+
 
             {status != null && orderId !== undefined && <UpdateStatus status={status} orderId={orderId} note={""} resetOrder={function (): void {
-                   throw new Error("Function not implemented.");
-               } } />}
+                throw new Error("Function not implemented.");
+            }} />}
 
             {isTravis && recordPdf && <TravisPdfPrintOrder recordPdf={recordPdf} resetTravisPdf={handleResetTravis} />}
             {isOgio && recordPdf && <OgioPdfPrintOrder recordPdf={recordPdf} resetOgioPdf={handleResetTravis} />}
-            {isSoftGood && recordPdf && <SoftGoodPdfPrintOrder 
-            recordPdf={recordPdf}    
-             resetSoftGoodPdf={handleResetSoftGood} />}
+            {isSoftGood && recordPdf && <SoftGoodPdfPrintOrder
+                recordPdf={recordPdf}
+                resetSoftGoodPdf={handleResetSoftGood} />}
 
-{isDeleteOrder &&order_id &&
-            <DeleteOrder
-            orderId={order_id}
-            resetDeleteOrder={handleResetDeleteOrder}
-            />}
+            {isDeleteOrder && order_id &&
+                <DeleteOrder
+                    orderId={order_id}
+                    resetDeleteOrder={handleResetDeleteOrder}
+                />}
         </div>
     );
 };

@@ -14,7 +14,7 @@ import OgioProduct from "../../../api/allProduct/ogio/OgioProduct.tsx"
 import { useLocation } from 'react-router-dom';
 import Reload from '../../../reload/Reload.tsx';
 import OgioImage from '../../../pages/dashboard/OgioImage.tsx';
-
+import ScrolBottom from "../../ProductScrollBottom/ScrollBottom";
 const OgioPage = () => {
   const location = useLocation();
   const [ogioPath, setOgioPAth] = useState<boolean>(false)
@@ -38,12 +38,14 @@ const OgioPage = () => {
   }
   return (
     <>
-
+  
 
       <Slider />
 
-      <div className='content-pro'>
 
+
+      <div className='content-pro '>
+ 
         <div className="toolbar py-5 py-lg-15" id="kt_toolbar">
           <div id="kt_toolbar_container" className="container d-flex flex-stack">
             <div className="page-title d-flex flex-column">
@@ -54,11 +56,14 @@ const OgioPage = () => {
           </div>
         </div>
 
+
         {/* <OgioHeader/> */}
         {getLoadings && <Loading />}
+       
         <OgioTable />
         {/* <OgioImage /> */}
         <Reload />
+        <ScrolBottom/>
       </div>
 
     </>

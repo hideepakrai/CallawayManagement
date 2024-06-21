@@ -72,5 +72,6 @@
 .downlaod-excel h4{color:#303030;}
 .downlaod-excel span i{color:#303030;}
 
-.ant-pagination-total-text{font-size: 16px!important; font-weight: 500!important; color: #111;}
+.ant-pagination-total-text{font-size: 14px!important; font-weight: 400!important; color: #111;}
 
+.total-page{font-size: 18px!important; font-weight: 500!important; color: #111;}

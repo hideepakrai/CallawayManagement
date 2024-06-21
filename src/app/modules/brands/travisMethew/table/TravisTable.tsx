@@ -41,6 +41,7 @@ import { LoadingStart } from '../../../../slice/loading/LoadingSlice';
 import TravisImage from '../../../../pages/dashboard/TravisImage';
 import { getCurrentUser } from '../../../../slice/UserSlice/UserSlice';
 
+
 import TravisProductsToExcel from '../excel/ExportAllProduct'
 
 
@@ -1603,8 +1604,7 @@ const TravisTable = () => {
                 pagination={{
                   position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
                   defaultPageSize: 200,
-          
-                  showTotal: (total) => <span className="ant-pagination-total-text">Total {total} items</span>,
+                  showTotal: (total) => <span className="ant-pagination-total-text ">Total <span className='total-page '> <i> {total} </i></span> items</span>,
                   showSizeChanger: true, // Show page size changer
                   pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
                 }}

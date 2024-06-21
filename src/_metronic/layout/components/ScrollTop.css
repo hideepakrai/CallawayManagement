@@ -1,0 +1,11 @@
+/* .scroll-bottom {width: 51%!important;
+    height: 56px!important;
+   right: 0;
+    background: #fff!important;
+    opacity: 1!important;
+    border-radius: 5px 0px 0px 5px!important;
+}
+
+[data-kt-scrolltop=on] .scrolltop{opacity: 1!important;} */
+
+.scroll-top-icon{display: none!important;}

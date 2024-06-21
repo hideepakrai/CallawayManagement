@@ -423,7 +423,10 @@ const handleResetDeleteOrder=()=>{
                         // scroll={{ x: "100%", y: "auto" }}
                         pagination={{
                             position: ['topRight', 'bottomRight'], // Positions pagination at the top and bottom
-                            defaultPageSize: 20
+                            defaultPageSize: 200,
+                            showTotal: (total) => <span className="ant-pagination-total-text ">Total <span className='total-page '> <i> {total} </i></span> items</span>,
+                             showSizeChanger: true, // Show page size changer
+                            pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
                           }}
 
                     />
