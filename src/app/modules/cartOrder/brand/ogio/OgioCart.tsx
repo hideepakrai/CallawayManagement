@@ -440,6 +440,10 @@ const OgioCart = () => {
 
   const handleQuantity90 = (value: string, record: OgioBasicModel) => {
 
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
     const intValue = parseInt(value, 10);
     setQty90Message("");
     setIsQty90ToolTip(false);
@@ -669,7 +673,7 @@ const handleOkSubmit=()=>{
 const handlefailSubmit=(val :string)=>{
   if(val){
   
-    alert(`${val} is out of stock`)
+    alert(`some of product is out of stock`)
     dispatch(updateProgressStep({
       progressStep: 0
 
