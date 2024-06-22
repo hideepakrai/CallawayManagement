@@ -27,7 +27,7 @@ const CreatedOrder = ({ resetCreatedOrder }: Props) => {
 const getPreOrderIds= useSelector(getPreOrderId)
   const getCurrentUsers = useSelector(getCurrentUser) as CurentUser
   useEffect(() => {
-        //debugger
+        //
 
     //console.log("ytt")
 
@@ -137,7 +137,7 @@ const getPreOrderIds= useSelector(getPreOrderId)
     return istTime.toISOString();
   };
   useEffect(() => {
-       // debugger
+       // 
     console.log("y4",managerUserId)
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&

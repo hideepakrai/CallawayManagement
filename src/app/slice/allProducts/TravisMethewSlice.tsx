@@ -638,6 +638,7 @@ const TravisMethewSlice = createSlice({
       state.travisRetailerDetails=[];
       state.otherProduct=[];
       state.note=[]
+      state.preOrderId=0;
      }, 
 
      updatePrimarySeondaryImage:(state,action)=>{

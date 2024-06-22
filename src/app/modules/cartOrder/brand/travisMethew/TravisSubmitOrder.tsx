@@ -111,7 +111,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
-  debugger
+  
    
     if (getRetailerDetail &&
       allTravisOrders && allTravisOrders.length > 0 &&

@@ -30,7 +30,7 @@ const PreOrder = () => {
   const [preorderId, setPreOderId]= useState<number|null>(null)
 // check the PreOrderId and create else update order
 useEffect(()=>{
-//debugger
+//
    
     if(getPreOrderIds===0 &&
          allPreOrderHardGoods && 

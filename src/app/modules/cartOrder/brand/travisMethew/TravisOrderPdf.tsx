@@ -25,6 +25,9 @@ const TravisOrderPdf = () => {
 
 
   useEffect(()=>{
+
+    // eslint-disable-next-line no-debugger
+    debugger
     if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && managerName){
       setManager_Name(managerName)
       
@@ -40,16 +43,19 @@ const TravisOrderPdf = () => {
 
   )
 
-
+  const [managerid, setManagerId]= useState<number>(0)
   useEffect(()=>{
     if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && salesrepName){
       setsalesrep_Name(salesrepName)
       
 
     }
-    else if(getCurrentUsers && getCurrentUsers.role=="Sales Representative" && getCurrentUsers.name)
+    else if(getCurrentUsers && 
+      getCurrentUsers.role=="Sales Representative" && 
+      getCurrentUsers.name &&getCurrentUsers.manager_id)
 {
   setsalesrep_Name(getCurrentUsers.name)
+  setManagerId(getCurrentUsers.manager_id)
 }    
 
 
@@ -61,13 +67,16 @@ const TravisOrderPdf = () => {
  
   useEffect(() => {
     if (getUserProfiles && getUserProfiles.length > 0) {
-      getUserProfiles.map(item => {
+      getUserProfiles.map((item:RetailerModel) => {
         if (item.role === "Sales Representative") {
           setSalesRepName(item.name)
         }
+        else if (item.role === 'Manager' && managerid===item.id) {
+          setManager_Name(item.name)
+        }
       })
     }
-  }, [getUserProfiles])
+  }, [getUserProfiles,managerid])
 
   const [notes, setNotes] = useState<string[]>([])
   const getTravisNotes = useSelector(getTravisNote)

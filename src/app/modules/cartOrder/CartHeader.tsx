@@ -53,7 +53,9 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
     const [retailerUserId, setRetailerUserId] = useState<number>(0)
     const [GST, setGST] = useState<string>()
     const [salesRepName, setSalesRepName] = useState<string>()
+    const [salesRep_Name, setSalesRep_Name] = useState<string>()
     const [MangerName, setManagerName] = useState<string>("")
+    const [manger_name, setManager_Name] = useState<string>("")
     const [isTravis, setIsTravis] = useState<boolean>(false)
     const [isOgio, setIsOgio] = useState<boolean>(false)
     const [isApparel, setIsApparel] = useState<boolean>(false)
@@ -64,10 +66,10 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
         if (getUserProfiles && getUserProfiles.length > 0) {
             getUserProfiles.map(item => {
                 if (item.role === "Sales Representative") {
-                    setSalesRepName(item.name)
+                    setSalesRep_Name(item.name)
                 }
                 if (item.role === "Manager" && item.name) {
-                    setManagerName(item.name)
+                    setManager_Name(item.name)
 
                 }
             })
@@ -75,12 +77,12 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
          
 // manager
             if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
-                setManagerName(getCurrentUsers.name)
+                setManager_Name(getCurrentUsers.name)
                 console.log("e",getCurrentUsers.name)
                
             }
             if(getCurrentUsers && getCurrentUsers.role==="Sales Representative" &&getCurrentUsers.name){
-                setSalesRepName(getCurrentUsers.name)
+                setSalesRep_Name(getCurrentUsers.name)
             }
           
             if(getCurrentUsers && getCurrentUsers.role==="Retailer"){
@@ -334,7 +336,7 @@ const[salesrep,setSalesrep]=useState<RetailerModel[]>([])
         setGST("");
         setRetailerId(null)
         setRetailerName("")
-                // debugger
+                // 
         if (getActiveOrdertabs === 'travis' && getTravisRetailerDetails) {
 
             console.log("getTravisRetailerDetails", getTravisRetailerDetails)
@@ -506,7 +508,7 @@ const[salesrep,setSalesrep]=useState<RetailerModel[]>([])
                             </h4> 
                             
                             <h3 className=' fs-2 user-title' >
-                                {MangerName}
+                                {manger_name}
                                 
                                </h3> 
                                </>
@@ -552,7 +554,7 @@ const[salesrep,setSalesrep]=useState<RetailerModel[]>([])
                             
                             
                             <h3 className=' fs-2 user-title' >
-                                {salesRepName}
+                                {salesRep_Name}
                             </h3>
                                </>
                                )}

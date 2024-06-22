@@ -61,7 +61,7 @@ const UpdateApparelQtyInDB = ({ resetUpdateData,allApparel }: props) => {
             setIsUpdating(true);
             const response = await UpDateApparelQty(data);
            console.log("response update apparel qty",response)
-                        debugger
+                        
             if (response.status == 200 && response.data) {
                 dispatch(updateApparelQty({
                     apparelProduct: data

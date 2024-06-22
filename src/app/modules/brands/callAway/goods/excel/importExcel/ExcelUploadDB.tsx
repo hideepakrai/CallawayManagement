@@ -25,7 +25,7 @@ const HardGoodsExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
   
   useEffect(() => {
     console.log("indb",xlData)
-    //debugger
+    //
 
     const addTravisData: BasicModelGoods[] = []
     const updateTravisData: BasicModelGoods[] = []

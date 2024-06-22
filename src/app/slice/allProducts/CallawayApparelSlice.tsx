@@ -74,7 +74,7 @@ const CallawayGoodsSlice = createSlice({
             const seriesSet = new Set<string>();
             const typeSet = new Set<string>();
             const apparelLength= state.callawayApparel.length;
-                        debugger
+                       
             if(apparelLength===0){
               if (apparelProduct && apparelProduct.length > 0) {
                 apparelProduct.forEach((item: BasicModelApparel) => {
@@ -282,7 +282,7 @@ const CallawayGoodsSlice = createSlice({
         },
         updateQuantity88:(state,actions) => {
           const {sku, qty88,MRP}=actions.payload;
-                    debugger
+                    
           const goodsIndex = state.callawayApparel.findIndex(
             (apparelItem) => apparelItem.sku === sku
           );

@@ -1,6 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { Card, Table, Carousel, Breadcrumb, Tooltip, Select, Space } from "antd";
+import { message } from 'antd';
 import { Input, Radio, InputNumber, Button } from "antd";
 import type { InputRef, SelectProps, TableColumnsType } from 'antd';
 import { BasicModelTravis, BasicModelTravisGraph, ImageType } from "../../../model/travis/TravisMethewModel"
@@ -10,7 +11,7 @@ import {
   addOtherProduct, updateOtherQuantity90,
   updateOtherQuantity88, removeOtherProduct
 } from "../../../../slice/allProducts/TravisMethewSlice";
-import { message } from 'antd';
+
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../../loading/Loading';
@@ -52,6 +53,7 @@ const TravisCarts = () => {
   const getTravisRetailerDetails = useSelector(getTravisRetailerDetail);
 
   const getCurrentUsers = useSelector(getCurrentUser)
+
 
   useEffect(() => {
     if (getLoadings) {
@@ -579,7 +581,7 @@ const TravisCarts = () => {
   const handleRefetch = () => {
     setIsRefetch(true)
     dispatch(LoadingStart())
-    console.log("fetch")
+  
    
     
   }
@@ -621,7 +623,9 @@ const TravisCarts = () => {
 const handlefailSubmit=(val :string)=>{
   if(val){
   
-    alert(`${val} is out of stock`)
+  
+    // message.error('Some of product out of stock');
+    alert(`Some of product out of stock`)
     dispatch(updateProgressStep({
       progressStep: 0
 

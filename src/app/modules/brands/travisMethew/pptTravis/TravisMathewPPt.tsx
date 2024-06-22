@@ -14,7 +14,7 @@ const TravisMathewPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
         console.log("ppt")
       if (selectedRowVartionSku && selectedRowVartionSku.length > 0) {
         console.log("selectedRowVartionSku",selectedRowVartionSku)
-               // debugger
+               // 
         const pptx = new PptxGenJS();
   
         selectedRowVartionSku.forEach((item) => {
