@@ -30,7 +30,6 @@ const PreOrder = () => {
   const [preorderId, setPreOderId]= useState<number|null>(null)
 // check the PreOrderId and create else update order
 useEffect(()=>{
-// eslint-disable-next-line no-debugger
 //debugger
    
     if(getPreOrderIds===0 &&

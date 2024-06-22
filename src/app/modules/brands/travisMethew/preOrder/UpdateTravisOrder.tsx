@@ -52,8 +52,7 @@ const UpdateTravisOrder = ({ resetUpdateOrder, preorderId }: Props) => {
   const [userId, setUserId] = useState<number>();
  
   useEffect(() => {
-    // eslint-disable-next-line no-debugger
-    debugger
+        debugger
 
 
     if (getCurrentUsers &&
@@ -120,8 +119,7 @@ const getTravisNotes= useSelector(getTravisNote)
    }
  }, [getProduct])
   useEffect(() => {
-    // eslint-disable-next-line no-debugger
-    debugger
+        debugger
     if (allTravisOrders && 
       allTravisOrders.length > 0 &&
       salesRepId!=undefined &&

@@ -102,8 +102,7 @@ export function Login() {
 
 
       } catch (error) {
-        // eslint-disable-next-line no-debugger
-        debugger
+       
         if (error) {
           alert(error)
         }

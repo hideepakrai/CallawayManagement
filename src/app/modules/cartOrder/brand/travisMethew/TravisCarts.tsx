@@ -355,6 +355,10 @@ const TravisCarts = () => {
 
   const handleQuantity88 = (value: string, record: BasicModelTravis) => {
 
+    dispatch(updateProgressStep({
+      progressStep: 0
+
+    }))
     const intValue = parseInt(value, 10);
     setQty88Message("");
     setIsQty88ToolTip(false);
@@ -419,7 +423,10 @@ const TravisCarts = () => {
   }, [qty90ToolMesage])
 
   const handleQuantity90 = (value: string, record: BasicModelTravis) => {
+    dispatch(updateProgressStep({
+      progressStep: 0
 
+    }))
     const intValue = parseInt(value, 10);
 
     setQty90Message("");

@@ -334,8 +334,7 @@ const[salesrep,setSalesrep]=useState<RetailerModel[]>([])
         setGST("");
         setRetailerId(null)
         setRetailerName("")
-        // eslint-disable-next-line no-debugger
-        // debugger
+                // debugger
         if (getActiveOrdertabs === 'travis' && getTravisRetailerDetails) {
 
             console.log("getTravisRetailerDetails", getTravisRetailerDetails)

@@ -59,15 +59,15 @@ const TravisOrderPdf = () => {
 
 
  
-  // useEffect(() => {
-  //   if (getUserProfiles && getUserProfiles.length > 0) {
-  //     getUserProfiles.map(item => {
-  //       if (item.role === "Sales Representative") {
-  //         setSalesRepName(item.name)
-  //       }
-  //     })
-  //   }
-  // }, [getUserProfiles])
+  useEffect(() => {
+    if (getUserProfiles && getUserProfiles.length > 0) {
+      getUserProfiles.map(item => {
+        if (item.role === "Sales Representative") {
+          setSalesRepName(item.name)
+        }
+      })
+    }
+  }, [getUserProfiles])
 
   const [notes, setNotes] = useState<string[]>([])
   const getTravisNotes = useSelector(getTravisNote)

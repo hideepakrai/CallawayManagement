@@ -103,8 +103,7 @@ const AuthInit: FC<WithChildren> = ({children}) => {
   // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
   useEffect(() => {
     const requestUser = async (apiToken: string) => {
-      // eslint-disable-next-line no-debugger
-      debugger
+   
       try {
         if (!currentUser) {
           const {data} = await getUserByToken(apiToken)

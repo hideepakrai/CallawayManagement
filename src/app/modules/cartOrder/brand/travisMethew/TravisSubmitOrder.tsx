@@ -111,8 +111,7 @@ const TravisSubmitOrder = ({ totalNetBillAmount, discountValue, totalAmount,disc
   //getAlll retailer detail 
   const getRetailerDetail = useSelector(getRetailerDetails)
   useEffect(() => {
- // eslint-disable-next-line no-debugger
- debugger
+  debugger
    
     if (getRetailerDetail &&
       allTravisOrders && allTravisOrders.length > 0 &&

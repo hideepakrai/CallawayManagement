@@ -39,12 +39,11 @@ const RefetchTravis = ({ resetFail ,checkSku,resetSubmit}: Props) => {
                 checkSku.map((items) => {
                     if(items.error88===""){
                         const checkIndex = response.findIndex((item: BasicModelTravis) => item.sku === items.sku);
-                      console.log("checkIndex",checkIndex)
-                      // eslint-disable-next-line no-debugger
-                      debugger
+                 
+                      
                     if (
                         checkIndex !== -1 &&
-                        response[checkIndex].stock_88 <= (items.Quantity88 ?? 0)  &&
+                        response[checkIndex].stock_88 < (items.Quantity88 ?? 0)  &&
                         val === ""
                     ) {
                         fail = false;

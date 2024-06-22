@@ -14,8 +14,7 @@ const HardGoodsPPt = ({ selectedRowVartionSku, resetPPT }: Props) => {
         console.log("ppt")
       if (selectedRowVartionSku && selectedRowVartionSku.length > 0) {
         console.log("selectedRowVartionSku",selectedRowVartionSku)
-        // eslint-disable-next-line no-debugger
-        debugger
+        
         const pptx = new PptxGenJS();
   
         selectedRowVartionSku.forEach((item) => {

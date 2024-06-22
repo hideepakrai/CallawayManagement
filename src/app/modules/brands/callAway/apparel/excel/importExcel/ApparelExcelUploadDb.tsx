@@ -25,9 +25,7 @@ const ApparelExcelUploadDb: React.FC<Props> = ({ xlData, resetXls }) => {
   const getTravisProduct = useSelector(getAppaProducts)
   
   useEffect(() => {
-    //console.log("indb",xlData)
-    //debugger
-
+   
     const addTravisData: BasicModelApparel[] = []
     const updateTravisData: BasicModelApparel[] = []
     if (xlData && xlData.length > 0) {

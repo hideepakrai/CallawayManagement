@@ -93,8 +93,7 @@ const TravisMethewSlice = createSlice({
             const styleCodesSet = new Set<string>();
             const familySet = new Set<string>();
             const tarvisLength= state.travisMethew.length;
-             // eslint-disable-next-line no-debugger
-             debugger
+                          
             if(tarvisLength===0){
               if (travisProduct && travisProduct.length > 0) {
                 travisProduct.forEach((item: BasicModelTravis) => {

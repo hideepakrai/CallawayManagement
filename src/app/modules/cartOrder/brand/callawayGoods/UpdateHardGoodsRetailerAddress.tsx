@@ -23,8 +23,7 @@ const UpdateHardGoodsRetailerAddress = ({resetHardGoodsAddress}:Props) => {
     const getPreOrderIds = useSelector(getPreOrderId);
     const getProduct: BasicModelGoods[] = useSelector(getHardGoodsProducts);
     useEffect(() => {
-      // eslint-disable-next-line no-debugger
-     // debugger
+           // debugger
       const hard: BasicModelGoods[] = [];
       if (getProduct && getProduct.length > 0) {
         getProduct.map((item) => {

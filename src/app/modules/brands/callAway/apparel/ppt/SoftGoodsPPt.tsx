@@ -19,8 +19,7 @@ const SoftGoodsPPt = ({ selectedRow, resetPPt }: Props) => {
         console.log("ppt")
       if (selectedRow && selectedRow.length > 0) {
         console.log("selectedRow",selectedRow)
-        // eslint-disable-next-line no-debugger
-       // debugger
+      
         const pptx = new PptxGenJS();
   
         selectedRow.forEach((item) => {

@@ -42,7 +42,7 @@ const RefetchOgio = ({ checkSku, resetSubmit,resetFail }: Props) => {
                      
                     if (
                         checkIndex !== -1 &&
-                        response[checkIndex].stock_90 <= (items.Quantity90 ?? 0)  &&
+                        response[checkIndex].stock_90 < (items.Quantity90 ?? 0)  &&
                         val === ""
                     ) {
                         fail = false;
