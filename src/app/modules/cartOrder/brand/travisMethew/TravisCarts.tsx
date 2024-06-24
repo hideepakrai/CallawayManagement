@@ -246,9 +246,10 @@ const TravisCarts = () => {
       fixed: 'right',
       render: (value, record) => (
 
-        <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+        <Tooltip 
+       open={record.error88 !==""? true : false} title={record.error88 !=="" ? record.error88 : ""} placement="top">
           <InputNumber
-            status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
+             status={record.error90 !== "" ? "error" : ""}
             className=' number-input'
             addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
             value={record.Quantity90?.toString()}

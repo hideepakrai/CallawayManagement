@@ -222,9 +222,10 @@ const CallawayApparelCarts = () => {
       width: 120,
      
       render: (value, record) => (
-        <Tooltip open={record.sku === qty88ToolSKU ? isQty88ToolTip : false} title={record.sku === qty88ToolSKU ? qty88ToolMesage : ""} placement="top">
+        <Tooltip 
+        open={record.error88 !==""? true : false} title={record.error88 !=="" ? record.error88 : ""} placement="top">
           <InputNumber
-            status={record.sku === qty88ToolSKU && qty88ToolMesage != "" ? "error" : ""}
+            status={record.error88 !== "" ? "error" : ""}
             className='number-input'
             //addonBefore={record.stock_88}
             addonBefore={record.stock_88 == 0 ? 0 : record.stock_88}
@@ -255,9 +256,10 @@ const CallawayApparelCarts = () => {
      
       render: (value, record) => (
 
-        <Tooltip open={record.sku === qty90ToolSKU ? isQty90ToolTip : false} title={record.sku === qty90ToolSKU ? qty90ToolMesage : ""} placement="top">
+        <Tooltip
+        open={record.error90 !==""? true : false} title={record.error90 !=="" ? record.error90 : ""} placement="top">
           <InputNumber
-            status={record.sku === qty90ToolSKU && qty90ToolMesage != "" ? "error" : ""}
+            status={record.error90 !== "" ? "error" : ""}
             className='number-input'
            // addonBefore={record.stock_90 || 0}
            addonBefore={record.stock_90 == 0 ? 0 : record.stock_90}
@@ -644,28 +646,36 @@ const handleOkNote = () => {
   }
 
   // calculated amount and discount ammount
+  const [checkSku, setCheckSku]=useState<BasicModelApparel[]>([])
   const getCurrentUsers= useSelector(getCurrentUser)
   const [totalAmount, setTotalAmount] = useState<number>()
   const [discountAmount, setDiscountAmount] = useState<number>()
   const [totalNetBillAmount, setTotalNetBillAmount] = useState<number>()
 
   useEffect(() => {
+    const newSku:BasicModelApparel[]=[];
     let tAmount: number = 0;
     let totalBillAmount: number = 0;
     if (getApparelProduct && getApparelProduct.length > 0) {
       getApparelProduct.map((item: BasicModelApparel) => {
-        if (item.Amount && item.ordered) {
+        if (item.Amount && item.ordered &&item.error88==="" &&item.error90==="") {
           tAmount = parseFloat((item.Amount + tAmount).toFixed(2))
         }
-        if (item.FinalBillValue && item.ordered) {
+        if (item.FinalBillValue && item.ordered &&item.error88==="" &&item.error90==="") {
 
           totalBillAmount = parseFloat((totalBillAmount + item.FinalBillValue).toFixed(2))
+        } 
+        if(item.ordered && item.error88 === "" && item.error90 === ""){
+          newSku.push(item)
         }
 
       })
       setTotalAmount(tAmount)
       setTotalNetBillAmount(totalBillAmount)
       setDiscountAmount(tAmount - totalBillAmount)
+      if(newSku && newSku.length>0){
+        setCheckSku(newSku)
+      }
     }
   }, [getApparelProduct])
 
