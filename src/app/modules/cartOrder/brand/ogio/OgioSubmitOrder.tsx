@@ -154,7 +154,7 @@ const OgioSubmitOrder = ({ totalNetBillAmount, discountValue, discountType, rese
         total_value: totalNetBillAmount,
         discount_amount: discountAmount,
         total_val_pre_discount:totalAmount,
-        status: "submitted",
+        status: "Submitted",
         manager_id: managerUserId,
         retailer_id: getOgioRetailerDetails.id,
         salesrep_id: salesRepId,

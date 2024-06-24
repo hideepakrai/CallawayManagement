@@ -162,7 +162,7 @@ const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discou
         total_value:  totalNetBillAmount,
         discount_amount: discountAmount,
         total_val_pre_discount:totalAmount,
-        status: "submitted",
+        status: "Submitted",
         manager_id: managerUserId,
         retailer_id: getSoftgoodRetailerDetails.id,
         salesrep_id: salesRepId??0,

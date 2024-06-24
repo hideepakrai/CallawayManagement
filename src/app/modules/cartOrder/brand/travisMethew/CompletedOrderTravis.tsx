@@ -27,7 +27,7 @@ const CompletedOrderTravis = ({ resetCompleted }: Props) => {
     const formattedTimestamp = now.toISOString();
     const order = {
       id: ordreId,
-      status: "Complete",
+      status: "Completed",
       updated_at: formattedTimestamp,
       note:JSON.stringify(getTravisNotes)
     }
