@@ -67,10 +67,10 @@ const MixedWidget18: FC<Props> = ({className, chartColor, chartHeight, strokeCol
    const allPend:CartModel[]=[]
    if(getUserOrder && getUserOrder.length>0){
     getUserOrder.map((item)=>{
-     if(item.brand_id===3 && item.status==="Complete"){
+     if(item.brand_id===3 && (item.status==="Complete" || item.status==="Completed" )){
        allComp.push(item)
      }
-     if(item.brand_id===3 && item.status!="Complete"){
+     if(item.brand_id===3 && (item.status!="Complete" && item.status!=="Completed" )){
        allPend.push(item)
      }
     })
