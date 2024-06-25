@@ -2,7 +2,7 @@ import React from 'react'
 import GoodsHeader from './header/GoodsHeader';
 import GooodsTable from './table/GooodsTable';
 import Slider from '../../../model/slider/Slider';
-import ScrolBottom from "../../../ProductScrollBottom/ScrollBottom";
+
 const CallAwayGoodsProducts = () => {
   return (
     <div>
@@ -15,12 +15,10 @@ const CallAwayGoodsProducts = () => {
             <h1 className="d-flex text-white fw-bold my-1 fs-3"> Callaway HardGoods </h1>
           </div>
         </div>
-      </div>
-
-  
+      </div>  
       {/* <GoodsHeader /> */}
       <GooodsTable />
-      <ScrolBottom/>
+    
       </div>
     </div>
   )

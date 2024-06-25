@@ -83,8 +83,10 @@ const SoftGoodRefetch = ({ resetFail ,checkSku,resetSubmit }: Props) => {
   }
 
   return (
+
     <div></div>
-  )
+
+  );
 }
 
 export default SoftGoodRefetch

@@ -37,7 +37,7 @@ import PreOrderHome from '../preOrder/PreOrderHome';
 import SoftGoodsPPt from '../ppt/SoftGoodsPPt';
 import BrandLogo from "../../../../../../../public/media/logos/logo-callaway.png"
 //import BrandLogo from "../../../../../../public/media/logos/logo-white.png"
-
+import ScrolBottom from "../../../../ProductScrollBottom/ScrollBottom"
 
 type SelectCommonPlacement = SelectProps['placement'];
 
@@ -892,7 +892,7 @@ setAllApparel(allTr)
                 <Breadcrumb.Item>
                   <span className="gx-link">Products</span>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>Callaway Apparel</Breadcrumb.Item>
+                <Breadcrumb.Item>Callaway Softgoods  </Breadcrumb.Item>
               </Breadcrumb>
             </div>
           }
@@ -951,24 +951,18 @@ setAllApparel(allTr)
             <h4 className='fs-4 '>Showing <i><span className='fs-2 fw-bold '>1200</span></i> products</h4>
           </div> */}
 
-       { allApparel.length>0?  
-       (<Table className='cart-table-profile'
+       { allApparel.length> 0 ?  
+       (
+       <div>
+       <Table className='cart-table-profile'
             ref={tableRef}
             columns={columns}
             dataSource={allApparel?.map((item) => ({ ...item, key: item?.sku }))}
-
-            //ps
             rowSelection={{
               selectedRowKeys,
               onSelect: (record,selected) => { handleSelctRow(record,selected) }
             }}
-          
-            // expandable={{
-            //   expandedRowRender,
 
-            //   onExpand: (expanded, record) => handleExpand(expanded, record),
-
-            //  }}
             bordered
             size="middle"
             scroll={{ x: "100%", y: "auto" }}
@@ -981,7 +975,17 @@ setAllApparel(allTr)
               pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
             }}
             
-          />):
+          />  
+         
+         <ScrolBottom 
+                  ViewCart={handleViewCart}
+                  imports={handleImportProduct}
+                  qtyImport={handleUpdateQty}
+                  product={handleProduct}
+             />
+         
+         </div>
+        ):
           (<Loading/>)}
         </Card>
 

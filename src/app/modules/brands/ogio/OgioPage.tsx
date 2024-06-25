@@ -14,7 +14,7 @@ import OgioProduct from "../../../api/allProduct/ogio/OgioProduct.tsx"
 import { useLocation } from 'react-router-dom';
 import Reload from '../../../reload/Reload.tsx';
 import OgioImage from '../../../pages/dashboard/OgioImage.tsx';
-import ScrolBottom from "../../ProductScrollBottom/ScrollBottom";
+
 const OgioPage = () => {
   const location = useLocation();
   const [ogioPath, setOgioPAth] = useState<boolean>(false)
@@ -63,7 +63,7 @@ const OgioPage = () => {
         <OgioTable />
         {/* <OgioImage /> */}
         <Reload />
-        <ScrolBottom/>
+        
       </div>
 
     </>

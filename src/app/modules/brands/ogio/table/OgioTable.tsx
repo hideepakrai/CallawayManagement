@@ -34,6 +34,7 @@ import OgioProductsToExcel from '../excel/importExcel/ExportAllProduct';
 
 import Loading from '../../../loading/Loading';
 import OgioPPt from '../pptOgio/OgioPPt';
+import ScrolBottom from "../../../ProductScrollBottom/ScrollBottom"
 
 type SelectCommonPlacement = SelectProps['placement'];
 const OPTIONS = ['Accessory',];
@@ -1146,11 +1147,11 @@ const OgioTable = () => {
 
             {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
               onClick={handleQtyImport}
-            > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>
+            > <i className="bi bi-arrow-repeat fs-3"></i> Update Qty </Button>
             }
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up '
               onClick={handleProduct}
-            > <i className="bi bi-file-earmark-spreadsheet fs-3"></i>Export Products</Button>
+            > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Export Products</Button>
 
           </div>
 
@@ -1165,7 +1166,9 @@ const OgioTable = () => {
         </div> */}
 
 
-        {allOgioData.length > 0 ? (<Table
+        {allOgioData.length > 0 ? (
+          <div>
+          <Table
           className='cart-table-profile'
           ref={tableRef}
           columns={columns}
@@ -1192,7 +1195,17 @@ const OgioTable = () => {
             showSizeChanger: true, // Show page size changer
             pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
           }}
-        />) : (<Loading />)}
+        />
+               <ScrolBottom 
+                  ViewCart={handleViewCart}
+                  imports={handleImport}
+                  qtyImport={handleQtyImport}
+                  product={handleProduct}
+             />
+        </div>
+        
+        
+        ) : (<Loading />)}
 
 
       </Card>

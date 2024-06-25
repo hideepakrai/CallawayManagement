@@ -32,7 +32,7 @@ import HardGoodsPdf from '../pdf/HardGoodsPdf';
 
 
 import BrandLogo from "../../../../../../../public/media/logos/logo-callaway.png"
-
+import ScrolBottom from "../../../../ProductScrollBottom/ScrollBottom"
 
 
 type SelectCommonPlacement = SelectProps['placement'];
@@ -855,7 +855,9 @@ setAllGoodsProduct(allTr)
         </div>
 
       { allGoodsProduct.length>0? 
-    (  <Table
+    ( 
+      <div>
+      <Table
           className='cart-table-profile'
           ref={tableRef}
           columns={columns}
@@ -875,9 +877,17 @@ setAllGoodsProduct(allTr)
             showTotal: (total) => <span className="ant-pagination-total-text ">Total <span className='total-page '> <i> {total} </i></span> items</span>,
             showSizeChanger: true, // Show page size changer
             pageSizeOptions: ['100', '200', '300', '400', '500', '600', '1000'], // Page size options
-          }}
-        
-        />):(
+          }}  
+       />
+             <ScrolBottom 
+                  ViewCart={handleViewCart}
+                  imports={handleImport}
+                  qtyImport={handleQtyImport}
+                  product={handleProduct}
+             />
+
+      </div>
+      ):(
           <Loading/>
         )
       }

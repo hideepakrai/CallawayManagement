@@ -2,7 +2,7 @@ import React from 'react'
 
 import Slider from '../../../model/slider/Slider';
 import ApparelTable from './table/ApparelTable';
-import ScrolBottom from "../../../ProductScrollBottom/ScrollBottom";
+
 const CallAwayApparelProducts = () => {
   return (
     <div>
@@ -20,7 +20,7 @@ const CallAwayApparelProducts = () => {
   
       {/* <GoodsHeader /> */}
       <ApparelTable />
-      <ScrolBottom/>
+      
       </div>
     </div>
   )

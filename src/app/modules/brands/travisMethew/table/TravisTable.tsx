@@ -12,6 +12,8 @@ import TravisImportProduct from "../excel/importExcel/TravisExportProduct"
 import { ExcelModelTravis } from "../../../model/travis/TravisExcel"
 import TravisExcelUploadDB from "../excel/importExcel/TravisExcelUploadDB"
 import TravisUpdateQty from "../excel/importExcel/TravisUpdateQty"
+import ScrolBottom  from "../../../../modules/ProductScrollBottom/ScrollBottom";
+
 
 import {
   updateQuantity90, updateQuantity88,
@@ -781,6 +783,8 @@ const TravisTable = () => {
 
 
         return (
+
+
           <Table className='cart-table-profile'
             columns={subcolumns}
             dataSource={getOtherProduct?.map((item) => ({ ...item, key: item.sku }))}
@@ -1531,7 +1535,7 @@ const TravisTable = () => {
 
             {getCurrentUsers && getCurrentUsers.role !== "Retailer" && <Button className=' btn px-6 p-0  btn-travis mx-3 hover-elevate-up '
               onClick={handleQtyImport}
-            > <i className="bi bi-file-earmark-arrow-up fs-3"></i> Update Qty </Button>}
+            > <i className="bi bi-arrow-repeat fs-3"></i> Update Qty </Button>}
 
             <Button className=' btn  px-6 p-0  btn-travis mx-3 hover-elevate-up'
               onClick={handleProduct}
@@ -1577,7 +1581,12 @@ const TravisTable = () => {
                   }}
                 />
   
-  
+  <ScrolBottom 
+                ViewCart={handleViewCard}
+                imports={handleImport}
+                qtyImport={handleQtyImport}
+                product={handleProduct} 
+               />
   
   
               </div>
@@ -1610,8 +1619,12 @@ const TravisTable = () => {
                 }}
               />
 
-
-
+<ScrolBottom 
+                  ViewCart={handleViewCard}
+                  imports={handleImport}
+                  qtyImport={handleQtyImport}
+                  product={handleProduct}
+             />
 
             </div>
             ):(<Loading/>)
@@ -1634,6 +1647,8 @@ const TravisTable = () => {
         onClose={handleCloseImport}
         allGoodsData={handleTravisData}
       />
+
+
       <TravisQtyImport
         isQtyImport={isQtyImport}
         onClose={handleCloseQtyImport}

@@ -5,7 +5,9 @@ import Slider from '../../model/slider/Slider'
 import "./TravisMAthewHome.css";
 import Reload from "../../../reload/Reload"
 import TravisImage from '../../../pages/dashboard/TravisImage';
-import ScrolBottom from "../../ProductScrollBottom/ScrollBottom";
+
+
+
 const TravisMAthewHome = () => {
   return (
     <div>
@@ -27,9 +29,9 @@ const TravisMAthewHome = () => {
 {/* 
 <TravisHeader/> */}
  <TravisTable/>
-
+{/* <ScrolBottom/> */}
  <Reload/>
- <ScrolBottom/>
+
  </div>
     </div>
   )

@@ -242,7 +242,7 @@ const ImportAllOgioProduct = ({ onClose, isImport, allOgioData }: Props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3>Import Products</h3>
+        <h3 className="mb-3">Import Products</h3>
         <Dragger
           multiple={false}
           onChange={(info) => handleInput(info)}

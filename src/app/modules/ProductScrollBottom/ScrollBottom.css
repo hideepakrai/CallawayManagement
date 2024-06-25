@@ -18,11 +18,12 @@
     opacity: 1!important;
     border-radius: 0px 0px 0px 0px!important;
 }
+
 /* .scroll-bar-section{padding-right: 49px;} */
 
 [data-kt-scrolltop=on] .scrolltop{opacity: 1!important;}
 
 .scroll-bottom button{ background-color: rgba(255, 255, 255, 0.1) !important;} 
 .scroll-bottom button:hover{ background-color: #363636!important;}
-/* 707070 */
-/* 505050 */
+
+.scrolltop{display: flex!important;}
