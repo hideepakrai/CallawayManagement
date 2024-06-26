@@ -11,8 +11,9 @@ import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelTravis } from "../../../../model/travis/TravisMethewModel";
 import type { ColumnProps } from 'antd/lib/table';
 import SampleExcelTravis from "../SampleExcelTravis";
-
+import { Badge,  Tooltip } from 'antd';
 const { Dragger } = Upload;
+import "./TravisQtyImport.css"
 
 type Props = {
   onClose: () => void;
@@ -168,7 +169,7 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
   };
   return (
     <div>
-      <Modal
+      <Modal className="updateqty-model"
         // title="Basic Modal"
         open={isQtyImport}
         onOk={handleOk}
@@ -190,10 +191,10 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
             uploading company data or other banned files.
           </p>
         </Dragger>
-        <div className="mt-5 downlaod-excel "
-          onClick={handleExportToExcel}
+        <div className="mt-6 downlaod-excel mb-8"
+          
         >
-          <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+          <h4 className="fs-5"> Click to Download Travis Mathew Stock Update Sample Excel  <Tooltip  className="py-1 px-2 mx-1" title={"Downlaod"} > <i className="bi bi-download fs-3" onClick={handleExportToExcel}></i></Tooltip> </h4>
         </div>
       </Modal>
 

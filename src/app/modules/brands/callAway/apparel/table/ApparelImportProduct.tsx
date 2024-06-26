@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip } from "antd";
 import { Input } from "antd";
 import { Select } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
@@ -366,7 +366,7 @@ const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
   };
   return (
     <div>
-      <Modal
+      <Modal className="updateqty-model"
         // title="Basic Modal"
         open={isImport}
         onOk={handleOk}
@@ -389,9 +389,10 @@ const TravisImportExcel = ({ onClose, isImport, allApparelData }: Props) => {
           </p>
         </Dragger>
         <div className="mt-5 downlaod-excel "
-          onClick={handleExportToExcel}
+        
         >
-          <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+          <h4 className="fs-5">Click to  Download  Softgoods Sample Excel  <Tooltip  className="py-1 px-2 mx-1" title={"Downlaod"} > <i className="bi bi-download fs-3" onClick={handleExportToExcel}></i></Tooltip> </h4>
+         
         </div>
       </Modal>
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip } from "antd";
 import { Input } from "antd";
 import { Select } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
@@ -258,7 +258,7 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
   };
   return (
     <div>
-      <Modal
+      <Modal className="updateqty-model"
         // title="Basic Modal"
         open={isImport}
         onOk={handleOk}
@@ -281,11 +281,10 @@ const GoodsImportExcel = ({ onClose, isImport, allGoodsData }: Props) => {
             uploading company data or other banned files.
           </p>
         </Dragger>
-        <div className="mt-5 downlaod-excel "
-        onClick={handleExportToExcel}
-
+        <div className="mt-6 downlaod-excel mb-8"
         >
-          <h4 >Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3" onClick={handleExportToExcel} ></i> </span></h4>
+       
+          <h4 className="fs-5">Click to  Download HardGoods Sample Excel  <Tooltip  className="py-1 px-2 mx-1" title={"Downlaod"} > <i className="bi bi-download fs-3" onClick={handleExportToExcel}></i></Tooltip> </h4>
         </div>
       </Modal>
 

@@ -10,7 +10,7 @@ import * as XLSX from "xlsx";
 import type { UploadChangeParam } from "antd/lib/upload";
 import { BasicModelGoods } from "../../../../model/goods/CallawayGoodsModel";
 import type { ColumnProps } from 'antd/lib/table';
-
+import { Badge,  Tooltip } from 'antd';
 
 const { Dragger } = Upload;
 
@@ -169,13 +169,13 @@ const GoodsQtyImport = ({ onClose, isQtyImport, allGoodsData }: Props) => {
   };
   return (
     <div>
-      <Modal
+      <Modal className="updateqty-model"
         // title="Basic Modal"
         open={isQtyImport}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3>Update Qty</h3>
+        <h3 className="mb-3">Update Qty</h3>
         <Dragger
           multiple={false}
           onChange={(info) => handleInput(info)}
@@ -191,10 +191,10 @@ const GoodsQtyImport = ({ onClose, isQtyImport, allGoodsData }: Props) => {
             uploading company data or other banned files.
           </p>
         </Dragger>
-        <div className="mt-5 downlaod-excel "
-          onClick={handleExportToExcel}
+        <div className="mt-6 downlaod-excel mb-8"
+         
         >
-          <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+          <h4 className="fs-5"> Click to Download HardGoods Stock Update Sample Excel  <Tooltip  className="py-1 px-2 mx-1" title={"Downlaod"} > <i className="bi bi-download fs-3"  onClick={handleExportToExcel}></i></Tooltip> </h4>
         </div>
       </Modal>
 
