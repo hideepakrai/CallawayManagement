@@ -40,26 +40,17 @@ const SoftGoodRefetch = ({ resetFail ,checkSku,resetSubmit }: Props) => {
 
         }))
 
-           checkSku.map((items) => {
-                    if(items.error88===""){
-                        const checkIndex = response.findIndex((item: BasicModelApparel) => item.sku === items.sku);
-                 
-                      
-                    if (
-                        checkIndex !== -1 &&
-                        response[checkIndex].stock_88 < (items.Quantity88 ?? 0)  &&
-                        val === ""
-                    ) {
-                        fail = false;
-                        val = items.sku ?? "";
-                        // dispatch(updateCheckAvailability({
-                        //     sku:items.sku ?? "",
-                        //     qty:response[checkIndex].stock_88 
-                        // }))
-                    }
-                    }
-                    
-                });
+        checkSku.map((items) => {
+          if (items.error88 === "") {
+              const checkIndex = response.findIndex((item: BasicModelApparel) => item.sku === items.sku);
+      
+              if (checkIndex !== -1 && response[checkIndex].stock_88 < (items.Quantity88 ?? 0) && val === "") {
+                  fail = false;
+                  val = items.sku ?? "";
+              }
+          }
+      });
+      
                 
                 
                 if(!fail){
