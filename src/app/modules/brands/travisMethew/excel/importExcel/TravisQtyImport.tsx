@@ -174,7 +174,7 @@ const TravisQtyImport = ({ onClose, isQtyImport, travisQtyData }: Props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3>Import Products</h3>
+        <h3 className="mb-3">Update Qty</h3>
         <Dragger
           multiple={false}
           onChange={(info) => handleInput(info)}

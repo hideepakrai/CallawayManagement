@@ -333,7 +333,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3 className="mb-3" >Upadte Qty </h3>
+        <h3 className="mb-3" >Update Qty</h3>
 
         <Dragger className="mb-6"
           multiple={false}

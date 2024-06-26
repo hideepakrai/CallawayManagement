@@ -6,7 +6,7 @@ import { message, Modal, Upload } from 'antd';
 import { OgioBasicModel } from '../../../../model/ogio/OgioBrandModel';
 import type { ColumnProps } from 'antd/lib/table';
 import Dragger from 'antd/es/upload/Dragger';
-
+import { InboxOutlined } from "@ant-design/icons";
 
 type Props = {
   onClose: () => void;
@@ -162,13 +162,13 @@ const UpdateOgioQty = ({ isUpdate, allOgioData, onClose }: Props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <h3>Import Products</h3>
+        <h3 className='mb-3'>Update Qty</h3>
         <Dragger
           multiple={false}
           onChange={(info) => handleInput(info)}
         >
           <p className="ant-upload-drag-icon">
-            {/* <InboxOutlined /> */}
+             <InboxOutlined /> 
           </p>
           <p className="ant-upload-text">
             Click or drag file to this area to upload
@@ -181,7 +181,8 @@ const UpdateOgioQty = ({ isUpdate, allOgioData, onClose }: Props) => {
         <div className="mt-5 downlaod-excel "
           onClick={handleExportToExcel}
         >
-          <h4>Click to  Download Ogio Qantity Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+          {/* Ogio Qantity */}
+          <h4>Click to  Download  Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
         </div>
       </Modal>
     </div>
