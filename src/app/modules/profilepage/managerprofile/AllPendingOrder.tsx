@@ -35,7 +35,7 @@ const AllPendingOrder = () => {
         const allpend: AccountOrder[] = [];
         if (getUserOrder && getUserOrder.length > 0) {
             getUserOrder.forEach(item => {
-                if (item.status != "Complete" && item.status != "Completed" ) {
+                if (item.status != "Complete" && item.status != "Completed"  && item.status != "Rejected") {
                     allpend.push(item);
                 }
             });
@@ -132,15 +132,7 @@ const AllPendingOrder = () => {
             }
         },
 
-        // {
-        //     title: "Order date",
-        //     dataIndex: "created_at",
-        //     width: 150,
-        //     render: (value) => {
-        //         const date = new Date(value);
-        //         return date.toUTCString();
-        //     },
-        // },
+      
         {
             title: "Order Date",
             dataIndex: "created_at",
@@ -240,21 +232,7 @@ const AllPendingOrder = () => {
             width: 100,
         },
 
-        // {
-        //     title: "Status	",
-        //     dataIndex: "status",
-        //     width: 100,
-        //     render: (value, record) => {
-        //         const valSub = value
-        //         console.log("c",value)
-        //         return(
-        //          valSub
-               
-                   
-        //         )
-        //     }
-
-        // },
+      
         {
             title: "Status",
             dataIndex: "status",

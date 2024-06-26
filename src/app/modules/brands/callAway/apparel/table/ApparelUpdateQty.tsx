@@ -354,7 +354,7 @@ const TravisUpdateQty = ({ onClose, isUpdate, allGoodsData }: Props) => {
         <div className="mt-6 downlaod-excel "
         onClick={handleExportToExcel}
         >
-          <h4>Click to  Download Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+          <h4>Click to Download Softgoods Stock Update Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
         </div>
       </Modal>
 

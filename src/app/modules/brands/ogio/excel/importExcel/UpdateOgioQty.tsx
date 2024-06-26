@@ -181,8 +181,8 @@ const UpdateOgioQty = ({ isUpdate, allOgioData, onClose }: Props) => {
         <div className="mt-5 downlaod-excel "
           onClick={handleExportToExcel}
         >
-          {/* Ogio Qantity */}
-          <h4>Click to  Download  Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
+           
+          <h4>Click to Download Ogio Stock Update Sample Excel <span className="py-1 px-2"><i className="bi bi-download fs-3"></i> </span></h4>
         </div>
       </Modal>
     </div>
