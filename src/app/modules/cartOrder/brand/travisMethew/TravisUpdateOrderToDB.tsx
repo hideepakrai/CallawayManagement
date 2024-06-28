@@ -18,6 +18,8 @@ const TravisUpdateOrderToDB = ({ resetUpdateData }: props) => {
     const [updatestock, setUpdateStock] = useState<BasicModelTravis[]>([])
     const [isUpdating, setIsUpdating] = useState(false);
     useEffect(() => {
+        // eslint-disable-next-line no-debugger
+        debugger
         const newtravis: BasicModelTravis[] = [];
         if (getTravisProduct && getTravisProduct.length > 0) {
             getTravisProduct.forEach(item => {

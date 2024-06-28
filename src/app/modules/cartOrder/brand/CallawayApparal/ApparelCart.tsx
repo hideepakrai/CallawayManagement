@@ -29,6 +29,7 @@ import SoftGoodsOrderPdf from './pdfOrder/SoftGoodsOrderPdf';
 import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
 import SoftGoodsRejectedModel from "./SoftGoodsRejectedModel"
 import RejectOrderSoftGoods from './RejectOrderSoftGoods';
+import SoftGoodRefetch from '../../../../api/allProduct/callaway/appreal/SoftGoodRefetch';
 const CallawayApparelCarts = () => {
 
   const tableRef = useRef(null);
@@ -576,6 +577,8 @@ const handleOkNote = () => {
   const [isSubmitOrder, setIsSubmitOrder] = useState(false)
   const [isSubmitModel, setIsSubmitModel] = useState(false)
   const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
+  const [isSubmitRefetch, setIsSubmitRefetch]= useState<boolean>(false)
+
   const hanldeSubmitOrder = () => {
    
     setIsSubmitModel(true)
@@ -839,6 +842,38 @@ const handleRejectedModalCancel=()=>{
        // messageApi.info('Your order is suceessfully completed');
         dispatch(resetActive())
      }
+
+     const handleFailSubmit=()=>{
+    
+      setIsSubmitOrder(false)
+      dispatch(updateProgressStep({
+        progressStep: 1
+  
+      }))
+      alert("Some of quantity is out of stock")
+     
+    }
+    const handleResetSubmitRefetch=()=>{
+      //setIsSubmitOrder(true)
+      setIsSubmitRefetch(false)
+      setIsSubmitModel(true)
+     
+    }
+    const handlefailSubmit=(val :string)=>{
+      if(val){
+      
+      
+        // message.error('Some of product out of stock');
+        alert(`Some of product out of stock`)
+        dispatch(updateProgressStep({
+          progressStep: 0
+    
+        }))
+        setIsSubmitRefetch(false)
+      }
+    
+      dispatch(LoadingStop())
+    }
   return (
     <div>
 
@@ -999,6 +1034,14 @@ const handleRejectedModalCancel=()=>{
      
 
         {/* submit model */}
+
+        {isSubmitRefetch && <SoftGoodRefetch
+      checkSku={checkSku}
+      resetSubmit={handleResetSubmitRefetch}
+      resetFail={handlefailSubmit}
+
+
+      />}
         
         <SubmitSoftGoodModel
       isSubmit={isSubmitModel}
@@ -1016,6 +1059,8 @@ const handleRejectedModalCancel=()=>{
        
           discountAmount={discountAmount??0}
           totalAmount={totalAmount??0}
+          failsubmit={handleFailSubmit}
+
         />}
 
 {/* update data into DB */}

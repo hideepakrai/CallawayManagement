@@ -123,7 +123,7 @@ const CallawayGoodsSlice = createSlice({
                   );
                   if(goodsIndex!==-1){
                     const trvsRedux=state.callawayGoods[goodsIndex];
-                    // const trvs= state.travisMethew[travisIndex].TravisAttributes
+                    // const trvs= state.callawayGoods[goodsIndex].TravisAttributes
                       
                       if(trvsRedux){
                         
@@ -146,7 +146,7 @@ const CallawayGoodsSlice = createSlice({
             
             })
           }
-            //else if(travisIndex===-1){
+            //else if(goodsIndex===-1){
                     
             //         // const att: TravisMathewAttribute[] = [
             //         //   {
@@ -168,7 +168,7 @@ const CallawayGoodsSlice = createSlice({
             
       
                    
-            //         // state.travisMethew.push({
+            //         // state.callawayGoods.push({
             //         //   brand: travisProduct.brand,
             //         //   Name: travisProduct.Name,
             //         //   Description: travisProduct.Description,
@@ -458,7 +458,27 @@ resetHardGoodsOrder:(state)=>{
  }, 
  addHardGoodsLocalStorage:(state,action)=>{
   state.callawayGoods= action.payload.goods
- }
+ },
+ updateCheckAvailability:(state,action)=>{
+  const {sku,qty}= action.payload;
+  const goodsIndex = state.callawayGoods.findIndex(
+    (hardItem) => hardItem.sku === sku
+  );
+  if( goodsIndex !== -1){
+    const qty88= state.callawayGoods[goodsIndex].Quantity88??0;
+
+    if(qty<qty88){
+      state.callawayGoods[goodsIndex].error88="Quantity is more than Stock";
+      state.callawayGoods[goodsIndex].stock_88=qty;
+      state.callawayGoods[goodsIndex].FinalBillValue=0;
+      state.callawayGoods[goodsIndex].LessDiscountAmount=0;
+      state.callawayGoods[goodsIndex].Discount=0;
+      state.callawayGoods[goodsIndex].NetBillings=0;
+     
+    
+    }
+  }
+}
 
 
           
@@ -483,6 +503,8 @@ export const {
     addHardGoodsLocalStorage,
     addHardGoodsManagerDetails,
     addHardGoodsSalesrepDetails,
+    updateCheckAvailability
+    
     
 } = CallawayGoodsSlice.actions;
 export const getGoodsProducts = (state: { callawayGoods: ProductState }): BasicModelGoods[] => {

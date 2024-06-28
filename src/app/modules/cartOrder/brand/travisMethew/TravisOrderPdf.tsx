@@ -15,7 +15,7 @@ const TravisOrderPdf = () => {
   const formattedDate = today.toLocaleDateString('en-GB');
 
   const getCurrentUsers = useSelector(getCurrentUser)
-  const [salesRepName, setSalesRepName] = useState<string>()
+  //const [salesRepName, setSalesRepName] = useState<string>()
   const getUserProfiles = useSelector(getUserProfile)
   const managerName =useSelector(getaddTravismanagerDetails)
   const[manaer_Name,setManager_Name] = useState<string>()
@@ -27,7 +27,6 @@ const TravisOrderPdf = () => {
   useEffect(()=>{
 
     // eslint-disable-next-line no-debugger
-    debugger
     if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && managerName){
       setManager_Name(managerName)
       
@@ -45,6 +44,8 @@ const TravisOrderPdf = () => {
 
   const [managerid, setManagerId]= useState<number>(0)
   useEffect(()=>{
+    // eslint-disable-next-line no-debugger
+    //debugger
     if(getCurrentUsers &&  getCurrentUsers.role=="Admin" && salesrepName){
       setsalesrep_Name(salesrepName)
       
@@ -69,9 +70,9 @@ const TravisOrderPdf = () => {
     if (getUserProfiles && getUserProfiles.length > 0) {
       getUserProfiles.map((item:RetailerModel) => {
         if (item.role === "Sales Representative") {
-          setSalesRepName(item.name)
+          setsalesrep_Name(item.name)
         }
-        else if (item.role === 'Manager' && managerid===item.id) {
+         if (item.role === 'Manager') {
           setManager_Name(item.name)
         }
       })
@@ -292,7 +293,7 @@ const TravisOrderPdf = () => {
 
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Brand:</span> Travis Mathew</p>
                 <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Manager:</span> {manaer_Name}</p>
-                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Sales Rep:</span>  {salesrep_Name}</p>
+                <p className="gx-mb-0  text-black font-weight-800 fw-semibold fs-4"><span className="text-black font-weight-800 text-gray-600 fw-semibold fs-5">Sales Rep:</span>{salesrep_Name}</p>
               </div>
             </div>
 

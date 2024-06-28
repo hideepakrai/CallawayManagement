@@ -753,6 +753,8 @@ const TravisMethewSlice = createSlice({
     );
     if( travisIndex !== -1){
       const qty88= state.travisMethew[travisIndex].Quantity88??0;
+      //const qty90= state.travisMethew[travisIndex].Quantity88??0;
+
 
       if(qty<qty88){
         state.travisMethew[travisIndex].error88="Quantity is more than Stock";

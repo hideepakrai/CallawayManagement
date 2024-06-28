@@ -78,11 +78,13 @@ const CartHeader = ({ reviewOrder, submitOrder, rejectOrder, note, approveorder,
 // manager
             if(getCurrentUsers && getCurrentUsers.role==="Manager" &&getCurrentUsers.name){
                 setManager_Name(getCurrentUsers.name)
-                console.log("e",getCurrentUsers.name)
+                //console.log("e",getCurrentUsers.name)
                
             }
             if(getCurrentUsers && getCurrentUsers.role==="Sales Representative" &&getCurrentUsers.name){
                 setSalesRep_Name(getCurrentUsers.name)
+                console.log("sal",getCurrentUsers.name)
+
             }
           
             if(getCurrentUsers && getCurrentUsers.role==="Retailer"){
