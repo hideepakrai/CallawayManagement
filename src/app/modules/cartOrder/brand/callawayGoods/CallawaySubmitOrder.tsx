@@ -19,10 +19,12 @@ type Props = {
   //note: string,
   
   totalAmount:number,
-  discountAmount:number
+  discountAmount:number,
+  failsubmit:()=>void,
+
 }
 
-const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder, totalAmount,discountAmount }: Props) => {
+const CallawaySubmitOrder = ({ totalNetBillAmount, discountValue, discountType, resetSubmitOrder, totalAmount,discountAmount,failsubmit }: Props) => {
   const getProduct: BasicModelGoods[] = useSelector(getGoodsProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")

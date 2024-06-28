@@ -17,10 +17,12 @@ type Props = {
   resetSubmitOrder: () => void,
  
   totalAmount:number,
-  discountAmount:number
+  discountAmount:number,
+  failsubmit:()=>void,
+
 }
 
-const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder }: Props) => {
+const SubmitSoftOrder = ({ totalNetBillAmount, discountValue, totalAmount,discountAmount,discountType, resetSubmitOrder,failsubmit }: Props) => {
   const getApparelProduct: BasicModelApparel[] = useSelector(getApparelProducts)
   const getUserAccounts = useSelector(getUserAccount)
   const [typeOfAccount, settypeOfAccount] = useState<string>("")

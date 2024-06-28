@@ -32,6 +32,7 @@ import { NoProdect } from '../../NoProdect';
 import AlertTravis from '../travisMethew/AlertTravis';
 import HardGoodsOrderPdf from './HardGoodsOrderPdf';
 import { resetActive } from '../../../../slice/activeTabsSlice/ActiveTabSlice';
+import RefetchHardGoods from '../../../../api/allProduct/callaway/goods/RefetchHardGoods';
 
 const CalawayGoodsCarts = () => {
 
@@ -56,6 +57,8 @@ const CalawayGoodsCarts = () => {
    const getCurrentUsers= useSelector(getCurrentUser)
 
   const getHardGoodsRetailerDetails = useSelector(getHardGoodsRetailerDetail);
+  const [checkSku, setCheckSku]=useState<BasicModelGoods[]>([])
+
 
   useEffect(() => {
     if (getLoadings) {
@@ -404,6 +407,8 @@ const CalawayGoodsCarts = () => {
 
 
    useEffect(() => {
+    const newSku:BasicModelGoods[]=[];
+
     let tAmount: number = 0;
     let totalBillAmount: number = 0;
     if (getGoodsProduct && getGoodsProduct.length > 0) {
@@ -420,6 +425,9 @@ const CalawayGoodsCarts = () => {
       setTotalAmount(tAmount)
       setTotalNetBillAmount(totalBillAmount)
       setDiscountAmount(tAmount - totalBillAmount)
+      if(newSku && newSku.length>0){
+        setCheckSku(newSku)
+      }
     }
   }, [getGoodsProduct])
 
@@ -430,6 +438,8 @@ const CalawayGoodsCarts = () => {
    const [isSubmitOrder, setIsSubmitOrder] = useState(false)
    const [isSubmitModel, setIsSubmitModel] = useState(false)
    const [reLoadUserAccount, setReLoadUserAccount] = useState(false)
+   const [isSubmitRefetch, setIsSubmitRefetch]= useState<boolean>(false)
+
    const hanldeSubmitOrder = () => {
      // setIsSubmitOrder(true)
      setIsSubmitModel(true)
@@ -669,6 +679,39 @@ const handleRejectedModalCancel=()=>{
     // messageApi.info('Your order is suceessfully completed');
    dispatch(resetActive())
   }
+
+  const handleFailSubmit=()=>{
+    
+    setIsSubmitOrder(false)
+    dispatch(updateProgressStep({
+      progressStep: 1
+
+    }))
+    alert("Some of quantity is out of stock")
+   
+  }
+  const handleResetSubmitRefetch=()=>{
+    //setIsSubmitOrder(true)
+    setIsSubmitRefetch(false)
+    setIsSubmitModel(true)
+   
+  }
+
+  const handlefailSubmit=(val :string)=>{
+    if(val){
+    
+    
+      // message.error('Some of product out of stock');
+      alert(`Some of product out of stock`)
+      dispatch(updateProgressStep({
+        progressStep: 0
+  
+      }))
+      setIsSubmitRefetch(false)
+    }
+  
+    dispatch(LoadingStop())
+  }
   
 
   return (
@@ -818,6 +861,14 @@ const handleRejectedModalCancel=()=>{
 {isRefetch && <GetCallawayGoodsProduct
         resetGoods={handleResetRefetch}
   />}
+
+{isSubmitRefetch && <RefetchHardGoods
+      checkSku={checkSku}
+      resetSubmit={handleResetSubmitRefetch}
+      resetFail={handlefailSubmit}
+
+
+      />}
   
 <SubmitModel
       isSubmit={isSubmitModel}
@@ -832,6 +883,8 @@ const handleRejectedModalCancel=()=>{
         resetSubmitOrder={handleResetSubmitOrder}
         discountAmount={discountAmount ?? 0}
         totalAmount={totalAmount ?? 0} 
+        failsubmit={handleFailSubmit}
+
              />
 }
 
