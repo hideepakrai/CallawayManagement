@@ -60,15 +60,18 @@ const HardGoodsOrderPdf = () => {
   )
   //get sales Rep name
 
-  // useEffect(() => {
-  //   if (getUserProfiles && getUserProfiles.length > 0) {
-  //     getUserProfiles.map(item => {
-  //       if (item.role === "Sales Representative") {
-  //         setSalesRepName(item.name)
-  //       }
-  //     })
-  //   }
-  // }, [getUserProfiles])
+  useEffect(() => {
+    if (getUserProfiles && getUserProfiles.length > 0) {
+      getUserProfiles.map(item => {
+        if (item.role === "Sales Representative") {
+          setsalesrep_Name(item.name)
+        }
+        if (item.role === 'Manager') {
+          setManager_Name(item.name)
+        }
+      })
+    }
+  }, [getUserProfiles])
 
   // get all discount , net billl amount
   const getHardGoodsRetailerDetails = useSelector(getHardGoodsRetailerDetail) as RetailerModel;

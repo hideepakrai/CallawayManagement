@@ -253,27 +253,28 @@ const DashboardWrapper = () => {
 
   }
 
-  useEffect(() => {
-    if (getTravisProduct && getTravisProduct.length > 0 &&
+  // useEffect(() => {
+  //   if (getTravisProduct && getTravisProduct.length > 0 &&
 
-      getOgioProduct && getOgioProduct.length > 0 
+  //     getOgioProduct && getOgioProduct.length > 0 
      
-    ) {
-      localStorage.setItem("Ogio",JSON.stringify(getOgioProduct))
-      localStorage.setItem("Travis",JSON.stringify(getTravisProduct))
-      dispatch(LoadingStop())
-    } else if (getTravisProduct && getTravisProduct.length === 0) {
-      dispatch(startTravisLoading())
-    }
-    else if(getApparelProduct && getApparelProduct.length>0){
-      localStorage.setItem("SoftGoods",JSON.stringify(getApparelProduct))
-    }
+  //   ) 
+  //   {
+  //     localStorage.setItem("Ogio",JSON.stringify(getOgioProduct))
+  //     localStorage.setItem("Travis",JSON.stringify(getTravisProduct))
+  //     dispatch(LoadingStop())
+  //   } else if (getTravisProduct && getTravisProduct.length === 0) {
+  //     dispatch(startTravisLoading())
+  //   }
+  //   else if(getApparelProduct && getApparelProduct.length>0){
+  //     localStorage.setItem("SoftGoods",JSON.stringify(getApparelProduct))
+  //   }
 
-    else if (getGoodsProduct){
-      localStorage.setItem("HardGoods",JSON.stringify(getGoodsProduct))
-    }
+  //   else if (getGoodsProduct){
+  //     localStorage.setItem("HardGoods",JSON.stringify(getGoodsProduct))
+  //   }
     
-  }, [getTravisProduct, getOgioProduct, getAllBrand,getApparelProduct,getGoodsProduct])
+  // }, [getTravisProduct, getOgioProduct, getAllBrand,getApparelProduct,getGoodsProduct])
 
 
   // "getRetailer-associated""

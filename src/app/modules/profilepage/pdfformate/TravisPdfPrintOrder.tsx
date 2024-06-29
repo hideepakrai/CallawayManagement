@@ -165,14 +165,16 @@ const TravisPdfPrintOrder = ({ recordPdf, resetTravisPdf }: Props) => {
   });
 
    useEffect(()=>{
+    // eslint-disable-next-line no-debugger
     if(alldata && alldata.length > 0){
       handlePrint(null, () => contentToPrint.current);
     }
   },[alldata])
 
   return (
-
+    
     <div>
+      
       <Button className="mt-12"
         onClick={() => {
           handlePrint(null, () => contentToPrint.current);
