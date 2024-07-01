@@ -104,6 +104,7 @@ export function Login() {
       } catch (error) {
        
         if (error) {
+          console.log("error in login",error)
           alert(error)
         }
         saveAuth(undefined)

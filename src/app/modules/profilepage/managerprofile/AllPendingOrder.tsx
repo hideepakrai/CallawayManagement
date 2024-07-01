@@ -90,27 +90,39 @@ const AllPendingOrder = () => {
             dataIndex: 'brand_id',
             key: 'brand_id',
             width: 100,
-            render: (value) => {
+            render: (value, record) => {
                 let brandName;
+                let subBrandName;
                 switch (value) {
                     case 1:
                         brandName = "Callaway";
+                        subBrandName = "HardGoods";
                         break;
                     case 2:
                         brandName = "Callaway";
+                        subBrandName = "SoftGoods";
                         break;
                     case 3:
                         brandName = "Travis Mathew";
+                        subBrandName = "";
                         break;
                     case 4:
                         brandName = "Ogio";
+                        subBrandName = "";
                         break;
                     default:
                         brandName = "Unknown Brand";
+                        subBrandName = "";
                 }
-                return <span>{brandName}</span>;
+                return (
+                    <>
+                        <span>{brandName}</span>
+                        {subBrandName !== "" && <span>{subBrandName}</span>}
+                    </>
+                );
             },
         },
+        
 
         {
             title: "Retailer Name ",
