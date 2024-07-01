@@ -75,12 +75,7 @@ const UpdateOgioQty = ({ isUpdate, allOgioData, onClose }: Props) => {
       key: 'stock_90',
       width: 80,
     },
-    {
-      title: 'gst',
-      dataIndex: 'gst',
-      key: 'gst',
-      width: 80,
-    },
+   
 
 
   ];
@@ -90,13 +85,11 @@ const UpdateOgioQty = ({ isUpdate, allOgioData, onClose }: Props) => {
       brand: "Ogio",
       sku: 'TM001',
       stock_90: 100,
-      gst: 10,
     },
     {
       brand: "Ogio",
       sku: 'TM002',
       stock_90: 100,
-      gst: 10,
 
 
     },
@@ -104,7 +97,6 @@ const UpdateOgioQty = ({ isUpdate, allOgioData, onClose }: Props) => {
       brand: "Ogio",
       sku: 'TM003',
       stock_90: 100,
-      gst: 10,
 
     },
 
